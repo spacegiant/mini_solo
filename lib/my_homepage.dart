@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/clue_view.dart';
 import 'package:mini_solo/views/dice_view.dart';
 import 'package:mini_solo/views/faction_view.dart';
+import 'package:mini_solo/views/journal_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
+import 'package:mini_solo/views/new_view.dart';
 import 'package:mini_solo/views/person_view.dart';
 import 'package:mini_solo/views/place_view.dart';
 import 'package:mini_solo/views/scene_view.dart';
 import 'package:mini_solo/views/thing_view.dart';
+import 'package:mini_solo/views/tracker_view.dart';
 import 'package:mini_solo/widgets/dice_bar.dart';
 import 'package:mini_solo/widgets/output.dart';
 
@@ -37,24 +40,28 @@ class ViewItem {
   IconData icon;
   Widget viewWidget;
 
-  ViewItem({required this.label, required this.icon, required this.viewWidget});
+  ViewItem({
+    required this.label,
+    required this.icon,
+    required this.viewWidget,
+  });
 }
 
 List<ViewItem> viewItems = [
   ViewItem(
     label: 'Journal',
     icon: CupertinoIcons.book,
-    viewWidget: const SceneView(),
+    viewWidget: const JournalView(),
   ),
   ViewItem(
     label: 'New',
     icon: CupertinoIcons.star,
-    viewWidget: const SceneView(),
+    viewWidget: const NewView(),
   ),
   ViewItem(
     label: 'Trackers',
     icon: CupertinoIcons.check_mark_circled,
-    viewWidget: const SceneView(),
+    viewWidget: const TrackerView(),
   ),
   ViewItem(
     label: 'Lists',
