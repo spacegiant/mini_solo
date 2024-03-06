@@ -14,6 +14,8 @@ class NewView extends StatelessWidget {
       ListButton(label: 'Thing', handlePress: doSomething),
       ListButton(label: 'Faction', handlePress: doSomething),
       ListButton(label: 'Clue', handlePress: doSomething),
+      ListButton(label: 'Creature', handlePress: doSomething),
+      ListButton(label: '5 Room Dungeon', handlePress: doSomething),
     ]);
   }
 }
