@@ -1,27 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/views/clue_view.dart';
 import 'package:mini_solo/views/dice_view.dart';
-import 'package:mini_solo/views/faction_view.dart';
 import 'package:mini_solo/views/journal_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/new_view.dart';
-import 'package:mini_solo/views/person_view.dart';
-import 'package:mini_solo/views/place_view.dart';
-import 'package:mini_solo/views/scene_view.dart';
-import 'package:mini_solo/views/thing_view.dart';
 import 'package:mini_solo/views/tracker_view.dart';
-import 'package:mini_solo/widgets/dice_bar.dart';
-import 'package:mini_solo/widgets/output.dart';
-
-class DividerView extends StatelessWidget {
-  const DividerView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
 
 class MyHomePageIOS extends StatefulWidget {
   const MyHomePageIOS({
@@ -76,10 +58,11 @@ List<ViewItem> viewItems = [
 ];
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
+  bool showSettings = false;
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-      backgroundColor: CupertinoColors.systemGreen,
       tabBar: CupertinoTabBar(
           items: viewItems
               .map(
@@ -93,16 +76,20 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         return CupertinoTabView(
           builder: (BuildContext context) {
             return CupertinoPageScaffold(
-              navigationBar: const CupertinoNavigationBar(
-                leading: CupertinoButton(
+              navigationBar: CupertinoNavigationBar(
+                leading: const CupertinoButton(
                   onPressed: handleSettingsPressed,
                   padding: EdgeInsets.all(0.0),
                   child: Text('5'),
                 ),
-                middle: Text('Solo app'),
+                middle: const Text('Solo app'),
                 trailing: CupertinoButton(
-                  onPressed: handleSettingsPressed,
-                  child: Icon(CupertinoIcons.settings_solid),
+                  onPressed: () {
+                    setState(() {
+                      showSettings = true;
+                    });
+                  },
+                  child: const Icon(CupertinoIcons.settings_solid),
                 ),
               ),
               child: SafeArea(
