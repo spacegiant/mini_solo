@@ -5,6 +5,14 @@ class DiceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Dice');
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text('Traditional dice'),
+        Text('Zocchi dice'),
+        Text('Genesys dice'),
+        Text('Story dice'),
+      ],
+    );
   }
 }

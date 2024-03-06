@@ -5,6 +5,14 @@ class TrackerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Tracker View');
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text('Existing tracker here (pip)'),
+        Text('Existing tracker here (clock)'),
+        Text('Existing tracker here (timer - shadowdark torch)'),
+        Text('Add new tracker'),
+      ],
+    );
   }
 }
