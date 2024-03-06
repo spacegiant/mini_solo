@@ -80,16 +80,30 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 leading: const CupertinoButton(
                   onPressed: handleSettingsPressed,
                   padding: EdgeInsets.all(0.0),
-                  child: Text('5'),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        CupertinoIcons.settings_solid,
+                      ),
+                      SizedBox(
+                        width: 6.0,
+                      ),
+                      Text('5', overflow: TextOverflow.visible),
+                    ],
+                  ),
                 ),
-                middle: const Text('Solo app'),
+                middle: Text('Solo app $showSettings'),
                 trailing: CupertinoButton(
+                  padding: const EdgeInsets.all(0.0),
                   onPressed: () {
                     setState(() {
                       showSettings = true;
                     });
                   },
-                  child: const Icon(CupertinoIcons.settings_solid),
+                  child: const Icon(
+                    CupertinoIcons.settings_solid,
+                  ),
                 ),
               ),
               child: SafeArea(
