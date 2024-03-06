@@ -32,31 +32,72 @@ class MyHomePageIOS extends StatefulWidget {
   State<MyHomePageIOS> createState() => _MyHomePageIOSState();
 }
 
+class ViewItem {
+  String label;
+  IconData icon;
+  Widget viewWidget;
+
+  ViewItem({required this.label, required this.icon, required this.viewWidget});
+}
+
+List<ViewItem> viewItems = [
+  ViewItem(
+      label: 'New', icon: CupertinoIcons.star, viewWidget: const SceneView()),
+  ViewItem(
+    label: 'Scene',
+    icon: CupertinoIcons.camera,
+    viewWidget: const SceneView(),
+  ),
+  ViewItem(
+    label: 'Person',
+    icon: CupertinoIcons.person,
+    viewWidget: const PersonView(),
+  ),
+  ViewItem(
+      label: 'Place',
+      icon: CupertinoIcons.placemark,
+      viewWidget: const PlaceView()),
+  ViewItem(
+    label: 'Thing',
+    icon: CupertinoIcons.bag,
+    viewWidget: const ThingView(),
+  ),
+  ViewItem(
+    label: 'Faction',
+    icon: CupertinoIcons.group,
+    viewWidget: const FactionView(),
+  ),
+  ViewItem(
+    label: 'Clue',
+    icon: CupertinoIcons.zoom_in,
+    viewWidget: const ClueView(),
+  ),
+  ViewItem(
+    label: 'Lists',
+    icon: CupertinoIcons.pen,
+    viewWidget: const ListsView(),
+  ),
+  ViewItem(
+    label: 'Dice',
+    icon: CupertinoIcons.cube,
+    viewWidget: const DiceView(),
+  )
+];
+
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       backgroundColor: CupertinoColors.systemGreen,
       tabBar: CupertinoTabBar(
-        items: const [
-          BottomNavigationBarItem(
-              label: 'Scene', icon: Icon(CupertinoIcons.camera)),
-          BottomNavigationBarItem(
-              label: 'Person', icon: Icon(CupertinoIcons.person)),
-          BottomNavigationBarItem(
-              label: 'Place', icon: Icon(CupertinoIcons.placemark)),
-          BottomNavigationBarItem(
-              label: 'Thing', icon: Icon(CupertinoIcons.bag)),
-          BottomNavigationBarItem(
-              label: 'Faction', icon: Icon(CupertinoIcons.group)),
-          BottomNavigationBarItem(
-              label: 'Clue', icon: Icon(CupertinoIcons.zoom_in)),
-          BottomNavigationBarItem(
-              label: 'Lists', icon: Icon(CupertinoIcons.pen)),
-          BottomNavigationBarItem(
-              label: 'Dice', icon: Icon(CupertinoIcons.cube)),
-        ],
-      ),
+          items: viewItems
+              .map(
+                (e) => BottomNavigationBarItem(
+                  label: e.label,
+                  icon: Icon(e.icon),
+                ),
+              )
+              .toList()),
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(
           builder: (BuildContext context) {
@@ -74,17 +115,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 ),
               ),
               child: SafeArea(
-                child: [
-                  const SceneView(),
-                  const PersonView(),
-                  const PlaceView(),
-                  const ThingView(),
-                  const FactionView(),
-                  const ClueView(),
-                  const ListsView(),
-                  const DiceView(),
-                ][index],
-              ),
+                  child: viewItems.map((e) => e.viewWidget).toList()[index]),
             );
           },
         );
