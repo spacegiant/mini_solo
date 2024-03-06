@@ -62,6 +62,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           builder: (BuildContext context) {
             return CupertinoPageScaffold(
               navigationBar: const CupertinoNavigationBar(
+                leading: CupertinoButton(
+                  onPressed: handleSettingsPressed,
+                  padding: EdgeInsets.all(0.0),
+                  child: Text('5'),
+                ),
                 middle: Text('Solo app'),
                 trailing: CupertinoButton(
                   onPressed: handleSettingsPressed,
