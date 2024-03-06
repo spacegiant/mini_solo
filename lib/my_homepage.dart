@@ -42,39 +42,23 @@ class ViewItem {
 
 List<ViewItem> viewItems = [
   ViewItem(
-      label: 'New', icon: CupertinoIcons.star, viewWidget: const SceneView()),
-  ViewItem(
-    label: 'Scene',
-    icon: CupertinoIcons.camera,
+    label: 'Journal',
+    icon: CupertinoIcons.book,
     viewWidget: const SceneView(),
   ),
   ViewItem(
-    label: 'Person',
-    icon: CupertinoIcons.person,
-    viewWidget: const PersonView(),
+    label: 'New',
+    icon: CupertinoIcons.star,
+    viewWidget: const SceneView(),
   ),
   ViewItem(
-      label: 'Place',
-      icon: CupertinoIcons.placemark,
-      viewWidget: const PlaceView()),
-  ViewItem(
-    label: 'Thing',
-    icon: CupertinoIcons.bag,
-    viewWidget: const ThingView(),
-  ),
-  ViewItem(
-    label: 'Faction',
-    icon: CupertinoIcons.group,
-    viewWidget: const FactionView(),
-  ),
-  ViewItem(
-    label: 'Clue',
-    icon: CupertinoIcons.zoom_in,
-    viewWidget: const ClueView(),
+    label: 'Trackers',
+    icon: CupertinoIcons.check_mark_circled,
+    viewWidget: const SceneView(),
   ),
   ViewItem(
     label: 'Lists',
-    icon: CupertinoIcons.pen,
+    icon: CupertinoIcons.pencil,
     viewWidget: const ListsView(),
   ),
   ViewItem(
