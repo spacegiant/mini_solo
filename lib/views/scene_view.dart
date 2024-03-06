@@ -3,18 +3,22 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 
 import '../widgets/list_button.dart';
 
-class PersonView extends StatelessWidget {
-  const PersonView({super.key});
+class SceneView extends StatelessWidget {
+  const SceneView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const ViewWrapper(children: [
       ListButton(
-        label: 'Random Name',
+        label: 'Mythic Action',
         handlePress: doSomething,
       ),
       ListButton(
-        label: 'Male Name',
+        label: 'Mythic Description',
+        handlePress: doSomething,
+      ),
+      ListButton(
+        label: 'Mythic Description',
         handlePress: doSomething,
       ),
     ]);

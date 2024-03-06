@@ -5,8 +5,8 @@ import 'package:mini_solo/views/faction_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/person_view.dart';
 import 'package:mini_solo/views/place_view.dart';
+import 'package:mini_solo/views/scene_view.dart';
 import 'package:mini_solo/views/thing_view.dart';
-import 'package:mini_solo/widgets/random_buttons.dart';
 import 'package:mini_solo/widgets/dice_bar.dart';
 import 'package:mini_solo/widgets/output.dart';
 
@@ -40,6 +40,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       tabBar: CupertinoTabBar(
         items: const [
           BottomNavigationBarItem(
+              label: 'Scene', icon: Icon(CupertinoIcons.camera)),
+          BottomNavigationBarItem(
               label: 'Person', icon: Icon(CupertinoIcons.person)),
           BottomNavigationBarItem(
               label: 'Place', icon: Icon(CupertinoIcons.placemark)),
@@ -61,20 +63,22 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             return CupertinoPageScaffold(
               navigationBar: const CupertinoNavigationBar(
                 middle: Text('Solo app'),
-              ),
-              child: Center(
-                child: CupertinoButton(
+                trailing: CupertinoButton(
                   onPressed: handleSettingsPressed,
-                  child: [
-                    const PersonView(),
-                    const PlaceView(),
-                    const ThingView(),
-                    const FactionView(),
-                    const ClueView(),
-                    const ListsView(),
-                    const DiceView(),
-                  ][index],
+                  child: Icon(CupertinoIcons.settings_solid),
                 ),
+              ),
+              child: SafeArea(
+                child: [
+                  const SceneView(),
+                  const PersonView(),
+                  const PlaceView(),
+                  const ThingView(),
+                  const FactionView(),
+                  const ClueView(),
+                  const ListsView(),
+                  const DiceView(),
+                ][index],
               ),
             );
           },
