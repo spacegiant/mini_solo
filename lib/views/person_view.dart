@@ -9,8 +9,8 @@ class PersonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ViewWrapper(children: [
-      ListButton(label: 'Random Name', handlePress: doSomething),
-      ListButton(label: 'Male Name', handlePress: doSomething),
+      ListButton(label: 'Random Name', onPressed: doSomething),
+      ListButton(label: 'Male Name', onPressed: doSomething),
     ]);
   }
 }

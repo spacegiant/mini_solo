@@ -11,15 +11,15 @@ class SceneView extends StatelessWidget {
     return const ViewWrapper(children: [
       ListButton(
         label: 'Mythic Action',
-        handlePress: doSomething,
+        onPressed: doSomething,
       ),
       ListButton(
         label: 'Mythic Description',
-        handlePress: doSomething,
+        onPressed: doSomething,
       ),
       ListButton(
         label: 'Mythic Description',
-        handlePress: doSomething,
+        onPressed: doSomething,
       ),
     ]);
   }
