@@ -3,6 +3,7 @@ import 'package:mini_solo/views/dice_view.dart';
 import 'package:mini_solo/views/journal_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/new_view.dart';
+import 'package:mini_solo/views/settings_view.dart';
 import 'package:mini_solo/views/tracker_view.dart';
 
 class MyHomePageIOS extends StatefulWidget {
@@ -62,60 +63,66 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-          items: viewItems
-              .map(
-                (e) => BottomNavigationBarItem(
-                  label: e.label,
-                  icon: Icon(e.icon),
-                ),
-              )
-              .toList()),
-      tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(
-          builder: (BuildContext context) {
-            return CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                leading: const CupertinoButton(
-                  onPressed: handleSettingsPressed,
-                  padding: EdgeInsets.all(0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        CupertinoIcons.settings_solid,
+    return showSettings
+        ? SettingsView(
+            title: widget.title,
+            closeSettings: () => setState(() {
+              showSettings = false;
+            }),
+          )
+        : CupertinoTabScaffold(
+            tabBar: CupertinoTabBar(
+                items: viewItems
+                    .map(
+                      (e) => BottomNavigationBarItem(
+                        label: e.label,
+                        icon: Icon(e.icon),
                       ),
-                      SizedBox(
-                        width: 6.0,
+                    )
+                    .toList()),
+            tabBuilder: (BuildContext context, int index) {
+              return CupertinoTabView(
+                builder: (BuildContext context) {
+                  return CupertinoPageScaffold(
+                    navigationBar: CupertinoNavigationBar(
+                      leading: CupertinoButton(
+                        onPressed: () {
+                          print('CF pressed');
+                        },
+                        padding: const EdgeInsets.all(0.0),
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              CupertinoIcons.settings_solid,
+                            ),
+                            SizedBox(
+                              width: 6.0,
+                            ),
+                            Text('5', overflow: TextOverflow.visible),
+                          ],
+                        ),
                       ),
-                      Text('5', overflow: TextOverflow.visible),
-                    ],
-                  ),
-                ),
-                middle: Text('Solo app $showSettings'),
-                trailing: CupertinoButton(
-                  padding: const EdgeInsets.all(0.0),
-                  onPressed: () {
-                    setState(() {
-                      showSettings = true;
-                    });
-                  },
-                  child: const Icon(
-                    CupertinoIcons.settings_solid,
-                  ),
-                ),
-              ),
-              child: SafeArea(
-                  child: viewItems.map((e) => e.viewWidget).toList()[index]),
-            );
-          },
-        );
-      },
-    );
+                      middle: Text('Solo app $showSettings'),
+                      trailing: CupertinoButton(
+                        padding: const EdgeInsets.all(0.0),
+                        onPressed: () {
+                          setState(() {
+                            showSettings = true;
+                          });
+                        },
+                        child: const Icon(
+                          CupertinoIcons.settings_solid,
+                        ),
+                      ),
+                    ),
+                    child: SafeArea(
+                        child:
+                            viewItems.map((e) => e.viewWidget).toList()[index]),
+                  );
+                },
+              );
+            },
+          );
   }
-}
-
-void handleSettingsPressed() {
-  print('pressed');
 }
