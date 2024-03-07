@@ -9,13 +9,14 @@ class NewView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ViewWrapper(children: [
-      ListButton(label: 'Person', handlePress: doSomething),
-      ListButton(label: 'Place', handlePress: doSomething),
-      ListButton(label: 'Thing', handlePress: doSomething),
-      ListButton(label: 'Faction', handlePress: doSomething),
-      ListButton(label: 'Clue', handlePress: doSomething),
-      ListButton(label: 'Creature', handlePress: doSomething),
-      ListButton(label: '5 Room Dungeon', handlePress: doSomething),
+      ListButton(label: 'Scene', onPressed: doSomething),
+      ListButton(label: 'Person', onPressed: doSomething),
+      ListButton(label: 'Place', onPressed: doSomething),
+      ListButton(label: 'Thing', onPressed: doSomething),
+      ListButton(label: 'Faction', onPressed: doSomething),
+      ListButton(label: 'Clue', onPressed: doSomething),
+      ListButton(label: 'Creature', onPressed: doSomething),
+      ListButton(label: '5 Room Dungeon', onPressed: doSomething),
     ]);
   }
 }

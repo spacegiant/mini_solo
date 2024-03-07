@@ -4,11 +4,11 @@ class ListButton extends StatelessWidget {
   const ListButton({
     super.key,
     required this.label,
-    required this.handlePress,
+    required this.onPressed,
   });
 
   final String label;
-  final Function() handlePress;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ListButton extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: CupertinoButton(
         color: CupertinoColors.systemPink,
-        onPressed: handlePress,
+        onPressed: onPressed,
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.symmetric(
           horizontal: 10.0,
