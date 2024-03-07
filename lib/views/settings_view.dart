@@ -16,6 +16,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  bool autoCopy = true;
   bool mythicAll = false;
   bool mythic = true;
   bool tac = false;
@@ -36,6 +37,26 @@ class _SettingsViewState extends State<SettingsView> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              const SettingsHeading(label: 'General settings'),
+              SettingsOption(
+                isActive: autoCopy,
+                label: 'Copy to clipboard automatically',
+                onChanged: (isChecked) {
+                  setState(() {
+                    autoCopy = isChecked!;
+                  });
+                },
+              ),
+              const SettingsHeading(label: 'Campaign settings'),
+              SettingsOption(
+                isActive: autoCopy,
+                label: 'Copy to clipboard automatically',
+                onChanged: (isChecked) {
+                  setState(() {
+                    autoCopy = isChecked!;
+                  });
+                },
+              ),
               SettingsHeading(
                 label: 'Mythic',
                 checkAll: mythicAll,
@@ -99,12 +120,12 @@ class SettingsHeading extends StatelessWidget {
   const SettingsHeading({
     super.key,
     required this.label,
-    required this.checkAll,
+    this.checkAll,
     this.onChanged,
   });
 
   final String label;
-  final bool checkAll;
+  final bool? checkAll;
   final void Function(bool?)? onChanged;
 
   @override
@@ -119,8 +140,10 @@ class SettingsHeading extends StatelessWidget {
       child: Row(
         children: [
           Text(label),
-          const Text(' - use all? '),
-          CupertinoCheckbox(value: checkAll, onChanged: onChanged)
+          checkAll != null ? const Text(' - use all? ') : Container(),
+          checkAll != null
+              ? CupertinoCheckbox(value: checkAll, onChanged: onChanged)
+              : Container(),
         ],
       ),
     );
