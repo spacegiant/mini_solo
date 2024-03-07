@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends StatefulWidget {
   const SettingsView({
     super.key,
     required this.title,
@@ -11,20 +12,117 @@ class SettingsView extends StatelessWidget {
   final VoidCallback closeSettings;
 
   @override
+  State<SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
+  bool mythicAll = false;
+  bool mythic = true;
+  bool tac = false;
+
+  @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           leading: CupertinoButton(
-            onPressed: closeSettings,
+            onPressed: widget.closeSettings,
             padding: const EdgeInsets.all(0.0),
             child: const Icon(CupertinoIcons.back),
           ),
-          middle: Text('$title Settings'),
+          middle: Text('${widget.title} Settings'),
         ),
-        child: const SafeArea(
+        child: SafeArea(
             child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('Settings'),
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SettingsHeading(
+                label: 'Mythic',
+                checkAll: mythicAll,
+                onChanged: (isChecked) {
+                  setState(() {
+                    mythicAll = isChecked!;
+                  });
+                },
+              ),
+              SettingsOption(
+                isActive: mythic,
+                label: 'Action table',
+                onChanged: (isChecked) {
+                  setState(() {
+                    mythic = isChecked!;
+                  });
+                },
+              ),
+              SettingsOption(
+                isActive: tac,
+                label: 'Description table',
+                onChanged: (isChecked) {
+                  setState(() {
+                    tac = isChecked!;
+                  });
+                },
+              )
+            ],
+          ),
         )));
+  }
+}
+
+class SettingsOption extends StatelessWidget {
+  const SettingsOption({
+    super.key,
+    required this.isActive,
+    required this.label,
+    required this.onChanged,
+  });
+
+  final bool isActive;
+  final String label;
+  final void Function(bool?)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CupertinoCheckbox(
+          value: isActive,
+          onChanged: onChanged,
+        ),
+        Text(label)
+      ],
+    );
+  }
+}
+
+class SettingsHeading extends StatelessWidget {
+  const SettingsHeading({
+    super.key,
+    required this.label,
+    required this.checkAll,
+    this.onChanged,
+  });
+
+  final String label;
+  final bool checkAll;
+  final void Function(bool?)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+        color: CupertinoColors.systemBlue,
+        width: 1.0,
+      ))),
+      child: Row(
+        children: [
+          Text(label),
+          const Text(' - use all? '),
+          CupertinoCheckbox(value: checkAll, onChanged: onChanged)
+        ],
+      ),
+    );
   }
 }
