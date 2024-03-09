@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
@@ -12,12 +13,16 @@ class NewSceneMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       const Output(),
-      SettingsOption(
-        isActive: true,
-        label: 'Send to journal',
-        onChanged: (isChecked) {
-          doSomething();
-        },
+      Align(
+        alignment: Alignment.centerRight,
+        child: SettingsOption(
+          alignEnd: true,
+          isActive: true,
+          label: 'Send to journal',
+          onChanged: (isChecked) {
+            doSomething();
+          },
+        ),
       ),
       const ListButton(
         label: 'Mythic Action',

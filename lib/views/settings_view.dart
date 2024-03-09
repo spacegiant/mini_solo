@@ -95,15 +95,19 @@ class SettingsOption extends StatelessWidget {
     required this.isActive,
     required this.label,
     required this.onChanged,
+    this.alignEnd,
   });
 
   final bool isActive;
   final String label;
   final void Function(bool?)? onChanged;
+  final bool? alignEnd;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment:
+          alignEnd != null ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         CupertinoCheckbox(
           value: isActive,
