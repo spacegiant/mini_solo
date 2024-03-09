@@ -11,20 +11,52 @@ class Output extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String newString = text.join('\n');
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: const BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: CupertinoColors.systemPurple,
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 20.0),
+      child: Stack(
+        alignment: AlignmentDirectional.topCenter,
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            child: TextBubble(
+              newString: text.join('\n'),
             ),
           ),
-          child: MarkdownBlock(newString: newString)),
+          const Positioned(
+            bottom: -18.0,
+            child: RotatedBox(
+                quarterTurns: 2,
+                child: Icon(
+                  CupertinoIcons.triangle_fill,
+                  color: CupertinoColors.systemPurple,
+                )),
+          ),
+        ],
+      ),
     );
+  }
+}
+
+class TextBubble extends StatelessWidget {
+  const TextBubble({
+    super.key,
+    required this.newString,
+  });
+
+  final String newString;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: CupertinoColors.systemPurple,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        child: MarkdownBlock(newString: newString));
   }
 }
 
