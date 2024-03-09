@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Output extends StatelessWidget {
@@ -13,13 +14,22 @@ class Output extends StatelessWidget {
           shape: BoxShape.rectangle,
           color: Colors.pink,
           borderRadius: BorderRadius.all(
-            Radius.circular(5),
+            Radius.circular(10.0),
           ),
         ),
-        child: const Text(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.',
+        child: RichText(
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
+          text: const TextSpan(
+            style: TextStyle(
+              fontSize: 14.0,
+              color: Colors.white,
+            ),
+            children: <TextSpan>[
+              TextSpan(text: 'Hello'),
+              TextSpan(
+                  text: 'World', style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
       ),
     );
