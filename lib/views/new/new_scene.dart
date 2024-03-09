@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
@@ -12,18 +11,33 @@ class NewSceneMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      const Output(),
-      Align(
-        alignment: Alignment.centerRight,
-        child: SettingsOption(
-          alignEnd: true,
-          isActive: true,
-          label: 'Send to journal',
-          onChanged: (isChecked) {
-            doSomething();
-          },
-        ),
+      const Output(
+        text: ['This is a *test* test', 'This is a *test* test'],
       ),
+      Wrap(
+        alignment: WrapAlignment.end,
+        crossAxisAlignment: WrapCrossAlignment.end,
+        direction: Axis.horizontal,
+        spacing: 10.0,
+        runSpacing: -20.0,
+        children: [
+          SettingsOption(
+            isActive: true,
+            label: 'Send to journal',
+            onChanged: (isChecked) {
+              doSomething();
+            },
+          ),
+          SettingsOption(
+            isActive: true,
+            label: 'Copy to clipboard',
+            onChanged: (isChecked) {
+              doSomething();
+            },
+          ),
+        ],
+      ),
+      const SizedBox(),
       const ListButton(
         label: 'Mythic Action',
         onPressed: doSomething,
@@ -42,4 +56,8 @@ class NewSceneMenu extends StatelessWidget {
 
 void doSomething() {
   print('pressed');
+}
+
+String mythicAction() {
+  return 'This is a *Mythic Action* test';
 }

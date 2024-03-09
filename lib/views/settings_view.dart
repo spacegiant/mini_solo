@@ -106,8 +106,7 @@ class SettingsOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          alignEnd != null ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         CupertinoCheckbox(
           value: isActive,
