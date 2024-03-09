@@ -15,7 +15,7 @@ class NewView extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'New Scene',
+            'Create a new ...',
             style: TextStyle(
               fontSize: 32,
             ),
