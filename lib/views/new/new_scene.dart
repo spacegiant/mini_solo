@@ -11,7 +11,6 @@ class NewSceneMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ViewWrapper(children: [
-      Checkboxes(),
       Output(
         text: ['This is a *test* test', 'This is a *test* test '],
       ),
@@ -28,39 +27,6 @@ class NewSceneMenu extends StatelessWidget {
         onPressed: doSomething,
       ),
     ]);
-  }
-}
-
-class Checkboxes extends StatelessWidget {
-  const Checkboxes({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.end,
-      crossAxisAlignment: WrapCrossAlignment.end,
-      direction: Axis.horizontal,
-      spacing: 10.0,
-      runSpacing: -20.0,
-      children: [
-        SettingsOption(
-          isActive: true,
-          label: 'Send to journal',
-          onChanged: (isChecked) {
-            doSomething();
-          },
-        ),
-        SettingsOption(
-          isActive: true,
-          label: 'Copy to clipboard',
-          onChanged: (isChecked) {
-            doSomething();
-          },
-        ),
-      ],
-    );
   }
 }
 

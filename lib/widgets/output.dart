@@ -12,7 +12,7 @@ class Output extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 20.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 24.0),
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
         clipBehavior: Clip.none,
@@ -48,6 +48,7 @@ class TextBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        constraints: const BoxConstraints(minWidth: 200.0),
         padding: const EdgeInsets.all(16.0),
         decoration: const BoxDecoration(
           shape: BoxShape.rectangle,
