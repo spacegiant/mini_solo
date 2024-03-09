@@ -12,7 +12,11 @@ class NewView extends StatelessWidget {
       ListButton(
           label: 'Scene',
           onPressed: () {
-            buildShowCupertinoModalPopup(context, const NewSceneMenu());
+            buildShowCupertinoModalPopup(
+              context,
+              'New Scene',
+              const NewSceneMenu(),
+            );
           }),
       const ListButton(label: 'Person', onPressed: doSomething),
       const ListButton(label: 'Place', onPressed: doSomething),
@@ -25,7 +29,10 @@ class NewView extends StatelessWidget {
   }
 
   Future<dynamic> buildShowCupertinoModalPopup(
-      BuildContext context, Widget child) {
+    BuildContext context,
+    final String label,
+    final Widget child,
+  ) {
     return showCupertinoModalPopup(
         useRootNavigator: false,
         context: context,
@@ -33,19 +40,22 @@ class NewView extends StatelessWidget {
           return CupertinoPopupSurface(
             child: Container(
               color: CupertinoColors.white,
-              alignment: Alignment.center,
               width: double.infinity,
-              // height: 400,
-              child: SafeArea(
-                child: Column(children: [
-                  CupertinoButton(
-                    child: const Text('HI'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+              child: CupertinoPageScaffold(
+                backgroundColor: CupertinoColors.activeOrange,
+                navigationBar: CupertinoNavigationBar(
+                  middle: Text(label),
+                ),
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Output box here'),
+                      const Text('checkbox here'),
+                      child,
+                    ],
                   ),
-                  child,
-                ]),
+                ),
               ),
             ),
           );
@@ -58,7 +68,7 @@ class NewSceneMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Passed in Widget');
+    return const Text('New scene menu goes here');
   }
 }
 
