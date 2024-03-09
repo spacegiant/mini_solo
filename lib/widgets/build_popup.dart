@@ -20,14 +20,7 @@ Future<dynamic> buildPopup(
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text('Output box here'),
-                      const Text('checkbox here'),
-                      child,
-                    ],
-                  ),
+                  child: child,
                 ),
               ),
             ),
