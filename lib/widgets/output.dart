@@ -15,7 +15,7 @@ class Output extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           decoration: const BoxDecoration(
             shape: BoxShape.rectangle,
             color: CupertinoColors.systemPurple,
@@ -23,19 +23,33 @@ class Output extends StatelessWidget {
               Radius.circular(10.0),
             ),
           ),
-          child: MarkdownBody(
-            softLineBreak: true,
-            styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
-            styleSheet: MarkdownStyleSheet(
-              p: const TextStyle(
-                color: CupertinoColors.white,
-              ),
-              em: const TextStyle(
-                color: CupertinoColors.white,
-              ),
-            ),
-            data: newString,
-          )),
+          child: MarkdownBlock(newString: newString)),
+    );
+  }
+}
+
+class MarkdownBlock extends StatelessWidget {
+  const MarkdownBlock({
+    super.key,
+    required this.newString,
+  });
+
+  final String newString;
+
+  @override
+  Widget build(BuildContext context) {
+    return MarkdownBody(
+      softLineBreak: true,
+      styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
+      styleSheet: MarkdownStyleSheet(
+        p: const TextStyle(
+          color: CupertinoColors.white,
+        ),
+        em: const TextStyle(
+          color: CupertinoColors.white,
+        ),
+      ),
+      data: newString,
     );
   }
 }
