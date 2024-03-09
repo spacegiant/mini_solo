@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+enum Category { general, campaign, tools }
+
 class SettingsView extends StatefulWidget {
   const SettingsView({
     super.key,
@@ -20,73 +22,99 @@ class _SettingsViewState extends State<SettingsView> {
   bool mythic = true;
   bool tac = false;
 
+  Category _selectedSegment = Category.general;
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          leading: CupertinoButton(
-            onPressed: widget.closeSettings,
-            padding: const EdgeInsets.all(0.0),
-            child: const Icon(CupertinoIcons.back),
-          ),
-          middle: Text('${widget.title} Settings'),
+      navigationBar: CupertinoNavigationBar(
+        leading: CupertinoButton(
+          onPressed: widget.closeSettings,
+          padding: const EdgeInsets.all(0.0),
+          child: const Icon(CupertinoIcons.back),
         ),
-        child: SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SettingsHeading(label: 'General settings'),
-              SettingsOption(
-                isActive: autoCopy,
-                label: 'Copy to clipboard automatically',
-                onChanged: (isChecked) {
-                  setState(() {
-                    autoCopy = isChecked!;
-                  });
-                },
-              ),
-              const SettingsHeading(label: 'Campaign settings'),
-              SettingsOption(
-                isActive: autoCopy,
-                label: 'Copy to clipboard automatically',
-                onChanged: (isChecked) {
-                  setState(() {
-                    autoCopy = isChecked!;
-                  });
-                },
-              ),
-              SettingsHeading(
-                label: 'Mythic',
-                checkAll: mythicAll,
-                onChanged: (isChecked) {
-                  setState(() {
-                    mythicAll = isChecked!;
-                  });
-                },
-              ),
-              SettingsOption(
-                isActive: mythic,
-                label: 'Action table',
-                onChanged: (isChecked) {
-                  setState(() {
-                    mythic = isChecked!;
-                  });
-                },
-              ),
-              SettingsOption(
-                isActive: tac,
-                label: 'Description table',
-                onChanged: (isChecked) {
-                  setState(() {
-                    tac = isChecked!;
-                  });
-                },
-              )
-            ],
-          ),
-        )));
+        middle: Text('${widget.title} Settings'),
+      ),
+      child: SafeArea(
+        child: CupertinoSegmentedControl<Category>(
+          groupValue: _selectedSegment,
+          onValueChanged: (Category value) {
+            setState(() {
+              _selectedSegment = value;
+            });
+          },
+          children: const {
+            Category.general: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text('General'),
+            ),
+            Category.campaign: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text('Campaign'),
+            ),
+            Category.tools: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text('Tools'),
+            ),
+          },
+        ),
+        // child: Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       const SettingsHeading(label: 'General settings'),
+        //       SettingsOption(
+        //         isActive: autoCopy,
+        //         label: 'Copy to clipboard automatically',
+        //         onChanged: (isChecked) {
+        //           setState(() {
+        //             autoCopy = isChecked!;
+        //           });
+        //         },
+        //       ),
+        //       const SettingsHeading(label: 'Campaign settings'),
+        //       SettingsOption(
+        //         isActive: autoCopy,
+        //         label: 'Copy to clipboard automatically',
+        //         onChanged: (isChecked) {
+        //           setState(() {
+        //             autoCopy = isChecked!;
+        //           });
+        //         },
+        //       ),
+        //       SettingsHeading(
+        //         label: 'Mythic',
+        //         checkAll: mythicAll,
+        //         onChanged: (isChecked) {
+        //           setState(() {
+        //             mythicAll = isChecked!;
+        //           });
+        //         },
+        //       ),
+        //       SettingsOption(
+        //         isActive: mythic,
+        //         label: 'Action table',
+        //         onChanged: (isChecked) {
+        //           setState(() {
+        //             mythic = isChecked!;
+        //           });
+        //         },
+        //       ),
+        //       SettingsOption(
+        //         isActive: tac,
+        //         label: 'Description table',
+        //         onChanged: (isChecked) {
+        //           setState(() {
+        //             tac = isChecked!;
+        //           });
+        //         },
+        //       )
+        //     ],
+        //   ),
+        // ),
+      ),
+    );
   }
 }
 
