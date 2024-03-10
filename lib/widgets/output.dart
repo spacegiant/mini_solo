@@ -75,6 +75,7 @@ class MarkdownBlock extends StatelessWidget {
       softLineBreak: true,
       styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
       styleSheet: MarkdownStyleSheet(
+        textScaler: const TextScaler.linear(1.5),
         p: const TextStyle(
           color: CupertinoColors.white,
         ),
