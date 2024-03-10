@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
+
+import '../widgets/gap.dart';
 
 class TrackerView extends StatelessWidget {
   const TrackerView({super.key});
@@ -11,17 +12,11 @@ class TrackerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ViewWrapper(children: [
       PipTracker(),
-      SizedBox(
-        height: 16.0,
-      ),
+      Gap(),
       ClockTracker(),
-      SizedBox(
-        height: 16.0,
-      ),
+      Gap(),
       TimerTracker(),
-      SizedBox(
-        height: 16.0,
-      ),
+      Gap(),
       AddTracker(),
     ]);
   }

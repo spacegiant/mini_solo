@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 
+import '../widgets/gap.dart';
+
 class JournalView extends StatelessWidget {
   const JournalView({super.key});
 
@@ -22,6 +24,7 @@ class JournalView extends StatelessWidget {
         label: 'Event Check',
         onPressed: () {},
       ),
+      const Gap(),
       ListButton(
         label: 'Fate Check',
         onPressed: () {},
