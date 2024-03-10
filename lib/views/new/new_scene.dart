@@ -49,6 +49,10 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           });
         },
       ),
+      ListButton(
+        label: 'Event Focus',
+        onPressed: () {},
+      ),
       const Text('Chaos Factor'),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -68,6 +72,10 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         ],
       ),
       const Text('Mythic Elements'),
+      ListButton(
+        label: 'Plot Twist',
+        onPressed: () {},
+      )
     ]);
   }
 }
