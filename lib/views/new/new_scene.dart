@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mini_solo/data/mythic_action_data.dart';
 
 import '../../data/mythic_description_data.dart';
@@ -47,6 +49,25 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           });
         },
       ),
+      const Text('Chaos Factor'),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+              child: ListButton(
+                  labelAlignment: Alignment.center,
+                  label: 'Up',
+                  onPressed: () {})),
+          const SizedBox(width: 10),
+          Expanded(
+              child: ListButton(
+                  labelAlignment: Alignment.center,
+                  label: 'Down',
+                  onPressed: () {})),
+        ],
+      ),
+      const Text('Mythic Elements'),
     ]);
   }
 }

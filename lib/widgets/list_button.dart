@@ -5,10 +5,12 @@ class ListButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.labelAlignment = Alignment.centerLeft,
   });
 
   final String label;
   final Function() onPressed;
+  final AlignmentGeometry? labelAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class ListButton extends StatelessWidget {
       child: CupertinoButton(
         color: CupertinoColors.systemPink,
         onPressed: onPressed,
-        alignment: Alignment.centerLeft,
+        alignment: labelAlignment!,
         padding: const EdgeInsets.symmetric(
           horizontal: 10.0,
           vertical: 0,

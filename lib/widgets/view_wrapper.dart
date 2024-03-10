@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class ViewWrapper extends StatelessWidget {
-  const ViewWrapper({super.key, required this.children});
+  const ViewWrapper({
+    super.key,
+    required this.children,
+  });
 
   final List<Widget> children;
 
