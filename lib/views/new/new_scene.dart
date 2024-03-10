@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../data/mythic_action_data.dart';
 import '../../data/mythic_description_data.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
-import '../settings_view.dart';
 
 class NewSceneMenu extends StatefulWidget {
   const NewSceneMenu({super.key});
@@ -26,11 +24,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         label: 'Mythic Action',
         onPressed: () {
           setState(() {
-            MythicActionData mythicActions = MythicActionData();
-            ({String action1, String action2}) result = mythicActions.consult;
-            String action1 = result.action1;
-            String action2 = result.action2;
-            outputText = '$action1\n$action2';
+            outputText = mythicAction();
           });
         },
       ),
@@ -38,12 +32,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         label: 'Mythic Description',
         onPressed: () {
           setState(() {
-            MythicDescriptionData mythicDescriptions = MythicDescriptionData();
-            ({String description1, String description2}) result =
-                mythicDescriptions.consult;
-            String description1 = result.description1;
-            String description2 = result.description2;
-            outputText = '$description1\n$description2';
+            outputText = mythicDescription();
           });
         },
       ),
@@ -57,4 +46,22 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
 
 void doSomething() {
   print('pressed');
+}
+
+String mythicAction() {
+  MythicDescriptionData mythicDescriptions = MythicDescriptionData();
+  ({String description1, String description2}) result =
+      mythicDescriptions.consult;
+  String description1 = result.description1;
+  String description2 = result.description2;
+  return '$description1\n$description2';
+}
+
+String mythicDescription() {
+  MythicDescriptionData mythicDescriptions = MythicDescriptionData();
+  ({String description1, String description2}) result =
+      mythicDescriptions.consult;
+  String description1 = result.description1;
+  String description2 = result.description2;
+  return '$description1\n$description2';
 }
