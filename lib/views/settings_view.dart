@@ -161,6 +161,17 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               });
             },
           ),
+          SettingsOption(
+            isActive: true,
+            label: 'Send to journal',
+            onChanged: (isChecked) {
+              // setState(() {
+              //   autoCopy = isChecked!;
+              // });
+            },
+          ),
+          const Text('Light/Dark/Match OS'),
+          const Text('Fantasy/Scifi/Modern Theme?')
         ],
       ),
     );
