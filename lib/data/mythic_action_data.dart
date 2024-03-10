@@ -14,6 +14,9 @@ class MythicActionData {
     return mythicResult;
   }
 
+  List<String> get table1 => _table1;
+  List<String> get table2 => _table2;
+
   final List<String> _table1 = [
     'Attainment',
     'Starting',

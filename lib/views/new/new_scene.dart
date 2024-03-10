@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../data/mythic_action_data.dart';
+import '../../data/mythic_description_data.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -33,9 +34,18 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           });
         },
       ),
-      const ListButton(
+      ListButton(
         label: 'Mythic Description',
-        onPressed: doSomething,
+        onPressed: () {
+          setState(() {
+            MythicDescriptionData mythicDescriptions = MythicDescriptionData();
+            ({String description1, String description2}) result =
+                mythicDescriptions.consult;
+            String description1 = result.description1;
+            String description2 = result.description2;
+            outputText = '$description1\n$description2';
+          });
+        },
       ),
       const ListButton(
         label: 'Mythic Description',
