@@ -170,6 +170,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               // });
             },
           ),
+          const SettingsHeading(label: 'Dice'),
+          const Text('Choose which dice you want shown'),
+          const SettingsHeading(label: 'Theme'),
           const Text('Light/Dark/Match OS'),
           const Text('Fantasy/Scifi/Modern Theme?')
         ],

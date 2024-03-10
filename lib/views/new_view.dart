@@ -32,11 +32,13 @@ class NewView extends StatelessWidget {
               const NewSceneMenu(),
             );
           }),
+      const SizedBox(height: 16.0),
       const ListButton(label: 'Person', onPressed: doSomething),
       const ListButton(label: 'Place', onPressed: doSomething),
       const ListButton(label: 'Thing', onPressed: doSomething),
       const ListButton(label: 'Faction', onPressed: doSomething),
       const ListButton(label: 'Clue', onPressed: doSomething),
+      const SizedBox(height: 16.0),
       const ListButton(label: 'Creature', onPressed: doSomething),
       const ListButton(label: '5 Room Dungeon', onPressed: doSomething),
     ]);
