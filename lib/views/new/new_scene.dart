@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/data/mythic_action_data.dart';
 
 import '../../data/mythic_description_data.dart';
 import '../../widgets/list_button.dart';
@@ -23,22 +26,26 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ListButton(
         label: 'Mythic Action',
         onPressed: () {
+          MythicActionData mythicActions = MythicActionData();
           setState(() {
-            outputText = mythicAction();
+            outputText = consultOracle(
+              table1: mythicActions.table1,
+              table2: mythicActions.table2,
+            );
           });
         },
       ),
       ListButton(
         label: 'Mythic Description',
         onPressed: () {
+          MythicDescriptionData mythicDescriptions = MythicDescriptionData();
           setState(() {
-            outputText = mythicDescription();
+            outputText = consultOracle(
+              table1: mythicDescriptions.table1,
+              table2: mythicDescriptions.table2,
+            );
           });
         },
-      ),
-      const ListButton(
-        label: 'Mythic Description',
-        onPressed: doSomething,
       ),
     ]);
   }
@@ -48,20 +55,13 @@ void doSomething() {
   print('pressed');
 }
 
-String mythicAction() {
-  MythicDescriptionData mythicDescriptions = MythicDescriptionData();
-  ({String description1, String description2}) result =
-      mythicDescriptions.consult;
-  String description1 = result.description1;
-  String description2 = result.description2;
-  return '$description1\n$description2';
+String consultTable(List<String> table) {
+  int random = Random().nextInt(table.length);
+  return table[random];
 }
 
-String mythicDescription() {
-  MythicDescriptionData mythicDescriptions = MythicDescriptionData();
-  ({String description1, String description2}) result =
-      mythicDescriptions.consult;
-  String description1 = result.description1;
-  String description2 = result.description2;
-  return '$description1\n$description2';
+String consultOracle({required List<String> table1, List<String>? table2}) {
+  String result1 = consultTable(table1);
+  String result2 = table2 != null ? '\n${consultTable(table2)}' : '';
+  return '$result1$result2';
 }
