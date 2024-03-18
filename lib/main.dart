@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import 'my_homepage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ChaosFactor(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

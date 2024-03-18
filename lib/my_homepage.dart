@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice_view.dart';
 import 'package:mini_solo/views/journal_view.dart';
@@ -5,6 +6,29 @@ import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/new_view.dart';
 import 'package:mini_solo/views/settings_view.dart';
 import 'package:mini_solo/views/tracker_view.dart';
+
+class ChaosFactor extends ChangeNotifier {
+  late int _chaosFactor = 5;
+
+  int get chaosFactor => _chaosFactor;
+  int maxChaos = 9;
+  int minChaos = 1;
+
+  void increase() {
+    _chaosFactor < maxChaos ? _chaosFactor++ : null;
+    notifyListeners();
+  }
+
+  void decrease() {
+    _chaosFactor > minChaos ? _chaosFactor-- : null;
+    notifyListeners();
+  }
+
+  void reset() {
+    _chaosFactor = 5;
+    notifyListeners();
+  }
+}
 
 class MyHomePageIOS extends StatefulWidget {
   const MyHomePageIOS({
@@ -90,16 +114,21 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                           print('CF pressed');
                         },
                         padding: const EdgeInsets.all(0.0),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               CupertinoIcons.settings_solid,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 6.0,
                             ),
-                            Text('5', overflow: TextOverflow.visible),
+                            Consumer<ChaosFactor>(
+                              builder: (context, chaosFactor, child) => Text(
+                                chaosFactor.chaosFactor.toString(),
+                                overflow: TextOverflow.visible,
+                              ),
+                            ),
                           ],
                         ),
                       ),

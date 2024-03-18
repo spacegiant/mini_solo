@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/mythic_action_data.dart';
+import 'package:mini_solo/my_homepage.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/mythic_description_data.dart';
 import '../../data/mythic_event_focus_data.dart';
@@ -83,27 +85,37 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             child: ListButton(
               labelAlignment: Alignment.center,
               label: 'Up',
-              onPressed: () {},
+              onPressed: () {
+                var chaosFactor = context.read<ChaosFactor>();
+                chaosFactor.increase();
+              },
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(
-              8.0,
-              0.0,
-              8.0,
-              8.0,
-            ),
-            child: Text(
-              '5',
-              style:
-                  TextStyle(fontSize: 36.0, color: CupertinoColors.systemPink),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+            child: Consumer<ChaosFactor>(
+              builder: (context, chaosFactor, child) => SizedBox(
+                width: 30.0,
+                child: Center(
+                  child: Text(
+                    chaosFactor.chaosFactor.toString(),
+                    style: const TextStyle(
+                        fontSize: 36.0, color: CupertinoColors.systemPink),
+                  ),
+                ),
+              ),
             ),
           ),
           Expanded(
-              child: ListButton(
-                  labelAlignment: Alignment.center,
-                  label: 'Down',
-                  onPressed: () {})),
+            child: ListButton(
+              labelAlignment: Alignment.center,
+              label: 'Down',
+              onPressed: () {
+                var chaosFactor = context.read<ChaosFactor>();
+                chaosFactor.decrease();
+              },
+            ),
+          ),
         ],
       ),
       const Text('Mythic Elements'),
