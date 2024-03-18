@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mini_solo/data/mythic_action_data.dart';
 
 import '../../data/mythic_description_data.dart';
+import '../../data/mythic_event_focus_data.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -51,7 +52,29 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ),
       ListButton(
         label: 'Event Focus',
-        onPressed: () {},
+        onPressed: () {
+          MythicEventFocusData mythicEvents = MythicEventFocusData();
+          setState(() {
+            List<WeightedItem> mythicEventsTable = mythicEvents.table1;
+            // Get total weights from list
+            int weightsSum = 0;
+            for (var i = 0; i < mythicEventsTable.length; i++) {
+              weightsSum = weightsSum + mythicEventsTable[i].weight;
+            }
+            // Get random number between 0 and weightSum
+            int randomRoll = Random().nextInt(weightsSum - 1);
+
+            // Find the item in the list that corresponds with the random number
+            int tally = 0;
+            for (var j = 0; j < mythicEventsTable.length; j++) {
+              tally += mythicEventsTable[j].weight;
+              if (randomRoll < tally) {
+                outputText = mythicEventsTable[j].text;
+                return;
+              }
+            }
+          });
+        },
       ),
       const Text('Chaos Factor'),
       Row(
