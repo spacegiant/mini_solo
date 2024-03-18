@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mini_solo/data/mythic_action_data.dart';
 
 import '../../data/mythic_description_data.dart';
@@ -82,11 +80,25 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-              child: ListButton(
-                  labelAlignment: Alignment.center,
-                  label: 'Up',
-                  onPressed: () {})),
-          const SizedBox(width: 10),
+            child: ListButton(
+              labelAlignment: Alignment.center,
+              label: 'Up',
+              onPressed: () {},
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(
+              8.0,
+              0.0,
+              8.0,
+              8.0,
+            ),
+            child: Text(
+              '5',
+              style:
+                  TextStyle(fontSize: 36.0, color: CupertinoColors.systemPink),
+            ),
+          ),
           Expanded(
               child: ListButton(
                   labelAlignment: Alignment.center,
