@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class WeightedItem {
   int weight;
   String text;

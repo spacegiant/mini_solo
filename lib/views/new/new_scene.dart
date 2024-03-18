@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/mythic_action_data.dart';
+import 'package:mini_solo/data/mythic_elements_plot_twist.dart';
 import 'package:mini_solo/my_homepage.dart';
 import 'package:provider/provider.dart';
 
@@ -121,7 +122,15 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       const Text('Mythic Elements'),
       ListButton(
         label: 'Plot Twist',
-        onPressed: () {},
+        onPressed: () {
+          MythicElementsPlotTwist mythicPlotTwist = MythicElementsPlotTwist();
+          setState(() {
+            outputText = consultOracle(
+              table1: mythicPlotTwist.table1,
+              table2: mythicPlotTwist.table1,
+            );
+          });
+        },
       )
     ]);
   }
