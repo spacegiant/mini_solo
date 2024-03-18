@@ -1,3 +1,4 @@
+import 'package:mini_solo/widgets/list_button.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice_view.dart';
@@ -84,6 +85,7 @@ List<ViewItem> viewItems = [
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
+  bool showPopup = false;
 
   @override
   Widget build(BuildContext context) {
@@ -112,20 +114,17 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                       leading: CupertinoButton(
                         onPressed: () {
                           print('CF pressed');
+                          setState(() {
+                            showPopup = true;
+                          });
                         },
                         padding: const EdgeInsets.all(0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
-                              CupertinoIcons.settings_solid,
-                            ),
-                            const SizedBox(
-                              width: 6.0,
-                            ),
                             Consumer<ChaosFactor>(
                               builder: (context, chaosFactor, child) => Text(
-                                chaosFactor.chaosFactor.toString(),
+                                'CF ${chaosFactor.chaosFactor}',
                                 overflow: TextOverflow.visible,
                               ),
                             ),
@@ -146,8 +145,66 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                       ),
                     ),
                     child: SafeArea(
-                        child:
-                            viewItems.map((e) => e.viewWidget).toList()[index]),
+                      child: Stack(
+                        children: [
+                          viewItems.map((e) => e.viewWidget).toList()[index],
+                          Visibility(
+                            visible: showPopup,
+                            child: CupertinoPopupSurface(
+                              child: Center(
+                                child: SizedBox(
+                                  width: 200.0,
+                                  height: 200.0,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      const Center(
+                                          child: Text('Set Chaos Factor')),
+                                      const SizedBox(
+                                        width: 10.0,
+                                        height: 10.0,
+                                      ),
+                                      ListButton(
+                                        label: 'Chaos Up',
+                                        labelAlignment: Alignment.center,
+                                        onPressed: () {
+                                          setState(() {
+                                            var chaosFactor =
+                                                context.read<ChaosFactor>();
+                                            chaosFactor.increase();
+                                          });
+                                        },
+                                      ),
+                                      ListButton(
+                                        label: 'Chaos Down',
+                                        labelAlignment: Alignment.center,
+                                        onPressed: () {
+                                          setState(() {
+                                            var chaosFactor =
+                                                context.read<ChaosFactor>();
+                                            chaosFactor.decrease();
+                                          });
+                                        },
+                                      ),
+                                      ListButton(
+                                        label: 'Close',
+                                        labelAlignment: Alignment.center,
+                                        onPressed: () {
+                                          setState(() {
+                                            showPopup = false;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
               );
