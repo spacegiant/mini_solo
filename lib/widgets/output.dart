@@ -48,7 +48,10 @@ class TextBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        constraints: const BoxConstraints(minWidth: 200.0),
+        constraints: const BoxConstraints(
+          minWidth: 200.0,
+          minHeight: 100.0,
+        ),
         padding: const EdgeInsets.all(16.0),
         decoration: const BoxDecoration(
           shape: BoxShape.rectangle,
