@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/my_homepage.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/mythic_event_focus_data.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
@@ -44,8 +43,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         onPressed: () {
           ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
               .then((value) {
-            // List<WeightedItem> mythicEventsTable = value['event_focus']
-
             List<dynamic> mythicEventsTable = value['event_focus'];
             int weightsSum = 0;
             for (var i = 0; i < mythicEventsTable.length; i++) {
@@ -162,10 +159,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       });
     });
   }
-}
-
-void doSomething() {
-  print('pressed');
 }
 
 String consultTable(List<String> table) {

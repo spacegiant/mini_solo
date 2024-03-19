@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 
-import '../data/mythic_action_data.dart';
 import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
 import 'new/new_scene.dart';
