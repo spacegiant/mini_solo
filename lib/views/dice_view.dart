@@ -11,7 +11,7 @@ class DiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ViewWrapper(
       children: [
-        Output(text: ['...']),
+        Output(line1: '...'),
         DiceCollection(),
         Gap(),
         DiceCollection(),

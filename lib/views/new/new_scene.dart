@@ -22,7 +22,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       Output(
-        text: [outputText],
+        line1: outputText,
       ),
       ListButton(
         label: 'Mythic Action',

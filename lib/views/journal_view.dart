@@ -35,6 +35,18 @@ class SceneStateResult {
   }
 }
 
+class ReturnObject {
+  late String line1;
+  late String? line2;
+  late String? line3;
+
+  ReturnObject({
+    required this.line1,
+    this.line2,
+    this.line3,
+  });
+}
+
 class JournalView extends StatefulWidget {
   const JournalView({super.key});
 
@@ -43,21 +55,30 @@ class JournalView extends StatefulWidget {
 }
 
 class _JournalViewState extends State<JournalView> {
-  String outputText = '...';
+  String line1 = '...';
+  String? line2;
+  String? line3;
+
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       Output(
-        text: [outputText],
+        line1: line1,
+        line2: line2,
+        line3: line3,
       ),
       const Text('Journal View'),
       const Text('Filter needed'),
       ListButton(
-        label: 'Test Your Expected Scene',
-        onPressed: () => setState(() {
-          outputText = testScene(context);
-        }),
-      ),
+          label: 'Test Your Expected Scene',
+          onPressed: () {
+            ReturnObject test = testScene(context);
+            setState(() {
+              line1 = test.line1;
+              line2 = test.line2;
+              line3 = test.line3;
+            });
+          }),
       ListButton(
         label: 'Detail Check',
         onPressed: () {},
@@ -78,17 +99,29 @@ class _JournalViewState extends State<JournalView> {
     ]);
   }
 
-  String testScene(BuildContext context) {
+  ReturnObject testScene(BuildContext context) {
     int d10 = Random().nextInt(10) + 1;
     var chaosFactor = context.read<ChaosFactor>().value;
 
     if (d10 > chaosFactor) {
-      return 'Expected\nd10 roll = $d10 > CF $chaosFactor';
+      // return 'Expected\nd10 roll = $d10 > CF $chaosFactor';
+      return ReturnObject(
+        line1: 'Expected',
+        line3: 'd10 roll = $d10 > CF $chaosFactor',
+      );
     }
     if (d10.isEven) {
-      return 'Altered\nd10 roll = $d10 (Odd) < CF $chaosFactor';
+      // return 'Altered\nd10 roll = $d10 (Odd) < CF $chaosFactor';
+      return ReturnObject(
+        line1: 'Altered',
+        line3: 'd10 roll = $d10 (Odd) < CF $chaosFactor',
+      );
     } else {
-      return 'Interrupt\nd10 roll = $d10 (Even) < CF $chaosFactor';
+      // return 'Interrupt\nd10 roll = $d10 (Even) < CF $chaosFactor';
+      return ReturnObject(
+        line1: 'Interrupt',
+        line3: 'd10 roll = $d10 (Even) < CF $chaosFactor',
+      );
     }
   }
 }
