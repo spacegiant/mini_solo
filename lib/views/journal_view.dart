@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -79,14 +78,14 @@ class _JournalViewState extends State<JournalView> {
               line3 = test.line3;
             });
           }),
-      ListButton(
-        label: 'Detail Check',
-        onPressed: () {},
-      ),
-      ListButton(
-        label: 'Event Check',
-        onPressed: () {},
-      ),
+      // ListButton(
+      //   label: 'Detail Check',
+      //   onPressed: () {},
+      // ),
+      // ListButton(
+      //   label: 'Event Check',
+      //   onPressed: () {},
+      // ),
       const Gap(),
       ListButton(
         label: 'Fate Check',
