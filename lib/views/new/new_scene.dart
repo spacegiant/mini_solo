@@ -6,6 +6,7 @@ import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
+import '../journal_view.dart';
 
 class NewSceneMenu extends StatefulWidget {
   const NewSceneMenu({super.key});
@@ -16,13 +17,18 @@ class NewSceneMenu extends StatefulWidget {
 
 class _NewSceneMenuState extends State<NewSceneMenu> {
   String outputText = '...';
+  String line1 = '...';
+  String? line2;
+  String? line3;
   late var mythicJSON = {};
 
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       Output(
-        line1: outputText,
+        line1: line1,
+        line2: line2,
+        line3: line3,
       ),
       ListButton(
         label: 'Mythic Action',
@@ -41,7 +47,9 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         onPressed: () {
           getWeightedResult('lib/assets/json/mythic.json', (String text) {
             setState(() {
-              outputText = text;
+              line1 = text;
+              line2 = null;
+              line3 = null;
             });
           });
         },
@@ -62,11 +70,16 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         .then((value) {
       List<String> table1 = List<String>.from(value['description1']);
       List<String> table2 = List<String>.from(value['description2']);
+
+      ReturnObject result = consultOracle(
+        table1: table1,
+        table2: table2,
+      );
+
       setState(() {
-        outputText = consultOracle(
-          table1: table1,
-          table2: table2,
-        );
+        line1 = result.line1;
+        line2 = result.line2;
+        line3 = null;
       });
     });
   }
@@ -76,11 +89,16 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         .then((value) {
       List<String> table1 = List<String>.from(value['action1']);
       List<String> table2 = List<String>.from(value['action2']);
+
+      ReturnObject result = consultOracle(
+        table1: table1,
+        table2: table2,
+      );
+
       setState(() {
-        outputText = consultOracle(
-          table1: table1,
-          table2: table2,
-        );
+        line1 = result.line1;
+        line2 = result.line2;
+        line3 = null;
       });
     });
   }
@@ -90,11 +108,16 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         .then((value) {
       List<String> table1 = List<String>.from(value['elements']['plot_twist']);
       List<String> table2 = List<String>.from(value['elements']['plot_twist']);
+
+      ReturnObject result = consultOracle(
+        table1: table1,
+        table2: table2,
+      );
+
       setState(() {
-        outputText = consultOracle(
-          table1: table1,
-          table2: table2,
-        );
+        line1 = result.line1;
+        line2 = result.line2;
+        line3 = null;
       });
     });
   }
@@ -105,8 +128,13 @@ String consultTable(List<String> table) {
   return table[random];
 }
 
-String consultOracle({required List<String> table1, List<String>? table2}) {
+ReturnObject consultOracle(
+    {required List<String> table1, List<String>? table2}) {
   String result1 = consultTable(table1);
-  String result2 = table2 != null ? '\n${consultTable(table2)}' : '';
-  return '$result1$result2';
+  String result2 = table2 != null ? consultTable(table2) : '';
+
+  return ReturnObject(
+    line1: result1,
+    line2: result2,
+  );
 }

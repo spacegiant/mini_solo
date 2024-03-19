@@ -95,7 +95,8 @@ class BubbleDetail extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontSize: 10.0,
+        fontSize: 16.0,
+        color: CupertinoColors.white,
       ),
     );
   }
@@ -114,35 +115,36 @@ class BubbleText extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontSize: 20.0,
+        fontSize: 24.0,
+        color: CupertinoColors.white,
       ),
     );
   }
 }
-
-class MarkdownBlock extends StatelessWidget {
-  const MarkdownBlock({
-    super.key,
-    required this.newString,
-  });
-
-  final String newString;
-
-  @override
-  Widget build(BuildContext context) {
-    return MarkdownBody(
-      softLineBreak: true,
-      styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
-      styleSheet: MarkdownStyleSheet(
-        textScaler: const TextScaler.linear(1.5),
-        p: const TextStyle(
-          color: CupertinoColors.white,
-        ),
-        em: const TextStyle(
-          color: CupertinoColors.white,
-        ),
-      ),
-      data: newString,
-    );
-  }
-}
+//
+// class MarkdownBlock extends StatelessWidget {
+//   const MarkdownBlock({
+//     super.key,
+//     required this.newString,
+//   });
+//
+//   final String newString;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MarkdownBody(
+//       softLineBreak: true,
+//       styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
+//       styleSheet: MarkdownStyleSheet(
+//         textScaler: const TextScaler.linear(1.5),
+//         p: const TextStyle(
+//           color: CupertinoColors.white,
+//         ),
+//         em: const TextStyle(
+//           color: CupertinoColors.white,
+//         ),
+//       ),
+//       data: newString,
+//     );
+//   }
+// }
