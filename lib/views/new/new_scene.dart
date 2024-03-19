@@ -21,6 +21,7 @@ class NewSceneMenu extends StatefulWidget {
 
 class _NewSceneMenuState extends State<NewSceneMenu> {
   String outputText = '...';
+
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
