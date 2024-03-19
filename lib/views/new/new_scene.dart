@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
@@ -37,7 +38,13 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ),
       ListButton(
         label: 'Event Focus',
-        onPressed: getEventFocus,
+        onPressed: () {
+          getWeightedResult('lib/assets/json/mythic.json', (String text) {
+            setState(() {
+              outputText = text;
+            });
+          });
+        },
       ),
       const ChaosFactorPanel(),
       const Text('Mythic Elements'),
@@ -48,32 +55,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         },
       )
     ]);
-  }
-
-  getEventFocus() {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-        .then((value) {
-      List<dynamic> mythicEventsTable = value['event_focus'];
-      int weightsSum = 0;
-      for (var i = 0; i < mythicEventsTable.length; i++) {
-        weightsSum += mythicEventsTable[i]['weight'] as int;
-      }
-
-      // Get random number between 0 and weightSum
-      int randomRoll = Random().nextInt(weightsSum - 1);
-
-      // Find the item in the list that corresponds with the random number
-      int tally = 0;
-      for (var j = 0; j < mythicEventsTable.length; j++) {
-        tally += mythicEventsTable[j]['weight'] as int;
-        if (randomRoll < tally) {
-          setState(() {
-            outputText = mythicEventsTable[j]['text'];
-          });
-          return;
-        }
-      }
-    });
   }
 
   void getMythicDescription() {

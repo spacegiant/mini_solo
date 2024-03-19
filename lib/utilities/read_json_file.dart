@@ -9,8 +9,6 @@ class ReadJsonFile {
     // decode json data as list
     final list = json.decode(jsonData) as Map;
 
-    // map json and initialize
-    // using DataModel
     return list;
   }
 }
