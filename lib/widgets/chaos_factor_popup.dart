@@ -26,19 +26,6 @@ class ChaosFactor extends ChangeNotifier {
   }
 }
 
-Visibility chaosFactorPopup(BuildContext context, showPopup, togglePopup) {
-  return Visibility(
-    visible: showPopup,
-    child: CupertinoPopupSurface(
-      child: Center(
-        child: ChaosFactorPopup(
-          togglePopup: togglePopup,
-        ),
-      ),
-    ),
-  );
-}
-
 class ChaosFactorPopup extends StatelessWidget {
   const ChaosFactorPopup({
     super.key,

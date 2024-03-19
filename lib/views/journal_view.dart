@@ -5,7 +5,7 @@ import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/chaos_factor.dart';
+import '../widgets/chaos_factor_popup.dart';
 import '../widgets/gap.dart';
 import '../widgets/output.dart';
 

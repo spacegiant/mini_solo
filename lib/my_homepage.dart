@@ -1,5 +1,6 @@
 import 'package:mini_solo/view_items.dart';
-import 'package:mini_solo/widgets/chaos_factor.dart';
+import 'package:mini_solo/widgets/chaos_factor_popup.dart';
+import 'package:mini_solo/widgets/popup.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,7 +80,14 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             child: Stack(
               children: [
                 viewItems.map((e) => e.viewWidget).toList()[index],
-                chaosFactorPopup(context, showPopup, togglePopup),
+                popup(
+                  context,
+                  showPopup,
+                  togglePopup,
+                  ChaosFactorPopup(
+                    togglePopup: togglePopup,
+                  ),
+                ),
               ],
             ),
           ),
