@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/widgets/chaos_factor_popup.dart';
+import 'package:mini_solo/widgets/app_state.dart';
 import 'package:provider/provider.dart';
 
 import 'my_homepage.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-    create: (context) => ChaosFactor(),
+    create: (context) => AppState(),
     child: const MyApp(),
   ));
 }

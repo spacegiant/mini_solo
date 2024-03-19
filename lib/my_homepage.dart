@@ -1,5 +1,5 @@
 import 'package:mini_solo/view_items.dart';
-import 'package:mini_solo/widgets/chaos_factor_popup.dart';
+import 'package:mini_solo/widgets/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,21 +20,6 @@ class MyHomePageIOS extends StatefulWidget {
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
   bool showPopup = false;
-  String popupContent = '';
-
-  void toggleChaosFactorPopup() {
-    setState(() {
-      showPopup = !showPopup;
-      popupContent = 'cf';
-    });
-  }
-
-  // void toggleFatePopup() {
-  //   setState(() {
-  //     showPopup = !showPopup;
-  //     popupContent = 'fate';
-  //   });
-  // }
 
   void toggleSettings() {
     setState(() => showSettings = !showSettings);
@@ -50,58 +35,56 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         : CupertinoTabScaffold(
             tabBar: tabBar(),
             tabBuilder: (BuildContext context, int index) {
-              return tabView(index, toggleChaosFactorPopup, toggleSettings);
+              return tabView(index, toggleSettings);
             },
           );
   }
 
-  CupertinoTabView tabView(int index, Function() togglePopup, toggleSettings) {
-    return CupertinoTabView(
-      builder: (BuildContext context) {
-        return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            leading: CupertinoButton(
-              onPressed: () {
-                togglePopup();
-              },
-              padding: const EdgeInsets.all(0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Consumer<ChaosFactor>(
-                    builder: (context, chaosFactor, child) => Text(
-                      'CF ${chaosFactor.value}',
+  Consumer<AppState> tabView(int index, toggleSettings) {
+    var appState = context.read<AppState>();
+
+    return Consumer<AppState>(builder: (context, appState, child) {
+      return CupertinoTabView(
+        builder: (BuildContext context) {
+          return CupertinoPageScaffold(
+            navigationBar: CupertinoNavigationBar(
+              leading: CupertinoButton(
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.chaos);
+                  appState.toggleShowPopup();
+                },
+                padding: const EdgeInsets.all(0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'CF ${appState.chaosFactor}',
                       overflow: TextOverflow.visible,
                     ),
-                  ),
+                  ],
+                ),
+              ),
+              middle: const Text('Solo App'),
+              trailing: CupertinoButton(
+                padding: const EdgeInsets.all(0.0),
+                onPressed: toggleSettings,
+                child: const Icon(
+                  CupertinoIcons.settings_solid,
+                ),
+              ),
+            ),
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  viewItems.map((e) => e.viewWidget).toList()[index],
+                  popup(context),
                 ],
               ),
             ),
-            middle: const Text('Solo App'),
-            trailing: CupertinoButton(
-              padding: const EdgeInsets.all(0.0),
-              onPressed: toggleSettings,
-              child: const Icon(
-                CupertinoIcons.settings_solid,
-              ),
-            ),
-          ),
-          child: SafeArea(
-            child: Stack(
-              children: [
-                viewItems.map((e) => e.viewWidget).toList()[index],
-                popup(
-                  context,
-                  showPopup,
-                  togglePopup,
-                  getPopupContent(popupContent, togglePopup),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 
   CupertinoTabBar tabBar() {
@@ -112,18 +95,5 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                   icon: Icon(e.icon),
                 ))
             .toList());
-  }
-}
-
-Widget getPopupContent(
-  String reference,
-  togglePopup,
-) {
-  if (reference == 'cf') {
-    return ChaosFactorPopup(
-      togglePopup: togglePopup,
-    );
-  } else {
-    return const Text('test');
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import 'app_state.dart';
 import 'chaos_factor_popup.dart';
 import 'list_button.dart';
 
@@ -23,19 +24,19 @@ class ChaosFactorPanel extends StatelessWidget {
                 labelAlignment: Alignment.center,
                 label: 'Up',
                 onPressed: () {
-                  var chaosFactor = context.read<ChaosFactor>();
-                  chaosFactor.increase();
+                  var chaosFactor = context.read<AppState>();
+                  chaosFactor.increaseChaosFactor();
                 },
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-              child: Consumer<ChaosFactor>(
+              child: Consumer<AppState>(
                 builder: (context, chaosFactor, child) => SizedBox(
                   width: 30.0,
                   child: Center(
                     child: Text(
-                      chaosFactor.value.toString(),
+                      chaosFactor.chaosFactor.toString(),
                       style: const TextStyle(
                           fontSize: 36.0, color: CupertinoColors.systemPink),
                     ),
@@ -48,8 +49,8 @@ class ChaosFactorPanel extends StatelessWidget {
                 labelAlignment: Alignment.center,
                 label: 'Down',
                 onPressed: () {
-                  var chaosFactor = context.read<ChaosFactor>();
-                  chaosFactor.decrease();
+                  var chaosFactor = context.read<AppState>();
+                  chaosFactor.decreaseChaosFactor();
                 },
               ),
             ),
