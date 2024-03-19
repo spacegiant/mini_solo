@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/mythic_description_data.dart';
 import '../../data/mythic_event_focus_data.dart';
+import '../../utilities/read_json_file.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -21,6 +22,7 @@ class NewSceneMenu extends StatefulWidget {
 
 class _NewSceneMenuState extends State<NewSceneMenu> {
   String outputText = '...';
+  late var mythicJSON = {};
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +33,32 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ListButton(
         label: 'Mythic Action',
         onPressed: () {
-          MythicActionData mythicActions = MythicActionData();
-          setState(() {
-            outputText = consultOracle(
-              table1: mythicActions.table1,
-              table2: mythicActions.table2,
-            );
+          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+              .then((value) {
+            List<String> table1 = List<String>.from(value['action1']);
+            List<String> table2 = List<String>.from(value['action2']);
+            setState(() {
+              outputText = consultOracle(
+                table1: table1,
+                table2: table2,
+              );
+            });
           });
         },
       ),
       ListButton(
         label: 'Mythic Description',
         onPressed: () {
-          MythicDescriptionData mythicDescriptions = MythicDescriptionData();
-          setState(() {
-            outputText = consultOracle(
-              table1: mythicDescriptions.table1,
-              table2: mythicDescriptions.table2,
-            );
+          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+              .then((value) {
+            List<String> table1 = List<String>.from(value['description1']);
+            List<String> table2 = List<String>.from(value['description2']);
+            setState(() {
+              outputText = consultOracle(
+                table1: table1,
+                table2: table2,
+              );
+            });
           });
         },
       ),
@@ -124,12 +134,18 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ListButton(
         label: 'Plot Twist',
         onPressed: () {
-          MythicElementsPlotTwist mythicPlotTwist = MythicElementsPlotTwist();
-          setState(() {
-            outputText = consultOracle(
-              table1: mythicPlotTwist.table1,
-              table2: mythicPlotTwist.table1,
-            );
+          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+              .then((value) {
+            List<String> table1 =
+                List<String>.from(value['elements']['plot_twist']);
+            List<String> table2 =
+                List<String>.from(value['elements']['plot_twist']);
+            setState(() {
+              outputText = consultOracle(
+                table1: table1,
+                table2: table2,
+              );
+            });
           });
         },
       )
