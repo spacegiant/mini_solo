@@ -1,7 +1,6 @@
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/chaos_factor_popup.dart';
 import 'package:mini_solo/widgets/popup.dart';
-import 'package:mini_solo/widgets/list_button.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/settings_view.dart';
@@ -21,10 +20,21 @@ class MyHomePageIOS extends StatefulWidget {
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
   bool showPopup = false;
+  String popupContent = '';
 
-  void togglePopup() {
-    setState(() => showPopup = !showPopup);
+  void toggleChaosFactorPopup() {
+    setState(() {
+      showPopup = !showPopup;
+      popupContent = 'cf';
+    });
   }
+
+  // void toggleFatePopup() {
+  //   setState(() {
+  //     showPopup = !showPopup;
+  //     popupContent = 'fate';
+  //   });
+  // }
 
   void toggleSettings() {
     setState(() => showSettings = !showSettings);
@@ -40,7 +50,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         : CupertinoTabScaffold(
             tabBar: tabBar(),
             tabBuilder: (BuildContext context, int index) {
-              return tabView(index, togglePopup, toggleSettings);
+              return tabView(index, toggleChaosFactorPopup, toggleSettings);
             },
           );
   }
@@ -67,7 +77,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 ],
               ),
             ),
-            middle: const Text('Solo app'),
+            middle: const Text('Solo App'),
             trailing: CupertinoButton(
               padding: const EdgeInsets.all(0.0),
               onPressed: toggleSettings,
@@ -84,9 +94,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                   context,
                   showPopup,
                   togglePopup,
-                  ChaosFactorPopup(
-                    togglePopup: togglePopup,
-                  ),
+                  getPopupContent(popupContent, togglePopup),
                 ),
               ],
             ),
@@ -104,5 +112,18 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                   icon: Icon(e.icon),
                 ))
             .toList());
+  }
+}
+
+Widget getPopupContent(
+  String reference,
+  togglePopup,
+) {
+  if (reference == 'cf') {
+    return ChaosFactorPopup(
+      togglePopup: togglePopup,
+    );
+  } else {
+    return const Text('test');
   }
 }
