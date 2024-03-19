@@ -53,7 +53,7 @@ class ChaosFactorButton extends StatelessWidget {
         children: [
           Consumer<ChaosFactor>(
             builder: (context, chaosFactor, child) => Text(
-              'CF ${chaosFactor.chaosFactor}',
+              'CF ${chaosFactor.value}',
               overflow: TextOverflow.visible,
             ),
           ),

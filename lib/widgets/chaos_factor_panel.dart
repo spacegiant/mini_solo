@@ -35,7 +35,7 @@ class ChaosFactorPanel extends StatelessWidget {
                   width: 30.0,
                   child: Center(
                     child: Text(
-                      chaosFactor.chaosFactor.toString(),
+                      chaosFactor.value.toString(),
                       style: const TextStyle(
                           fontSize: 36.0, color: CupertinoColors.systemPink),
                     ),

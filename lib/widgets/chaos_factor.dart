@@ -6,7 +6,7 @@ import 'list_button.dart';
 class ChaosFactor extends ChangeNotifier {
   late int _chaosFactor = 5;
 
-  int get chaosFactor => _chaosFactor;
+  int get value => _chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
 
