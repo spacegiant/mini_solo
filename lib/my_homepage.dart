@@ -22,15 +22,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showPopup = false;
 
   void togglePopup() {
-    setState(() {
-      showPopup = !showPopup;
-    });
+    setState(() => showPopup = !showPopup);
   }
 
   void toggleSettings() {
-    setState(() {
-      showSettings = !showSettings;
-    });
+    setState(() => showSettings = !showSettings);
   }
 
   @override
@@ -70,7 +66,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 ],
               ),
             ),
-            middle: Text('Solo app $showSettings'),
+            middle: const Text('Solo app'),
             trailing: CupertinoButton(
               padding: const EdgeInsets.all(0.0),
               onPressed: toggleSettings,
