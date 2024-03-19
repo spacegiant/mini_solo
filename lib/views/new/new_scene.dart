@@ -1,12 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/mythic_action_data.dart';
-import 'package:mini_solo/data/mythic_elements_plot_twist.dart';
 import 'package:mini_solo/my_homepage.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/mythic_description_data.dart';
 import '../../data/mythic_event_focus_data.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/list_button.dart';
@@ -45,23 +42,27 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ListButton(
         label: 'Event Focus',
         onPressed: () {
-          MythicEventFocusData mythicEvents = MythicEventFocusData();
-          setState(() {
-            List<WeightedItem> mythicEventsTable = mythicEvents.table1;
-            // Get total weights from list
+          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+              .then((value) {
+            // List<WeightedItem> mythicEventsTable = value['event_focus']
+
+            List<dynamic> mythicEventsTable = value['event_focus'];
             int weightsSum = 0;
             for (var i = 0; i < mythicEventsTable.length; i++) {
-              weightsSum = weightsSum + mythicEventsTable[i].weight;
+              weightsSum += mythicEventsTable[i]['weight'] as int;
             }
+
             // Get random number between 0 and weightSum
             int randomRoll = Random().nextInt(weightsSum - 1);
 
             // Find the item in the list that corresponds with the random number
             int tally = 0;
             for (var j = 0; j < mythicEventsTable.length; j++) {
-              tally += mythicEventsTable[j].weight;
+              tally += mythicEventsTable[j]['weight'] as int;
               if (randomRoll < tally) {
-                outputText = mythicEventsTable[j].text;
+                setState(() {
+                  outputText = mythicEventsTable[j]['text'];
+                });
                 return;
               }
             }

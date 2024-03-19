@@ -510,6 +510,56 @@
       "Urgent",
       "Useful"
     ]
-  }
+  },
+  "event_focus": [
+    {
+      "weight": 5,
+      "text": "Remote Event"
+    },
+    {
+      "weight": 5,
+      "text": "Ambiguous Event"
+    },
+    {
+      "weight": 10,
+      "text": "New NPC"
+    },
+    {
+      "weight": 20,
+      "text": "NPC Action"
+    },
+    {
+      "weight": 5,
+      "text": "NPC Negative"
+    },
+    {
+      "weight": 5,
+      "text": "NPC Positive"
+    },
+    {
+      "weight": 5,
+      "text": "Move Toward a Thread"
+    },
+    {
+      "weight": 10,
+      "text": "Move Away from a Thread"
+    },
+    {
+      "weight": 5,
+      "text": "Close a Thread"
+    },
+    {
+      "weight": 10,
+      "text": "PC Negative"
+    },
+    {
+      "weight": 5,
+      "text": "PC Positive"
+    },
+    {
+      "weight": 15,
+      "text": "Current Context"
+    }
+  ]
 }
 
