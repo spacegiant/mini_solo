@@ -33,33 +33,13 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ListButton(
         label: 'Mythic Action',
         onPressed: () {
-          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-              .then((value) {
-            List<String> table1 = List<String>.from(value['action1']);
-            List<String> table2 = List<String>.from(value['action2']);
-            setState(() {
-              outputText = consultOracle(
-                table1: table1,
-                table2: table2,
-              );
-            });
-          });
+          getMythicAction();
         },
       ),
       ListButton(
         label: 'Mythic Description',
         onPressed: () {
-          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-              .then((value) {
-            List<String> table1 = List<String>.from(value['description1']);
-            List<String> table2 = List<String>.from(value['description2']);
-            setState(() {
-              outputText = consultOracle(
-                table1: table1,
-                table2: table2,
-              );
-            });
-          });
+          getMythicDescription();
         },
       ),
       ListButton(
@@ -134,22 +114,52 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ListButton(
         label: 'Plot Twist',
         onPressed: () {
-          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-              .then((value) {
-            List<String> table1 =
-                List<String>.from(value['elements']['plot_twist']);
-            List<String> table2 =
-                List<String>.from(value['elements']['plot_twist']);
-            setState(() {
-              outputText = consultOracle(
-                table1: table1,
-                table2: table2,
-              );
-            });
-          });
+          getPlotTwist();
         },
       )
     ]);
+  }
+
+  void getMythicDescription() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<String> table1 = List<String>.from(value['description1']);
+      List<String> table2 = List<String>.from(value['description2']);
+      setState(() {
+        outputText = consultOracle(
+          table1: table1,
+          table2: table2,
+        );
+      });
+    });
+  }
+
+  void getMythicAction() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<String> table1 = List<String>.from(value['action1']);
+      List<String> table2 = List<String>.from(value['action2']);
+      setState(() {
+        outputText = consultOracle(
+          table1: table1,
+          table2: table2,
+        );
+      });
+    });
+  }
+
+  void getPlotTwist() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<String> table1 = List<String>.from(value['elements']['plot_twist']);
+      List<String> table2 = List<String>.from(value['elements']['plot_twist']);
+      setState(() {
+        outputText = consultOracle(
+          table1: table1,
+          table2: table2,
+        );
+      });
+    });
   }
 }
 
