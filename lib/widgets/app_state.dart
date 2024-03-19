@@ -10,6 +10,7 @@ class AppState extends ChangeNotifier {
   late int _chaosFactor = 5;
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
+  late bool _showSettings = false;
 
   // CHAOS FACTOR
   int get chaosFactor => _chaosFactor;
@@ -45,4 +46,12 @@ class AppState extends ChangeNotifier {
   }
 
   bool get showPopup => _showPopup;
+
+//   SETTINGS
+  void toggleShowSettings() {
+    _showSettings = !_showSettings;
+    notifyListeners();
+  }
+
+  bool get showSettings => _showSettings;
 }

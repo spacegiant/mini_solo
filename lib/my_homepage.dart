@@ -19,7 +19,6 @@ class MyHomePageIOS extends StatefulWidget {
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
-  bool showPopup = false;
 
   void toggleSettings() {
     setState(() => showSettings = !showSettings);
@@ -41,8 +40,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   }
 
   Consumer<AppState> tabView(int index, toggleSettings) {
-    var appState = context.read<AppState>();
-
     return Consumer<AppState>(builder: (context, appState, child) {
       return CupertinoTabView(
         builder: (BuildContext context) {
@@ -89,6 +86,9 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   CupertinoTabBar tabBar() {
     return CupertinoTabBar(
+        onTap: (value) {
+          print('ontap');
+        },
         items: viewItems
             .map((e) => BottomNavigationBarItem(
                   label: e.label,
