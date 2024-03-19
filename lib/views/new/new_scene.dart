@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/my_homepage.dart';
 import 'package:provider/provider.dart';
 
 import '../../utilities/read_json_file.dart';
+import '../../widgets/chaos_factor.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -40,74 +40,9 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ),
       ListButton(
         label: 'Event Focus',
-        onPressed: () {
-          ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-              .then((value) {
-            List<dynamic> mythicEventsTable = value['event_focus'];
-            int weightsSum = 0;
-            for (var i = 0; i < mythicEventsTable.length; i++) {
-              weightsSum += mythicEventsTable[i]['weight'] as int;
-            }
-
-            // Get random number between 0 and weightSum
-            int randomRoll = Random().nextInt(weightsSum - 1);
-
-            // Find the item in the list that corresponds with the random number
-            int tally = 0;
-            for (var j = 0; j < mythicEventsTable.length; j++) {
-              tally += mythicEventsTable[j]['weight'] as int;
-              if (randomRoll < tally) {
-                setState(() {
-                  outputText = mythicEventsTable[j]['text'];
-                });
-                return;
-              }
-            }
-          });
-        },
+        onPressed: getEventFocus,
       ),
-      const Text('Chaos Factor'),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: ListButton(
-              labelAlignment: Alignment.center,
-              label: 'Up',
-              onPressed: () {
-                var chaosFactor = context.read<ChaosFactor>();
-                chaosFactor.increase();
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-            child: Consumer<ChaosFactor>(
-              builder: (context, chaosFactor, child) => SizedBox(
-                width: 30.0,
-                child: Center(
-                  child: Text(
-                    chaosFactor.chaosFactor.toString(),
-                    style: const TextStyle(
-                        fontSize: 36.0, color: CupertinoColors.systemPink),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListButton(
-              labelAlignment: Alignment.center,
-              label: 'Down',
-              onPressed: () {
-                var chaosFactor = context.read<ChaosFactor>();
-                chaosFactor.decrease();
-              },
-            ),
-          ),
-        ],
-      ),
+      const ChaosFactorPanel(),
       const Text('Mythic Elements'),
       ListButton(
         label: 'Plot Twist',
@@ -116,6 +51,32 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         },
       )
     ]);
+  }
+
+  getEventFocus() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<dynamic> mythicEventsTable = value['event_focus'];
+      int weightsSum = 0;
+      for (var i = 0; i < mythicEventsTable.length; i++) {
+        weightsSum += mythicEventsTable[i]['weight'] as int;
+      }
+
+      // Get random number between 0 and weightSum
+      int randomRoll = Random().nextInt(weightsSum - 1);
+
+      // Find the item in the list that corresponds with the random number
+      int tally = 0;
+      for (var j = 0; j < mythicEventsTable.length; j++) {
+        tally += mythicEventsTable[j]['weight'] as int;
+        if (randomRoll < tally) {
+          setState(() {
+            outputText = mythicEventsTable[j]['text'];
+          });
+          return;
+        }
+      }
+    });
   }
 
   void getMythicDescription() {
@@ -158,6 +119,62 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         );
       });
     });
+  }
+}
+
+class ChaosFactorPanel extends StatelessWidget {
+  const ChaosFactorPanel({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Text('Chaos Factor'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: ListButton(
+                labelAlignment: Alignment.center,
+                label: 'Up',
+                onPressed: () {
+                  var chaosFactor = context.read<ChaosFactor>();
+                  chaosFactor.increase();
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+              child: Consumer<ChaosFactor>(
+                builder: (context, chaosFactor, child) => SizedBox(
+                  width: 30.0,
+                  child: Center(
+                    child: Text(
+                      chaosFactor.chaosFactor.toString(),
+                      style: const TextStyle(
+                          fontSize: 36.0, color: CupertinoColors.systemPink),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListButton(
+                labelAlignment: Alignment.center,
+                label: 'Down',
+                onPressed: () {
+                  var chaosFactor = context.read<ChaosFactor>();
+                  chaosFactor.decrease();
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 

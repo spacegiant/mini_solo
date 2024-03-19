@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/chaos_factor.dart';
 import 'package:provider/provider.dart';
 
 import 'my_homepage.dart';
