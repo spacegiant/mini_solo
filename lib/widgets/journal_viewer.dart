@@ -19,7 +19,7 @@ class JournalViewer extends StatelessWidget {
         print('tapped');
       },
       child: Container(
-        color: CupertinoColors.systemYellow,
+        color: CupertinoColors.systemTeal,
         child: Column(
           children: [
             Container(
@@ -73,62 +73,78 @@ class JournalInput extends StatelessWidget {
           child: Row(
             children: [
               const Spacer(),
-              CupertinoButton(
-                padding: const EdgeInsets.all(0.0),
-                color: CupertinoColors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                child: const Icon(
-                  CupertinoIcons.add,
-                  size: 20.0,
-                  color: CupertinoColors.black,
-                ),
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.addJournalEntry);
-                  appState.toggleShowPopup();
-                },
-              ),
+              addJournalEntryButton(appState),
               const SizedBox(
                 width: 16.0,
               ),
-              CupertinoButton(
-                padding: const EdgeInsets.all(0.0),
-                color: CupertinoColors.destructiveRed,
-                child: const Icon(
-                  CupertinoIcons.arrow_up,
-                  size: 20.0,
-                ),
-                onPressed: () {},
-              ),
+              jumpToFirstButton(),
               const SizedBox(
                 width: 4.0,
               ),
-              CupertinoButton(
-                padding: const EdgeInsets.all(0.0),
-                color: CupertinoColors.destructiveRed,
-                child: const Icon(
-                  CupertinoIcons.arrow_down,
-                  size: 20.0,
-                ),
-                onPressed: () {},
-              ),
+              jumpToLatestButton(),
               const SizedBox(
                 width: 4.0,
               ),
-              CupertinoButton(
-                padding: const EdgeInsets.all(0.0),
-                color: CupertinoColors.destructiveRed,
-                child: const Icon(
-                  CupertinoIcons.line_horizontal_3_decrease,
-                  size: 20.0,
-                ),
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.journalFilter);
-                  appState.toggleShowPopup();
-                },
-              )
+              journalFilterButton(appState)
             ],
           ),
         );
+      },
+    );
+  }
+
+  CupertinoButton journalFilterButton(AppState appState) {
+    return CupertinoButton(
+      padding: const EdgeInsets.all(0.0),
+      color: CupertinoColors.destructiveRed,
+      child: const Icon(
+        CupertinoIcons.line_horizontal_3_decrease,
+        size: 20.0,
+      ),
+      onPressed: () {
+        appState.setPopupLabel(PopupLabels.journalFilter);
+        appState.toggleShowPopup();
+      },
+    );
+  }
+
+  CupertinoButton jumpToLatestButton() {
+    return CupertinoButton(
+      padding: const EdgeInsets.all(0.0),
+      color: CupertinoColors.destructiveRed,
+      child: const Icon(
+        CupertinoIcons.arrow_down,
+        size: 20.0,
+      ),
+      onPressed: () {},
+    );
+  }
+
+  CupertinoButton jumpToFirstButton() {
+    return CupertinoButton(
+      padding: const EdgeInsets.all(0.0),
+      color: CupertinoColors.destructiveRed,
+      child: const Icon(
+        CupertinoIcons.arrow_up,
+        size: 20.0,
+      ),
+      onPressed: () {},
+    );
+  }
+
+  CupertinoButton addJournalEntryButton(AppState appState) {
+    return CupertinoButton(
+      padding: const EdgeInsets.all(0.0),
+      color: CupertinoColors.white,
+      borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+      child: const Icon(
+        CupertinoIcons.add,
+        size: 20.0,
+        color: CupertinoColors.black,
+      ),
+      onPressed: () {
+        appState.setPopupLabel(PopupLabels.addJournalEntry);
+        appState.toggleShowPopup();
       },
     );
   }
