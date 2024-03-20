@@ -24,11 +24,15 @@ class ChaosFactorPopup extends StatelessWidget {
         children: [
           const Center(child: Text('Set Chaos Factor')),
           Center(
-            child: Text(
-              appState.chaosFactor.toString(),
-              style: const TextStyle(
-                fontSize: 40.0,
-              ),
+            child: Consumer<AppState>(
+              builder: (BuildContext context, appState, Widget? child) {
+                return Text(
+                  '${appState.chaosFactor}',
+                  style: const TextStyle(
+                    fontSize: 40.0,
+                  ),
+                );
+              },
             ),
           ),
           const SizedBox(
