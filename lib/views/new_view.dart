@@ -10,6 +10,7 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 
 import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
+import '../widgets/menuSpacer.dart';
 import 'new/new_scene.dart';
 
 class NewView extends StatelessWidget {
@@ -30,13 +31,13 @@ class NewView extends StatelessWidget {
         ),
       ),
       ListButton(label: 'Scene', onPressed: () => buildNewScene(context)),
-      const SizedBox(height: 16.0),
+      menuSpacer(),
       ListButton(label: 'Person', onPressed: () => buildNewPerson(context)),
       ListButton(label: 'Place', onPressed: () => buildNewPlace(context)),
       ListButton(label: 'Thing', onPressed: () => buildNewThing(context)),
       ListButton(label: 'Faction', onPressed: () => buildNewFaction(context)),
       ListButton(label: 'Clue', onPressed: () => buildNewClue(context)),
-      const SizedBox(height: 16.0),
+      menuSpacer(),
       ListButton(label: 'Creature', onPressed: () => buildNewCreature(context)),
       ListButton(
           label: '5 Room Dungeon', onPressed: () => buildNew5Room(context)),
