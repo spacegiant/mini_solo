@@ -106,23 +106,38 @@ class _JournalViewState extends State<JournalView> {
               const Gap(),
               ListButton(
                 label: 'Combat',
-                onPressed: () {},
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.combat);
+                  appState.toggleShowPopup();
+                },
               ),
               ListButton(
                 label: 'Social',
-                onPressed: () {},
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.social);
+                  appState.toggleShowPopup();
+                },
               ),
               ListButton(
                 label: 'Exploration',
-                onPressed: () {},
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.exploration);
+                  appState.toggleShowPopup();
+                },
               ),
               ListButton(
                 label: 'Travel',
-                onPressed: () {},
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.travel);
+                  appState.toggleShowPopup();
+                },
               ),
               ListButton(
                 label: 'Investigate',
-                onPressed: () {},
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.investigation);
+                  appState.toggleShowPopup();
+                },
               ),
             ]),
           ),

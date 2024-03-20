@@ -4,6 +4,12 @@ enum PopupLabels {
   chaos,
   fate,
   endScene,
+  combat,
+  social,
+  exploration,
+  investigation,
+  journalFilter,
+  travel,
 }
 
 class AppState extends ChangeNotifier {
