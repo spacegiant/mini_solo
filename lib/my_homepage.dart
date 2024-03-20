@@ -1,5 +1,6 @@
 import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:mini_solo/utilities/campaign_storage.dart';
+import 'package:mini_solo/utilities/init_form.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
@@ -101,7 +102,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             child: SafeArea(
               child: Stack(
                 children: [
-                  viewItems.map((e) => e.viewWidget).toList()[index],
+                  tabBarItems.map((e) => e.viewWidget).toList()[index],
                   popup(context),
                 ],
               ),
@@ -160,53 +161,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       onTap: (value) {
         handleClosePopup();
       },
-      items: viewItems
+      items: tabBarItems
           .map((e) => BottomNavigationBarItem(
                 label: e.label,
                 icon: Icon(e.icon),
               ))
           .toList(),
-    );
-  }
-}
-
-class InitForm extends StatefulWidget {
-  const InitForm({
-    super.key,
-    required this.initCampaignData,
-  });
-
-  final Function(String campaignName) initCampaignData;
-
-  @override
-  State<InitForm> createState() => _InitFormState();
-}
-
-class _InitFormState extends State<InitForm> {
-  // create key to identify this form
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: CupertinoFormSection(
-        margin: const EdgeInsets.all(8.0),
-        header: const Text('Enter a name for your campaign'),
-        children: [
-          CupertinoFormRow(
-            child: CupertinoTextFormFieldRow(
-              placeholder: 'Type here',
-              onFieldSubmitted: (campaignName) {
-                print(campaignName);
-                setState(() {
-                  widget.initCampaignData(campaignName);
-                });
-              },
-            ),
-          )
-        ],
-      ),
     );
   }
 }
