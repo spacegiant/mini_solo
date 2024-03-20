@@ -47,12 +47,34 @@ class JournalViewer extends StatelessWidget {
                     JournalEntry(
                       text: 'New Entry LATEST',
                     ),
+                    JournalEndGlyphs()
                   ],
                 ),
               ),
             ),
             const JournalInput(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class JournalEndGlyphs extends StatelessWidget {
+  const JournalEndGlyphs({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Center(
+        child: Text(
+          '❊❊❊',
+          style: TextStyle(
+            color: Colors.blueGrey,
+          ),
         ),
       ),
     );
@@ -113,7 +135,7 @@ class JournalInput extends StatelessWidget {
       padding: const EdgeInsets.all(0.0),
       color: CupertinoColors.destructiveRed,
       child: const Icon(
-        CupertinoIcons.arrow_down,
+        CupertinoIcons.arrow_down_to_line,
         size: 20.0,
       ),
       onPressed: () {},
@@ -125,7 +147,7 @@ class JournalInput extends StatelessWidget {
       padding: const EdgeInsets.all(0.0),
       color: CupertinoColors.destructiveRed,
       child: const Icon(
-        CupertinoIcons.arrow_up,
+        CupertinoIcons.arrow_up_to_line,
         size: 20.0,
       ),
       onPressed: () {},
