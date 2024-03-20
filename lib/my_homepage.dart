@@ -22,18 +22,17 @@ class MyHomePageIOS extends StatefulWidget {
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
-  late Map campaignData;
+  Map? campaignData;
 
   @override
   void initState() {
     super.initState();
     widget.storage.readJSON().then((data) {
-      if (data == null) {
-        print('no campaign');
+      if (campaignData != null) {
+        setState(() {
+          campaignData = data as Map;
+        });
       }
-      // setState(() {
-      //   campaignData = data as Map<dynamic, dynamic>;
-      // });
     });
   }
 
@@ -43,16 +42,33 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   @override
   Widget build(BuildContext context) {
-    return showSettings
-        ? SettingsView(
-            title: widget.title,
-            closeSettings: toggleSettings,
-          )
-        : Consumer<AppState>(
-            builder: (context, appState, child) {
-              return homePageTabScaffold(appState);
-            },
-          );
+    if (campaignData == null) {
+      return const CupertinoPageScaffold(
+        child: SafeArea(
+            child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Welcome to Solo App'),
+              InitForm(),
+              SizedBox.shrink(),
+            ],
+          ),
+        )),
+      );
+    } else if (showSettings == true) {
+      return SettingsView(
+        title: widget.title,
+        closeSettings: toggleSettings,
+      );
+    } else {
+      return Consumer<AppState>(
+        builder: (context, appState, child) {
+          return homePageTabScaffold(appState);
+        },
+      );
+    }
   }
 
   GestureDetector homePageTabScaffold(AppState appState) {
@@ -132,14 +148,52 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
     return CupertinoTabBar(
-        onTap: (value) {
-          handleClosePopup();
-        },
-        items: viewItems
-            .map((e) => BottomNavigationBarItem(
-                  label: e.label,
-                  icon: Icon(e.icon),
-                ))
-            .toList());
+      onTap: (value) {
+        handleClosePopup();
+      },
+      items: viewItems
+          .map((e) => BottomNavigationBarItem(
+                label: e.label,
+                icon: Icon(e.icon),
+              ))
+          .toList(),
+    );
+  }
+}
+
+class InitForm extends StatefulWidget {
+  const InitForm({super.key});
+
+  @override
+  State<InitForm> createState() => _InitFormState();
+}
+
+class _InitFormState extends State<InitForm> {
+  // create key to identify this form
+  final _formKey = GlobalKey<FormState>();
+
+  void _submit() {
+    print('submit');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: CupertinoFormSection(
+        margin: const EdgeInsets.all(8.0),
+        header: const Text('Enter a name for your campaign'),
+        children: [
+          CupertinoFormRow(
+            child: CupertinoTextFormFieldRow(
+              placeholder: 'Type here',
+              onFieldSubmitted: (campaignName) {
+                print(campaignName);
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
