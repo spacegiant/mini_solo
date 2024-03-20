@@ -6,45 +6,45 @@ import 'package:mini_solo/views/new_view.dart';
 import 'package:mini_solo/views/starred_view.dart';
 import 'package:mini_solo/views/tracker_view.dart';
 
-class ViewItem {
+class TabBarItem {
   String label;
   IconData icon;
   Widget viewWidget;
 
-  ViewItem({
+  TabBarItem({
     required this.label,
     required this.icon,
     required this.viewWidget,
   });
 }
 
-List<ViewItem> viewItems = [
-  ViewItem(
+List<TabBarItem> tabBarItems = [
+  TabBarItem(
     label: 'Journal',
     icon: CupertinoIcons.book,
     viewWidget: const JournalView(),
   ),
-  ViewItem(
+  TabBarItem(
     label: 'New',
     icon: CupertinoIcons.add,
     viewWidget: const NewView(),
   ),
-  ViewItem(
+  TabBarItem(
     label: 'Starred',
     icon: CupertinoIcons.star,
     viewWidget: const StarredView(),
   ),
-  ViewItem(
+  TabBarItem(
     label: 'Trackers',
     icon: CupertinoIcons.check_mark_circled,
     viewWidget: const TrackerView(),
   ),
-  ViewItem(
+  TabBarItem(
     label: 'Lists',
     icon: CupertinoIcons.pencil,
     viewWidget: const ListsView(),
   ),
-  ViewItem(
+  TabBarItem(
     label: 'Dice',
     icon: CupertinoIcons.cube,
     viewWidget: const DiceView(),

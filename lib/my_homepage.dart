@@ -113,6 +113,20 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
+  CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
+    return CupertinoTabBar(
+      onTap: (value) {
+        handleClosePopup();
+      },
+      items: tabBarItems
+          .map((e) => BottomNavigationBarItem(
+                label: e.label,
+                icon: Icon(e.icon),
+              ))
+          .toList(),
+    );
+  }
+
   CupertinoNavigationBar homePageNavigationBar(
       AppState appState, toggleSettings) {
     return CupertinoNavigationBar(
@@ -153,20 +167,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           ),
         ],
       ),
-    );
-  }
-
-  CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
-    return CupertinoTabBar(
-      onTap: (value) {
-        handleClosePopup();
-      },
-      items: tabBarItems
-          .map((e) => BottomNavigationBarItem(
-                label: e.label,
-                icon: Icon(e.icon),
-              ))
-          .toList(),
     );
   }
 }
