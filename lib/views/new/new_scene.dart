@@ -1,16 +1,12 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/mythic_action_data.dart';
-import 'package:mini_solo/data/mythic_elements_plot_twist.dart';
-import 'package:mini_solo/my_homepage.dart';
-import 'package:provider/provider.dart';
-
-import '../../data/mythic_description_data.dart';
-import '../../data/mythic_event_focus_data.dart';
+import '../../utilities/get_weighted_result.dart';
+import '../../utilities/read_json_file.dart';
+import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
+import '../journal_view.dart';
 
 class NewSceneMenu extends StatefulWidget {
   const NewSceneMenu({super.key});
@@ -21,123 +17,110 @@ class NewSceneMenu extends StatefulWidget {
 
 class _NewSceneMenuState extends State<NewSceneMenu> {
   String outputText = '...';
+  String line1 = '...';
+  String? line2;
+  String? line3;
+  late var mythicJSON = {};
+
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       Output(
-        text: [outputText],
+        line1: line1,
+        line2: line2,
+        line3: line3,
       ),
       ListButton(
         label: 'Mythic Action',
         onPressed: () {
-          MythicActionData mythicActions = MythicActionData();
-          setState(() {
-            outputText = consultOracle(
-              table1: mythicActions.table1,
-              table2: mythicActions.table2,
-            );
-          });
+          getMythicAction();
         },
       ),
       ListButton(
         label: 'Mythic Description',
         onPressed: () {
-          MythicDescriptionData mythicDescriptions = MythicDescriptionData();
-          setState(() {
-            outputText = consultOracle(
-              table1: mythicDescriptions.table1,
-              table2: mythicDescriptions.table2,
-            );
-          });
+          getMythicDescription();
         },
       ),
       ListButton(
         label: 'Event Focus',
         onPressed: () {
-          MythicEventFocusData mythicEvents = MythicEventFocusData();
-          setState(() {
-            List<WeightedItem> mythicEventsTable = mythicEvents.table1;
-            // Get total weights from list
-            int weightsSum = 0;
-            for (var i = 0; i < mythicEventsTable.length; i++) {
-              weightsSum = weightsSum + mythicEventsTable[i].weight;
-            }
-            // Get random number between 0 and weightSum
-            int randomRoll = Random().nextInt(weightsSum - 1);
-
-            // Find the item in the list that corresponds with the random number
-            int tally = 0;
-            for (var j = 0; j < mythicEventsTable.length; j++) {
-              tally += mythicEventsTable[j].weight;
-              if (randomRoll < tally) {
-                outputText = mythicEventsTable[j].text;
-                return;
-              }
-            }
+          getWeightedResult('lib/assets/json/mythic.json', (String text) {
+            setState(() {
+              line1 = text;
+              line2 = null;
+              line3 = null;
+            });
           });
         },
       ),
-      const Text('Chaos Factor'),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: ListButton(
-              labelAlignment: Alignment.center,
-              label: 'Up',
-              onPressed: () {
-                var chaosFactor = context.read<ChaosFactor>();
-                chaosFactor.increase();
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-            child: Consumer<ChaosFactor>(
-              builder: (context, chaosFactor, child) => SizedBox(
-                width: 30.0,
-                child: Center(
-                  child: Text(
-                    chaosFactor.chaosFactor.toString(),
-                    style: const TextStyle(
-                        fontSize: 36.0, color: CupertinoColors.systemPink),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListButton(
-              labelAlignment: Alignment.center,
-              label: 'Down',
-              onPressed: () {
-                var chaosFactor = context.read<ChaosFactor>();
-                chaosFactor.decrease();
-              },
-            ),
-          ),
-        ],
-      ),
+      const ChaosFactorPanel(),
       const Text('Mythic Elements'),
       ListButton(
         label: 'Plot Twist',
         onPressed: () {
-          MythicElementsPlotTwist mythicPlotTwist = MythicElementsPlotTwist();
-          setState(() {
-            outputText = consultOracle(
-              table1: mythicPlotTwist.table1,
-              table2: mythicPlotTwist.table1,
-            );
-          });
+          getPlotTwist();
         },
       )
     ]);
   }
-}
 
-void doSomething() {
-  print('pressed');
+  void getMythicDescription() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<String> table1 = List<String>.from(value['description1']);
+      List<String> table2 = List<String>.from(value['description2']);
+
+      ReturnObject result = consultOracle(
+        table1: table1,
+        table2: table2,
+      );
+
+      setState(() {
+        line1 = result.line1;
+        line2 = result.line2;
+        line3 = null;
+      });
+    });
+  }
+
+  void getMythicAction() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<String> table1 = List<String>.from(value['action1']);
+      List<String> table2 = List<String>.from(value['action2']);
+
+      ReturnObject result = consultOracle(
+        table1: table1,
+        table2: table2,
+      );
+
+      setState(() {
+        line1 = result.line1;
+        line2 = result.line2;
+        line3 = null;
+      });
+    });
+  }
+
+  void getPlotTwist() {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
+        .then((value) {
+      List<String> table1 = List<String>.from(value['elements']['plot_twist']);
+      List<String> table2 = List<String>.from(value['elements']['plot_twist']);
+
+      ReturnObject result = consultOracle(
+        table1: table1,
+        table2: table2,
+      );
+
+      setState(() {
+        line1 = result.line1;
+        line2 = result.line2;
+        line3 = null;
+      });
+    });
+  }
 }
 
 String consultTable(List<String> table) {
@@ -145,8 +128,13 @@ String consultTable(List<String> table) {
   return table[random];
 }
 
-String consultOracle({required List<String> table1, List<String>? table2}) {
+ReturnObject consultOracle(
+    {required List<String> table1, List<String>? table2}) {
   String result1 = consultTable(table1);
-  String result2 = table2 != null ? '\n${consultTable(table2)}' : '';
-  return '$result1$result2';
+  String result2 = table2 != null ? consultTable(table2) : '';
+
+  return ReturnObject(
+    line1: result1,
+    line2: result2,
+  );
 }

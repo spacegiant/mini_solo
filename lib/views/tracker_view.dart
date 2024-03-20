@@ -17,6 +17,7 @@ class TrackerView extends StatelessWidget {
       Gap(),
       TimerTracker(),
       Gap(),
+      Text('Initiative please'),
       AddTracker(),
     ]);
   }
