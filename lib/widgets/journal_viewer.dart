@@ -12,50 +12,54 @@ class JournalViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: () {
-        // Add docs on this action
-        print('tapped');
-      },
-      child: Container(
-        color: CupertinoColors.systemTeal,
-        child: Column(
-          children: [
-            Container(
-              constraints: const BoxConstraints(
-                maxHeight: 200.0,
-                minHeight: 200.0,
-              ),
-              child: const SingleChildScrollView(
-                reverse: true,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    JournalStartEntry(),
-                    JournalEntry(
-                      text: 'New Entry',
+    return Consumer<AppState>(
+      builder: (BuildContext context, AppState appState, Widget? child) {
+        return GestureDetector(
+          onLongPress: () {
+            appState.setPopupLabel(PopupLabels.fullJournal);
+            appState.toggleShowPopup();
+          },
+          child: Container(
+            color: CupertinoColors.systemTeal,
+            child: Column(
+              children: [
+                Container(
+                  constraints: const BoxConstraints(
+                    maxHeight: 200.0,
+                    minHeight: 200.0,
+                  ),
+                  child: const SingleChildScrollView(
+                    reverse: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        JournalStartEntry(),
+                        JournalEntry(
+                          text: 'New Entry',
+                        ),
+                        JournalEntry(
+                          text: 'New Entry',
+                        ),
+                        JournalEntry(
+                          text: 'New Entry',
+                        ),
+                        JournalEntry(
+                          text: 'New Entry',
+                        ),
+                        JournalEntry(
+                          text: 'New Entry LATEST',
+                        ),
+                        JournalEndGlyphs()
+                      ],
                     ),
-                    JournalEntry(
-                      text: 'New Entry',
-                    ),
-                    JournalEntry(
-                      text: 'New Entry',
-                    ),
-                    JournalEntry(
-                      text: 'New Entry',
-                    ),
-                    JournalEntry(
-                      text: 'New Entry LATEST',
-                    ),
-                    JournalEndGlyphs()
-                  ],
+                  ),
                 ),
-              ),
+                const JournalInput(),
+              ],
             ),
-            const JournalInput(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
