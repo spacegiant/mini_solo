@@ -1,3 +1,4 @@
+import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:mini_solo/utilities/campaign_storage.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/app_state.dart';
@@ -20,30 +21,6 @@ class MyHomePageIOS extends StatefulWidget {
   State<MyHomePageIOS> createState() => _MyHomePageIOSState();
 }
 
-class CampaignData {
-  late String name;
-  late List<Map<String, dynamic>>? journal;
-  late List<Map<String, dynamic>>? people;
-  late List<Map<String, dynamic>>? places;
-  late List<Map<String, dynamic>>? things;
-  late List<Map<String, dynamic>>? factions;
-  late List<Map<String, dynamic>>? clues;
-  late List<Map<String, dynamic>>? creatures;
-  late List<Map<String, dynamic>>? dungeons;
-
-  CampaignData({
-    required this.name,
-    required this.journal,
-    required this.people,
-    required this.places,
-    required this.things,
-    required this.factions,
-    required this.clues,
-    required this.creatures,
-    required this.dungeons,
-  });
-}
-
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
   CampaignData? campaignData;
@@ -60,24 +37,14 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  void initCampaignData(String campaignName) {
-    setState(() {
-      campaignData = CampaignData(
-        name: campaignName,
-        journal: [],
-        people: [],
-        places: [],
-        things: [],
-        factions: [],
-        clues: [],
-        creatures: [],
-        dungeons: [],
-      );
-    });
-  }
-
   void toggleSettings() {
     setState(() => showSettings = !showSettings);
+  }
+
+  void initCampaignData(String campaignName) {
+    setState(() {
+      campaignData = initCampaignDataData(campaignName);
+    });
   }
 
   @override
