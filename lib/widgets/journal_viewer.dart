@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
+import 'gap.dart';
 import 'journal_entry.dart';
 
 class JournalViewer extends StatelessWidget {
@@ -20,7 +20,6 @@ class JournalViewer extends StatelessWidget {
         color: CupertinoColors.systemYellow,
         child: Column(
           children: [
-            const JournalInputBar(),
             Container(
               constraints: const BoxConstraints(
                 maxHeight: 200.0,
@@ -50,27 +49,11 @@ class JournalViewer extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CupertinoTextField(
-                placeholder: 'Write...',
-              ),
-            ),
+            const JournalInput(),
           ],
         ),
       ),
     );
-  }
-}
-
-class JournalInputBar extends StatelessWidget {
-  const JournalInputBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('Filter here');
   }
 }
 
@@ -81,8 +64,28 @@ class JournalInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoTextField(
-      placeholder: 'Type here',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          const Expanded(
+            child: CupertinoTextField(
+              placeholder: 'Write...',
+            ),
+          ),
+          const SizedBox(
+            width: 10.0,
+          ),
+          CupertinoButton(
+              padding: const EdgeInsets.all(0.0),
+              color: CupertinoColors.destructiveRed,
+              child: const Icon(
+                CupertinoIcons.line_horizontal_3_decrease,
+                size: 20.0,
+              ),
+              onPressed: () {})
+        ],
+      ),
     );
   }
 }
