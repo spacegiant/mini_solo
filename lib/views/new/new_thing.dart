@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/menuSpacer.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -26,10 +27,42 @@ class _NewThingMenuState extends State<NewThingMenu> {
         line3: line3,
       ),
       ListButton(
-          label: 'Do something',
-          onPressed: () {
-            print('Pressed');
-          }),
+        label: 'Name',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Object Type',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Condition',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Owner',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Function',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      menuSpacer(),
+      ListButton(
+        label: 'Save',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
     ]);
   }
 }
