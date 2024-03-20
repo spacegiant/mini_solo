@@ -1,3 +1,4 @@
+import 'package:mini_solo/utilities/campaign_storage.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
@@ -9,9 +10,11 @@ class MyHomePageIOS extends StatefulWidget {
   const MyHomePageIOS({
     super.key,
     required this.title,
+    required this.storage,
   });
 
   final String title;
+  final CampaignStorage storage;
 
   @override
   State<MyHomePageIOS> createState() => _MyHomePageIOSState();
@@ -19,6 +22,20 @@ class MyHomePageIOS extends StatefulWidget {
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
+  late Map campaignData;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.storage.readJSON().then((data) {
+      if (data == null) {
+        print('no campaign');
+      }
+      // setState(() {
+      //   campaignData = data as Map<dynamic, dynamic>;
+      // });
+    });
+  }
 
   void toggleSettings() {
     setState(() => showSettings = !showSettings);
