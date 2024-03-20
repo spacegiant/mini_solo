@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/menuSpacer.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -26,10 +27,42 @@ class _NewFactionMenuState extends State<NewFactionMenu> {
         line3: line3,
       ),
       ListButton(
-          label: 'Do something',
-          onPressed: () {
-            print('Pressed');
-          }),
+        label: 'Purpose',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Faction Name',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Secret',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Goal',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Logo/Icon',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      menuSpacer(),
+      ListButton(
+        label: 'Purpose',
+        onPressed: () {
+          print('Save');
+        },
+      ),
     ]);
   }
 }
