@@ -11,6 +11,7 @@ class AppState extends ChangeNotifier {
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
+  late final bool _useJournal = true;
 
   // CHAOS FACTOR
   int get chaosFactor => _chaosFactor;
@@ -61,4 +62,8 @@ class AppState extends ChangeNotifier {
   }
 
   bool get showSettings => _showSettings;
+
+//   USE JOURNAL
+
+  bool get useJournal => _useJournal;
 }

@@ -66,16 +66,17 @@ class _JournalViewState extends State<JournalView> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const JournalViewer(),
+          appState.useJournal ? const JournalViewer() : const SizedBox.shrink(),
           Expanded(
             flex: 1,
             child: ViewWrapper(children: [
-              Output(
-                line1: line1,
-                line2: line2,
-                line3: line3,
-              ),
-              const Text('Filter needed'),
+              !appState.useJournal
+                  ? Output(
+                      line1: line1,
+                      line2: line2,
+                      line3: line3,
+                    )
+                  : const SizedBox.shrink(),
               ListButton(
                   label: 'Test Your Expected Scene',
                   onPressed: () {
