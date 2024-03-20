@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+
+import '../widgets/app_state.dart';
 
 enum Category { general, campaign, tools }
 
@@ -146,37 +149,48 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SettingsHeading(label: 'General settings'),
-          SettingsOption(
-            isActive: autoCopy,
-            label: 'Copy to clipboard automatically',
-            onChanged: (isChecked) {
-              setState(() {
-                autoCopy = isChecked!;
-              });
-            },
+    return Consumer<AppState>(
+      builder: (BuildContext context, appState, Widget? child) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SettingsHeading(label: 'General settings'),
+              SettingsOption(
+                isActive: appState.useJournal,
+                label: 'Use the journal',
+                onChanged: (isChecked) {
+                  appState.toggleUseJournal();
+                },
+              ),
+              SettingsOption(
+                isActive: autoCopy,
+                label: 'Copy to clipboard automatically',
+                onChanged: (isChecked) {
+                  setState(() {
+                    autoCopy = isChecked!;
+                  });
+                },
+              ),
+              SettingsOption(
+                isActive: true,
+                label: 'Send to journal',
+                onChanged: (isChecked) {
+                  // setState(() {
+                  //   autoCopy = isChecked!;
+                  // });
+                },
+              ),
+              const SettingsHeading(label: 'Dice'),
+              const Text('Choose which dice you want shown'),
+              const SettingsHeading(label: 'Theme'),
+              const Text('Light/Dark/Match OS'),
+              const Text('Fantasy/Scifi/Modern Theme?')
+            ],
           ),
-          SettingsOption(
-            isActive: true,
-            label: 'Send to journal',
-            onChanged: (isChecked) {
-              // setState(() {
-              //   autoCopy = isChecked!;
-              // });
-            },
-          ),
-          const SettingsHeading(label: 'Dice'),
-          const Text('Choose which dice you want shown'),
-          const SettingsHeading(label: 'Theme'),
-          const Text('Light/Dark/Match OS'),
-          const Text('Fantasy/Scifi/Modern Theme?')
-        ],
-      ),
+        );
+      },
     );
   }
 }

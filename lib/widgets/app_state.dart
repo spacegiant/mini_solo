@@ -20,7 +20,7 @@ class AppState extends ChangeNotifier {
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
-  late final bool _useJournal = true;
+  late bool _useJournal = true;
 
   // CURRENT CAMPAIGN
   String get currentCampaign => _currentCampaign;
@@ -83,4 +83,9 @@ class AppState extends ChangeNotifier {
 //   USE JOURNAL
 
   bool get useJournal => _useJournal;
+
+  void toggleUseJournal() {
+    _useJournal = !_useJournal;
+    notifyListeners();
+  }
 }
