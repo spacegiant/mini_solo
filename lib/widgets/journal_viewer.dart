@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'app_state.dart';
 import 'gap.dart';
 import 'journal_entry.dart';
 
@@ -64,28 +66,70 @@ class JournalInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          const Expanded(
-            child: CupertinoTextField(
-              placeholder: 'Write...',
-            ),
-          ),
-          const SizedBox(
-            width: 10.0,
-          ),
-          CupertinoButton(
-              padding: const EdgeInsets.all(0.0),
-              color: CupertinoColors.destructiveRed,
-              child: const Icon(
-                CupertinoIcons.line_horizontal_3_decrease,
-                size: 20.0,
+    return Consumer<AppState>(
+      builder: (BuildContext context, appState, Widget? child) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              const Spacer(),
+              CupertinoButton(
+                padding: const EdgeInsets.all(0.0),
+                color: CupertinoColors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                child: const Icon(
+                  CupertinoIcons.add,
+                  size: 20.0,
+                  color: CupertinoColors.black,
+                ),
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.addJournalEntry);
+                  appState.toggleShowPopup();
+                },
               ),
-              onPressed: () {})
-        ],
-      ),
+              const SizedBox(
+                width: 16.0,
+              ),
+              CupertinoButton(
+                padding: const EdgeInsets.all(0.0),
+                color: CupertinoColors.destructiveRed,
+                child: const Icon(
+                  CupertinoIcons.arrow_up,
+                  size: 20.0,
+                ),
+                onPressed: () {},
+              ),
+              const SizedBox(
+                width: 4.0,
+              ),
+              CupertinoButton(
+                padding: const EdgeInsets.all(0.0),
+                color: CupertinoColors.destructiveRed,
+                child: const Icon(
+                  CupertinoIcons.arrow_down,
+                  size: 20.0,
+                ),
+                onPressed: () {},
+              ),
+              const SizedBox(
+                width: 4.0,
+              ),
+              CupertinoButton(
+                padding: const EdgeInsets.all(0.0),
+                color: CupertinoColors.destructiveRed,
+                child: const Icon(
+                  CupertinoIcons.line_horizontal_3_decrease,
+                  size: 20.0,
+                ),
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.journalFilter);
+                  appState.toggleShowPopup();
+                },
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

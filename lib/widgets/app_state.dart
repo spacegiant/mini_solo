@@ -10,14 +10,25 @@ enum PopupLabels {
   investigation,
   journalFilter,
   travel,
+  addJournalEntry,
 }
 
 class AppState extends ChangeNotifier {
+  // TODO: Make sure this is not set on first run
+  late String _currentCampaign;
   late int _chaosFactor = 5;
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
   late final bool _useJournal = true;
+
+  // CURRENT CAMPAIGN
+  String get currentCampaign => _currentCampaign;
+
+  void setCurrentCampaign(String campaignName) {
+    _currentCampaign = campaignName;
+    notifyListeners();
+  }
 
   // CHAOS FACTOR
   int get chaosFactor => _chaosFactor;
