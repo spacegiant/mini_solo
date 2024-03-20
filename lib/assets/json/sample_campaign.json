@@ -1,0 +1,33 @@
+{
+  "name": "Sample Campaign",
+  "cf": 7,
+  "journal": [
+    {
+      "type": "scene",
+      "title": "This is a title",
+      "detail": "This is detail"
+    },
+    {
+      "type": "fate",
+      "title": "This is a title",
+      "detail": "This is detail"
+    },
+    {
+      "type": "roll",
+      "title": "This is a title",
+      "detail": "This is detail"
+    },
+    {
+      "type": "person",
+      "title": "This is a title",
+      "detail": "This is detail"
+    }
+  ],
+  "people": [],
+  "places": [],
+  "things": [],
+  "factions": [],
+  "clue": [],
+  "foe": [],
+  "dungeon": [],
+}
