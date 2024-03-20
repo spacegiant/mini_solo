@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/menuSpacer.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -26,10 +27,42 @@ class _NewCreatureMenuState extends State<NewCreatureMenu> {
         line3: line3,
       ),
       ListButton(
-          label: 'Do something',
-          onPressed: () {
-            print('Pressed');
-          }),
+        label: 'Type',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Size',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Impulse',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Method',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      ListButton(
+        label: 'Attacks',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
+      menuSpacer(),
+      ListButton(
+        label: 'Do something',
+        onPressed: () {
+          print('Pressed');
+        },
+      ),
     ]);
   }
 }
