@@ -31,47 +31,28 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             title: widget.title,
             closeSettings: toggleSettings,
           )
-        : Consumer<AppState>(builder: (context, appState, child) {
-            return CupertinoTabScaffold(
-              tabBar: tabBar(appState.closePopup),
-              tabBuilder: (BuildContext context, int index) {
-                return tabView(index, toggleSettings);
-              },
-            );
-          });
+        : Consumer<AppState>(
+            builder: (context, appState, child) {
+              return homePageTabScaffold(appState);
+            },
+          );
   }
 
-  Consumer<AppState> tabView(int index, toggleSettings) {
+  CupertinoTabScaffold homePageTabScaffold(AppState appState) {
+    return CupertinoTabScaffold(
+      tabBar: homePageTabBar(appState.closePopup),
+      tabBuilder: (BuildContext context, int index) {
+        return homePageTabView(index, toggleSettings);
+      },
+    );
+  }
+
+  Consumer<AppState> homePageTabView(int index, toggleSettings) {
     return Consumer<AppState>(builder: (context, appState, child) {
       return CupertinoTabView(
         builder: (BuildContext context) {
           return CupertinoPageScaffold(
-            navigationBar: CupertinoNavigationBar(
-              leading: CupertinoButton(
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.chaos);
-                  appState.toggleShowPopup();
-                },
-                padding: const EdgeInsets.all(0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'CF ${appState.chaosFactor}',
-                      overflow: TextOverflow.visible,
-                    ),
-                  ],
-                ),
-              ),
-              middle: const Text('Solo App'),
-              trailing: CupertinoButton(
-                padding: const EdgeInsets.all(0.0),
-                onPressed: toggleSettings,
-                child: const Icon(
-                  CupertinoIcons.settings_solid,
-                ),
-              ),
-            ),
+            navigationBar: homePageNavigationBar(appState, toggleSettings),
             child: SafeArea(
               child: Stack(
                 children: [
@@ -86,7 +67,45 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  CupertinoTabBar tabBar(Function() handleClosePopup) {
+  CupertinoNavigationBar homePageNavigationBar(
+      AppState appState, toggleSettings) {
+    return CupertinoNavigationBar(
+      leading: homePageChaosFactorButton(appState),
+      middle: const Text('Solo App'),
+      trailing: homePageSettingsButton(toggleSettings),
+    );
+  }
+
+  CupertinoButton homePageSettingsButton(toggleSettings) {
+    return CupertinoButton(
+      padding: const EdgeInsets.all(0.0),
+      onPressed: toggleSettings,
+      child: const Icon(
+        CupertinoIcons.settings_solid,
+      ),
+    );
+  }
+
+  CupertinoButton homePageChaosFactorButton(AppState appState) {
+    return CupertinoButton(
+      onPressed: () {
+        appState.setPopupLabel(PopupLabels.chaos);
+        appState.toggleShowPopup();
+      },
+      padding: const EdgeInsets.all(0.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'CF ${appState.chaosFactor}',
+            overflow: TextOverflow.visible,
+          ),
+        ],
+      ),
+    );
+  }
+
+  CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
     return CupertinoTabBar(
         onTap: (value) {
           handleClosePopup();
