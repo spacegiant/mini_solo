@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/menuSpacer.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';
@@ -26,7 +27,39 @@ class _New5RoomMenuState extends State<New5RoomMenu> {
         line3: line3,
       ),
       ListButton(
-          label: 'Do something',
+          label: 'Random',
+          onPressed: () {
+            print('Pressed');
+          }),
+      menuSpacer(),
+      ListButton(
+          label: 'Room1',
+          onPressed: () {
+            print('Pressed');
+          }),
+      ListButton(
+          label: 'Room2',
+          onPressed: () {
+            print('Pressed');
+          }),
+      ListButton(
+          label: 'Room3',
+          onPressed: () {
+            print('Pressed');
+          }),
+      ListButton(
+          label: 'Room4',
+          onPressed: () {
+            print('Pressed');
+          }),
+      ListButton(
+          label: 'Room5',
+          onPressed: () {
+            print('Pressed');
+          }),
+      menuSpacer(),
+      ListButton(
+          label: 'Save',
           onPressed: () {
             print('Pressed');
           }),
