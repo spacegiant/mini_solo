@@ -22,6 +22,21 @@ class CampaignData {
   });
 }
 
+// TODO: Set up so that each type has different data shape
+enum JournalEntryTypes {
+  oracle,
+  roll,
+  action,
+  outcome,
+  fateCheck,
+  newScene,
+  newEntity,
+  gm,
+  pc,
+  npc,
+  transition,
+}
+
 CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     name: campaignName,
@@ -36,7 +51,7 @@ CampaignData initCampaignDataData(String campaignName) {
   );
 }
 
-class CampaignItem {
+abstract class CampaignItem {
   bool isFavourite = false;
 
   CampaignItem({
@@ -45,14 +60,14 @@ class CampaignItem {
 }
 
 class JournalEntry extends CampaignItem {
-  late String type;
-  late String title;
+  late JournalEntryTypes type;
+  String title;
   String? detail;
 
   JournalEntry({
     required super.isFavourite,
-    required this.type,
     required this.title,
+    required this.type,
     this.detail,
   });
 }
