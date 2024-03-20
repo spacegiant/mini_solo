@@ -18,11 +18,19 @@ class ChaosFactorPopup extends StatelessWidget {
 
     return SizedBox(
       width: 200.0,
-      height: 200.0,
+      height: 240.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Center(child: Text('Set Chaos Factor')),
+          Center(
+            child: Text(
+              appState.chaosFactor.toString(),
+              style: const TextStyle(
+                fontSize: 40.0,
+              ),
+            ),
+          ),
           const SizedBox(
             width: 10.0,
             height: 10.0,
