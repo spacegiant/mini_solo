@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
-import 'gap.dart';
 import 'journal_entry.dart';
 
 class JournalViewer extends StatelessWidget {
@@ -32,6 +31,7 @@ class JournalViewer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    JournalStartEntry(),
                     JournalEntry(
                       text: 'New Entry',
                     ),
@@ -56,6 +56,20 @@ class JournalViewer extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class JournalStartEntry extends StatelessWidget {
+  const JournalStartEntry({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Center(child: Text('The Adventure Begins...')),
     );
   }
 }
