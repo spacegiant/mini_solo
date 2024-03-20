@@ -45,6 +45,13 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void closePopup() {
+    if (_showPopup == true) {
+      _showPopup = false;
+      notifyListeners();
+    }
+  }
+
   bool get showPopup => _showPopup;
 
 //   SETTINGS

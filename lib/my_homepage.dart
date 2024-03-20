@@ -31,12 +31,14 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             title: widget.title,
             closeSettings: toggleSettings,
           )
-        : CupertinoTabScaffold(
-            tabBar: tabBar(),
-            tabBuilder: (BuildContext context, int index) {
-              return tabView(index, toggleSettings);
-            },
-          );
+        : Consumer<AppState>(builder: (context, appState, child) {
+            return CupertinoTabScaffold(
+              tabBar: tabBar(appState.closePopup),
+              tabBuilder: (BuildContext context, int index) {
+                return tabView(index, toggleSettings);
+              },
+            );
+          });
   }
 
   Consumer<AppState> tabView(int index, toggleSettings) {
@@ -84,10 +86,10 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  CupertinoTabBar tabBar() {
+  CupertinoTabBar tabBar(Function() handleClosePopup) {
     return CupertinoTabBar(
         onTap: (value) {
-          print('ontap');
+          handleClosePopup();
         },
         items: viewItems
             .map((e) => BottomNavigationBarItem(
