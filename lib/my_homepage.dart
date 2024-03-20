@@ -20,9 +20,25 @@ class MyHomePageIOS extends StatefulWidget {
   State<MyHomePageIOS> createState() => _MyHomePageIOSState();
 }
 
+class CampaignData {
+  late String name;
+  late Map<String, dynamic>? journal;
+  late Map<String, dynamic>? people;
+  late Map<String, dynamic>? places;
+  late Map<String, dynamic>? things;
+
+  CampaignData({
+    required this.name,
+    this.journal,
+    this.people,
+    this.places,
+    this.things,
+  });
+}
+
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
   bool showSettings = false;
-  Map? campaignData;
+  CampaignData? campaignData;
 
   @override
   void initState() {
@@ -30,9 +46,15 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.readJSON().then((data) {
       if (campaignData != null) {
         setState(() {
-          campaignData = data as Map;
+          campaignData = data as CampaignData;
         });
       }
+    });
+  }
+
+  void initCampaignData(String campaignName) {
+    setState(() {
+      campaignData = CampaignData(name: campaignName);
     });
   }
 
@@ -43,16 +65,18 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   @override
   Widget build(BuildContext context) {
     if (campaignData == null) {
-      return const CupertinoPageScaffold(
+      return CupertinoPageScaffold(
         child: SafeArea(
             child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Welcome to Solo App'),
-              InitForm(),
-              SizedBox.shrink(),
+              const Text('Welcome to Solo App'),
+              InitForm(
+                initCampaignData: initCampaignData,
+              ),
+              const SizedBox.shrink(),
             ],
           ),
         )),
@@ -112,7 +136,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             appState.setPopupLabel(PopupLabels.campaignManager);
             appState.toggleShowPopup();
           },
-          child: Text(appState.currentCampaign)),
+          child: Text(campaignData!.name)),
       trailing: homePageSettingsButton(toggleSettings),
     );
   }
@@ -162,7 +186,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 }
 
 class InitForm extends StatefulWidget {
-  const InitForm({super.key});
+  const InitForm({
+    super.key,
+    required this.initCampaignData,
+  });
+
+  final Function(String campaignName) initCampaignData;
 
   @override
   State<InitForm> createState() => _InitFormState();
@@ -171,10 +200,6 @@ class InitForm extends StatefulWidget {
 class _InitFormState extends State<InitForm> {
   // create key to identify this form
   final _formKey = GlobalKey<FormState>();
-
-  void _submit() {
-    print('submit');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,6 +214,9 @@ class _InitFormState extends State<InitForm> {
               placeholder: 'Type here',
               onFieldSubmitted: (campaignName) {
                 print(campaignName);
+                setState(() {
+                  widget.initCampaignData(campaignName);
+                });
               },
             ),
           )
