@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/app_state.dart';
 import '../widgets/gap.dart';
+import '../widgets/journal_viewer.dart';
 import '../widgets/output.dart';
 
 enum SceneState {
@@ -61,62 +62,71 @@ class _JournalViewState extends State<JournalView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
-      return ViewWrapper(children: [
-        Output(
-          line1: line1,
-          line2: line2,
-          line3: line3,
-        ),
-        const Text('Journal View'),
-        const Text('Filter needed'),
-        ListButton(
-            label: 'Test Your Expected Scene',
-            onPressed: () {
-              ReturnObject test = testScene(context);
-              setState(() {
-                line1 = test.line1;
-                line2 = test.line2;
-                line3 = test.line3;
-              });
-            }),
-        // TODO: Replace this with menuSpacer or other way round
-        const Gap(),
-        ListButton(
-          label: 'Fate Check',
-          onPressed: () {
-            appState.setPopupLabel(PopupLabels.fate);
-            appState.toggleShowPopup();
-          },
-        ),
-        ListButton(
-          label: 'End Scene',
-          onPressed: () {
-            appState.setPopupLabel(PopupLabels.endScene);
-            appState.toggleShowPopup();
-          },
-        ),
-        const Gap(),
-        ListButton(
-          label: 'Combat',
-          onPressed: () {},
-        ),
-        ListButton(
-          label: 'Social',
-          onPressed: () {},
-        ),
-        ListButton(
-          label: 'Exploration',
-          onPressed: () {},
-        ),
-        ListButton(
-          label: 'Travel',
-          onPressed: () {},
-        ),
-        ListButton(
-          label: 'Investigate',
-          onPressed: () {},
-        ),
-      ]);
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const JournalViewer(),
+          Expanded(
+            flex: 1,
+            child: ViewWrapper(children: [
+              Output(
+                line1: line1,
+                line2: line2,
+                line3: line3,
+              ),
+              const Text('Filter needed'),
+              ListButton(
+                  label: 'Test Your Expected Scene',
+                  onPressed: () {
+                    ReturnObject test = testScene(context);
+                    setState(() {
+                      line1 = test.line1;
+                      line2 = test.line2;
+                      line3 = test.line3;
+                    });
+                  }),
+              // TODO: Replace this with menuSpacer or other way round
+              const Gap(),
+              ListButton(
+                label: 'Fate Check',
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.fate);
+                  appState.toggleShowPopup();
+                },
+              ),
+              ListButton(
+                label: 'End Scene',
+                onPressed: () {
+                  appState.setPopupLabel(PopupLabels.endScene);
+                  appState.toggleShowPopup();
+                },
+              ),
+              const Gap(),
+              ListButton(
+                label: 'Combat',
+                onPressed: () {},
+              ),
+              ListButton(
+                label: 'Social',
+                onPressed: () {},
+              ),
+              ListButton(
+                label: 'Exploration',
+                onPressed: () {},
+              ),
+              ListButton(
+                label: 'Travel',
+                onPressed: () {},
+              ),
+              ListButton(
+                label: 'Investigate',
+                onPressed: () {},
+              ),
+            ]),
+          ),
+        ],
+      );
     });
   }
 
