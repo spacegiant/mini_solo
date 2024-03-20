@@ -74,7 +74,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       AppState appState, toggleSettings) {
     return CupertinoNavigationBar(
       leading: homePageChaosFactorButton(appState),
-      middle: const Text('Solo App'),
+      middle: Text(appState.currentCampaign),
       trailing: homePageSettingsButton(toggleSettings),
     );
   }

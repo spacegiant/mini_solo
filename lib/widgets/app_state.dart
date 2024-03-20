@@ -15,7 +15,7 @@ enum PopupLabels {
 
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
-  late String _currentCampaign;
+  late String _currentCampaign = 'test campaign';
   late int _chaosFactor = 5;
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
