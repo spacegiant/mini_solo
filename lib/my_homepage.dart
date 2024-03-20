@@ -22,17 +22,25 @@ class MyHomePageIOS extends StatefulWidget {
 
 class CampaignData {
   late String name;
-  late Map<String, dynamic>? journal;
-  late Map<String, dynamic>? people;
-  late Map<String, dynamic>? places;
-  late Map<String, dynamic>? things;
+  late List<Map<String, dynamic>>? journal;
+  late List<Map<String, dynamic>>? people;
+  late List<Map<String, dynamic>>? places;
+  late List<Map<String, dynamic>>? things;
+  late List<Map<String, dynamic>>? factions;
+  late List<Map<String, dynamic>>? clues;
+  late List<Map<String, dynamic>>? creatures;
+  late List<Map<String, dynamic>>? dungeons;
 
   CampaignData({
     required this.name,
-    this.journal,
-    this.people,
-    this.places,
-    this.things,
+    required this.journal,
+    required this.people,
+    required this.places,
+    required this.things,
+    required this.factions,
+    required this.clues,
+    required this.creatures,
+    required this.dungeons,
   });
 }
 
@@ -54,7 +62,17 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   void initCampaignData(String campaignName) {
     setState(() {
-      campaignData = CampaignData(name: campaignName);
+      campaignData = CampaignData(
+        name: campaignName,
+        journal: [],
+        people: [],
+        places: [],
+        things: [],
+        factions: [],
+        clues: [],
+        creatures: [],
+        dungeons: [],
+      );
     });
   }
 
