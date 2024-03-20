@@ -79,6 +79,7 @@ class _JournalViewState extends State<JournalView> {
                 line3 = test.line3;
               });
             }),
+        // TODO: Replace this with menuSpacer or other way round
         const Gap(),
         ListButton(
           label: 'Fate Check',
@@ -93,7 +94,28 @@ class _JournalViewState extends State<JournalView> {
             appState.setPopupLabel(PopupLabels.endScene);
             appState.toggleShowPopup();
           },
-        )
+        ),
+        const Gap(),
+        ListButton(
+          label: 'Combat',
+          onPressed: () {},
+        ),
+        ListButton(
+          label: 'Social',
+          onPressed: () {},
+        ),
+        ListButton(
+          label: 'Exploration',
+          onPressed: () {},
+        ),
+        ListButton(
+          label: 'Travel',
+          onPressed: () {},
+        ),
+        ListButton(
+          label: 'Investigate',
+          onPressed: () {},
+        ),
       ]);
     });
   }
