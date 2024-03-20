@@ -3,6 +3,7 @@ import 'package:mini_solo/views/dice_view.dart';
 import 'package:mini_solo/views/journal_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/new_view.dart';
+import 'package:mini_solo/views/starred_view.dart';
 import 'package:mini_solo/views/tracker_view.dart';
 
 class ViewItem {
@@ -25,8 +26,13 @@ List<ViewItem> viewItems = [
   ),
   ViewItem(
     label: 'New',
-    icon: CupertinoIcons.star,
+    icon: CupertinoIcons.add,
     viewWidget: const NewView(),
+  ),
+  ViewItem(
+    label: 'Starred',
+    icon: CupertinoIcons.star,
+    viewWidget: const StarredView(),
   ),
   ViewItem(
     label: 'Trackers',
