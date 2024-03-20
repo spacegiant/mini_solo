@@ -38,12 +38,15 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           );
   }
 
-  CupertinoTabScaffold homePageTabScaffold(AppState appState) {
-    return CupertinoTabScaffold(
-      tabBar: homePageTabBar(appState.closePopup),
-      tabBuilder: (BuildContext context, int index) {
-        return homePageTabView(index, toggleSettings);
-      },
+  GestureDetector homePageTabScaffold(AppState appState) {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: CupertinoTabScaffold(
+        tabBar: homePageTabBar(appState.closePopup),
+        tabBuilder: (BuildContext context, int index) {
+          return homePageTabView(index, toggleSettings);
+        },
+      ),
     );
   }
 
