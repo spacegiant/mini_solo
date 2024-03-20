@@ -11,6 +11,7 @@ enum PopupLabels {
   journalFilter,
   travel,
   addJournalEntry,
+  campaignManager,
 }
 
 class AppState extends ChangeNotifier {

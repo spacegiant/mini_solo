@@ -74,7 +74,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       AppState appState, toggleSettings) {
     return CupertinoNavigationBar(
       leading: homePageChaosFactorButton(appState),
-      middle: Text(appState.currentCampaign),
+      middle: GestureDetector(
+          onTap: () {
+            appState.setPopupLabel(PopupLabels.campaignManager);
+            appState.toggleShowPopup();
+          },
+          child: Text(appState.currentCampaign)),
       trailing: homePageSettingsButton(toggleSettings),
     );
   }
