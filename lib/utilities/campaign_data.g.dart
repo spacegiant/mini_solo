@@ -8,6 +8,7 @@ part of 'campaign_data.dart';
 
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       name: json['name'] as String,
+      mythic: Mythic.fromJson(json['mythic'] as Map<String, dynamic>),
       journal: (json['journal'] as List<dynamic>)
           .map((e) => JournalEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -37,6 +38,7 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'mythic': instance.mythic.toJson(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),
       'people': instance.people.map((e) => e.toJson()).toList(),
       'places': instance.places.map((e) => e.toJson()).toList(),
@@ -45,6 +47,14 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'clues': instance.clues.map((e) => e.toJson()).toList(),
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
       'dungeons': instance.dungeons.map((e) => e.toJson()).toList(),
+    };
+
+Mythic _$MythicFromJson(Map<String, dynamic> json) => Mythic(
+      chaosFactor: json['chaosFactor'] as int?,
+    );
+
+Map<String, dynamic> _$MythicToJson(Mythic instance) => <String, dynamic>{
+      'chaosFactor': instance.chaosFactor,
     };
 
 JournalEntry _$JournalEntryFromJson(Map<String, dynamic> json) => JournalEntry(

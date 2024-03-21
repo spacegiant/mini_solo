@@ -5,8 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:path_provider/path_provider.dart';
 
-// NOTE: Run `dart run build_runner build` to regenerate files
-
 class CampaignStorage {
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -26,13 +24,15 @@ class CampaignStorage {
 
       // Read the file
       final jsonData = await file.readAsString();
+
       final data = json.decode(jsonData);
+
       final dataMap = CampaignData.fromJson(data);
 
       return dataMap;
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        print('readJSON error: $e');
       }
       // If encountering an error, return null
       return null;
@@ -40,7 +40,6 @@ class CampaignStorage {
   }
 
   Future<File> writeJSON(CampaignData data) async {
-    // print(data.toString());
     final file = await _localFile;
 
     // Convert MAP to String

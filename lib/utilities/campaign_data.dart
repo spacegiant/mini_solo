@@ -1,37 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-
 part 'campaign_data.g.dart';
 
-// set to true if you have nested Model classes
-@JsonSerializable(explicitToJson: true)
-class CampaignData {
-  late String name;
-  late List<JournalEntry> journal;
-  late List<Person> people;
-  late List<Place> places;
-  late List<Thing> things;
-  late List<Faction> factions;
-  late List<Clue> clues;
-  late List<Creature> creatures;
-  late List<Dungeon> dungeons;
-
-  CampaignData({
-    required this.name,
-    required this.journal,
-    required this.people,
-    required this.places,
-    required this.things,
-    required this.factions,
-    required this.clues,
-    required this.creatures,
-    required this.dungeons,
-  });
-
-  factory CampaignData.fromJson(Map<String, dynamic> json) =>
-      _$CampaignDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CampaignDataToJson(this);
-}
+// NOTE: Run `dart run build_runner build` to regenerate files
 
 // TODO: Set up so that each type has different data shape
 enum JournalEntryTypes {
@@ -48,9 +18,45 @@ enum JournalEntryTypes {
   transition,
 }
 
+// set to true if you have nested Model classes
+@JsonSerializable(explicitToJson: true)
+class CampaignData {
+  late String name;
+  late Mythic mythic;
+  late List<JournalEntry> journal;
+  late List<Person> people;
+  late List<Place> places;
+  late List<Thing> things;
+  late List<Faction> factions;
+  late List<Clue> clues;
+  late List<Creature> creatures;
+  late List<Dungeon> dungeons;
+
+  CampaignData({
+    required this.name,
+    required this.mythic,
+    required this.journal,
+    required this.people,
+    required this.places,
+    required this.things,
+    required this.factions,
+    required this.clues,
+    required this.creatures,
+    required this.dungeons,
+  });
+
+  factory CampaignData.fromJson(Map<String, dynamic> json) =>
+      _$CampaignDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CampaignDataToJson(this);
+}
+
 CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     name: campaignName,
+    mythic: Mythic(
+      chaosFactor: 5,
+    ),
     journal: [],
     people: [],
     places: [],
@@ -68,6 +74,19 @@ abstract class CampaignItem {
   CampaignItem({
     required this.isFavourite,
   });
+}
+
+@JsonSerializable()
+class Mythic {
+  int? chaosFactor;
+
+  Mythic({
+    this.chaosFactor,
+  });
+
+  factory Mythic.fromJson(Map<String, dynamic> json) => _$MythicFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MythicToJson(this);
 }
 
 @JsonSerializable()
