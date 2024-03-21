@@ -30,9 +30,10 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initState() {
     super.initState();
     widget.storage.readJSON().then((data) {
-      if (campaignData != null) {
+      print(data?.name);
+      if (data != null) {
         setState(() {
-          campaignData = data as CampaignData;
+          campaignData = data;
         });
       }
     });

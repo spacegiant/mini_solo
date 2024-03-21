@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'campaign_data.g.dart';
 
-// set to true if you have nested Model classees
+// set to true if you have nested Model classes
 @JsonSerializable(explicitToJson: true)
 class CampaignData {
   late String name;
@@ -31,29 +31,6 @@ class CampaignData {
       _$CampaignDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CampaignDataToJson(this);
-
-  // CampaignData.fromJson(Map<String, dynamic> json)
-  //     : name = json['name'],
-  //       journal = json['journal'],
-  //       people = json['people'],
-  //       places = json['places'],
-  //       things = json['things'],
-  //       factions = json['factions'],
-  //       clues = json['clues'],
-  //       creatures = json['creatures'],
-  //       dungeons = json['dungeons'];
-  //
-  // Map<String, dynamic> toJson() => {
-  //       'name': name,
-  //       'journal': journal,
-  //       'people': people,
-  //       'places': places,
-  //       'things': things,
-  //       'factions': factions,
-  //       'clues': clues,
-  //       'creatures': creatures,
-  //       'dungeons': dungeons,
-  //     };
 }
 
 // TODO: Set up so that each type has different data shape
