@@ -20,6 +20,29 @@ class CampaignData {
     required this.creatures,
     required this.dungeons,
   });
+
+  CampaignData.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        journal = json['journal'],
+        people = json['people'],
+        places = json['places'],
+        things = json['things'],
+        factions = json['factions'],
+        clues = json['clues'],
+        creatures = json['creatures'],
+        dungeons = json['dungeons'];
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'journal': journal,
+        'people': people,
+        'places': places,
+        'things': things,
+        'factions': factions,
+        'clues': clues,
+        'creatures': creatures,
+        'dungeons': dungeons,
+      };
 }
 
 // TODO: Set up so that each type has different data shape

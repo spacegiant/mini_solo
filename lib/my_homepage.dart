@@ -46,6 +46,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     setState(() {
       campaignData = initCampaignDataData(campaignName);
     });
+    widget.storage.writeJSON(campaignData!);
   }
 
   @override

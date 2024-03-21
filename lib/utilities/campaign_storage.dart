@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:mini_solo/utilities/campaign_data.dart';
@@ -24,7 +25,7 @@ class CampaignStorage {
       // Read the file
       final jsonData = await file.readAsString();
 
-      return json.decode(jsonData) as CampaignData;
+      return json.decode(jsonData);
     } catch (e) {
       // If encountering an error, return 0
       return null;
@@ -32,10 +33,11 @@ class CampaignStorage {
   }
 
   Future<File> writeJSON(CampaignData data) async {
+    // print(data.toString());
     final file = await _localFile;
 
     // Convert MAP to String
-    var jsonData = json.encode(data);
+    String jsonData = jsonEncode(data);
 
     // Write the file
     return file.writeAsString(jsonData);
