@@ -1,3 +1,9 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'campaign_data.g.dart';
+
+// set to true if you have nested Model classees
+@JsonSerializable(explicitToJson: true)
 class CampaignData {
   late String name;
   late List<JournalEntry> journal;
@@ -21,28 +27,33 @@ class CampaignData {
     required this.dungeons,
   });
 
-  CampaignData.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        journal = json['journal'],
-        people = json['people'],
-        places = json['places'],
-        things = json['things'],
-        factions = json['factions'],
-        clues = json['clues'],
-        creatures = json['creatures'],
-        dungeons = json['dungeons'];
+  factory CampaignData.fromJson(Map<String, dynamic> json) =>
+      _$CampaignDataFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'journal': journal,
-        'people': people,
-        'places': places,
-        'things': things,
-        'factions': factions,
-        'clues': clues,
-        'creatures': creatures,
-        'dungeons': dungeons,
-      };
+  Map<String, dynamic> toJson() => _$CampaignDataToJson(this);
+
+  // CampaignData.fromJson(Map<String, dynamic> json)
+  //     : name = json['name'],
+  //       journal = json['journal'],
+  //       people = json['people'],
+  //       places = json['places'],
+  //       things = json['things'],
+  //       factions = json['factions'],
+  //       clues = json['clues'],
+  //       creatures = json['creatures'],
+  //       dungeons = json['dungeons'];
+  //
+  // Map<String, dynamic> toJson() => {
+  //       'name': name,
+  //       'journal': journal,
+  //       'people': people,
+  //       'places': places,
+  //       'things': things,
+  //       'factions': factions,
+  //       'clues': clues,
+  //       'creatures': creatures,
+  //       'dungeons': dungeons,
+  //     };
 }
 
 // TODO: Set up so that each type has different data shape
@@ -82,6 +93,7 @@ abstract class CampaignItem {
   });
 }
 
+@JsonSerializable()
 class JournalEntry extends CampaignItem {
   late JournalEntryTypes type;
   String title;
@@ -93,8 +105,14 @@ class JournalEntry extends CampaignItem {
     required this.type,
     this.detail,
   });
+
+  factory JournalEntry.fromJson(Map<String, dynamic> json) =>
+      _$JournalEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JournalEntryToJson(this);
 }
 
+@JsonSerializable()
 class Person extends CampaignItem {
   String firstName;
   String familyName;
@@ -106,8 +124,12 @@ class Person extends CampaignItem {
     required this.familyName,
     this.detail,
   });
+  factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersonToJson(this);
 }
 
+@JsonSerializable()
 class Place extends CampaignItem {
   String name;
   String? detail;
@@ -119,8 +141,13 @@ class Place extends CampaignItem {
     this.detail,
     this.parent,
   });
+
+  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PlaceToJson(this);
 }
 
+@JsonSerializable()
 class Thing extends CampaignItem {
   String name;
   Person? owner;
@@ -132,8 +159,13 @@ class Thing extends CampaignItem {
     this.owner,
     this.detail,
   });
+
+  factory Thing.fromJson(Map<String, dynamic> json) => _$ThingFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ThingToJson(this);
 }
 
+@JsonSerializable()
 class Faction extends CampaignItem {
   String name;
   String? occupation;
@@ -145,8 +177,14 @@ class Faction extends CampaignItem {
     this.occupation,
     this.detail,
   });
+
+  factory Faction.fromJson(Map<String, dynamic> json) =>
+      _$FactionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FactionToJson(this);
 }
 
+@JsonSerializable()
 class Clue extends CampaignItem {
   String description;
   String? notes;
@@ -156,8 +194,13 @@ class Clue extends CampaignItem {
     required this.description,
     this.notes,
   });
+
+  factory Clue.fromJson(Map<String, dynamic> json) => _$ClueFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ClueToJson(this);
 }
 
+@JsonSerializable()
 class Creature extends CampaignItem {
   String title;
   String? detail;
@@ -167,8 +210,14 @@ class Creature extends CampaignItem {
     required this.title,
     this.detail,
   });
+
+  factory Creature.fromJson(Map<String, dynamic> json) =>
+      _$CreatureFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreatureToJson(this);
 }
 
+@JsonSerializable()
 class DungeonRoom {
   String name;
   String? detail;
@@ -177,8 +226,14 @@ class DungeonRoom {
     required this.name,
     this.detail,
   });
+
+  factory DungeonRoom.fromJson(Map<String, dynamic> json) =>
+      _$DungeonRoomFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DungeonRoomToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true)
 class Dungeon extends CampaignItem {
   String title;
   List<DungeonRoom>? rooms;
@@ -188,4 +243,9 @@ class Dungeon extends CampaignItem {
     required this.title,
     this.rooms,
   });
+
+  factory Dungeon.fromJson(Map<String, dynamic> json) =>
+      _$DungeonFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DungeonToJson(this);
 }
