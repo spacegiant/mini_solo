@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/widgets/menuSpacer.dart';
+import 'package:mini_solo/widgets/menu_spacer.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/output.dart';
 import '../../widgets/view_wrapper.dart';

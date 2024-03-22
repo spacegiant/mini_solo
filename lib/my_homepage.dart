@@ -48,7 +48,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
-        var appState = context.read<AppState>();
+        // var appState = context.read<AppState>();
 
         if (appState.campaignData == null) {
           return CupertinoPageScaffold(

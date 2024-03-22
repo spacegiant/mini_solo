@@ -3,6 +3,9 @@ import 'campaign_data.dart';
 CampaignData initCampaignDataData() {
   return CampaignData(
     name: 'Shadows over Umber Keep',
+    mythic: Mythic(
+      chaosFactor: 5,
+    ),
     journal: [
       JournalEntry(
         isFavourite: false,

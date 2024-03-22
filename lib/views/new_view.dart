@@ -10,7 +10,7 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 
 import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
-import '../widgets/menuSpacer.dart';
+import '../widgets/menu_spacer.dart';
 import 'new/new_scene.dart';
 
 class NewView extends StatelessWidget {
