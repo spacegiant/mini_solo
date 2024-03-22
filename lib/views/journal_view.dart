@@ -5,7 +5,7 @@ import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/app_state.dart';
+import '../utilities/app_state.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal_viewer.dart';
 import '../widgets/output.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import 'app_state.dart';
-import 'chaos_factor_popup.dart';
+import '../utilities/app_state.dart';
 import 'list_button.dart';
 
 class ChaosFactorPanel extends StatelessWidget {

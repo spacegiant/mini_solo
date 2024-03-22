@@ -18,12 +18,16 @@ class JournalEntry extends StatelessWidget {
         8.0,
       ),
       child: Container(
-        color: CupertinoColors.white,
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(text),
+            Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.'),
           ],

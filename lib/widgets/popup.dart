@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'app_state.dart';
+import '../utilities/app_state.dart';
 import 'chaos_factor_popup.dart';
 
 Map<PopupLabels, Widget> popupContentMap = {
@@ -12,6 +12,10 @@ Map<PopupLabels, Widget> popupContentMap = {
   PopupLabels.exploration: const Text('EXPLORATION'),
   PopupLabels.travel: const Text('TRAVEL'),
   PopupLabels.investigation: const Text('INVESTIGATE'),
+  PopupLabels.addJournalEntry: const Text('ADD JOURNAL ENTRY'),
+  PopupLabels.journalFilter: const Text('JOURNAL FILTER'),
+  PopupLabels.campaignManager: const Text('CAMPAIGN MANAGER'),
+  PopupLabels.fullJournal: const Text('FULL JOURNAL'),
 };
 
 Consumer<Object?> popup(BuildContext context) {

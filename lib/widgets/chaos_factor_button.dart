@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'app_state.dart';
+import '../utilities/app_state.dart';
 
 class ChaosFactorButton extends StatelessWidget {
   const ChaosFactorButton({super.key, required this.togglePopup});
@@ -16,8 +16,8 @@ class ChaosFactorButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Consumer<AppState>(
-            builder: (context, chaosFactor, child) => Text(
-              'CF ${chaosFactor.chaosFactor}',
+            builder: (context, appState, child) => Text(
+              'CF ${appState.chaosFactor}',
               overflow: TextOverflow.visible,
             ),
           ),

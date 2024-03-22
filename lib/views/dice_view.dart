@@ -102,6 +102,5 @@ class DiceCollection extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

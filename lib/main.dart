@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/widgets/app_state.dart';
+import 'package:mini_solo/utilities/campaign_storage.dart';
+import 'package:mini_solo/utilities/app_state.dart';
 import 'package:provider/provider.dart';
 
 import 'my_homepage.dart';
@@ -17,10 +18,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return CupertinoApp(
       title: 'Mini Solo',
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: MyHomePageIOS(title: 'Mini Solo'),
+      theme: const CupertinoThemeData(brightness: Brightness.light),
+      home: MyHomePageIOS(
+        title: 'Mini Solo',
+        storage: CampaignStorage(),
+      ),
     );
   }
 }

@@ -1,5 +1,8 @@
+import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/utilities/campaign_storage.dart';
+import 'package:mini_solo/utilities/init_form.dart';
 import 'package:mini_solo/view_items.dart';
-import 'package:mini_solo/widgets/app_state.dart';
+import 'package:mini_solo/utilities/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,41 +12,106 @@ class MyHomePageIOS extends StatefulWidget {
   const MyHomePageIOS({
     super.key,
     required this.title,
+    required this.storage,
   });
 
   final String title;
+  final CampaignStorage storage;
 
   @override
   State<MyHomePageIOS> createState() => _MyHomePageIOSState();
 }
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
-  bool showSettings = false;
+  CampaignData? campaignData;
 
-  void toggleSettings() {
-    setState(() => showSettings = !showSettings);
+  @override
+  void initState() {
+    super.initState();
+
+    widget.storage.readJSON().then((data) {
+      var appState = context.read<AppState>();
+
+      if (data != null) {
+        appState.setCampaignData(data);
+      }
+    });
+  }
+
+  void initCampaignData(String campaignName) {
+    var appState = context.read<AppState>();
+    CampaignData campaignData = initCampaignDataData(campaignName);
+    appState.setCampaignData(campaignData);
+    // widget.storage.writeJSON(campaignData);
+    saveCampaign(campaignData);
+  }
+
+  void saveCampaign(CampaignData campaignData) {
+    widget.storage.writeJSON(campaignData);
   }
 
   @override
   Widget build(BuildContext context) {
-    return showSettings
-        ? SettingsView(
+    return Consumer<AppState>(
+      builder: (BuildContext context, AppState appState, Widget? child) {
+        if (appState.campaignData == null) {
+          return CupertinoPageScaffold(
+            child: SafeArea(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Consumer<AppState>(
+                builder:
+                    (BuildContext context, AppState appState, Widget? child) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Welcome to Solo App'),
+                      InitForm(
+                        initCampaignData: initCampaignData,
+                      ),
+                      const SizedBox.shrink(),
+                    ],
+                  );
+                },
+              ),
+            )),
+          );
+        } else if (appState.showSettings == true) {
+          return SettingsView(
             title: widget.title,
-            closeSettings: toggleSettings,
-          )
-        : Consumer<AppState>(
+            closeSettings: appState.toggleShowSettings,
+          );
+        } else {
+          return Consumer<AppState>(
             builder: (context, appState, child) {
-              return homePageTabScaffold(appState);
+              print(appState.saveCallbackExists);
+              if (appState.saveCallbackExists == false) {
+                appState.setSaveCallback(saveCampaign);
+              }
+
+              return homePageTabScaffold(
+                appState,
+                appState.toggleShowSettings,
+              );
             },
           );
+        }
+      },
+    );
   }
 
-  CupertinoTabScaffold homePageTabScaffold(AppState appState) {
-    return CupertinoTabScaffold(
-      tabBar: homePageTabBar(appState.closePopup),
-      tabBuilder: (BuildContext context, int index) {
-        return homePageTabView(index, toggleSettings);
-      },
+  GestureDetector homePageTabScaffold(
+    AppState appState,
+    Function() toggleSettings,
+  ) {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: CupertinoTabScaffold(
+        tabBar: homePageTabBar(appState.closePopup),
+        tabBuilder: (BuildContext context, int index) {
+          return homePageTabView(index, toggleSettings);
+        },
+      ),
     );
   }
 
@@ -56,7 +124,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             child: SafeArea(
               child: Stack(
                 children: [
-                  viewItems.map((e) => e.viewWidget).toList()[index],
+                  tabBarItems.map((e) => e.viewWidget).toList()[index],
                   popup(context),
                 ],
               ),
@@ -67,11 +135,30 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
+  CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
+    return CupertinoTabBar(
+      onTap: (value) {
+        handleClosePopup();
+      },
+      items: tabBarItems
+          .map((e) => BottomNavigationBarItem(
+                label: e.label,
+                icon: Icon(e.icon),
+              ))
+          .toList(),
+    );
+  }
+
   CupertinoNavigationBar homePageNavigationBar(
       AppState appState, toggleSettings) {
     return CupertinoNavigationBar(
       leading: homePageChaosFactorButton(appState),
-      middle: const Text('Solo App'),
+      middle: GestureDetector(
+          onTap: () {
+            appState.setPopupLabel(PopupLabels.campaignManager);
+            appState.toggleShowPopup();
+          },
+          child: Text(appState.campaignData!.name)),
       trailing: homePageSettingsButton(toggleSettings),
     );
   }
@@ -103,18 +190,5 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         ],
       ),
     );
-  }
-
-  CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
-    return CupertinoTabBar(
-        onTap: (value) {
-          handleClosePopup();
-        },
-        items: viewItems
-            .map((e) => BottomNavigationBarItem(
-                  label: e.label,
-                  icon: Icon(e.icon),
-                ))
-            .toList());
   }
 }
