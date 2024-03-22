@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/utilities/campaign_storage.dart';
-import 'package:mini_solo/widgets/app_state.dart';
+import 'package:mini_solo/utilities/app_state.dart';
 import 'package:provider/provider.dart';
 
 import 'my_homepage.dart';

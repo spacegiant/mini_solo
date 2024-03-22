@@ -2,7 +2,7 @@ import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:mini_solo/utilities/campaign_storage.dart';
 import 'package:mini_solo/utilities/init_form.dart';
 import 'package:mini_solo/view_items.dart';
-import 'package:mini_solo/widgets/app_state.dart';
+import 'package:mini_solo/utilities/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,8 +48,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
-        // var appState = context.read<AppState>();
-
         if (appState.campaignData == null) {
           return CupertinoPageScaffold(
             child: SafeArea(

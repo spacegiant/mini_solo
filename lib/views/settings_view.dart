@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/app_state.dart';
+import '../utilities/app_state.dart';
 
 enum Category { general, campaign, tools }
 

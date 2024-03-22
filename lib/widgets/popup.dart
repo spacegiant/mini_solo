@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'app_state.dart';
+import '../utilities/app_state.dart';
 import 'chaos_factor_popup.dart';
 
 Map<PopupLabels, Widget> popupContentMap = {
