@@ -23,7 +23,6 @@ class MyHomePageIOS extends StatefulWidget {
 }
 
 class _MyHomePageIOSState extends State<MyHomePageIOS> {
-  bool showSettings = false;
   CampaignData? campaignData;
 
   @override
@@ -36,10 +35,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         appState.setCampaignData(data);
       }
     });
-  }
-
-  void toggleSettings() {
-    setState(() => showSettings = !showSettings);
   }
 
   void initCampaignData(String campaignName) {
@@ -77,15 +72,18 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
               ),
             )),
           );
-        } else if (showSettings == true) {
+        } else if (appState.showSettings == true) {
           return SettingsView(
             title: widget.title,
-            closeSettings: toggleSettings,
+            closeSettings: appState.toggleShowSettings,
           );
         } else {
           return Consumer<AppState>(
             builder: (context, appState, child) {
-              return homePageTabScaffold(appState);
+              return homePageTabScaffold(
+                appState,
+                appState.toggleShowSettings,
+              );
             },
           );
         }
@@ -93,7 +91,10 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     );
   }
 
-  GestureDetector homePageTabScaffold(AppState appState) {
+  GestureDetector homePageTabScaffold(
+    AppState appState,
+    Function() toggleSettings,
+  ) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: CupertinoTabScaffold(
