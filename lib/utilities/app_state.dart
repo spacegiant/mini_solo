@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
 
@@ -25,6 +27,19 @@ class AppState extends ChangeNotifier {
   late bool _showSettings = false;
   late bool _useJournal = true;
   CampaignData? _campaignData;
+  Function(CampaignData)? _saveCallback;
+
+  void setSaveCallback(cb) {
+    // print('setSaveCallback');
+    _saveCallback = cb;
+  }
+
+  void saveCallback() {
+    // print('saveCallback ${_campaignData?.mythic.chaosFactor}');
+    if (_saveCallback != null) _saveCallback!(_campaignData!);
+  }
+
+  bool get saveCallbackExists => _saveCallback != null;
 
   // CAMPAIGN DATA
   CampaignData? get campaignData {
@@ -45,22 +60,32 @@ class AppState extends ChangeNotifier {
   }
 
   // CHAOS FACTOR
-  int get chaosFactor => _chaosFactor;
+  int get chaosFactor => _campaignData!.mythic.chaosFactor ?? 5;
   int maxChaos = 9;
   int minChaos = 1;
 
   void increaseChaosFactor() {
-    _chaosFactor < maxChaos ? _chaosFactor++ : null;
+    var cf = chaosFactor;
+    if (cf < maxChaos) {
+      var newValue = cf + 1;
+      _campaignData!.mythic.chaosFactor = newValue;
+    }
+    saveCallback();
     notifyListeners();
   }
 
   void decreaseChaosFactor() {
-    _chaosFactor > minChaos ? _chaosFactor-- : null;
+    var cf = chaosFactor;
+    if (cf > minChaos) {
+      var newValue = cf - 1;
+      _campaignData!.mythic.chaosFactor = newValue;
+    }
+    saveCallback();
     notifyListeners();
   }
 
   void resetChaosFactor() {
-    _chaosFactor = 5;
+    _campaignData!.mythic.chaosFactor = 5;
     notifyListeners();
   }
 

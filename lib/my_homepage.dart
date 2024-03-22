@@ -31,6 +31,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
     widget.storage.readJSON().then((data) {
       var appState = context.read<AppState>();
+
       if (data != null) {
         appState.setCampaignData(data);
       }
@@ -41,6 +42,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
     appState.setCampaignData(campaignData);
+    // widget.storage.writeJSON(campaignData);
+    saveCampaign(campaignData);
+  }
+
+  void saveCampaign(CampaignData campaignData) {
     widget.storage.writeJSON(campaignData);
   }
 
@@ -78,6 +84,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         } else {
           return Consumer<AppState>(
             builder: (context, appState, child) {
+              print(appState.saveCallbackExists);
+              if (appState.saveCallbackExists == false) {
+                appState.setSaveCallback(saveCampaign);
+              }
+
               return homePageTabScaffold(
                 appState,
                 appState.toggleShowSettings,

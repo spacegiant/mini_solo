@@ -44,6 +44,7 @@ class ChaosFactorPopup extends StatelessWidget {
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.increaseChaosFactor();
+              appState.saveCallback();
             },
           ),
           ListButton(
