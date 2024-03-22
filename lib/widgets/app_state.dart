@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/utilities/campaign_data.dart';
 
 enum PopupLabels {
   chaos,
@@ -23,6 +24,17 @@ class AppState extends ChangeNotifier {
   late bool _showPopup = false;
   late bool _showSettings = false;
   late bool _useJournal = true;
+  CampaignData? _campaignData;
+
+  // CAMPAIGN DATA
+  CampaignData? get campaignData {
+    return _campaignData;
+  }
+
+  void setCampaignData(CampaignData data) {
+    _campaignData = data;
+    notifyListeners();
+  }
 
   // CURRENT CAMPAIGN
   String get currentCampaign => _currentCampaign;

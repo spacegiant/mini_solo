@@ -29,11 +29,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   @override
   void initState() {
     super.initState();
+
     widget.storage.readJSON().then((data) {
+      var appState = context.read<AppState>();
       if (data != null) {
-        setState(() {
-          campaignData = data;
-        });
+        appState.setCampaignData(data);
       }
     });
   }
@@ -43,43 +43,54 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   }
 
   void initCampaignData(String campaignName) {
-    setState(() {
-      campaignData = initCampaignDataData(campaignName);
-    });
-    widget.storage.writeJSON(campaignData!);
+    var appState = context.read<AppState>();
+    CampaignData campaignData = initCampaignDataData(campaignName);
+    appState.setCampaignData(campaignData);
+    widget.storage.writeJSON(campaignData);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (campaignData == null) {
-      return CupertinoPageScaffold(
-        child: SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Welcome to Solo App'),
-              InitForm(
-                initCampaignData: initCampaignData,
+    return Consumer<AppState>(
+      builder: (BuildContext context, AppState appState, Widget? child) {
+        var appState = context.read<AppState>();
+
+        if (appState.campaignData == null) {
+          return CupertinoPageScaffold(
+            child: SafeArea(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Consumer<AppState>(
+                builder:
+                    (BuildContext context, AppState appState, Widget? child) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Welcome to Solo App'),
+                      InitForm(
+                        initCampaignData: initCampaignData,
+                      ),
+                      const SizedBox.shrink(),
+                    ],
+                  );
+                },
               ),
-              const SizedBox.shrink(),
-            ],
-          ),
-        )),
-      );
-    } else if (showSettings == true) {
-      return SettingsView(
-        title: widget.title,
-        closeSettings: toggleSettings,
-      );
-    } else {
-      return Consumer<AppState>(
-        builder: (context, appState, child) {
-          return homePageTabScaffold(appState);
-        },
-      );
-    }
+            )),
+          );
+        } else if (showSettings == true) {
+          return SettingsView(
+            title: widget.title,
+            closeSettings: toggleSettings,
+          );
+        } else {
+          return Consumer<AppState>(
+            builder: (context, appState, child) {
+              return homePageTabScaffold(appState);
+            },
+          );
+        }
+      },
+    );
   }
 
   GestureDetector homePageTabScaffold(AppState appState) {
@@ -137,7 +148,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             appState.setPopupLabel(PopupLabels.campaignManager);
             appState.toggleShowPopup();
           },
-          child: Text(campaignData!.name)),
+          child: Text(appState.campaignData!.name)),
       trailing: homePageSettingsButton(toggleSettings),
     );
   }
