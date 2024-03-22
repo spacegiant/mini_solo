@@ -16,8 +16,8 @@ class ChaosFactorButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Consumer<AppState>(
-            builder: (context, chaosFactor, child) => Text(
-              'CF ${chaosFactor.chaosFactor}',
+            builder: (context, appState, child) => Text(
+              'CF ${appState.chaosFactor}',
               overflow: TextOverflow.visible,
             ),
           ),
