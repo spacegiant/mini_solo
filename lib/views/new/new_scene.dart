@@ -1,5 +1,8 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import '../../utilities/app_state.dart';
+import '../../utilities/campaign_data.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
@@ -24,48 +27,52 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewWrapper(children: [
-      Output(
-        line1: line1,
-        line2: line2,
-        line3: line3,
-      ),
-      ListButton(
-        label: 'Mythic Action',
-        onPressed: () {
-          getMythicAction();
-        },
-      ),
-      ListButton(
-        label: 'Mythic Description',
-        onPressed: () {
-          getMythicDescription();
-        },
-      ),
-      ListButton(
-        label: 'Event Focus',
-        onPressed: () {
-          getWeightedResult('lib/assets/json/mythic.json', (String text) {
-            setState(() {
-              line1 = text;
-              line2 = null;
-              line3 = null;
-            });
-          });
-        },
-      ),
-      const ChaosFactorPanel(),
-      const Text('Mythic Elements'),
-      ListButton(
-        label: 'Plot Twist',
-        onPressed: () {
-          getPlotTwist();
-        },
-      )
-    ]);
+    return Consumer(
+      builder: (BuildContext context, AppState appState, Widget? child) {
+        return ViewWrapper(children: [
+          Output(
+            line1: line1,
+            line2: line2,
+            line3: line3,
+          ),
+          ListButton(
+            label: 'Mythic Action',
+            onPressed: () {
+              getMythicAction(appState);
+            },
+          ),
+          ListButton(
+            label: 'Mythic Description',
+            onPressed: () {
+              getMythicDescription(appState);
+            },
+          ),
+          ListButton(
+            label: 'Event Focus',
+            onPressed: () {
+              getWeightedResult('lib/assets/json/mythic.json', (String text) {
+                setState(() {
+                  line1 = text;
+                  line2 = null;
+                  line3 = null;
+                });
+              });
+            },
+          ),
+          const ChaosFactorPanel(),
+          const Text('Mythic Elements'),
+          ListButton(
+            label: 'Plot Twist',
+            onPressed: () {
+              getPlotTwist();
+            },
+          )
+        ]);
+      },
+    );
   }
 
-  void getMythicDescription() {
+  void getMythicDescription(AppState appState) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
       List<String> table1 = List<String>.from(value['description1']);
@@ -81,10 +88,24 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line2 = result.line2;
         line3 = null;
       });
+
+      //  Save to campaign data and push to journal
+      appState.campaignData?.journal.add(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            result.line1,
+            result.line2,
+            result.line3,
+          ),
+          type: JournalEntryTypes.oracle,
+        ),
+      );
+      appState.saveCampaignDataToDisk();
     });
   }
 
-  void getMythicAction() {
+  void getMythicAction(AppState appState) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
       List<String> table1 = List<String>.from(value['action1']);
@@ -100,7 +121,39 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line2 = result.line2;
         line3 = null;
       });
+
+      convertToJournalEntry(
+        result.line1,
+        result.line2,
+        result.line3,
+      );
+
+      //  Save to campaign data and push to journal
+      appState.campaignData?.journal.add(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            result.line1,
+            result.line2,
+            result.line3,
+          ),
+          type: JournalEntryTypes.oracle,
+        ),
+      );
+      appState.saveCampaignDataToDisk();
     });
+  }
+
+  String convertToJournalEntry(
+    String line1,
+    String? line2,
+    String? line3,
+  ) {
+    // For Journal
+    String printLine2 = line2 != null ? ' $line2' : '';
+    String printLine3 = line3 != null ? ' $line3' : '';
+
+    return '$line1$printLine2$printLine3';
   }
 
   void getPlotTwist() {

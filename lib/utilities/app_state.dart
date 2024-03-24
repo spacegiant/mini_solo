@@ -34,6 +34,7 @@ class AppState extends ChangeNotifier {
   void saveCampaignDataToDisk() {
     // print('saveCallback ${_campaignData?.mythic.chaosFactor}');
     if (_saveCallback != null) _saveCallback!(_campaignData!);
+    notifyListeners();
   }
 
   bool get saveCallbackExists => _saveCallback != null;
