@@ -87,6 +87,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.pc: 'pc',
   JournalEntryTypes.npc: 'npc',
   JournalEntryTypes.transition: 'transition',
+  JournalEntryTypes.chaosFactor: 'chaosFactor',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(

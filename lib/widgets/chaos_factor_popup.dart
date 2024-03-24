@@ -18,7 +18,7 @@ class ChaosFactorPopup extends StatelessWidget {
 
     return SizedBox(
       width: 200.0,
-      height: 240.0,
+      height: 300.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -52,6 +52,13 @@ class ChaosFactorPopup extends StatelessWidget {
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.decreaseChaosFactor();
+            },
+          ),
+          ListButton(
+            label: 'Reset',
+            labelAlignment: Alignment.center,
+            onPressed: () {
+              appState.resetChaosFactor();
             },
           ),
           ListButton(

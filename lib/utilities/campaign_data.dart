@@ -16,6 +16,7 @@ enum JournalEntryTypes {
   pc,
   npc,
   transition,
+  chaosFactor,
 }
 
 // set to true if you have nested Model classes

@@ -68,6 +68,12 @@ class AppState extends ChangeNotifier {
     if (cf < maxChaos) {
       var newValue = cf + 1;
       _campaignData!.mythic.chaosFactor = newValue;
+      addJournalEntry(JournalEntryItem(
+        isFavourite: false,
+        title: 'UP to $newValue',
+        type: JournalEntryTypes.chaosFactor,
+        label: 'Chaos Factor',
+      ));
     }
     saveCampaignDataToDisk();
     notifyListeners();
@@ -78,6 +84,12 @@ class AppState extends ChangeNotifier {
     if (cf > minChaos) {
       var newValue = cf - 1;
       _campaignData!.mythic.chaosFactor = newValue;
+      addJournalEntry(JournalEntryItem(
+        isFavourite: false,
+        title: 'DOWN to $newValue',
+        type: JournalEntryTypes.chaosFactor,
+        label: 'Chaos Factor',
+      ));
     }
     saveCampaignDataToDisk();
     notifyListeners();
@@ -85,6 +97,13 @@ class AppState extends ChangeNotifier {
 
   void resetChaosFactor() {
     _campaignData!.mythic.chaosFactor = 5;
+    addJournalEntry(JournalEntryItem(
+      isFavourite: false,
+      title: 'RESET to 5',
+      type: JournalEntryTypes.chaosFactor,
+      label: 'Chaos Factor',
+    ));
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 
@@ -125,5 +144,9 @@ class AppState extends ChangeNotifier {
   void toggleUseJournal() {
     _useJournal = !_useJournal;
     notifyListeners();
+  }
+
+  void addJournalEntry(JournalEntryItem item) {
+    _campaignData?.journal.add(item);
   }
 }
