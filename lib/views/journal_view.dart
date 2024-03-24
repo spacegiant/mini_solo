@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../utilities/app_state.dart';
 import '../widgets/gap.dart';
-import '../widgets/journal_viewer.dart';
+import '../widgets/journal.dart';
 import '../widgets/output.dart';
 
 enum SceneState {
@@ -66,7 +66,7 @@ class _JournalViewState extends State<JournalView> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          appState.useJournal ? const JournalViewer() : const SizedBox.shrink(),
+          appState.useJournal ? const Journal() : const SizedBox.shrink(),
           Expanded(
             flex: 1,
             child: ViewWrapper(children: [
