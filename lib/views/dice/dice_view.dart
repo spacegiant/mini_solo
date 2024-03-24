@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/output.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 
-import '../widgets/gap.dart';
+import '../../widgets/gap.dart';
 
 class DieType {
   late Color? color;
@@ -167,6 +167,7 @@ class DiceButton extends StatelessWidget {
         ),
         onPressed: () {
           int roll = dieType.roll();
+          print(roll);
         });
   }
 }
