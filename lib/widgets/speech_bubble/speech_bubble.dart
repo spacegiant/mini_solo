@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class TextOutput extends StatelessWidget {
-  const TextOutput({
+class SpeechBubble extends StatelessWidget {
+  const SpeechBubble({
     super.key,
     required this.line1,
     this.line2,

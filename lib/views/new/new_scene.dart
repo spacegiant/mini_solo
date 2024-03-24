@@ -8,7 +8,7 @@ import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/output.dart';
+import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 import '../journal_view.dart';
 
@@ -31,7 +31,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     return Consumer(
       builder: (BuildContext context, AppState appState, Widget? child) {
         return ViewWrapper(children: [
-          TextOutput(
+          SpeechBubble(
             line1: line1,
             line2: line2,
             line3: line3,

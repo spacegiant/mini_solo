@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
-import 'package:mini_solo/widgets/output.dart';
+import '../../widgets/speech_bubble/speech_bubble.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +47,7 @@ class _DiceViewState extends State<DiceView> {
       builder: (BuildContext context, appState, Widget? child) {
         return ViewWrapper(
           children: [
-            TextOutput(line1: outputText),
+            SpeechBubble(line1: outputText),
             DiceCollection(
               diceSet:
                   appState.campaignData?.settings.general.useZocchiDice == true

@@ -10,7 +10,7 @@ import '../utilities/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal.dart';
-import '../widgets/output.dart';
+import '../widgets/speech_bubble/speech_bubble.dart';
 
 enum SceneState {
   expected,
@@ -78,7 +78,7 @@ class _JournalViewState extends State<JournalView> {
             flex: 1,
             child: ViewWrapper(children: [
               !appState.useJournal
-                  ? TextOutput(
+                  ? SpeechBubble(
                       line1: line1,
                       line2: line2,
                       line3: line3,

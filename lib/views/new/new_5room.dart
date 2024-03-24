@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/menu_spacer.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/output.dart';
+import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 
 class New5RoomMenu extends StatefulWidget {
@@ -21,7 +21,7 @@ class _New5RoomMenuState extends State<New5RoomMenu> {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      TextOutput(
+      SpeechBubble(
         line1: line1,
         line2: line2,
         line3: line3,
