@@ -6,7 +6,31 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+SettingsData _$SettingsDataFromJson(Map<String, dynamic> json) => SettingsData(
+      general:
+          GeneralSettingsData.fromJson(json['general'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
+    <String, dynamic>{
+      'general': instance.general.toJson(),
+    };
+
+GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
+    GeneralSettingsData(
+      showFutureSettings: json['showFutureSettings'] as bool,
+      useJournal: json['useJournal'] as bool,
+    );
+
+Map<String, dynamic> _$GeneralSettingsDataToJson(
+        GeneralSettingsData instance) =>
+    <String, dynamic>{
+      'showFutureSettings': instance.showFutureSettings,
+      'useJournal': instance.useJournal,
+    };
+
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
+      settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
       name: json['name'] as String,
       mythic: Mythic.fromJson(json['mythic'] as Map<String, dynamic>),
       journal: (json['journal'] as List<dynamic>)
@@ -37,6 +61,7 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
+      'settings': instance.settings.toJson(),
       'name': instance.name,
       'mythic': instance.mythic.toJson(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),

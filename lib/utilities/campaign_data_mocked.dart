@@ -3,6 +3,12 @@ import 'campaign_data.dart';
 CampaignData initCampaignDataData() {
   return CampaignData(
     name: 'Shadows over Umber Keep',
+    settings: SettingsData(
+      general: GeneralSettingsData(
+        showFutureSettings: false,
+        useJournal: true,
+      ),
+    ),
     mythic: Mythic(
       chaosFactor: 5,
     ),

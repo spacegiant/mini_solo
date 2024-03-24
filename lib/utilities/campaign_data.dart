@@ -21,7 +21,37 @@ enum JournalEntryTypes {
 
 // set to true if you have nested Model classes
 @JsonSerializable(explicitToJson: true)
+class SettingsData {
+  late GeneralSettingsData general;
+
+  SettingsData({required this.general});
+
+  factory SettingsData.fromJson(Map<String, dynamic> json) =>
+      _$SettingsDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SettingsDataToJson(this);
+}
+
+@JsonSerializable()
+class GeneralSettingsData {
+  late bool showFutureSettings;
+  late bool useJournal;
+
+  GeneralSettingsData({
+    required this.showFutureSettings,
+    required this.useJournal,
+  });
+
+  factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
+      _$GeneralSettingsDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GeneralSettingsDataToJson(this);
+}
+
+// set to true if you have nested Model classes
+@JsonSerializable(explicitToJson: true)
 class CampaignData {
+  late SettingsData settings;
   late String name;
   late Mythic mythic;
   late List<JournalEntryItem> journal;
@@ -34,6 +64,7 @@ class CampaignData {
   late List<Dungeon> dungeons;
 
   CampaignData({
+    required this.settings,
     required this.name,
     required this.mythic,
     required this.journal,
@@ -66,6 +97,12 @@ CampaignData initCampaignDataData(String campaignName) {
     clues: [],
     creatures: [],
     dungeons: [],
+    settings: SettingsData(
+      general: GeneralSettingsData(
+        showFutureSettings: false,
+        useJournal: true,
+      ),
+    ),
   );
 }
 

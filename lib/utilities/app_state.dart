@@ -25,7 +25,20 @@ class AppState extends ChangeNotifier {
   late bool _useJournal = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
+  // late bool _showFutureFeatures = true;
 
+  // FUTURE FEATURES
+
+  bool? get showFutureFeatures =>
+      _campaignData?.settings.general.showFutureSettings;
+
+  void toggleShowFutureFeatures() {
+    _campaignData?.settings.general.showFutureSettings =
+        !_campaignData!.settings.general.showFutureSettings;
+    notifyListeners();
+  }
+
+  // SAVE CALLBACK
   // TODO: Rename to setSaveCampaignCallback
   void setSaveCallback(cb) {
     // print('setSaveCallback');
