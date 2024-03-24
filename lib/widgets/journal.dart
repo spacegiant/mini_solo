@@ -17,7 +17,10 @@ class Journal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Iterable<JournalEntry> journalEntries = items.map(
-      (entry) => JournalEntry(text: entry.title),
+      (entry) => JournalEntry(
+        text: entry.title,
+        label: entry.label,
+      ),
     );
 
     return Consumer<AppState>(

@@ -26,6 +26,7 @@ class AppState extends ChangeNotifier {
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
 
+  // TODO: Rename to setSaveCampaignCallback
   void setSaveCallback(cb) {
     // print('setSaveCallback');
     _saveCallback = cb;

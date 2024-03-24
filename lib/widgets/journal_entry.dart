@@ -4,12 +4,15 @@ class JournalEntry extends StatelessWidget {
   const JournalEntry({
     super.key,
     required this.text,
+    this.label,
   });
 
   final String text;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
+    // print(label);
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         8.0,
@@ -25,6 +28,10 @@ class JournalEntry extends StatelessWidget {
             const Divider(
               color: Colors.white,
             ),
+            if (label != null)
+              Text(
+                label!,
+              ),
             Text(
               text,
               style: const TextStyle(

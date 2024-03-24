@@ -84,8 +84,10 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             null,
           ),
           type: JournalEntryTypes.oracle,
+          label: 'Mythic Event Focus',
         ),
       );
+
       appState.saveCampaignDataToDisk();
     });
   }
@@ -117,6 +119,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             result.line3,
           ),
           type: JournalEntryTypes.oracle,
+          label: 'Mythic Description',
         ),
       );
       appState.saveCampaignDataToDisk();
@@ -156,6 +159,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             result.line3,
           ),
           type: JournalEntryTypes.oracle,
+          label: 'Mythic Action',
         ),
       );
       appState.saveCampaignDataToDisk();
