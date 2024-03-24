@@ -31,7 +31,7 @@ class AppState extends ChangeNotifier {
     _saveCallback = cb;
   }
 
-  void saveCallback() {
+  void saveCampaignDataToDisk() {
     // print('saveCallback ${_campaignData?.mythic.chaosFactor}');
     if (_saveCallback != null) _saveCallback!(_campaignData!);
   }
@@ -67,8 +67,7 @@ class AppState extends ChangeNotifier {
       var newValue = cf + 1;
       _campaignData!.mythic.chaosFactor = newValue;
     }
-    // TODO: Rename to saveCampaignData
-    saveCallback();
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 
@@ -78,7 +77,7 @@ class AppState extends ChangeNotifier {
       var newValue = cf - 1;
       _campaignData!.mythic.chaosFactor = newValue;
     }
-    saveCallback();
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 

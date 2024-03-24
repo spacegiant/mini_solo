@@ -105,7 +105,7 @@ class _JournalViewState extends State<JournalView> {
                         type: JournalEntryTypes.oracle,
                       ),
                     );
-                    appState.saveCallback();
+                    appState.saveCampaignDataToDisk();
                   }),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),
