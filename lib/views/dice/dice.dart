@@ -28,11 +28,13 @@ class DieType {
   late Color? color;
   late String label;
   late List<DiceFace> faces;
+  late bool isZocchi;
 
   DieType({
     this.color,
     required this.label,
     required this.faces,
+    required bool isZocchi,
   });
 
   int roll() {
