@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/menu_spacer.dart';
+import '../../widgets/speech_bubble/bubble_text.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 
@@ -23,9 +24,11 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
     return ViewWrapper(children: [
       // TODO: Make this like a character sheet or add objects as rolled
       SpeechBubble(
-        line1: line1,
-        line2: line2,
-        line3: line3,
+        widget: BubbleText(lines: [
+          line1,
+          line2,
+          line3,
+        ]),
       ),
       ListButton(
           label: 'Randomise All',

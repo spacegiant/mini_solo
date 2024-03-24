@@ -28,9 +28,8 @@ class DiceButton extends StatelessWidget {
         ),
         onPressed: () {
           int roll = dieType.roll();
-          DiceRoll diceRoll =
-              DiceRoll(dieType: dieType, value: roll, message: '');
-          onPressed(diceRoll);
+
+          // onPressed(diceRoll);
         });
   }
 }

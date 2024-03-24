@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
@@ -32,9 +33,11 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       builder: (BuildContext context, AppState appState, Widget? child) {
         return ViewWrapper(children: [
           SpeechBubble(
-            line1: line1,
-            line2: line2,
-            line3: line3,
+            widget: BubbleText(lines: [
+              line1,
+              line2,
+              line3,
+            ]),
           ),
           ListButton(
             label: 'Mythic Action',

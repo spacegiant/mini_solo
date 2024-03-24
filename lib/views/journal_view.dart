@@ -10,6 +10,7 @@ import '../utilities/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal.dart';
+import '../widgets/speech_bubble/bubble_text.dart';
 import '../widgets/speech_bubble/speech_bubble.dart';
 
 enum SceneState {
@@ -79,10 +80,9 @@ class _JournalViewState extends State<JournalView> {
             child: ViewWrapper(children: [
               !appState.useJournal
                   ? SpeechBubble(
-                      line1: line1,
-                      line2: line2,
-                      line3: line3,
-                    )
+                      widget: BubbleText(
+                      lines: [line1, line2, line3],
+                    ))
                   : const SizedBox.shrink(),
               ListButton(
                   label: 'Test Your Expected Scene',

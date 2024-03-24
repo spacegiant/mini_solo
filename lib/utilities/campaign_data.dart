@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import '../views/dice/dice_view.dart';
 part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
@@ -136,6 +138,7 @@ class JournalEntryItem extends CampaignItem {
   String title;
   String? label;
   String? detail;
+  List<DiceRoll>? diceRolls;
 
   JournalEntryItem({
     required super.isFavourite,
@@ -143,6 +146,7 @@ class JournalEntryItem extends CampaignItem {
     required this.type,
     this.label,
     this.detail,
+    this.diceRolls,
   });
 
   factory JournalEntryItem.fromJson(Map<String, dynamic> json) =>

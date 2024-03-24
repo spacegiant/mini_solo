@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
+import 'dice_view.dart';
+
 class DiceFace {
   late int value;
   late String? label;
@@ -39,8 +41,8 @@ class DieType {
 
   int roll() {
     int numberOfSides = faces.length;
-    int randomRoll = Random().nextInt(numberOfSides) + 1;
-    return randomRoll;
+    int rolledValue = Random().nextInt(numberOfSides) + 1;
+    return rolledValue;
   }
 }
 

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
@@ -11,13 +13,11 @@ import 'dice_button.dart';
 
 class DiceRoll {
   DieType dieType;
-  int value;
-  String message;
+  int rolledValue;
 
   DiceRoll({
     required this.dieType,
-    required this.value,
-    required this.message,
+    required this.rolledValue,
   });
 }
 
@@ -47,7 +47,9 @@ class _DiceViewState extends State<DiceView> {
       builder: (BuildContext context, appState, Widget? child) {
         return ViewWrapper(
           children: [
-            SpeechBubble(line1: outputText),
+            const SpeechBubble(
+              widget: DiceBubble(),
+            ),
             DiceCollection(
               diceSet:
                   appState.campaignData?.settings.general.useZocchiDice == true
@@ -55,7 +57,10 @@ class _DiceViewState extends State<DiceView> {
                       : regularDice,
               appState: appState,
               onPressed: (diceRoll) {
-                setOutputText(diceRoll.value);
+                // TODO: UPDATE OUTPUT
+                // setOutputText('boop');
+
+                // TODO: PUSH TO JOURNAL
               },
             ),
             const Gap(),
@@ -63,9 +68,88 @@ class _DiceViewState extends State<DiceView> {
             if (appState.showFutureFeatures == true) const Text('Genesys dice'),
             // TODO: Add story dice
             if (appState.showFutureFeatures == true) const Text('Story dice'),
+            //   TODO: Add preset dice rolls e.g. Ironsworn, Fate
           ],
         );
       },
+    );
+  }
+}
+
+class DiceBubble extends StatelessWidget {
+  const DiceBubble({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DiceGlyph(
+                  rolledValue: 2,
+                  dieType: 'd6',
+                ),
+                DiceGlyph(
+                  rolledValue: 6,
+                  dieType: 'd8',
+                ),
+                DiceGlyph(
+                  rolledValue: 15,
+                  dieType: 'd100',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class DiceGlyph extends StatelessWidget {
+  const DiceGlyph({
+    super.key,
+    required this.rolledValue,
+    required this.dieType,
+  });
+
+  final int rolledValue;
+  final String dieType;
+
+  @override
+  Widget build(BuildContext context) {
+    double circleWidth = 50.0;
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Container(
+          height: circleWidth,
+          width: circleWidth,
+          clipBehavior: Clip.none,
+          decoration: const BoxDecoration(
+            color: CupertinoColors.systemYellow,
+            // borderRadius: BorderRadius.all(Radius.circular(50.0)),
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(rolledValue.toString()),
+                Text(
+                  dieType,
+                  style: const TextStyle(
+                    fontSize: 10.0,
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

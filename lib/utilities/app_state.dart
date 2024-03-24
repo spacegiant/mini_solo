@@ -171,6 +171,7 @@ class AppState extends ChangeNotifier {
   void toggleUseZocchiDice() {
     _campaignData?.settings.general.useZocchiDice =
         !_campaignData!.settings.general.useZocchiDice;
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 }

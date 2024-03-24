@@ -21,6 +21,7 @@ class CampaignStorage {
   Future<CampaignData?> readJSON() async {
     try {
       final file = await _localFile;
+      print(file);
 
       // Read the file
       final jsonData = await file.readAsString();
@@ -41,6 +42,7 @@ class CampaignStorage {
 
   Future<File> writeJSON(CampaignData data) async {
     final file = await _localFile;
+    print(file);
 
     // Convert MAP to String
     String jsonData = jsonEncode(data);
