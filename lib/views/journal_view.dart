@@ -98,13 +98,21 @@ class _JournalViewState extends State<JournalView> {
                         test.line2 != null ? ' ${test.line2}' : '';
                     String printLine3 =
                         test.line3 != null ? ' ${test.line3}' : '';
-                    appState.campaignData?.journal.add(
-                      JournalEntryItem(
-                        isFavourite: false,
-                        title: '${test.line1}$printLine2$printLine3',
-                        type: JournalEntryTypes.oracle,
-                      ),
-                    );
+
+                    appState.campaignData?.journal.add(JournalEntryItem(
+                      isFavourite: false,
+                      label: 'Test Scene',
+                      title: line1,
+                      detail: '$printLine2$printLine3',
+                      type: JournalEntryTypes.oracle,
+                    )
+                        // JournalEntryItem(
+                        //   isFavourite: false,
+                        //   title: '${test.line1}$printLine2$printLine3',
+                        //   type: JournalEntryTypes.oracle,
+                        //   detail: 'Test',
+                        // ),
+                        );
                     appState.saveCampaignDataToDisk();
                   }),
               // TODO: Replace this with menuSpacer or other way round

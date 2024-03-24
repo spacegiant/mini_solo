@@ -20,6 +20,7 @@ class Journal extends StatelessWidget {
       (entry) => JournalEntry(
         text: entry.title,
         label: entry.label,
+        detail: entry.detail,
       ),
     );
 

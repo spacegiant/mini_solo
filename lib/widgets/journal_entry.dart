@@ -5,10 +5,12 @@ class JournalEntry extends StatelessWidget {
     super.key,
     required this.text,
     this.label,
+    this.detail,
   });
 
   final String text;
   final String? label;
+  final String? detail;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class JournalEntry extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            if (detail != null) Text(detail!),
             // const Text(
             //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.'),
           ],
