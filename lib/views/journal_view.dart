@@ -64,6 +64,8 @@ class _JournalViewState extends State<JournalView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
+      bool showFutureFeatures =
+          appState.campaignData!.settings.general.showFutureSettings;
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,56 +119,63 @@ class _JournalViewState extends State<JournalView> {
                   }),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),
-              ListButton(
-                label: 'Fate Check',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.fate);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'End Scene',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.endScene);
-                  appState.toggleShowPopup();
-                },
-              ),
-              const Gap(),
-              ListButton(
-                label: 'Combat',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.combat);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Social',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.social);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Exploration',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.exploration);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Travel',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.travel);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Investigate',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.investigation);
-                  appState.toggleShowPopup();
-                },
-              ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Fate Check',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.fate);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'End Scene',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.endScene);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures) const Gap(),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Combat',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.combat);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Social',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.social);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Exploration',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.exploration);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Travel',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.travel);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Investigate',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.investigation);
+                    appState.toggleShowPopup();
+                  },
+                ),
             ]),
           ),
         ],

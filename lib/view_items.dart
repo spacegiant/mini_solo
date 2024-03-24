@@ -10,11 +10,13 @@ class TabBarItem {
   String label;
   IconData icon;
   Widget viewWidget;
+  bool? hide;
 
   TabBarItem({
     required this.label,
     required this.icon,
     required this.viewWidget,
+    this.hide,
   });
 }
 
@@ -33,6 +35,7 @@ List<TabBarItem> tabBarItems = [
     label: 'Starred',
     icon: CupertinoIcons.star,
     viewWidget: const StarredView(),
+    hide: true,
   ),
   TabBarItem(
     label: 'Trackers',

@@ -158,7 +158,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             children: [
               const SettingsHeading(label: 'General settings'),
               SettingsOption(
-                isActive: appState.useJournal,
+                isActive:
+                    appState.campaignData!.settings.general.showFutureSettings,
                 label: 'Show future features',
                 onChanged: (isChecked) {
                   appState.toggleShowFutureFeatures();

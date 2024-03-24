@@ -35,6 +35,7 @@ class AppState extends ChangeNotifier {
   void toggleShowFutureFeatures() {
     _campaignData?.settings.general.showFutureSettings =
         !_campaignData!.settings.general.showFutureSettings;
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 
