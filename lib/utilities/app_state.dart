@@ -70,6 +70,7 @@ class AppState extends ChangeNotifier {
       var newValue = cf + 1;
       _campaignData!.mythic.chaosFactor = newValue;
     }
+    // TODO: Rename to saveCampaignData
     saveCallback();
     notifyListeners();
   }

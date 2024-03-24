@@ -12,6 +12,15 @@ class JournalViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> journalEntries = [
+      const JournalEntry(
+        text: 'Soup',
+      ),
+      const JournalEntry(
+        text: 'New Entry',
+      ),
+    ];
+
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
         return GestureDetector(
@@ -28,28 +37,29 @@ class JournalViewer extends StatelessWidget {
                     maxHeight: 200.0,
                     minHeight: 200.0,
                   ),
-                  child: const SingleChildScrollView(
+                  child: SingleChildScrollView(
                     reverse: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        JournalStartEntry(),
-                        JournalEntry(
+                        const JournalStartEntry(),
+                        ...journalEntries,
+                        const JournalEntry(
                           text: 'New Entry',
                         ),
-                        JournalEntry(
+                        const JournalEntry(
                           text: 'New Entry',
                         ),
-                        JournalEntry(
+                        const JournalEntry(
                           text: 'New Entry',
                         ),
-                        JournalEntry(
+                        const JournalEntry(
                           text: 'New Entry',
                         ),
-                        JournalEntry(
+                        const JournalEntry(
                           text: 'New Entry LATEST',
                         ),
-                        JournalEndGlyphs()
+                        const JournalEndGlyphs()
                       ],
                     ),
                   ),
