@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/journal_entry.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
 import '../utilities/app_state.dart';
+import '../utilities/campaign_data.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal.dart';
 import '../widgets/output.dart';
@@ -66,7 +68,9 @@ class _JournalViewState extends State<JournalView> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          appState.useJournal ? const Journal() : const SizedBox.shrink(),
+          appState.useJournal
+              ? Journal(items: appState.campaignData!.journal)
+              : const SizedBox.shrink(),
           Expanded(
             flex: 1,
             child: ViewWrapper(children: [
@@ -81,11 +85,27 @@ class _JournalViewState extends State<JournalView> {
                   label: 'Test Your Expected Scene',
                   onPressed: () {
                     ReturnObject test = testScene(context);
+
+                    // For Bubble
                     setState(() {
                       line1 = test.line1;
                       line2 = test.line2;
                       line3 = test.line3;
                     });
+
+                    // For Journal
+                    String printLine2 =
+                        test.line2 != null ? ' ${test.line2}' : '';
+                    String printLine3 =
+                        test.line3 != null ? ' ${test.line3}' : '';
+                    appState.campaignData?.journal.add(
+                      JournalEntryItem(
+                        isFavourite: false,
+                        title: '${test.line1}$printLine2$printLine3',
+                        type: JournalEntryTypes.oracle,
+                      ),
+                    );
+                    appState.saveCallback();
                   }),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),

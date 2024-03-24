@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
 
@@ -21,7 +19,6 @@ enum PopupLabels {
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
   String? _currentCampaign;
-  late int _chaosFactor = 5;
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;

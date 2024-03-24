@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:provider/provider.dart';
 
 import '../utilities/app_state.dart';
@@ -8,18 +9,16 @@ import 'journal_entry.dart';
 class Journal extends StatelessWidget {
   const Journal({
     super.key,
+    required this.items,
   });
+
+  final List<JournalEntryItem> items;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> journalEntries = [
-      const JournalEntry(
-        text: 'Soup',
-      ),
-      const JournalEntry(
-        text: 'New Entry',
-      ),
-    ];
+    Iterable<JournalEntry> journalEntries = items.map(
+      (entry) => JournalEntry(text: entry.title),
+    );
 
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
@@ -44,22 +43,7 @@ class Journal extends StatelessWidget {
                       children: [
                         const JournalStartEntry(),
                         ...journalEntries,
-                        const JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        const JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        const JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        const JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        const JournalEntry(
-                          text: 'New Entry LATEST',
-                        ),
-                        const JournalEndGlyphs()
+                        const JournalEndGlyphs(),
                       ],
                     ),
                   ),

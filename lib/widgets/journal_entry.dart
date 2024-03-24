@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class JournalEntry extends StatelessWidget {
   const JournalEntry({
@@ -22,14 +22,17 @@ class JournalEntry extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const Divider(
+              color: Colors.white,
+            ),
             Text(
               text,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.'),
+            // const Text(
+            //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.'),
           ],
         ),
       ),
