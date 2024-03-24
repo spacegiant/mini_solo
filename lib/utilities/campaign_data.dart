@@ -23,7 +23,7 @@ enum JournalEntryTypes {
 class CampaignData {
   late String name;
   late Mythic mythic;
-  late List<JournalEntry> journal;
+  late List<JournalEntryItem> journal;
   late List<Person> people;
   late List<Place> places;
   late List<Thing> things;
@@ -90,22 +90,22 @@ class Mythic {
 }
 
 @JsonSerializable()
-class JournalEntry extends CampaignItem {
+class JournalEntryItem extends CampaignItem {
   late JournalEntryTypes type;
   String title;
   String? detail;
 
-  JournalEntry({
+  JournalEntryItem({
     required super.isFavourite,
     required this.title,
     required this.type,
     this.detail,
   });
 
-  factory JournalEntry.fromJson(Map<String, dynamic> json) =>
-      _$JournalEntryFromJson(json);
+  factory JournalEntryItem.fromJson(Map<String, dynamic> json) =>
+      _$JournalEntryItemFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JournalEntryToJson(this);
+  Map<String, dynamic> toJson() => _$JournalEntryItemToJson(this);
 }
 
 @JsonSerializable()

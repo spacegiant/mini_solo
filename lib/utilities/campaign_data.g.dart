@@ -10,7 +10,7 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       name: json['name'] as String,
       mythic: Mythic.fromJson(json['mythic'] as Map<String, dynamic>),
       journal: (json['journal'] as List<dynamic>)
-          .map((e) => JournalEntry.fromJson(e as Map<String, dynamic>))
+          .map((e) => JournalEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
       people: (json['people'] as List<dynamic>)
           .map((e) => Person.fromJson(e as Map<String, dynamic>))
@@ -57,14 +57,15 @@ Map<String, dynamic> _$MythicToJson(Mythic instance) => <String, dynamic>{
       'chaosFactor': instance.chaosFactor,
     };
 
-JournalEntry _$JournalEntryFromJson(Map<String, dynamic> json) => JournalEntry(
+JournalEntryItem _$JournalEntryItemFromJson(Map<String, dynamic> json) =>
+    JournalEntryItem(
       isFavourite: json['isFavourite'] as bool,
       title: json['title'] as String,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
       detail: json['detail'] as String?,
     );
 
-Map<String, dynamic> _$JournalEntryToJson(JournalEntry instance) =>
+Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,

@@ -7,23 +7,23 @@ CampaignData initCampaignDataData() {
       chaosFactor: 5,
     ),
     journal: [
-      JournalEntry(
+      JournalEntryItem(
         isFavourite: false,
         type: JournalEntryTypes.newScene,
         title: 'At Umber Keep Gates',
         detail: 'Some guards eye us suspiciously',
       ),
-      JournalEntry(
+      JournalEntryItem(
         isFavourite: false,
         type: JournalEntryTypes.action,
         title: 'Boggins tries to charm them',
       ),
-      JournalEntry(
+      JournalEntryItem(
         isFavourite: false,
         title: 'd20 -> 16',
         type: JournalEntryTypes.roll,
       ),
-      JournalEntry(
+      JournalEntryItem(
         isFavourite: false,
         title:
             'Success! You notice they eye up any passing jewelry with avarice.',
