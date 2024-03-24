@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class Output extends StatelessWidget {
-  const Output({
+class TextOutput extends StatelessWidget {
+  const TextOutput({
     super.key,
     required this.line1,
     this.line2,

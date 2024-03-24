@@ -31,7 +31,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     return Consumer(
       builder: (BuildContext context, AppState appState, Widget? child) {
         return ViewWrapper(children: [
-          Output(
+          TextOutput(
             line1: line1,
             line2: line2,
             line3: line3,

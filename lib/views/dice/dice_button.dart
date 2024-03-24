@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'dice.dart';
+import 'dice_view.dart';
 
 class DiceButton extends StatelessWidget {
   const DiceButton({
@@ -10,7 +11,7 @@ class DiceButton extends StatelessWidget {
   });
 
   final DieType dieType;
-  final Function(int) onPressed;
+  final Function(DiceRoll) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,9 @@ class DiceButton extends StatelessWidget {
         ),
         onPressed: () {
           int roll = dieType.roll();
-          onPressed(roll);
+          DiceRoll diceRoll =
+              DiceRoll(dieType: dieType, value: roll, message: '');
+          onPressed(diceRoll);
         });
   }
 }

@@ -78,7 +78,7 @@ class _JournalViewState extends State<JournalView> {
             flex: 1,
             child: ViewWrapper(children: [
               !appState.useJournal
-                  ? Output(
+                  ? TextOutput(
                       line1: line1,
                       line2: line2,
                       line3: line3,

@@ -22,7 +22,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       // TODO: Make this like a character sheet or add objects as rolled
-      Output(
+      TextOutput(
         line1: line1,
         line2: line2,
         line3: line3,

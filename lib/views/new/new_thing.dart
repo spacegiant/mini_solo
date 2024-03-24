@@ -21,7 +21,7 @@ class _NewThingMenuState extends State<NewThingMenu> {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      Output(
+      TextOutput(
         line1: line1,
         line2: line2,
         line3: line3,

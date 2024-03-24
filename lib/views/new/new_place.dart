@@ -20,7 +20,7 @@ class _NewPlaceMenuState extends State<NewPlaceMenu> {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      Output(
+      TextOutput(
         line1: line1,
         line2: line2,
         line3: line3,

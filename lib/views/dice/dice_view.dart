@@ -1,12 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
-import 'package:mini_solo/views/dice/zocchi_dice_set.dart';
 import 'package:mini_solo/widgets/output.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 
 import '../../widgets/gap.dart';
 import 'dice.dart';
 import 'dice_button.dart';
+
+class DiceRoll {
+  DieType dieType;
+  int value;
+  String message;
+
+  DiceRoll({
+    required this.dieType,
+    required this.value,
+    required this.message,
+  });
+}
 
 class DiceView extends StatefulWidget {
   const DiceView({super.key});
@@ -32,18 +43,18 @@ class _DiceViewState extends State<DiceView> {
   Widget build(BuildContext context) {
     return ViewWrapper(
       children: [
-        Output(line1: outputText),
+        TextOutput(line1: outputText),
         DiceCollection(
           diceSet: regularDice,
-          onPressed: (value) {
-            setOutputText(value);
+          onPressed: (diceRoll) {
+            setOutputText(diceRoll.value);
           },
         ),
         const Gap(),
         DiceCollection(
           diceSet: zocchiDice,
-          onPressed: (value) {
-            setOutputText(value);
+          onPressed: (diceRoll) {
+            setOutputText(diceRoll.value);
           },
         ),
         const Gap(),
@@ -62,7 +73,7 @@ class DiceCollection extends StatelessWidget {
   });
 
   final DiceSet diceSet;
-  final void Function(int) onPressed;
+  final void Function(DiceRoll) onPressed;
 
   @override
   Widget build(BuildContext context) {
