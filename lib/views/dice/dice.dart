@@ -25,16 +25,16 @@ class DiceSet {
 }
 
 class DieType {
-  late Color? color;
-  late String label;
-  late List<DiceFace> faces;
-  late bool isZocchi;
+  final Color? color;
+  final String label;
+  final List<DiceFace> faces;
+  final bool isZocchi;
 
   DieType({
     this.color,
     required this.label,
     required this.faces,
-    required bool isZocchi,
+    required this.isZocchi,
   });
 
   int roll() {

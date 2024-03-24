@@ -163,4 +163,14 @@ class AppState extends ChangeNotifier {
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
   }
+
+  // ZOCCHI DICE
+
+  bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
+
+  void toggleUseZocchiDice() {
+    _campaignData?.settings.general.useZocchiDice =
+        !_campaignData!.settings.general.useZocchiDice;
+    notifyListeners();
+  }
 }

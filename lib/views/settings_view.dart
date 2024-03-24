@@ -158,6 +158,14 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             children: [
               const SettingsHeading(label: 'General settings'),
               SettingsOption(
+                isActive: appState.campaignData!.settings.general.useZocchiDice,
+                label: 'Use Zocchi Dice',
+                onChanged: (isChecked) {
+                  print('toggleUseZocchiDice');
+                  appState.toggleUseZocchiDice();
+                },
+              ),
+              SettingsOption(
                 isActive:
                     appState.campaignData!.settings.general.showFutureSettings,
                 label: 'Show future features',

@@ -36,10 +36,12 @@ class SettingsData {
 class GeneralSettingsData {
   late bool showFutureSettings;
   late bool useJournal;
+  late bool useZocchiDice;
 
   GeneralSettingsData({
     required this.showFutureSettings,
     required this.useJournal,
+    required this.useZocchiDice,
   });
 
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -101,6 +103,7 @@ CampaignData initCampaignDataData(String campaignName) {
       general: GeneralSettingsData(
         showFutureSettings: false,
         useJournal: true,
+        useZocchiDice: false,
       ),
     ),
   );

@@ -7,6 +7,7 @@ CampaignData initCampaignDataData() {
       general: GeneralSettingsData(
         showFutureSettings: false,
         useJournal: true,
+        useZocchiDice: false,
       ),
     ),
     mythic: Mythic(

@@ -1,5 +1,4 @@
 import 'dice.dart';
-import 'dice_view.dart';
 
 DiceSet regularDice = DiceSet(
   dieTypes: [d4, d6, d8, d10, d12, d20, d100],
@@ -13,7 +12,7 @@ DiceSet zocchiDice = DiceSet(
 
 DiceSet all = DiceSet(
   dieTypes: [d3, d4, d5, d6, d7, d8, d10, d12, d14, d16, d20, d24, d30, d100],
-  label: 'Zocchi Dice Set',
+  label: 'Regular + Zocchi Dice Set',
 );
 
 DieType d4 = DieType(
