@@ -6,9 +6,11 @@ class DiceButton extends StatelessWidget {
   const DiceButton({
     super.key,
     required this.dieType,
+    required this.onPressed,
   });
 
   final DieType dieType;
+  final Function(int) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class DiceButton extends StatelessWidget {
         ),
         onPressed: () {
           int roll = dieType.roll();
-          print(roll);
+          onPressed(roll);
         });
   }
 }

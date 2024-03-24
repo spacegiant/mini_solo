@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../utilities/app_state.dart';
 import '../utilities/campaign_data.dart';
+import '../utilities/convert_for_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal.dart';
 import '../widgets/output.dart';
@@ -95,26 +96,19 @@ class _JournalViewState extends State<JournalView> {
                       line3 = test.line3;
                     });
 
-                    // For Journal
-                    String printLine2 =
-                        test.line2 != null ? ' ${test.line2}' : '';
-                    String printLine3 =
-                        test.line3 != null ? ' ${test.line3}' : '';
-
-                    appState.campaignData?.journal.add(JournalEntryItem(
-                      isFavourite: false,
-                      label: 'Test Scene',
-                      title: line1,
-                      detail: '$printLine2$printLine3',
-                      type: JournalEntryTypes.oracle,
-                    )
-                        // JournalEntryItem(
-                        //   isFavourite: false,
-                        //   title: '${test.line1}$printLine2$printLine3',
-                        //   type: JournalEntryTypes.oracle,
-                        //   detail: 'Test',
-                        // ),
-                        );
+                    appState.campaignData?.journal.add(
+                      JournalEntryItem(
+                        isFavourite: false,
+                        label: 'Test Scene',
+                        title: line1,
+                        detail: convertToJournalEntry(
+                          test.line1,
+                          test.line2,
+                          test.line3,
+                        ),
+                        type: JournalEntryTypes.oracle,
+                      ),
+                    );
                     appState.saveCampaignDataToDisk();
                   }),
               // TODO: Replace this with menuSpacer or other way round
