@@ -93,12 +93,14 @@ class Mythic {
 class JournalEntryItem extends CampaignItem {
   late JournalEntryTypes type;
   String title;
+  String? label;
   String? detail;
 
   JournalEntryItem({
     required super.isFavourite,
     required this.title,
     required this.type,
+    this.label,
     this.detail,
   });
 

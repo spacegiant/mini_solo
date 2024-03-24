@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/widgets/journal_entry.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +36,7 @@ class SceneStateResult {
   }
 }
 
+// TODO: Rename this
 class ReturnObject {
   late String line1;
   late String? line2;

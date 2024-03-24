@@ -50,13 +50,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           ListButton(
             label: 'Event Focus',
             onPressed: () {
-              getWeightedResult('lib/assets/json/mythic.json', (String text) {
-                setState(() {
-                  line1 = text;
-                  line2 = null;
-                  line3 = null;
-                });
-              });
+              getEventFocus(appState);
             },
           ),
           const ChaosFactorPanel(),
@@ -70,6 +64,30 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         ]);
       },
     );
+  }
+
+  getEventFocus(AppState appState) {
+    getWeightedResult('lib/assets/json/mythic.json', (String text) {
+      setState(() {
+        line1 = text;
+        line2 = null;
+        line3 = null;
+      });
+
+      //  Save to campaign data and push to journal
+      appState.campaignData?.journal.add(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            text,
+            null,
+            null,
+          ),
+          type: JournalEntryTypes.oracle,
+        ),
+      );
+      appState.saveCampaignDataToDisk();
+    });
   }
 
   void getMythicDescription(AppState appState) {
