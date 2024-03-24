@@ -21,7 +21,7 @@ class TextOutput extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            child: TextBubble(
+            child: Bubble(
               line1: line1,
               line2: line2,
               line3: line3,
@@ -42,8 +42,8 @@ class TextOutput extends StatelessWidget {
   }
 }
 
-class TextBubble extends StatelessWidget {
-  const TextBubble({
+class Bubble extends StatelessWidget {
+  const Bubble({
     super.key,
     required this.line1,
     this.line2,
@@ -70,19 +70,39 @@ class TextBubble extends StatelessWidget {
         ),
       ),
       // child: MarkdownBlock(newString: newString));
-      child: Column(
-        children: [
-          BubbleText(text: line1),
-          line2 != null ? BubbleText(text: line2!) : const SizedBox.shrink(),
-          line3 != null ? BubbleDetail(text: line3!) : const SizedBox.shrink(),
+      child: BubbleText(
+        lines: [
+          BubbleTextLine(text: line1),
+          line2 != null
+              ? BubbleTextLine(text: line2!)
+              : const SizedBox.shrink(),
+          line3 != null
+              ? BubbleDetailLine(text: line3!)
+              : const SizedBox.shrink(),
         ],
       ),
     );
   }
 }
 
-class BubbleDetail extends StatelessWidget {
-  const BubbleDetail({
+class BubbleText extends StatelessWidget {
+  const BubbleText({
+    super.key,
+    required this.lines,
+  });
+
+  final List<Widget> lines;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [...lines],
+    );
+  }
+}
+
+class BubbleDetailLine extends StatelessWidget {
+  const BubbleDetailLine({
     super.key,
     required this.text,
   });
@@ -101,8 +121,8 @@ class BubbleDetail extends StatelessWidget {
   }
 }
 
-class BubbleText extends StatelessWidget {
-  const BubbleText({
+class BubbleTextLine extends StatelessWidget {
+  const BubbleTextLine({
     super.key,
     required this.text,
   });
