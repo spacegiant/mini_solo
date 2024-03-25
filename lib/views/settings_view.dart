@@ -161,8 +161,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 isActive: appState.campaignData!.settings.general.useZocchiDice,
                 label: 'Use Zocchi Dice',
                 onChanged: (isChecked) {
-                  print('toggleUseZocchiDice');
-                  print(appState.campaignData!.settings.general.useZocchiDice);
                   appState.toggleUseZocchiDice();
                 },
               ),

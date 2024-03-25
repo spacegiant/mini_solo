@@ -91,6 +91,9 @@ JournalEntryItem _$JournalEntryItemFromJson(Map<String, dynamic> json) =>
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
       label: json['label'] as String?,
       detail: json['detail'] as String?,
+      diceRolls: (json['diceRolls'] as List<dynamic>?)
+          ?.map((e) => DiceResult.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
@@ -100,6 +103,7 @@ Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
       'title': instance.title,
       'label': instance.label,
       'detail': instance.detail,
+      'diceRolls': instance.diceRolls?.map((e) => e.toJson()).toList(),
     };
 
 const _$JournalEntryTypesEnumMap = {
@@ -224,4 +228,15 @@ Map<String, dynamic> _$DungeonToJson(Dungeon instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'title': instance.title,
       'rooms': instance.rooms?.map((e) => e.toJson()).toList(),
+    };
+
+DiceResult _$DiceResultFromJson(Map<String, dynamic> json) => DiceResult(
+      result: json['result'] as int,
+      diceType: json['diceType'] as String,
+    );
+
+Map<String, dynamic> _$DiceResultToJson(DiceResult instance) =>
+    <String, dynamic>{
+      'result': instance.result,
+      'diceType': instance.diceType,
     };

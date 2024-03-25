@@ -1,10 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../utilities/campaign_data.dart';
+import '../../views/dice/dice_view.dart';
+
 class RollEntry extends StatelessWidget {
-  const RollEntry({super.key});
+  const RollEntry({
+    super.key,
+    required this.diceResults,
+  });
+
+  final List<DiceResult> diceResults;
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Roll Entry');
+    return DiceBubble(diceResults: diceResults);
   }
 }

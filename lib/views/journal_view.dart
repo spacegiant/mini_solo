@@ -96,7 +96,7 @@ class _JournalViewState extends State<JournalView> {
                       line3 = test.line3;
                     });
 
-                    appState.campaignData?.journal.add(
+                    appState.addJournalEntry(
                       JournalEntryItem(
                         isFavourite: false,
                         label: 'Test Scene',
@@ -109,7 +109,6 @@ class _JournalViewState extends State<JournalView> {
                         type: JournalEntryTypes.oracle,
                       ),
                     );
-                    appState.saveCampaignDataToDisk();
                   }),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),

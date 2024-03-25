@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../utilities/campaign_data.dart';
 import 'dice.dart';
 import 'dice_view.dart';
 

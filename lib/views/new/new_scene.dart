@@ -91,8 +91,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           label: 'Mythic Event Focus',
         ),
       );
-
-      appState.saveCampaignDataToDisk();
     });
   }
 
@@ -126,7 +124,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           label: 'Mythic Description',
         ),
       );
-      appState.saveCampaignDataToDisk();
     });
   }
 
@@ -166,7 +163,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           label: 'Mythic Action',
         ),
       );
-      appState.saveCampaignDataToDisk();
     });
   }
 

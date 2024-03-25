@@ -30,10 +30,7 @@ class JournalEntry extends StatelessWidget {
             const Divider(
               color: Colors.white,
             ),
-            if (label != null)
-              Text(
-                label!,
-              ),
+            if (label != null) Text(label!),
             Text(
               text,
               style: const TextStyle(

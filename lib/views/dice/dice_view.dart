@@ -21,11 +21,7 @@ class DiceView extends StatefulWidget {
 }
 
 class _DiceViewState extends State<DiceView> {
-  List<DiceResult> diceResults = [
-    DiceResult(result: 6, diceType: 'd12'),
-    DiceResult(result: 4, diceType: 'd6'),
-    DiceResult(result: 74, diceType: 'd100'),
-  ];
+  List<DiceResult> diceResults = [];
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +35,20 @@ class _DiceViewState extends State<DiceView> {
         }
 
         void submitResults() {
+          print('submitResults $diceResults');
+          List<DiceResult> myDiceResults = List.from(diceResults);
           appState.addJournalEntry(JournalEntryItem(
             isFavourite: false,
-            title: '',
             type: JournalEntryTypes.roll,
-            diceRolls: diceResults,
+            diceRolls: myDiceResults,
+            title: '',
           ));
+          setState(() {
+            diceResults.clear();
+          });
+        }
+
+        void clearResults() {
           setState(() {
             diceResults.clear();
           });
@@ -65,6 +69,7 @@ class _DiceViewState extends State<DiceView> {
               appState: appState,
               onPressed: addResult,
               onSubmit: submitResults,
+              onClear: clearResults,
             ),
             const Gap(),
             // TODO: Add Genesys dice
@@ -84,9 +89,11 @@ class DiceBubble extends StatelessWidget {
   const DiceBubble({
     super.key,
     required this.diceResults,
+    this.label,
   });
 
   final List<DiceResult> diceResults;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
@@ -110,16 +117,4 @@ class DiceBubble extends StatelessWidget {
       ],
     );
   }
-}
-
-class DiceResult {
-  int result;
-  String diceType;
-  Color? color;
-
-  DiceResult({
-    required this.result,
-    required this.diceType,
-    this.color,
-  });
 }

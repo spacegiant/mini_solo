@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../utilities/app_state.dart';
+import '../../utilities/campaign_data.dart';
 import '../../widgets/gap.dart';
 import 'dice.dart';
 import 'dice_button.dart';
-import 'dice_view.dart';
 
 class DiceCollection extends StatelessWidget {
   const DiceCollection({
@@ -12,12 +12,14 @@ class DiceCollection extends StatelessWidget {
     required this.diceSet,
     required this.onPressed,
     required this.onSubmit,
+    required this.onClear,
     required this.appState,
   });
 
   final DiceSet diceSet;
   final void Function(DiceResult) onPressed;
   final void Function() onSubmit;
+  final void Function() onClear;
   final AppState appState;
 
   @override
@@ -58,6 +60,19 @@ class DiceCollection extends StatelessWidget {
                 ),
                 onPressed: () {
                   onSubmit();
+                },
+              ),
+              CupertinoButton(
+                color: CupertinoColors.black,
+                padding: const EdgeInsets.all(0.0),
+                child: const Text(
+                  'Clear',
+                  style: TextStyle(
+                    color: CupertinoColors.white,
+                  ),
+                ),
+                onPressed: () {
+                  onClear();
                 },
               ),
             ],

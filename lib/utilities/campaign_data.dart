@@ -132,7 +132,7 @@ class Mythic {
   Map<String, dynamic> toJson() => _$MythicToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class JournalEntryItem extends CampaignItem {
   late JournalEntryTypes type;
   String title;
@@ -291,4 +291,20 @@ class Dungeon extends CampaignItem {
       _$DungeonFromJson(json);
 
   Map<String, dynamic> toJson() => _$DungeonToJson(this);
+}
+
+@JsonSerializable()
+class DiceResult {
+  int result;
+  String diceType;
+
+  DiceResult({
+    required this.result,
+    required this.diceType,
+  });
+
+  factory DiceResult.fromJson(Map<String, dynamic> json) =>
+      _$DiceResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DiceResultToJson(this);
 }

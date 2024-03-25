@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
-import 'package:mini_solo/widgets/journal/roll_entry.dart';
 
 enum PopupLabels {
   chaos,
@@ -26,7 +25,9 @@ class AppState extends ChangeNotifier {
   late bool _useJournal = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
-  // late bool _showFutureFeatures = true;
+  int get chaosFactor => _campaignData!.mythic.chaosFactor ?? 5;
+  int maxChaos = 9;
+  int minChaos = 1;
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>
@@ -36,7 +37,6 @@ class AppState extends ChangeNotifier {
     _campaignData?.settings.general.showFutureSettings =
         !_campaignData!.settings.general.showFutureSettings;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   // SAVE CALLBACK
@@ -47,7 +47,7 @@ class AppState extends ChangeNotifier {
   }
 
   void saveCampaignDataToDisk() {
-    // print('saveCallback ${_campaignData?.mythic.chaosFactor}');
+    print('saveCallback ${_campaignData?.journal.last.diceRolls}');
     if (_saveCallback != null) _saveCallback!(_campaignData!);
     notifyListeners();
   }
@@ -73,10 +73,6 @@ class AppState extends ChangeNotifier {
   }
 
   // CHAOS FACTOR
-  int get chaosFactor => _campaignData!.mythic.chaosFactor ?? 5;
-  int maxChaos = 9;
-  int minChaos = 1;
-
   void increaseChaosFactor() {
     var cf = chaosFactor;
     if (cf < maxChaos) {
@@ -90,7 +86,6 @@ class AppState extends ChangeNotifier {
       ));
     }
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   void decreaseChaosFactor() {
@@ -106,7 +101,6 @@ class AppState extends ChangeNotifier {
       ));
     }
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   void resetChaosFactor() {
@@ -118,7 +112,6 @@ class AppState extends ChangeNotifier {
       label: 'Chaos Factor',
     ));
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   //   SHOW POPUP
@@ -152,7 +145,6 @@ class AppState extends ChangeNotifier {
   bool get showSettings => _showSettings;
 
 //   USE JOURNAL
-
   bool get useJournal => _useJournal;
 
   void toggleUseJournal() {
@@ -163,20 +155,15 @@ class AppState extends ChangeNotifier {
   // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
+    saveCampaignDataToDisk();
   }
 
-  // void addRollEntry(RollEntry item) {
-  //   _campaignData?.journal.add(item);
-  // }
-
   // ZOCCHI DICE
-
   bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
 
   void toggleUseZocchiDice() {
     _campaignData?.settings.general.useZocchiDice =
         !_campaignData!.settings.general.useZocchiDice;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 }
