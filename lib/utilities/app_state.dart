@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/widgets/journal/roll_entry.dart';
 
 enum PopupLabels {
   chaos,
@@ -28,7 +29,6 @@ class AppState extends ChangeNotifier {
   // late bool _showFutureFeatures = true;
 
   // FUTURE FEATURES
-
   bool? get showFutureFeatures =>
       _campaignData?.settings.general.showFutureSettings;
 
@@ -160,9 +160,14 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
   }
+
+  // void addRollEntry(RollEntry item) {
+  //   _campaignData?.journal.add(item);
+  // }
 
   // ZOCCHI DICE
 

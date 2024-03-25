@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
@@ -26,18 +27,29 @@ class _DiceViewState extends State<DiceView> {
     DiceResult(result: 74, diceType: 'd100'),
   ];
 
-  void setOutputText(DiceResult result) {
-    print('output');
-    setState(() {
-      // outputText = value.toString();
-      diceResults.add(result);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, appState, Widget? child) {
+        void addResult(DiceResult result) {
+          setState(() {
+            // outputText = value.toString();
+            diceResults.add(result);
+          });
+        }
+
+        void submitResults() {
+          appState.addJournalEntry(JournalEntryItem(
+            isFavourite: false,
+            title: '',
+            type: JournalEntryTypes.roll,
+            diceRolls: diceResults,
+          ));
+          setState(() {
+            diceResults.clear();
+          });
+        }
+
         return ViewWrapper(
           children: [
             SpeechBubble(
@@ -51,13 +63,8 @@ class _DiceViewState extends State<DiceView> {
                       ? all
                       : regularDice,
               appState: appState,
-              onPressed: (diceResult) {
-                // TODO: UPDATE OUTPUT
-
-                diceResults.add(diceResult);
-
-                // TODO: PUSH TO JOURNAL
-              },
+              onPressed: addResult,
+              onSubmit: submitResults,
             ),
             const Gap(),
             // TODO: Add Genesys dice

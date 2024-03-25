@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class JournalEntry extends StatelessWidget {
   const JournalEntry({
     super.key,
-    required this.text,
     this.label,
+    required this.text,
     this.detail,
   });
 
-  final String text;
   final String? label;
+  final String text;
   final String? detail;
 
   @override

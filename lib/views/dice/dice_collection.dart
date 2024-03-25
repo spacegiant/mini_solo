@@ -11,11 +11,13 @@ class DiceCollection extends StatelessWidget {
     super.key,
     required this.diceSet,
     required this.onPressed,
+    required this.onSubmit,
     required this.appState,
   });
 
   final DiceSet diceSet;
   final void Function(DiceResult) onPressed;
+  final void Function() onSubmit;
   final AppState appState;
 
   @override
@@ -55,7 +57,7 @@ class DiceCollection extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  setState() {}
+                  onSubmit();
                 },
               ),
             ],
