@@ -9,7 +9,7 @@ import '../utilities/app_state.dart';
 import '../utilities/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
 import '../widgets/gap.dart';
-import '../widgets/journal.dart';
+import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
 import '../widgets/speech_bubble/speech_bubble.dart';
 

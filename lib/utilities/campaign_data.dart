@@ -138,7 +138,7 @@ class JournalEntryItem extends CampaignItem {
   String title;
   String? label;
   String? detail;
-  List<DiceRoll>? diceRolls;
+  List<DiceResult>? diceRolls;
 
   JournalEntryItem({
     required super.isFavourite,

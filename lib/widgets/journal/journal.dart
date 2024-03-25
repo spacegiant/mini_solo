@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/widgets/journal/roll_entry.dart';
 import 'package:provider/provider.dart';
 
-import '../utilities/app_state.dart';
+import '../../utilities/app_state.dart';
 import 'journal_entry.dart';
 
 class Journal extends StatelessWidget {
@@ -16,13 +17,17 @@ class Journal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Iterable<JournalEntry> journalEntries = items.map(
-      (entry) => JournalEntry(
-        text: entry.title,
-        label: entry.label,
-        detail: entry.detail,
-      ),
-    );
+    Iterable<Widget> journalEntries = items.map((entry) {
+      if (entry.type == JournalEntryTypes.roll) {
+        return const RollEntry();
+      } else {
+        return JournalEntry(
+          text: entry.title,
+          label: entry.label,
+          detail: entry.detail,
+        );
+      }
+    });
 
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {

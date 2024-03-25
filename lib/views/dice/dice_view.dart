@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
@@ -8,19 +7,11 @@ import 'package:provider/provider.dart';
 
 import '../../utilities/app_state.dart';
 import '../../widgets/gap.dart';
-import 'dice.dart';
-import 'dice_button.dart';
+import 'dice_collection.dart';
+import 'dice_glyph.dart';
 
-class DiceRoll {
-  DieType dieType;
-  int rolledValue;
-
-  DiceRoll({
-    required this.dieType,
-    required this.rolledValue,
-  });
-}
-
+// DISPLAY OUTPUT BUBBLE
+// DISPLAY DICE COLLECTIONS
 class DiceView extends StatefulWidget {
   const DiceView({super.key});
 
@@ -29,15 +20,17 @@ class DiceView extends StatefulWidget {
 }
 
 class _DiceViewState extends State<DiceView> {
-  String outputText = '...';
-  String line1 = '...';
-  String? line2;
-  String? line3;
+  List<DiceResult> diceResults = [
+    DiceResult(result: 6, diceType: 'd12'),
+    DiceResult(result: 4, diceType: 'd6'),
+    DiceResult(result: 74, diceType: 'd100'),
+  ];
 
-  void setOutputText(int value) {
+  void setOutputText(DiceResult result) {
     print('output');
     setState(() {
-      outputText = value.toString();
+      // outputText = value.toString();
+      diceResults.add(result);
     });
   }
 
@@ -47,8 +40,10 @@ class _DiceViewState extends State<DiceView> {
       builder: (BuildContext context, appState, Widget? child) {
         return ViewWrapper(
           children: [
-            const SpeechBubble(
-              widget: DiceBubble(),
+            SpeechBubble(
+              widget: DiceBubble(
+                diceResults: diceResults,
+              ),
             ),
             DiceCollection(
               diceSet:
@@ -56,9 +51,10 @@ class _DiceViewState extends State<DiceView> {
                       ? all
                       : regularDice,
               appState: appState,
-              onPressed: (diceRoll) {
+              onPressed: (diceResult) {
                 // TODO: UPDATE OUTPUT
-                // setOutputText('boop');
+
+                diceResults.add(diceResult);
 
                 // TODO: PUSH TO JOURNAL
               },
@@ -76,32 +72,29 @@ class _DiceViewState extends State<DiceView> {
   }
 }
 
+// TODO: MOVE TO OWN FILE WHEN FINISHED
 class DiceBubble extends StatelessWidget {
   const DiceBubble({
     super.key,
+    required this.diceResults,
   });
+
+  final List<DiceResult> diceResults;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
+            Wrap(
               children: [
-                DiceGlyph(
-                  rolledValue: 2,
-                  dieType: 'd6',
-                ),
-                DiceGlyph(
-                  rolledValue: 6,
-                  dieType: 'd8',
-                ),
-                DiceGlyph(
-                  rolledValue: 15,
-                  dieType: 'd100',
+                ...diceResults.map(
+                  (e) => DiceGlyph(
+                    rolledValue: e.result,
+                    dieType: e.diceType,
+                  ),
                 ),
               ],
             ),
@@ -112,104 +105,14 @@ class DiceBubble extends StatelessWidget {
   }
 }
 
-class DiceGlyph extends StatelessWidget {
-  const DiceGlyph({
-    super.key,
-    required this.rolledValue,
-    required this.dieType,
+class DiceResult {
+  int result;
+  String diceType;
+  Color? color;
+
+  DiceResult({
+    required this.result,
+    required this.diceType,
+    this.color,
   });
-
-  final int rolledValue;
-  final String dieType;
-
-  @override
-  Widget build(BuildContext context) {
-    double circleWidth = 50.0;
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Container(
-          height: circleWidth,
-          width: circleWidth,
-          clipBehavior: Clip.none,
-          decoration: const BoxDecoration(
-            color: CupertinoColors.systemYellow,
-            // borderRadius: BorderRadius.all(Radius.circular(50.0)),
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(rolledValue.toString()),
-                Text(
-                  dieType,
-                  style: const TextStyle(
-                    fontSize: 10.0,
-                  ),
-                ),
-              ],
-            ),
-          )),
-    );
-  }
-}
-
-class DiceCollection extends StatelessWidget {
-  const DiceCollection({
-    super.key,
-    required this.diceSet,
-    required this.onPressed,
-    required this.appState,
-  });
-
-  final DiceSet diceSet;
-  final void Function(DiceRoll) onPressed;
-  final AppState appState;
-
-  @override
-  Widget build(BuildContext context) {
-    Iterable diceButtons = diceSet.dieTypes.map((dieType) => DiceButton(
-          dieType: dieType,
-          onPressed: onPressed,
-          color: dieType.isZocchi == true
-              ? CupertinoColors.systemBlue
-              : CupertinoColors.systemPink,
-        ));
-
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-          border: Border.all(
-            width: 3.0,
-            color: CupertinoColors.systemRed,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10.0))),
-      child: Column(
-        children: [
-          Text(diceSet.label),
-          const Gap(),
-          Wrap(
-            runSpacing: 8.0,
-            spacing: 8.0,
-            children: [
-              ...diceButtons,
-              CupertinoButton(
-                color: CupertinoColors.black,
-                padding: const EdgeInsets.all(0.0),
-                child: const Text(
-                  '>',
-                  style: TextStyle(
-                    color: CupertinoColors.white,
-                  ),
-                ),
-                onPressed: () {
-                  setState() {}
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }
