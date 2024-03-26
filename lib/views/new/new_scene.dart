@@ -101,6 +101,12 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             onPressed: () {
               getCharactersAppearance(appState);
             },
+          ),
+          ListButton(
+            label: 'Characters Background',
+            onPressed: () {
+              getCharactersAppearance(appState);
+            },
           )
         ]);
       },
@@ -130,6 +136,15 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState,
       'characters_appearance',
       'Mythic - Characters Appearance',
+      handleUpdateBubble,
+    );
+  }
+
+  void getCharactersBackground(AppState appState) {
+    return getTwiceFromTable(
+      appState,
+      'characters_background',
+      'Mythic - Characters Background',
       handleUpdateBubble,
     );
   }
