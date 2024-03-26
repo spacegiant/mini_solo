@@ -29,16 +29,20 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   String? line3;
   late var mythicJSON = {};
 
-  void updateBubble({
-    required AppState appState,
-    required ReturnObject result,
-    required String label,
-  }) {
+  void updateState(ReturnObject result) {
     setState(() {
       line1 = result.line1;
       line2 = result.line2;
       line3 = null;
     });
+  }
+
+  void updateBubble({
+    required AppState appState,
+    required ReturnObject result,
+    required String label,
+  }) {
+    updateState(result);
 
     appState.addJournalEntry(JournalEntryItem(
       isFavourite: false,
