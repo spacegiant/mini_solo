@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class Output extends StatelessWidget {
-  const Output({
+class SpeechBubble extends StatelessWidget {
+  const SpeechBubble({
     super.key,
-    required this.line1,
-    this.line2,
-    this.line3,
+    required this.widget,
   });
 
-  final String line1;
-  final String? line2;
-  final String? line3;
+  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +16,7 @@ class Output extends StatelessWidget {
         alignment: AlignmentDirectional.topCenter,
         clipBehavior: Clip.none,
         children: [
-          Positioned(
-            child: TextBubble(
-              line1: line1,
-              line2: line2,
-              line3: line3,
-            ),
-          ),
+          Bubble(widget: widget),
           const Positioned(
             bottom: -18.0,
             child: RotatedBox(
@@ -42,17 +32,13 @@ class Output extends StatelessWidget {
   }
 }
 
-class TextBubble extends StatelessWidget {
-  const TextBubble({
+class Bubble extends StatelessWidget {
+  const Bubble({
     super.key,
-    required this.line1,
-    this.line2,
-    this.line3,
+    required this.widget,
   });
 
-  final String line1;
-  final String? line2;
-  final String? line3;
+  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -70,56 +56,11 @@ class TextBubble extends StatelessWidget {
         ),
       ),
       // child: MarkdownBlock(newString: newString));
-      child: Column(
-        children: [
-          BubbleText(text: line1),
-          line2 != null ? BubbleText(text: line2!) : const SizedBox.shrink(),
-          line3 != null ? BubbleDetail(text: line3!) : const SizedBox.shrink(),
-        ],
-      ),
+      child: widget,
     );
   }
 }
 
-class BubbleDetail extends StatelessWidget {
-  const BubbleDetail({
-    super.key,
-    required this.text,
-  });
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 16.0,
-        color: CupertinoColors.white,
-      ),
-    );
-  }
-}
-
-class BubbleText extends StatelessWidget {
-  const BubbleText({
-    super.key,
-    required this.text,
-  });
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 24.0,
-        color: CupertinoColors.white,
-      ),
-    );
-  }
-}
 //
 // class MarkdownBlock extends StatelessWidget {
 //   const MarkdownBlock({

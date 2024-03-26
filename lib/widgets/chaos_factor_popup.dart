@@ -7,10 +7,7 @@ import 'list_button.dart';
 class ChaosFactorPopup extends StatelessWidget {
   const ChaosFactorPopup({
     super.key,
-    // required this.togglePopup,
   });
-
-  // final Function() togglePopup;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,7 @@ class ChaosFactorPopup extends StatelessWidget {
 
     return SizedBox(
       width: 200.0,
-      height: 240.0,
+      height: 300.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -44,7 +41,6 @@ class ChaosFactorPopup extends StatelessWidget {
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.increaseChaosFactor();
-              appState.saveCallback();
             },
           ),
           ListButton(
@@ -52,6 +48,13 @@ class ChaosFactorPopup extends StatelessWidget {
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.decreaseChaosFactor();
+            },
+          ),
+          ListButton(
+            label: 'Reset',
+            labelAlignment: Alignment.center,
+            onPressed: () {
+              appState.resetChaosFactor();
             },
           ),
           ListButton(

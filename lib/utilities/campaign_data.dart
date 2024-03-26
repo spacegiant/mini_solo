@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
@@ -16,14 +17,47 @@ enum JournalEntryTypes {
   pc,
   npc,
   transition,
+  chaosFactor,
+}
+
+// set to true if you have nested Model classes
+@JsonSerializable(explicitToJson: true)
+class SettingsData {
+  late GeneralSettingsData general;
+
+  SettingsData({required this.general});
+
+  factory SettingsData.fromJson(Map<String, dynamic> json) =>
+      _$SettingsDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SettingsDataToJson(this);
+}
+
+@JsonSerializable()
+class GeneralSettingsData {
+  late bool showFutureSettings;
+  late bool useJournal;
+  late bool useZocchiDice;
+
+  GeneralSettingsData({
+    required this.showFutureSettings,
+    required this.useJournal,
+    required this.useZocchiDice,
+  });
+
+  factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
+      _$GeneralSettingsDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GeneralSettingsDataToJson(this);
 }
 
 // set to true if you have nested Model classes
 @JsonSerializable(explicitToJson: true)
 class CampaignData {
+  late SettingsData settings;
   late String name;
   late Mythic mythic;
-  late List<JournalEntry> journal;
+  late List<JournalEntryItem> journal;
   late List<Person> people;
   late List<Place> places;
   late List<Thing> things;
@@ -33,6 +67,7 @@ class CampaignData {
   late List<Dungeon> dungeons;
 
   CampaignData({
+    required this.settings,
     required this.name,
     required this.mythic,
     required this.journal,
@@ -65,6 +100,13 @@ CampaignData initCampaignDataData(String campaignName) {
     clues: [],
     creatures: [],
     dungeons: [],
+    settings: SettingsData(
+      general: GeneralSettingsData(
+        showFutureSettings: false,
+        useJournal: true,
+        useZocchiDice: false,
+      ),
+    ),
   );
 }
 
@@ -89,23 +131,27 @@ class Mythic {
   Map<String, dynamic> toJson() => _$MythicToJson(this);
 }
 
-@JsonSerializable()
-class JournalEntry extends CampaignItem {
+@JsonSerializable(explicitToJson: true)
+class JournalEntryItem extends CampaignItem {
   late JournalEntryTypes type;
   String title;
+  String? label;
   String? detail;
+  List<DiceResult>? diceRolls;
 
-  JournalEntry({
+  JournalEntryItem({
     required super.isFavourite,
     required this.title,
     required this.type,
+    this.label,
     this.detail,
+    this.diceRolls,
   });
 
-  factory JournalEntry.fromJson(Map<String, dynamic> json) =>
-      _$JournalEntryFromJson(json);
+  factory JournalEntryItem.fromJson(Map<String, dynamic> json) =>
+      _$JournalEntryItemFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JournalEntryToJson(this);
+  Map<String, dynamic> toJson() => _$JournalEntryItemToJson(this);
 }
 
 @JsonSerializable()
@@ -244,4 +290,20 @@ class Dungeon extends CampaignItem {
       _$DungeonFromJson(json);
 
   Map<String, dynamic> toJson() => _$DungeonToJson(this);
+}
+
+@JsonSerializable()
+class DiceResult {
+  int result;
+  String diceType;
+
+  DiceResult({
+    required this.result,
+    required this.diceType,
+  });
+
+  factory DiceResult.fromJson(Map<String, dynamic> json) =>
+      _$DiceResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DiceResultToJson(this);
 }

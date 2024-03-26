@@ -6,9 +6,12 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
 import '../utilities/app_state.dart';
+import '../utilities/campaign_data.dart';
+import '../utilities/convert_for_journal.dart';
 import '../widgets/gap.dart';
-import '../widgets/journal_viewer.dart';
-import '../widgets/output.dart';
+import '../widgets/journal/journal.dart';
+import '../widgets/speech_bubble/bubble_text.dart';
+import '../widgets/speech_bubble/speech_bubble.dart';
 
 enum SceneState {
   expected,
@@ -35,6 +38,7 @@ class SceneStateResult {
   }
 }
 
+// TODO: Rename this
 class ReturnObject {
   late String line1;
   late String? line2;
@@ -62,83 +66,109 @@ class _JournalViewState extends State<JournalView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
+      bool showFutureFeatures =
+          appState.campaignData!.settings.general.showFutureSettings;
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          appState.useJournal ? const JournalViewer() : const SizedBox.shrink(),
+          appState.useJournal
+              ? Journal(items: appState.campaignData!.journal)
+              : const SizedBox.shrink(),
           Expanded(
             flex: 1,
             child: ViewWrapper(children: [
               !appState.useJournal
-                  ? Output(
-                      line1: line1,
-                      line2: line2,
-                      line3: line3,
-                    )
+                  ? SpeechBubble(
+                      widget: BubbleText(
+                      lines: [line1, line2, line3],
+                    ))
                   : const SizedBox.shrink(),
               ListButton(
                   label: 'Test Your Expected Scene',
                   onPressed: () {
                     ReturnObject test = testScene(context);
+
+                    // For Bubble
                     setState(() {
                       line1 = test.line1;
                       line2 = test.line2;
                       line3 = test.line3;
                     });
+
+                    appState.addJournalEntry(
+                      JournalEntryItem(
+                        isFavourite: false,
+                        label: 'Test Scene',
+                        title: line1,
+                        detail: convertToJournalEntry(
+                          test.line1,
+                          test.line2,
+                          test.line3,
+                        ),
+                        type: JournalEntryTypes.oracle,
+                      ),
+                    );
                   }),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),
-              ListButton(
-                label: 'Fate Check',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.fate);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'End Scene',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.endScene);
-                  appState.toggleShowPopup();
-                },
-              ),
-              const Gap(),
-              ListButton(
-                label: 'Combat',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.combat);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Social',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.social);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Exploration',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.exploration);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Travel',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.travel);
-                  appState.toggleShowPopup();
-                },
-              ),
-              ListButton(
-                label: 'Investigate',
-                onPressed: () {
-                  appState.setPopupLabel(PopupLabels.investigation);
-                  appState.toggleShowPopup();
-                },
-              ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Fate Check',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.fate);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'End Scene',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.endScene);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures) const Gap(),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Combat',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.combat);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Social',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.social);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Exploration',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.exploration);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Travel',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.travel);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              if (showFutureFeatures)
+                ListButton(
+                  label: 'Investigate',
+                  onPressed: () {
+                    appState.setPopupLabel(PopupLabels.investigation);
+                    appState.toggleShowPopup();
+                  },
+                ),
             ]),
           ),
         ],

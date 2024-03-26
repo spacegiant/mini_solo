@@ -1,10 +1,15 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
+import 'package:provider/provider.dart';
+import '../../utilities/app_state.dart';
+import '../../utilities/campaign_data.dart';
+import '../../utilities/convert_for_journal.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/output.dart';
+import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 import '../journal_view.dart';
 
@@ -24,48 +29,72 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewWrapper(children: [
-      Output(
-        line1: line1,
-        line2: line2,
-        line3: line3,
-      ),
-      ListButton(
-        label: 'Mythic Action',
-        onPressed: () {
-          getMythicAction();
-        },
-      ),
-      ListButton(
-        label: 'Mythic Description',
-        onPressed: () {
-          getMythicDescription();
-        },
-      ),
-      ListButton(
-        label: 'Event Focus',
-        onPressed: () {
-          getWeightedResult('lib/assets/json/mythic.json', (String text) {
-            setState(() {
-              line1 = text;
-              line2 = null;
-              line3 = null;
-            });
-          });
-        },
-      ),
-      const ChaosFactorPanel(),
-      const Text('Mythic Elements'),
-      ListButton(
-        label: 'Plot Twist',
-        onPressed: () {
-          getPlotTwist();
-        },
-      )
-    ]);
+    return Consumer(
+      builder: (BuildContext context, AppState appState, Widget? child) {
+        return ViewWrapper(children: [
+          SpeechBubble(
+            widget: BubbleText(lines: [
+              line1,
+              line2,
+              line3,
+            ]),
+          ),
+          ListButton(
+            label: 'Mythic Action',
+            onPressed: () {
+              getMythicAction(appState);
+            },
+          ),
+          ListButton(
+            label: 'Mythic Description',
+            onPressed: () {
+              getMythicDescription(appState);
+            },
+          ),
+          ListButton(
+            label: 'Event Focus',
+            onPressed: () {
+              getEventFocus(appState);
+            },
+          ),
+          const ChaosFactorPanel(),
+          const Text('Mythic Elements'),
+          ListButton(
+            label: 'Plot Twist',
+            onPressed: () {
+              getPlotTwist(appState);
+            },
+          )
+        ]);
+      },
+    );
   }
 
-  void getMythicDescription() {
+  getEventFocus(AppState appState) {
+    getWeightedResult('lib/assets/json/mythic.json', (String text) {
+      setState(() {
+        line1 = text;
+        line2 = null;
+        line3 = null;
+      });
+
+      //  Save to campaign data and push to journal
+      appState.addJournalEntry(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            text,
+            null,
+            null,
+          ),
+          type: JournalEntryTypes.oracle,
+          label: 'Mythic Event Focus',
+        ),
+      );
+    });
+  }
+
+  void getMythicDescription(AppState appState) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
       List<String> table1 = List<String>.from(value['description1']);
@@ -81,10 +110,23 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line2 = result.line2;
         line3 = null;
       });
+
+      appState.addJournalEntry(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            result.line1,
+            result.line2,
+            result.line3,
+          ),
+          type: JournalEntryTypes.oracle,
+          label: 'Mythic Description',
+        ),
+      );
     });
   }
 
-  void getMythicAction() {
+  void getMythicAction(AppState appState) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
       List<String> table1 = List<String>.from(value['action1']);
@@ -100,10 +142,27 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line2 = result.line2;
         line3 = null;
       });
+
+      convertToJournalEntry(
+        result.line1,
+        result.line2,
+        result.line3,
+      );
+
+      appState.addJournalEntry(JournalEntryItem(
+        isFavourite: false,
+        title: convertToJournalEntry(
+          result.line1,
+          result.line2,
+          result.line3,
+        ),
+        type: JournalEntryTypes.oracle,
+        label: 'Mythic Action',
+      ));
     });
   }
 
-  void getPlotTwist() {
+  void getPlotTwist(AppState appState) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
       List<String> table1 = List<String>.from(value['elements']['plot_twist']);
@@ -119,6 +178,17 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line2 = result.line2;
         line3 = null;
       });
+
+      appState.addJournalEntry(JournalEntryItem(
+        isFavourite: false,
+        title: convertToJournalEntry(
+          line1 = result.line1,
+          line2 = result.line2,
+          line3 = null,
+        ),
+        type: JournalEntryTypes.oracle,
+        label: 'Mythic - Plot Twist',
+      ));
     });
   }
 }

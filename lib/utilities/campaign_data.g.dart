@@ -6,11 +6,37 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+SettingsData _$SettingsDataFromJson(Map<String, dynamic> json) => SettingsData(
+      general:
+          GeneralSettingsData.fromJson(json['general'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
+    <String, dynamic>{
+      'general': instance.general.toJson(),
+    };
+
+GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
+    GeneralSettingsData(
+      showFutureSettings: json['showFutureSettings'] as bool,
+      useJournal: json['useJournal'] as bool,
+      useZocchiDice: json['useZocchiDice'] as bool,
+    );
+
+Map<String, dynamic> _$GeneralSettingsDataToJson(
+        GeneralSettingsData instance) =>
+    <String, dynamic>{
+      'showFutureSettings': instance.showFutureSettings,
+      'useJournal': instance.useJournal,
+      'useZocchiDice': instance.useZocchiDice,
+    };
+
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
+      settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
       name: json['name'] as String,
       mythic: Mythic.fromJson(json['mythic'] as Map<String, dynamic>),
       journal: (json['journal'] as List<dynamic>)
-          .map((e) => JournalEntry.fromJson(e as Map<String, dynamic>))
+          .map((e) => JournalEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
       people: (json['people'] as List<dynamic>)
           .map((e) => Person.fromJson(e as Map<String, dynamic>))
@@ -37,6 +63,7 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
+      'settings': instance.settings.toJson(),
       'name': instance.name,
       'mythic': instance.mythic.toJson(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),
@@ -57,19 +84,26 @@ Map<String, dynamic> _$MythicToJson(Mythic instance) => <String, dynamic>{
       'chaosFactor': instance.chaosFactor,
     };
 
-JournalEntry _$JournalEntryFromJson(Map<String, dynamic> json) => JournalEntry(
+JournalEntryItem _$JournalEntryItemFromJson(Map<String, dynamic> json) =>
+    JournalEntryItem(
       isFavourite: json['isFavourite'] as bool,
       title: json['title'] as String,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
+      label: json['label'] as String?,
       detail: json['detail'] as String?,
+      diceRolls: (json['diceRolls'] as List<dynamic>?)
+          ?.map((e) => DiceResult.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$JournalEntryToJson(JournalEntry instance) =>
+Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
       'title': instance.title,
+      'label': instance.label,
       'detail': instance.detail,
+      'diceRolls': instance.diceRolls?.map((e) => e.toJson()).toList(),
     };
 
 const _$JournalEntryTypesEnumMap = {
@@ -84,6 +118,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.pc: 'pc',
   JournalEntryTypes.npc: 'npc',
   JournalEntryTypes.transition: 'transition',
+  JournalEntryTypes.chaosFactor: 'chaosFactor',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
@@ -193,4 +228,15 @@ Map<String, dynamic> _$DungeonToJson(Dungeon instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'title': instance.title,
       'rooms': instance.rooms?.map((e) => e.toJson()).toList(),
+    };
+
+DiceResult _$DiceResultFromJson(Map<String, dynamic> json) => DiceResult(
+      result: json['result'] as int,
+      diceType: json['diceType'] as String,
+    );
+
+Map<String, dynamic> _$DiceResultToJson(DiceResult instance) =>
+    <String, dynamic>{
+      'result': instance.result,
+      'diceType': instance.diceType,
     };

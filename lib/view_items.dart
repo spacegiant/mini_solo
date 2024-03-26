@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/views/dice_view.dart';
+import 'package:mini_solo/views/dice/dice_view.dart';
 import 'package:mini_solo/views/journal_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/new_view.dart';
@@ -10,11 +10,13 @@ class TabBarItem {
   String label;
   IconData icon;
   Widget viewWidget;
+  bool? hide;
 
   TabBarItem({
     required this.label,
     required this.icon,
     required this.viewWidget,
+    this.hide,
   });
 }
 
@@ -33,6 +35,7 @@ List<TabBarItem> tabBarItems = [
     label: 'Starred',
     icon: CupertinoIcons.star,
     viewWidget: const StarredView(),
+    hide: true,
   ),
   TabBarItem(
     label: 'Trackers',

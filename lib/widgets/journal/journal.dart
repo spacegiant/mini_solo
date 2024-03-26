@@ -1,17 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/views/dice/dice_view.dart';
 import 'package:provider/provider.dart';
 
-import '../utilities/app_state.dart';
+import '../../utilities/app_state.dart';
 import 'journal_entry.dart';
 
-class JournalViewer extends StatelessWidget {
-  const JournalViewer({
+class Journal extends StatelessWidget {
+  const Journal({
     super.key,
+    required this.items,
   });
+
+  final List<JournalEntryItem> items;
 
   @override
   Widget build(BuildContext context) {
+    Iterable<Widget> journalEntries = items.map((entry) {
+      if (entry.type == JournalEntryTypes.roll) {
+        return DiceBubble(diceResults: [...?entry.diceRolls]);
+      } else {
+        return JournalEntry(
+          text: entry.title,
+          label: entry.label,
+          detail: entry.detail,
+        );
+      }
+    });
+
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
         return GestureDetector(
@@ -28,28 +45,14 @@ class JournalViewer extends StatelessWidget {
                     maxHeight: 200.0,
                     minHeight: 200.0,
                   ),
-                  child: const SingleChildScrollView(
+                  child: SingleChildScrollView(
                     reverse: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        JournalStartEntry(),
-                        JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        JournalEntry(
-                          text: 'New Entry',
-                        ),
-                        JournalEntry(
-                          text: 'New Entry LATEST',
-                        ),
-                        JournalEndGlyphs()
+                        const JournalStartEntry(),
+                        ...journalEntries,
+                        const JournalEndGlyphs(),
                       ],
                     ),
                   ),

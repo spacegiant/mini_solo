@@ -21,9 +21,6 @@ getWeightedResult(
     for (var j = 0; j < weightedTable.length; j++) {
       tally += weightedTable[j]['weight'] as int;
       if (randomRoll < tally) {
-        // setState(() {
-        //   outputText = weightedTable[j]['text'];
-        // });
         callback(weightedTable[j]['text']);
         return;
       }

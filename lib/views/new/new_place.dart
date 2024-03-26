@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/output.dart';
+import '../../widgets/speech_bubble/bubble_text.dart';
+import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 
 class NewPlaceMenu extends StatefulWidget {
@@ -20,10 +21,12 @@ class _NewPlaceMenuState extends State<NewPlaceMenu> {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      Output(
-        line1: line1,
-        line2: line2,
-        line3: line3,
+      SpeechBubble(
+        widget: BubbleText(lines: [
+          line1,
+          line2,
+          line3,
+        ]),
       ),
       ListButton(
         label: 'Place Name',

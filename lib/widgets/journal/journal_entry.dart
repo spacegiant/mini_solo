@@ -1,12 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class JournalEntry extends StatelessWidget {
   const JournalEntry({
     super.key,
+    this.label,
     required this.text,
+    this.detail,
   });
 
+  final String? label;
   final String text;
+  final String? detail;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +26,17 @@ class JournalEntry extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const Divider(
+              color: Colors.white,
+            ),
+            if (label != null) Text(label!),
             Text(
               text,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.'),
+            if (detail != null) Text(detail!),
           ],
         ),
       ),

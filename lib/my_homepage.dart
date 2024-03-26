@@ -42,7 +42,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
     appState.setCampaignData(campaignData);
-    // widget.storage.writeJSON(campaignData);
     saveCampaign(campaignData);
   }
 
@@ -84,7 +83,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         } else {
           return Consumer<AppState>(
             builder: (context, appState, child) {
-              print(appState.saveCallbackExists);
               if (appState.saveCallbackExists == false) {
                 appState.setSaveCallback(saveCampaign);
               }
@@ -104,18 +102,32 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     AppState appState,
     Function() toggleSettings,
   ) {
+    // FIXME: Build tab pages data here and pass down
+    List<TabBarItem> myTabBarItems = List.from(tabBarItems);
+    bool showFutureSettings =
+        appState.campaignData!.settings.general.showFutureSettings;
+    if (showFutureSettings == false) {
+      myTabBarItems.removeWhere((element) => element.label == 'Starred');
+      myTabBarItems.removeWhere((element) => element.label == 'Trackers');
+      myTabBarItems.removeWhere((element) => element.label == 'Lists');
+    }
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: CupertinoTabScaffold(
-        tabBar: homePageTabBar(appState.closePopup),
+        tabBar: homePageTabBar(myTabBarItems, appState.closePopup),
         tabBuilder: (BuildContext context, int index) {
-          return homePageTabView(index, toggleSettings);
+          return homePageTabView(index, toggleSettings, myTabBarItems);
         },
       ),
     );
   }
 
-  Consumer<AppState> homePageTabView(int index, toggleSettings) {
+  Consumer<AppState> homePageTabView(
+    int index,
+    toggleSettings,
+    List<TabBarItem> tabBarItems,
+  ) {
     return Consumer<AppState>(builder: (context, appState, child) {
       return CupertinoTabView(
         builder: (BuildContext context) {
@@ -135,7 +147,10 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  CupertinoTabBar homePageTabBar(Function() handleClosePopup) {
+  CupertinoTabBar homePageTabBar(
+    List<TabBarItem> tabBarItems,
+    Function() handleClosePopup,
+  ) {
     return CupertinoTabBar(
       onTap: (value) {
         handleClosePopup();

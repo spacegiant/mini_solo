@@ -7,7 +7,9 @@ import 'package:mini_solo/views/new/new_person.dart';
 import 'package:mini_solo/views/new/new_place.dart';
 import 'package:mini_solo/views/new/new_thing.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
+import 'package:provider/provider.dart';
 
+import '../utilities/app_state.dart';
 import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
 import '../widgets/menu_spacer.dart';
@@ -18,30 +20,50 @@ class NewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewWrapper(children: [
-      const Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Create a new ...',
-            style: TextStyle(
-              fontSize: 32,
+    return Consumer<AppState>(
+      builder: (BuildContext context, appState, Widget? child) {
+        return ViewWrapper(
+          children: [
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Create a new ...',
+                  style: TextStyle(
+                    fontSize: 32,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-      ListButton(label: 'Scene', onPressed: () => buildNewScene(context)),
-      menuSpacer(),
-      ListButton(label: 'Person', onPressed: () => buildNewPerson(context)),
-      ListButton(label: 'Place', onPressed: () => buildNewPlace(context)),
-      ListButton(label: 'Thing', onPressed: () => buildNewThing(context)),
-      ListButton(label: 'Faction', onPressed: () => buildNewFaction(context)),
-      ListButton(label: 'Clue', onPressed: () => buildNewClue(context)),
-      menuSpacer(),
-      ListButton(label: 'Creature', onPressed: () => buildNewCreature(context)),
-      ListButton(
-          label: '5 Room Dungeon', onPressed: () => buildNew5Room(context)),
-    ]);
+            ListButton(label: 'Scene', onPressed: () => buildNewScene(context)),
+            if (appState.showFutureFeatures == true) menuSpacer(),
+            if (appState.showFutureFeatures == true)
+              ListButton(
+                  label: 'Person', onPressed: () => buildNewPerson(context)),
+            if (appState.showFutureFeatures == true)
+              ListButton(
+                  label: 'Place', onPressed: () => buildNewPlace(context)),
+            if (appState.showFutureFeatures == true)
+              ListButton(
+                  label: 'Thing', onPressed: () => buildNewThing(context)),
+            if (appState.showFutureFeatures == true)
+              ListButton(
+                  label: 'Faction', onPressed: () => buildNewFaction(context)),
+            if (appState.showFutureFeatures == true)
+              ListButton(label: 'Clue', onPressed: () => buildNewClue(context)),
+            if (appState.showFutureFeatures == true) menuSpacer(),
+            if (appState.showFutureFeatures == true)
+              ListButton(
+                  label: 'Creature',
+                  onPressed: () => buildNewCreature(context)),
+            if (appState.showFutureFeatures == true)
+              ListButton(
+                  label: '5 Room Dungeon',
+                  onPressed: () => buildNew5Room(context)),
+          ],
+        );
+      },
+    );
   }
 
   Future<dynamic> buildNewScene(BuildContext context) {
