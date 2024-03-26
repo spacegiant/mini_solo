@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 import '../utilities/app_state.dart';
 
@@ -354,8 +352,8 @@ class _ToolsSettingsState extends State<ToolsSettings> {
 }
 
 // TODO: Move
-Future<void> _launchUrl(url) async {
-  if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
-  }
-}
+// Future<void> _launchUrl(url) async {
+//   if (!await launchUrl(url)) {
+//     throw Exception('Could not launch $url');
+//   }
+// }

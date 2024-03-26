@@ -62,7 +62,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           ListButton(
             label: 'Plot Twist',
             onPressed: () {
-              getPlotTwist();
+              getPlotTwist(appState);
             },
           )
         ]);
@@ -79,7 +79,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       });
 
       //  Save to campaign data and push to journal
-      appState.campaignData?.journal.add(
+      appState.addJournalEntry(
         JournalEntryItem(
           isFavourite: false,
           title: convertToJournalEntry(
@@ -111,8 +111,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line3 = null;
       });
 
-      //  Save to campaign data and push to journal
-      appState.campaignData?.journal.add(
+      appState.addJournalEntry(
         JournalEntryItem(
           isFavourite: false,
           title: convertToJournalEntry(
@@ -150,23 +149,20 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         result.line3,
       );
 
-      //  Save to campaign data and push to journal
-      appState.campaignData?.journal.add(
-        JournalEntryItem(
-          isFavourite: false,
-          title: convertToJournalEntry(
-            result.line1,
-            result.line2,
-            result.line3,
-          ),
-          type: JournalEntryTypes.oracle,
-          label: 'Mythic Action',
+      appState.addJournalEntry(JournalEntryItem(
+        isFavourite: false,
+        title: convertToJournalEntry(
+          result.line1,
+          result.line2,
+          result.line3,
         ),
-      );
+        type: JournalEntryTypes.oracle,
+        label: 'Mythic Action',
+      ));
     });
   }
 
-  void getPlotTwist() {
+  void getPlotTwist(AppState appState) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
       List<String> table1 = List<String>.from(value['elements']['plot_twist']);
@@ -182,6 +178,17 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         line2 = result.line2;
         line3 = null;
       });
+
+      appState.addJournalEntry(JournalEntryItem(
+        isFavourite: false,
+        title: convertToJournalEntry(
+          line1 = result.line1,
+          line2 = result.line2,
+          line3 = null,
+        ),
+        type: JournalEntryTypes.oracle,
+        label: 'Mythic - Plot Twist',
+      ));
     });
   }
 }
