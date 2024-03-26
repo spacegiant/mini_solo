@@ -4,6 +4,8 @@ import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
+import '../../utilities/consult_oracle.dart';
+import '../../utilities/consult_table.dart';
 import '../../utilities/convert_for_journal.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
@@ -191,20 +193,4 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       ));
     });
   }
-}
-
-String consultTable(List<String> table) {
-  int random = Random().nextInt(table.length);
-  return table[random];
-}
-
-ReturnObject consultOracle(
-    {required List<String> table1, List<String>? table2}) {
-  String result1 = consultTable(table1);
-  String result2 = table2 != null ? consultTable(table2) : '';
-
-  return ReturnObject(
-    line1: result1,
-    line2: result2,
-  );
 }
