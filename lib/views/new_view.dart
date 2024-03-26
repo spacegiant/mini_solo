@@ -37,9 +37,8 @@ class NewView extends StatelessWidget {
             ),
             ListButton(label: 'Scene', onPressed: () => buildNewScene(context)),
             if (appState.showFutureFeatures == true) menuSpacer(),
-            if (appState.showFutureFeatures == true)
-              ListButton(
-                  label: 'Person', onPressed: () => buildNewPerson(context)),
+            ListButton(
+                label: 'Person', onPressed: () => buildNewPerson(context)),
             if (appState.showFutureFeatures == true)
               ListButton(
                   label: 'Place', onPressed: () => buildNewPlace(context)),
