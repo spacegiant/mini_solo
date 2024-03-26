@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utilities/app_state.dart';
 
@@ -249,6 +252,10 @@ class _ToolsSettingsState extends State<ToolsSettings> {
   bool mythicAll = false;
   bool mythic = true;
   bool tac = false;
+  bool jeansensAll = false;
+  bool pum = false;
+  bool sum = false;
+  bool gum = false;
 
   @override
   Widget build(BuildContext context) {
@@ -265,6 +272,16 @@ class _ToolsSettingsState extends State<ToolsSettings> {
                 mythicAll = isChecked!;
               });
             },
+          ),
+          CupertinoButton(
+            onPressed: () {
+              print('go to url');
+              // FIXME: fix this See: https://pub.dev/packages/url_launcher
+              // Uri url = Uri.parse(
+              //     'https://jeansenvaars.itch.io/plot-unfolding-machine');
+              // _launchUrl(url);
+            },
+            child: const Text('Visit website'),
           ),
           SettingsOption(
             isActive: mythic,
@@ -283,9 +300,62 @@ class _ToolsSettingsState extends State<ToolsSettings> {
                 tac = isChecked!;
               });
             },
-          )
+          ),
+          SettingsHeading(
+            label: 'Jeansens\'s Machines',
+            checkAll: mythicAll,
+            onChanged: (isChecked) {
+              setState(() {
+                mythicAll = isChecked!;
+              });
+            },
+          ),
+          CupertinoButton(
+            onPressed: () {
+              print('go to url');
+              // FIXME: fix this See: https://pub.dev/packages/url_launcher
+              // Uri url = Uri.parse(
+              //     'https://jeansenvaars.itch.io/plot-unfolding-machine');
+              // _launchUrl(url);
+            },
+            child: const Text('Visit website'),
+          ),
+          SettingsOption(
+            isActive: pum,
+            label: 'Plot Unfolding Machine (PUM)',
+            onChanged: (isChecked) {
+              setState(() {
+                pum = isChecked!;
+              });
+            },
+          ),
+          SettingsOption(
+            isActive: sum,
+            label: 'Scene Unfolding Machine (SUM)',
+            onChanged: (isChecked) {
+              setState(() {
+                sum = isChecked!;
+              });
+            },
+          ),
+          SettingsOption(
+            isActive: gum,
+            label: 'Game Unfolding Machine (GUM)',
+            onChanged: (isChecked) {
+              setState(() {
+                gum = isChecked!;
+              });
+            },
+          ),
         ],
       ),
     );
+  }
+}
+
+// TODO: Move
+Future<void> _launchUrl(url) async {
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
   }
 }
