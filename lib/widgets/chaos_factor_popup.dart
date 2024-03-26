@@ -7,10 +7,7 @@ import 'list_button.dart';
 class ChaosFactorPopup extends StatelessWidget {
   const ChaosFactorPopup({
     super.key,
-    // required this.togglePopup,
   });
-
-  // final Function() togglePopup;
 
   @override
   Widget build(BuildContext context) {

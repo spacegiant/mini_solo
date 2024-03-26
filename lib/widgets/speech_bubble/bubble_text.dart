@@ -13,7 +13,6 @@ class BubbleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> newLines = purifyStringList(lines);
-    // END
     List<TextLine> textLines = newLines.map((e) => TextLine(text: e)).toList();
     return Column(children: textLines);
   }

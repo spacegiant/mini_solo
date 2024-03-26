@@ -29,13 +29,11 @@ class _DiceViewState extends State<DiceView> {
       builder: (BuildContext context, appState, Widget? child) {
         void addResult(DiceResult result) {
           setState(() {
-            // outputText = value.toString();
             diceResults.add(result);
           });
         }
 
         void submitResults() {
-          print('submitResults $diceResults');
           List<DiceResult> myDiceResults = List.from(diceResults);
           appState.addJournalEntry(JournalEntryItem(
             isFavourite: false,

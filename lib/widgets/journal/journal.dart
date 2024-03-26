@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/utilities/campaign_data.dart';
 import 'package:mini_solo/views/dice/dice_view.dart';
-import 'package:mini_solo/widgets/journal/roll_entry.dart';
 import 'package:provider/provider.dart';
 
 import '../../utilities/app_state.dart';
@@ -20,11 +19,6 @@ class Journal extends StatelessWidget {
   Widget build(BuildContext context) {
     Iterable<Widget> journalEntries = items.map((entry) {
       if (entry.type == JournalEntryTypes.roll) {
-        // return DiceBubble(diceResults: [
-        //   DiceResult(result: 5, diceType: 'd6'),
-        //   DiceResult(result: 7, diceType: 'd6'),
-        // ]);
-
         return DiceBubble(diceResults: [...?entry.diceRolls]);
       } else {
         return JournalEntry(

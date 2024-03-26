@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import 'dice_view.dart';
-
 class DiceFace {
   late int value;
   late String? label;

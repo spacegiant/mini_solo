@@ -42,7 +42,6 @@ class AppState extends ChangeNotifier {
   // SAVE CALLBACK
   // TODO: Rename to setSaveCampaignCallback
   void setSaveCallback(cb) {
-    // print('setSaveCallback');
     _saveCallback = cb;
   }
 

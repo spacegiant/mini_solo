@@ -14,7 +14,6 @@ class JournalEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(label);
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         8.0,
@@ -38,8 +37,6 @@ class JournalEntry extends StatelessWidget {
               ),
             ),
             if (detail != null) Text(detail!),
-            // const Text(
-            //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet egestas elit.'),
           ],
         ),
       ),

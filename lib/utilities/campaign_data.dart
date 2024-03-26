@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../views/dice/dice_view.dart';
 part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files

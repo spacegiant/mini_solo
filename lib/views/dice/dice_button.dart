@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../utilities/campaign_data.dart';
 import 'dice.dart';
-import 'dice_view.dart';
 
 class DiceButton extends StatelessWidget {
   const DiceButton({
@@ -28,14 +27,12 @@ class DiceButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          int roll = dieType.roll();
+          dieType.roll();
           DiceResult diceResult = DiceResult(
             result: dieType.roll(),
             diceType: dieType.label,
           );
           onPressed(diceResult);
-
-          // onPressed(diceRoll);
         });
   }
 }

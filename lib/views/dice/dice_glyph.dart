@@ -21,7 +21,6 @@ class DiceGlyph extends StatelessWidget {
           clipBehavior: Clip.none,
           decoration: const BoxDecoration(
             color: CupertinoColors.systemYellow,
-            // borderRadius: BorderRadius.all(Radius.circular(50.0)),
             shape: BoxShape.circle,
           ),
           child: Center(

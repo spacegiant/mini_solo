@@ -42,7 +42,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
     appState.setCampaignData(campaignData);
-    // widget.storage.writeJSON(campaignData);
     saveCampaign(campaignData);
   }
 
