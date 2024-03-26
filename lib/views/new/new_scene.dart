@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
 import '../../utilities/consult_oracle.dart';
-import '../../utilities/consult_table.dart';
 import '../../utilities/convert_for_journal.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
@@ -28,6 +27,29 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   String? line2;
   String? line3;
   late var mythicJSON = {};
+
+  void updateBubble({
+    required AppState appState,
+    required ReturnObject result,
+    required String label,
+  }) {
+    setState(() {
+      line1 = result.line1;
+      line2 = result.line2;
+      line3 = null;
+    });
+
+    appState.addJournalEntry(JournalEntryItem(
+      isFavourite: false,
+      title: convertToJournalEntry(
+        line1 = result.line1,
+        line2 = result.line2,
+        line3 = null,
+      ),
+      type: JournalEntryTypes.oracle,
+      label: label,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +94,21 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     );
   }
 
+  void getPlotTwist(AppState appState) {
+    return getTwiceFromTable(
+      appState,
+      'plot_twist',
+      'Mythic - Plot Twist',
+      (result, label) {
+        updateBubble(
+          appState: appState,
+          result: result,
+          label: label,
+        );
+      },
+    );
+  }
+
   getEventFocus(AppState appState) {
     getWeightedResult('lib/assets/json/mythic.json', (String text) {
       setState(() {
@@ -107,23 +144,10 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         table2: table2,
       );
 
-      setState(() {
-        line1 = result.line1;
-        line2 = result.line2;
-        line3 = null;
-      });
-
-      appState.addJournalEntry(
-        JournalEntryItem(
-          isFavourite: false,
-          title: convertToJournalEntry(
-            result.line1,
-            result.line2,
-            result.line3,
-          ),
-          type: JournalEntryTypes.oracle,
-          label: 'Mythic Description',
-        ),
+      updateBubble(
+        appState: appState,
+        result: result,
+        label: 'Mythic Description',
       );
     });
   }
@@ -139,58 +163,31 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         table2: table2,
       );
 
-      setState(() {
-        line1 = result.line1;
-        line2 = result.line2;
-        line3 = null;
-      });
-
-      convertToJournalEntry(
-        result.line1,
-        result.line2,
-        result.line3,
-      );
-
-      appState.addJournalEntry(JournalEntryItem(
-        isFavourite: false,
-        title: convertToJournalEntry(
-          result.line1,
-          result.line2,
-          result.line3,
-        ),
-        type: JournalEntryTypes.oracle,
+      updateBubble(
+        appState: appState,
+        result: result,
         label: 'Mythic Action',
-      ));
+      );
     });
   }
 
-  void getPlotTwist(AppState appState) {
+  void getTwiceFromTable(
+    AppState appState,
+    String tableName,
+    String label,
+    Function(ReturnObject result, String label) onResult,
+  ) {
     ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
         .then((value) {
-      List<String> table1 = List<String>.from(value['elements']['plot_twist']);
-      List<String> table2 = List<String>.from(value['elements']['plot_twist']);
+      List<String> table1 = List<String>.from(value['elements'][tableName]);
+      List<String> table2 = List<String>.from(value['elements'][tableName]);
 
       ReturnObject result = consultOracle(
         table1: table1,
         table2: table2,
       );
 
-      setState(() {
-        line1 = result.line1;
-        line2 = result.line2;
-        line3 = null;
-      });
-
-      appState.addJournalEntry(JournalEntryItem(
-        isFavourite: false,
-        title: convertToJournalEntry(
-          line1 = result.line1,
-          line2 = result.line2,
-          line3 = null,
-        ),
-        type: JournalEntryTypes.oracle,
-        label: 'Mythic - Plot Twist',
-      ));
+      onResult(result, label);
     });
   }
 }
