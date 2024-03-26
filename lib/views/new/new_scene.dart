@@ -6,6 +6,7 @@ import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
 import '../../utilities/consult_oracle.dart';
 import '../../utilities/convert_for_journal.dart';
+import '../../utilities/get_twice_from_table.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
@@ -88,6 +89,12 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             onPressed: () {
               getPlotTwist(appState);
             },
+          ),
+          ListButton(
+            label: 'Character',
+            onPressed: () {
+              getCharacters(appState);
+            },
           )
         ]);
       },
@@ -99,6 +106,21 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState,
       'plot_twist',
       'Mythic - Plot Twist',
+      (result, label) {
+        updateBubble(
+          appState: appState,
+          result: result,
+          label: label,
+        );
+      },
+    );
+  }
+
+  void getCharacters(AppState appState) {
+    return getTwiceFromTable(
+      appState,
+      'characters',
+      'Mythic - Characters',
       (result, label) {
         updateBubble(
           appState: appState,
@@ -168,26 +190,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         result: result,
         label: 'Mythic Action',
       );
-    });
-  }
-
-  void getTwiceFromTable(
-    AppState appState,
-    String tableName,
-    String label,
-    Function(ReturnObject result, String label) onResult,
-  ) {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-        .then((value) {
-      List<String> table1 = List<String>.from(value['elements'][tableName]);
-      List<String> table2 = List<String>.from(value['elements'][tableName]);
-
-      ReturnObject result = consultOracle(
-        table1: table1,
-        table2: table2,
-      );
-
-      onResult(result, label);
     });
   }
 }
