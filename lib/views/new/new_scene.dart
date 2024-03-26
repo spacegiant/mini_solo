@@ -112,13 +112,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState,
       'plot_twist',
       'Mythic - Plot Twist',
-      (result, label) {
-        updateBubble(
-          appState: appState,
-          result: result,
-          label: label,
-        );
-      },
+      handleUpdateBubble,
     );
   }
 
@@ -127,13 +121,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState,
       'characters',
       'Mythic - Characters',
-      (result, label) {
-        updateBubble(
-          appState: appState,
-          result: result,
-          label: label,
-        );
-      },
+      handleUpdateBubble,
     );
   }
 
@@ -142,13 +130,15 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState,
       'characters_appearance',
       'Mythic - Characters Appearance',
-      (result, label) {
-        updateBubble(
-          appState: appState,
-          result: result,
-          label: label,
-        );
-      },
+      handleUpdateBubble,
+    );
+  }
+
+  handleUpdateBubble(appState, result, label) {
+    updateBubble(
+      appState: appState,
+      result: result,
+      label: label,
     );
   }
 

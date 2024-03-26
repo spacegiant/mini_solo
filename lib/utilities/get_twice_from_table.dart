@@ -8,7 +8,11 @@ void getTwiceFromTable(
   AppState appState,
   String tableName,
   String label,
-  Function(ReturnObject result, String label) onResult,
+  Function(
+    AppState appState,
+    ReturnObject result,
+    String label,
+  ) onResult,
 ) {
   ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json').then((value) {
     List<String> table1 = List<String>.from(value['elements'][tableName]);
@@ -19,6 +23,6 @@ void getTwiceFromTable(
       table2: table2,
     );
 
-    onResult(result, label);
+    onResult(appState, result, label);
   });
 }
