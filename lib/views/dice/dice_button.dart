@@ -11,7 +11,7 @@ class DiceButton extends StatelessWidget {
     this.color,
   });
 
-  final DieType dieType;
+  final DiceType dieType;
   final Function(DiceResult) onPressed;
   final Color? color;
 

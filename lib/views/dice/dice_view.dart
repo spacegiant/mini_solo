@@ -10,6 +10,7 @@ import '../../utilities/app_state.dart';
 import '../../widgets/gap.dart';
 import 'dice_collection.dart';
 import 'dice_glyph.dart';
+import 'other_dice.dart';
 
 // DISPLAY OUTPUT BUBBLE
 // DISPLAY DICE COLLECTIONS
@@ -35,6 +36,7 @@ class _DiceViewState extends State<DiceView> {
 
         void submitResults() {
           List<DiceResult> myDiceResults = List.from(diceResults);
+
           appState.addJournalEntry(JournalEntryItem(
             isFavourite: false,
             type: JournalEntryTypes.roll,
@@ -70,6 +72,19 @@ class _DiceViewState extends State<DiceView> {
               onClear: clearResults,
             ),
             const Gap(),
+            // TODO: FINISH FATE DICE IMPLEMENTATION
+            if (appState.showFutureFeatures == true)
+              DiceCollection(
+                diceSet: fateDiceSet,
+                appState: appState,
+                onPressed: (result) {
+                  setState(() {
+                    diceResults.add(result);
+                  });
+                },
+                onSubmit: submitResults,
+                onClear: clearResults,
+              ),
             // TODO: Add Genesys dice
             if (appState.showFutureFeatures == true) const Text('Genesys dice'),
             // TODO: Add story dice

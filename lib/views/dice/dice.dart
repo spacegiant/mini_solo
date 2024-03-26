@@ -15,7 +15,7 @@ class DiceFace {
 }
 
 class DiceSet {
-  List<DieType> dieTypes;
+  List<DiceType> dieTypes;
   String label;
 
   DiceSet({
@@ -24,13 +24,13 @@ class DiceSet {
   });
 }
 
-class DieType {
+class DiceType {
   final Color? color;
   final String label;
   final List<DiceFace> faces;
   final bool? isZocchi;
 
-  DieType({
+  DiceType({
     this.color,
     required this.label,
     required this.faces,

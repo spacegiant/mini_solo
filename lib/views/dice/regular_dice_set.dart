@@ -15,43 +15,43 @@ DiceSet all = DiceSet(
   label: 'Regular + Zocchi Dice Set',
 );
 
-DieType d4 = DieType(
+DiceType d4 = DiceType(
   isZocchi: false,
   label: 'd4',
   faces: createDice(4),
 );
 
-DieType d6 = DieType(
+DiceType d6 = DiceType(
   isZocchi: false,
   label: 'd6',
   faces: createDice(6),
 );
 
-DieType d8 = DieType(
+DiceType d8 = DiceType(
   isZocchi: false,
   label: 'd8',
   faces: createDice(8),
 );
 
-DieType d10 = DieType(
+DiceType d10 = DiceType(
   isZocchi: false,
   label: 'd10',
   faces: createDice(10),
 );
 
-DieType d12 = DieType(
+DiceType d12 = DiceType(
   isZocchi: false,
   label: 'd12',
   faces: createDice(12),
 );
 
-DieType d20 = DieType(
+DiceType d20 = DiceType(
   isZocchi: false,
   label: 'd20',
   faces: createDice(20),
 );
 
-DieType d100 = DieType(
+DiceType d100 = DiceType(
   isZocchi: false,
   label: 'd100',
   faces: createDice(100),
@@ -59,43 +59,43 @@ DieType d100 = DieType(
 
 // ZOCCHI DICE
 
-DieType d3 = DieType(
+DiceType d3 = DiceType(
   isZocchi: true,
   label: 'd3',
   faces: createDice(3),
 );
 
-DieType d5 = DieType(
+DiceType d5 = DiceType(
   isZocchi: true,
   label: 'd5',
   faces: createDice(5),
 );
 
-DieType d7 = DieType(
+DiceType d7 = DiceType(
   isZocchi: true,
   label: 'd7',
   faces: createDice(7),
 );
 
-DieType d14 = DieType(
+DiceType d14 = DiceType(
   isZocchi: true,
   label: 'd14',
   faces: createDice(14),
 );
 
-DieType d16 = DieType(
+DiceType d16 = DiceType(
   isZocchi: true,
   label: 'd16',
   faces: createDice(16),
 );
 
-DieType d24 = DieType(
+DiceType d24 = DiceType(
   isZocchi: true,
   label: 'd24',
   faces: createDice(24),
 );
 
-DieType d30 = DieType(
+DiceType d30 = DiceType(
   isZocchi: true,
   label: 'd30',
   faces: createDice(30),
