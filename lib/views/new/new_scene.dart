@@ -91,9 +91,15 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
             },
           ),
           ListButton(
-            label: 'Character',
+            label: 'Characters',
             onPressed: () {
               getCharacters(appState);
+            },
+          ),
+          ListButton(
+            label: 'Characters Appearance',
+            onPressed: () {
+              getCharactersAppearance(appState);
             },
           )
         ]);
@@ -121,6 +127,21 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState,
       'characters',
       'Mythic - Characters',
+      (result, label) {
+        updateBubble(
+          appState: appState,
+          result: result,
+          label: label,
+        );
+      },
+    );
+  }
+
+  void getCharactersAppearance(AppState appState) {
+    return getTwiceFromTable(
+      appState,
+      'characters_appearance',
+      'Mythic - Characters Appearance',
       (result, label) {
         updateBubble(
           appState: appState,
