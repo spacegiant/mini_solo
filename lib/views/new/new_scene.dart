@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/utilities/get_twice_from_table.dart';
 import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
 import '../../utilities/consult_oracle.dart';
 import '../../utilities/convert_for_journal.dart';
-import '../../utilities/get_twice_from_table.dart';
+import '../../utilities/get_from_mythic_table.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
@@ -120,7 +121,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   void getPlotTwist(AppState appState) {
     return getTwiceFromTable(
       appState,
-      'plot_twist',
+      'mythic_elements/plot_twist.json',
       'Mythic - Plot Twist',
       handleUpdateBubble,
     );
@@ -129,7 +130,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   void getCharacters(AppState appState) {
     return getTwiceFromTable(
       appState,
-      'characters',
+      'mythic_elements/characters.json',
       'Mythic - Characters',
       handleUpdateBubble,
     );
@@ -138,7 +139,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   void getCharactersAppearance(AppState appState) {
     return getTwiceFromTable(
       appState,
-      'characters_appearance',
+      'mythic_elements/characters_appearance.json',
       'Mythic - Characters Appearance',
       handleUpdateBubble,
     );
@@ -147,7 +148,7 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
   void getCharactersBackground(AppState appState) {
     return getTwiceFromTable(
       appState,
-      'characters_background',
+      'mythic_elements/characters_background.json',
       'Mythic - Characters Background',
       handleUpdateBubble,
     );

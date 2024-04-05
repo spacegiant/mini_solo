@@ -4,9 +4,9 @@ import '../views/journal_view.dart';
 import 'app_state.dart';
 import 'consult_oracle.dart';
 
-void getTwiceFromTable(
+void getFromMythicTable(
   AppState appState,
-  String tablePath,
+  String tableName,
   String label,
   Function(
     AppState appState,
@@ -14,9 +14,9 @@ void getTwiceFromTable(
     String label,
   ) onResult,
 ) {
-  ReadJsonFile.readJsonData(path: 'lib/assets/json/$tablePath').then((value) {
-    List<String> table1 = List<String>.from(value['table']);
-    List<String> table2 = List<String>.from(value['table']);
+  ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json').then((value) {
+    List<String> table1 = List<String>.from(value['elements'][tableName]);
+    List<String> table2 = List<String>.from(value['elements'][tableName]);
 
     ReturnObject result = consultOracle(
       table1: table1,
