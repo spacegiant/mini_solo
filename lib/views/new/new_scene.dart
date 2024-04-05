@@ -1,13 +1,10 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/utilities/get_twice_from_table.dart';
 import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
 import '../../utilities/consult_oracle.dart';
 import '../../utilities/convert_for_journal.dart';
-import '../../utilities/get_from_mythic_table.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
@@ -72,13 +69,27 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           ListButton(
             label: 'Mythic Action',
             onPressed: () {
-              getMythicAction(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic Action',
+                jsonPath: 'mythic/mythic_action.json',
+                table1: 'table1',
+                table2: 'table2',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
           ListButton(
             label: 'Mythic Description',
             onPressed: () {
-              getMythicDescription(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic Description',
+                jsonPath: 'mythic/mythic_description.json',
+                table1: 'table1',
+                table2: 'table2',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
           ListButton(
@@ -92,25 +103,54 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           ListButton(
             label: 'Plot Twist',
             onPressed: () {
-              getPlotTwist(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic - Plot Twist',
+                jsonPath: 'mythic_elements/plot_twist.json',
+                table1: 'table',
+                table2: 'table',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
           ListButton(
             label: 'Characters',
             onPressed: () {
-              getCharacters(appState);
+              // getCharacters(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic - Characters',
+                jsonPath: 'mythic_elements/characters.json',
+                table1: 'table',
+                table2: 'table',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
           ListButton(
             label: 'Characters Appearance',
             onPressed: () {
-              getCharactersAppearance(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic - Characters Appearance',
+                jsonPath: 'mythic_elements/characters_appearance.json',
+                table1: 'table',
+                table2: 'table',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
           ListButton(
             label: 'Characters Background',
             onPressed: () {
-              getCharactersAppearance(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic - Characters Background',
+                jsonPath: 'mythic_elements/characters_background.json',
+                table1: 'table',
+                table2: 'table',
+                onResult: handleUpdateBubble,
+              );
             },
           )
         ]);
@@ -118,40 +158,29 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     );
   }
 
-  void getPlotTwist(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'mythic_elements/plot_twist.json',
-      'Mythic - Plot Twist',
-      handleUpdateBubble,
-    );
-  }
+  getRandomResult({
+    required AppState appState,
+    required String label,
+    required String jsonPath,
+    required String table1,
+    required String? table2,
+    required Function(
+      dynamic appState,
+      dynamic result,
+      dynamic label,
+    ) onResult,
+  }) {
+    ReadJsonFile.readJsonData(path: 'lib/assets/json/$jsonPath').then((value) {
+      List<String> t1 = List<String>.from(value[table1]);
+      List<String> t2 = List<String>.from(value[table2]);
 
-  void getCharacters(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'mythic_elements/characters.json',
-      'Mythic - Characters',
-      handleUpdateBubble,
-    );
-  }
+      ReturnObject result = consultOracle(
+        table1: t1,
+        table2: t2,
+      );
 
-  void getCharactersAppearance(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'mythic_elements/characters_appearance.json',
-      'Mythic - Characters Appearance',
-      handleUpdateBubble,
-    );
-  }
-
-  void getCharactersBackground(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'mythic_elements/characters_background.json',
-      'Mythic - Characters Background',
-      handleUpdateBubble,
-    );
+      onResult(appState, result, label);
+    });
   }
 
   handleUpdateBubble(appState, result, label) {
@@ -182,44 +211,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           type: JournalEntryTypes.oracle,
           label: 'Mythic Event Focus',
         ),
-      );
-    });
-  }
-
-  void getMythicDescription(AppState appState) {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-        .then((value) {
-      List<String> table1 = List<String>.from(value['description1']);
-      List<String> table2 = List<String>.from(value['description2']);
-
-      ReturnObject result = consultOracle(
-        table1: table1,
-        table2: table2,
-      );
-
-      updateBubble(
-        appState: appState,
-        result: result,
-        label: 'Mythic Description',
-      );
-    });
-  }
-
-  void getMythicAction(AppState appState) {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-        .then((value) {
-      List<String> table1 = List<String>.from(value['action1']);
-      List<String> table2 = List<String>.from(value['action2']);
-
-      ReturnObject result = consultOracle(
-        table1: table1,
-        table2: table2,
-      );
-
-      updateBubble(
-        appState: appState,
-        result: result,
-        label: 'Mythic Action',
       );
     });
   }

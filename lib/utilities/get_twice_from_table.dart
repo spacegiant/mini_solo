@@ -8,6 +8,8 @@ void getTwiceFromTable(
   AppState appState,
   String tablePath,
   String label,
+  String table1,
+  String? table2,
   Function(
     AppState appState,
     ReturnObject result,
