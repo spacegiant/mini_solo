@@ -3,10 +3,9 @@ import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
-import '../../utilities/consult_oracle.dart';
 import '../../utilities/convert_for_journal.dart';
+import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
-import '../../utilities/read_json_file.dart';
 import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
@@ -156,31 +155,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         ]);
       },
     );
-  }
-
-  getRandomResult({
-    required AppState appState,
-    required String label,
-    required String jsonPath,
-    required String table1,
-    required String? table2,
-    required Function(
-      dynamic appState,
-      dynamic result,
-      dynamic label,
-    ) onResult,
-  }) {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/$jsonPath').then((value) {
-      List<String> t1 = List<String>.from(value[table1]);
-      List<String> t2 = List<String>.from(value[table2]);
-
-      ReturnObject result = consultOracle(
-        table1: t1,
-        table2: t2,
-      );
-
-      onResult(appState, result, label);
-    });
   }
 
   handleUpdateBubble(appState, result, label) {
