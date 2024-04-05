@@ -17,7 +17,6 @@ class _NewCreatureMenuState extends State<NewCreatureMenu> {
   String line1 = '...';
   String? line2;
   String? line3;
-  late var mythicJSON = {};
 
   @override
   Widget build(BuildContext context) {

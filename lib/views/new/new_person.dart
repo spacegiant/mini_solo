@@ -19,7 +19,6 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
   String line1 = '...';
   String? line2;
   String? line3;
-  late var mythicJSON = {};
 
   @override
   Consumer build(BuildContext context) {

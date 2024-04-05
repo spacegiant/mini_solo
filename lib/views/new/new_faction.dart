@@ -17,7 +17,6 @@ class _NewFactionMenuState extends State<NewFactionMenu> {
   String line1 = '...';
   String? line2;
   String? line3;
-  late var mythicJSON = {};
 
   @override
   Widget build(BuildContext context) {

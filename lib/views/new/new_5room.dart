@@ -17,7 +17,6 @@ class _New5RoomMenuState extends State<New5RoomMenu> {
   String line1 = '...';
   String? line2;
   String? line3;
-  late var mythicJSON = {};
 
   @override
   Widget build(BuildContext context) {
