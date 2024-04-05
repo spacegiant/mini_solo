@@ -6,6 +6,7 @@ import '../../utilities/campaign_data.dart';
 import '../../utilities/convert_for_journal.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
+import '../../utilities/update_journal.dart';
 import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
@@ -34,29 +35,19 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     });
   }
 
-  void updateBubble({
-    required AppState appState,
-    required ReturnObject result,
-    required String label,
-  }) {
-    updateState(result);
-
-    appState.addJournalEntry(JournalEntryItem(
-      isFavourite: false,
-      title: convertToJournalEntry(
-        line1 = result.line1,
-        line2 = result.line2,
-        line3 = null,
-      ),
-      type: JournalEntryTypes.oracle,
-      label: label,
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        handleUpdateBubble(
+          AppState appState,
+          ReturnObject result,
+          String label,
+        ) {
+          updateState(result);
+          updateJournal(appState, result, label);
+        }
+
         return ViewWrapper(children: [
           SpeechBubble(
             widget: BubbleText(lines: [
@@ -157,13 +148,13 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     );
   }
 
-  handleUpdateBubble(appState, result, label) {
-    updateBubble(
-      appState: appState,
-      result: result,
-      label: label,
-    );
-  }
+  // handleUpdateBubble(appState, result, label) {
+  //   updateBubble(
+  //     appState: appState,
+  //     result: result,
+  //     label: label,
+  //   );
+  // }
 
   getEventFocus(AppState appState) {
     getWeightedResult('lib/assets/json/mythic.json', (String text) {

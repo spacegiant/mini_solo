@@ -11,9 +11,9 @@ getRandomResult({
   required String table1,
   required String? table2,
   required Function(
-    dynamic appState,
-    dynamic result,
-    dynamic label,
+    AppState appState,
+    ReturnObject result,
+    String label,
   ) onResult,
 }) {
   ReadJsonFile.readJsonData(path: 'lib/assets/json/$jsonPath').then((value) {
