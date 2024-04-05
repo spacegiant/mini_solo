@@ -6,6 +6,7 @@ import '../../utilities/campaign_data.dart';
 import '../../utilities/convert_for_journal.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
+import '../../utilities/test_scene.dart';
 import '../../utilities/update_journal.dart';
 import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/gap.dart';
@@ -67,6 +68,32 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
               );
             },
           ),
+          ListButton(
+              label: 'Test Your Expected Scene',
+              onPressed: () {
+                ReturnObject test = testScene(context);
+
+                // For Bubble
+                setState(() {
+                  line1 = test.line1;
+                  line2 = test.line2;
+                  line3 = test.line3;
+                });
+
+                appState.addJournalEntry(
+                  JournalEntryItem(
+                    isFavourite: false,
+                    label: 'Test Scene',
+                    title: line1,
+                    detail: convertToJournalEntry(
+                      test.line1,
+                      test.line2,
+                      test.line3,
+                    ),
+                    type: JournalEntryTypes.oracle,
+                  ),
+                );
+              }),
           const Gap(),
           ListButton(
             label: 'Mythic Action',

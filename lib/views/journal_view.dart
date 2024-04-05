@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../utilities/app_state.dart';
 import '../utilities/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
+import '../utilities/test_scene.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
@@ -174,28 +175,5 @@ class _JournalViewState extends State<JournalView> {
         ],
       );
     });
-  }
-
-  ReturnObject testScene(BuildContext context) {
-    int d10 = Random().nextInt(10) + 1;
-    var chaosFactor = context.read<AppState>().chaosFactor;
-
-    if (d10 > chaosFactor) {
-      return ReturnObject(
-        line1: 'Expected',
-        line3: 'd10 roll = $d10 > CF $chaosFactor',
-      );
-    }
-    if (d10.isEven) {
-      return ReturnObject(
-        line1: 'Altered',
-        line3: 'd10 roll = $d10 (Odd) < CF $chaosFactor',
-      );
-    } else {
-      return ReturnObject(
-        line1: 'Interrupt',
-        line3: 'd10 roll = $d10 (Even) < CF $chaosFactor',
-      );
-    }
   }
 }
