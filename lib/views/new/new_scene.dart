@@ -8,6 +8,7 @@ import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/update_journal.dart';
 import '../../widgets/chaos_factor_panel.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
@@ -42,10 +43,10 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
         handleUpdateBubble(
           AppState appState,
           ReturnObject result,
-          String label,
+          String? label,
         ) {
           updateState(result);
-          updateJournal(appState, result, label);
+          updateJournal(appState, result, label!);
         }
 
         return ViewWrapper(children: [
@@ -56,6 +57,17 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
               line3,
             ]),
           ),
+          ListButton(
+            label: 'End previous scene',
+            onPressed: () {
+              handleUpdateBubble(
+                appState,
+                ReturnObject(line1: 'New Scene'),
+                'New scene',
+              );
+            },
+          ),
+          const Gap(),
           ListButton(
             label: 'Mythic Action',
             onPressed: () {
@@ -106,7 +118,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           ListButton(
             label: 'Characters',
             onPressed: () {
-              // getCharacters(appState);
               getRandomResult(
                 appState: appState,
                 label: 'Mythic - Characters',
@@ -147,14 +158,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       },
     );
   }
-
-  // handleUpdateBubble(appState, result, label) {
-  //   updateBubble(
-  //     appState: appState,
-  //     result: result,
-  //     label: label,
-  //   );
-  // }
 
   getEventFocus(AppState appState) {
     getWeightedResult('lib/assets/json/mythic.json', (String text) {
