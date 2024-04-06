@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mini_solo/widgets/user_input.dart';
 
 enum GameMode {
   combat,
@@ -22,25 +22,31 @@ class _AddToJournalPanelState extends State<AddToJournalPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSegmentedControl(
-      groupValue: selectedSegment,
-      children: const <GameMode, Widget>{
-        GameMode.exploration: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: FaIcon(FontAwesomeIcons.campground),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        CupertinoSegmentedControl(
+          groupValue: selectedSegment,
+          children: const <GameMode, Widget>{
+            GameMode.exploration: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: FaIcon(FontAwesomeIcons.campground),
+            ),
+            GameMode.combat: Icon(FontAwesomeIcons.handBackFist),
+            GameMode.social: Icon(CupertinoIcons.bubble_left_bubble_right),
+            GameMode.travel: Icon(FontAwesomeIcons.horseHead),
+            GameMode.investigate: Icon(FontAwesomeIcons.magnifyingGlass),
+          },
+          onValueChanged: (GameMode? value) {
+            if (value != null) {
+              setState(() {
+                selectedSegment = value;
+              });
+            }
+          },
         ),
-        GameMode.combat: Icon(FontAwesomeIcons.handBackFist),
-        GameMode.social: Icon(CupertinoIcons.bubble_left_bubble_right),
-        GameMode.travel: Icon(FontAwesomeIcons.horseHead),
-        GameMode.investigate: Icon(FontAwesomeIcons.magnifyingGlass),
-      },
-      onValueChanged: (GameMode? value) {
-        if (value != null) {
-          setState(() {
-            selectedSegment = value;
-          });
-        }
-      },
+        const UserInput(),
+      ],
     );
   }
 }

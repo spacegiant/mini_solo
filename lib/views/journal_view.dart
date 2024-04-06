@@ -1,6 +1,5 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -134,6 +133,7 @@ class _JournalViewState extends State<JournalView> {
                       type: type,
                     ))
                   : const SizedBox.shrink(),
+
               ListButton(
                   label: 'Test Your Expected Scene',
                   onPressed: () {
@@ -160,6 +160,10 @@ class _JournalViewState extends State<JournalView> {
                       ),
                     );
                   }),
+              // const MarkdownBlock(
+              //   newString: '# hello\n*hello* hello\n- hello',
+              // ),
+
               ListButton(
                 label: 'Mythic Action',
                 onPressed: () {
@@ -233,5 +237,33 @@ class _JournalViewState extends State<JournalView> {
         ],
       );
     });
+  }
+}
+
+// TODO: Add this to display manual journal entries
+class MarkdownBlock extends StatelessWidget {
+  const MarkdownBlock({
+    super.key,
+    required this.newString,
+  });
+
+  final String newString;
+
+  @override
+  Widget build(BuildContext context) {
+    return MarkdownBody(
+      softLineBreak: true,
+      styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
+      styleSheet: MarkdownStyleSheet(
+        // textScaler: const TextScaler.linear(1.5),
+        p: const TextStyle(
+          color: CupertinoColors.systemRed,
+        ),
+        em: const TextStyle(
+          color: CupertinoColors.systemPink,
+        ),
+      ),
+      data: newString,
+    );
   }
 }

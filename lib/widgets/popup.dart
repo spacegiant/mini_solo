@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../utilities/app_state.dart';
 import 'chaos_factor_popup.dart';
@@ -26,18 +24,22 @@ Consumer<Object?> popup(BuildContext context) {
     builder: (BuildContext context, appState, Widget? child) {
       return Visibility(
         visible: appState.showPopup,
-        child: CupertinoPopupSurface(
-          // child: Center(child: child),
-          child: Center(
-            child: Column(
-              children: [
-                CupertinoButton(
-                    child: const Text('Close'),
-                    onPressed: () {
-                      appState.closePopup();
-                    }),
-                popupContentMap[appState.popupLabel] ?? const SizedBox.shrink(),
-              ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CupertinoPopupSurface(
+            // child: Center(child: child),
+            child: Center(
+              child: Column(
+                children: [
+                  CupertinoButton(
+                      child: const Text('Close'),
+                      onPressed: () {
+                        appState.closePopup();
+                      }),
+                  popupContentMap[appState.popupLabel] ??
+                      const SizedBox.shrink(),
+                ],
+              ),
             ),
           ),
         ),

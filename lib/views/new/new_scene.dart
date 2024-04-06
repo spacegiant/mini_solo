@@ -8,7 +8,6 @@ import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../utilities/update_journal.dart';
-import '../../widgets/chaos_factor_panel.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
