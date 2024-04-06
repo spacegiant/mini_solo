@@ -8,7 +8,10 @@ import 'package:provider/provider.dart';
 import '../utilities/app_state.dart';
 import '../utilities/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
+import '../utilities/get_random_result.dart';
+import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
+import '../utilities/update_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
@@ -67,11 +70,53 @@ class _JournalViewState extends State<JournalView> {
   String? line3;
   String type = '...';
 
+  void updateState(ReturnObject result) {
+    setState(() {
+      line1 = result.line1;
+      line2 = result.line2;
+      line3 = null;
+    });
+  }
+
+  getEventFocus(AppState appState) {
+    getWeightedResult('lib/assets/json/mythic.json', (String text) {
+      setState(() {
+        line1 = text;
+        line2 = null;
+        line3 = null;
+      });
+
+      //  Save to campaign data and push to journal
+      appState.addJournalEntry(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            text,
+            null,
+            null,
+          ),
+          type: JournalEntryTypes.oracle,
+          label: 'Mythic Event Focus',
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
+
+      handleUpdateBubble(
+        AppState appState,
+        ReturnObject result,
+        String? label,
+      ) {
+        updateState(result);
+        updateJournal(appState, result, label!);
+      }
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -115,6 +160,38 @@ class _JournalViewState extends State<JournalView> {
                       ),
                     );
                   }),
+              ListButton(
+                label: 'Mythic Action',
+                onPressed: () {
+                  getRandomResult(
+                    appState: appState,
+                    label: 'Mythic Action',
+                    jsonPath: 'mythic/mythic_action.json',
+                    table1: 'table1',
+                    table2: 'table2',
+                    onResult: handleUpdateBubble,
+                  );
+                },
+              ),
+              ListButton(
+                label: 'Mythic Description',
+                onPressed: () {
+                  getRandomResult(
+                    appState: appState,
+                    label: 'Mythic Description',
+                    jsonPath: 'mythic/mythic_description.json',
+                    table1: 'table1',
+                    table2: 'table2',
+                    onResult: handleUpdateBubble,
+                  );
+                },
+              ),
+              ListButton(
+                label: 'Event Focus',
+                onPressed: () {
+                  getEventFocus(appState);
+                },
+              ),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),
               if (showFutureFeatures)
@@ -133,6 +210,19 @@ class _JournalViewState extends State<JournalView> {
                     appState.toggleShowPopup();
                   },
                 ),
+              ListButton(
+                label: 'Plot Twist',
+                onPressed: () {
+                  getRandomResult(
+                    appState: appState,
+                    label: 'Mythic - Plot Twist',
+                    jsonPath: 'mythic_elements/plot_twist.json',
+                    table1: 'table',
+                    table2: 'table',
+                    onResult: handleUpdateBubble,
+                  );
+                },
+              ),
               // combat,
               // social,
               // exploration,

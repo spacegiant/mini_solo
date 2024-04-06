@@ -13,7 +13,7 @@ import '../utilities/app_state.dart';
 import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
 import '../widgets/menu_spacer.dart';
-import 'new/new_scene.dart';
+// import 'new/new_scene.dart';
 
 class NewView extends StatelessWidget {
   const NewView({super.key});
@@ -35,7 +35,6 @@ class NewView extends StatelessWidget {
                 ),
               ),
             ),
-            ListButton(label: 'Scene', onPressed: () => buildNewScene(context)),
             if (appState.showFutureFeatures == true) menuSpacer(),
             ListButton(
                 label: 'Person', onPressed: () => buildNewPerson(context)),
@@ -63,10 +62,6 @@ class NewView extends StatelessWidget {
         );
       },
     );
-  }
-
-  Future<dynamic> buildNewScene(BuildContext context) {
-    return buildPopup(context, 'New Scene', const NewSceneMenu());
   }
 
   Future<dynamic> buildNewPerson(BuildContext context) {

@@ -127,66 +127,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
               );
             },
           ),
-          ListButton(
-            label: 'Event Focus',
-            onPressed: () {
-              getEventFocus(appState);
-            },
-          ),
-          const ChaosFactorPanel(),
-          const Text('Mythic Elements'),
-          ListButton(
-            label: 'Plot Twist',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Plot Twist',
-                jsonPath: 'mythic_elements/plot_twist.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Characters',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Characters',
-                jsonPath: 'mythic_elements/characters.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Characters Appearance',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Characters Appearance',
-                jsonPath: 'mythic_elements/characters_appearance.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Characters Background',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Characters Background',
-                jsonPath: 'mythic_elements/characters_background.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          )
         ]);
       },
     );
