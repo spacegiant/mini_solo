@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../utilities/app_state.dart';
 import 'chaos_factor_popup.dart';
+import 'game_mode_control.dart';
 
 Map<PopupLabels, Widget> popupContentMap = {
   PopupLabels.chaos: const ChaosFactorPopup(),
@@ -12,7 +15,7 @@ Map<PopupLabels, Widget> popupContentMap = {
   PopupLabels.exploration: const Text('EXPLORATION'),
   PopupLabels.travel: const Text('TRAVEL'),
   PopupLabels.investigation: const Text('INVESTIGATE'),
-  PopupLabels.addJournalEntry: const Text('ADD JOURNAL ENTRY'),
+  PopupLabels.addJournalEntry: const AddToJournalPanel(),
   PopupLabels.journalFilter: const Text('JOURNAL FILTER'),
   PopupLabels.campaignManager: const Text('CAMPAIGN MANAGER'),
   PopupLabels.fullJournal: const Text('FULL JOURNAL'),

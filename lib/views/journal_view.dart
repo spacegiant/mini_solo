@@ -1,6 +1,6 @@
-import 'dart:math';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -133,47 +133,11 @@ class _JournalViewState extends State<JournalView> {
                     appState.toggleShowPopup();
                   },
                 ),
-              if (showFutureFeatures) const Gap(),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Combat',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.combat);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Social',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.social);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Exploration',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.exploration);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Travel',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.travel);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Investigate',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.investigation);
-                    appState.toggleShowPopup();
-                  },
-                ),
+              // combat,
+              // social,
+              // exploration,
+              // travel,
+              // investigate,
             ]),
           ),
         ],
