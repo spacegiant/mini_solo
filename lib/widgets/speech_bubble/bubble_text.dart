@@ -6,15 +6,17 @@ class BubbleText extends StatelessWidget {
   const BubbleText({
     super.key,
     required this.lines,
+    required this.type,
   });
 
   final List<String?> lines;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
     List<String> newLines = purifyStringList(lines);
     List<TextLine> textLines = newLines.map((e) => TextLine(text: e)).toList();
-    return Column(children: textLines);
+    return Column(children: [Text(type), ...textLines]);
   }
 }
 

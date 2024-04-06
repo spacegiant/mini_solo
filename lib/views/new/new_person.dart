@@ -18,7 +18,7 @@ class NewPersonMenu extends StatefulWidget {
 }
 
 class _NewPersonMenuState extends State<NewPersonMenu> {
-  String outputText = '...';
+  String type = '...';
   String line1 = '...';
   String? line2;
   String? line3;
@@ -28,6 +28,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
       line1 = result.line1;
       line2 = result.line2;
       line3 = null;
+      type = result.type;
     });
   }
 
@@ -47,11 +48,14 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
         return ViewWrapper(children: [
           // TODO: Make this like a character sheet or add objects as rolled
           SpeechBubble(
-            widget: BubbleText(lines: [
-              line1,
-              line2,
-              line3,
-            ]),
+            widget: BubbleText(
+              lines: [
+                line1,
+                line2,
+                line3,
+              ],
+              type: type,
+            ),
           ),
           if (appState.showFutureFeatures == true)
             ListButton(

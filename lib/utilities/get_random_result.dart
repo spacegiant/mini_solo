@@ -23,6 +23,7 @@ getRandomResult({
     ReturnObject result = consultOracle(
       table1: t1,
       table2: t2,
+      type: label,
     );
 
     onResult(appState, result, label);

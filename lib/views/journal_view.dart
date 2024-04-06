@@ -41,11 +41,13 @@ class SceneStateResult {
 
 // TODO: Rename this
 class ReturnObject {
+  late String type;
   late String line1;
   late String? line2;
   late String? line3;
 
   ReturnObject({
+    required this.type,
     required this.line1,
     this.line2,
     this.line3,
@@ -63,6 +65,7 @@ class _JournalViewState extends State<JournalView> {
   String line1 = '...';
   String? line2;
   String? line3;
+  String type = '...';
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +86,7 @@ class _JournalViewState extends State<JournalView> {
                   ? SpeechBubble(
                       widget: BubbleText(
                       lines: [line1, line2, line3],
+                      type: type,
                     ))
                   : const SizedBox.shrink(),
               ListButton(

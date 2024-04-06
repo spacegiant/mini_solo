@@ -23,7 +23,7 @@ class NewSceneMenu extends StatefulWidget {
 }
 
 class _NewSceneMenuState extends State<NewSceneMenu> {
-  String outputText = '...';
+  String type = '...';
   String line1 = '...';
   String? line2;
   String? line3;
@@ -52,18 +52,24 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
 
         return ViewWrapper(children: [
           SpeechBubble(
-            widget: BubbleText(lines: [
-              line1,
-              line2,
-              line3,
-            ]),
+            widget: BubbleText(
+              lines: [
+                line1,
+                line2,
+                line3,
+              ],
+              type: type,
+            ),
           ),
           ListButton(
             label: 'End previous scene',
             onPressed: () {
               handleUpdateBubble(
                 appState,
-                ReturnObject(line1: 'New Scene'),
+                ReturnObject(
+                  line1: 'New Scene',
+                  type: 'test',
+                ),
                 'New scene',
               );
             },

@@ -13,7 +13,7 @@ class NewClueMenu extends StatefulWidget {
 }
 
 class _NewClueMenuState extends State<NewClueMenu> {
-  String outputText = '...';
+  String type = '...';
   String line1 = '...';
   String? line2;
   String? line3;
@@ -22,11 +22,14 @@ class _NewClueMenuState extends State<NewClueMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       SpeechBubble(
-        widget: BubbleText(lines: [
-          line1,
-          line2,
-          line3,
-        ]),
+        widget: BubbleText(
+          lines: [
+            line1,
+            line2,
+            line3,
+          ],
+          type: type,
+        ),
       ),
       ListButton(
         label: 'Who',
