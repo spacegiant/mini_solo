@@ -3,7 +3,7 @@ import 'package:mini_solo/data/generic_entry_item.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Counter value should be incremented', () {
+  test('Class generates a unique ID as expected', () {
     final genericEntryItem = GenericEntryItem(
         isFavourite: false,
         type: JournalEntryTypes.chaosFactor,
