@@ -111,26 +111,30 @@ class JournalInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, appState, Widget? child) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Spacer(),
-              addJournalEntryButton(appState),
-              const SizedBox(
-                width: 16.0,
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Spacer(),
+                  addJournalEntryButton(appState),
+                  const SizedBox(
+                    width: 16.0,
+                  ),
+                  jumpToFirstButton(),
+                  const SizedBox(
+                    width: 4.0,
+                  ),
+                  jumpToLatestButton(),
+                  const SizedBox(
+                    width: 4.0,
+                  ),
+                  journalFilterButton(appState)
+                ],
               ),
-              jumpToFirstButton(),
-              const SizedBox(
-                width: 4.0,
-              ),
-              jumpToLatestButton(),
-              const SizedBox(
-                width: 4.0,
-              ),
-              journalFilterButton(appState)
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

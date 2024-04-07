@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
@@ -8,6 +7,10 @@ import 'package:provider/provider.dart';
 import '../utilities/app_state.dart';
 import '../utilities/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
+import '../utilities/get_random_result.dart';
+import '../utilities/get_weighted_result.dart';
+import '../utilities/test_scene.dart';
+import '../utilities/update_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
@@ -40,11 +43,13 @@ class SceneStateResult {
 
 // TODO: Rename this
 class ReturnObject {
+  late String type;
   late String line1;
   late String? line2;
   late String? line3;
 
   ReturnObject({
+    required this.type,
     required this.line1,
     this.line2,
     this.line3,
@@ -62,12 +67,55 @@ class _JournalViewState extends State<JournalView> {
   String line1 = '...';
   String? line2;
   String? line3;
+  String type = '...';
+
+  void updateState(ReturnObject result) {
+    setState(() {
+      line1 = result.line1;
+      line2 = result.line2;
+      line3 = null;
+    });
+  }
+
+  getEventFocus(AppState appState) {
+    getWeightedResult('lib/assets/json/mythic.json', (String text) {
+      setState(() {
+        line1 = text;
+        line2 = null;
+        line3 = null;
+      });
+
+      //  Save to campaign data and push to journal
+      appState.addJournalEntry(
+        JournalEntryItem(
+          isFavourite: false,
+          title: convertToJournalEntry(
+            text,
+            null,
+            null,
+          ),
+          type: JournalEntryTypes.oracle,
+          label: 'Mythic Event Focus',
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
+
+      handleUpdateBubble(
+        AppState appState,
+        ReturnObject result,
+        String? label,
+      ) {
+        updateState(result);
+        updateJournal(appState, result, label!);
+      }
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,8 +130,10 @@ class _JournalViewState extends State<JournalView> {
                   ? SpeechBubble(
                       widget: BubbleText(
                       lines: [line1, line2, line3],
+                      type: type,
                     ))
                   : const SizedBox.shrink(),
+
               ListButton(
                   label: 'Test Your Expected Scene',
                   onPressed: () {
@@ -110,6 +160,42 @@ class _JournalViewState extends State<JournalView> {
                       ),
                     );
                   }),
+              // const MarkdownBlock(
+              //   newString: '# hello\n*hello* hello\n- hello',
+              // ),
+
+              ListButton(
+                label: 'Mythic Action',
+                onPressed: () {
+                  getRandomResult(
+                    appState: appState,
+                    label: 'Mythic Action',
+                    jsonPath: 'mythic/mythic_action.json',
+                    table1: 'table1',
+                    table2: 'table2',
+                    onResult: handleUpdateBubble,
+                  );
+                },
+              ),
+              ListButton(
+                label: 'Mythic Description',
+                onPressed: () {
+                  getRandomResult(
+                    appState: appState,
+                    label: 'Mythic Description',
+                    jsonPath: 'mythic/mythic_description.json',
+                    table1: 'table1',
+                    table2: 'table2',
+                    onResult: handleUpdateBubble,
+                  );
+                },
+              ),
+              ListButton(
+                label: 'Event Focus',
+                onPressed: () {
+                  getEventFocus(appState);
+                },
+              ),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),
               if (showFutureFeatures)
@@ -128,74 +214,56 @@ class _JournalViewState extends State<JournalView> {
                     appState.toggleShowPopup();
                   },
                 ),
-              if (showFutureFeatures) const Gap(),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Combat',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.combat);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Social',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.social);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Exploration',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.exploration);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Travel',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.travel);
-                    appState.toggleShowPopup();
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'Investigate',
-                  onPressed: () {
-                    appState.setPopupLabel(PopupLabels.investigation);
-                    appState.toggleShowPopup();
-                  },
-                ),
+              ListButton(
+                label: 'Plot Twist',
+                onPressed: () {
+                  getRandomResult(
+                    appState: appState,
+                    label: 'Mythic - Plot Twist',
+                    jsonPath: 'mythic_elements/plot_twist.json',
+                    table1: 'table',
+                    table2: 'table',
+                    onResult: handleUpdateBubble,
+                  );
+                },
+              ),
+              // combat,
+              // social,
+              // exploration,
+              // travel,
+              // investigate,
             ]),
           ),
         ],
       );
     });
   }
+}
 
-  ReturnObject testScene(BuildContext context) {
-    int d10 = Random().nextInt(10) + 1;
-    var chaosFactor = context.read<AppState>().chaosFactor;
+// TODO: Add this to display manual journal entries
+class MarkdownBlock extends StatelessWidget {
+  const MarkdownBlock({
+    super.key,
+    required this.newString,
+  });
 
-    if (d10 > chaosFactor) {
-      return ReturnObject(
-        line1: 'Expected',
-        line3: 'd10 roll = $d10 > CF $chaosFactor',
-      );
-    }
-    if (d10.isEven) {
-      return ReturnObject(
-        line1: 'Altered',
-        line3: 'd10 roll = $d10 (Odd) < CF $chaosFactor',
-      );
-    } else {
-      return ReturnObject(
-        line1: 'Interrupt',
-        line3: 'd10 roll = $d10 (Even) < CF $chaosFactor',
-      );
-    }
+  final String newString;
+
+  @override
+  Widget build(BuildContext context) {
+    return MarkdownBody(
+      softLineBreak: true,
+      styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
+      styleSheet: MarkdownStyleSheet(
+        // textScaler: const TextScaler.linear(1.5),
+        p: const TextStyle(
+          color: CupertinoColors.systemRed,
+        ),
+        em: const TextStyle(
+          color: CupertinoColors.systemPink,
+        ),
+      ),
+      data: newString,
+    );
   }
 }

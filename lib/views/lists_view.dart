@@ -10,6 +10,7 @@ class ListsView extends StatelessWidget {
     return ViewWrapper(children: [
       ListButton(label: 'Characters', onPressed: () {}),
       ListButton(label: 'Threads', onPressed: () {}),
+      ListButton(label: 'Starred items', onPressed: () {}),
       const SizedBox(height: 16.0),
       ListButton(label: 'People', onPressed: () {}),
       ListButton(label: 'Places', onPressed: () {}),

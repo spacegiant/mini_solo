@@ -1,15 +1,14 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../utilities/app_state.dart';
 import '../../utilities/campaign_data.dart';
-import '../../utilities/consult_oracle.dart';
 import '../../utilities/convert_for_journal.dart';
-import '../../utilities/get_twice_from_table.dart';
+import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
-import '../../utilities/read_json_file.dart';
-import '../../widgets/chaos_factor_panel.dart';
+import '../../utilities/test_scene.dart';
+import '../../utilities/update_journal.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
@@ -23,7 +22,7 @@ class NewSceneMenu extends StatefulWidget {
 }
 
 class _NewSceneMenuState extends State<NewSceneMenu> {
-  String outputText = '...';
+  String type = '...';
   String line1 = '...';
   String? line2;
   String? line3;
@@ -37,127 +36,98 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
     });
   }
 
-  void updateBubble({
-    required AppState appState,
-    required ReturnObject result,
-    required String label,
-  }) {
-    updateState(result);
-
-    appState.addJournalEntry(JournalEntryItem(
-      isFavourite: false,
-      title: convertToJournalEntry(
-        line1 = result.line1,
-        line2 = result.line2,
-        line3 = null,
-      ),
-      type: JournalEntryTypes.oracle,
-      label: label,
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        handleUpdateBubble(
+          AppState appState,
+          ReturnObject result,
+          String? label,
+        ) {
+          updateState(result);
+          updateJournal(appState, result, label!);
+        }
+
         return ViewWrapper(children: [
           SpeechBubble(
-            widget: BubbleText(lines: [
-              line1,
-              line2,
-              line3,
-            ]),
+            widget: BubbleText(
+              lines: [
+                line1,
+                line2,
+                line3,
+              ],
+              type: type,
+            ),
           ),
+          ListButton(
+            label: 'End previous scene',
+            onPressed: () {
+              handleUpdateBubble(
+                appState,
+                ReturnObject(
+                  line1: 'New Scene',
+                  type: 'test',
+                ),
+                'New scene',
+              );
+            },
+          ),
+          ListButton(
+              label: 'Test Your Expected Scene',
+              onPressed: () {
+                ReturnObject test = testScene(context);
+
+                // For Bubble
+                setState(() {
+                  line1 = test.line1;
+                  line2 = test.line2;
+                  line3 = test.line3;
+                });
+
+                appState.addJournalEntry(
+                  JournalEntryItem(
+                    isFavourite: false,
+                    label: 'Test Scene',
+                    title: line1,
+                    detail: convertToJournalEntry(
+                      test.line1,
+                      test.line2,
+                      test.line3,
+                    ),
+                    type: JournalEntryTypes.oracle,
+                  ),
+                );
+              }),
+          const Gap(),
           ListButton(
             label: 'Mythic Action',
             onPressed: () {
-              getMythicAction(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic Action',
+                jsonPath: 'mythic/mythic_action.json',
+                table1: 'table1',
+                table2: 'table2',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
           ListButton(
             label: 'Mythic Description',
             onPressed: () {
-              getMythicDescription(appState);
+              getRandomResult(
+                appState: appState,
+                label: 'Mythic Description',
+                jsonPath: 'mythic/mythic_description.json',
+                table1: 'table1',
+                table2: 'table2',
+                onResult: handleUpdateBubble,
+              );
             },
           ),
-          ListButton(
-            label: 'Event Focus',
-            onPressed: () {
-              getEventFocus(appState);
-            },
-          ),
-          const ChaosFactorPanel(),
-          const Text('Mythic Elements'),
-          ListButton(
-            label: 'Plot Twist',
-            onPressed: () {
-              getPlotTwist(appState);
-            },
-          ),
-          ListButton(
-            label: 'Characters',
-            onPressed: () {
-              getCharacters(appState);
-            },
-          ),
-          ListButton(
-            label: 'Characters Appearance',
-            onPressed: () {
-              getCharactersAppearance(appState);
-            },
-          ),
-          ListButton(
-            label: 'Characters Background',
-            onPressed: () {
-              getCharactersAppearance(appState);
-            },
-          )
         ]);
       },
-    );
-  }
-
-  void getPlotTwist(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'plot_twist',
-      'Mythic - Plot Twist',
-      handleUpdateBubble,
-    );
-  }
-
-  void getCharacters(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'characters',
-      'Mythic - Characters',
-      handleUpdateBubble,
-    );
-  }
-
-  void getCharactersAppearance(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'characters_appearance',
-      'Mythic - Characters Appearance',
-      handleUpdateBubble,
-    );
-  }
-
-  void getCharactersBackground(AppState appState) {
-    return getTwiceFromTable(
-      appState,
-      'characters_background',
-      'Mythic - Characters Background',
-      handleUpdateBubble,
-    );
-  }
-
-  handleUpdateBubble(appState, result, label) {
-    updateBubble(
-      appState: appState,
-      result: result,
-      label: label,
     );
   }
 
@@ -181,44 +151,6 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
           type: JournalEntryTypes.oracle,
           label: 'Mythic Event Focus',
         ),
-      );
-    });
-  }
-
-  void getMythicDescription(AppState appState) {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-        .then((value) {
-      List<String> table1 = List<String>.from(value['description1']);
-      List<String> table2 = List<String>.from(value['description2']);
-
-      ReturnObject result = consultOracle(
-        table1: table1,
-        table2: table2,
-      );
-
-      updateBubble(
-        appState: appState,
-        result: result,
-        label: 'Mythic Description',
-      );
-    });
-  }
-
-  void getMythicAction(AppState appState) {
-    ReadJsonFile.readJsonData(path: 'lib/assets/json/mythic.json')
-        .then((value) {
-      List<String> table1 = List<String>.from(value['action1']);
-      List<String> table2 = List<String>.from(value['action2']);
-
-      ReturnObject result = consultOracle(
-        table1: table1,
-        table2: table2,
-      );
-
-      updateBubble(
-        appState: appState,
-        result: result,
-        label: 'Mythic Action',
       );
     });
   }

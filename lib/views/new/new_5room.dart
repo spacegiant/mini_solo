@@ -13,21 +13,23 @@ class New5RoomMenu extends StatefulWidget {
 }
 
 class _New5RoomMenuState extends State<New5RoomMenu> {
-  String outputText = '...';
+  String type = '...';
   String line1 = '...';
   String? line2;
   String? line3;
-  late var mythicJSON = {};
 
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       SpeechBubble(
-        widget: BubbleText(lines: [
-          line1,
-          line2,
-          line3,
-        ]),
+        widget: BubbleText(
+          lines: [
+            line1,
+            line2,
+            line3,
+          ],
+          type: type,
+        ),
       ),
       ListButton(
           label: 'Random',

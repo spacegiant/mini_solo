@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 
-import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
-import 'new/new_scene.dart';
 
 class StarredView extends StatelessWidget {
   const StarredView({super.key});
@@ -31,9 +29,5 @@ class StarredView extends StatelessWidget {
       const Text('Factions'),
       ListButton(label: 'Bottle Washers Guild', onPressed: () => {}),
     ]);
-  }
-
-  Future<dynamic> buildNewScene(BuildContext context) {
-    return buildPopup(context, 'New Scene', const NewSceneMenu());
   }
 }
