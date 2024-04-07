@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../../utilities/app_state.dart';
+import '../../data/app_state.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/update_journal.dart';
 import '../../widgets/list_button.dart';

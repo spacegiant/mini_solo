@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CampaignStorage {

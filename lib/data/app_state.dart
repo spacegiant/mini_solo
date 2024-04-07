@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 
 enum PopupLabels {
   chaos,

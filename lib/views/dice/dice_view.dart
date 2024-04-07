@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../../utilities/app_state.dart';
+import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
 import 'dice_collection.dart';
 import 'dice_glyph.dart';

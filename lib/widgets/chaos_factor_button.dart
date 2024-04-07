@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../utilities/app_state.dart';
+import '../data/app_state.dart';
 
 class ChaosFactorButton extends StatelessWidget {
   const ChaosFactorButton({super.key, required this.togglePopup});

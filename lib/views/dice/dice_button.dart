@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../utilities/campaign_data.dart';
+import '../../data/campaign_data.dart';
 import 'dice.dart';
 
 class DiceButton extends StatelessWidget {

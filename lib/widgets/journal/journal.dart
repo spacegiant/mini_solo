@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/dice/dice_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../utilities/app_state.dart';
+import '../../data/app_state.dart';
 import 'journal_entry.dart';
 
 class Journal extends StatelessWidget {

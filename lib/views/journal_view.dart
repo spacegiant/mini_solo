@@ -4,8 +4,8 @@ import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../utilities/app_state.dart';
-import '../utilities/campaign_data.dart';
+import '../data/app_state.dart';
+import '../data/campaign_data.dart';
 import '../utilities/convert_for_journal.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';

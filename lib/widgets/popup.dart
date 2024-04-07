@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../utilities/app_state.dart';
+import '../data/app_state.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
 

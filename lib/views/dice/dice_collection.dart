@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../utilities/app_state.dart';
-import '../../utilities/campaign_data.dart';
+import '../../data/app_state.dart';
+import '../../data/campaign_data.dart';
 import '../../widgets/gap.dart';
 import 'dice.dart';
 import 'dice_button.dart';

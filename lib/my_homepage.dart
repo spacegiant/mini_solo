@@ -1,8 +1,8 @@
-import 'package:mini_solo/utilities/campaign_data.dart';
-import 'package:mini_solo/utilities/campaign_storage.dart';
+import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/utilities/init_form.dart';
 import 'package:mini_solo/view_items.dart';
-import 'package:mini_solo/utilities/app_state.dart';
+import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
