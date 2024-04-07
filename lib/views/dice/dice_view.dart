@@ -40,8 +40,9 @@ class _DiceViewState extends State<DiceView> {
           appState.addJournalEntry(JournalEntryItem(
             isFavourite: false,
             type: JournalEntryTypes.roll,
-            diceRolls: myDiceResults,
-            title: '',
+            // diceRolls: myDiceResults,
+            // title: '',
+            id: '',
           ));
           setState(() {
             diceResults.clear();

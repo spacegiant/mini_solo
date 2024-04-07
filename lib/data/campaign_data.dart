@@ -1,4 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mini_solo/utilities/id_generator.dart';
+
+import 'campaign_item.dart';
+import 'generic_entry_item.dart';
 
 part 'campaign_data.g.dart';
 
@@ -19,6 +23,21 @@ enum JournalEntryTypes {
   transition,
   chaosFactor,
 }
+
+Map<JournalEntryTypes, String> journalEntryTypeLabel = {
+  JournalEntryTypes.oracle: 'oracle',
+  JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.action: 'action',
+  JournalEntryTypes.outcome: 'outcome',
+  JournalEntryTypes.fateCheck: 'fateCheck',
+  JournalEntryTypes.newScene: 'newScene',
+  JournalEntryTypes.newEntity: 'newEntity',
+  JournalEntryTypes.gm: 'gm',
+  JournalEntryTypes.pc: 'pc',
+  JournalEntryTypes.npc: 'npc',
+  JournalEntryTypes.transition: 'transition',
+  JournalEntryTypes.chaosFactor: 'chaosFactor',
+};
 
 // set to true if you have nested Model classes
 @JsonSerializable(explicitToJson: true)
@@ -58,6 +77,7 @@ class CampaignData {
   late String name;
   late Mythic mythic;
   late List<JournalEntryItem> journal;
+  late List<GenericEntryItem> generic;
   late List<Person> people;
   late List<Place> places;
   late List<Thing> things;
@@ -110,20 +130,12 @@ CampaignData initCampaignDataData(String campaignName) {
   );
 }
 
-abstract class CampaignItem {
-  bool isFavourite = false;
-
-  CampaignItem({
-    required this.isFavourite,
-  });
-}
-
 @JsonSerializable()
 class Mythic {
-  int? chaosFactor;
+  int chaosFactor;
 
   Mythic({
-    this.chaosFactor,
+    required this.chaosFactor,
   });
 
   factory Mythic.fromJson(Map<String, dynamic> json) => _$MythicFromJson(json);
@@ -133,19 +145,12 @@ class Mythic {
 
 @JsonSerializable(explicitToJson: true)
 class JournalEntryItem extends CampaignItem {
-  late JournalEntryTypes type;
-  String title;
-  String? label;
-  String? detail;
-  List<DiceResult>? diceRolls;
+  // late JournalEntryTypes type;
 
   JournalEntryItem({
     required super.isFavourite,
-    required this.title,
-    required this.type,
-    this.label,
-    this.detail,
-    this.diceRolls,
+    required super.type,
+    required super.id,
   });
 
   factory JournalEntryItem.fromJson(Map<String, dynamic> json) =>
@@ -165,6 +170,8 @@ class Person extends CampaignItem {
     required this.firstName,
     required this.familyName,
     this.detail,
+    required super.type,
+    required super.id,
   });
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
@@ -182,6 +189,8 @@ class Place extends CampaignItem {
     required this.name,
     this.detail,
     this.parent,
+    required super.type,
+    required super.id,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
@@ -200,6 +209,8 @@ class Thing extends CampaignItem {
     required this.name,
     this.owner,
     this.detail,
+    required super.type,
+    required super.id,
   });
 
   factory Thing.fromJson(Map<String, dynamic> json) => _$ThingFromJson(json);
@@ -218,6 +229,8 @@ class Faction extends CampaignItem {
     required this.name,
     this.occupation,
     this.detail,
+    required super.type,
+    required super.id,
   });
 
   factory Faction.fromJson(Map<String, dynamic> json) =>
@@ -235,6 +248,8 @@ class Clue extends CampaignItem {
     required super.isFavourite,
     required this.description,
     this.notes,
+    required super.type,
+    required super.id,
   });
 
   factory Clue.fromJson(Map<String, dynamic> json) => _$ClueFromJson(json);
@@ -251,6 +266,8 @@ class Creature extends CampaignItem {
     required super.isFavourite,
     required this.title,
     this.detail,
+    required super.type,
+    required super.id,
   });
 
   factory Creature.fromJson(Map<String, dynamic> json) =>
@@ -284,6 +301,8 @@ class Dungeon extends CampaignItem {
     required super.isFavourite,
     required this.title,
     this.rooms,
+    required super.type,
+    required super.id,
   });
 
   factory Dungeon.fromJson(Map<String, dynamic> json) =>

@@ -14,28 +14,14 @@ CampaignData initCampaignDataData() {
       chaosFactor: 5,
     ),
     journal: [
+      // FIXME: Add matching ids
       JournalEntryItem(
-        isFavourite: false,
-        type: JournalEntryTypes.newScene,
-        title: 'At Umber Keep Gates',
-        detail: 'Some guards eye us suspiciously',
-      ),
+          isFavourite: false, type: JournalEntryTypes.newScene, id: ''),
       JournalEntryItem(
-        isFavourite: false,
-        type: JournalEntryTypes.action,
-        title: 'Boggins tries to charm them',
-      ),
+          isFavourite: false, type: JournalEntryTypes.action, id: ''),
       JournalEntryItem(
-        isFavourite: false,
-        title: 'd20 -> 16',
-        type: JournalEntryTypes.roll,
-      ),
-      JournalEntryItem(
-        isFavourite: false,
-        title:
-            'Success! You notice they eye up any passing jewelry with avarice.',
-        type: JournalEntryTypes.gm,
-      )
+          isFavourite: false, type: JournalEntryTypes.roll, id: ''),
+      JournalEntryItem(isFavourite: false, type: JournalEntryTypes.gm, id: '')
     ],
     people: [],
     places: [],

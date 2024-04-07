@@ -88,14 +88,15 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
                 appState.addJournalEntry(
                   JournalEntryItem(
                     isFavourite: false,
-                    label: 'Test Scene',
-                    title: line1,
-                    detail: convertToJournalEntry(
-                      test.line1,
-                      test.line2,
-                      test.line3,
-                    ),
+                    // label: 'Test Scene',
+                    // title: line1,
+                    // detail: convertToJournalEntry(
+                    //   test.line1,
+                    //   test.line2,
+                    //   test.line3,
+                    // ),
                     type: JournalEntryTypes.oracle,
+                    id: '',
                   ),
                 );
               }),
@@ -143,13 +144,14 @@ class _NewSceneMenuState extends State<NewSceneMenu> {
       appState.addJournalEntry(
         JournalEntryItem(
           isFavourite: false,
-          title: convertToJournalEntry(
-            text,
-            null,
-            null,
-          ),
+          // title: convertToJournalEntry(
+          //   text,
+          //   null,
+          //   null,
+          // ),
           type: JournalEntryTypes.oracle,
-          label: 'Mythic Event Focus',
+          // label: 'Mythic Event Focus',
+          id: '',
         ),
       );
     });

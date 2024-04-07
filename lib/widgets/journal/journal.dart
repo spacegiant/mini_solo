@@ -17,17 +17,17 @@ class Journal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Iterable<Widget> journalEntries = items.map((entry) {
-      if (entry.type == JournalEntryTypes.roll) {
-        return DiceBubble(diceResults: [...?entry.diceRolls]);
-      } else {
-        return JournalEntry(
-          text: entry.title,
-          label: entry.label,
-          detail: entry.detail,
-        );
-      }
-    });
+    // Iterable<Widget> journalEntries = items.map((entry) {
+    //   if (entry.type == JournalEntryTypes.roll) {
+    //     return DiceBubble(diceResults: [...?entry.diceRolls]);
+    //   } else {
+    //     return JournalEntry(
+    //       text: entry.title,
+    //       label: entry.label,
+    //       detail: entry.detail,
+    //     );
+    //   }
+    // });
 
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
@@ -45,14 +45,14 @@ class Journal extends StatelessWidget {
                     maxHeight: 200.0,
                     minHeight: 200.0,
                   ),
-                  child: SingleChildScrollView(
+                  child: const SingleChildScrollView(
                     reverse: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const JournalStartEntry(),
-                        ...journalEntries,
-                        const JournalEndGlyphs(),
+                        JournalStartEntry(),
+                        // ...journalEntries,
+                        JournalEndGlyphs(),
                       ],
                     ),
                   ),

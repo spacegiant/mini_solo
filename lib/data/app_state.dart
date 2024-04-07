@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/utilities/id_generator.dart';
+
+import 'generic_entry_item.dart';
 
 enum PopupLabels {
   chaos,
@@ -46,7 +49,6 @@ class AppState extends ChangeNotifier {
   }
 
   void saveCampaignDataToDisk() {
-    print('saveCallback ${_campaignData?.journal.last.diceRolls}');
     if (_saveCallback != null) _saveCallback!(_campaignData!);
     notifyListeners();
   }
@@ -77,11 +79,21 @@ class AppState extends ChangeNotifier {
     if (cf < maxChaos) {
       var newValue = cf + 1;
       _campaignData!.mythic.chaosFactor = newValue;
+      // TODO: CREATE ID
+      String id = idGenerator(JournalEntryTypes.chaosFactor);
+      // TODO: SAVE GENERIC ENTRY
+      // TODO: SAVE JOURNAL ENTRY
       addJournalEntry(JournalEntryItem(
         isFavourite: false,
+        type: JournalEntryTypes.chaosFactor,
+        id: idGenerator(JournalEntryTypes.chaosFactor),
+      ));
+      addGenericEntity(GenericEntryItem(
         title: 'UP to $newValue',
         type: JournalEntryTypes.chaosFactor,
         label: 'Chaos Factor',
+        isFavourite: false,
+        id: '',
       ));
     }
     saveCampaignDataToDisk();
@@ -92,11 +104,15 @@ class AppState extends ChangeNotifier {
     if (cf > minChaos) {
       var newValue = cf - 1;
       _campaignData!.mythic.chaosFactor = newValue;
+      // TODO: CREATE ID
+      // TODO: SAVE GENERIC ENTRY
+      // TODO: SAVE JOURNAL ENTRY
       addJournalEntry(JournalEntryItem(
         isFavourite: false,
-        title: 'DOWN to $newValue',
+        // title: 'DOWN to $newValue',
         type: JournalEntryTypes.chaosFactor,
-        label: 'Chaos Factor',
+        // label: 'Chaos Factor',
+        id: '',
       ));
     }
     saveCampaignDataToDisk();
@@ -104,11 +120,15 @@ class AppState extends ChangeNotifier {
 
   void resetChaosFactor() {
     _campaignData!.mythic.chaosFactor = 5;
+    // TODO: CREATE ID
+    // TODO: SAVE GENERIC ENTRY
+    // TODO: SAVE JOURNAL ENTRY
     addJournalEntry(JournalEntryItem(
       isFavourite: false,
-      title: 'RESET to 5',
+      // title: 'RESET to 5',
       type: JournalEntryTypes.chaosFactor,
-      label: 'Chaos Factor',
+      // label: 'Chaos Factor',
+      id: '',
     ));
     saveCampaignDataToDisk();
   }
@@ -165,4 +185,6 @@ class AppState extends ChangeNotifier {
         !_campaignData!.settings.general.useZocchiDice;
     saveCampaignDataToDisk();
   }
+
+  void addGenericEntity(GenericEntryItem genericEntryItem) {}
 }
