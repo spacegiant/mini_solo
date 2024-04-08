@@ -35,9 +35,11 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.newEntity: 'newEntity',
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newPerson: 'newPerson',
   JournalEntryTypes.newPlace: 'newPlace',
   JournalEntryTypes.newThing: 'newThing',
   JournalEntryTypes.newFaction: 'newFaction',
   JournalEntryTypes.dialogue: 'dialogue',
+  JournalEntryTypes.newCreature: 'newCreature',
 };

@@ -9,7 +9,7 @@ class RollEntry extends StatelessWidget {
     required this.diceResults,
   });
 
-  final List<DiceResult> diceResults;
+  final List<Roll> diceResults;
 
   @override
   Widget build(BuildContext context) {

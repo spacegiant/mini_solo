@@ -56,9 +56,6 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       creatures: (json['creatures'] as List<dynamic>)
           .map((e) => Creature.fromJson(e as Map<String, dynamic>))
           .toList(),
-      dungeons: (json['dungeons'] as List<dynamic>)
-          .map((e) => Dungeon.fromJson(e as Map<String, dynamic>))
-          .toList(),
     )..generic = (json['generic'] as List<dynamic>)
         .map((e) => GenericEntryItem.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -76,7 +73,6 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'factions': instance.factions.map((e) => e.toJson()).toList(),
       'clues': instance.clues.map((e) => e.toJson()).toList(),
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
-      'dungeons': instance.dungeons.map((e) => e.toJson()).toList(),
     };
 
 Mythic _$MythicFromJson(Map<String, dynamic> json) => Mythic(
@@ -111,11 +107,13 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.newEntity: 'newEntity',
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newPerson: 'newPerson',
   JournalEntryTypes.newPlace: 'newPlace',
   JournalEntryTypes.newThing: 'newThing',
   JournalEntryTypes.newFaction: 'newFaction',
   JournalEntryTypes.dialogue: 'dialogue',
+  JournalEntryTypes.newCreature: 'newCreature',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
@@ -220,41 +218,17 @@ Map<String, dynamic> _$CreatureToJson(Creature instance) => <String, dynamic>{
       'detail': instance.detail,
     };
 
-DungeonRoom _$DungeonRoomFromJson(Map<String, dynamic> json) => DungeonRoom(
-      name: json['name'] as String,
-      detail: json['detail'] as String?,
-    );
-
-Map<String, dynamic> _$DungeonRoomToJson(DungeonRoom instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'detail': instance.detail,
-    };
-
-Dungeon _$DungeonFromJson(Map<String, dynamic> json) => Dungeon(
+Roll _$RollFromJson(Map<String, dynamic> json) => Roll(
       isFavourite: json['isFavourite'] as bool?,
-      title: json['title'] as String,
-      rooms: (json['rooms'] as List<dynamic>?)
-          ?.map((e) => DungeonRoom.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      result: json['result'] as int,
+      diceType: json['diceType'] as String,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
     )..id = json['id'] as String;
 
-Map<String, dynamic> _$DungeonToJson(Dungeon instance) => <String, dynamic>{
+Map<String, dynamic> _$RollToJson(Roll instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
       'id': instance.id,
-      'title': instance.title,
-      'rooms': instance.rooms?.map((e) => e.toJson()).toList(),
-    };
-
-DiceResult _$DiceResultFromJson(Map<String, dynamic> json) => DiceResult(
-      result: json['result'] as int,
-      diceType: json['diceType'] as String,
-    );
-
-Map<String, dynamic> _$DiceResultToJson(DiceResult instance) =>
-    <String, dynamic>{
       'result': instance.result,
       'diceType': instance.diceType,
     };

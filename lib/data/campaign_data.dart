@@ -93,7 +93,6 @@ class CampaignData {
   late List<Faction> factions;
   late List<Clue> clues;
   late List<Creature> creatures;
-  late List<Dungeon> dungeons;
 
   CampaignData({
     required this.settings,
@@ -106,7 +105,6 @@ class CampaignData {
     required this.factions,
     required this.clues,
     required this.creatures,
-    required this.dungeons,
   });
 
   // coverage:ignore-start
@@ -130,7 +128,6 @@ CampaignData initCampaignDataData(String campaignName) {
     factions: [],
     clues: [],
     creatures: [],
-    dungeons: [],
     settings: SettingsData(
       general: GeneralSettingsData(
         showFutureSettings: false,
@@ -300,56 +297,19 @@ class Creature extends CampaignItem {
 }
 
 @JsonSerializable()
-class DungeonRoom {
-  String name;
-  String? detail;
-
-  DungeonRoom({
-    required this.name,
-    this.detail,
-  });
-
-  // coverage:ignore-start
-  factory DungeonRoom.fromJson(Map<String, dynamic> json) =>
-      _$DungeonRoomFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DungeonRoomToJson(this);
-// coverage:ignore-end
-}
-
-@JsonSerializable(explicitToJson: true)
-class Dungeon extends CampaignItem {
-  String title;
-  List<DungeonRoom>? rooms;
-
-  Dungeon({
-    required super.isFavourite,
-    required this.title,
-    this.rooms,
-    required super.type,
-  });
-
-  // coverage:ignore-start
-  factory Dungeon.fromJson(Map<String, dynamic> json) =>
-      _$DungeonFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DungeonToJson(this);
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class DiceResult {
+class Roll extends CampaignItem {
   int result;
   String diceType;
 
-  DiceResult({
+  Roll({
+    required super.isFavourite,
     required this.result,
     required this.diceType,
+    required super.type,
   });
 // coverage:ignore-start
-  factory DiceResult.fromJson(Map<String, dynamic> json) =>
-      _$DiceResultFromJson(json);
+  factory Roll.fromJson(Map<String, dynamic> json) => _$RollFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DiceResultToJson(this);
+  Map<String, dynamic> toJson() => _$RollToJson(this);
 // coverage:ignore-end
 }
