@@ -21,7 +21,8 @@ CampaignData initCampaignDataData2() {
           isFavourite: false, type: JournalEntryTypes.action, id: ''),
       JournalEntryItem(
           isFavourite: false, type: JournalEntryTypes.roll, id: ''),
-      JournalEntryItem(isFavourite: false, type: JournalEntryTypes.gm, id: '')
+      JournalEntryItem(
+          isFavourite: false, type: JournalEntryTypes.dialogue, id: '')
     ],
     people: [],
     places: [],
@@ -29,6 +30,5 @@ CampaignData initCampaignDataData2() {
     factions: [],
     clues: [],
     creatures: [],
-    dungeons: [],
   );
 }
