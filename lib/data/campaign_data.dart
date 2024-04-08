@@ -62,6 +62,7 @@ class SettingsData {
 
 @JsonSerializable()
 class GeneralSettingsData {
+  // TODO: Make showFutureSettings private
   late bool showFutureSettings;
   late bool useJournal;
   late bool useZocchiDice;

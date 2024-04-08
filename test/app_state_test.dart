@@ -39,7 +39,15 @@ void main() {
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
-      expect(data.campaignData?.settings.general.showFutureSettings, isFalse);
+      expect(data.showFutureFeatures, isFalse);
+    });
+
+    test('get showFutureFeatures returns bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      // MAKE THIS PRIVATE
+      expect(data.showFutureFeatures, isFalse);
     });
 
     test('toggleShowFutureFeatures toggles bool', () {
