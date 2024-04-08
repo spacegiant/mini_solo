@@ -1,6 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mini_solo/utilities/id_generator.dart';
-
 import 'campaign_item.dart';
 import 'generic_entry_item.dart';
 

@@ -1,6 +1,6 @@
 import 'campaign_data.dart';
 
-CampaignData initCampaignDataData() {
+CampaignData initCampaignDataData2() {
   return CampaignData(
     name: 'Shadows over Umber Keep',
     settings: SettingsData(
