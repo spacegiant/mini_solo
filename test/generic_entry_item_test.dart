@@ -10,7 +10,6 @@ void main() {
       title: 'Title',
     );
 
-    // String id = genericEntryItem.id;
     List<String> parts = genericEntryItem.id.split('-');
 
     expect(parts[0], 'chaosFactor');
