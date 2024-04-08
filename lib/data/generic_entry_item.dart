@@ -19,8 +19,10 @@ class GenericEntryItem extends CampaignItem {
     this.detail,
   });
 
+  // coverage:ignore-start
   factory GenericEntryItem.fromJson(Map<String, dynamic> json) =>
       _$GenericEntryItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$GenericEntryItemToJson(this);
+// coverage:ignore-end
 }
