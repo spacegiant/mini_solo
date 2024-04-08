@@ -7,6 +7,7 @@
 flutter test --coverage
 #dart run test --coverage=./coverage
 #format_coverage --lcov --check-ignore
+lcov --remove coverage/lcov.info 'lib/**/*.g.dart' -o coverage/lcov.info
 
 ## Activate package `coverage` (if needed):
 #dart pub global activate coverage
