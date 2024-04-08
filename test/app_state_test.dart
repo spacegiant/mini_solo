@@ -35,6 +35,15 @@ void main() {
   });
 
   group('General settings', () {
+    test('getter currentCampaign returns expected String', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+
+      data.setCampaignData(campaignData);
+
+      expect(data.currentCampaign, 'test campaign name');
+    });
+
     test('get showFutureFeatures returns bool', () {
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
@@ -61,7 +70,6 @@ void main() {
 
   group('Chaos Factor', () {
     test('getter chaosFactor returns value', () {
-      MockCallback mock = MockCallback();
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
@@ -70,7 +78,6 @@ void main() {
     });
 
     test('increaseChaosFactor increases CF', () {
-      MockCallback mock = MockCallback();
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
@@ -81,7 +88,6 @@ void main() {
     });
 
     test('decreaseChaosFactor decreases CF', () {
-      MockCallback mock = MockCallback();
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
@@ -92,7 +98,6 @@ void main() {
     });
 
     test('resetChaosFactor resets CF', () {
-      MockCallback mock = MockCallback();
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);

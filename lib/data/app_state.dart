@@ -62,6 +62,7 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
+    _currentCampaign = data.name;
     notifyListeners();
   }
 
