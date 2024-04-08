@@ -1,7 +1,7 @@
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/utilities/mock_callback.dart';
 import 'package:test/test.dart';
-import 'package:flutter/cupertino.dart';
 
 void main() {
   group('Test AppState', () {
@@ -28,10 +28,16 @@ void main() {
       expect(data.campaignData?.settings.general.showFutureSettings, true);
     });
 
-    // test('setSaveCallback stores a callback that is run on saving data', () {
-    //   final data = AppState();
-    //   CampaignData campaignData = initCampaignDataData('test campaign name');
-    //   data.setSaveCallback();
-    // });
+    test('setSaveCallback is called with saveCampaignDataToDisk', () {
+      MockCallback mock = MockCallback();
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      data.setSaveCallback((data) {
+        mock.call();
+      });
+      data.saveCampaignDataToDisk();
+      expect(mock.called(1), isTrue);
+    });
   });
 }

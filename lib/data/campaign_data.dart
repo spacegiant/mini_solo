@@ -115,6 +115,7 @@ class CampaignData {
 // coverage:ignore-end
 }
 
+// TODO: Replace with better name than initCampaignDataData
 CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     name: campaignName,
