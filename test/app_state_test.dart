@@ -12,26 +12,28 @@ void main() {
     expect(data.campaignData?.mythic.chaosFactor, 5);
   });
 
-  test('saveCallbackExists', () {
-    final data = AppState();
-    CampaignData campaignData = initCampaignDataData('test campaign name');
-    data.setCampaignData(campaignData);
+  group('SaveCallback', () {
+    test('saveCallbackExists', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
 
-    expect(data.saveCallbackExists, isFalse);
-    data.setSaveCallback((data) {});
-    expect(data.saveCallbackExists, isTrue);
-  });
-
-  test('setSaveCallback is called with saveCampaignDataToDisk', () {
-    MockCallback mock = MockCallback();
-    final data = AppState();
-    CampaignData campaignData = initCampaignDataData('test campaign name');
-    data.setCampaignData(campaignData);
-    data.setSaveCallback((data) {
-      mock.call();
+      expect(data.saveCallbackExists, isFalse);
+      data.setSaveCallback((data) {});
+      expect(data.saveCallbackExists, isTrue);
     });
-    data.saveCampaignDataToDisk();
-    expect(mock.called(1), isTrue);
+
+    test('setSaveCallback is called with saveCampaignDataToDisk', () {
+      MockCallback mock = MockCallback();
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      data.setSaveCallback((data) {
+        mock.call();
+      });
+      data.saveCampaignDataToDisk();
+      expect(mock.called(1), isTrue);
+    });
   });
 
   group('General settings', () {
