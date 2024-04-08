@@ -23,6 +23,7 @@ enum JournalEntryTypes {
   newThing,
   newFaction,
   dialogue,
+  newCreature,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -41,6 +42,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.newThing: 'newThing',
   JournalEntryTypes.newFaction: 'newFaction',
   JournalEntryTypes.dialogue: 'dialogue',
+  JournalEntryTypes.newCreature: 'newCreature',
 };
 
 // set to true if you have nested Model classes
