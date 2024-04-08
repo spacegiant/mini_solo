@@ -38,10 +38,17 @@ void main() {
     test('getter currentCampaign returns expected String', () {
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
-
       data.setCampaignData(campaignData);
-
       expect(data.currentCampaign, 'test campaign name');
+    });
+
+    test('setCurrentCampaign sets the campaign name String', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('first');
+      data.setCampaignData(campaignData);
+      expect(data.currentCampaign, 'first');
+      data.setCurrentCampaign('second');
+      expect(data.currentCampaign, 'second');
     });
 
     test('get showFutureFeatures returns bool', () {
