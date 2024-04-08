@@ -189,4 +189,22 @@ void main() {
       expect(data.showSettings, isTrue);
     });
   });
+
+  group('Use Journal', () {
+    test('getter useJournal returns a bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      expect(data.useJournal, isTrue);
+    });
+
+    test('setting toggleUseJournal toggles bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      expect(data.useJournal, isTrue);
+      data.toggleUseJournal();
+      expect(data.useJournal, isFalse);
+    });
+  });
 }
