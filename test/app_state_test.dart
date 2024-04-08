@@ -119,4 +119,55 @@ void main() {
       expect(data.chaosFactor, 5);
     });
   });
+
+  group('Popup', () {
+    test('getter popupLabel returns enum', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+
+      expect(data.popupLabel, PopupLabels.chaos);
+    });
+
+    test('setPopupLabel sets the label', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+
+      expect(data.popupLabel, PopupLabels.chaos);
+      data.setPopupLabel(PopupLabels.exploration);
+      expect(data.popupLabel, PopupLabels.exploration);
+    });
+
+    test('getter showPopup returns bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+
+      expect(data.showPopup, isFalse);
+    });
+
+    test('setter toggleShowPopup toggles bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+
+      data.toggleShowPopup();
+      expect(data.showPopup, isTrue);
+    });
+
+    test('setter closePopup sets to false', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+
+      expect(data.showPopup, isFalse);
+      data.closePopup();
+      expect(data.showPopup, isFalse);
+      data.toggleShowPopup();
+      expect(data.showPopup, isTrue);
+      data.closePopup();
+      expect(data.showPopup, isFalse);
+    });
+  });
 }
