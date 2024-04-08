@@ -10,11 +10,10 @@ GenericEntryItem _$GenericEntryItemFromJson(Map<String, dynamic> json) =>
     GenericEntryItem(
       isFavourite: json['isFavourite'] as bool?,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
       title: json['title'] as String,
       label: json['label'] as String?,
       detail: json['detail'] as String?,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$GenericEntryItemToJson(GenericEntryItem instance) =>
     <String, dynamic>{
@@ -34,9 +33,11 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.newScene: 'newScene',
   JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.gm: 'gm',
-  JournalEntryTypes.pc: 'pc',
-  JournalEntryTypes.npc: 'npc',
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.newPerson: 'newPerson',
+  JournalEntryTypes.newPlace: 'newPlace',
+  JournalEntryTypes.newThing: 'newThing',
+  JournalEntryTypes.newFaction: 'newFaction',
+  JournalEntryTypes.dialogue: 'dialogue',
 };

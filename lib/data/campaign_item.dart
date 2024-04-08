@@ -9,6 +9,11 @@ abstract class CampaignItem {
   CampaignItem({
     this.isFavourite,
     required this.type,
-    required this.id,
-  });
+  }) {
+    _initID();
+  }
+
+  void _initID() {
+    id = idGenerator(type);
+  }
 }

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-04-08 12:41:47</td>
+            <td class="headerValue">2024-04-08 13:53:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -63,9 +63,9 @@
 <span id="L1"><span class="lineNum">       1</span>              : // Source: https://stackoverflow.com/questions/15548652/how-to-generate-unique-id-in-dart</span>
 <span id="L2"><span class="lineNum">       2</span>              : import '../data/campaign_data.dart';</span>
 <span id="L3"><span class="lineNum">       3</span>              : </span>
-<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC tlaBgGNC">           2 : String idGenerator(JournalEntryTypes type) {</span></span>
-<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">           2 :   final now = DateTime.now();</span></span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">           8 :   return '${journalEntryTypeLabel[type]!}-${now.microsecondsSinceEpoch}';</span></span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC tlaBgGNC">           3 : String idGenerator(JournalEntryTypes type) {</span></span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">           3 :   final now = DateTime.now();</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          12 :   return '${journalEntryTypeLabel[type]}-${now.microsecondsSinceEpoch}';</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : }</span>
         </pre>
               </td>

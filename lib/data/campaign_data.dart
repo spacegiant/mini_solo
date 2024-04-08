@@ -15,11 +15,13 @@ enum JournalEntryTypes {
   fateCheck,
   newScene,
   newEntity,
-  gm,
-  pc,
-  npc,
   transition,
   chaosFactor,
+  newPerson,
+  newPlace,
+  newThing,
+  newFaction,
+  dialogue,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -30,11 +32,13 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.newScene: 'newScene',
   JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.gm: 'gm',
-  JournalEntryTypes.pc: 'pc',
-  JournalEntryTypes.npc: 'npc',
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.newPerson: 'newPerson',
+  JournalEntryTypes.newPlace: 'newPlace',
+  JournalEntryTypes.newThing: 'newThing',
+  JournalEntryTypes.newFaction: 'newFaction',
+  JournalEntryTypes.dialogue: 'dialogue',
 };
 
 // set to true if you have nested Model classes
@@ -149,13 +153,15 @@ class Mythic {
 }
 
 @JsonSerializable(explicitToJson: true)
-class JournalEntryItem extends CampaignItem {
-  // late JournalEntryTypes type;
+class JournalEntryItem {
+  bool isFavourite;
+  JournalEntryTypes type;
+  String id;
 
   JournalEntryItem({
-    required super.isFavourite,
-    required super.type,
-    required super.id,
+    required this.isFavourite,
+    required this.type,
+    required this.id,
   });
 
   // coverage:ignore-start
@@ -174,11 +180,10 @@ class Person extends CampaignItem {
 
   Person({
     required super.isFavourite,
+    required super.type,
     required this.firstName,
     required this.familyName,
     this.detail,
-    required super.type,
-    required super.id,
   });
   // coverage:ignore-start
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
@@ -199,7 +204,6 @@ class Place extends CampaignItem {
     this.detail,
     this.parent,
     required super.type,
-    required super.id,
   });
 
   // coverage:ignore-start
@@ -221,7 +225,6 @@ class Thing extends CampaignItem {
     this.owner,
     this.detail,
     required super.type,
-    required super.id,
   });
 
   // coverage:ignore-start
@@ -243,7 +246,6 @@ class Faction extends CampaignItem {
     this.occupation,
     this.detail,
     required super.type,
-    required super.id,
   });
 
   // coverage:ignore-start
@@ -264,7 +266,6 @@ class Clue extends CampaignItem {
     required this.description,
     this.notes,
     required super.type,
-    required super.id,
   });
 
   // coverage:ignore-start
@@ -284,7 +285,6 @@ class Creature extends CampaignItem {
     required this.title,
     this.detail,
     required super.type,
-    required super.id,
   });
 
   // coverage:ignore-start
@@ -323,7 +323,6 @@ class Dungeon extends CampaignItem {
     required this.title,
     this.rooms,
     required super.type,
-    required super.id,
   });
 
   // coverage:ignore-start

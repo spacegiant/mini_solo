@@ -5,13 +5,13 @@ import 'package:test/test.dart';
 void main() {
   test('Class generates a unique ID as expected', () {
     final genericEntryItem = GenericEntryItem(
-        isFavourite: false,
-        type: JournalEntryTypes.chaosFactor,
-        id: '',
-        title: 'Title');
+      isFavourite: false,
+      type: JournalEntryTypes.chaosFactor,
+      title: 'Title',
+    );
 
-    String id = genericEntryItem.id;
-    List<String> parts = id.split('-');
+    // String id = genericEntryItem.id;
+    List<String> parts = genericEntryItem.id.split('-');
 
     expect(parts[0], 'chaosFactor');
     expect(parts[1].length, 16);

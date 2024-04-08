@@ -89,7 +89,7 @@ Map<String, dynamic> _$MythicToJson(Mythic instance) => <String, dynamic>{
 
 JournalEntryItem _$JournalEntryItemFromJson(Map<String, dynamic> json) =>
     JournalEntryItem(
-      isFavourite: json['isFavourite'] as bool?,
+      isFavourite: json['isFavourite'] as bool,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
       id: json['id'] as String,
     );
@@ -109,21 +109,22 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.newScene: 'newScene',
   JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.gm: 'gm',
-  JournalEntryTypes.pc: 'pc',
-  JournalEntryTypes.npc: 'npc',
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.newPerson: 'newPerson',
+  JournalEntryTypes.newPlace: 'newPlace',
+  JournalEntryTypes.newThing: 'newThing',
+  JournalEntryTypes.newFaction: 'newFaction',
+  JournalEntryTypes.dialogue: 'dialogue',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
       isFavourite: json['isFavourite'] as bool?,
+      type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
       firstName: json['firstName'] as String,
       familyName: json['familyName'] as String,
       detail: json['detail'] as String?,
-      type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
@@ -142,8 +143,7 @@ Place _$PlaceFromJson(Map<String, dynamic> json) => Place(
           ? null
           : Place.fromJson(json['parent'] as Map<String, dynamic>),
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$PlaceToJson(Place instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
@@ -162,8 +162,7 @@ Thing _$ThingFromJson(Map<String, dynamic> json) => Thing(
           : Person.fromJson(json['owner'] as Map<String, dynamic>),
       detail: json['detail'] as String?,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$ThingToJson(Thing instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
@@ -180,8 +179,7 @@ Faction _$FactionFromJson(Map<String, dynamic> json) => Faction(
       occupation: json['occupation'] as String?,
       detail: json['detail'] as String?,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$FactionToJson(Faction instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
@@ -197,8 +195,7 @@ Clue _$ClueFromJson(Map<String, dynamic> json) => Clue(
       description: json['description'] as String,
       notes: json['notes'] as String?,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$ClueToJson(Clue instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
@@ -213,8 +210,7 @@ Creature _$CreatureFromJson(Map<String, dynamic> json) => Creature(
       title: json['title'] as String,
       detail: json['detail'] as String?,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$CreatureToJson(Creature instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
@@ -242,8 +238,7 @@ Dungeon _$DungeonFromJson(Map<String, dynamic> json) => Dungeon(
           ?.map((e) => DungeonRoom.fromJson(e as Map<String, dynamic>))
           .toList(),
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
-      id: json['id'] as String,
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$DungeonToJson(Dungeon instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,

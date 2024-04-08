@@ -3,5 +3,5 @@ import '../data/campaign_data.dart';
 
 String idGenerator(JournalEntryTypes type) {
   final now = DateTime.now();
-  return '${journalEntryTypeLabel[type]!}-${now.microsecondsSinceEpoch}';
+  return '${journalEntryTypeLabel[type]}-${now.microsecondsSinceEpoch}';
 }
