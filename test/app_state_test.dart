@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/utilities/mock_callback.dart';
@@ -168,6 +170,23 @@ void main() {
       expect(data.showPopup, isTrue);
       data.closePopup();
       expect(data.showPopup, isFalse);
+    });
+  });
+
+  group('ShowSettings', () {
+    test('get showSettings returns bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      expect(data.showSettings, isFalse);
+    });
+
+    test('setter toggleShowSettings toggles bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      data.toggleShowSettings();
+      expect(data.showSettings, isTrue);
     });
   });
 }
