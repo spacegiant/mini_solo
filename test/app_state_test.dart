@@ -207,4 +207,22 @@ void main() {
       expect(data.useJournal, isFalse);
     });
   });
+
+  group('Use Zocchi Dice', () {
+    test('getter useZocchiDice returns a bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      expect(data.useZocchiDice, isFalse);
+    });
+
+    test('getter toggleUseZocchiDice toggles a bool', () {
+      final data = AppState();
+      CampaignData campaignData = initCampaignDataData('test campaign name');
+      data.setCampaignData(campaignData);
+      expect(data.useZocchiDice, isFalse);
+      data.toggleUseZocchiDice();
+      expect(data.useZocchiDice, isTrue);
+    });
+  });
 }
