@@ -44,10 +44,12 @@ class SettingsData {
 
   SettingsData({required this.general});
 
+  // coverage:ignore-start
   factory SettingsData.fromJson(Map<String, dynamic> json) =>
       _$SettingsDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$SettingsDataToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -61,11 +63,12 @@ class GeneralSettingsData {
     required this.useJournal,
     required this.useZocchiDice,
   });
-
+// coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
       _$GeneralSettingsDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GeneralSettingsDataToJson(this);
+  // coverage:ignore-end
 }
 
 // set to true if you have nested Model classes
@@ -98,10 +101,12 @@ class CampaignData {
     required this.dungeons,
   });
 
+  // coverage:ignore-start
   factory CampaignData.fromJson(Map<String, dynamic> json) =>
       _$CampaignDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CampaignDataToJson(this);
+// coverage:ignore-end
 }
 
 CampaignData initCampaignDataData(String campaignName) {
@@ -136,9 +141,11 @@ class Mythic {
     required this.chaosFactor,
   });
 
+  // coverage:ignore-start
   factory Mythic.fromJson(Map<String, dynamic> json) => _$MythicFromJson(json);
 
   Map<String, dynamic> toJson() => _$MythicToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -151,10 +158,12 @@ class JournalEntryItem extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory JournalEntryItem.fromJson(Map<String, dynamic> json) =>
       _$JournalEntryItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$JournalEntryItemToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -171,9 +180,11 @@ class Person extends CampaignItem {
     required super.type,
     required super.id,
   });
+  // coverage:ignore-start
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
   Map<String, dynamic> toJson() => _$PersonToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -191,9 +202,11 @@ class Place extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 
   Map<String, dynamic> toJson() => _$PlaceToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -211,9 +224,11 @@ class Thing extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory Thing.fromJson(Map<String, dynamic> json) => _$ThingFromJson(json);
 
   Map<String, dynamic> toJson() => _$ThingToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -231,10 +246,12 @@ class Faction extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory Faction.fromJson(Map<String, dynamic> json) =>
       _$FactionFromJson(json);
 
   Map<String, dynamic> toJson() => _$FactionToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -250,9 +267,11 @@ class Clue extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory Clue.fromJson(Map<String, dynamic> json) => _$ClueFromJson(json);
 
   Map<String, dynamic> toJson() => _$ClueToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -268,10 +287,12 @@ class Creature extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory Creature.fromJson(Map<String, dynamic> json) =>
       _$CreatureFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreatureToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -284,10 +305,12 @@ class DungeonRoom {
     this.detail,
   });
 
+  // coverage:ignore-start
   factory DungeonRoom.fromJson(Map<String, dynamic> json) =>
       _$DungeonRoomFromJson(json);
 
   Map<String, dynamic> toJson() => _$DungeonRoomToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -303,10 +326,12 @@ class Dungeon extends CampaignItem {
     required super.id,
   });
 
+  // coverage:ignore-start
   factory Dungeon.fromJson(Map<String, dynamic> json) =>
       _$DungeonFromJson(json);
 
   Map<String, dynamic> toJson() => _$DungeonToJson(this);
+// coverage:ignore-end
 }
 
 @JsonSerializable()
@@ -318,9 +343,10 @@ class DiceResult {
     required this.result,
     required this.diceType,
   });
-
+// coverage:ignore-start
   factory DiceResult.fromJson(Map<String, dynamic> json) =>
       _$DiceResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$DiceResultToJson(this);
+// coverage:ignore-end
 }

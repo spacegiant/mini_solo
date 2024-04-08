@@ -28,7 +28,7 @@ class AppState extends ChangeNotifier {
   late bool _useJournal = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
-  int get chaosFactor => _campaignData!.mythic.chaosFactor ?? 5;
+  int get chaosFactor => _campaignData!.mythic.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
 
