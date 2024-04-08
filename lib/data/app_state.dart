@@ -93,7 +93,6 @@ class AppState extends ChangeNotifier {
         type: JournalEntryTypes.chaosFactor,
         label: 'Chaos Factor',
         isFavourite: false,
-        id: '',
       ));
     }
     saveCampaignDataToDisk();
