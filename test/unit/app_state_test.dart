@@ -1,4 +1,3 @@
-
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/utilities/mock_callback.dart';
@@ -223,5 +222,156 @@ void main() {
       data.toggleUseZocchiDice();
       expect(data.useZocchiDice, isTrue);
     });
+  });
+
+  test('Adding Person creates a person record and a journal record', () {
+    Person person = Person(
+      isFavourite: false,
+      type: JournalEntryTypes.newPerson,
+      firstName: 'Scooch',
+      familyName: 'Adams',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+    expect(data.campaignData?.people.contains(person), isFalse);
+
+    data.addPerson(person);
+    expect(data.campaignData?.people.contains(person), isTrue);
+
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == person.id)
+            .length,
+        equals(1));
+  });
+
+  test('Adding Place creates a person record and a journal record', () {
+    Place place = Place(
+      isFavourite: false,
+      type: JournalEntryTypes.newPerson,
+      name: 'Place name goes here',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+    expect(data.campaignData?.places.contains(place), isFalse);
+
+    data.addPlace(place);
+    expect(data.campaignData?.places.contains(place), isTrue);
+
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == place.id)
+            .length,
+        equals(1));
+  });
+
+  test('Adding Thing creates a person record and a journal record', () {
+    Thing thing = Thing(
+      isFavourite: false,
+      type: JournalEntryTypes.newThing,
+      name: 'Title of thing',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+
+    expect(data.campaignData?.things.contains(thing), isFalse);
+    data.addThing(thing);
+    expect(data.campaignData?.things.contains(thing), isTrue);
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == thing.id)
+            .length,
+        equals(1));
+  });
+
+  test('Adding Faction creates a person record and a journal record', () {
+    Faction faction = Faction(
+      isFavourite: false,
+      type: JournalEntryTypes.newFaction,
+      name: 'Title of faction',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+
+    expect(data.campaignData?.factions.contains(faction), isFalse);
+    data.addFaction(faction);
+    expect(data.campaignData?.factions.contains(faction), isTrue);
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == faction.id)
+            .length,
+        equals(1));
+  });
+
+  test('Adding Clue creates a person record and a journal record', () {
+    Clue clue = Clue(
+      isFavourite: false,
+      type: JournalEntryTypes.newClue,
+      description: 'Clue description',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+
+    expect(data.campaignData?.clues.contains(clue), isFalse);
+    data.addClue(clue);
+    expect(data.campaignData?.clues.contains(clue), isTrue);
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == clue.id)
+            .length,
+        equals(1));
+  });
+
+  test('Adding Creature creates a person record and a journal record', () {
+    Creature creature = Creature(
+      isFavourite: false,
+      type: JournalEntryTypes.newCreature,
+      title: 'Creature title',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+
+    expect(data.campaignData?.creatures.contains(creature), isFalse);
+    data.addCreature(creature);
+    expect(data.campaignData?.creatures.contains(creature), isTrue);
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == creature.id)
+            .length,
+        equals(1));
+  });
+
+  test('Adding Roll creates a person record and a journal record', () {
+    Roll roll = Roll(
+      isFavourite: false,
+      type: JournalEntryTypes.roll,
+      result: 6,
+      diceType: 'd6',
+    );
+
+    final data = AppState();
+    CampaignData campaignData = initCampaignDataData('test campaign name');
+    data.setCampaignData(campaignData);
+
+    expect(data.campaignData?.rolls.contains(roll), isFalse);
+    data.addRoll(roll);
+    expect(data.campaignData?.rolls.contains(roll), isTrue);
+    expect(
+        data.campaignData?.journal
+            .where((element) => element.id == roll.id)
+            .length,
+        equals(1));
   });
 }

@@ -56,6 +56,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       creatures: (json['creatures'] as List<dynamic>)
           .map((e) => Creature.fromJson(e as Map<String, dynamic>))
           .toList(),
+      rolls: (json['rolls'] as List<dynamic>)
+          .map((e) => Roll.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )..generic = (json['generic'] as List<dynamic>)
         .map((e) => GenericEntryItem.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -73,6 +76,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'factions': instance.factions.map((e) => e.toJson()).toList(),
       'clues': instance.clues.map((e) => e.toJson()).toList(),
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
+      'rolls': instance.rolls.map((e) => e.toJson()).toList(),
     };
 
 Mythic _$MythicFromJson(Map<String, dynamic> json) => Mythic(

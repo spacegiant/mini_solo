@@ -177,6 +177,97 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  void addPerson(Person person) {
+    _campaignData?.people.add(person);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: person.type,
+        id: person.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
+  void addPlace(Place place) {
+    _campaignData?.places.add(place);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: place.type,
+        id: place.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
+  void addThing(Thing thing) {
+    _campaignData?.things.add(thing);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: thing.type,
+        id: thing.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
+  void addFaction(Faction faction) {
+    _campaignData?.factions.add(faction);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: faction.type,
+        id: faction.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
+  void addClue(Clue clue) {
+    _campaignData?.clues.add(clue);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: clue.type,
+        id: clue.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
+  void addCreature(Creature creature) {
+    _campaignData?.creatures.add(creature);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: creature.type,
+        id: creature.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
+  void addRoll(Roll roll) {
+    _campaignData?.rolls.add(roll);
+    _campaignData?.journal.add(
+      JournalEntryItem(
+        isFavourite: false,
+        type: roll.type,
+        id: roll.id,
+      ),
+    );
+
+    saveCampaignDataToDisk();
+  }
+
   // ZOCCHI DICE
   bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
 

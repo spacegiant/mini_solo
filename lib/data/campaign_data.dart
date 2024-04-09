@@ -94,6 +94,7 @@ class CampaignData {
   late List<Faction> factions;
   late List<Clue> clues;
   late List<Creature> creatures;
+  late List<Roll> rolls;
 
   CampaignData({
     required this.settings,
@@ -106,6 +107,7 @@ class CampaignData {
     required this.factions,
     required this.clues,
     required this.creatures,
+    required this.rolls,
   });
 
   // coverage:ignore-start
@@ -130,6 +132,7 @@ CampaignData initCampaignDataData(String campaignName) {
     factions: [],
     clues: [],
     creatures: [],
+    rolls: [],
     settings: SettingsData(
       general: GeneralSettingsData(
         showFutureSettings: false,
