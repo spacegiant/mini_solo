@@ -3,7 +3,6 @@ import 'package:mini_solo/widgets/speech_bubble/bubble_text.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../utilities/convert_for_journal.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/test_scene.dart';

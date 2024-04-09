@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
