@@ -1,52 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/journal/journal_entry.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import 'entryWidgets/oracle_entry_widget.dart';
 
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
   List<Widget> journalEntries = [];
-  JournalEntryFactory factory = JournalEntryFactory();
   journalItems?.forEach((element) {
-    Widget widget = factory.createEntry(element.type);
-    journalEntries.add(widget);
+    switch (element.type) {
+      case JournalEntryTypes.dialogue:
+        journalEntries.add(const Text('dialogue'));
+      case JournalEntryTypes.mythic:
+        journalEntries.add(const Text('mythic'));
+      case JournalEntryTypes.newScene:
+        journalEntries.add(const Text('newScene'));
+      case JournalEntryTypes.newClue:
+        journalEntries.add(const Text('newClue'));
+      case JournalEntryTypes.newCreature:
+        journalEntries.add(const Text('newCreature'));
+      case JournalEntryTypes.newPerson:
+        journalEntries.add(const Text('newPerson'));
+      case JournalEntryTypes.newThing:
+        journalEntries.add(const Text('newThing'));
+      case JournalEntryTypes.newFaction:
+        journalEntries.add(const Text('newFaction'));
+      case JournalEntryTypes.oracle:
+        journalEntries.add(OracleEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.roll:
+        journalEntries.add(const Text('roll'));
+      case JournalEntryTypes.transition:
+        journalEntries.add(const Text('transition'));
+
+      default:
+        return;
+    }
   });
   return journalEntries;
 }
-
-Map<JournalEntryTypes, Widget> journalEntryWidgets = {
-  JournalEntryTypes.dialogue: const Text('Dialogue'),
-  JournalEntryTypes.mythic: const Text('Mythic'),
-  JournalEntryTypes.newScene: const Text('NewScene'),
-  JournalEntryTypes.newEntity: const Text('NewEntity'),
-  JournalEntryTypes.newClue: const Text('newClue'),
-  JournalEntryTypes.newCreature: const Text('NewCreature'),
-  JournalEntryTypes.newPerson: const Text('newPerson'),
-  JournalEntryTypes.newPlace: const Text('newPlace'),
-  JournalEntryTypes.newThing: const Text('newThing'),
-  JournalEntryTypes.newFaction: const Text('newFaction'),
-  JournalEntryTypes.oracle: const Text('Oracle'),
-  JournalEntryTypes.roll: const Text('Roll'),
-  JournalEntryTypes.transition: const Text('Transition'),
-};
-
-List<Widget> sampleJournalEntries = [
-  journalEntryWidgets[JournalEntryTypes.dialogue]!,
-  journalEntryWidgets[JournalEntryTypes.mythic]!,
-  journalEntryWidgets[JournalEntryTypes.newScene]!,
-  journalEntryWidgets[JournalEntryTypes.newEntity]!,
-  journalEntryWidgets[JournalEntryTypes.newClue]!,
-  journalEntryWidgets[JournalEntryTypes.newCreature]!,
-  journalEntryWidgets[JournalEntryTypes.newFaction]!,
-  journalEntryWidgets[JournalEntryTypes.newPerson]!,
-  journalEntryWidgets[JournalEntryTypes.newPlace]!,
-  journalEntryWidgets[JournalEntryTypes.newThing]!,
-  journalEntryWidgets[JournalEntryTypes.oracle]!,
-  journalEntryWidgets[JournalEntryTypes.transition]!,
-  journalEntryWidgets[JournalEntryTypes.roll]!,
-];
 
 class Journal extends StatelessWidget {
   const Journal({
