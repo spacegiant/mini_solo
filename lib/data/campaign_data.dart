@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import '../views/journal_view.dart';
 import 'campaign_item.dart';
 import 'generic_entry_item.dart';
 
@@ -47,6 +48,29 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.transition: 'transition',
 };
 
+// TODO: Rename this
+@JsonSerializable(explicitToJson: true)
+class ReturnObject {
+  late String type;
+  late String line1;
+  late String? line2;
+  late String? line3;
+
+  ReturnObject({
+    required this.type,
+    required this.line1,
+    this.line2,
+    this.line3,
+  });
+
+  // coverage:ignore-start
+  factory ReturnObject.fromJson(Map<String, dynamic> json) =>
+      _$ReturnObjectFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReturnObjectToJson(this);
+// coverage:ignore-end
+}
+
 // set to true if you have nested Model classes
 @JsonSerializable(explicitToJson: true)
 class SettingsData {
@@ -90,6 +114,7 @@ class CampaignData {
   late Mythic mythic;
   late List<JournalEntryItem> journal;
   late List<GenericEntryItem> generic;
+  late List<OracleEntry> oracle;
   late List<Person> people;
   late List<Place> places;
   late List<Thing> things;
@@ -102,6 +127,7 @@ class CampaignData {
     required this.settings,
     required this.name,
     required this.mythic,
+    required this.oracle,
     required this.journal,
     required this.generic,
     required this.people,
@@ -130,6 +156,7 @@ CampaignData initCampaignDataData(String campaignName) {
     ),
     journal: [],
     generic: [],
+    oracle: [],
     people: [],
     places: [],
     things: [],
@@ -352,5 +379,24 @@ class Note extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.note;
+// coverage:ignore-end
+}
+
+@JsonSerializable()
+class OracleEntry extends CampaignItem {
+  ReturnObject lines;
+
+  OracleEntry({
+    required super.isFavourite,
+    required this.lines,
+  });
+// coverage:ignore-start
+  factory OracleEntry.fromJson(Map<String, dynamic> json) =>
+      _$OracleEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OracleEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.oracle;
 // coverage:ignore-end
 }

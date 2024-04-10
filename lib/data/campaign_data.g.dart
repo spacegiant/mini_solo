@@ -6,6 +6,21 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+ReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) => ReturnObject(
+      type: json['type'] as String,
+      line1: json['line1'] as String,
+      line2: json['line2'] as String?,
+      line3: json['line3'] as String?,
+    );
+
+Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
+    <String, dynamic>{
+      'type': instance.type,
+      'line1': instance.line1,
+      'line2': instance.line2,
+      'line3': instance.line3,
+    };
+
 SettingsData _$SettingsDataFromJson(Map<String, dynamic> json) => SettingsData(
       general:
           GeneralSettingsData.fromJson(json['general'] as Map<String, dynamic>),
@@ -35,6 +50,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
       name: json['name'] as String,
       mythic: Mythic.fromJson(json['mythic'] as Map<String, dynamic>),
+      oracle: (json['oracle'] as List<dynamic>)
+          .map((e) => OracleEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
       journal: (json['journal'] as List<dynamic>)
           .map((e) => JournalEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -71,6 +89,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'mythic': instance.mythic.toJson(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),
       'generic': instance.generic.map((e) => e.toJson()).toList(),
+      'oracle': instance.oracle.map((e) => e.toJson()).toList(),
       'people': instance.people.map((e) => e.toJson()).toList(),
       'places': instance.places.map((e) => e.toJson()).toList(),
       'things': instance.things.map((e) => e.toJson()).toList(),
@@ -257,5 +276,20 @@ Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'note': instance.note,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
+OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
+      isFavourite: json['isFavourite'] as bool?,
+      lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+    )
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'lines': instance.lines,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

@@ -156,6 +156,15 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ZOCCHI DICE
+  bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
+
+  void toggleUseZocchiDice() {
+    _campaignData?.settings.general.useZocchiDice =
+        !_campaignData!.settings.general.useZocchiDice;
+    // saveCampaignDataToDisk();
+  }
+
   // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
@@ -240,15 +249,6 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  // ZOCCHI DICE
-  bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
-
-  void toggleUseZocchiDice() {
-    _campaignData?.settings.general.useZocchiDice =
-        !_campaignData!.settings.general.useZocchiDice;
-    // saveCampaignDataToDisk();
-  }
-
   void addGenericEntity(GenericEntryItem genericEntryItem) {
     _campaignData?.generic.add(genericEntryItem);
     addJournalEntry(
@@ -256,6 +256,17 @@ class AppState extends ChangeNotifier {
         isFavourite: false,
         type: genericEntryItem.type,
         id: genericEntryItem.id,
+      ),
+    );
+  }
+
+  void addOracleEntry(OracleEntry oracleEntry) {
+    _campaignData?.oracle.add(oracleEntry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: oracleEntry.type,
+        id: oracleEntry.id,
       ),
     );
   }

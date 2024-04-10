@@ -1,6 +1,6 @@
 import 'package:mini_solo/utilities/read_json_file.dart';
 
-import '../views/journal_view.dart';
+import '../data/campaign_data.dart';
 import '../data/app_state.dart';
 import 'consult_oracle.dart';
 

@@ -40,21 +40,6 @@ class SceneStateResult {
   }
 }
 
-// TODO: Rename this
-class ReturnObject {
-  late String type;
-  late String line1;
-  late String? line2;
-  late String? line3;
-
-  ReturnObject({
-    required this.type,
-    required this.line1,
-    this.line2,
-    this.line3,
-  });
-}
-
 class JournalView extends StatefulWidget {
   const JournalView({super.key});
 
@@ -146,17 +131,10 @@ class _JournalViewState extends State<JournalView> {
                       line3 = test.line3;
                     });
 
-                    appState.addJournalEntry(
-                      JournalEntryItem(
+                    appState.addOracleEntry(
+                      OracleEntry(
                         isFavourite: false,
-                        // label: 'Test Scene',
-                        // title: line1,
-                        // detail: convertToJournalEntry(
-                        //   test.line1,
-                        //   test.line2,
-                        //   test.line3,
-                        // ),
-                        type: JournalEntryTypes.oracle, id: '',
+                        lines: test,
                       ),
                     );
                   }),

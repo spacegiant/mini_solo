@@ -32,5 +32,6 @@ CampaignData sampleCampaignData() {
     creatures: [],
     rolls: [],
     generic: [],
+    oracle: [],
   );
 }
