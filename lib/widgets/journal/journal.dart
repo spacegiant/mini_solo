@@ -5,6 +5,15 @@ import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
 
+List<Widget> getEntries(AppState appState) {
+  List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
+  List<Widget> journalEntries = [];
+  journalItems?.forEach((element) {
+    journalEntries.add(journalEntryWidgets[element.type]!);
+  });
+  return journalEntries;
+}
+
 Map<JournalEntryTypes, Widget> journalEntryWidgets = {
   JournalEntryTypes.oracle: const Text('Oracle'),
   JournalEntryTypes.roll: const Text('Roll'),
@@ -55,6 +64,7 @@ class Journal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        List<Widget> entries = getEntries(appState);
         return GestureDetector(
           onLongPress: () {
             appState.setPopupLabel(PopupLabels.fullJournal);
@@ -75,7 +85,7 @@ class Journal extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const JournalStartEntry(),
-                        ...sampleJournalEntries,
+                        ...entries,
                         const JournalEndGlyphs(),
                       ],
                     ),
