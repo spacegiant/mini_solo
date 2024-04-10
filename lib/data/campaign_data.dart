@@ -13,6 +13,7 @@ enum JournalEntryTypes {
   chaosFactor,
   dialogue,
   fateCheck,
+  mythic,
   newClue,
   newCreature,
   newEntity,
@@ -33,6 +34,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.chaosFactor: 'chaosFactor',
   JournalEntryTypes.dialogue: 'dialogue',
   // JournalEntryTypes.fateCheck: 'fateCheck',
+  JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newCreature: 'newCreature',
   JournalEntryTypes.newEntity: 'newEntity',
@@ -49,7 +51,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
 };
 
 // TODO: Rename this
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class ReturnObject {
   late String type;
   late String line1;
@@ -111,7 +113,8 @@ class GeneralSettingsData {
 class CampaignData {
   late SettingsData settings;
   late String name;
-  late Mythic mythic;
+  late MythicData mythicData;
+  late List<MythicEntry> mythic;
   late List<JournalEntryItem> journal;
   late List<GenericEntryItem> generic;
   late List<OracleEntry> oracle;
@@ -127,6 +130,7 @@ class CampaignData {
     required this.settings,
     required this.name,
     required this.mythic,
+    required this.mythicData,
     required this.oracle,
     required this.journal,
     required this.generic,
@@ -150,19 +154,19 @@ class CampaignData {
 // TODO: Replace with better name than initCampaignDataData
 CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
-    name: campaignName,
-    mythic: Mythic(
+    clues: [],
+    creatures: [],
+    factions: [],
+    generic: [],
+    journal: [],
+    mythic: [],
+    mythicData: MythicData(
       chaosFactor: 5,
     ),
-    journal: [],
-    generic: [],
+    name: campaignName,
     oracle: [],
     people: [],
     places: [],
-    things: [],
-    factions: [],
-    clues: [],
-    creatures: [],
     rolls: [],
     settings: SettingsData(
       general: GeneralSettingsData(
@@ -171,21 +175,23 @@ CampaignData initCampaignDataData(String campaignName) {
         useZocchiDice: false,
       ),
     ),
+    things: [],
   );
 }
 
 @JsonSerializable()
-class Mythic {
+class MythicData {
   int chaosFactor;
 
-  Mythic({
+  MythicData({
     required this.chaosFactor,
   });
 
   // coverage:ignore-start
-  factory Mythic.fromJson(Map<String, dynamic> json) => _$MythicFromJson(json);
+  factory MythicData.fromJson(Map<String, dynamic> json) =>
+      _$MythicDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MythicToJson(this);
+  Map<String, dynamic> toJson() => _$MythicDataToJson(this);
 // coverage:ignore-end
 }
 
@@ -395,6 +401,25 @@ class OracleEntry extends CampaignItem {
       _$OracleEntryFromJson(json);
 
   Map<String, dynamic> toJson() => _$OracleEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.oracle;
+// coverage:ignore-end
+}
+
+@JsonSerializable()
+class MythicEntry extends CampaignItem {
+  ReturnObject lines;
+
+  MythicEntry({
+    required super.isFavourite,
+    required this.lines,
+  });
+// coverage:ignore-start
+  factory MythicEntry.fromJson(Map<String, dynamic> json) =>
+      _$MythicEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MythicEntryToJson(this);
 
   @override
   JournalEntryTypes type = JournalEntryTypes.oracle;

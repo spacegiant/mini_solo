@@ -10,7 +10,7 @@ CampaignData sampleCampaignData() {
         useZocchiDice: false,
       ),
     ),
-    mythic: Mythic(
+    mythicData: MythicData(
       chaosFactor: 5,
     ),
     journal: [
@@ -33,5 +33,6 @@ CampaignData sampleCampaignData() {
     rolls: [],
     generic: [],
     oracle: [],
+    mythic: [],
   );
 }

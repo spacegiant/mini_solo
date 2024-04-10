@@ -9,7 +9,7 @@ void main() {
     CampaignData campaignData = initCampaignDataData('test campaign name');
     data.setCampaignData(campaignData);
     expect(data.campaignData?.name, 'test campaign name');
-    expect(data.campaignData?.mythic.chaosFactor, 5);
+    expect(data.campaignData?.mythicData.chaosFactor, 5);
   });
 
   group('SaveCallback', () {

@@ -49,7 +49,11 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
       name: json['name'] as String,
-      mythic: Mythic.fromJson(json['mythic'] as Map<String, dynamic>),
+      mythic: (json['mythic'] as List<dynamic>)
+          .map((e) => MythicEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      mythicData:
+          MythicData.fromJson(json['mythicData'] as Map<String, dynamic>),
       oracle: (json['oracle'] as List<dynamic>)
           .map((e) => OracleEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -86,7 +90,8 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
       'settings': instance.settings.toJson(),
       'name': instance.name,
-      'mythic': instance.mythic.toJson(),
+      'mythicData': instance.mythicData.toJson(),
+      'mythic': instance.mythic.map((e) => e.toJson()).toList(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),
       'generic': instance.generic.map((e) => e.toJson()).toList(),
       'oracle': instance.oracle.map((e) => e.toJson()).toList(),
@@ -99,11 +104,12 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
     };
 
-Mythic _$MythicFromJson(Map<String, dynamic> json) => Mythic(
+MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
       chaosFactor: json['chaosFactor'] as int,
     );
 
-Map<String, dynamic> _$MythicToJson(Mythic instance) => <String, dynamic>{
+Map<String, dynamic> _$MythicDataToJson(MythicData instance) =>
+    <String, dynamic>{
       'chaosFactor': instance.chaosFactor,
     };
 
@@ -126,6 +132,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.chaosFactor: 'chaosFactor',
   JournalEntryTypes.dialogue: 'dialogue',
   JournalEntryTypes.fateCheck: 'fateCheck',
+  JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newCreature: 'newCreature',
   JournalEntryTypes.newEntity: 'newEntity',
@@ -287,6 +294,21 @@ OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
 
 Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'lines': instance.lines,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
+MythicEntry _$MythicEntryFromJson(Map<String, dynamic> json) => MythicEntry(
+      isFavourite: json['isFavourite'] as bool?,
+      lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+    )
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,

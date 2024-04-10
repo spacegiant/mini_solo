@@ -31,6 +31,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.chaosFactor: 'chaosFactor',
   JournalEntryTypes.dialogue: 'dialogue',
   JournalEntryTypes.fateCheck: 'fateCheck',
+  JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newCreature: 'newCreature',
   JournalEntryTypes.newEntity: 'newEntity',

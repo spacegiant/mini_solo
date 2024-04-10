@@ -27,7 +27,7 @@ class AppState extends ChangeNotifier {
   late bool _useJournal = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
-  int get chaosFactor => _campaignData!.mythic.chaosFactor;
+  int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
 
@@ -78,7 +78,7 @@ class AppState extends ChangeNotifier {
     var cf = chaosFactor;
     if (cf < maxChaos) {
       var newValue = cf + 1;
-      _campaignData!.mythic.chaosFactor = newValue;
+      _campaignData!.mythicData.chaosFactor = newValue;
       addGenericEntity(GenericEntryItem(
         title: 'UP to $newValue',
         label: 'Chaos Factor',
@@ -91,7 +91,7 @@ class AppState extends ChangeNotifier {
     var cf = chaosFactor;
     if (cf > minChaos) {
       var newValue = cf - 1;
-      _campaignData!.mythic.chaosFactor = newValue;
+      _campaignData!.mythicData.chaosFactor = newValue;
       // TODO: CREATE ID
       // TODO: SAVE GENERIC ENTRY
       // TODO: SAVE JOURNAL ENTRY
@@ -106,7 +106,7 @@ class AppState extends ChangeNotifier {
 
   void resetChaosFactor() {
     var newValue = 5;
-    _campaignData!.mythic.chaosFactor = newValue;
+    _campaignData!.mythicData.chaosFactor = newValue;
     // TODO: CREATE ID
     // TODO: SAVE GENERIC ENTRY
     // TODO: SAVE JOURNAL ENTRY
@@ -267,6 +267,17 @@ class AppState extends ChangeNotifier {
         isFavourite: false,
         type: oracleEntry.type,
         id: oracleEntry.id,
+      ),
+    );
+  }
+
+  void addMythicEntry(MythicEntry mythicEntry) {
+    _campaignData?.mythic.add(mythicEntry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: mythicEntry.type,
+        id: mythicEntry.id,
       ),
     );
   }
