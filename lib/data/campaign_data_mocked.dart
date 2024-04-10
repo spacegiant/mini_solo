@@ -15,14 +15,6 @@ CampaignData sampleCampaignData() {
     ),
     journal: [
       // FIXME: Add matching ids
-      JournalEntryItem(
-          isFavourite: false, type: JournalEntryTypes.newScene, id: ''),
-      JournalEntryItem(
-          isFavourite: false, type: JournalEntryTypes.action, id: ''),
-      JournalEntryItem(
-          isFavourite: false, type: JournalEntryTypes.roll, id: ''),
-      JournalEntryItem(
-          isFavourite: false, type: JournalEntryTypes.dialogue, id: '')
     ],
     people: [],
     places: [],
