@@ -422,6 +422,6 @@ class MythicEntry extends CampaignItem {
   Map<String, dynamic> toJson() => _$MythicEntryToJson(this);
 
   @override
-  JournalEntryTypes type = JournalEntryTypes.oracle;
+  JournalEntryTypes type = JournalEntryTypes.mythic;
 // coverage:ignore-end
 }
