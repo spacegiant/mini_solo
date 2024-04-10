@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/widgets/journal/journal_entry.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/dialogue_entry_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
@@ -13,7 +13,10 @@ List<Widget> getEntries(AppState appState) {
   journalItems?.forEach((element) {
     switch (element.type) {
       case JournalEntryTypes.dialogue:
-        journalEntries.add(const Text('dialogue'));
+        journalEntries.add(DialogueEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
       case JournalEntryTypes.mythic:
         journalEntries.add(const Text('mythic'));
       case JournalEntryTypes.newScene:

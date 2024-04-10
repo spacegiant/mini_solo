@@ -26,5 +26,6 @@ CampaignData sampleCampaignData() {
     generic: [],
     oracle: [],
     mythic: [],
+    dialogue: [],
   );
 }

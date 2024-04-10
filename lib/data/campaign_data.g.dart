@@ -81,6 +81,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       creatures: (json['creatures'] as List<dynamic>)
           .map((e) => Creature.fromJson(e as Map<String, dynamic>))
           .toList(),
+      dialogue: (json['dialogue'] as List<dynamic>)
+          .map((e) => Dialogue.fromJson(e as Map<String, dynamic>))
+          .toList(),
       rolls: (json['rolls'] as List<dynamic>)
           .map((e) => Roll.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -101,6 +104,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'factions': instance.factions.map((e) => e.toJson()).toList(),
       'clues': instance.clues.map((e) => e.toJson()).toList(),
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
+      'dialogue': instance.dialogue.map((e) => e.toJson()).toList(),
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
     };
 
@@ -313,5 +317,21 @@ Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'lines': instance.lines,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
+Dialogue _$DialogueFromJson(Map<String, dynamic> json) => Dialogue(
+      isFavourite: json['isFavourite'] as bool?,
+      dialogue: json['dialogue'] as String,
+      speaker: json['speaker'] as String,
+    )
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$DialogueToJson(Dialogue instance) => <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'dialogue': instance.dialogue,
+      'speaker': instance.speaker,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

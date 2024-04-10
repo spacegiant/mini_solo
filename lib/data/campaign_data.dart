@@ -124,7 +124,9 @@ class CampaignData {
   late List<Faction> factions;
   late List<Clue> clues;
   late List<Creature> creatures;
+  late List<Dialogue> dialogue;
   late List<Roll> rolls;
+  // late List<Dialogue> dialogue;
 
   CampaignData({
     required this.settings,
@@ -140,7 +142,9 @@ class CampaignData {
     required this.factions,
     required this.clues,
     required this.creatures,
+    required this.dialogue,
     required this.rolls,
+    // required this.dialogue,
   });
 
   // coverage:ignore-start
@@ -156,6 +160,7 @@ CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     clues: [],
     creatures: [],
+    dialogue: [],
     factions: [],
     generic: [],
     journal: [],
@@ -423,5 +428,26 @@ class MythicEntry extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.mythic;
+// coverage:ignore-end
+}
+
+@JsonSerializable()
+class Dialogue extends CampaignItem {
+  String dialogue;
+  String speaker;
+
+  Dialogue({
+    required super.isFavourite,
+    required this.dialogue,
+    required this.speaker,
+  });
+// coverage:ignore-start
+  factory Dialogue.fromJson(Map<String, dynamic> json) =>
+      _$DialogueFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DialogueToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.dialogue;
 // coverage:ignore-end
 }
