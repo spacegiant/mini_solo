@@ -8,48 +8,44 @@ import '../../data/app_state.dart';
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
   List<Widget> journalEntries = [];
+  JournalEntryFactory factory = JournalEntryFactory();
   journalItems?.forEach((element) {
-    journalEntries.add(journalEntryWidgets[element.type]!);
+    Widget widget = factory.createEntry(element.type);
+    journalEntries.add(widget);
   });
   return journalEntries;
 }
 
 Map<JournalEntryTypes, Widget> journalEntryWidgets = {
-  JournalEntryTypes.oracle: const Text('Oracle'),
-  JournalEntryTypes.roll: const Text('Roll'),
-  JournalEntryTypes.action: const Text('Action'),
-  JournalEntryTypes.outcome: const Text('Outcome'),
-  JournalEntryTypes.fateCheck: const Text('FateCheck'),
+  JournalEntryTypes.dialogue: const Text('Dialogue'),
+  JournalEntryTypes.mythic: const Text('Mythic'),
   JournalEntryTypes.newScene: const Text('NewScene'),
   JournalEntryTypes.newEntity: const Text('NewEntity'),
-  JournalEntryTypes.transition: const Text('Transition'),
-  JournalEntryTypes.chaosFactor: const Text('ChaosFactor'),
   JournalEntryTypes.newClue: const Text('newClue'),
+  JournalEntryTypes.newCreature: const Text('NewCreature'),
   JournalEntryTypes.newPerson: const Text('newPerson'),
   JournalEntryTypes.newPlace: const Text('newPlace'),
   JournalEntryTypes.newThing: const Text('newThing'),
   JournalEntryTypes.newFaction: const Text('newFaction'),
-  JournalEntryTypes.dialogue: const Text('Dialogue'),
-  JournalEntryTypes.newCreature: const Text('NewCreature'),
+  JournalEntryTypes.oracle: const Text('Oracle'),
+  JournalEntryTypes.roll: const Text('Roll'),
+  JournalEntryTypes.transition: const Text('Transition'),
 };
 
 List<Widget> sampleJournalEntries = [
-  journalEntryWidgets[JournalEntryTypes.oracle]!,
-  journalEntryWidgets[JournalEntryTypes.roll]!,
-  journalEntryWidgets[JournalEntryTypes.action]!,
-  journalEntryWidgets[JournalEntryTypes.outcome]!,
-  journalEntryWidgets[JournalEntryTypes.fateCheck]!,
+  journalEntryWidgets[JournalEntryTypes.dialogue]!,
+  journalEntryWidgets[JournalEntryTypes.mythic]!,
   journalEntryWidgets[JournalEntryTypes.newScene]!,
   journalEntryWidgets[JournalEntryTypes.newEntity]!,
-  journalEntryWidgets[JournalEntryTypes.transition]!,
-  journalEntryWidgets[JournalEntryTypes.chaosFactor]!,
   journalEntryWidgets[JournalEntryTypes.newClue]!,
+  journalEntryWidgets[JournalEntryTypes.newCreature]!,
+  journalEntryWidgets[JournalEntryTypes.newFaction]!,
   journalEntryWidgets[JournalEntryTypes.newPerson]!,
   journalEntryWidgets[JournalEntryTypes.newPlace]!,
   journalEntryWidgets[JournalEntryTypes.newThing]!,
-  journalEntryWidgets[JournalEntryTypes.newFaction]!,
-  journalEntryWidgets[JournalEntryTypes.dialogue]!,
-  journalEntryWidgets[JournalEntryTypes.newCreature]!,
+  journalEntryWidgets[JournalEntryTypes.oracle]!,
+  journalEntryWidgets[JournalEntryTypes.transition]!,
+  journalEntryWidgets[JournalEntryTypes.roll]!,
 ];
 
 class Journal extends StatelessWidget {
