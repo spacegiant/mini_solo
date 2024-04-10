@@ -227,7 +227,6 @@ void main() {
   test('Adding Person creates a person record and a journal record', () {
     Person person = Person(
       isFavourite: false,
-      type: JournalEntryTypes.newPerson,
       firstName: 'Scooch',
       familyName: 'Adams',
     );
@@ -250,7 +249,6 @@ void main() {
   test('Adding Place creates a person record and a journal record', () {
     Place place = Place(
       isFavourite: false,
-      type: JournalEntryTypes.newPerson,
       name: 'Place name goes here',
     );
 
@@ -272,7 +270,6 @@ void main() {
   test('Adding Thing creates a person record and a journal record', () {
     Thing thing = Thing(
       isFavourite: false,
-      type: JournalEntryTypes.newThing,
       name: 'Title of thing',
     );
 
@@ -293,7 +290,6 @@ void main() {
   test('Adding Faction creates a person record and a journal record', () {
     Faction faction = Faction(
       isFavourite: false,
-      type: JournalEntryTypes.newFaction,
       name: 'Title of faction',
     );
 
@@ -314,7 +310,6 @@ void main() {
   test('Adding Clue creates a person record and a journal record', () {
     Clue clue = Clue(
       isFavourite: false,
-      type: JournalEntryTypes.newClue,
       description: 'Clue description',
     );
 
@@ -335,7 +330,6 @@ void main() {
   test('Adding Creature creates a person record and a journal record', () {
     Creature creature = Creature(
       isFavourite: false,
-      type: JournalEntryTypes.newCreature,
       title: 'Creature title',
     );
 
@@ -356,7 +350,6 @@ void main() {
   test('Adding Roll creates a person record and a journal record', () {
     Roll roll = Roll(
       isFavourite: false,
-      type: JournalEntryTypes.roll,
       result: 6,
       diceType: 'd6',
     );

@@ -5,7 +5,6 @@ void main() {
   test('Class generates a unique ID as expected', () {
     final personItem = Thing(
       isFavourite: false,
-      type: JournalEntryTypes.newThing,
       detail: 'Detail here',
       name: 'Thing name',
     );

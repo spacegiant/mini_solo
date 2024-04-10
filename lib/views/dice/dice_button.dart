@@ -32,7 +32,6 @@ class DiceButton extends StatelessWidget {
             result: dieType.roll(),
             diceType: dieType.label,
             isFavourite: false,
-            type: JournalEntryTypes.roll,
           );
           onPressed(diceResult);
         });

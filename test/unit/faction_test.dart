@@ -5,7 +5,6 @@ void main() {
   test('Class generates a unique ID as expected', () {
     final personItem = Faction(
       isFavourite: false,
-      type: JournalEntryTypes.newFaction,
       detail: 'Detail here',
       name: 'New Faction',
     );

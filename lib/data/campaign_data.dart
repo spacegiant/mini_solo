@@ -101,6 +101,7 @@ class CampaignData {
     required this.name,
     required this.mythic,
     required this.journal,
+    required this.generic,
     required this.people,
     required this.places,
     required this.things,
@@ -126,6 +127,7 @@ CampaignData initCampaignDataData(String campaignName) {
       chaosFactor: 5,
     ),
     journal: [],
+    generic: [],
     people: [],
     places: [],
     things: [],
@@ -186,7 +188,6 @@ class Person extends CampaignItem {
 
   Person({
     required super.isFavourite,
-    required super.type,
     required this.firstName,
     required this.familyName,
     this.detail,
@@ -195,6 +196,9 @@ class Person extends CampaignItem {
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
 
   Map<String, dynamic> toJson() => _$PersonToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newPerson;
 // coverage:ignore-end
 }
 
@@ -209,13 +213,15 @@ class Place extends CampaignItem {
     required this.name,
     this.detail,
     this.parent,
-    required super.type,
   });
 
   // coverage:ignore-start
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
 
   Map<String, dynamic> toJson() => _$PlaceToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newPlace;
 // coverage:ignore-end
 }
 
@@ -230,13 +236,15 @@ class Thing extends CampaignItem {
     required this.name,
     this.owner,
     this.detail,
-    required super.type,
   });
 
   // coverage:ignore-start
   factory Thing.fromJson(Map<String, dynamic> json) => _$ThingFromJson(json);
 
   Map<String, dynamic> toJson() => _$ThingToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newThing;
 // coverage:ignore-end
 }
 
@@ -251,7 +259,6 @@ class Faction extends CampaignItem {
     required this.name,
     this.occupation,
     this.detail,
-    required super.type,
   });
 
   // coverage:ignore-start
@@ -259,6 +266,9 @@ class Faction extends CampaignItem {
       _$FactionFromJson(json);
 
   Map<String, dynamic> toJson() => _$FactionToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newFaction;
 // coverage:ignore-end
 }
 
@@ -271,13 +281,15 @@ class Clue extends CampaignItem {
     required super.isFavourite,
     required this.description,
     this.notes,
-    required super.type,
   });
 
   // coverage:ignore-start
   factory Clue.fromJson(Map<String, dynamic> json) => _$ClueFromJson(json);
 
   Map<String, dynamic> toJson() => _$ClueToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newClue;
 // coverage:ignore-end
 }
 
@@ -290,7 +302,6 @@ class Creature extends CampaignItem {
     required super.isFavourite,
     required this.title,
     this.detail,
-    required super.type,
   });
 
   // coverage:ignore-start
@@ -298,6 +309,9 @@ class Creature extends CampaignItem {
       _$CreatureFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreatureToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newCreature;
 // coverage:ignore-end
 }
 
@@ -310,11 +324,13 @@ class Roll extends CampaignItem {
     required super.isFavourite,
     required this.result,
     required this.diceType,
-    required super.type,
   });
 // coverage:ignore-start
   factory Roll.fromJson(Map<String, dynamic> json) => _$RollFromJson(json);
 
   Map<String, dynamic> toJson() => _$RollToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.roll;
 // coverage:ignore-end
 }

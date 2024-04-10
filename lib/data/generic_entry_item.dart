@@ -13,7 +13,6 @@ class GenericEntryItem extends CampaignItem {
 
   GenericEntryItem({
     required super.isFavourite,
-    required super.type,
     required this.title,
     this.label,
     this.detail,
@@ -24,5 +23,8 @@ class GenericEntryItem extends CampaignItem {
       _$GenericEntryItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$GenericEntryItemToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.dialogue;
 // coverage:ignore-end
 }

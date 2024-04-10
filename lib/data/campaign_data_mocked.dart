@@ -1,6 +1,6 @@
 import 'campaign_data.dart';
 
-CampaignData initCampaignDataData2() {
+CampaignData sampleCampaignData() {
   return CampaignData(
     name: 'Shadows over Umber Keep',
     settings: SettingsData(
@@ -31,5 +31,6 @@ CampaignData initCampaignDataData2() {
     clues: [],
     creatures: [],
     rolls: [],
+    generic: [],
   );
 }

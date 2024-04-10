@@ -5,7 +5,6 @@ void main() {
   test('Class generates a unique ID as expected', () {
     final item = Roll(
       isFavourite: false,
-      type: JournalEntryTypes.roll,
       result: 3,
       diceType: 'd6',
     );

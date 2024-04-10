@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/utilities/id_generator.dart';
 
 import 'generic_entry_item.dart';
 
@@ -80,23 +79,12 @@ class AppState extends ChangeNotifier {
     if (cf < maxChaos) {
       var newValue = cf + 1;
       _campaignData!.mythic.chaosFactor = newValue;
-      // TODO: CREATE ID
-      String id = idGenerator(JournalEntryTypes.chaosFactor);
-      // TODO: SAVE GENERIC ENTRY
-      // TODO: SAVE JOURNAL ENTRY
-      addJournalEntry(JournalEntryItem(
-        isFavourite: false,
-        type: JournalEntryTypes.chaosFactor,
-        id: idGenerator(JournalEntryTypes.chaosFactor),
-      ));
       addGenericEntity(GenericEntryItem(
         title: 'UP to $newValue',
-        type: JournalEntryTypes.chaosFactor,
         label: 'Chaos Factor',
         isFavourite: false,
       ));
     }
-    saveCampaignDataToDisk();
   }
 
   void decreaseChaosFactor() {
@@ -107,30 +95,27 @@ class AppState extends ChangeNotifier {
       // TODO: CREATE ID
       // TODO: SAVE GENERIC ENTRY
       // TODO: SAVE JOURNAL ENTRY
-      addJournalEntry(JournalEntryItem(
+      addGenericEntity(GenericEntryItem(
+        title: 'DOWN to $newValue',
+        label: 'Chaos Factor',
         isFavourite: false,
-        // title: 'DOWN to $newValue',
-        type: JournalEntryTypes.chaosFactor,
-        // label: 'Chaos Factor',
-        id: '',
       ));
     }
-    saveCampaignDataToDisk();
+    // saveCampaignDataToDisk();
   }
 
   void resetChaosFactor() {
-    _campaignData!.mythic.chaosFactor = 5;
+    var newValue = 5;
+    _campaignData!.mythic.chaosFactor = newValue;
     // TODO: CREATE ID
     // TODO: SAVE GENERIC ENTRY
     // TODO: SAVE JOURNAL ENTRY
-    addJournalEntry(JournalEntryItem(
+    addGenericEntity(GenericEntryItem(
+      title: 'RESET to $newValue',
+      label: 'Chaos Factor',
       isFavourite: false,
-      // title: 'RESET to 5',
-      type: JournalEntryTypes.chaosFactor,
-      // label: 'Chaos Factor',
-      id: '',
     ));
-    saveCampaignDataToDisk();
+    // saveCampaignDataToDisk();
   }
 
   //   SHOW POPUP
@@ -174,98 +159,85 @@ class AppState extends ChangeNotifier {
   // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
+    // THIS SAVES FOR ALL ENTRY TYPES
     saveCampaignDataToDisk();
   }
 
   void addPerson(Person person) {
     _campaignData?.people.add(person);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: person.type,
         id: person.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   void addPlace(Place place) {
     _campaignData?.places.add(place);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: place.type,
         id: place.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   void addThing(Thing thing) {
     _campaignData?.things.add(thing);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: thing.type,
         id: thing.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   void addFaction(Faction faction) {
     _campaignData?.factions.add(faction);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: faction.type,
         id: faction.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   void addClue(Clue clue) {
     _campaignData?.clues.add(clue);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: clue.type,
         id: clue.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   void addCreature(Creature creature) {
     _campaignData?.creatures.add(creature);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: creature.type,
         id: creature.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   void addRoll(Roll roll) {
     _campaignData?.rolls.add(roll);
-    _campaignData?.journal.add(
+    addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: roll.type,
         id: roll.id,
       ),
     );
-
-    saveCampaignDataToDisk();
   }
 
   // ZOCCHI DICE
@@ -274,8 +246,17 @@ class AppState extends ChangeNotifier {
   void toggleUseZocchiDice() {
     _campaignData?.settings.general.useZocchiDice =
         !_campaignData!.settings.general.useZocchiDice;
-    saveCampaignDataToDisk();
+    // saveCampaignDataToDisk();
   }
 
-  void addGenericEntity(GenericEntryItem genericEntryItem) {}
+  void addGenericEntity(GenericEntryItem genericEntryItem) {
+    _campaignData?.generic.add(genericEntryItem);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: genericEntryItem.type,
+        id: genericEntryItem.id,
+      ),
+    );
+  }
 }

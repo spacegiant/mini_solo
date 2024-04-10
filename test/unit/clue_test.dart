@@ -5,7 +5,6 @@ void main() {
   test('Class generates a unique ID as expected', () {
     final personItem = Clue(
       isFavourite: false,
-      type: JournalEntryTypes.newClue,
       description: 'Description here',
     );
 
