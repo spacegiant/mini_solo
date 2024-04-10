@@ -73,13 +73,7 @@ class _JournalViewState extends State<JournalView> {
       appState.addJournalEntry(
         JournalEntryItem(
           isFavourite: false,
-          // title: convertToJournalEntry(
-          //   text,
-          //   null,
-          //   null,
-          // ),
           type: JournalEntryTypes.oracle,
-          // label: 'Mythic Event Focus',
           id: '',
         ),
       );
