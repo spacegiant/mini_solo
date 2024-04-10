@@ -30,5 +30,6 @@ CampaignData initCampaignDataData2() {
     factions: [],
     clues: [],
     creatures: [],
+    rolls: [],
   );
 }

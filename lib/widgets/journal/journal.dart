@@ -5,6 +5,44 @@ import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
 
+Map<JournalEntryTypes, Widget> journalEntryWidgets = {
+  JournalEntryTypes.oracle: const Text('Oracle'),
+  JournalEntryTypes.roll: const Text('Roll'),
+  JournalEntryTypes.action: const Text('Action'),
+  JournalEntryTypes.outcome: const Text('Outcome'),
+  JournalEntryTypes.fateCheck: const Text('FateCheck'),
+  JournalEntryTypes.newScene: const Text('NewScene'),
+  JournalEntryTypes.newEntity: const Text('NewEntity'),
+  JournalEntryTypes.transition: const Text('Transition'),
+  JournalEntryTypes.chaosFactor: const Text('ChaosFactor'),
+  JournalEntryTypes.newClue: const Text('newClue'),
+  JournalEntryTypes.newPerson: const Text('newPerson'),
+  JournalEntryTypes.newPlace: const Text('newPlace'),
+  JournalEntryTypes.newThing: const Text('newThing'),
+  JournalEntryTypes.newFaction: const Text('newFaction'),
+  JournalEntryTypes.dialogue: const Text('Dialogue'),
+  JournalEntryTypes.newCreature: const Text('NewCreature'),
+};
+
+List<Widget> sampleJournalEntries = [
+  journalEntryWidgets[JournalEntryTypes.oracle]!,
+  journalEntryWidgets[JournalEntryTypes.roll]!,
+  journalEntryWidgets[JournalEntryTypes.action]!,
+  journalEntryWidgets[JournalEntryTypes.outcome]!,
+  journalEntryWidgets[JournalEntryTypes.fateCheck]!,
+  journalEntryWidgets[JournalEntryTypes.newScene]!,
+  journalEntryWidgets[JournalEntryTypes.newEntity]!,
+  journalEntryWidgets[JournalEntryTypes.transition]!,
+  journalEntryWidgets[JournalEntryTypes.chaosFactor]!,
+  journalEntryWidgets[JournalEntryTypes.newClue]!,
+  journalEntryWidgets[JournalEntryTypes.newPerson]!,
+  journalEntryWidgets[JournalEntryTypes.newPlace]!,
+  journalEntryWidgets[JournalEntryTypes.newThing]!,
+  journalEntryWidgets[JournalEntryTypes.newFaction]!,
+  journalEntryWidgets[JournalEntryTypes.dialogue]!,
+  journalEntryWidgets[JournalEntryTypes.newCreature]!,
+];
+
 class Journal extends StatelessWidget {
   const Journal({
     super.key,
@@ -15,18 +53,6 @@ class Journal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Iterable<Widget> journalEntries = items.map((entry) {
-    //   if (entry.type == JournalEntryTypes.roll) {
-    //     return DiceBubble(diceResults: [...?entry.diceRolls]);
-    //   } else {
-    //     return JournalEntry(
-    //       text: entry.title,
-    //       label: entry.label,
-    //       detail: entry.detail,
-    //     );
-    //   }
-    // });
-
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
         return GestureDetector(
@@ -43,14 +69,14 @@ class Journal extends StatelessWidget {
                     maxHeight: 200.0,
                     minHeight: 200.0,
                   ),
-                  child: const SingleChildScrollView(
+                  child: SingleChildScrollView(
                     reverse: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        JournalStartEntry(),
-                        // ...journalEntries,
-                        JournalEndGlyphs(),
+                        const JournalStartEntry(),
+                        ...sampleJournalEntries,
+                        const JournalEndGlyphs(),
                       ],
                     ),
                   ),
