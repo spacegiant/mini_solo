@@ -215,8 +215,8 @@ class _JournalViewState extends State<JournalView> {
                     table2: 'table',
                     onResult: (appState, result, label) {
                       updateState(result);
-                      appState.addMythicEntry(
-                        MythicEntry(
+                      appState.addOracleEntry(
+                        OracleEntry(
                           isFavourite: false,
                           lines: result,
                         ),
