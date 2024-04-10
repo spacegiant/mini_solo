@@ -103,22 +103,23 @@ Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
     };
 
 const _$JournalEntryTypesEnumMap = {
-  JournalEntryTypes.oracle: 'oracle',
-  JournalEntryTypes.roll: 'roll',
   JournalEntryTypes.action: 'action',
-  JournalEntryTypes.outcome: 'outcome',
-  JournalEntryTypes.fateCheck: 'fateCheck',
-  JournalEntryTypes.newScene: 'newScene',
-  JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.dialogue: 'dialogue',
+  JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.newClue: 'newClue',
+  JournalEntryTypes.newCreature: 'newCreature',
+  JournalEntryTypes.newEntity: 'newEntity',
+  JournalEntryTypes.newFaction: 'newFaction',
   JournalEntryTypes.newPerson: 'newPerson',
   JournalEntryTypes.newPlace: 'newPlace',
+  JournalEntryTypes.newScene: 'newScene',
   JournalEntryTypes.newThing: 'newThing',
-  JournalEntryTypes.newFaction: 'newFaction',
-  JournalEntryTypes.dialogue: 'dialogue',
-  JournalEntryTypes.newCreature: 'newCreature',
+  JournalEntryTypes.note: 'note',
+  JournalEntryTypes.oracle: 'oracle',
+  JournalEntryTypes.outcome: 'outcome',
+  JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.transition: 'transition',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
@@ -242,5 +243,19 @@ Map<String, dynamic> _$RollToJson(Roll instance) => <String, dynamic>{
       'id': instance.id,
       'result': instance.result,
       'diceType': instance.diceType,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
+Note _$NoteFromJson(Map<String, dynamic> json) => Note(
+      isFavourite: json['isFavourite'] as bool?,
+      note: json['note'] as String,
+    )
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'note': instance.note,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

@@ -8,41 +8,43 @@ part 'campaign_data.g.dart';
 
 // TODO: Set up so that each type has different data shape
 enum JournalEntryTypes {
-  oracle,
-  roll,
   action,
-  outcome,
-  fateCheck,
-  newScene,
-  newEntity,
-  transition,
   chaosFactor,
+  dialogue,
+  fateCheck,
   newClue,
+  newCreature,
+  newEntity,
+  newFaction,
   newPerson,
   newPlace,
+  newScene,
   newThing,
-  newFaction,
-  dialogue,
-  newCreature,
+  note,
+  oracle,
+  outcome,
+  roll,
+  transition,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
-  JournalEntryTypes.oracle: 'oracle',
-  JournalEntryTypes.roll: 'roll',
-  JournalEntryTypes.action: 'action',
-  JournalEntryTypes.outcome: 'outcome',
-  JournalEntryTypes.fateCheck: 'fateCheck',
-  JournalEntryTypes.newScene: 'newScene',
-  JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.transition: 'transition',
+  // JournalEntryTypes.action: 'action',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.dialogue: 'dialogue',
+  // JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.newClue: 'newClue',
+  JournalEntryTypes.newCreature: 'newCreature',
+  JournalEntryTypes.newEntity: 'newEntity',
+  JournalEntryTypes.newFaction: 'newFaction',
   JournalEntryTypes.newPerson: 'newPerson',
   JournalEntryTypes.newPlace: 'newPlace',
+  JournalEntryTypes.newScene: 'newScene',
   JournalEntryTypes.newThing: 'newThing',
-  JournalEntryTypes.newFaction: 'newFaction',
-  JournalEntryTypes.dialogue: 'dialogue',
-  JournalEntryTypes.newCreature: 'newCreature',
+  JournalEntryTypes.note: 'note',
+  JournalEntryTypes.oracle: 'oracle',
+  // JournalEntryTypes.outcome: 'outcome',
+  JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.transition: 'transition',
 };
 
 // set to true if you have nested Model classes
@@ -332,5 +334,23 @@ class Roll extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.roll;
+// coverage:ignore-end
+}
+
+@JsonSerializable()
+class Note extends CampaignItem {
+  String note;
+
+  Note({
+    required super.isFavourite,
+    required this.note,
+  });
+// coverage:ignore-start
+  factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NoteToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.note;
 // coverage:ignore-end
 }
