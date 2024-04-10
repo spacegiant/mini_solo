@@ -70,11 +70,13 @@ class _JournalViewState extends State<JournalView> {
       });
 
       //  Save to campaign data and push to journal
-      appState.addJournalEntry(
-        JournalEntryItem(
+      appState.addMythicEntry(
+        MythicEntry(
           isFavourite: false,
-          type: JournalEntryTypes.oracle,
-          id: '',
+          lines: ReturnObject(
+            line1: text,
+            type: 'mythic',
+          ),
         ),
       );
     });
@@ -86,7 +88,7 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
-      handleUpdateBubble(
+      handleResult(
         AppState appState,
         ReturnObject result,
         String? label,
@@ -145,7 +147,15 @@ class _JournalViewState extends State<JournalView> {
                     jsonPath: 'mythic/mythic_action.json',
                     table1: 'table1',
                     table2: 'table2',
-                    onResult: handleUpdateBubble,
+                    onResult: (appState, result, label) {
+                      updateState(result);
+                      appState.addMythicEntry(
+                        MythicEntry(
+                          isFavourite: false,
+                          lines: result,
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -158,7 +168,15 @@ class _JournalViewState extends State<JournalView> {
                     jsonPath: 'mythic/mythic_description.json',
                     table1: 'table1',
                     table2: 'table2',
-                    onResult: handleUpdateBubble,
+                    onResult: (appState, result, label) {
+                      updateState(result);
+                      appState.addMythicEntry(
+                        MythicEntry(
+                          isFavourite: false,
+                          lines: result,
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -195,7 +213,15 @@ class _JournalViewState extends State<JournalView> {
                     jsonPath: 'mythic_elements/plot_twist.json',
                     table1: 'table',
                     table2: 'table',
-                    onResult: handleUpdateBubble,
+                    onResult: (appState, result, label) {
+                      updateState(result);
+                      appState.addMythicEntry(
+                        MythicEntry(
+                          isFavourite: false,
+                          lines: result,
+                        ),
+                      );
+                    },
                   );
                 },
               ),

@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/journal/entryWidgets/dialogue_entry_widget.dar
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
 
 List<Widget> getEntries(AppState appState) {
@@ -18,7 +19,10 @@ List<Widget> getEntries(AppState appState) {
           journalEntry: element,
         ));
       case JournalEntryTypes.mythic:
-        journalEntries.add(const Text('mythic'));
+        journalEntries.add(MythicEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
       case JournalEntryTypes.newScene:
         journalEntries.add(const Text('newScene'));
       case JournalEntryTypes.newClue:
