@@ -39,16 +39,6 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
         return ViewWrapper(children: [
-          GestureDetector(
-            onLongPress: () {
-              print('long press');
-            },
-            child: CupertinoTextFormFieldRow(
-              prefix: const Text('test'),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const CupertinoFormRow(prefix: Text('prefix'), child: Text('test')),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Row(
@@ -58,7 +48,9 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                   value: '...',
                   onTap: () {
                     print('hello');
-                    appState.setPopupLabel(PopupLabels.chaos);
+                  },
+                  onLongPress: () {
+                    appState.setPopupLabel(PopupLabels.editField);
                     appState.toggleShowPopup();
                   },
                 ),
@@ -74,6 +66,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                   label: 'Title',
                   value: '...',
                   onTap: () {},
+                  onLongPress: () {},
                 ),
                 const Gap(),
                 RandomiserButton(
@@ -81,6 +74,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                   value: '...',
                   flex: 2,
                   onTap: () {},
+                  onLongPress: () {},
                 ),
                 const Gap(),
                 RandomiserButton(
@@ -88,6 +82,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                   value: '...',
                   flex: 2,
                   onTap: () {},
+                  onLongPress: () {},
                 ),
               ],
             ),
@@ -288,49 +283,57 @@ class RandomiserButton extends StatelessWidget {
     required this.value,
     this.flex = 1,
     required this.onTap,
+    required this.onLongPress,
   });
 
   final String label;
   final String value;
   final int flex;
   final Function() onTap;
+  final Function() onLongPress;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: flex,
-      child: CupertinoButton(
+      child: GestureDetector(
+        onLongPress: onLongPress,
+        onTap: onTap,
+        child: Container(
           color: CupertinoColors.systemYellow,
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.all(6.0),
-          onPressed: onTap,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                      color: CupertinoColors.black,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      label,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: CupertinoColors.black,
+                      ),
                     ),
-                  ),
-                  Text(
-                    value,
-                    style: const TextStyle(
+                    const Icon(
+                      CupertinoIcons.refresh,
                       color: CupertinoColors.black,
-                    ),
+                      size: 12.0,
+                    )
+                  ],
+                ),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    color: CupertinoColors.black,
                   ),
-                ],
-              ),
-              const Icon(
-                CupertinoIcons.refresh,
-                color: CupertinoColors.black,
-              )
-            ],
-          )),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

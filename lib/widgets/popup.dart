@@ -17,6 +17,7 @@ Map<PopupLabels, Widget> popupContentMap = {
   PopupLabels.journalFilter: const Text('JOURNAL FILTER'),
   PopupLabels.campaignManager: const Text('CAMPAIGN MANAGER'),
   PopupLabels.fullJournal: const Text('FULL JOURNAL'),
+  PopupLabels.editField: const Text('EDIT FIELD'),
 };
 
 Consumer<Object?> popup(BuildContext context) {

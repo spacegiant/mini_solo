@@ -4,18 +4,19 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'generic_entry_item.dart';
 
 enum PopupLabels {
-  chaos,
-  fate,
-  endScene,
-  combat,
-  social,
-  exploration,
-  investigation,
-  journalFilter,
-  travel,
   addJournalEntry,
   campaignManager,
+  chaos,
+  combat,
+  editField,
+  endScene,
+  exploration,
+  fate,
   fullJournal,
+  investigation,
+  journalFilter,
+  social,
+  travel,
 }
 
 class AppState extends ChangeNotifier {
