@@ -9,6 +9,7 @@ class Gap extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SizedBox(
       height: 16.0,
+      width: 8.0,
     );
   }
 }
