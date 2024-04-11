@@ -192,16 +192,14 @@ class _JournalViewState extends State<JournalView> {
                 ListButton(
                   label: 'Fate Check',
                   onPressed: () {
-                    appState.setPopupLabel(PopupLabels.fate);
-                    appState.toggleShowPopup();
+                    appState.toggleShowPopup(PopupLabels.fate);
                   },
                 ),
               if (showFutureFeatures)
                 ListButton(
                   label: 'End Scene',
                   onPressed: () {
-                    appState.setPopupLabel(PopupLabels.endScene);
-                    appState.toggleShowPopup();
+                    appState.toggleShowPopup(PopupLabels.endScene);
                   },
                 ),
               ListButton(

@@ -67,8 +67,7 @@ class Journal extends StatelessWidget {
         List<Widget> entries = getEntries(appState);
         return GestureDetector(
           onLongPress: () {
-            appState.setPopupLabel(PopupLabels.fullJournal);
-            appState.toggleShowPopup();
+            appState.toggleShowPopup(PopupLabels.fullJournal);
           },
           child: Container(
             color: CupertinoColors.systemTeal,
@@ -183,8 +182,7 @@ class JournalInput extends StatelessWidget {
         size: 20.0,
       ),
       onPressed: () {
-        appState.setPopupLabel(PopupLabels.journalFilter);
-        appState.toggleShowPopup();
+        appState.toggleShowPopup(PopupLabels.journalFilter);
       },
     );
   }
@@ -224,8 +222,7 @@ class JournalInput extends StatelessWidget {
         color: CupertinoColors.black,
       ),
       onPressed: () {
-        appState.setPopupLabel(PopupLabels.addJournalEntry);
-        appState.toggleShowPopup();
+        appState.toggleShowPopup(PopupLabels.addJournalEntry);
       },
     );
   }

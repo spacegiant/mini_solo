@@ -120,14 +120,17 @@ class AppState extends ChangeNotifier {
   }
 
   //   SHOW POPUP
-  void setPopupLabel(PopupLabels label) {
-    _popupLabel = label;
-    notifyListeners();
-  }
+  // void setPopupLabel(PopupLabels label) {
+  //   _popupLabel = label;
+  //   notifyListeners();
+  // }
 
   PopupLabels get popupLabel => _popupLabel;
 
-  void toggleShowPopup() {
+  void toggleShowPopup(PopupLabels? label, [Function()? callback]) {
+    // TODO: update so function is not optional if possible
+    if (label != null) _popupLabel = label;
+    if (callback != null) callback();
     _showPopup = !_showPopup;
     notifyListeners();
   }

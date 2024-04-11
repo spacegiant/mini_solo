@@ -169,8 +169,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       leading: homePageChaosFactorButton(appState),
       middle: GestureDetector(
           onTap: () {
-            appState.setPopupLabel(PopupLabels.campaignManager);
-            appState.toggleShowPopup();
+            appState.toggleShowPopup(PopupLabels.campaignManager);
           },
           child: Text(appState.campaignData!.name)),
       trailing: homePageSettingsButton(toggleSettings),
@@ -190,8 +189,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   CupertinoButton homePageChaosFactorButton(AppState appState) {
     return CupertinoButton(
       onPressed: () {
-        appState.setPopupLabel(PopupLabels.chaos);
-        appState.toggleShowPopup();
+        appState.toggleShowPopup(PopupLabels.chaos);
       },
       padding: const EdgeInsets.all(0.0),
       child: Row(
