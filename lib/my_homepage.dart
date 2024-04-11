@@ -87,9 +87,14 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 appState.setSaveCallback(saveCampaign);
               }
 
-              return homePageTabScaffold(
-                appState,
-                appState.toggleShowSettings,
+              return Stack(
+                children: [
+                  homePageTabScaffold(
+                    appState,
+                    appState.toggleShowSettings,
+                  ),
+                  SafeArea(child: popup(context)),
+                ],
               );
             },
           );
@@ -134,13 +139,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           return CupertinoPageScaffold(
             navigationBar: homePageNavigationBar(appState, toggleSettings),
             child: SafeArea(
-              child: Stack(
-                children: [
-                  tabBarItems.map((e) => e.viewWidget).toList()[index],
-                  popup(context),
-                ],
-              ),
-            ),
+                child: tabBarItems.map((e) => e.viewWidget).toList()[index]),
           );
         },
       );

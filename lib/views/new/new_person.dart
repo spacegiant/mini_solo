@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/update_journal.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/menu_spacer.dart';
 import '../../widgets/speech_bubble/bubble_text.dart';
@@ -36,27 +38,66 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
   Consumer build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
-        handleUpdateBubble(
-          AppState appState,
-          ReturnObject result,
-          String label,
-        ) {
-          updateState(result);
-          updateJournal(appState, result, label);
-        }
-
         return ViewWrapper(children: [
-          // TODO: Make this like a character sheet or add objects as rolled
-          SpeechBubble(
-            widget: BubbleText(
-              lines: [
-                line1,
-                line2,
-                line3,
-              ],
-              type: type,
+          GestureDetector(
+            onLongPress: () {
+              print('long press');
+            },
+            child: CupertinoTextFormFieldRow(
+              prefix: const Text('test'),
+              textAlign: TextAlign.center,
             ),
           ),
+          const CupertinoFormRow(prefix: Text('prefix'), child: Text('test')),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              children: [
+                RandomiserButton(
+                  label: 'Name',
+                  value: '...',
+                  onTap: () {
+                    print('hello');
+                    appState.setPopupLabel(PopupLabels.chaos);
+                    appState.toggleShowPopup();
+                  },
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RandomiserButton(
+                  label: 'Title',
+                  value: '...',
+                  onTap: () {},
+                ),
+                const Gap(),
+                RandomiserButton(
+                  label: 'First',
+                  value: '...',
+                  flex: 2,
+                  onTap: () {},
+                ),
+                const Gap(),
+                RandomiserButton(
+                  label: 'Last',
+                  value: '...',
+                  flex: 2,
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+          ListButton(
+              label: 'Save',
+              onPressed: () {
+                print('Pressed');
+              }),
+          const Gap(),
           if (appState.showFutureFeatures == true)
             ListButton(
                 label: 'Randomise All',
@@ -73,130 +114,120 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
             label: 'Character',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character',
-                jsonPath: 'mythic_elements/characters.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character',
+                  jsonPath: 'mythic_elements/characters.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Appearance',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Appearance',
-                jsonPath: 'mythic_elements/characters_appearance.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Appearance',
+                  jsonPath: 'mythic_elements/characters_appearance.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Background',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Background',
-                jsonPath: 'mythic_elements/characters_background.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Background',
+                  jsonPath: 'mythic_elements/characters_background.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Conversation',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Conversation',
-                jsonPath: 'mythic_elements/characters_conversations.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Conversation',
+                  jsonPath: 'mythic_elements/characters_conversations.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Descriptors',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Descriptors',
-                jsonPath: 'mythic_elements/characters_descriptors.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Descriptors',
+                  jsonPath: 'mythic_elements/characters_descriptors.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Identity',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Identity',
-                jsonPath: 'mythic_elements/characters_identity.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Identity',
+                  jsonPath: 'mythic_elements/characters_identity.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Motivation',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Motivation',
-                jsonPath: 'mythic_elements/characters_motivations.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Motivation',
+                  jsonPath: 'mythic_elements/characters_motivations.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Personality',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Personality',
-                jsonPath: 'mythic_elements/characters_personality.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Personality',
+                  jsonPath: 'mythic_elements/characters_personality.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Skills',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Skills',
-                jsonPath: 'mythic_elements/characters_skills.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Skills',
+                  jsonPath: 'mythic_elements/characters_skills.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           ListButton(
             label: 'Traits and Flaws',
             onPressed: () {
               getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Traits and Flaws',
-                jsonPath: 'mythic_elements/characters_traits_and_flaws.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
+                  appState: appState,
+                  label: 'Mythic - Character Traits and Flaws',
+                  jsonPath: 'mythic_elements/characters_traits_and_flaws.json',
+                  table1: 'table',
+                  table2: 'table',
+                  onResult: (appState, result, text) {});
             },
           ),
           const Text('Other'),
@@ -246,6 +277,60 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                 }),
         ]);
       },
+    );
+  }
+}
+
+class RandomiserButton extends StatelessWidget {
+  const RandomiserButton({
+    super.key,
+    required this.label,
+    required this.value,
+    this.flex = 1,
+    required this.onTap,
+  });
+
+  final String label;
+  final String value;
+  final int flex;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: flex,
+      child: CupertinoButton(
+          color: CupertinoColors.systemYellow,
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.all(6.0),
+          onPressed: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: CupertinoColors.black,
+                    ),
+                  ),
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      color: CupertinoColors.black,
+                    ),
+                  ),
+                ],
+              ),
+              const Icon(
+                CupertinoIcons.refresh,
+                color: CupertinoColors.black,
+              )
+            ],
+          )),
     );
   }
 }
