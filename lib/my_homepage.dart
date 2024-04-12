@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/utilities/init_form.dart';
@@ -31,7 +29,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initState() {
     super.initState();
 
-    widget.storage.readJSON().then((data) {
+    widget.storage.readJSON('sampleCampaign.json').then((data) {
       var appState = context.read<AppState>();
 
       if (data != null) {
@@ -48,7 +46,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   }
 
   void saveCampaign(CampaignData campaignData) {
-    widget.storage.writeJSON(campaignData);
+    widget.storage.writeJSON(campaignData, 'sampleCampaign.json');
   }
 
   @override

@@ -11,7 +11,9 @@ import 'entryWidgets/oracle_entry_widget.dart';
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
   List<Widget> journalEntries = [];
-  journalItems?.forEach((element) {
+
+  if (journalItems!.isEmpty) return [const SizedBox.shrink()];
+  for (var element in journalItems) {
     switch (element.type) {
       case JournalEntryTypes.dialogue:
         journalEntries.add(DialogueEntryWidget(
@@ -46,9 +48,9 @@ List<Widget> getEntries(AppState appState) {
         journalEntries.add(const Text('transition'));
 
       default:
-        return;
+        continue;
     }
-  });
+  }
   return journalEntries;
 }
 

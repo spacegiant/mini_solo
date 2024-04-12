@@ -32,16 +32,18 @@ class CampaignStorage {
     return campaigns;
   }
 
-  Future<File> get _localFile async {
-    final path = await _localPath;
+  // Future<File> get _localFile async {
+  //   final path = await _localPath;
+  //   return File('$path/sampleCampaign.json');
+  // }
 
-    return File('$path/sampleCampaign.json');
-  }
-
-  Future<CampaignData?> readJSON() async {
+  Future<CampaignData?> readJSON(String fileName) async {
     try {
-      final file = await _localFile;
-      print(file);
+      // final file = await _localFile;
+      // print(file);
+
+      final path = await _localPath;
+      File file = File('$path/$fileName');
 
       // Read the file
       final jsonData = await file.readAsString();
@@ -60,8 +62,11 @@ class CampaignStorage {
     }
   }
 
-  Future<File> writeJSON(CampaignData data) async {
-    final file = await _localFile;
+  Future<File> writeJSON(CampaignData data, String fileName) async {
+    final path = await _localPath;
+
+    File file = File('$path/$fileName');
+
     print(file);
 
     // Convert MAP to String

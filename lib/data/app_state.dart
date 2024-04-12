@@ -80,10 +80,13 @@ class AppState extends ChangeNotifier {
     if (cf < maxChaos) {
       var newValue = cf + 1;
       _campaignData!.mythicData.chaosFactor = newValue;
-      addGenericEntity(GenericEntryItem(
-        title: 'UP to $newValue',
-        label: 'Chaos Factor',
+      addMythicEntry(MythicEntry(
         isFavourite: false,
+        lines: ReturnObject(
+          type: 'chaosFactor',
+          line1: 'Chaos Factor',
+          line2: 'UP to $newValue',
+        ),
       ));
     }
   }
@@ -96,10 +99,13 @@ class AppState extends ChangeNotifier {
       // TODO: CREATE ID
       // TODO: SAVE GENERIC ENTRY
       // TODO: SAVE JOURNAL ENTRY
-      addGenericEntity(GenericEntryItem(
-        title: 'DOWN to $newValue',
-        label: 'Chaos Factor',
+      addMythicEntry(MythicEntry(
         isFavourite: false,
+        lines: ReturnObject(
+          type: 'chaosFactor',
+          line1: 'Chaos Factor',
+          line2: 'DOWN to $newValue',
+        ),
       ));
     }
     // saveCampaignDataToDisk();
@@ -111,10 +117,13 @@ class AppState extends ChangeNotifier {
     // TODO: CREATE ID
     // TODO: SAVE GENERIC ENTRY
     // TODO: SAVE JOURNAL ENTRY
-    addGenericEntity(GenericEntryItem(
-      title: 'RESET to $newValue',
-      label: 'Chaos Factor',
+    addMythicEntry(MythicEntry(
       isFavourite: false,
+      lines: ReturnObject(
+        type: 'chaosFactor',
+        line1: 'Chaos Factor',
+        line2: 'RESET to 5',
+      ),
     ));
     // saveCampaignDataToDisk();
   }
