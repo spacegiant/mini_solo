@@ -1,28 +1,38 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../data/app_state.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
 
-Map<PopupLabels, Widget> popupContentMap = {
-  PopupLabels.chaos: const ChaosFactorPopup(),
-  PopupLabels.fate: const Text('FATE'),
-  PopupLabels.endScene: const Text('END SCENE'),
-  PopupLabels.combat: const Text('COMBAT'),
-  PopupLabels.social: const Text('SOCIAL'),
-  PopupLabels.exploration: const Text('EXPLORATION'),
-  PopupLabels.travel: const Text('TRAVEL'),
-  PopupLabels.investigation: const Text('INVESTIGATE'),
-  PopupLabels.addJournalEntry: const AddToJournalPanel(),
-  PopupLabels.journalFilter: const Text('JOURNAL FILTER'),
-  PopupLabels.campaignManager: const Text('CAMPAIGN MANAGER'),
-  PopupLabels.fullJournal: const Text('FULL JOURNAL'),
-  PopupLabels.editField: const Text('EDIT FIELD'),
-};
+class CampaignManager extends StatelessWidget {
+  const CampaignManager({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: POC GET ALL FILES IN DIRECTORY
+    // Future<List<FileSystemEntity>> campaigns = widget.storage.getCampaignsList;
+    // campaigns.then((campaigns) {
+    //   print('---');
+    //   print(campaigns[0].path);
+    //   print(campaigns[0].absolute);
+    //   print(campaigns[0].isAbsolute);
+    //   print(campaigns[0].parent);
+    //   print(campaigns[0].uri);
+    //   print(campaigns[0].hashCode);
+    // });
+    return const Text('CAMPAIGN MANAGER');
+  }
+}
 
 Consumer<Object?> popup(BuildContext context) {
   return Consumer<AppState>(
     builder: (BuildContext context, appState, Widget? child) {
+      PopupLabels popup = appState.popupLabel;
+      print(appState.popupLabel);
       return Visibility(
         visible: appState.showPopup,
         child: Padding(
@@ -37,8 +47,35 @@ Consumer<Object?> popup(BuildContext context) {
                       onPressed: () {
                         appState.closePopup();
                       }),
-                  popupContentMap[appState.popupLabel] ??
-                      const SizedBox.shrink(),
+                  // WIDGETS
+                  if (popup == PopupLabels.chaos)
+                    const ChaosFactorPopup()
+                  else if (popup == PopupLabels.fate)
+                    const Text('FATE')
+                  else if (popup == PopupLabels.endScene)
+                    const Text('END SCENE')
+                  else if (popup == PopupLabels.combat)
+                    const Text('COMBAT')
+                  else if (popup == PopupLabels.social)
+                    const Text('SOCIAL')
+                  else if (popup == PopupLabels.exploration)
+                    const Text('EXPLORATION')
+                  else if (popup == PopupLabels.travel)
+                    const Text('TRAVEL')
+                  else if (popup == PopupLabels.investigation)
+                    const Text('INVESTIGATE')
+                  else if (popup == PopupLabels.addJournalEntry)
+                    const AddToJournalPanel()
+                  else if (popup == PopupLabels.journalFilter)
+                    const Text('JOURNAL FILTER')
+                  else if (popup == PopupLabels.campaignManager)
+                    const CampaignManager()
+                  else if (popup == PopupLabels.fullJournal)
+                    const Text('FULL JOURNAL')
+                  else if (popup == PopupLabels.editField)
+                    const Text('EDIT FIELD')
+                  else
+                    const SizedBox.shrink()
                 ],
               ),
             ),

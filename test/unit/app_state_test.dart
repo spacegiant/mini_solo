@@ -135,7 +135,7 @@ void main() {
       data.setCampaignData(campaignData);
 
       expect(data.popupLabel, PopupLabels.chaos);
-      data.setPopupLabel(PopupLabels.exploration);
+      // data.setPopupLabel(PopupLabels.exploration);
       expect(data.popupLabel, PopupLabels.exploration);
     });
 
@@ -152,7 +152,7 @@ void main() {
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
 
-      data.toggleShowPopup();
+      data.toggleShowPopup(PopupLabels.chaos);
       expect(data.showPopup, isTrue);
     });
 
@@ -164,7 +164,7 @@ void main() {
       expect(data.showPopup, isFalse);
       data.closePopup();
       expect(data.showPopup, isFalse);
-      data.toggleShowPopup();
+      data.toggleShowPopup(PopupLabels.chaos);
       expect(data.showPopup, isTrue);
       data.closePopup();
       expect(data.showPopup, isFalse);
