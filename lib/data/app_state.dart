@@ -96,9 +96,6 @@ class AppState extends ChangeNotifier {
     if (cf > minChaos) {
       var newValue = cf - 1;
       _campaignData!.mythicData.chaosFactor = newValue;
-      // TODO: CREATE ID
-      // TODO: SAVE GENERIC ENTRY
-      // TODO: SAVE JOURNAL ENTRY
       addMythicEntry(MythicEntry(
         isFavourite: false,
         lines: ReturnObject(
@@ -114,9 +111,6 @@ class AppState extends ChangeNotifier {
   void resetChaosFactor() {
     var newValue = 5;
     _campaignData!.mythicData.chaosFactor = newValue;
-    // TODO: CREATE ID
-    // TODO: SAVE GENERIC ENTRY
-    // TODO: SAVE JOURNAL ENTRY
     addMythicEntry(MythicEntry(
       isFavourite: false,
       lines: ReturnObject(
@@ -127,12 +121,6 @@ class AppState extends ChangeNotifier {
     ));
     // saveCampaignDataToDisk();
   }
-
-  //   SHOW POPUP
-  // void setPopupLabel(PopupLabels label) {
-  //   _popupLabel = label;
-  //   notifyListeners();
-  // }
 
   PopupLabels get popupLabel => _popupLabel;
 
