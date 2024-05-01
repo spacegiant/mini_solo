@@ -49,6 +49,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.writeJSON(campaignData, 'sampleCampaign.json');
   }
 
+  // List<String?> getCampaignList() {
+  //   widget.storage.getCampaignsList.then((list) {
+  //     return list;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
@@ -93,7 +99,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                     appState,
                     appState.toggleShowSettings,
                   ),
-                  SafeArea(child: popup(context)),
+                  SafeArea(
+                      child: popup(
+                    context,
+                    widget,
+                  )),
                 ],
               );
             },

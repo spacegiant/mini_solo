@@ -3,18 +3,29 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../data/app_state.dart';
+import '../my_homepage.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
 
-class CampaignManager extends StatelessWidget {
+class CampaignManager extends StatefulWidget {
   const CampaignManager({
     super.key,
+    required this.getCampaignList,
   });
 
+  final Future<List<FileSystemEntity>> getCampaignList;
+
   @override
-  Widget build(BuildContext context) {
+  State<CampaignManager> createState() => _CampaignManagerState();
+}
+
+class _CampaignManagerState extends State<CampaignManager> {
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
     // TODO: POC GET ALL FILES IN DIRECTORY
-    // Future<List<FileSystemEntity>> campaigns = widget.storage.getCampaignsList;
+    Future<List<FileSystemEntity>> campaigns = widget.getCampaignList;
     // campaigns.then((campaigns) {
     //   print('---');
     //   print(campaigns[0].path);
@@ -24,11 +35,31 @@ class CampaignManager extends StatelessWidget {
     //   print(campaigns[0].uri);
     //   print(campaigns[0].hashCode);
     // });
-    return const Text('CAMPAIGN MANAGER');
+    return FutureBuilder(
+        future: campaigns,
+        builder: (
+          BuildContext context,
+          AsyncSnapshot snapshot,
+        ) {
+          // TODO: Tests for this
+          if (snapshot.hasData) {
+            // TODO: iterate over list
+            return Text('${snapshot.data}');
+          } else if (snapshot.hasError) {
+            // TODO: What to do here?
+            return const Text('CAMPAIGN MANAGER');
+          } else {
+            // TODO: Loading state
+            return const Text('CAMPAIGN MANAGER');
+          }
+        });
   }
 }
 
-Consumer<Object?> popup(BuildContext context) {
+Consumer<Object?> popup(
+  BuildContext context,
+  MyHomePageIOS? widget,
+) {
   return Consumer<AppState>(
     builder: (BuildContext context, appState, Widget? child) {
       PopupLabels popup = appState.popupLabel;
@@ -69,7 +100,9 @@ Consumer<Object?> popup(BuildContext context) {
                   else if (popup == PopupLabels.journalFilter)
                     const Text('JOURNAL FILTER')
                   else if (popup == PopupLabels.campaignManager)
-                    const CampaignManager()
+                    CampaignManager(
+                      getCampaignList: widget!.storage.getCampaignsList,
+                    )
                   else if (popup == PopupLabels.fullJournal)
                     const Text('FULL JOURNAL')
                   else if (popup == PopupLabels.editField)
