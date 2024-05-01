@@ -23,11 +23,14 @@ class CampaignStorage {
     final directory = await getApplicationDocumentsDirectory();
     List<FileSystemEntity> campaigns = [];
 
-    await for (var entity in directory.list(
+    await for (FileSystemEntity entity in directory.list(
       recursive: false,
       followLinks: false,
     )) {
-      campaigns.add(entity);
+      var isJsonFile = entity.path.contains('.json');
+      if (isJsonFile) {
+        campaigns.add(entity);
+      }
     }
     return campaigns;
   }
