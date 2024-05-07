@@ -40,21 +40,15 @@ class _CampaignManagerState extends State<CampaignManager> {
           if (snapshot.hasData) {
             // TODO: iterate over list
             // return Text('${snapshot.data}');
+            var test = snapshot.data.forEach((item) => print(item));
+            // print(test.runtimeType);
+            print(snapshot.data[0].path);
             return Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(8),
                 scrollDirection: Axis.vertical,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: CupertinoColors.systemYellow,
-                    child: Text('${snapshot.data[0].path}'),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: CupertinoColors.systemYellow,
-                    child: Text('Test'),
-                  ),
+                  for (var item in snapshot.data) Text(getLabel(item.path))
                 ],
               ),
             );
@@ -67,4 +61,10 @@ class _CampaignManagerState extends State<CampaignManager> {
           }
         });
   }
+}
+
+String getLabel(String text) {
+  List<String> textBits = text.split('/');
+
+  return textBits[textBits.length - 1];
 }
