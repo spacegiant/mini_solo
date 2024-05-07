@@ -1,60 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:provider/provider.dart';
 import '../data/app_state.dart';
 import '../my_homepage.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
-
-class CampaignManager extends StatefulWidget {
-  const CampaignManager({
-    super.key,
-    required this.getCampaignList,
-  });
-
-  final Future<List<FileSystemEntity>> getCampaignList;
-
-  @override
-  State<CampaignManager> createState() => _CampaignManagerState();
-}
-
-class _CampaignManagerState extends State<CampaignManager> {
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    // TODO: POC GET ALL FILES IN DIRECTORY
-    Future<List<FileSystemEntity>> campaigns = widget.getCampaignList;
-    // campaigns.then((campaigns) {
-    //   print('---');
-    //   print(campaigns[0].path);
-    //   print(campaigns[0].absolute);
-    //   print(campaigns[0].isAbsolute);
-    //   print(campaigns[0].parent);
-    //   print(campaigns[0].uri);
-    //   print(campaigns[0].hashCode);
-    // });
-    return FutureBuilder(
-        future: campaigns,
-        builder: (
-          BuildContext context,
-          AsyncSnapshot snapshot,
-        ) {
-          // TODO: Tests for this
-          if (snapshot.hasData) {
-            // TODO: iterate over list
-            return Text('${snapshot.data}');
-          } else if (snapshot.hasError) {
-            // TODO: What to do here?
-            return const Text('CAMPAIGN MANAGER');
-          } else {
-            // TODO: Loading state
-            return const Text('CAMPAIGN MANAGER');
-          }
-        });
-  }
-}
 
 Consumer<Object?> popup(
   BuildContext context,
