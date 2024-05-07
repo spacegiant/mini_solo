@@ -39,7 +39,25 @@ class _CampaignManagerState extends State<CampaignManager> {
           // TODO: Tests for this
           if (snapshot.hasData) {
             // TODO: iterate over list
-            return Text('${snapshot.data}');
+            // return Text('${snapshot.data}');
+            return Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(8),
+                scrollDirection: Axis.vertical,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: CupertinoColors.systemYellow,
+                    child: Text('${snapshot.data[0].path}'),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: CupertinoColors.systemYellow,
+                    child: Text('Test'),
+                  ),
+                ],
+              ),
+            );
           } else if (snapshot.hasError) {
             // TODO: What to do here?
             return const Text('CAMPAIGN MANAGER');
