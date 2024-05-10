@@ -1,16 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../utilities/get_random_result.dart';
-import '../../utilities/update_journal.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/menu_spacer.dart';
-import '../../widgets/speech_bubble/bubble_text.dart';
-import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 
 class NewPersonMenu extends StatefulWidget {
@@ -83,7 +76,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         },
                       ),
                     ),
-                    Gap(),
+                    const Gap(),
                     Expanded(
                       flex: 2,
                       child: RandomiserButton(
@@ -103,7 +96,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                     ),
                   ],
                 ),
-                Gap(),
+                const Gap(),
                 RandomiserButton(
                   label: 'First name',
                   value: firstName,

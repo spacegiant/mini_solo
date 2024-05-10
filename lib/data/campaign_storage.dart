@@ -9,7 +9,7 @@ class CampaignListItem {
   String campaignName;
   String path;
 
-  CampaignListItem(this.campaignName, this.path) {}
+  CampaignListItem(this.campaignName, this.path);
 }
 
 class CampaignStorage {

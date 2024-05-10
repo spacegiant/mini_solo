@@ -1,4 +1,3 @@
-import '../views/journal_view.dart';
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
 

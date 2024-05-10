@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../views/journal_view.dart';
 import 'campaign_item.dart';
 import 'generic_entry_item.dart';
 
