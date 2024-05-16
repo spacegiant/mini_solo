@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Generates an ID as expected', () {
-    final convertedString = removeNonAlphaNumeric('ABCabc123^&*XYZ');
-    expect(convertedString, 'ABCabc123XYZ');
+    final convertedString = removeNonAlphaNumeric(' ABCabc123 ^&*XYZ ');
+    expect(convertedString, ' ABCabc123 XYZ ');
   });
 }

@@ -1,5 +1,8 @@
+import 'package:mini_solo/utilities/string/remove_non_alphanumeric.dart';
+
 String convertToFilename(String string) {
-  String singleSpaceString = string.replaceAll(RegExp(' +'), ' ');
-  singleSpaceString = singleSpaceString.trim();
-  return singleSpaceString.replaceAll(' ', '_');
+  return removeNonAlphaNumeric(string)
+      .replaceAll(RegExp(' +'), ' ')
+      .trim()
+      .replaceAll(' ', '_');
 }

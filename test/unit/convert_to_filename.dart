@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('Removes duplicated spaces from string', () {
-    final despacedString = convertToFilename('  abc  def    ghi  ');
-    expect(despacedString, 'abc_def_ghi');
+    String filename = convertToFilename('  !@£abc  def    ghi  ');
+    expect(filename, 'abc_def_ghi');
   });
 }
