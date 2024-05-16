@@ -49,6 +49,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
       name: json['name'] as String,
+      filename: json['filename'] as String,
       mythic: (json['mythic'] as List<dynamic>)
           .map((e) => MythicEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -93,6 +94,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
       'settings': instance.settings.toJson(),
       'name': instance.name,
+      'filename': instance.filename,
       'mythicData': instance.mythicData.toJson(),
       'mythic': instance.mythic.map((e) => e.toJson()).toList(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),

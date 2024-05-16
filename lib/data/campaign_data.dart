@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import 'campaign_item.dart';
 import 'generic_entry_item.dart';
 
@@ -112,6 +113,7 @@ class GeneralSettingsData {
 class CampaignData {
   late SettingsData settings;
   late String name;
+  late String filename;
   late MythicData mythicData;
   late List<MythicEntry> mythic;
   late List<JournalEntryItem> journal;
@@ -130,6 +132,7 @@ class CampaignData {
   CampaignData({
     required this.settings,
     required this.name,
+    required this.filename,
     required this.mythic,
     required this.mythicData,
     required this.oracle,
@@ -168,6 +171,7 @@ CampaignData initCampaignDataData(String campaignName) {
       chaosFactor: 5,
     ),
     name: campaignName,
+    filename: convertToFilename(campaignName),
     oracle: [],
     people: [],
     places: [],

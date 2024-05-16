@@ -27,8 +27,9 @@ class CampaignStorage {
       recursive: false,
       followLinks: false,
     )) {
+      bool isSettingsFile = entity.path.contains('appSettings.json');
       var isJsonFile = entity.path.contains('.json');
-      if (isJsonFile) {
+      if (!isSettingsFile && isJsonFile) {
         campaigns.add(entity);
       }
     }
@@ -77,5 +78,42 @@ class CampaignStorage {
 
     // Write the file
     return file.writeAsString(jsonData);
+  }
+
+  // APP SETTINGS
+  Future<String?> readAppSettings(String fileName) async {
+    try {
+      // final file = await _localFile;
+      // print(file);
+
+      final path = await _localPath;
+      File file = File('$path/$fileName');
+
+      // Read the file
+      final data = await file.readAsString();
+
+      return data;
+    } catch (e) {
+      if (kDebugMode) {
+        print('readJSON error: $e');
+      }
+      // If encountering an error, return null
+      return null;
+    }
+  }
+
+  // TODO: Rename to not be JSON
+  Future<File> writeAppSettingsJSON(String data, String fileName) async {
+    final path = await _localPath;
+
+    File file = File('$path/$fileName');
+
+    print(file);
+
+    // Convert MAP to String
+    // String jsonData = jsonEncode(data);
+
+    // Write the file
+    return file.writeAsString(data);
   }
 }

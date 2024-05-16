@@ -29,7 +29,31 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initState() {
     super.initState();
 
-    widget.storage.readJSON('sampleCampaign.json').then((data) {
+    String? currentCampaign;
+
+    widget.storage.readAppSettings('appSettings.json').then((data) {
+      currentCampaign = data;
+
+      widget.storage.readJSON('${currentCampaign!}.json').then((data) {
+        var appState = context.read<AppState>();
+
+        if (data != null) {
+          appState.setCampaignData(data);
+        }
+      });
+    });
+  }
+
+  void initCampaignData(String campaignName) {
+    var appState = context.read<AppState>();
+    CampaignData campaignData = initCampaignDataData(campaignName);
+    appState.setCampaignData(campaignData);
+    saveAppSettings(campaignData.filename);
+    saveCampaign(campaignData);
+  }
+
+  void loadData(String filename) {
+    widget.storage.readJSON('$filename.json').then((data) {
       var appState = context.read<AppState>();
 
       if (data != null) {
@@ -38,15 +62,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  void initCampaignData(String campaignName) {
-    var appState = context.read<AppState>();
-    CampaignData campaignData = initCampaignDataData(campaignName);
-    appState.setCampaignData(campaignData);
-    saveCampaign(campaignData);
+  void saveCampaign(CampaignData campaignData) {
+    widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
   }
 
-  void saveCampaign(CampaignData campaignData) {
-    widget.storage.writeJSON(campaignData, 'sampleCampaign.json');
+  void saveAppSettings(String campaignName) {
+    widget.storage.writeAppSettingsJSON(campaignName, 'appSettings.json');
   }
 
   // List<String?> getCampaignList() {

@@ -27,5 +27,6 @@ CampaignData sampleCampaignData() {
     oracle: [],
     mythic: [],
     dialogue: [],
+    filename: 'sample_data',
   );
 }
