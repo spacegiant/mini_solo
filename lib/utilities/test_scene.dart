@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../views/journal_view.dart';
-import 'app_state.dart';
+import '../data/campaign_data.dart';
+import '../data/app_state.dart';
 
 ReturnObject testScene(BuildContext context) {
   int d10 = Random().nextInt(10) + 1;

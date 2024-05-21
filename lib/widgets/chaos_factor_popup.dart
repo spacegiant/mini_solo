@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../utilities/app_state.dart';
+import '../data/app_state.dart';
 import 'list_button.dart';
 
 class ChaosFactorPopup extends StatelessWidget {
@@ -60,7 +60,7 @@ class ChaosFactorPopup extends StatelessWidget {
           ListButton(
             label: 'Close',
             labelAlignment: Alignment.center,
-            onPressed: appState.toggleShowPopup,
+            onPressed: () => appState.toggleShowPopup(null),
           ),
         ],
       ),

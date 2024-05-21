@@ -1,8 +1,8 @@
-import 'package:mini_solo/utilities/campaign_data.dart';
-import 'package:mini_solo/utilities/campaign_storage.dart';
+import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/utilities/init_form.dart';
 import 'package:mini_solo/view_items.dart';
-import 'package:mini_solo/utilities/app_state.dart';
+import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +29,31 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initState() {
     super.initState();
 
-    widget.storage.readJSON().then((data) {
+    String? currentCampaign;
+
+    widget.storage.readAppSettings('appSettings.json').then((data) {
+      currentCampaign = data;
+
+      widget.storage.readJSON('${currentCampaign!}.json').then((data) {
+        var appState = context.read<AppState>();
+
+        if (data != null) {
+          appState.setCampaignData(data);
+        }
+      });
+    });
+  }
+
+  void initCampaignData(String campaignName) {
+    var appState = context.read<AppState>();
+    CampaignData campaignData = initCampaignDataData(campaignName);
+    appState.setCampaignData(campaignData);
+    saveAppSettings(campaignData.filename);
+    saveCampaign(campaignData);
+  }
+
+  void loadData(String filename) {
+    widget.storage.readJSON('$filename.json').then((data) {
       var appState = context.read<AppState>();
 
       if (data != null) {
@@ -38,16 +62,19 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  void initCampaignData(String campaignName) {
-    var appState = context.read<AppState>();
-    CampaignData campaignData = initCampaignDataData(campaignName);
-    appState.setCampaignData(campaignData);
-    saveCampaign(campaignData);
+  void saveCampaign(CampaignData campaignData) {
+    widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
   }
 
-  void saveCampaign(CampaignData campaignData) {
-    widget.storage.writeJSON(campaignData);
+  void saveAppSettings(String campaignName) {
+    widget.storage.writeAppSettingsJSON(campaignName, 'appSettings.json');
   }
+
+  // List<String?> getCampaignList() {
+  //   widget.storage.getCampaignsList.then((list) {
+  //     return list;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +114,18 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 appState.setSaveCallback(saveCampaign);
               }
 
-              return homePageTabScaffold(
-                appState,
-                appState.toggleShowSettings,
+              return Stack(
+                children: [
+                  homePageTabScaffold(
+                    appState,
+                    appState.toggleShowSettings,
+                  ),
+                  SafeArea(
+                      child: popup(
+                    context,
+                    widget,
+                  )),
+                ],
               );
             },
           );
@@ -134,13 +170,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           return CupertinoPageScaffold(
             navigationBar: homePageNavigationBar(appState, toggleSettings),
             child: SafeArea(
-              child: Stack(
-                children: [
-                  tabBarItems.map((e) => e.viewWidget).toList()[index],
-                  popup(context),
-                ],
-              ),
-            ),
+                child: tabBarItems.map((e) => e.viewWidget).toList()[index]),
           );
         },
       );
@@ -170,8 +200,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       leading: homePageChaosFactorButton(appState),
       middle: GestureDetector(
           onTap: () {
-            appState.setPopupLabel(PopupLabels.campaignManager);
-            appState.toggleShowPopup();
+            appState.toggleShowPopup(PopupLabels.campaignManager);
           },
           child: Text(appState.campaignData!.name)),
       trailing: homePageSettingsButton(toggleSettings),
@@ -191,8 +220,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   CupertinoButton homePageChaosFactorButton(AppState appState) {
     return CupertinoButton(
       onPressed: () {
-        appState.setPopupLabel(PopupLabels.chaos);
-        appState.toggleShowPopup();
+        appState.toggleShowPopup(PopupLabels.chaos);
       },
       padding: const EdgeInsets.all(0.0),
       child: Row(

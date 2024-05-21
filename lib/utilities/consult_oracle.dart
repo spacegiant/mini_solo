@@ -1,4 +1,4 @@
-import '../views/journal_view.dart';
+import '../data/campaign_data.dart';
 import 'consult_table.dart';
 
 ReturnObject consultOracle(

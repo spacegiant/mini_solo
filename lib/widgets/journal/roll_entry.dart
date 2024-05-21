@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../utilities/campaign_data.dart';
+import '../../data/campaign_data.dart';
 import '../../views/dice/dice_view.dart';
 
 class RollEntry extends StatelessWidget {
@@ -9,7 +9,7 @@ class RollEntry extends StatelessWidget {
     required this.diceResults,
   });
 
-  final List<DiceResult> diceResults;
+  final List<DiceRoll> diceResults;
 
   @override
   Widget build(BuildContext context) {

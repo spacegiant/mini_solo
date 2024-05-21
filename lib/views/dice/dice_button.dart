@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../utilities/campaign_data.dart';
+import '../../data/campaign_data.dart';
 import 'dice.dart';
 
 class DiceButton extends StatelessWidget {
@@ -12,7 +12,7 @@ class DiceButton extends StatelessWidget {
   });
 
   final DiceType dieType;
-  final Function(DiceResult) onPressed;
+  final Function(DiceRoll) onPressed;
   final Color? color;
 
   @override
@@ -28,9 +28,10 @@ class DiceButton extends StatelessWidget {
         ),
         onPressed: () {
           dieType.roll();
-          DiceResult diceResult = DiceResult(
+          DiceRoll diceResult = DiceRoll(
             result: dieType.roll(),
             diceType: dieType.label,
+            // isFavourite: false,
           );
           onPressed(diceResult);
         });

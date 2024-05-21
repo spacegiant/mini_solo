@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../../utilities/app_state.dart';
-import '../../utilities/get_random_result.dart';
-import '../../utilities/update_journal.dart';
+import '../../data/app_state.dart';
+import '../../data/campaign_data.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/menu_spacer.dart';
-import '../../widgets/speech_bubble/bubble_text.dart';
-import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
-import '../journal_view.dart';
 
 class NewPersonMenu extends StatefulWidget {
   const NewPersonMenu({super.key});
@@ -22,6 +18,23 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
   String line1 = '...';
   String? line2;
   String? line3;
+  // PERSON STATE
+  String sex = '...';
+  String gender = '...';
+  String title = '...';
+  String firstName = '...';
+  String lastName = '...';
+  String appearance = '...';
+  String background = '...';
+  String identity = '...';
+  String motivation = '...';
+  String personality = '...';
+  String skills = '...';
+  String traitsAndFlaws = '...';
+  String demeanour = '...';
+  String trueSelf = '...';
+
+  void updatePerson(String field, String value) {}
 
   void updateState(ReturnObject result) {
     setState(() {
@@ -36,216 +49,164 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
   Consumer build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
-        handleUpdateBubble(
-          AppState appState,
-          ReturnObject result,
-          String label,
-        ) {
-          updateState(result);
-          updateJournal(appState, result, label);
-        }
-
         return ViewWrapper(children: [
-          // TODO: Make this like a character sheet or add objects as rolled
-          SpeechBubble(
-            widget: BubbleText(
-              lines: [
-                line1,
-                line2,
-                line3,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: RandomiserButton(
+                        label: 'Sex',
+                        value: sex,
+                        onTap: () {
+                          print('hello');
+                          setState(() {
+                            sex = 'female';
+                          });
+                        },
+                        onLongPress: () {
+                          appState.toggleShowPopup(PopupLabels.editField, () {
+                            setState(() {
+                              sex = 'female';
+                            });
+                          });
+                        },
+                      ),
+                    ),
+                    const Gap(),
+                    Expanded(
+                      flex: 2,
+                      child: RandomiserButton(
+                        label: 'Title',
+                        value: title,
+                        onTap: () {
+                          print('hello');
+                        },
+                        onLongPress: () {
+                          appState.toggleShowPopup(PopupLabels.editField, () {
+                            setState(() {
+                              title = 'boop';
+                            });
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const Gap(),
+                RandomiserButton(
+                  label: 'First name',
+                  value: firstName,
+                  onTap: () {
+                    print('hello');
+                  },
+                  onLongPress: () {
+                    appState.toggleShowPopup(PopupLabels.editField);
+                  },
+                ),
               ],
-              type: type,
             ),
           ),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Randomise All',
-                onPressed: () {
-                  print('Pressed');
-                }),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RandomiserButton(
+                  label: 'Title',
+                  value: '...',
+                  onTap: () {},
+                  onLongPress: () {},
+                ),
+                const Gap(),
+                RandomiserButton(
+                  label: 'First',
+                  value: '...',
+                  flex: 2,
+                  onTap: () {},
+                  onLongPress: () {},
+                ),
+                const Gap(),
+                RandomiserButton(
+                  label: 'Last',
+                  value: '...',
+                  flex: 2,
+                  onTap: () {},
+                  onLongPress: () {},
+                ),
+              ],
+            ),
+          ),
           ListButton(
-              label: 'Name',
+              label: 'Save',
               onPressed: () {
                 print('Pressed');
               }),
-          const Text('Character Details'),
-          ListButton(
-            label: 'Character',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character',
-                jsonPath: 'mythic_elements/characters.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Appearance',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Appearance',
-                jsonPath: 'mythic_elements/characters_appearance.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Background',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Background',
-                jsonPath: 'mythic_elements/characters_background.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Conversation',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Conversation',
-                jsonPath: 'mythic_elements/characters_conversations.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Descriptors',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Descriptors',
-                jsonPath: 'mythic_elements/characters_descriptors.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Identity',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Identity',
-                jsonPath: 'mythic_elements/characters_identity.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Motivation',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Motivation',
-                jsonPath: 'mythic_elements/characters_motivations.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Personality',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Personality',
-                jsonPath: 'mythic_elements/characters_personality.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Skills',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Skills',
-                jsonPath: 'mythic_elements/characters_skills.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          ListButton(
-            label: 'Traits and Flaws',
-            onPressed: () {
-              getRandomResult(
-                appState: appState,
-                label: 'Mythic - Character Traits and Flaws',
-                jsonPath: 'mythic_elements/characters_traits_and_flaws.json',
-                table1: 'table',
-                table2: 'table',
-                onResult: handleUpdateBubble,
-              );
-            },
-          ),
-          const Text('Other'),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Sex',
-                onPressed: () {
-                  print('Pressed');
-                }),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Gender',
-                onPressed: () {
-                  print('Pressed');
-                }),
-          if (appState.showFutureFeatures == true) menuSpacer(),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Physical Appearance',
-                onPressed: () {
-                  print('Pressed');
-                }),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Demeanour',
-                onPressed: () {
-                  print('Pressed');
-                }),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'True Self',
-                onPressed: () {
-                  print('Pressed');
-                }),
-          if (appState.showFutureFeatures == true) menuSpacer(),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Copy/Send to Journal',
-                onPressed: () {
-                  print('Pressed');
-                }),
-          if (appState.showFutureFeatures == true)
-            ListButton(
-                label: 'Save',
-                onPressed: () {
-                  print('Pressed');
-                }),
+          const Gap(),
         ]);
       },
+    );
+  }
+}
+
+class RandomiserButton extends StatelessWidget {
+  const RandomiserButton({
+    super.key,
+    required this.label,
+    required this.value,
+    this.flex = 1,
+    required this.onTap,
+    required this.onLongPress,
+  });
+
+  final String label;
+  final String value;
+  final int flex;
+  final Function() onTap;
+  final Function() onLongPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onLongPress: onLongPress,
+      onTap: onTap,
+      child: Container(
+        color: CupertinoColors.systemYellow,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: CupertinoColors.black,
+                    ),
+                  ),
+                  const Icon(
+                    CupertinoIcons.refresh,
+                    color: CupertinoColors.black,
+                    size: 12.0,
+                  )
+                ],
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  color: CupertinoColors.black,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

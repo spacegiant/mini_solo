@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../utilities/app_state.dart';
-import '../../utilities/campaign_data.dart';
+import '../../data/app_state.dart';
+import '../../data/campaign_data.dart';
 import '../../widgets/gap.dart';
 import 'dice.dart';
 import 'dice_button.dart';
@@ -17,7 +17,7 @@ class DiceCollection extends StatelessWidget {
   });
 
   final DiceSet diceSet;
-  final void Function(DiceResult) onPressed;
+  final void Function(DiceRoll) onPressed;
   final void Function() onSubmit;
   final void Function() onClear;
   final AppState appState;

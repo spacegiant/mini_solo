@@ -4,17 +4,16 @@ import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../utilities/app_state.dart';
-import '../utilities/campaign_data.dart';
-import '../utilities/convert_for_journal.dart';
+import '../data/app_state.dart';
+import '../data/campaign_data.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
-import '../utilities/update_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
 import '../widgets/speech_bubble/speech_bubble.dart';
+import 'mythic/fate_question.dart';
 
 enum SceneState {
   expected,
@@ -39,21 +38,6 @@ class SceneStateResult {
     outcome = this.outcome;
     info = this.info;
   }
-}
-
-// TODO: Rename this
-class ReturnObject {
-  late String type;
-  late String line1;
-  late String? line2;
-  late String? line3;
-
-  ReturnObject({
-    required this.type,
-    required this.line1,
-    this.line2,
-    this.line3,
-  });
 }
 
 class JournalView extends StatefulWidget {
@@ -86,16 +70,13 @@ class _JournalViewState extends State<JournalView> {
       });
 
       //  Save to campaign data and push to journal
-      appState.addJournalEntry(
-        JournalEntryItem(
+      appState.addMythicEntry(
+        MythicEntry(
           isFavourite: false,
-          title: convertToJournalEntry(
-            text,
-            null,
-            null,
+          lines: ReturnObject(
+            line1: text,
+            type: 'mythic',
           ),
-          type: JournalEntryTypes.oracle,
-          label: 'Mythic Event Focus',
         ),
       );
     });
@@ -106,15 +87,6 @@ class _JournalViewState extends State<JournalView> {
     return Consumer<AppState>(builder: (context, appState, child) {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
-
-      handleUpdateBubble(
-        AppState appState,
-        ReturnObject result,
-        String? label,
-      ) {
-        updateState(result);
-        updateJournal(appState, result, label!);
-      }
 
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -134,6 +106,24 @@ class _JournalViewState extends State<JournalView> {
                     ))
                   : const SizedBox.shrink(),
 
+              FateQuestion(
+                callback: (ReturnObject returnObject) {
+                  // For Bubble
+                  setState(() {
+                    line1 = returnObject.line1;
+                    line2 = returnObject.line2;
+                    line3 = returnObject.line3;
+                  });
+
+                  appState.addOracleEntry(
+                    OracleEntry(
+                      isFavourite: false,
+                      lines: returnObject,
+                    ),
+                  );
+                },
+              ),
+
               ListButton(
                   label: 'Test Your Expected Scene',
                   onPressed: () {
@@ -146,17 +136,10 @@ class _JournalViewState extends State<JournalView> {
                       line3 = test.line3;
                     });
 
-                    appState.addJournalEntry(
-                      JournalEntryItem(
+                    appState.addOracleEntry(
+                      OracleEntry(
                         isFavourite: false,
-                        label: 'Test Scene',
-                        title: line1,
-                        detail: convertToJournalEntry(
-                          test.line1,
-                          test.line2,
-                          test.line3,
-                        ),
-                        type: JournalEntryTypes.oracle,
+                        lines: test,
                       ),
                     );
                   }),
@@ -173,7 +156,15 @@ class _JournalViewState extends State<JournalView> {
                     jsonPath: 'mythic/mythic_action.json',
                     table1: 'table1',
                     table2: 'table2',
-                    onResult: handleUpdateBubble,
+                    onResult: (appState, result, label) {
+                      updateState(result);
+                      appState.addMythicEntry(
+                        MythicEntry(
+                          isFavourite: false,
+                          lines: result,
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -186,7 +177,15 @@ class _JournalViewState extends State<JournalView> {
                     jsonPath: 'mythic/mythic_description.json',
                     table1: 'table1',
                     table2: 'table2',
-                    onResult: handleUpdateBubble,
+                    onResult: (appState, result, label) {
+                      updateState(result);
+                      appState.addMythicEntry(
+                        MythicEntry(
+                          isFavourite: false,
+                          lines: result,
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -202,16 +201,14 @@ class _JournalViewState extends State<JournalView> {
                 ListButton(
                   label: 'Fate Check',
                   onPressed: () {
-                    appState.setPopupLabel(PopupLabels.fate);
-                    appState.toggleShowPopup();
+                    appState.toggleShowPopup(PopupLabels.fate);
                   },
                 ),
               if (showFutureFeatures)
                 ListButton(
                   label: 'End Scene',
                   onPressed: () {
-                    appState.setPopupLabel(PopupLabels.endScene);
-                    appState.toggleShowPopup();
+                    appState.toggleShowPopup(PopupLabels.endScene);
                   },
                 ),
               ListButton(
@@ -223,7 +220,15 @@ class _JournalViewState extends State<JournalView> {
                     jsonPath: 'mythic_elements/plot_twist.json',
                     table1: 'table',
                     table2: 'table',
-                    onResult: handleUpdateBubble,
+                    onResult: (appState, result, label) {
+                      updateState(result);
+                      appState.addOracleEntry(
+                        OracleEntry(
+                          isFavourite: false,
+                          lines: result,
+                        ),
+                      );
+                    },
                   );
                 },
               ),

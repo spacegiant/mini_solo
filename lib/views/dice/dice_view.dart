@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/utilities/campaign_data.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/dice/regular_dice_set.dart';
 import '../../widgets/speech_bubble/speech_bubble.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../../utilities/app_state.dart';
+import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
 import 'dice_collection.dart';
 import 'dice_glyph.dart';
@@ -22,27 +22,24 @@ class DiceView extends StatefulWidget {
 }
 
 class _DiceViewState extends State<DiceView> {
-  List<DiceResult> diceResults = [];
+  List<DiceRoll> diceResults = [];
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, appState, Widget? child) {
-        void addResult(DiceResult result) {
+        void addResult(DiceRoll result) {
           setState(() {
             diceResults.add(result);
           });
         }
 
         void submitResults() {
-          List<DiceResult> myDiceResults = List.from(diceResults);
+          List<DiceRoll> myDiceResults = List.from(diceResults);
 
-          appState.addJournalEntry(JournalEntryItem(
-            isFavourite: false,
-            type: JournalEntryTypes.roll,
-            diceRolls: myDiceResults,
-            title: '',
-          ));
+          appState.addRoll(
+              RollEntryItem(isFavourite: false, result: myDiceResults));
+
           setState(() {
             diceResults.clear();
           });
@@ -105,7 +102,7 @@ class DiceBubble extends StatelessWidget {
     this.label,
   });
 
-  final List<DiceResult> diceResults;
+  final List<DiceRoll> diceResults;
   final String? label;
 
   @override

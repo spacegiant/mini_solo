@@ -9,11 +9,10 @@ import 'package:mini_solo/views/new/new_thing.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
 
-import '../utilities/app_state.dart';
+import '../data/app_state.dart';
 import '../widgets/build_popup.dart';
 import '../widgets/list_button.dart';
 import '../widgets/menu_spacer.dart';
-// import 'new/new_scene.dart';
 
 class NewView extends StatelessWidget {
   const NewView({super.key});

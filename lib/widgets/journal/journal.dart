@@ -1,11 +1,62 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/utilities/campaign_data.dart';
-import 'package:mini_solo/views/dice/dice_view.dart';
+import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/dialogue_entry_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../utilities/app_state.dart';
-import 'journal_entry.dart';
+import '../../data/app_state.dart';
+import 'entryWidgets/mythic_entry_widget.dart';
+import 'entryWidgets/oracle_entry_widget.dart';
+import 'entryWidgets/roll_entry_widget.dart';
+
+List<Widget> getEntries(AppState appState) {
+  List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
+  List<Widget> journalEntries = [];
+
+  if (journalItems!.isEmpty) return [const SizedBox.shrink()];
+  for (var element in journalItems) {
+    switch (element.type) {
+      case JournalEntryTypes.dialogue:
+        journalEntries.add(DialogueEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.mythic:
+        journalEntries.add(MythicEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.newScene:
+        journalEntries.add(const Text('newScene'));
+      case JournalEntryTypes.newClue:
+        journalEntries.add(const Text('newClue'));
+      case JournalEntryTypes.newCreature:
+        journalEntries.add(const Text('newCreature'));
+      case JournalEntryTypes.newPerson:
+        journalEntries.add(const Text('newPerson'));
+      case JournalEntryTypes.newThing:
+        journalEntries.add(const Text('newThing'));
+      case JournalEntryTypes.newFaction:
+        journalEntries.add(const Text('newFaction'));
+      case JournalEntryTypes.oracle:
+        journalEntries.add(OracleEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.roll:
+        journalEntries.add(RollEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.transition:
+        journalEntries.add(const Text('transition'));
+
+      default:
+        continue;
+    }
+  }
+  return journalEntries;
+}
 
 class Journal extends StatelessWidget {
   const Journal({
@@ -17,24 +68,14 @@ class Journal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Iterable<Widget> journalEntries = items.map((entry) {
-      if (entry.type == JournalEntryTypes.roll) {
-        return DiceBubble(diceResults: [...?entry.diceRolls]);
-      } else {
-        return JournalEntry(
-          text: entry.title,
-          label: entry.label,
-          detail: entry.detail,
-        );
-      }
-    });
-
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        bool showFutureFeatures =
+            appState.campaignData!.settings.general.showFutureSettings;
+        List<Widget> entries = getEntries(appState);
         return GestureDetector(
           onLongPress: () {
-            appState.setPopupLabel(PopupLabels.fullJournal);
-            appState.toggleShowPopup();
+            appState.toggleShowPopup(PopupLabels.fullJournal);
           },
           child: Container(
             color: CupertinoColors.systemTeal,
@@ -51,13 +92,13 @@ class Journal extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const JournalStartEntry(),
-                        ...journalEntries,
+                        ...entries,
                         const JournalEndGlyphs(),
                       ],
                     ),
                   ),
                 ),
-                const JournalInput(),
+                if (showFutureFeatures) const JournalInput(),
               ],
             ),
           ),
@@ -149,8 +190,7 @@ class JournalInput extends StatelessWidget {
         size: 20.0,
       ),
       onPressed: () {
-        appState.setPopupLabel(PopupLabels.journalFilter);
-        appState.toggleShowPopup();
+        appState.toggleShowPopup(PopupLabels.journalFilter);
       },
     );
   }
@@ -190,8 +230,7 @@ class JournalInput extends StatelessWidget {
         color: CupertinoColors.black,
       ),
       onPressed: () {
-        appState.setPopupLabel(PopupLabels.addJournalEntry);
-        appState.toggleShowPopup();
+        appState.toggleShowPopup(PopupLabels.addJournalEntry);
       },
     );
   }
