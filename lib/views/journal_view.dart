@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -14,6 +15,7 @@ import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
 import '../widgets/speech_bubble/speech_bubble.dart';
+import 'mythic/fate_question.dart';
 
 enum SceneState {
   expected,
@@ -88,14 +90,14 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
-      handleResult(
-        AppState appState,
-        ReturnObject result,
-        String? label,
-      ) {
-        updateState(result);
-        updateJournal(appState, result, label!);
-      }
+      // handleResult(
+      //   AppState appState,
+      //   ReturnObject result,
+      //   String? label,
+      // ) {
+      //   updateState(result);
+      //   updateJournal(appState, result, label!);
+      // }
 
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,6 +116,42 @@ class _JournalViewState extends State<JournalView> {
                       type: type,
                     ))
                   : const SizedBox.shrink(),
+
+              FateQuestion(
+                callback: (ReturnObject returnObject) {
+                  // For Bubble
+                  setState(() {
+                    line1 = returnObject.line1;
+                    line2 = returnObject.line2;
+                    line3 = returnObject.line3;
+                  });
+
+                  appState.addOracleEntry(
+                    OracleEntry(
+                      isFavourite: false,
+                      lines: returnObject,
+                    ),
+                  );
+                },
+              ),
+
+              // ListButton(
+              //   label: 'Fate Test',
+              //   onPressed: () {
+              //     setState(() {
+              //       line1 = "Very Likely";
+              //       line2 = "Rolled 73";
+              //       line3 = "";
+              //     });
+              //
+              //     appState.addOracleEntry(
+              //       OracleEntry(
+              //         isFavourite: false,
+              //         lines: test,
+              //       ),
+              //     );
+              //   },
+              // ),
 
               ListButton(
                   label: 'Test Your Expected Scene',
