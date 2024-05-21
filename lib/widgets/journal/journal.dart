@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
+import 'entryWidgets/roll_entry_widget.dart';
 
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
@@ -43,7 +44,10 @@ List<Widget> getEntries(AppState appState) {
           journalEntry: element,
         ));
       case JournalEntryTypes.roll:
-        journalEntries.add(const Text('roll'));
+        journalEntries.add(RollEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
       case JournalEntryTypes.transition:
         journalEntries.add(const Text('transition'));
 
@@ -66,6 +70,8 @@ class Journal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        bool showFutureFeatures =
+            appState.campaignData!.settings.general.showFutureSettings;
         List<Widget> entries = getEntries(appState);
         return GestureDetector(
           onLongPress: () {
@@ -92,7 +98,7 @@ class Journal extends StatelessWidget {
                     ),
                   ),
                 ),
-                const JournalInput(),
+                if (showFutureFeatures) const JournalInput(),
               ],
             ),
           ),

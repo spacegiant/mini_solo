@@ -88,15 +88,6 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
-      // handleResult(
-      //   AppState appState,
-      //   ReturnObject result,
-      //   String? label,
-      // ) {
-      //   updateState(result);
-      //   updateJournal(appState, result, label!);
-      // }
-
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -132,24 +123,6 @@ class _JournalViewState extends State<JournalView> {
                   );
                 },
               ),
-
-              // ListButton(
-              //   label: 'Fate Test',
-              //   onPressed: () {
-              //     setState(() {
-              //       line1 = "Very Likely";
-              //       line2 = "Rolled 73";
-              //       line3 = "";
-              //     });
-              //
-              //     appState.addOracleEntry(
-              //       OracleEntry(
-              //         isFavourite: false,
-              //         lines: test,
-              //       ),
-              //     );
-              //   },
-              // ),
 
               ListButton(
                   label: 'Test Your Expected Scene',

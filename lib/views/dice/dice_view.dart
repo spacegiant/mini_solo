@@ -37,14 +37,6 @@ class _DiceViewState extends State<DiceView> {
         void submitResults() {
           List<DiceRoll> myDiceResults = List.from(diceResults);
 
-          // appState.addJournalEntry(JournalEntryItem(
-          //   isFavourite: false,
-          //   type: JournalEntryTypes.roll,
-          //   // diceRolls: myDiceResults,
-          //   // title: '',
-          //   id: '',
-          // ));
-
           appState.addRoll(
               RollEntryItem(isFavourite: false, result: myDiceResults));
 
