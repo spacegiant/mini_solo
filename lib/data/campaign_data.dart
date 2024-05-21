@@ -126,7 +126,7 @@ class CampaignData {
   late List<Clue> clues;
   late List<Creature> creatures;
   late List<Dialogue> dialogue;
-  late List<Roll> rolls;
+  late List<RollEntryItem> rolls;
   // late List<Dialogue> dialogue;
 
   CampaignData({
@@ -359,19 +359,37 @@ class Creature extends CampaignItem {
 }
 
 @JsonSerializable()
-class Roll extends CampaignItem {
+class DiceRoll {
   int result;
   String diceType;
 
-  Roll({
-    required super.isFavourite,
+  DiceRoll({
+    // required super.isFavourite,
     required this.result,
     required this.diceType,
   });
 // coverage:ignore-start
-  factory Roll.fromJson(Map<String, dynamic> json) => _$RollFromJson(json);
+  factory DiceRoll.fromJson(Map<String, dynamic> json) =>
+      _$DiceRollFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RollToJson(this);
+  Map<String, dynamic> toJson() => _$DiceRollToJson(this);
+
+// coverage:ignore-end
+}
+
+@JsonSerializable()
+class RollEntryItem extends CampaignItem {
+  List<DiceRoll> result;
+
+  RollEntryItem({
+    required super.isFavourite,
+    required this.result,
+  });
+// coverage:ignore-start
+  factory RollEntryItem.fromJson(Map<String, dynamic> json) =>
+      _$RollEntryItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RollEntryItemToJson(this);
 
   @override
   JournalEntryTypes type = JournalEntryTypes.roll;

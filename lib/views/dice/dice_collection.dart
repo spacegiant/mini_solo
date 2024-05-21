@@ -17,7 +17,7 @@ class DiceCollection extends StatelessWidget {
   });
 
   final DiceSet diceSet;
-  final void Function(Roll) onPressed;
+  final void Function(DiceRoll) onPressed;
   final void Function() onSubmit;
   final void Function() onClear;
   final AppState appState;

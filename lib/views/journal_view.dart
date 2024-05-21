@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -10,7 +9,6 @@ import '../data/campaign_data.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
-import '../utilities/update_journal.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';

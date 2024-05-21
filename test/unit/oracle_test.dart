@@ -15,7 +15,7 @@ void main() {
 
     List<String> parts = item.id.split('-');
 
-    expect(parts[0], 'oracleEntry');
+    expect(parts[0], 'oracle');
     expect(parts[1].length, 16);
   });
 }

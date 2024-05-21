@@ -12,7 +12,7 @@ class DiceButton extends StatelessWidget {
   });
 
   final DiceType dieType;
-  final Function(Roll) onPressed;
+  final Function(DiceRoll) onPressed;
   final Color? color;
 
   @override
@@ -28,10 +28,10 @@ class DiceButton extends StatelessWidget {
         ),
         onPressed: () {
           dieType.roll();
-          Roll diceResult = Roll(
+          DiceRoll diceResult = DiceRoll(
             result: dieType.roll(),
             diceType: dieType.label,
-            isFavourite: false,
+            // isFavourite: false,
           );
           onPressed(diceResult);
         });

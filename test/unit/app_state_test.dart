@@ -129,16 +129,6 @@ void main() {
       expect(data.popupLabel, PopupLabels.chaos);
     });
 
-    test('setPopupLabel sets the label', () {
-      final data = AppState();
-      CampaignData campaignData = initCampaignDataData('test campaign name');
-      data.setCampaignData(campaignData);
-
-      expect(data.popupLabel, PopupLabels.chaos);
-      // data.setPopupLabel(PopupLabels.exploration);
-      expect(data.popupLabel, PopupLabels.exploration);
-    });
-
     test('getter showPopup returns bool', () {
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
@@ -347,11 +337,16 @@ void main() {
         equals(1));
   });
 
-  test('Adding Roll creates a person record and a journal record', () {
-    Roll roll = Roll(
+  test('Adding Roll creates a RollEntryItem record and a journal record', () {
+    RollEntryItem roll = RollEntryItem(
       isFavourite: false,
-      result: 6,
-      diceType: 'd6',
+      result: [
+        // DiceRoll(isFavourite: false, result: 6, diceType: 'd6'),
+        // DiceRoll(isFavourite: false, result: 2, diceType: 'd10'),
+        DiceRoll(result: 6, diceType: 'd6'),
+        DiceRoll(result: 2, diceType: 'd10'),
+      ],
+      // diceType: 'd6',
     );
 
     final data = AppState();

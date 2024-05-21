@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('Class generates a unique ID as expected', () {
-    final item = Roll(
-      isFavourite: false,
+    final item = DiceRoll(
+      // isFavourite: false,
       result: 3,
       diceType: 'd6',
     );

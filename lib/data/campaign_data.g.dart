@@ -86,7 +86,7 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
           .map((e) => Dialogue.fromJson(e as Map<String, dynamic>))
           .toList(),
       rolls: (json['rolls'] as List<dynamic>)
-          .map((e) => Roll.fromJson(e as Map<String, dynamic>))
+          .map((e) => RollEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -262,19 +262,31 @@ Map<String, dynamic> _$CreatureToJson(Creature instance) => <String, dynamic>{
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
-Roll _$RollFromJson(Map<String, dynamic> json) => Roll(
-      isFavourite: json['isFavourite'] as bool?,
+DiceRoll _$DiceRollFromJson(Map<String, dynamic> json) => DiceRoll(
       result: json['result'] as int,
       diceType: json['diceType'] as String,
+    );
+
+Map<String, dynamic> _$DiceRollToJson(DiceRoll instance) => <String, dynamic>{
+      'result': instance.result,
+      'diceType': instance.diceType,
+    };
+
+RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
+    RollEntryItem(
+      isFavourite: json['isFavourite'] as bool?,
+      result: (json['result'] as List<dynamic>)
+          .map((e) => DiceRoll.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
 
-Map<String, dynamic> _$RollToJson(Roll instance) => <String, dynamic>{
+Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
+    <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'result': instance.result,
-      'diceType': instance.diceType,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

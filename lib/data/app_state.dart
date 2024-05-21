@@ -239,7 +239,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void addRoll(Roll roll) {
+  void addRoll(RollEntryItem roll) {
     _campaignData?.rolls.add(roll);
     addJournalEntry(
       JournalEntryItem(

@@ -22,28 +22,32 @@ class DiceView extends StatefulWidget {
 }
 
 class _DiceViewState extends State<DiceView> {
-  List<Roll> diceResults = [];
+  List<DiceRoll> diceResults = [];
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, appState, Widget? child) {
-        void addResult(Roll result) {
+        void addResult(DiceRoll result) {
           setState(() {
             diceResults.add(result);
           });
         }
 
         void submitResults() {
-          List<Roll> myDiceResults = List.from(diceResults);
+          List<DiceRoll> myDiceResults = List.from(diceResults);
 
-          appState.addJournalEntry(JournalEntryItem(
-            isFavourite: false,
-            type: JournalEntryTypes.roll,
-            // diceRolls: myDiceResults,
-            // title: '',
-            id: '',
-          ));
+          // appState.addJournalEntry(JournalEntryItem(
+          //   isFavourite: false,
+          //   type: JournalEntryTypes.roll,
+          //   // diceRolls: myDiceResults,
+          //   // title: '',
+          //   id: '',
+          // ));
+
+          appState.addRoll(
+              RollEntryItem(isFavourite: false, result: myDiceResults));
+
           setState(() {
             diceResults.clear();
           });
@@ -106,7 +110,7 @@ class DiceBubble extends StatelessWidget {
     this.label,
   });
 
-  final List<Roll> diceResults;
+  final List<DiceRoll> diceResults;
   final String? label;
 
   @override
