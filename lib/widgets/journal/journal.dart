@@ -116,15 +116,25 @@ class Journal extends StatelessWidget {
                             onLongPress: () {
                               clearDice();
                             },
-                            child: Wrap(
-                              children: [
-                                ...diceRoll!.map<Widget>(
-                                  (roll) => DiceGlyph(
-                                    rolledValue: roll.result,
-                                    dieType: roll.diceType,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Wrap(
+                                    children: [
+                                      ...diceRoll!.map<Widget>(
+                                        (roll) => DiceGlyph(
+                                          rolledValue: roll.result,
+                                          dieType: roll.diceType,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  const Text(
+                                      'Press to submit, Long Hold to clear')
+                                ],
+                              ),
                             ),
                           ),
                       ],
