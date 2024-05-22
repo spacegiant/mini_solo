@@ -36,6 +36,7 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       showFutureSettings: json['showFutureSettings'] as bool,
       useJournal: json['useJournal'] as bool,
       useZocchiDice: json['useZocchiDice'] as bool,
+      useFateDice: json['useFateDice'] as bool,
     );
 
 Map<String, dynamic> _$GeneralSettingsDataToJson(
@@ -44,6 +45,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'showFutureSettings': instance.showFutureSettings,
       'useJournal': instance.useJournal,
       'useZocchiDice': instance.useZocchiDice,
+      'useFateDice': instance.useFateDice,
     };
 
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(

@@ -95,11 +95,13 @@ class GeneralSettingsData {
   late bool showFutureSettings;
   late bool useJournal;
   late bool useZocchiDice;
+  late bool useFateDice;
 
   GeneralSettingsData({
     required this.showFutureSettings,
     required this.useJournal,
     required this.useZocchiDice,
+    required this.useFateDice,
   });
 // coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -182,6 +184,7 @@ CampaignData initCampaignDataData(String campaignName) {
         showFutureSettings: false,
         useJournal: true,
         useZocchiDice: false,
+        useFateDice: false,
       ),
     ),
     things: [],

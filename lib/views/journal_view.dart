@@ -145,17 +145,18 @@ class _JournalViewState extends State<JournalView> {
 
               Row(
                 children: [
-                  DiceButton(
-                      color: CupertinoColors.systemOrange,
-                      dieType: fate,
-                      numberOfRolls: 4,
-                      label: '4dF',
-                      onPressed: (List<DiceRoll> result) {
-                        setState(() {
-                          diceResults.addAll(result);
-                        });
-                        // send the array to the temp dice roll
-                      }),
+                  if (appState.campaignData!.settings.general.useFateDice)
+                    DiceButton(
+                        color: CupertinoColors.systemOrange,
+                        dieType: fate,
+                        numberOfRolls: 4,
+                        label: '4dF',
+                        onPressed: (List<DiceRoll> result) {
+                          setState(() {
+                            diceResults.addAll(result);
+                          });
+                          // send the array to the temp dice roll
+                        }),
                   const Gap(),
                   DiceCollection(
                     diceSet:

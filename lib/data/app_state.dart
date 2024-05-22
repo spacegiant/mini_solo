@@ -174,6 +174,14 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  bool? get useFateDice => _campaignData?.settings.general.useFateDice;
+
+  void toggleUseFateDice() {
+    _campaignData?.settings.general.useFateDice =
+        !_campaignData!.settings.general.useFateDice;
+    saveCampaignDataToDisk();
+  }
+
   // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
