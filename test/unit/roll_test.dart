@@ -3,11 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   test('Class generates a unique ID as expected', () {
-    final item = DiceRoll(
-      // isFavourite: false,
-      result: 3,
-      diceType: 'd6',
-    );
+    final item = RollEntryItem(
+        // isFavourite: false,
+        result: [DiceRoll(result: 6, diceType: 'd6')],
+        isFavourite: null);
 
     List<String> parts = item.id.split('-');
 
