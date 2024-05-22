@@ -70,6 +70,10 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.writeAppSettingsJSON(campaignName, 'appSettings.json');
   }
 
+  void deleteCampaign(String filename) {
+    widget.storage.deleteCampaign('$filename.json');
+  }
+
   // List<String?> getCampaignList() {
   //   widget.storage.getCampaignsList.then((list) {
   //     return list;
@@ -112,6 +116,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
             builder: (context, appState, child) {
               if (appState.saveCallbackExists == false) {
                 appState.setSaveCallback(saveCampaign);
+              }
+
+              if (appState.deleteCampaign != false) {
+                print('delete compaign does not exist');
+                appState.setDeleteCampaignCallback(deleteCampaign);
               }
 
               return Stack(

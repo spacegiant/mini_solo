@@ -66,6 +66,14 @@ class CampaignStorage {
     }
   }
 
+  Future<void> deleteCampaign(String fileName) async {
+    final path = await _localPath;
+    File file = File('$path/$fileName');
+    print(file);
+
+    await file.delete();
+  }
+
   Future<File> writeJSON(CampaignData data, String fileName) async {
     final path = await _localPath;
 
