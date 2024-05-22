@@ -5,7 +5,7 @@ void main() {
   test('Class generates a unique ID as expected', () {
     final item = RollEntryItem(
         // isFavourite: false,
-        result: [DiceRoll(result: 6, diceType: 'd6')],
+        result: [DiceRoll(result: BothResults(rolledValue: 6), diceType: 'd6')],
         isFavourite: null);
 
     List<String> parts = item.id.split('-');

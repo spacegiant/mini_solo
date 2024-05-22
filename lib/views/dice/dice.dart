@@ -1,8 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
-import 'package:json_annotation/json_annotation.dart';
-
 import '../../data/campaign_data.dart';
 
 class DiceFace {

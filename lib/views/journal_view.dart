@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -13,8 +14,6 @@ import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
-import '../widgets/speech_bubble/bubble_text.dart';
-import '../widgets/speech_bubble/speech_bubble.dart';
 import 'dice/dice_collection.dart';
 import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
@@ -133,14 +132,6 @@ class _JournalViewState extends State<JournalView> {
           Expanded(
             flex: 1,
             child: ViewWrapper(children: [
-              !appState.useJournal
-                  ? SpeechBubble(
-                      widget: BubbleText(
-                      lines: [line1, line2, line3],
-                      type: type,
-                    ))
-                  : const SizedBox.shrink(),
-
               const Gap(),
 
               Row(
@@ -173,6 +164,7 @@ class _JournalViewState extends State<JournalView> {
               ),
 
               const Gap(),
+              const Divider(),
 
               const Text('Mythic GME'),
 
@@ -287,6 +279,8 @@ class _JournalViewState extends State<JournalView> {
                   ),
                 ],
               ),
+              const Gap(),
+              const Divider(),
 
               // const MarkdownBlock(
               //   newString: '# hello\n*hello* hello\n- hello',

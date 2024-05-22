@@ -172,13 +172,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 },
               ),
               SettingsOption(
-                isActive: appState.useJournal,
-                label: 'Use the journal',
-                onChanged: (isChecked) {
-                  appState.toggleUseJournal();
-                },
-              ),
-              SettingsOption(
                 isActive: autoCopy,
                 label: 'Copy to clipboard automatically',
                 onChanged: (isChecked) {

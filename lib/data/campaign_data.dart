@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
-import 'package:mini_solo/views/dice/dice.dart';
 import 'campaign_item.dart';
 import 'generic_entry_item.dart';
 
