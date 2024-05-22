@@ -287,13 +287,6 @@ class _JournalViewState extends State<JournalView> {
               const Gap(),
               if (showFutureFeatures)
                 ListButton(
-                  label: 'Fate Check',
-                  onPressed: () {
-                    appState.toggleShowPopup(PopupLabels.fate);
-                  },
-                ),
-              if (showFutureFeatures)
-                ListButton(
                   label: 'End Scene',
                   onPressed: () {
                     appState.toggleShowPopup(PopupLabels.endScene);
