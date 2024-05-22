@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -134,31 +135,34 @@ class _JournalViewState extends State<JournalView> {
             child: ViewWrapper(children: [
               const Gap(),
 
-              Row(
-                children: [
-                  if (appState.campaignData!.settings.general.useFateDice)
-                    DiceButton(
-                        color: CupertinoColors.systemOrange,
-                        dieType: fate,
-                        numberOfRolls: 4,
-                        label: '4dF',
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
-                  const Gap(),
-                  DiceCollection(
-                    diceSet:
-                        appState.campaignData?.settings.general.useZocchiDice ==
-                                true
-                            ? all
-                            : regularDice,
-                    appState: appState,
-                    onPressed: addResult,
-                  )
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    if (appState.campaignData!.settings.general.useFateDice)
+                      DiceButton(
+                          color: CupertinoColors.systemOrange,
+                          dieType: fate,
+                          numberOfRolls: 4,
+                          label: '4dF',
+                          onPressed: (List<DiceRoll> result) {
+                            setState(() {
+                              diceResults.addAll(result);
+                            });
+                            // send the array to the temp dice roll
+                          }),
+                    const Gap(),
+                    DiceCollection(
+                      diceSet: appState.campaignData?.settings.general
+                                  .useZocchiDice ==
+                              true
+                          ? all
+                          : regularDice,
+                      appState: appState,
+                      onPressed: addResult,
+                    )
+                  ],
+                ),
               ),
 
               const Gap(),
