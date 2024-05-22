@@ -1,5 +1,6 @@
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/views/dice/dice_button.dart';
 import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
@@ -142,28 +143,37 @@ class _JournalViewState extends State<JournalView> {
 
               const Gap(),
 
-              DiceCollection(
-                diceSet:
-                    appState.campaignData?.settings.general.useZocchiDice ==
-                            true
-                        ? all
-                        : regularDice,
-                appState: appState,
-                onPressed: addResult,
-                // onSubmit: submitResults,
-                // onClear: clearResults,
-              ),
+              Row(
+                children: [
+                  DiceButton(
+                      color: CupertinoColors.systemOrange,
+                      dieType: fate,
+                      label: '4dF',
+                      onPressed: (DiceRoll result) {
+                        //create empty array of dice results
+                        List<DiceRoll> results = [];
+                        // int result = 0;
+                        // roll 1dF four times and append to the results
+                        // result = diceRoll
 
-              DiceCollection(
-                diceSet: fateDiceSet,
-                onPressed: addResult,
-                appState: appState,
-              ),
-
-              DiceCollection(
-                diceSet: fateDiceSet,
-                onPressed: addResult,
-                appState: appState,
+                        setState(() {
+                          diceResults.add(result);
+                        });
+                        // send the array to the temp dice roll
+                      }),
+                  const Gap(),
+                  DiceCollection(
+                    diceSet:
+                        appState.campaignData?.settings.general.useZocchiDice ==
+                                true
+                            ? all
+                            : regularDice,
+                    appState: appState,
+                    onPressed: addResult,
+                    // onSubmit: submitResults,
+                    // onClear: clearResults,
+                  )
+                ],
               ),
 
               const Gap(),

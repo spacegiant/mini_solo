@@ -9,19 +9,25 @@ class DiceButton extends StatelessWidget {
     required this.dieType,
     required this.onPressed,
     this.color,
+    this.label,
+    this.numberOfRolls,
   });
 
   final DiceType dieType;
   final Function(DiceRoll) onPressed;
   final Color? color;
+  final String? label;
+  final int? numberOfRolls;
 
   @override
   Widget build(BuildContext context) {
+    String buttonLabel = label ?? dieType.label;
+
     return CupertinoButton(
         color: color ?? CupertinoColors.systemPink,
         padding: const EdgeInsets.all(0.0),
         child: Text(
-          dieType.label,
+          buttonLabel,
           style: const TextStyle(
             color: CupertinoColors.white,
           ),
