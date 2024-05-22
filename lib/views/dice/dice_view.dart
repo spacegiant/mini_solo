@@ -65,8 +65,8 @@ class _DiceViewState extends State<DiceView> {
                       : regularDice,
               appState: appState,
               onPressed: addResult,
-              onSubmit: submitResults,
-              onClear: clearResults,
+              // onSubmit: submitResults,
+              // onClear: clearResults,
             ),
             const Gap(),
             // TODO: FINISH FATE DICE IMPLEMENTATION
@@ -79,8 +79,8 @@ class _DiceViewState extends State<DiceView> {
                     diceResults.add(result);
                   });
                 },
-                onSubmit: submitResults,
-                onClear: clearResults,
+                // onSubmit: submitResults,
+                // onClear: clearResults,
               ),
             // TODO: Add Genesys dice
             if (appState.showFutureFeatures == true) const Text('Genesys dice'),

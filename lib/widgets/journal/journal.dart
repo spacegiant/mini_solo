@@ -83,6 +83,11 @@ class Journal extends StatelessWidget {
             appState.campaignData!.settings.general.showFutureSettings;
         List<Widget> entries = getEntries(appState);
         return GestureDetector(
+          onTap: () {
+            print('enter text');
+            // Callback to push data to journal
+            // open popup with cb
+          },
           onLongPress: () {
             appState.toggleShowPopup(PopupLabels.fullJournal);
           },

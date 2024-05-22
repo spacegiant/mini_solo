@@ -149,8 +149,8 @@ class _JournalViewState extends State<JournalView> {
                         : regularDice,
                 appState: appState,
                 onPressed: addResult,
-                onSubmit: submitResults,
-                onClear: clearResults,
+                // onSubmit: submitResults,
+                // onClear: clearResults,
               ),
 
               const Gap(),
