@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import '../../data/campaign_data.dart';
 
 class DiceFace {
   late int value;
@@ -40,22 +43,11 @@ class DiceType {
   BothResults roll() {
     int numberOfSides = faces.length;
     int rolledValue = Random().nextInt(numberOfSides);
-    print(faces[0].label);
     return BothResults(
       rolledValue: rolledValue + 1,
       label: faces[rolledValue].label,
     );
   }
-}
-
-class BothResults {
-  final int rolledValue;
-  final String? label;
-
-  BothResults({
-    required this.rolledValue,
-    this.label,
-  });
 }
 
 List<DiceFace> createDice(int numberOfSides) {

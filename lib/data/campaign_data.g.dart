@@ -262,8 +262,19 @@ Map<String, dynamic> _$CreatureToJson(Creature instance) => <String, dynamic>{
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
+BothResults _$BothResultsFromJson(Map<String, dynamic> json) => BothResults(
+      rolledValue: json['rolledValue'] as int,
+      label: json['label'] as String?,
+    );
+
+Map<String, dynamic> _$BothResultsToJson(BothResults instance) =>
+    <String, dynamic>{
+      'rolledValue': instance.rolledValue,
+      'label': instance.label,
+    };
+
 DiceRoll _$DiceRollFromJson(Map<String, dynamic> json) => DiceRoll(
-      result: json['result'] as int,
+      result: BothResults.fromJson(json['result'] as Map<String, dynamic>),
       diceType: json['diceType'] as String,
     );
 

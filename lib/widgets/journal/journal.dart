@@ -125,7 +125,9 @@ class Journal extends StatelessWidget {
                                     children: [
                                       ...diceRoll!.map<Widget>(
                                         (roll) => DiceGlyph(
-                                          rolledValue: roll.result,
+                                          rolledValue: roll.result.label ??
+                                              roll.result.rolledValue
+                                                  .toString(),
                                           dieType: roll.diceType,
                                         ),
                                       ),
