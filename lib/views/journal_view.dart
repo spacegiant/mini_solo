@@ -1,5 +1,6 @@
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -151,6 +152,18 @@ class _JournalViewState extends State<JournalView> {
                 onPressed: addResult,
                 // onSubmit: submitResults,
                 // onClear: clearResults,
+              ),
+
+              DiceCollection(
+                diceSet: fateDiceSet,
+                onPressed: addResult,
+                appState: appState,
+              ),
+
+              DiceCollection(
+                diceSet: fateDiceSet,
+                onPressed: addResult,
+                appState: appState,
               ),
 
               const Gap(),

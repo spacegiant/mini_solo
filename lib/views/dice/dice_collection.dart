@@ -32,29 +32,14 @@ class DiceCollection extends StatelessWidget {
               : CupertinoColors.systemPink,
         ));
 
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-          border: Border.all(
-            width: 3.0,
-            color: CupertinoColors.systemRed,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10.0))),
-      child: Column(
-        children: [
-          Text(diceSet.label),
-          const Gap(),
-          Wrap(
-            runSpacing: 8.0,
-            spacing: 8.0,
-            children: [
-              ...diceButtons,
-              // SubmitButton(onSubmit: onSubmit),
-              // ClearButton(onClear: onClear),
-            ],
-          ),
-        ],
-      ),
+    return Wrap(
+      runSpacing: 8.0,
+      spacing: 8.0,
+      children: [
+        ...diceButtons,
+        // SubmitButton(onSubmit: onSubmit),
+        // ClearButton(onClear: onClear),
+      ],
     );
   }
 }
