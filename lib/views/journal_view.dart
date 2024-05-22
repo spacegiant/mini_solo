@@ -93,9 +93,9 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
-      void addResult(DiceRoll result) {
+      void addResult(List<DiceRoll> result) {
         setState(() {
-          diceResults.add(result);
+          diceResults.addAll(result);
         });
       }
 
@@ -148,16 +148,11 @@ class _JournalViewState extends State<JournalView> {
                   DiceButton(
                       color: CupertinoColors.systemOrange,
                       dieType: fate,
+                      numberOfRolls: 4,
                       label: '4dF',
-                      onPressed: (DiceRoll result) {
-                        //create empty array of dice results
-                        List<DiceRoll> results = [];
-                        // int result = 0;
-                        // roll 1dF four times and append to the results
-                        // result = diceRoll
-
+                      onPressed: (List<DiceRoll> result) {
                         setState(() {
-                          diceResults.add(result);
+                          diceResults.addAll(result);
                         });
                         // send the array to the temp dice roll
                       }),

@@ -71,7 +71,7 @@ class Journal extends StatelessWidget {
 
   final List<JournalEntryItem> items;
   final List<DiceRoll>? diceRoll;
-  final Function(DiceRoll) addDice;
+  final Function(List<DiceRoll>) addDice;
   final Function() submitDice;
   final Function() clearDice;
 

@@ -10,11 +10,11 @@ class DiceButton extends StatelessWidget {
     required this.onPressed,
     this.color,
     this.label,
-    this.numberOfRolls,
+    this.numberOfRolls = 1,
   });
 
   final DiceType dieType;
-  final Function(DiceRoll) onPressed;
+  final Function(List<DiceRoll>) onPressed;
   final Color? color;
   final String? label;
   final int? numberOfRolls;
@@ -22,6 +22,7 @@ class DiceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String buttonLabel = label ?? dieType.label;
+    List<DiceRoll> result = [];
 
     return CupertinoButton(
         color: color ?? CupertinoColors.systemPink,
@@ -33,13 +34,15 @@ class DiceButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          dieType.roll();
-          DiceRoll diceResult = DiceRoll(
-            result: dieType.roll(),
-            diceType: dieType.label,
-            // isFavourite: false,
-          );
-          onPressed(diceResult);
+          for (int i = 1; i <= numberOfRolls!; i++) {
+            DiceRoll diceResult = DiceRoll(
+              result: dieType.roll(),
+              diceType: dieType.label,
+            );
+            result.add(diceResult);
+          }
+
+          onPressed(result);
         });
   }
 }
