@@ -36,7 +36,7 @@ class DiceButton extends StatelessWidget {
         onPressed: () {
           for (int i = 1; i <= numberOfRolls!; i++) {
             DiceRoll diceResult = DiceRoll(
-              result: dieType.roll(),
+              result: dieType.roll().rolledValue,
               diceType: dieType.label,
             );
             result.add(diceResult);

@@ -37,11 +37,25 @@ class DiceType {
     this.isZocchi,
   });
 
-  int roll() {
+  BothResults roll() {
     int numberOfSides = faces.length;
-    int rolledValue = Random().nextInt(numberOfSides) + 1;
-    return rolledValue;
+    int rolledValue = Random().nextInt(numberOfSides);
+    print(faces[0].label);
+    return BothResults(
+      rolledValue: rolledValue + 1,
+      label: faces[rolledValue].label,
+    );
   }
+}
+
+class BothResults {
+  final int rolledValue;
+  final String? label;
+
+  BothResults({
+    required this.rolledValue,
+    this.label,
+  });
 }
 
 List<DiceFace> createDice(int numberOfSides) {
