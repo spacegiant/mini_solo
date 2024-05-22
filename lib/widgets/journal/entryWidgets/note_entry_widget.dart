@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
+import '../../../data/note_entry_item.dart';
 
-class DialogueEntryWidget extends StatelessWidget {
+class NoteEntryWidget extends StatelessWidget {
   final AppState appState;
   final JournalEntryItem journalEntry;
 
-  const DialogueEntryWidget({
+  const NoteEntryWidget({
     super.key,
     required this.appState,
     required this.journalEntry,
@@ -16,16 +17,17 @@ class DialogueEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Dialogue entry = appState.campaignData!.dialogue
+    NoteEntryItem entry = appState.campaignData!.notes
         .firstWhere((entry) => entry.id == journalEntry.id);
+
+    String? detail = entry.detail;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(entry.dialogue),
-          Text(entry.speaker),
+          Text(detail),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import 'campaign_item.dart';
-import 'generic_entry_item.dart';
+import 'note_entry_item.dart';
 
 part 'campaign_data.g.dart';
 
@@ -11,7 +11,7 @@ part 'campaign_data.g.dart';
 enum JournalEntryTypes {
   action,
   chaosFactor,
-  dialogue,
+  // dialogue,
   fateCheck,
   mythic,
   newClue,
@@ -31,7 +31,7 @@ enum JournalEntryTypes {
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.chaosFactor: 'chaosFactor',
-  JournalEntryTypes.dialogue: 'dialogue',
+  // JournalEntryTypes.dialogue: 'dialogue',
   JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newCreature: 'newCreature',
@@ -116,7 +116,7 @@ class CampaignData {
   late MythicData mythicData;
   late List<MythicEntry> mythic;
   late List<JournalEntryItem> journal;
-  late List<GenericEntryItem> generic;
+  late List<NoteEntryItem> notes;
   late List<OracleEntry> oracle;
   late List<Person> people;
   late List<Place> places;
@@ -124,7 +124,6 @@ class CampaignData {
   late List<Faction> factions;
   late List<Clue> clues;
   late List<Creature> creatures;
-  late List<Dialogue> dialogue;
   late List<RollEntryItem> rolls;
 
   CampaignData({
@@ -135,14 +134,13 @@ class CampaignData {
     required this.mythicData,
     required this.oracle,
     required this.journal,
-    required this.generic,
+    required this.notes,
     required this.people,
     required this.places,
     required this.things,
     required this.factions,
     required this.clues,
     required this.creatures,
-    required this.dialogue,
     required this.rolls,
   });
 
@@ -159,9 +157,8 @@ CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     clues: [],
     creatures: [],
-    dialogue: [],
     factions: [],
-    generic: [],
+    notes: [],
     journal: [],
     mythic: [],
     mythicData: MythicData(
@@ -414,24 +411,6 @@ class RollEntryItem extends CampaignItem {
 }
 
 @JsonSerializable()
-class Note extends CampaignItem {
-  String note;
-
-  Note({
-    required super.isFavourite,
-    required this.note,
-  });
-// coverage:ignore-start
-  factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
-
-  Map<String, dynamic> toJson() => _$NoteToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.note;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
 class OracleEntry extends CampaignItem {
   ReturnObject lines;
 
@@ -466,26 +445,5 @@ class MythicEntry extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.mythic;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class Dialogue extends CampaignItem {
-  String dialogue;
-  String speaker;
-
-  Dialogue({
-    required super.isFavourite,
-    required this.dialogue,
-    required this.speaker,
-  });
-// coverage:ignore-start
-  factory Dialogue.fromJson(Map<String, dynamic> json) =>
-      _$DialogueFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DialogueToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.dialogue;
 // coverage:ignore-end
 }

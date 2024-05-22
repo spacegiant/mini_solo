@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/widgets/journal/entryWidgets/dialogue_entry_widget.dart';
+import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:provider/provider.dart';
-
 import '../../data/app_state.dart';
 import '../../views/dice/dice_glyph.dart';
+import 'entryWidgets/note_entry_widget.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
 import 'entryWidgets/roll_entry_widget.dart';
@@ -17,13 +17,13 @@ List<Widget> getEntries(AppState appState) {
   if (journalItems!.isEmpty) return [const SizedBox.shrink()];
   for (var element in journalItems) {
     switch (element.type) {
-      case JournalEntryTypes.dialogue:
-        journalEntries.add(DialogueEntryWidget(
+      case JournalEntryTypes.mythic:
+        journalEntries.add(MythicEntryWidget(
           appState: appState,
           journalEntry: element,
         ));
-      case JournalEntryTypes.mythic:
-        journalEntries.add(MythicEntryWidget(
+      case JournalEntryTypes.note:
+        journalEntries.add(NoteEntryWidget(
           appState: appState,
           journalEntry: element,
         ));
@@ -59,7 +59,7 @@ List<Widget> getEntries(AppState appState) {
   return journalEntries;
 }
 
-class Journal extends StatelessWidget {
+class Journal extends StatefulWidget {
   const Journal({
     super.key,
     required this.items,
@@ -76,6 +76,29 @@ class Journal extends StatelessWidget {
   final Function() clearDice;
 
   @override
+  State<Journal> createState() => _JournalState();
+}
+
+class _JournalState extends State<Journal> {
+  bool showInput = false;
+
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      _controller.text = _controller.text.trim();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
@@ -84,9 +107,9 @@ class Journal extends StatelessWidget {
         List<Widget> entries = getEntries(appState);
         return GestureDetector(
           onTap: () {
-            print('enter text');
-            // Callback to push data to journal
-            // open popup with cb
+            setState(() {
+              showInput = !showInput;
+            });
           },
           onLongPress: () {
             appState.toggleShowPopup(PopupLabels.fullJournal);
@@ -98,6 +121,7 @@ class Journal extends StatelessWidget {
                 Container(
                   constraints: const BoxConstraints(
                     minHeight: 350.0,
+                    maxHeight: 350.0,
                   ),
                   child: SingleChildScrollView(
                     reverse: true,
@@ -107,37 +131,47 @@ class Journal extends StatelessWidget {
                         const JournalStartEntry(),
                         ...entries,
                         const JournalEndGlyphs(),
-                        if (diceRoll!.isNotEmpty)
-                          GestureDetector(
-                            onTap: () {
-                              submitDice();
-                            },
-                            onLongPress: () {
-                              clearDice();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Wrap(
-                                    children: [
-                                      ...diceRoll!.map<Widget>(
-                                        (roll) => DiceGlyph(
-                                          rolledValue: roll.result.label ??
-                                              roll.result.rolledValue
-                                                  .toString(),
-                                          dieType: roll.diceType,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Text(
-                                      'Press to submit, Long Hold to clear')
-                                ],
+                        if (widget.diceRoll!.isNotEmpty)
+                          TempDiceDisplay(widget: widget),
+                        if (showInput)
+                          Stack(
+                            children: [
+                              CupertinoTextField(
+                                controller: _controller,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.zero,
+                                  color: Colors.transparent,
+                                ),
+                                placeholder: 'Type here',
+                                autofocus: true,
+                                expands: true,
+                                minLines: null,
+                                maxLines: null,
                               ),
-                            ),
-                          ),
+                              Positioned(
+                                  right: 0.0,
+                                  bottom: 0.0,
+                                  child: CupertinoButton(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: const Icon(
+                                          CupertinoIcons.add_circled_solid),
+                                      onPressed: () {
+                                        if (_controller
+                                            .text.characters.isNotEmpty) {
+                                          // Send to Journal
+                                          NoteEntryItem entry = NoteEntryItem(
+                                            isFavourite: false,
+                                            detail: _controller.text,
+                                          );
+                                          appState.addNoteItem(entry);
+
+                                          setState(() {
+                                            _controller.clear();
+                                          });
+                                        }
+                                      }))
+                            ],
+                          )
                       ],
                     ),
                   ),
@@ -148,6 +182,50 @@ class Journal extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class TempDiceDisplay extends StatelessWidget {
+  const TempDiceDisplay({
+    super.key,
+    required this.widget,
+  });
+
+  final Journal widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        widget.submitDice();
+      },
+      onLongPress: () {
+        widget.clearDice();
+      },
+      child: Container(
+        color: CupertinoColors.lightBackgroundGray,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                children: [
+                  ...widget.diceRoll!.map<Widget>(
+                    (roll) => DiceGlyph(
+                      rolledValue: roll.result.label ??
+                          roll.result.rolledValue.toString(),
+                      dieType: roll.diceType,
+                    ),
+                  ),
+                ],
+              ),
+              const Text('Press to submit, Long Hold to clear')
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

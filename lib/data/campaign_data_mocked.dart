@@ -24,10 +24,9 @@ CampaignData sampleCampaignData() {
     clues: [],
     creatures: [],
     rolls: [],
-    generic: [],
     oracle: [],
     mythic: [],
-    dialogue: [],
     filename: 'sample_data',
+    notes: [],
   );
 }

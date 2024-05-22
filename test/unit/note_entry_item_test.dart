@@ -3,12 +3,12 @@ import 'package:test/test.dart';
 
 void main() {
   test('Class generates a unique ID as expected', () {
-    final item = NoteEntryItem(
+    final noteEntryItem = NoteEntryItem(
       isFavourite: false,
-      detail: 'Note goes here',
+      detail: 'Detail goes here',
     );
 
-    List<String> parts = item.id.split('-');
+    List<String> parts = noteEntryItem.id.split('-');
 
     expect(parts[0], 'note');
     expect(parts[1].length, 16);

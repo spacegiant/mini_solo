@@ -63,8 +63,8 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       journal: (json['journal'] as List<dynamic>)
           .map((e) => JournalEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      generic: (json['generic'] as List<dynamic>)
-          .map((e) => GenericEntryItem.fromJson(e as Map<String, dynamic>))
+      notes: (json['notes'] as List<dynamic>)
+          .map((e) => NoteEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
       people: (json['people'] as List<dynamic>)
           .map((e) => Person.fromJson(e as Map<String, dynamic>))
@@ -84,9 +84,6 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       creatures: (json['creatures'] as List<dynamic>)
           .map((e) => Creature.fromJson(e as Map<String, dynamic>))
           .toList(),
-      dialogue: (json['dialogue'] as List<dynamic>)
-          .map((e) => Dialogue.fromJson(e as Map<String, dynamic>))
-          .toList(),
       rolls: (json['rolls'] as List<dynamic>)
           .map((e) => RollEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -100,7 +97,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'mythicData': instance.mythicData.toJson(),
       'mythic': instance.mythic.map((e) => e.toJson()).toList(),
       'journal': instance.journal.map((e) => e.toJson()).toList(),
-      'generic': instance.generic.map((e) => e.toJson()).toList(),
+      'notes': instance.notes.map((e) => e.toJson()).toList(),
       'oracle': instance.oracle.map((e) => e.toJson()).toList(),
       'people': instance.people.map((e) => e.toJson()).toList(),
       'places': instance.places.map((e) => e.toJson()).toList(),
@@ -108,7 +105,6 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'factions': instance.factions.map((e) => e.toJson()).toList(),
       'clues': instance.clues.map((e) => e.toJson()).toList(),
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
-      'dialogue': instance.dialogue.map((e) => e.toJson()).toList(),
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
     };
 
@@ -138,7 +134,6 @@ Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
 const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.action: 'action',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
-  JournalEntryTypes.dialogue: 'dialogue',
   JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
@@ -303,20 +298,6 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
-Note _$NoteFromJson(Map<String, dynamic> json) => Note(
-      isFavourite: json['isFavourite'] as bool?,
-      note: json['note'] as String,
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
-
-Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
-      'note': instance.note,
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
-    };
-
 OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
       isFavourite: json['isFavourite'] as bool?,
       lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
@@ -344,21 +325,5 @@ Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'lines': instance.lines,
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
-    };
-
-Dialogue _$DialogueFromJson(Map<String, dynamic> json) => Dialogue(
-      isFavourite: json['isFavourite'] as bool?,
-      dialogue: json['dialogue'] as String,
-      speaker: json['speaker'] as String,
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
-
-Map<String, dynamic> _$DialogueToJson(Dialogue instance) => <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
-      'dialogue': instance.dialogue,
-      'speaker': instance.speaker,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
