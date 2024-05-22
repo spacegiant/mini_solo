@@ -159,7 +159,7 @@ class _JournalState extends State<Journal> {
                                           // Send to Journal
                                           NoteEntryItem entry = NoteEntryItem(
                                             isFavourite: false,
-                                            detail: _controller.text,
+                                            detail: _controller.text.trim(),
                                           );
                                           appState.addNoteItem(entry);
 
