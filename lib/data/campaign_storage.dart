@@ -36,16 +36,8 @@ class CampaignStorage {
     return campaigns;
   }
 
-  // Future<File> get _localFile async {
-  //   final path = await _localPath;
-  //   return File('$path/sampleCampaign.json');
-  // }
-
   Future<CampaignData?> readJSON(String fileName) async {
     try {
-      // final file = await _localFile;
-      // print(file);
-
       final path = await _localPath;
       File file = File('$path/$fileName');
 

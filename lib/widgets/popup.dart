@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,6 @@ Consumer<Object?> popup(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CupertinoPopupSurface(
-            // child: Center(child: child),
             child: Center(
               child: Column(
                 children: [

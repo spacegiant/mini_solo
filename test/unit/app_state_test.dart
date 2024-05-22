@@ -343,8 +343,8 @@ void main() {
       result: [
         // DiceRoll(isFavourite: false, result: 6, diceType: 'd6'),
         // DiceRoll(isFavourite: false, result: 2, diceType: 'd10'),
-        DiceRoll(result: 6, diceType: 'd6'),
-        DiceRoll(result: 2, diceType: 'd10'),
+        DiceRoll(result: BothResults(rolledValue: 6), diceType: 'd6'),
+        DiceRoll(result: BothResults(rolledValue: 2), diceType: 'd10'),
       ],
       // diceType: 'd6',
     );

@@ -97,8 +97,7 @@ class Journal extends StatelessWidget {
               children: [
                 Container(
                   constraints: const BoxConstraints(
-                    maxHeight: 200.0,
-                    minHeight: 200.0,
+                    minHeight: 350.0,
                   ),
                   child: SingleChildScrollView(
                     reverse: true,

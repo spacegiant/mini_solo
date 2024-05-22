@@ -7,6 +7,7 @@ void main() {
       showFutureSettings: false,
       useJournal: false,
       useZocchiDice: false,
+      useFateDice: false,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -17,6 +18,7 @@ void main() {
       showFutureSettings: true,
       useJournal: true,
       useZocchiDice: true,
+      useFateDice: false,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -29,6 +31,7 @@ void main() {
       showFutureSettings: false,
       useJournal: false,
       useZocchiDice: false,
+      useFateDice: false,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

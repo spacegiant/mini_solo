@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
-// import 'package:url_launcher/url_launcher.dart';
 
 import '../data/app_state.dart';
 
@@ -172,13 +171,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 },
               ),
               SettingsOption(
-                isActive: appState.useJournal,
-                label: 'Use the journal',
-                onChanged: (isChecked) {
-                  appState.toggleUseJournal();
-                },
-              ),
-              SettingsOption(
                 isActive: autoCopy,
                 label: 'Copy to clipboard automatically',
                 onChanged: (isChecked) {
@@ -190,11 +182,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               SettingsOption(
                 isActive: true,
                 label: 'Send to journal',
-                onChanged: (isChecked) {
-                  // setState(() {
-                  //   autoCopy = isChecked!;
-                  // });
-                },
+                onChanged: (isChecked) {},
               ),
               const SettingsHeading(label: 'Dice'),
               const Text('Choose which dice you want shown'),
