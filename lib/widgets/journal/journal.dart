@@ -59,7 +59,7 @@ List<Widget> getEntries(AppState appState) {
   return journalEntries;
 }
 
-class Journal extends StatelessWidget {
+class Journal extends StatefulWidget {
   const Journal({
     super.key,
     required this.items,
@@ -75,6 +75,11 @@ class Journal extends StatelessWidget {
   final Function() submitDice;
   final Function() clearDice;
 
+  @override
+  State<Journal> createState() => _JournalState();
+}
+
+class _JournalState extends State<Journal> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
@@ -107,13 +112,13 @@ class Journal extends StatelessWidget {
                         const JournalStartEntry(),
                         ...entries,
                         const JournalEndGlyphs(),
-                        if (diceRoll!.isNotEmpty)
+                        if (widget.diceRoll!.isNotEmpty)
                           GestureDetector(
                             onTap: () {
-                              submitDice();
+                              widget.submitDice();
                             },
                             onLongPress: () {
-                              clearDice();
+                              widget.clearDice();
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -122,7 +127,7 @@ class Journal extends StatelessWidget {
                                 children: [
                                   Wrap(
                                     children: [
-                                      ...diceRoll!.map<Widget>(
+                                      ...widget.diceRoll!.map<Widget>(
                                         (roll) => DiceGlyph(
                                           rolledValue: roll.result.label ??
                                               roll.result.rolledValue
