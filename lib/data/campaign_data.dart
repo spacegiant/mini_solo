@@ -30,10 +30,8 @@ enum JournalEntryTypes {
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
-  // JournalEntryTypes.action: 'action',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
   JournalEntryTypes.dialogue: 'dialogue',
-  // JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
   JournalEntryTypes.newCreature: 'newCreature',
@@ -45,7 +43,6 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.newThing: 'newThing',
   JournalEntryTypes.note: 'note',
   JournalEntryTypes.oracle: 'oracle',
-  // JournalEntryTypes.outcome: 'outcome',
   JournalEntryTypes.roll: 'roll',
   JournalEntryTypes.transition: 'transition',
 };
@@ -129,7 +126,6 @@ class CampaignData {
   late List<Creature> creatures;
   late List<Dialogue> dialogue;
   late List<RollEntryItem> rolls;
-  // late List<Dialogue> dialogue;
 
   CampaignData({
     required this.settings,
@@ -148,7 +144,6 @@ class CampaignData {
     required this.creatures,
     required this.dialogue,
     required this.rolls,
-    // required this.dialogue,
   });
 
   // coverage:ignore-start

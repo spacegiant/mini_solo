@@ -157,8 +157,6 @@ class _JournalViewState extends State<JournalView> {
                             : regularDice,
                     appState: appState,
                     onPressed: addResult,
-                    // onSubmit: submitResults,
-                    // onClear: clearResults,
                   )
                 ],
               ),

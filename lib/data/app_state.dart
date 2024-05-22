@@ -113,7 +113,6 @@ class AppState extends ChangeNotifier {
         ),
       ));
     }
-    // saveCampaignDataToDisk();
   }
 
   void resetChaosFactor() {
@@ -127,7 +126,6 @@ class AppState extends ChangeNotifier {
         line2: 'RESET to 5',
       ),
     ));
-    // saveCampaignDataToDisk();
   }
 
   PopupLabels get popupLabel => _popupLabel;
