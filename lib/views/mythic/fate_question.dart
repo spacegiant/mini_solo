@@ -44,10 +44,10 @@ class FateQuestion extends StatelessWidget {
         builder: (BuildContext context, AppState appState, Widget? child) {
       return Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-            child: Text('Fate Question'),
-          ),
+          // const Padding(
+          //   padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+          //   child: Text('Fate Question'),
+          // ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(

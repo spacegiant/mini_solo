@@ -139,6 +139,20 @@ class _JournalViewState extends State<JournalView> {
                     ))
                   : const SizedBox.shrink(),
 
+              DiceCollection(
+                diceSet:
+                    appState.campaignData?.settings.general.useZocchiDice ==
+                            true
+                        ? all
+                        : regularDice,
+                appState: appState,
+                onPressed: addResult,
+                onSubmit: submitResults,
+                onClear: clearResults,
+              ),
+
+              const Text('Mythic GME'),
+
               FateQuestion(
                 callback: (ReturnObject returnObject) {
                   // For Bubble
@@ -155,18 +169,6 @@ class _JournalViewState extends State<JournalView> {
                     ),
                   );
                 },
-              ),
-
-              DiceCollection(
-                diceSet:
-                    appState.campaignData?.settings.general.useZocchiDice ==
-                            true
-                        ? all
-                        : regularDice,
-                appState: appState,
-                onPressed: addResult,
-                onSubmit: submitResults,
-                onClear: clearResults,
               ),
 
               ListButton(
