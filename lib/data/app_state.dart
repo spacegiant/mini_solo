@@ -28,6 +28,7 @@ class AppState extends ChangeNotifier {
   late bool _useJournal = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
+  Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
@@ -73,6 +74,13 @@ class AppState extends ChangeNotifier {
     _currentCampaign = campaignName;
     notifyListeners();
   }
+
+  void setDeleteCampaignCallback(cb) {
+    print('set delete campaign cb');
+    _deleteCampaignCallback = cb;
+  }
+
+  get deleteCampaign => _deleteCampaignCallback;
 
   // CHAOS FACTOR
   void increaseChaosFactor() {

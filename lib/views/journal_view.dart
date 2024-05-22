@@ -13,6 +13,8 @@ import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
 import '../widgets/speech_bubble/speech_bubble.dart';
+import 'dice/dice_collection.dart';
+import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
 
 enum SceneState {
@@ -52,6 +54,7 @@ class _JournalViewState extends State<JournalView> {
   String? line2;
   String? line3;
   String type = '...';
+  List<DiceRoll> diceResults = [];
 
   void updateState(ReturnObject result) {
     setState(() {
@@ -88,12 +91,42 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
+      void addResult(DiceRoll result) {
+        setState(() {
+          diceResults.add(result);
+        });
+      }
+
+      void clearResults() {
+        setState(() {
+          diceResults.clear();
+        });
+      }
+
+      void submitResults() {
+        List<DiceRoll> myDiceResults = List.from(diceResults);
+
+        if (diceResults.isNotEmpty) {
+          appState.addRoll(
+            RollEntryItem(isFavourite: false, result: myDiceResults),
+          );
+          clearResults();
+        }
+      }
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           appState.useJournal
-              ? Journal(items: appState.campaignData!.journal)
+              // ADD TEMP DICE ROLL ENTRY HERE
+              ? Journal(
+                  items: appState.campaignData!.journal,
+                  diceRoll: diceResults,
+                  addDice: addResult,
+                  submitDice: submitResults,
+                  clearDice: clearResults,
+                )
               : const SizedBox.shrink(),
           Expanded(
             flex: 1,
@@ -105,6 +138,24 @@ class _JournalViewState extends State<JournalView> {
                       type: type,
                     ))
                   : const SizedBox.shrink(),
+
+              const Gap(),
+
+              DiceCollection(
+                diceSet:
+                    appState.campaignData?.settings.general.useZocchiDice ==
+                            true
+                        ? all
+                        : regularDice,
+                appState: appState,
+                onPressed: addResult,
+                // onSubmit: submitResults,
+                // onClear: clearResults,
+              ),
+
+              const Gap(),
+
+              const Text('Mythic GME'),
 
               FateQuestion(
                 callback: (ReturnObject returnObject) {
@@ -124,77 +175,103 @@ class _JournalViewState extends State<JournalView> {
                 },
               ),
 
-              ListButton(
-                  label: 'Test Your Expected Scene',
-                  onPressed: () {
-                    ReturnObject test = testScene(context);
+              Wrap(
+                spacing: 10.0,
+                children: [
+                  ListButton(
+                      label: 'Test Your Expected Scene',
+                      onPressed: () {
+                        ReturnObject test = testScene(context);
 
-                    // For Bubble
-                    setState(() {
-                      line1 = test.line1;
-                      line2 = test.line2;
-                      line3 = test.line3;
-                    });
+                        // For Bubble
+                        setState(() {
+                          line1 = test.line1;
+                          line2 = test.line2;
+                          line3 = test.line3;
+                        });
 
-                    appState.addOracleEntry(
-                      OracleEntry(
-                        isFavourite: false,
-                        lines: test,
-                      ),
-                    );
-                  }),
+                        appState.addOracleEntry(
+                          OracleEntry(
+                            isFavourite: false,
+                            lines: test,
+                          ),
+                        );
+                      }),
+                  ListButton(
+                    label: 'Mythic Action',
+                    onPressed: () {
+                      getRandomResult(
+                        appState: appState,
+                        label: 'Mythic Action',
+                        jsonPath: 'mythic/mythic_action.json',
+                        table1: 'table1',
+                        table2: 'table2',
+                        onResult: (appState, result, label) {
+                          updateState(result);
+                          appState.addMythicEntry(
+                            MythicEntry(
+                              isFavourite: false,
+                              lines: result,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  ListButton(
+                    label: 'Mythic Description',
+                    onPressed: () {
+                      getRandomResult(
+                        appState: appState,
+                        label: 'Mythic Description',
+                        jsonPath: 'mythic/mythic_description.json',
+                        table1: 'table1',
+                        table2: 'table2',
+                        onResult: (appState, result, label) {
+                          updateState(result);
+                          appState.addMythicEntry(
+                            MythicEntry(
+                              isFavourite: false,
+                              lines: result,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  ListButton(
+                    label: 'Event Focus',
+                    onPressed: () {
+                      getEventFocus(appState);
+                    },
+                  ),
+                  ListButton(
+                    label: 'Plot Twist',
+                    onPressed: () {
+                      getRandomResult(
+                        appState: appState,
+                        label: 'Mythic - Plot Twist',
+                        jsonPath: 'mythic_elements/plot_twist.json',
+                        table1: 'table',
+                        table2: 'table',
+                        onResult: (appState, result, label) {
+                          updateState(result);
+                          appState.addOracleEntry(
+                            OracleEntry(
+                              isFavourite: false,
+                              lines: result,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+
               // const MarkdownBlock(
               //   newString: '# hello\n*hello* hello\n- hello',
               // ),
-
-              ListButton(
-                label: 'Mythic Action',
-                onPressed: () {
-                  getRandomResult(
-                    appState: appState,
-                    label: 'Mythic Action',
-                    jsonPath: 'mythic/mythic_action.json',
-                    table1: 'table1',
-                    table2: 'table2',
-                    onResult: (appState, result, label) {
-                      updateState(result);
-                      appState.addMythicEntry(
-                        MythicEntry(
-                          isFavourite: false,
-                          lines: result,
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-              ListButton(
-                label: 'Mythic Description',
-                onPressed: () {
-                  getRandomResult(
-                    appState: appState,
-                    label: 'Mythic Description',
-                    jsonPath: 'mythic/mythic_description.json',
-                    table1: 'table1',
-                    table2: 'table2',
-                    onResult: (appState, result, label) {
-                      updateState(result);
-                      appState.addMythicEntry(
-                        MythicEntry(
-                          isFavourite: false,
-                          lines: result,
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-              ListButton(
-                label: 'Event Focus',
-                onPressed: () {
-                  getEventFocus(appState);
-                },
-              ),
               // TODO: Replace this with menuSpacer or other way round
               const Gap(),
               if (showFutureFeatures)
@@ -211,27 +288,7 @@ class _JournalViewState extends State<JournalView> {
                     appState.toggleShowPopup(PopupLabels.endScene);
                   },
                 ),
-              ListButton(
-                label: 'Plot Twist',
-                onPressed: () {
-                  getRandomResult(
-                    appState: appState,
-                    label: 'Mythic - Plot Twist',
-                    jsonPath: 'mythic_elements/plot_twist.json',
-                    table1: 'table',
-                    table2: 'table',
-                    onResult: (appState, result, label) {
-                      updateState(result);
-                      appState.addOracleEntry(
-                        OracleEntry(
-                          isFavourite: false,
-                          lines: result,
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+
               // combat,
               // social,
               // exploration,

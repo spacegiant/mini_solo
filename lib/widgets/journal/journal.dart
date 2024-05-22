@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/journal/entryWidgets/dialogue_entry_widget.dar
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import '../../views/dice/dice_glyph.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
 import 'entryWidgets/roll_entry_widget.dart';
@@ -62,9 +63,17 @@ class Journal extends StatelessWidget {
   const Journal({
     super.key,
     required this.items,
+    this.diceRoll,
+    required this.addDice,
+    required this.submitDice,
+    required this.clearDice,
   });
 
   final List<JournalEntryItem> items;
+  final List<DiceRoll>? diceRoll;
+  final Function(DiceRoll) addDice;
+  final Function() submitDice;
+  final Function() clearDice;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +83,11 @@ class Journal extends StatelessWidget {
             appState.campaignData!.settings.general.showFutureSettings;
         List<Widget> entries = getEntries(appState);
         return GestureDetector(
+          onTap: () {
+            print('enter text');
+            // Callback to push data to journal
+            // open popup with cb
+          },
           onLongPress: () {
             appState.toggleShowPopup(PopupLabels.fullJournal);
           },
@@ -94,6 +108,35 @@ class Journal extends StatelessWidget {
                         const JournalStartEntry(),
                         ...entries,
                         const JournalEndGlyphs(),
+                        if (diceRoll!.isNotEmpty)
+                          GestureDetector(
+                            onTap: () {
+                              submitDice();
+                            },
+                            onLongPress: () {
+                              clearDice();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Wrap(
+                                    children: [
+                                      ...diceRoll!.map<Widget>(
+                                        (roll) => DiceGlyph(
+                                          rolledValue: roll.result,
+                                          dieType: roll.diceType,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Text(
+                                      'Press to submit, Long Hold to clear')
+                                ],
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

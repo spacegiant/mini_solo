@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
@@ -158,13 +159,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SettingsHeading(label: 'General settings'),
-              SettingsOption(
-                isActive: appState.campaignData!.settings.general.useZocchiDice,
-                label: 'Use Zocchi Dice',
-                onChanged: (isChecked) {
-                  appState.toggleUseZocchiDice();
-                },
-              ),
+              if (kDebugMode)
+                DestructiveDeleteCurrentCampaign(
+                  appState: appState,
+                ),
               SettingsOption(
                 isActive:
                     appState.campaignData!.settings.general.showFutureSettings,
@@ -200,6 +198,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               ),
               const SettingsHeading(label: 'Dice'),
               const Text('Choose which dice you want shown'),
+              SettingsOption(
+                isActive: appState.campaignData!.settings.general.useZocchiDice,
+                label: 'Use Zocchi Dice',
+                onChanged: (isChecked) {
+                  appState.toggleUseZocchiDice();
+                },
+              ),
               const SettingsHeading(label: 'Theme'),
               const Text('Light/Dark/Match OS'),
               const Text('Fantasy/Scifi/Modern Theme?')
@@ -207,6 +212,32 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           ),
         );
       },
+    );
+  }
+}
+
+class DestructiveDeleteCurrentCampaign extends StatelessWidget {
+  const DestructiveDeleteCurrentCampaign({
+    super.key,
+    required this.appState,
+  });
+
+  final AppState appState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onLongPress: () {
+          String? campaignFilename = appState.campaignData?.filename;
+          appState.deleteCampaign(campaignFilename);
+        },
+        child: Container(
+            color: CupertinoColors.destructiveRed,
+            padding: const EdgeInsets.all(10.0),
+            child: const Text('Hold to delete current campaign')),
+      ),
     );
   }
 }
