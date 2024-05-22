@@ -123,6 +123,9 @@ class _JournalViewState extends State<JournalView> {
               ? Journal(
                   items: appState.campaignData!.journal,
                   diceRoll: diceResults,
+                  addDice: addResult,
+                  submitDice: submitResults,
+                  clearDice: clearResults,
                 )
               : const SizedBox.shrink(),
           Expanded(

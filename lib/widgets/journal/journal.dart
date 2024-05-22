@@ -64,10 +64,16 @@ class Journal extends StatelessWidget {
     super.key,
     required this.items,
     this.diceRoll,
+    required this.addDice,
+    required this.submitDice,
+    required this.clearDice,
   });
 
   final List<JournalEntryItem> items;
   final List<DiceRoll>? diceRoll;
+  final Function(DiceRoll) addDice;
+  final Function() submitDice;
+  final Function() clearDice;
 
   @override
   Widget build(BuildContext context) {
@@ -98,15 +104,23 @@ class Journal extends StatelessWidget {
                         ...entries,
                         const JournalEndGlyphs(),
                         if (diceRoll!.isNotEmpty)
-                          Wrap(
-                            children: [
-                              ...diceRoll!.map<Widget>(
-                                (roll) => DiceGlyph(
-                                  rolledValue: roll.result,
-                                  dieType: roll.diceType,
+                          GestureDetector(
+                            onTap: () {
+                              submitDice();
+                            },
+                            onLongPress: () {
+                              clearDice();
+                            },
+                            child: Wrap(
+                              children: [
+                                ...diceRoll!.map<Widget>(
+                                  (roll) => DiceGlyph(
+                                    rolledValue: roll.result,
+                                    dieType: roll.diceType,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                       ],
                     ),
