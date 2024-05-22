@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 
-import 'generic_entry_item.dart';
+import 'note_entry_item.dart';
 
 enum PopupLabels {
   addJournalEntry,
@@ -264,13 +264,13 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void addGenericEntity(GenericEntryItem genericEntryItem) {
-    _campaignData?.generic.add(genericEntryItem);
+  void addNoteItem(NoteEntryItem noteEntryItem) {
+    _campaignData?.notes.add(noteEntryItem);
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
-        type: genericEntryItem.type,
-        id: genericEntryItem.id,
+        type: noteEntryItem.type,
+        id: noteEntryItem.id,
       ),
     );
   }

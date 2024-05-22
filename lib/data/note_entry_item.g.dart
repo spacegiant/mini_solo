@@ -1,27 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'generic_entry_item.dart';
+part of 'note_entry_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GenericEntryItem _$GenericEntryItemFromJson(Map<String, dynamic> json) =>
-    GenericEntryItem(
+NoteEntryItem _$NoteEntryItemFromJson(Map<String, dynamic> json) =>
+    NoteEntryItem(
       isFavourite: json['isFavourite'] as bool?,
-      title: json['title'] as String,
-      label: json['label'] as String?,
-      detail: json['detail'] as String?,
+      detail: json['detail'] as String,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
 
-Map<String, dynamic> _$GenericEntryItemToJson(GenericEntryItem instance) =>
+Map<String, dynamic> _$NoteEntryItemToJson(NoteEntryItem instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,
-      'label': instance.label,
-      'title': instance.title,
       'detail': instance.detail,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
@@ -29,7 +25,6 @@ Map<String, dynamic> _$GenericEntryItemToJson(GenericEntryItem instance) =>
 const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.action: 'action',
   JournalEntryTypes.chaosFactor: 'chaosFactor',
-  JournalEntryTypes.dialogue: 'dialogue',
   JournalEntryTypes.fateCheck: 'fateCheck',
   JournalEntryTypes.mythic: 'mythic',
   JournalEntryTypes.newClue: 'newClue',
