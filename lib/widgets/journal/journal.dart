@@ -113,36 +113,7 @@ class _JournalState extends State<Journal> {
                         ...entries,
                         const JournalEndGlyphs(),
                         if (widget.diceRoll!.isNotEmpty)
-                          GestureDetector(
-                            onTap: () {
-                              widget.submitDice();
-                            },
-                            onLongPress: () {
-                              widget.clearDice();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Wrap(
-                                    children: [
-                                      ...widget.diceRoll!.map<Widget>(
-                                        (roll) => DiceGlyph(
-                                          rolledValue: roll.result.label ??
-                                              roll.result.rolledValue
-                                                  .toString(),
-                                          dieType: roll.diceType,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Text(
-                                      'Press to submit, Long Hold to clear')
-                                ],
-                              ),
-                            ),
-                          ),
+                          TempDiceDisplay(widget: widget),
                       ],
                     ),
                   ),
@@ -153,6 +124,47 @@ class _JournalState extends State<Journal> {
           ),
         );
       },
+    );
+  }
+}
+
+class TempDiceDisplay extends StatelessWidget {
+  const TempDiceDisplay({
+    super.key,
+    required this.widget,
+  });
+
+  final Journal widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        widget.submitDice();
+      },
+      onLongPress: () {
+        widget.clearDice();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              children: [
+                ...widget.diceRoll!.map<Widget>(
+                  (roll) => DiceGlyph(
+                    rolledValue:
+                        roll.result.label ?? roll.result.rolledValue.toString(),
+                    dieType: roll.diceType,
+                  ),
+                ),
+              ],
+            ),
+            const Text('Press to submit, Long Hold to clear')
+          ],
+        ),
+      ),
     );
   }
 }
