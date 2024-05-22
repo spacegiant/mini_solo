@@ -82,14 +82,12 @@ class Journal extends StatefulWidget {
 class _JournalState extends State<Journal> {
   bool showInput = false;
 
-  final TextEditingController _controller = TextEditingController();
+  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
-      _controller.text = _controller.text.trim();
-    });
+    _controller = TextEditingController();
   }
 
   @override
