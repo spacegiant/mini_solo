@@ -158,10 +158,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SettingsHeading(label: 'General settings'),
-              if (kDebugMode)
-                DestructiveDeleteCurrentCampaign(
-                  appState: appState,
-                ),
+              // if (kDebugMode)
+              DestructiveDeleteCurrentCampaign(
+                appState: appState,
+              ),
               SettingsOption(
                 isActive:
                     appState.campaignData!.settings.general.showFutureSettings,
