@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/journal/entryWidgets/dialogue_entry_widget.dar
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import '../../views/dice/dice_glyph.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
 import 'entryWidgets/roll_entry_widget.dart';
@@ -62,9 +63,11 @@ class Journal extends StatelessWidget {
   const Journal({
     super.key,
     required this.items,
+    this.diceRoll,
   });
 
   final List<JournalEntryItem> items;
+  final List<DiceRoll>? diceRoll;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +97,17 @@ class Journal extends StatelessWidget {
                         const JournalStartEntry(),
                         ...entries,
                         const JournalEndGlyphs(),
+                        if (diceRoll!.isNotEmpty)
+                          Wrap(
+                            children: [
+                              ...diceRoll!.map<Widget>(
+                                (roll) => DiceGlyph(
+                                  rolledValue: roll.result,
+                                  dieType: roll.diceType,
+                                ),
+                              ),
+                            ],
+                          ),
                       ],
                     ),
                   ),

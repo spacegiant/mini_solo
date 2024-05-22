@@ -13,6 +13,8 @@ import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import '../widgets/speech_bubble/bubble_text.dart';
 import '../widgets/speech_bubble/speech_bubble.dart';
+import 'dice/dice_collection.dart';
+import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
 
 enum SceneState {
@@ -52,6 +54,7 @@ class _JournalViewState extends State<JournalView> {
   String? line2;
   String? line3;
   String type = '...';
+  List<DiceRoll> diceResults = [];
 
   void updateState(ReturnObject result) {
     setState(() {
@@ -88,12 +91,39 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
+      void addResult(DiceRoll result) {
+        setState(() {
+          diceResults.add(result);
+        });
+      }
+
+      void clearResults() {
+        setState(() {
+          diceResults.clear();
+        });
+      }
+
+      void submitResults() {
+        List<DiceRoll> myDiceResults = List.from(diceResults);
+
+        if (diceResults.isNotEmpty) {
+          appState.addRoll(
+            RollEntryItem(isFavourite: false, result: myDiceResults),
+          );
+          clearResults();
+        }
+      }
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           appState.useJournal
-              ? Journal(items: appState.campaignData!.journal)
+              // ADD TEMP DICE ROLL ENTRY HERE
+              ? Journal(
+                  items: appState.campaignData!.journal,
+                  diceRoll: diceResults,
+                )
               : const SizedBox.shrink(),
           Expanded(
             flex: 1,
@@ -122,6 +152,18 @@ class _JournalViewState extends State<JournalView> {
                     ),
                   );
                 },
+              ),
+
+              DiceCollection(
+                diceSet:
+                    appState.campaignData?.settings.general.useZocchiDice ==
+                            true
+                        ? all
+                        : regularDice,
+                appState: appState,
+                onPressed: addResult,
+                onSubmit: submitResults,
+                onClear: clearResults,
               ),
 
               ListButton(
