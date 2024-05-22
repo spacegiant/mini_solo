@@ -139,6 +139,8 @@ class _JournalViewState extends State<JournalView> {
                     ))
                   : const SizedBox.shrink(),
 
+              const Gap(),
+
               DiceCollection(
                 diceSet:
                     appState.campaignData?.settings.general.useZocchiDice ==
@@ -150,6 +152,8 @@ class _JournalViewState extends State<JournalView> {
                 onSubmit: submitResults,
                 onClear: clearResults,
               ),
+
+              const Gap(),
 
               const Text('Mythic GME'),
 
