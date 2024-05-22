@@ -199,6 +199,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               const SettingsHeading(label: 'Dice'),
               const Text('Choose which dice you want shown'),
               SettingsOption(
+                isActive: appState.campaignData!.settings.general.useFateDice,
+                label: 'Use Fate Dice',
+                onChanged: (isChecked) {
+                  appState.toggleUseFateDice();
+                },
+              ),
+              SettingsOption(
                 isActive: appState.campaignData!.settings.general.useZocchiDice,
                 label: 'Use Zocchi Dice',
                 onChanged: (isChecked) {

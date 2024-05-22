@@ -71,7 +71,7 @@ class Journal extends StatelessWidget {
 
   final List<JournalEntryItem> items;
   final List<DiceRoll>? diceRoll;
-  final Function(DiceRoll) addDice;
+  final Function(List<DiceRoll>) addDice;
   final Function() submitDice;
   final Function() clearDice;
 
@@ -125,7 +125,9 @@ class Journal extends StatelessWidget {
                                     children: [
                                       ...diceRoll!.map<Widget>(
                                         (roll) => DiceGlyph(
-                                          rolledValue: roll.result,
+                                          rolledValue: roll.result.label ??
+                                              roll.result.rolledValue
+                                                  .toString(),
                                           dieType: roll.diceType,
                                         ),
                                       ),

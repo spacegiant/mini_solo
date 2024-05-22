@@ -7,7 +7,7 @@ class DiceGlyph extends StatelessWidget {
     required this.dieType,
   });
 
-  final int rolledValue;
+  final String rolledValue;
   final String dieType;
 
   @override

@@ -17,7 +17,7 @@ class DiceCollection extends StatelessWidget {
   });
 
   final DiceSet diceSet;
-  final void Function(DiceRoll) onPressed;
+  final void Function(List<DiceRoll>) onPressed;
   // final void Function() onSubmit;
   // final void Function() onClear;
   final AppState appState;
@@ -32,29 +32,14 @@ class DiceCollection extends StatelessWidget {
               : CupertinoColors.systemPink,
         ));
 
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-          border: Border.all(
-            width: 3.0,
-            color: CupertinoColors.systemRed,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(10.0))),
-      child: Column(
-        children: [
-          Text(diceSet.label),
-          const Gap(),
-          Wrap(
-            runSpacing: 8.0,
-            spacing: 8.0,
-            children: [
-              ...diceButtons,
-              // SubmitButton(onSubmit: onSubmit),
-              // ClearButton(onClear: onClear),
-            ],
-          ),
-        ],
-      ),
+    return Wrap(
+      runSpacing: 8.0,
+      spacing: 8.0,
+      children: [
+        ...diceButtons,
+        // SubmitButton(onSubmit: onSubmit),
+        // ClearButton(onClear: onClear),
+      ],
     );
   }
 }

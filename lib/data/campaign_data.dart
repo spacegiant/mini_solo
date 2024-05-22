@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
+import 'package:mini_solo/views/dice/dice.dart';
 import 'campaign_item.dart';
 import 'generic_entry_item.dart';
 
@@ -94,11 +95,13 @@ class GeneralSettingsData {
   late bool showFutureSettings;
   late bool useJournal;
   late bool useZocchiDice;
+  late bool useFateDice;
 
   GeneralSettingsData({
     required this.showFutureSettings,
     required this.useJournal,
     required this.useZocchiDice,
+    required this.useFateDice,
   });
 // coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -181,6 +184,7 @@ CampaignData initCampaignDataData(String campaignName) {
         showFutureSettings: false,
         useJournal: true,
         useZocchiDice: false,
+        useFateDice: false,
       ),
     ),
     things: [],
@@ -359,8 +363,27 @@ class Creature extends CampaignItem {
 }
 
 @JsonSerializable()
+class BothResults {
+  final int rolledValue;
+  final String? label;
+
+  BothResults({
+    required this.rolledValue,
+    this.label,
+  });
+
+  // coverage:ignore-start
+  factory BothResults.fromJson(Map<String, dynamic> json) =>
+      _$BothResultsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BothResultsToJson(this);
+
+// coverage:ignore-end
+}
+
+@JsonSerializable()
 class DiceRoll {
-  int result;
+  BothResults result;
   String diceType;
 
   DiceRoll({
