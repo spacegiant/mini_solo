@@ -29,7 +29,7 @@ List<Widget> getEntries(AppState appState) {
           journalEntry: element,
         ));
       case JournalEntryTypes.newScene:
-        journalEntries.add(const Text('newScene'));
+        journalEntries.add(const NewSceneEntryWidget());
       case JournalEntryTypes.newClue:
         journalEntries.add(const Text('newClue'));
       case JournalEntryTypes.newCreature:
@@ -56,9 +56,33 @@ List<Widget> getEntries(AppState appState) {
       default:
         continue;
     }
-    journalEntries.add(Divider(color: dividerColor));
+    if (element.type != JournalEntryTypes.newScene) {
+      journalEntries.add(Divider(color: dividerColor));
+    }
   }
   return journalEntries;
+}
+
+class NewSceneEntryWidget extends StatelessWidget {
+  const NewSceneEntryWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: Colors.black.withOpacity(0.5),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'New Scene',
+            style: TextStyle(
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ));
+  }
 }
 
 class Journal extends StatefulWidget {

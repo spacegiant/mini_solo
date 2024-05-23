@@ -202,6 +202,17 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // NOTE: This just adds a marker for a new scene.
+  void addNewScene() {
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: JournalEntryTypes.newScene,
+        id: 'new scene marker',
+      ),
+    );
+  }
+
   void addPerson(Person person) {
     _campaignData?.people.add(person);
     addJournalEntry(

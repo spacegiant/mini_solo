@@ -6,18 +6,21 @@ class ListButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.labelAlignment = Alignment.centerLeft,
+    this.color,
   });
 
   final String label;
   final Function() onPressed;
   final AlignmentGeometry? labelAlignment;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    Color buttonColor = color ?? CupertinoColors.systemPink;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: CupertinoButton(
-        color: CupertinoColors.systemPink,
+        color: buttonColor,
         onPressed: onPressed,
         alignment: labelAlignment!,
         padding: const EdgeInsets.symmetric(
