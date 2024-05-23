@@ -17,18 +17,18 @@ class MythicEntryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     MythicEntry entry = appState.campaignData!.mythic
         .firstWhere((entry) => entry.id == journalEntry.id);
-    String line1 = entry.lines.line1;
+    String? line1 = entry.lines.line1;
     String? line2 = entry.lines.line2;
-    String? line3 = entry.lines.line3;
+    String? result = entry.lines.result;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(line1),
+          if (line1 != null) Text(line1),
           if (line2 != null) Text(line2),
-          if (line3 != null) Text(line3),
+          Text(result),
         ],
       ),
     );

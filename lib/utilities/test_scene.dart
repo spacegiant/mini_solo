@@ -13,20 +13,20 @@ ReturnObject testScene(BuildContext context) {
   if (d10 > chaosFactor) {
     return ReturnObject(
       line1: 'Expected',
-      line3: 'd10 roll = $d10 > CF $chaosFactor',
+      result: 'd10 roll = $d10 > CF $chaosFactor',
       type: 'test',
     );
   }
   if (d10.isEven) {
     return ReturnObject(
       line1: 'Altered',
-      line3: 'd10 roll = $d10 (Odd) < CF $chaosFactor',
+      result: 'd10 roll = $d10 (Odd) < CF $chaosFactor',
       type: 'test',
     );
   } else {
     return ReturnObject(
       line1: 'Interrupt',
-      line3: 'd10 roll = $d10 (Even) < CF $chaosFactor',
+      result: 'd10 roll = $d10 (Even) < CF $chaosFactor',
       type: 'test',
     );
   }

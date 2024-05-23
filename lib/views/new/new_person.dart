@@ -38,7 +38,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
 
   void updateState(ReturnObject result) {
     setState(() {
-      line1 = result.line1;
+      line1 = result.line1!;
       line2 = result.line2;
       line3 = null;
       type = result.type;

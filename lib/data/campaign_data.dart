@@ -51,15 +51,15 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
 @JsonSerializable()
 class ReturnObject {
   late String type;
-  late String line1;
+  late String? line1;
   late String? line2;
-  late String? line3;
+  late String result;
 
   ReturnObject({
     required this.type,
-    required this.line1,
+    this.line1,
     this.line2,
-    this.line3,
+    required this.result,
   });
 
   // coverage:ignore-start

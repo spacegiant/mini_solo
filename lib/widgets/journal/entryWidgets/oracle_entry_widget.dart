@@ -19,9 +19,9 @@ class OracleEntryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     OracleEntry entry = appState.campaignData!.oracle
         .firstWhere((entry) => entry.id == journalEntry.id);
-    String line1 = entry.lines.line1;
+    String? line1 = entry.lines.line1;
     String? line2 = entry.lines.line2;
-    String? resultText = entry.lines.line3;
+    String? resultText = entry.lines.result;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

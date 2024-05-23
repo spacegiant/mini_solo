@@ -52,7 +52,7 @@ class JournalView extends StatefulWidget {
 }
 
 class _JournalViewState extends State<JournalView> {
-  String line1 = '...';
+  String? line1;
   String? line2;
   String? line3;
   String type = '...';
@@ -79,7 +79,7 @@ class _JournalViewState extends State<JournalView> {
         MythicEntry(
           isFavourite: false,
           lines: ReturnObject(
-            line1: text,
+            result: text,
             type: 'mythic',
           ),
         ),
@@ -174,9 +174,9 @@ class _JournalViewState extends State<JournalView> {
                 callback: (ReturnObject returnObject) {
                   // For Bubble
                   setState(() {
-                    line1 = returnObject.line1;
+                    line1 = returnObject.line1!;
                     line2 = returnObject.line2;
-                    line3 = returnObject.line3;
+                    line3 = returnObject.result;
                   });
 
                   appState.addOracleEntry(
@@ -198,9 +198,9 @@ class _JournalViewState extends State<JournalView> {
 
                         // For Bubble
                         setState(() {
-                          line1 = test.line1;
+                          line1 = test.line1!;
                           line2 = test.line2;
-                          line3 = test.line3;
+                          line3 = test.result;
                         });
 
                         appState.addOracleEntry(

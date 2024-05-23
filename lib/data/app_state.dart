@@ -93,7 +93,7 @@ class AppState extends ChangeNotifier {
         lines: ReturnObject(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
-          line2: 'UP to $newValue',
+          result: 'UP to $newValue',
         ),
       ));
     }
@@ -109,7 +109,7 @@ class AppState extends ChangeNotifier {
         lines: ReturnObject(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
-          line2: 'DOWN to $newValue',
+          result: 'DOWN to $newValue',
         ),
       ));
     }
@@ -123,7 +123,7 @@ class AppState extends ChangeNotifier {
       lines: ReturnObject(
         type: 'chaosFactor',
         line1: 'Chaos Factor',
-        line2: 'RESET to 5',
+        result: 'RESET to 5',
       ),
     ));
   }

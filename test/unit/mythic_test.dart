@@ -9,7 +9,7 @@ void main() {
         type: 'mythic',
         line1: 'line 1',
         line2: 'line 2',
-        line3: 'line 3',
+        result: 'line 3',
       ),
     );
 

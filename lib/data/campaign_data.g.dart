@@ -8,9 +8,9 @@ part of 'campaign_data.dart';
 
 ReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) => ReturnObject(
       type: json['type'] as String,
-      line1: json['line1'] as String,
+      line1: json['line1'] as String?,
       line2: json['line2'] as String?,
-      line3: json['line3'] as String?,
+      result: json['result'] as String,
     );
 
 Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
@@ -18,7 +18,7 @@ Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
       'type': instance.type,
       'line1': instance.line1,
       'line2': instance.line2,
-      'line3': instance.line3,
+      'result': instance.result,
     };
 
 SettingsData _$SettingsDataFromJson(Map<String, dynamic> json) => SettingsData(
