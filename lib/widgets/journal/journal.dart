@@ -103,6 +103,21 @@ class _JournalState extends State<Journal> {
         bool showFutureFeatures =
             appState.campaignData!.settings.general.showFutureSettings;
         List<Widget> entries = getEntries(appState);
+
+        onInputSubmit() {
+          if (_controller.text.characters.isNotEmpty) {
+            NoteEntryItem entry = NoteEntryItem(
+              isFavourite: false,
+              detail: _controller.text.trim(),
+            );
+            appState.addNoteItem(entry);
+
+            setState(() {
+              _controller.clear();
+            });
+          }
+        }
+
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -151,23 +166,9 @@ class _JournalState extends State<Journal> {
                                   bottom: 0.0,
                                   child: CupertinoButton(
                                       padding: const EdgeInsets.all(0.0),
+                                      onPressed: onInputSubmit,
                                       child: const Icon(
-                                          CupertinoIcons.add_circled_solid),
-                                      onPressed: () {
-                                        if (_controller
-                                            .text.characters.isNotEmpty) {
-                                          // Send to Journal
-                                          NoteEntryItem entry = NoteEntryItem(
-                                            isFavourite: false,
-                                            detail: _controller.text.trim(),
-                                          );
-                                          appState.addNoteItem(entry);
-
-                                          setState(() {
-                                            _controller.clear();
-                                          });
-                                        }
-                                      }))
+                                          CupertinoIcons.add_circled_solid)))
                             ],
                           )
                       ],
