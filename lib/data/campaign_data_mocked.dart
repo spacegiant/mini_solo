@@ -9,6 +9,7 @@ CampaignData sampleCampaignData() {
         useJournal: true,
         useZocchiDice: false,
         useFateDice: false,
+        wrapControls: true,
       ),
     ),
     mythicData: MythicData(
