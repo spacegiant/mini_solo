@@ -200,6 +200,13 @@ class _JournalViewState extends State<JournalView> {
                 spacing: 10.0,
                 children: [
                   ListButton(
+                    label: 'New Scene',
+                    color: Colors.black,
+                    onPressed: () {
+                      appState.addNewScene();
+                    },
+                  ),
+                  ListButton(
                       label: 'Test Your Expected Scene',
                       onPressed: () {
                         ReturnObject test = testScene(context);
