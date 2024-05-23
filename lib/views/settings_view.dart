@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
@@ -158,10 +157,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SettingsHeading(label: 'General settings'),
-              if (kDebugMode)
-                DestructiveDeleteCurrentCampaign(
-                  appState: appState,
-                ),
+              // if (kDebugMode)
+              DestructiveDeleteCurrentCampaign(
+                appState: appState,
+              ),
               SettingsOption(
                 isActive:
                     appState.campaignData!.settings.general.showFutureSettings,

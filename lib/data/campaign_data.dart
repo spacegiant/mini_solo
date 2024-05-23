@@ -51,15 +51,15 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
 @JsonSerializable()
 class ReturnObject {
   late String type;
-  late String line1;
+  late String? line1;
   late String? line2;
-  late String? line3;
+  late String result;
 
   ReturnObject({
     required this.type,
-    required this.line1,
+    this.line1,
     this.line2,
-    this.line3,
+    required this.result,
   });
 
   // coverage:ignore-start
@@ -394,10 +394,12 @@ class DiceRoll {
 @JsonSerializable()
 class RollEntryItem extends CampaignItem {
   List<DiceRoll> result;
+  String label;
 
   RollEntryItem({
     required super.isFavourite,
     required this.result,
+    this.label = 'Dice Roll',
   });
 // coverage:ignore-start
   factory RollEntryItem.fromJson(Map<String, dynamic> json) =>
@@ -413,10 +415,12 @@ class RollEntryItem extends CampaignItem {
 @JsonSerializable()
 class OracleEntry extends CampaignItem {
   ReturnObject lines;
+  String label;
 
   OracleEntry({
     required super.isFavourite,
     required this.lines,
+    required this.label,
   });
 // coverage:ignore-start
   factory OracleEntry.fromJson(Map<String, dynamic> json) =>
@@ -432,10 +436,12 @@ class OracleEntry extends CampaignItem {
 @JsonSerializable()
 class MythicEntry extends CampaignItem {
   ReturnObject lines;
+  String label;
 
   MythicEntry({
     required super.isFavourite,
     required this.lines,
+    required this.label,
   });
 // coverage:ignore-start
   factory MythicEntry.fromJson(Map<String, dynamic> json) =>

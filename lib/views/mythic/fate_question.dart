@@ -75,7 +75,7 @@ class FateQuestion extends StatelessWidget {
                             line1:
                                 'FateChart (Chaos Factor ${appState.chaosFactor})',
                             line2: 'd100 → $random',
-                            line3: 'Oracles says $answer');
+                            result: 'Oracles says $answer');
                         callback(result);
                       },
                     ),

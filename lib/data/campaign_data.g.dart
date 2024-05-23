@@ -8,9 +8,9 @@ part of 'campaign_data.dart';
 
 ReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) => ReturnObject(
       type: json['type'] as String,
-      line1: json['line1'] as String,
+      line1: json['line1'] as String?,
       line2: json['line2'] as String?,
-      line3: json['line3'] as String?,
+      result: json['result'] as String,
     );
 
 Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
@@ -18,7 +18,7 @@ Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
       'type': instance.type,
       'line1': instance.line1,
       'line2': instance.line2,
-      'line3': instance.line3,
+      'result': instance.result,
     };
 
 SettingsData _$SettingsDataFromJson(Map<String, dynamic> json) => SettingsData(
@@ -286,6 +286,7 @@ RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
       result: (json['result'] as List<dynamic>)
           .map((e) => DiceRoll.fromJson(e as Map<String, dynamic>))
           .toList(),
+      label: json['label'] as String? ?? 'Dice Roll',
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -295,12 +296,14 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'result': instance.result,
+      'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
 OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
       isFavourite: json['isFavourite'] as bool?,
       lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      label: json['label'] as String,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -310,12 +313,14 @@ Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'lines': instance.lines,
+      'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
 MythicEntry _$MythicEntryFromJson(Map<String, dynamic> json) => MythicEntry(
       isFavourite: json['isFavourite'] as bool?,
       lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      label: json['label'] as String,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -325,5 +330,6 @@ Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'lines': instance.lines,
+      'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -52,7 +51,7 @@ class JournalView extends StatefulWidget {
 }
 
 class _JournalViewState extends State<JournalView> {
-  String line1 = '...';
+  String? line1;
   String? line2;
   String? line3;
   String type = '...';
@@ -79,9 +78,10 @@ class _JournalViewState extends State<JournalView> {
         MythicEntry(
           isFavourite: false,
           lines: ReturnObject(
-            line1: text,
+            result: text,
             type: 'mythic',
           ),
+          label: 'Mythic Event Focus',
         ),
       );
     });
@@ -174,16 +174,16 @@ class _JournalViewState extends State<JournalView> {
                 callback: (ReturnObject returnObject) {
                   // For Bubble
                   setState(() {
-                    line1 = returnObject.line1;
+                    line1 = returnObject.line1!;
                     line2 = returnObject.line2;
-                    line3 = returnObject.line3;
+                    line3 = returnObject.result;
                   });
 
                   appState.addOracleEntry(
                     OracleEntry(
-                      isFavourite: false,
-                      lines: returnObject,
-                    ),
+                        isFavourite: false,
+                        lines: returnObject,
+                        label: 'Ask the Fate Chart'),
                   );
                 },
               ),
@@ -198,16 +198,16 @@ class _JournalViewState extends State<JournalView> {
 
                         // For Bubble
                         setState(() {
-                          line1 = test.line1;
+                          line1 = test.line1!;
                           line2 = test.line2;
-                          line3 = test.line3;
+                          line3 = test.result;
                         });
 
                         appState.addOracleEntry(
                           OracleEntry(
-                            isFavourite: false,
-                            lines: test,
-                          ),
+                              isFavourite: false,
+                              lines: test,
+                              label: 'Test Expected Scene'),
                         );
                       }),
                   ListButton(
@@ -225,6 +225,7 @@ class _JournalViewState extends State<JournalView> {
                             MythicEntry(
                               isFavourite: false,
                               lines: result,
+                              label: 'Mythic Action',
                             ),
                           );
                         },
@@ -246,6 +247,7 @@ class _JournalViewState extends State<JournalView> {
                             MythicEntry(
                               isFavourite: false,
                               lines: result,
+                              label: 'Mythic Description',
                             ),
                           );
                         },
@@ -271,9 +273,9 @@ class _JournalViewState extends State<JournalView> {
                           updateState(result);
                           appState.addOracleEntry(
                             OracleEntry(
-                              isFavourite: false,
-                              lines: result,
-                            ),
+                                isFavourite: false,
+                                lines: result,
+                                label: 'Plot Twist'),
                           );
                         },
                       );

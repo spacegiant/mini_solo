@@ -13,6 +13,7 @@ import 'entryWidgets/roll_entry_widget.dart';
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
   List<Widget> journalEntries = [];
+  Color dividerColor = Colors.black.withOpacity(0.1);
 
   if (journalItems!.isEmpty) return [const SizedBox.shrink()];
   for (var element in journalItems) {
@@ -55,6 +56,7 @@ List<Widget> getEntries(AppState appState) {
       default:
         continue;
     }
+    journalEntries.add(Divider(color: dividerColor));
   }
   return journalEntries;
 }
@@ -103,6 +105,21 @@ class _JournalState extends State<Journal> {
         bool showFutureFeatures =
             appState.campaignData!.settings.general.showFutureSettings;
         List<Widget> entries = getEntries(appState);
+
+        onInputSubmit() {
+          if (_controller.text.characters.isNotEmpty) {
+            NoteEntryItem entry = NoteEntryItem(
+              isFavourite: false,
+              detail: _controller.text.trim(),
+            );
+            appState.addNoteItem(entry);
+
+            setState(() {
+              _controller.clear();
+            });
+          }
+        }
+
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -151,23 +168,9 @@ class _JournalState extends State<Journal> {
                                   bottom: 0.0,
                                   child: CupertinoButton(
                                       padding: const EdgeInsets.all(0.0),
+                                      onPressed: onInputSubmit,
                                       child: const Icon(
-                                          CupertinoIcons.add_circled_solid),
-                                      onPressed: () {
-                                        if (_controller
-                                            .text.characters.isNotEmpty) {
-                                          // Send to Journal
-                                          NoteEntryItem entry = NoteEntryItem(
-                                            isFavourite: false,
-                                            detail: _controller.text,
-                                          );
-                                          appState.addNoteItem(entry);
-
-                                          setState(() {
-                                            _controller.clear();
-                                          });
-                                        }
-                                      }))
+                                          CupertinoIcons.add_circled_solid)))
                             ],
                           )
                       ],
@@ -212,8 +215,7 @@ class TempDiceDisplay extends StatelessWidget {
                 children: [
                   ...widget.diceRoll!.map<Widget>(
                     (roll) => DiceGlyph(
-                      rolledValue: roll.result.label ??
-                          roll.result.rolledValue.toString(),
+                      diceRoll: roll,
                       dieType: roll.diceType,
                     ),
                   ),

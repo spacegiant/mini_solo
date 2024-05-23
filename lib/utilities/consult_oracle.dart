@@ -9,8 +9,7 @@ ReturnObject consultOracle(
   String result2 = table2 != null ? consultTable(table2) : '';
 
   return ReturnObject(
-    line1: result1,
-    line2: result2,
+    result: '$result1 $result2',
     type: type,
   );
 }
