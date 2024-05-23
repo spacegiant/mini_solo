@@ -5,10 +5,12 @@ class WrapManager extends StatelessWidget {
     super.key,
     required this.wrapControls,
     required this.children,
+    this.hideDivider = false,
   });
 
   final bool wrapControls;
   final List<Widget> children;
+  final bool hideDivider;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class WrapManager extends StatelessWidget {
                 spacing: 4.0,
                 children: children,
               ),
-              const Divider(),
+              if (hideDivider != true) const Divider(),
             ],
           )
         : Padding(

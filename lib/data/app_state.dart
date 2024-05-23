@@ -26,7 +26,6 @@ class AppState extends ChangeNotifier {
   late bool _showPopup = false;
   late bool _showSettings = false;
   late bool _useJournal = true;
-  late bool _wrapContorls = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
   Function(String)? _deleteCampaignCallback;
@@ -77,7 +76,6 @@ class AppState extends ChangeNotifier {
   }
 
   void setDeleteCampaignCallback(cb) {
-    print('set delete campaign cb');
     _deleteCampaignCallback = cb;
   }
 
@@ -170,7 +168,8 @@ class AppState extends ChangeNotifier {
   // WRAP CONTROLS
 
   // ZOCCHI DICE
-  bool? get wrapControls => _campaignData?.settings.general.wrapControls;
+  bool get wrapControls =>
+      _campaignData?.settings.general.wrapControls ?? false;
 
   void toggleWrapControls() {
     _campaignData?.settings.general.wrapControls =

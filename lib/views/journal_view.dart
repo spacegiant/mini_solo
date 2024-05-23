@@ -5,6 +5,7 @@ import 'package:mini_solo/views/dice/dice_button.dart';
 import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
+import 'package:mini_solo/widgets/wrap_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
@@ -118,6 +119,14 @@ class _JournalViewState extends State<JournalView> {
         }
       }
 
+      DiceCollection generalDice = DiceCollection(
+        diceSet: appState.campaignData?.settings.general.useZocchiDice == true
+            ? all
+            : regularDice,
+        appState: appState,
+        onPressed: addResult,
+      );
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -137,37 +146,26 @@ class _JournalViewState extends State<JournalView> {
             child: ViewWrapper(children: [
               const Gap(),
 
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    if (appState.campaignData!.settings.general.useFateDice)
-                      DiceButton(
-                          color: CupertinoColors.systemOrange,
-                          dieType: fate,
-                          numberOfRolls: 4,
-                          label: '4dF',
-                          onPressed: (List<DiceRoll> result) {
-                            setState(() {
-                              diceResults.addAll(result);
-                            });
-                            // send the array to the temp dice roll
-                          }),
-                    const Gap(),
-                    DiceCollection(
-                      diceSet: appState.campaignData?.settings.general
-                                  .useZocchiDice ==
-                              true
-                          ? all
-                          : regularDice,
-                      appState: appState,
-                      onPressed: addResult,
-                    )
-                  ],
-                ),
+              WrapManager(
+                wrapControls: wrapControls,
+                hideDivider: true,
+                children: [
+                  if (appState.campaignData!.settings.general.useFateDice)
+                    DiceButton(
+                        color: CupertinoColors.systemOrange,
+                        dieType: fate,
+                        numberOfRolls: 4,
+                        label: '4dF',
+                        onPressed: (List<DiceRoll> result) {
+                          setState(() {
+                            diceResults.addAll(result);
+                          });
+                          // send the array to the temp dice roll
+                        }),
+                  const Gap(),
+                  ...generalDice.getDice(),
+                ],
               ),
-
-              const Gap(),
               const Divider(),
 
               const Text('Mythic GME'),
