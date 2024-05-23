@@ -93,6 +93,8 @@ class _JournalViewState extends State<JournalView> {
       bool showFutureFeatures =
           appState.campaignData!.settings.general.showFutureSettings;
 
+      bool wrapControls = appState.campaignData!.settings.general.wrapControls;
+
       void addResult(List<DiceRoll> result) {
         setState(() {
           diceResults.addAll(result);
@@ -186,6 +188,7 @@ class _JournalViewState extends State<JournalView> {
                         label: 'Ask the Fate Chart'),
                   );
                 },
+                wrapControls: wrapControls,
               ),
 
               Wrap(

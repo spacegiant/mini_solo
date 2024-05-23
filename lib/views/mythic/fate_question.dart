@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:provider/provider.dart';
 
@@ -34,9 +35,11 @@ class FateQuestion extends StatelessWidget {
   const FateQuestion({
     super.key,
     required this.callback,
+    required this.wrapControls,
   });
 
   final Function callback;
+  final bool wrapControls;
 
   @override
   Widget build(BuildContext context) {
@@ -44,44 +47,38 @@ class FateQuestion extends StatelessWidget {
         builder: (BuildContext context, AppState appState, Widget? child) {
       return Column(
         children: [
-          // const Padding(
-          //   padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-          //   child: Text('Fate Question'),
-          // ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: fateChart
-                  .map<Widget>(
-                    (widget) => ToolbarButton(
-                      label: widget.label,
-                      color: widget.color,
-                      onPressed: () {
-                        OddsValue row = widget.row[appState.chaosFactor - 1];
-                        int random = Random().nextInt(100) + 1;
-                        String answer;
-                        if (random > row.extremeNoValue!.toInt()) {
-                          answer = 'EXTREME NO';
-                        } else if (random < row.extremeYesValue!.toInt()) {
-                          answer = 'EXTREME YES';
-                        } else if (random <= row.yesValue.toInt()) {
-                          answer = 'YES';
-                        } else {
-                          answer = 'NO';
-                        }
+          WrapManager(
+            wrapControls: wrapControls,
+            children: fateChart
+                .map<Widget>(
+                  (widget) => ToolbarButton(
+                    label: widget.label,
+                    color: widget.color,
+                    onPressed: () {
+                      OddsValue row = widget.row[appState.chaosFactor - 1];
+                      int random = Random().nextInt(100) + 1;
+                      String answer;
+                      if (random > row.extremeNoValue!.toInt()) {
+                        answer = 'EXTREME NO';
+                      } else if (random < row.extremeYesValue!.toInt()) {
+                        answer = 'EXTREME YES';
+                      } else if (random <= row.yesValue.toInt()) {
+                        answer = 'YES';
+                      } else {
+                        answer = 'NO';
+                      }
 
-                        ReturnObject result = ReturnObject(
-                            type: 'fateChart',
-                            line1:
-                                'FateChart (Chaos Factor ${appState.chaosFactor})',
-                            line2: 'd100 → $random',
-                            result: 'Oracles says $answer');
-                        callback(result);
-                      },
-                    ),
-                  )
-                  .toList(),
-            ),
+                      ReturnObject result = ReturnObject(
+                          type: 'fateChart',
+                          line1:
+                              'FateChart (Chaos Factor ${appState.chaosFactor})',
+                          line2: 'd100 → $random',
+                          result: 'Oracles says $answer');
+                      callback(result);
+                    },
+                  ),
+                )
+                .toList(),
           ),
         ],
       );
@@ -105,8 +102,8 @@ class ToolbarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 1.0,
-        vertical: 10.0,
+        horizontal: 0.0,
+        vertical: 4.0,
       ),
       child: CupertinoButton(
         color: color,
@@ -118,6 +115,45 @@ class ToolbarButton extends StatelessWidget {
         child: Text(label),
       ),
     );
+  }
+}
+
+class WrapManager extends StatelessWidget {
+  const WrapManager({
+    super.key,
+    required this.wrapControls,
+    required this.children,
+  });
+
+  final bool wrapControls;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget widget = wrapControls == true
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                spacing: 4.0,
+                children: children,
+              ),
+              const Divider(),
+            ],
+          )
+        : Padding(
+            padding: const EdgeInsets.only(
+              bottom: 4.0,
+            ),
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Wrap(
+                  spacing: 4.0,
+                  children: children,
+                )),
+          );
+
+    return widget;
   }
 }
 

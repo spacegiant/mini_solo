@@ -26,6 +26,7 @@ class AppState extends ChangeNotifier {
   late bool _showPopup = false;
   late bool _showSettings = false;
   late bool _useJournal = true;
+  late bool _wrapContorls = true;
   CampaignData? _campaignData;
   Function(CampaignData)? _saveCallback;
   Function(String)? _deleteCampaignCallback;
@@ -166,6 +167,17 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // WRAP CONTROLS
+
+  // ZOCCHI DICE
+  bool? get wrapControls => _campaignData?.settings.general.wrapControls;
+
+  void toggleWrapControls() {
+    _campaignData?.settings.general.wrapControls =
+        !_campaignData!.settings.general.wrapControls;
+    saveCampaignDataToDisk();
+  }
+
   // ZOCCHI DICE
   bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
 
@@ -175,6 +187,7 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // FATE DICE
   bool? get useFateDice => _campaignData?.settings.general.useFateDice;
 
   void toggleUseFateDice() {

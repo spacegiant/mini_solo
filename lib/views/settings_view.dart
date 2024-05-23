@@ -170,6 +170,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 },
               ),
               SettingsOption(
+                isActive: appState.campaignData!.settings.general.wrapControls,
+                label: 'Wrap Controls',
+                onChanged: (isChecked) {
+                  appState.toggleWrapControls();
+                },
+              ),
+              SettingsOption(
                 isActive: autoCopy,
                 label: 'Copy to clipboard automatically',
                 onChanged: (isChecked) {
