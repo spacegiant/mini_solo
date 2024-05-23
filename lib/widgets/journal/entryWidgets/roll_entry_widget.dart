@@ -32,7 +32,8 @@ class RollEntryWidget extends StatelessWidget {
           children: [
             ...entry.result.map<Widget>(
               (roll) => DiceGlyph(
-                rolledValue: roll.result.rolledValue.toString(),
+                rolledValue:
+                    roll.result.label ?? roll.result.rolledValue.toString(),
                 dieType: roll.diceType,
               ),
             ),
