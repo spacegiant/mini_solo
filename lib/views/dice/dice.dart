@@ -49,5 +49,5 @@ class DiceType {
 
 List<DiceFace> createDice(int numberOfSides) {
   return List.generate(numberOfSides,
-      (index) => DiceFace(value: index, label: index.toString()));
+      (index) => DiceFace(value: index, label: (index + 1).toString()));
 }

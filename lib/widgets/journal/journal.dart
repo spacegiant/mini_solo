@@ -213,8 +213,7 @@ class TempDiceDisplay extends StatelessWidget {
                 children: [
                   ...widget.diceRoll!.map<Widget>(
                     (roll) => DiceGlyph(
-                      rolledValue: roll.result.label ??
-                          roll.result.rolledValue.toString(),
+                      diceRoll: roll,
                       dieType: roll.diceType,
                     ),
                   ),

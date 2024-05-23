@@ -1,13 +1,17 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
+
+import '../../data/campaign_data.dart';
 
 class DiceGlyph extends StatelessWidget {
   const DiceGlyph({
     super.key,
-    required this.rolledValue,
+    required this.diceRoll,
     required this.dieType,
   });
 
-  final String rolledValue;
+  final DiceRoll diceRoll;
   final String dieType;
 
   @override
@@ -27,7 +31,7 @@ class DiceGlyph extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(rolledValue.toString()),
+                Text(diceRoll.result.label!),
                 Text(
                   dieType,
                   style: const TextStyle(
