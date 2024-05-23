@@ -13,6 +13,7 @@ import 'entryWidgets/roll_entry_widget.dart';
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
   List<Widget> journalEntries = [];
+  Color dividerColor = Colors.black.withOpacity(0.1);
 
   if (journalItems!.isEmpty) return [const SizedBox.shrink()];
   for (var element in journalItems) {
@@ -55,6 +56,7 @@ List<Widget> getEntries(AppState appState) {
       default:
         continue;
     }
+    journalEntries.add(Divider(color: dividerColor));
   }
   return journalEntries;
 }
