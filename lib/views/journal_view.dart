@@ -181,9 +181,9 @@ class _JournalViewState extends State<JournalView> {
 
                   appState.addOracleEntry(
                     OracleEntry(
-                      isFavourite: false,
-                      lines: returnObject,
-                    ),
+                        isFavourite: false,
+                        lines: returnObject,
+                        label: 'Ask the Fate Chart'),
                   );
                 },
               ),
@@ -205,9 +205,9 @@ class _JournalViewState extends State<JournalView> {
 
                         appState.addOracleEntry(
                           OracleEntry(
-                            isFavourite: false,
-                            lines: test,
-                          ),
+                              isFavourite: false,
+                              lines: test,
+                              label: 'Test Expected Scene'),
                         );
                       }),
                   ListButton(
@@ -271,9 +271,9 @@ class _JournalViewState extends State<JournalView> {
                           updateState(result);
                           appState.addOracleEntry(
                             OracleEntry(
-                              isFavourite: false,
-                              lines: result,
-                            ),
+                                isFavourite: false,
+                                lines: result,
+                                label: 'Plot Twist'),
                           );
                         },
                       );

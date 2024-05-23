@@ -301,6 +301,7 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
 OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
       isFavourite: json['isFavourite'] as bool?,
       lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      label: json['label'] as String,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -310,6 +311,7 @@ Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'lines': instance.lines,
+      'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

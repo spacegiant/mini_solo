@@ -11,6 +11,7 @@ void main() {
         line2: 'line 2',
         line3: 'line 3',
       ),
+      label: 'Test label',
     );
 
     List<String> parts = item.id.split('-');

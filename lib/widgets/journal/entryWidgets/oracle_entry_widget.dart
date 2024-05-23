@@ -28,8 +28,8 @@ class OracleEntryWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const JournalEntryLabel(
-            label: 'Ask the Oracle',
+          JournalEntryLabel(
+            label: entry.label,
           ),
           JournalEntryDetail(
             details: [line1, line2],

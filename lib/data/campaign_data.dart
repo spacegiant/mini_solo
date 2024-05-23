@@ -413,10 +413,12 @@ class RollEntryItem extends CampaignItem {
 @JsonSerializable()
 class OracleEntry extends CampaignItem {
   ReturnObject lines;
+  String label;
 
   OracleEntry({
     required super.isFavourite,
     required this.lines,
+    required this.label,
   });
 // coverage:ignore-start
   factory OracleEntry.fromJson(Map<String, dynamic> json) =>
