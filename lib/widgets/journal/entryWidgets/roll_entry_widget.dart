@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
 import '../../../views/dice/dice_glyph.dart';
+import 'oracle_entry_widget.dart';
 
 class RollEntryWidget extends StatelessWidget {
   final AppState appState;
@@ -21,23 +22,26 @@ class RollEntryWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            border: Border.all(
-              color: CupertinoColors.systemIndigo,
-            )),
-        child: Wrap(
-          children: [
-            ...entry.result.map<Widget>(
-              (roll) => DiceGlyph(
-                diceRoll: roll,
-                dieType: roll.diceType,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          JournalEntryLabel(
+            label: entry.label,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: Wrap(
+              children: [
+                ...entry.result.map<Widget>(
+                  (roll) => DiceGlyph(
+                    diceRoll: roll,
+                    dieType: roll.diceType,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

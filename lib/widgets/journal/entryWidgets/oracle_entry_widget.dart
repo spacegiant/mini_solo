@@ -35,10 +35,10 @@ class OracleEntryWidget extends StatelessWidget {
             details: [line1, line2],
           ),
           JournalEntryResult(text: resultText),
-          const Gap(),
-          const Divider(
-            color: CupertinoColors.darkBackgroundGray,
-          ),
+          // const Gap(),
+          // const Divider(
+          //   color: CupertinoColors.darkBackgroundGray,
+          // ),
         ],
       ),
     );

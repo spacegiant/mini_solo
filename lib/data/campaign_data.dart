@@ -394,10 +394,12 @@ class DiceRoll {
 @JsonSerializable()
 class RollEntryItem extends CampaignItem {
   List<DiceRoll> result;
+  String label;
 
   RollEntryItem({
     required super.isFavourite,
     required this.result,
+    this.label = 'Dice Roll',
   });
 // coverage:ignore-start
   factory RollEntryItem.fromJson(Map<String, dynamic> json) =>

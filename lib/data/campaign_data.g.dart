@@ -286,6 +286,7 @@ RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
       result: (json['result'] as List<dynamic>)
           .map((e) => DiceRoll.fromJson(e as Map<String, dynamic>))
           .toList(),
+      label: json['label'] as String? ?? 'Dice Roll',
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -295,6 +296,7 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'result': instance.result,
+      'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
