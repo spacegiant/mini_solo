@@ -163,13 +163,13 @@ class _JournalViewState extends State<JournalView> {
                           });
                           // send the array to the temp dice roll
                         }),
+                    Container(
+                      width: 10.0,
+                      height: 44.0,
+                      alignment: Alignment.center,
+                      child: const Text('·'),
+                    ),
                   ],
-                  Container(
-                    width: 10.0,
-                    height: 44.0,
-                    alignment: Alignment.center,
-                    child: const Text('·'),
-                  ),
                   ...generalDice.getDice(),
                 ],
               ),
