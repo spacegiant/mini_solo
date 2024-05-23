@@ -95,6 +95,7 @@ class AppState extends ChangeNotifier {
           line1: 'Chaos Factor',
           result: 'UP to $newValue',
         ),
+        label: 'Alter Chaos Factor',
       ));
     }
   }
@@ -111,6 +112,7 @@ class AppState extends ChangeNotifier {
           line1: 'Chaos Factor',
           result: 'DOWN to $newValue',
         ),
+        label: 'Alter Chaos Factor',
       ));
     }
   }
@@ -125,6 +127,7 @@ class AppState extends ChangeNotifier {
         line1: 'Chaos Factor',
         result: 'RESET to 5',
       ),
+      label: 'Alter Chaos Factor',
     ));
   }
 

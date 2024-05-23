@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -82,6 +81,7 @@ class _JournalViewState extends State<JournalView> {
             result: text,
             type: 'mythic',
           ),
+          label: 'Mythic Event Focus',
         ),
       );
     });
@@ -225,6 +225,7 @@ class _JournalViewState extends State<JournalView> {
                             MythicEntry(
                               isFavourite: false,
                               lines: result,
+                              label: 'Mythic Action',
                             ),
                           );
                         },
@@ -246,6 +247,7 @@ class _JournalViewState extends State<JournalView> {
                             MythicEntry(
                               isFavourite: false,
                               lines: result,
+                              label: 'Mythic Description',
                             ),
                           );
                         },

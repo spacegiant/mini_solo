@@ -34,7 +34,7 @@ class OracleEntryWidget extends StatelessWidget {
           JournalEntryDetail(
             details: [line1, line2],
           ),
-          if (resultText != null) JournalEntryResult(text: resultText),
+          JournalEntryResult(text: resultText),
           const Gap(),
           const Divider(
             color: CupertinoColors.darkBackgroundGray,
