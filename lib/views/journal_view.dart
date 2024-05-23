@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -150,7 +151,7 @@ class _JournalViewState extends State<JournalView> {
                 wrapControls: wrapControls,
                 hideDivider: true,
                 children: [
-                  if (appState.campaignData!.settings.general.useFateDice)
+                  if (appState.campaignData!.settings.general.useFateDice) ...[
                     DiceButton(
                         color: CupertinoColors.systemOrange,
                         dieType: fate,
@@ -162,7 +163,13 @@ class _JournalViewState extends State<JournalView> {
                           });
                           // send the array to the temp dice roll
                         }),
-                  const Gap(),
+                  ],
+                  Container(
+                    width: 10.0,
+                    height: 44.0,
+                    alignment: Alignment.center,
+                    child: const Text('·'),
+                  ),
                   ...generalDice.getDice(),
                 ],
               ),
