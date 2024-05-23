@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
-import '../../gap.dart';
 
 class OracleEntryWidget extends StatelessWidget {
   final AppState appState;
