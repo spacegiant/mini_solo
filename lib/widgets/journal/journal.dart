@@ -4,7 +4,6 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
-import '../../views/dice/dice_glyph.dart';
 import 'entryWidgets/journal_end_glyphs.dart';
 import 'entryWidgets/journal_footer.dart';
 import 'entryWidgets/journal_start_entry.dart';

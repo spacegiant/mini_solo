@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
-import '../../data/note_entry_item.dart';
-import '../gap.dart';
 
 class EditRollPopup extends StatefulWidget {
   const EditRollPopup({
