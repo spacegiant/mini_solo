@@ -16,7 +16,7 @@ Consumer<Object?> popup(
     builder: (BuildContext context, appState, Widget? child) {
       PopupLabels popup = appState.popupLabel;
       double popupHeight =
-          popup == PopupLabels.editNote ? 400.0 : double.infinity;
+          popup == PopupLabels.editNote ? 420.0 : double.infinity;
       return Visibility(
         visible: appState.showPopup,
         child: Container(

@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../data/app_state.dart';
 import '../../data/note_entry_item.dart';
+import '../gap.dart';
 
 class EditNotePopup extends StatefulWidget {
   const EditNotePopup({
@@ -48,23 +49,26 @@ class _EditNotePopupState extends State<EditNotePopup> {
 
     return Column(
       children: [
+        const Text('Edit Note Entry'),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: CupertinoTextField(
             controller: _controller,
             placeholder: 'Type here',
             autofocus: true,
-            minLines: 1,
-            maxLines: 10,
+            minLines: 9,
+            maxLines: 9,
           ),
         ),
         CupertinoButton(
-            child: const Text('Submit'),
+            color: CupertinoColors.systemGreen,
             onPressed: () {
               widget.appState.updateNoteItem(currentEntryId, _controller.text);
               widget.appState.setCurrentEntryId('');
               widget.appState.closePopup();
-            }),
+            },
+            child: const Text('Submit')),
+        const Gap(),
         CupertinoButton(
           color: CupertinoColors.destructiveRed,
           onPressed: () {
