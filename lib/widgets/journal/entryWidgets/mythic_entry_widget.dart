@@ -22,18 +22,26 @@ class MythicEntryWidget extends StatelessWidget {
     String? line2 = entry.lines.line2;
     String? resultText = entry.lines.result;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          JournalEntryLabel(
-            label: entry.label,
-          ),
-          if (line1 != null) Text(line1),
-          if (line2 != null) Text(line2),
-          JournalEntryResult(text: resultText),
-        ],
+    return GestureDetector(
+      onLongPress: () {
+        appState.setCurrentEntryId(entry.id);
+        appState.toggleShowPopup(
+          label: PopupLabels.editMythicEntry,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            JournalEntryLabel(
+              label: entry.label,
+            ),
+            if (line1 != null) Text(line1),
+            if (line2 != null) Text(line2),
+            JournalEntryResult(text: resultText),
+          ],
+        ),
       ),
     );
   }

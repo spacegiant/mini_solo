@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,11 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabels.editNote) {
         popupHeight = 420.0;
         popupWidget = EditNotePopup(
+          appState: appState,
+        );
+      } else if (popup == PopupLabels.editMythicEntry) {
+        popupHeight = 160.0;
+        popupWidget = EditMythicEntryPopup(
           appState: appState,
         );
       } else if (popup == PopupLabels.editRoll) {

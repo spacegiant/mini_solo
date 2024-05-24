@@ -10,6 +10,7 @@ enum PopupLabels {
   chaos,
   editField,
   editNote,
+  editMythicEntry,
   editRoll,
   fullJournal,
   journalFilter,
@@ -342,6 +343,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // MYTHIC ENTRY
   void addMythicEntry(MythicEntry mythicEntry) {
     _campaignData?.mythic.add(mythicEntry);
     addJournalEntry(
@@ -351,5 +353,11 @@ class AppState extends ChangeNotifier {
         id: mythicEntry.id,
       ),
     );
+  }
+
+  void deleteMythicEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.mythic.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
   }
 }
