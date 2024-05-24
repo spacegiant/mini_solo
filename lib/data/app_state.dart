@@ -11,6 +11,7 @@ enum PopupLabels {
   editField,
   editNote,
   editMythicEntry,
+  editOracleEntry,
   editRoll,
   fullJournal,
   journalFilter,
@@ -332,6 +333,7 @@ class AppState extends ChangeNotifier {
     // notifyListeners();
   }
 
+  // ORACLE ENTRY
   void addOracleEntry(OracleEntry oracleEntry) {
     _campaignData?.oracle.add(oracleEntry);
     addJournalEntry(
@@ -341,6 +343,12 @@ class AppState extends ChangeNotifier {
         id: oracleEntry.id,
       ),
     );
+  }
+
+  void deleteOracleEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.oracle.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
   }
 
   // MYTHIC ENTRY

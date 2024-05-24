@@ -21,23 +21,31 @@ class OracleEntryWidget extends StatelessWidget {
     String? line2 = entry.lines.line2;
     String? resultText = entry.lines.result;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          JournalEntryLabel(
-            label: entry.label,
-          ),
-          JournalEntryDetail(
-            details: [line1, line2],
-          ),
-          JournalEntryResult(text: resultText),
-          // const Gap(),
-          // const Divider(
-          //   color: CupertinoColors.darkBackgroundGray,
-          // ),
-        ],
+    return GestureDetector(
+      onLongPress: () {
+        appState.setCurrentEntryId(entry.id);
+        appState.toggleShowPopup(
+          label: PopupLabels.editOracleEntry,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            JournalEntryLabel(
+              label: entry.label,
+            ),
+            JournalEntryDetail(
+              details: [line1, line2],
+            ),
+            JournalEntryResult(text: resultText),
+            // const Gap(),
+            // const Divider(
+            //   color: CupertinoColors.darkBackgroundGray,
+            // ),
+          ],
+        ),
       ),
     );
   }

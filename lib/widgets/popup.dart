@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:provider/provider.dart';
 import '../data/app_state.dart';
@@ -48,6 +49,9 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabels.editRoll) {
         popupHeight = 160.0;
         popupWidget = EditRollPopup(appState: appState);
+      } else if (popup == PopupLabels.editOracleEntry) {
+        popupHeight = 160.0;
+        popupWidget = EditOracleEntryPopup(appState: appState);
       } else {
         popupWidget = const SizedBox.shrink();
       }

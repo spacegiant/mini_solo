@@ -42,8 +42,10 @@ List<Widget> getEntries(
       case JournalEntryTypes.newFaction:
         journalEntries.add(const Text('newFaction'));
       case JournalEntryTypes.oracle:
-        journalEntries
-            .add(OracleEntryWidget(appState: appState, journalEntry: element));
+        journalEntries.add(OracleEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
       case JournalEntryTypes.roll:
         journalEntries.add(RollEntryWidget(
           appState: appState,
