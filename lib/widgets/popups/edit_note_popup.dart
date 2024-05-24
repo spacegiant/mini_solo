@@ -66,14 +66,14 @@ class _EditNotePopupState extends State<EditNotePopup> {
               widget.appState.setCurrentEntryId('');
               widget.appState.closePopup();
             }),
-        // CupertinoButton(
-        //   color: CupertinoColors.destructiveRed,
-        //   onPressed: () {
-        //     widget.appState.deleteNoteItem(currentEntryId);
-        //     widget.appState.closePopup();
-        //   },
-        //   child: const Text('Delete'),
-        // ),
+        CupertinoButton(
+          color: CupertinoColors.destructiveRed,
+          onPressed: () {
+            widget.appState.deleteNoteItem(currentEntryId);
+            widget.appState.closePopup();
+          },
+          child: const Text('Delete'),
+        ),
       ],
     );
   }

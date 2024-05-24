@@ -322,9 +322,10 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteNoteItem(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
     saveCampaignDataToDisk();
-    notifyListeners();
+    // notifyListeners();
   }
 
   void addOracleEntry(OracleEntry oracleEntry) {

@@ -21,7 +21,7 @@ List<Widget> getEntries(
   List<Widget> journalEntries = [];
   Color dividerColor = Colors.black.withOpacity(0.1);
 
-  if (journalItems!.isEmpty) return [const SizedBox.shrink()];
+  if (journalItems.isEmpty) return [const SizedBox.shrink()];
   for (var element in journalItems) {
     switch (element.type) {
       case JournalEntryTypes.mythic:
