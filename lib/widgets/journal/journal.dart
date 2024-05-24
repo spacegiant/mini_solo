@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../views/dice/dice_glyph.dart';
 import 'entryWidgets/new_scene_entry_widget.dart';
+import 'entryWidgets/note_entry_input.dart';
 import 'entryWidgets/note_entry_widget.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
@@ -153,29 +154,9 @@ class _JournalState extends State<Journal> {
                         if (widget.diceRoll!.isNotEmpty)
                           TempDiceDisplay(widget: widget),
                         if (showInput)
-                          Stack(
-                            children: [
-                              CupertinoTextField(
-                                controller: _controller,
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.zero,
-                                  color: Colors.transparent,
-                                ),
-                                placeholder: 'Type here',
-                                autofocus: true,
-                                expands: true,
-                                minLines: null,
-                                maxLines: null,
-                              ),
-                              Positioned(
-                                  right: 0.0,
-                                  bottom: 0.0,
-                                  child: CupertinoButton(
-                                      padding: const EdgeInsets.all(0.0),
-                                      onPressed: onInputSubmit,
-                                      child: const Icon(
-                                          CupertinoIcons.add_circled_solid)))
-                            ],
+                          NoteEntryInput(
+                            controller: _controller,
+                            onInputSubmit: onInputSubmit,
                           )
                       ],
                     ),
