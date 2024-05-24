@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../data/app_state.dart';
 import '../../data/note_entry_item.dart';
 
-class EditNotePopup extends StatelessWidget {
+class EditNotePopup extends StatefulWidget {
   const EditNotePopup({
     super.key,
     required this.appState,
@@ -12,15 +13,57 @@ class EditNotePopup extends StatelessWidget {
   final AppState appState;
 
   @override
+  State<EditNotePopup> createState() => _EditNotePopupState();
+}
+
+class _EditNotePopupState extends State<EditNotePopup> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(
     BuildContext context,
   ) {
-    String currentEntryId = appState.currentEntryId;
-    NoteEntryItem entry = appState.campaignData!.notes
+    String currentEntryId = widget.appState.currentEntryId;
+    NoteEntryItem entry = widget.appState.campaignData!.notes
         .firstWhere((entry) => entry.id == currentEntryId);
+
+    if (_controller.text == '') {
+      setState(() {
+        _controller.text = entry.detail;
+      });
+    }
+
     return Column(
       children: [
-        Text(entry.detail),
+        CupertinoTextField(
+          controller: _controller,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.zero,
+            color: Colors.transparent,
+          ),
+          placeholder: 'Type here',
+          autofocus: true,
+          expands: true,
+          minLines: null,
+          maxLines: null,
+        ),
+        CupertinoButton(
+            child: const Text('Submit'),
+            onPressed: () {
+              // update the record
+            })
       ],
     );
   }

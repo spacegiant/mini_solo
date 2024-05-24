@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NoteEntryInput extends StatelessWidget {
+class NoteEntryInput extends StatefulWidget {
   const NoteEntryInput({
     super.key,
     required TextEditingController controller,
@@ -12,11 +12,16 @@ class NoteEntryInput extends StatelessWidget {
   final Function() onInputSubmit;
 
   @override
+  State<NoteEntryInput> createState() => _NoteEntryInputState();
+}
+
+class _NoteEntryInputState extends State<NoteEntryInput> {
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         CupertinoTextField(
-          controller: _controller,
+          controller: widget._controller,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.zero,
             color: Colors.transparent,
@@ -32,7 +37,7 @@ class NoteEntryInput extends StatelessWidget {
             bottom: 0.0,
             child: CupertinoButton(
                 padding: const EdgeInsets.all(0.0),
-                onPressed: onInputSubmit,
+                onPressed: widget.onInputSubmit,
                 child: const Icon(CupertinoIcons.add_circled_solid)))
       ],
     );
