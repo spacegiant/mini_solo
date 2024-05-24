@@ -354,7 +354,7 @@ void main() {
     data.setCampaignData(campaignData);
 
     expect(data.campaignData?.rolls.contains(roll), isFalse);
-    data.addRoll(roll);
+    data.addRollEntry(roll);
     expect(data.campaignData?.rolls.contains(roll), isTrue);
     expect(
         data.campaignData?.journal

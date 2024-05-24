@@ -3,6 +3,7 @@ import 'package:mini_solo/data/campaign_data.dart';
 
 import 'note_entry_item.dart';
 
+// FIXME: Rename to PopupLabel
 enum PopupLabels {
   addJournalEntry,
   campaignManager,
@@ -10,6 +11,7 @@ enum PopupLabels {
   combat,
   editField,
   editNote,
+  editRoll,
   endScene,
   exploration,
   fate,
@@ -140,6 +142,7 @@ class AppState extends ChangeNotifier {
     ));
   }
 
+  // POPUPS
   PopupLabels get popupLabel => _popupLabel;
 
   void toggleShowPopup({
@@ -178,8 +181,6 @@ class AppState extends ChangeNotifier {
   }
 
   // WRAP CONTROLS
-
-  // ZOCCHI DICE
   bool get wrapControls =>
       _campaignData?.settings.general.wrapControls ?? false;
 
@@ -291,7 +292,8 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void addRoll(RollEntryItem roll) {
+  // ROLL ENTRIES
+  void addRollEntry(RollEntryItem roll) {
     _campaignData?.rolls.add(roll);
     addJournalEntry(
       JournalEntryItem(
@@ -302,6 +304,14 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteRollEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.rolls.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+    // notifyListeners();
+  }
+
+  // NOTE ENTRIES
   void addNoteItem(NoteEntryItem noteEntryItem) {
     _campaignData?.notes.add(noteEntryItem);
     addJournalEntry(

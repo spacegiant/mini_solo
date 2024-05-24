@@ -113,7 +113,7 @@ class _JournalViewState extends State<JournalView> {
         List<DiceRoll> myDiceResults = List.from(diceResults);
 
         if (diceResults.isNotEmpty) {
-          appState.addRoll(
+          appState.addRollEntry(
             RollEntryItem(isFavourite: false, result: myDiceResults),
           );
           clearResults();
