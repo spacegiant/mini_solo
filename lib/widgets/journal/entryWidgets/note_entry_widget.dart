@@ -24,7 +24,9 @@ class NoteEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        appState.toggleShowPopup(PopupLabels.editNote);
+        appState.toggleShowPopup(
+          label: PopupLabels.editNote,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

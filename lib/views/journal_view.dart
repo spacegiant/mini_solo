@@ -310,7 +310,7 @@ class _JournalViewState extends State<JournalView> {
                 ListButton(
                   label: 'End Scene',
                   onPressed: () {
-                    appState.toggleShowPopup(PopupLabels.endScene);
+                    appState.toggleShowPopup(label: PopupLabels.endScene);
                   },
                 ),
 

@@ -133,8 +133,10 @@ class AppState extends ChangeNotifier {
 
   PopupLabels get popupLabel => _popupLabel;
 
-  void toggleShowPopup(PopupLabels? label, [Function()? callback]) {
-    // TODO: update so function is not optional if possible
+  void toggleShowPopup({
+    PopupLabels? label,
+    Function()? callback,
+  }) {
     if (label != null) _popupLabel = label;
     if (callback != null) callback();
     _showPopup = !_showPopup;

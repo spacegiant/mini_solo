@@ -336,7 +336,7 @@ class JournalInput extends StatelessWidget {
         size: 20.0,
       ),
       onPressed: () {
-        appState.toggleShowPopup(PopupLabels.journalFilter);
+        appState.toggleShowPopup(label: PopupLabels.journalFilter);
       },
     );
   }
@@ -376,7 +376,7 @@ class JournalInput extends StatelessWidget {
         color: CupertinoColors.black,
       ),
       onPressed: () {
-        appState.toggleShowPopup(PopupLabels.addJournalEntry);
+        appState.toggleShowPopup(label: PopupLabels.addJournalEntry);
       },
     );
   }

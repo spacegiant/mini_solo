@@ -68,11 +68,13 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                           });
                         },
                         onLongPress: () {
-                          appState.toggleShowPopup(PopupLabels.editField, () {
-                            setState(() {
-                              sex = 'female';
-                            });
-                          });
+                          appState.toggleShowPopup(
+                              label: PopupLabels.editField,
+                              callback: () {
+                                setState(() {
+                                  sex = 'female';
+                                });
+                              });
                         },
                       ),
                     ),
@@ -86,11 +88,13 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                           print('hello');
                         },
                         onLongPress: () {
-                          appState.toggleShowPopup(PopupLabels.editField, () {
-                            setState(() {
-                              title = 'boop';
-                            });
-                          });
+                          appState.toggleShowPopup(
+                              label: PopupLabels.editField,
+                              callback: () {
+                                setState(() {
+                                  title = 'boop';
+                                });
+                              });
                         },
                       ),
                     ),
@@ -104,7 +108,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                     print('hello');
                   },
                   onLongPress: () {
-                    appState.toggleShowPopup(PopupLabels.editField);
+                    appState.toggleShowPopup(label: PopupLabels.editField);
                   },
                 ),
               ],

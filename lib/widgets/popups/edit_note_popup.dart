@@ -1,21 +1,21 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 
-class EditNotePopup extends StatefulWidget {
+import '../../data/app_state.dart';
+
+class EditNotePopup extends StatelessWidget {
   const EditNotePopup({
     super.key,
+    required AppState appState,
   });
 
-  @override
-  State<EditNotePopup> createState() => _EditNotePopupState();
-}
-
-class _EditNotePopupState extends State<EditNotePopup> {
   @override
   Widget build(
     BuildContext context,
   ) {
-    return const Text('Edit Note');
+    return const Column(
+      children: [
+        Text('Edit Note'),
+      ],
+    );
   }
 }
