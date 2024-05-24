@@ -5,6 +5,9 @@ import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../views/dice/dice_glyph.dart';
+import 'entryWidgets/journal_end_glyphs.dart';
+import 'entryWidgets/journal_footer.dart';
+import 'entryWidgets/journal_start_entry.dart';
 import 'entryWidgets/new_scene_entry_widget.dart';
 import 'entryWidgets/note_entry_input.dart';
 import 'entryWidgets/note_entry_widget.dart';
@@ -22,15 +25,11 @@ List<Widget> getEntries(AppState appState) {
   for (var element in journalItems) {
     switch (element.type) {
       case JournalEntryTypes.mythic:
-        journalEntries.add(MythicEntryWidget(
-          appState: appState,
-          journalEntry: element,
-        ));
+        journalEntries
+            .add(MythicEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.note:
-        journalEntries.add(NoteEntryWidget(
-          appState: appState,
-          journalEntry: element,
-        ));
+        journalEntries
+            .add(NoteEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.newScene:
         journalEntries.add(const NewSceneEntryWidget());
       case JournalEntryTypes.newClue:
@@ -44,10 +43,8 @@ List<Widget> getEntries(AppState appState) {
       case JournalEntryTypes.newFaction:
         journalEntries.add(const Text('newFaction'));
       case JournalEntryTypes.oracle:
-        journalEntries.add(OracleEntryWidget(
-          appState: appState,
-          journalEntry: element,
-        ));
+        journalEntries
+            .add(OracleEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.roll:
         journalEntries.add(RollEntryWidget(
           appState: appState,
@@ -162,139 +159,11 @@ class _JournalState extends State<Journal> {
                     ),
                   ),
                 ),
-                if (showFutureFeatures) const JournalInput(),
+                if (showFutureFeatures) const JournalFooter(),
               ],
             ),
           ),
         );
-      },
-    );
-  }
-}
-
-class JournalStartEntry extends StatelessWidget {
-  const JournalStartEntry({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(child: Text('The Adventure Begins...')),
-    );
-  }
-}
-
-class JournalEndGlyphs extends StatelessWidget {
-  const JournalEndGlyphs({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(
-        child: Text(
-          '❊❊❊',
-          style: TextStyle(
-            color: Colors.blueGrey,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class JournalInput extends StatelessWidget {
-  const JournalInput({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AppState>(
-      builder: (BuildContext context, appState, Widget? child) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  const Spacer(),
-                  addJournalEntryButton(appState),
-                  const SizedBox(
-                    width: 16.0,
-                  ),
-                  jumpToFirstButton(),
-                  const SizedBox(
-                    width: 4.0,
-                  ),
-                  jumpToLatestButton(),
-                  const SizedBox(
-                    width: 4.0,
-                  ),
-                  journalFilterButton(appState)
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  CupertinoButton journalFilterButton(AppState appState) {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.destructiveRed,
-      child: const Icon(
-        CupertinoIcons.line_horizontal_3_decrease,
-        size: 20.0,
-      ),
-      onPressed: () {
-        appState.toggleShowPopup(label: PopupLabels.journalFilter);
-      },
-    );
-  }
-
-  CupertinoButton jumpToLatestButton() {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.destructiveRed,
-      child: const Icon(
-        CupertinoIcons.arrow_down_to_line,
-        size: 20.0,
-      ),
-      onPressed: () {},
-    );
-  }
-
-  CupertinoButton jumpToFirstButton() {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.destructiveRed,
-      child: const Icon(
-        CupertinoIcons.arrow_up_to_line,
-        size: 20.0,
-      ),
-      onPressed: () {},
-    );
-  }
-
-  CupertinoButton addJournalEntryButton(AppState appState) {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.white,
-      borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-      child: const Icon(
-        CupertinoIcons.add,
-        size: 20.0,
-        color: CupertinoColors.black,
-      ),
-      onPressed: () {
-        appState.toggleShowPopup(label: PopupLabels.addJournalEntry);
       },
     );
   }
