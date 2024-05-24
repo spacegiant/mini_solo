@@ -66,21 +66,19 @@ Consumer<Object?> popup(
           color: Colors.black.withOpacity(0.5),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: CupertinoPopupSurface(
-                child: SizedBox(
-                  height: popupHeight,
-                  width: 400.0,
-                  child: Column(
-                    children: [
-                      CupertinoButton(
-                          child: const Text('Close'),
-                          onPressed: () {
-                            appState.closePopup();
-                          }),
-                      popupWidget,
-                    ],
-                  ),
+            child: CupertinoPopupSurface(
+              child: SizedBox(
+                height: popupHeight,
+                width: 400.0,
+                child: Column(
+                  children: [
+                    CupertinoButton(
+                        child: const Text('Close'),
+                        onPressed: () {
+                          appState.closePopup();
+                        }),
+                    popupWidget,
+                  ],
                 ),
               ),
             ),
