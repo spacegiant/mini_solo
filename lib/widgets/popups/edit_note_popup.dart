@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../data/app_state.dart';
 import '../../data/note_entry_item.dart';
@@ -47,17 +48,15 @@ class _EditNotePopupState extends State<EditNotePopup> {
 
     return Column(
       children: [
-        CupertinoTextField(
-          controller: _controller,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.zero,
-            color: Colors.transparent,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CupertinoTextField(
+            controller: _controller,
+            placeholder: 'Type here',
+            autofocus: true,
+            minLines: 1,
+            maxLines: 10,
           ),
-          placeholder: 'Type here',
-          autofocus: true,
-          expands: true,
-          minLines: null,
-          maxLines: null,
         ),
         CupertinoButton(
             child: const Text('Submit'),
