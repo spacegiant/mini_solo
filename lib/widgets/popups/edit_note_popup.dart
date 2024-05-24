@@ -1,20 +1,26 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../data/app_state.dart';
+import '../../data/note_entry_item.dart';
 
 class EditNotePopup extends StatelessWidget {
   const EditNotePopup({
     super.key,
-    required AppState appState,
+    required this.appState,
   });
+
+  final AppState appState;
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    return const Column(
+    String currentEntryId = appState.currentEntryId;
+    NoteEntryItem entry = appState.campaignData!.notes
+        .firstWhere((entry) => entry.id == currentEntryId);
+    return Column(
       children: [
-        Text('Edit Note'),
+        Text(entry.detail),
       ],
     );
   }

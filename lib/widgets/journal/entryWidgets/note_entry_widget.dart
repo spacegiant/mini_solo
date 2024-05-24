@@ -24,6 +24,7 @@ class NoteEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
+        appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
           label: PopupLabels.editNote,
         );

@@ -33,6 +33,7 @@ class AppState extends ChangeNotifier {
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
+  String _currentEntryId = '';
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>
@@ -81,6 +82,14 @@ class AppState extends ChangeNotifier {
   }
 
   get deleteCampaign => _deleteCampaignCallback;
+
+  // CURRENT CAMPAIGN
+
+  void setCurrentEntryId(String id) {
+    _currentEntryId = id;
+  }
+
+  get currentEntryId => _currentEntryId;
 
   // CHAOS FACTOR
   void increaseChaosFactor() {
