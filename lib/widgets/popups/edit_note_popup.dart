@@ -63,6 +63,11 @@ class _EditNotePopupState extends State<EditNotePopup> {
             child: const Text('Submit'),
             onPressed: () {
               // update the record
+
+              // NoteEntryItem entry = appState.campaignData!.notes
+              //     .firstWhere((entry) => entry.id == journalEntry.id);
+
+              entry.detail = _controller.text;
             })
       ],
     );
