@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/settings/dev_settings.dart';
+import 'package:mini_solo/views/settings/dice_settings.dart';
 import 'package:mini_solo/views/settings/general_settings.dart';
+import 'package:mini_solo/views/settings/theme_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
@@ -148,15 +150,10 @@ class GeneralSettings extends StatefulWidget {
 }
 
 class _GeneralSettingsState extends State<GeneralSettings> {
-  bool autoCopy = true;
-
-  void onToggle() {}
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, appState, Widget? child) {
-        var general = appState.campaignData!.settings.general;
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -165,25 +162,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               ...devSettings(appState),
               const Gap(),
               ...generalSettings(appState),
-              const SettingsHeading(label: 'Dice'),
-              const Text('Choose which dice you want shown'),
-              SettingsOption(
-                isActive: general.useFateDice,
-                label: 'Use Fate Dice',
-                onChanged: (isChecked) {
-                  appState.toggleUseFateDice();
-                },
-              ),
-              SettingsOption(
-                isActive: general.useZocchiDice,
-                label: 'Use Zocchi Dice',
-                onChanged: (isChecked) {
-                  appState.toggleUseZocchiDice();
-                },
-              ),
-              const SettingsHeading(label: 'Theme'),
-              const Text('Light/Dark/Match OS'),
-              const Text('Fantasy/Scifi/Modern Theme?')
+              const Gap(),
+              ...diceSettings(appState),
+              const Gap(),
+              ...themeSettings(appState),
             ],
           ),
         );
