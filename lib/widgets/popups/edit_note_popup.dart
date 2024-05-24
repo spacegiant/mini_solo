@@ -62,7 +62,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
         CupertinoButton(
             child: const Text('Submit'),
             onPressed: () {
-              entry.detail = _controller.text;
+              widget.appState.updateNoteItem(currentEntryId, _controller.text);
               widget.appState.setCurrentEntryId('');
               widget.appState.closePopup();
             }),

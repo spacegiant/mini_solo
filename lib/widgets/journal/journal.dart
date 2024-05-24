@@ -16,8 +16,8 @@ import 'entryWidgets/oracle_entry_widget.dart';
 import 'entryWidgets/roll_entry_widget.dart';
 import 'entryWidgets/temp_dice_display.dart';
 
-List<Widget> getEntries(AppState appState) {
-  List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
+List<Widget> getEntries(
+    AppState appState, List<JournalEntryItem> journalItems) {
   List<Widget> journalEntries = [];
   Color dividerColor = Colors.black.withOpacity(0.1);
 
@@ -104,9 +104,11 @@ class _JournalState extends State<Journal> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
+
         bool showFutureFeatures =
             appState.campaignData!.settings.general.showFutureSettings;
-        List<Widget> entries = getEntries(appState);
+        List<Widget> entries = getEntries(appState, journalItems!);
 
         onInputSubmit() {
           if (_controller.text.characters.isNotEmpty) {

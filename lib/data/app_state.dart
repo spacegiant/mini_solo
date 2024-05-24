@@ -313,6 +313,14 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void updateNoteItem(String id, String detail) {
+    int index =
+        _campaignData!.notes.indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.notes[index].detail = detail;
+    saveCampaignDataToDisk();
+  }
+
   void deleteNoteItem(String id) {
     _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
     saveCampaignDataToDisk();
