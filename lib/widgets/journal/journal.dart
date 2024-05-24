@@ -30,7 +30,12 @@ List<Widget> getEntries(
         journalEntries
             .add(NoteEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.newScene:
-        journalEntries.add(const NewSceneEntryWidget());
+        journalEntries.add(
+          NewSceneEntryWidget(
+            appState: appState,
+            journalEntry: element,
+          ),
+        );
       case JournalEntryTypes.newClue:
         journalEntries.add(const Text('newClue'));
       case JournalEntryTypes.newCreature:

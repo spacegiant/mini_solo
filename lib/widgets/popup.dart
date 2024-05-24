@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
@@ -52,6 +53,9 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabels.editOracleEntry) {
         popupHeight = 160.0;
         popupWidget = EditOracleEntryPopup(appState: appState);
+      } else if (popup == PopupLabels.editNewSceneEntry) {
+        popupHeight = 160.0;
+        popupWidget = EditNewSceneEntryPopup(appState: appState);
       } else {
         popupWidget = const SizedBox.shrink();
       }

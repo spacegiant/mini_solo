@@ -11,6 +11,7 @@ enum PopupLabels {
   editField,
   editNote,
   editMythicEntry,
+  editNewSceneEntry,
   editOracleEntry,
   editRoll,
   fullJournal,
@@ -210,6 +211,7 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // NEW SCENE ENTRIES
   // NOTE: This just adds a marker for a new scene.
   void addNewScene() {
     addJournalEntry(
@@ -221,6 +223,12 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteNewSceneEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+  }
+
+  // PERSON ENTRIES
   void addPerson(Person person) {
     _campaignData?.people.add(person);
     addJournalEntry(
@@ -232,6 +240,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // PLACE ENTRIES
   void addPlace(Place place) {
     _campaignData?.places.add(place);
     addJournalEntry(
@@ -243,6 +252,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // THING ENTRIES
   void addThing(Thing thing) {
     _campaignData?.things.add(thing);
     addJournalEntry(
@@ -254,6 +264,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // FACTION ENTRIES
   void addFaction(Faction faction) {
     _campaignData?.factions.add(faction);
     addJournalEntry(
@@ -265,6 +276,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // CLUE ENTRIES
   void addClue(Clue clue) {
     _campaignData?.clues.add(clue);
     addJournalEntry(
@@ -276,6 +288,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // CREATURE ENTRIES
   void addCreature(Creature creature) {
     _campaignData?.creatures.add(creature);
     addJournalEntry(
