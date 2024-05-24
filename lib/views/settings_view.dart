@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/views/settings/dev_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
+import '../widgets/gap.dart';
 
 enum Category { general, campaign, tools }
 
@@ -151,26 +153,24 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, appState, Widget? child) {
+        var general = appState.campaignData!.settings.general;
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ...devSettings(appState),
+              const Gap(),
               const SettingsHeading(label: 'General settings'),
-              // if (kDebugMode)
-              DestructiveDeleteCurrentCampaign(
-                appState: appState,
-              ),
               SettingsOption(
-                isActive:
-                    appState.campaignData!.settings.general.showFutureSettings,
+                isActive: general.showFutureSettings,
                 label: 'Show future features',
                 onChanged: (isChecked) {
                   appState.toggleShowFutureFeatures();
                 },
               ),
               SettingsOption(
-                isActive: appState.campaignData!.settings.general.wrapControls,
+                isActive: general.wrapControls,
                 label: 'Wrap Controls',
                 onChanged: (isChecked) {
                   appState.toggleWrapControls();
@@ -193,14 +193,14 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               const SettingsHeading(label: 'Dice'),
               const Text('Choose which dice you want shown'),
               SettingsOption(
-                isActive: appState.campaignData!.settings.general.useFateDice,
+                isActive: general.useFateDice,
                 label: 'Use Fate Dice',
                 onChanged: (isChecked) {
                   appState.toggleUseFateDice();
                 },
               ),
               SettingsOption(
-                isActive: appState.campaignData!.settings.general.useZocchiDice,
+                isActive: general.useZocchiDice,
                 label: 'Use Zocchi Dice',
                 onChanged: (isChecked) {
                   appState.toggleUseZocchiDice();
