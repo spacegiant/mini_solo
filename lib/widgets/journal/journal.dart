@@ -5,6 +5,7 @@ import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../views/dice/dice_glyph.dart';
+import 'entryWidgets/new_scene_entry_widget.dart';
 import 'entryWidgets/note_entry_widget.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
@@ -62,28 +63,6 @@ List<Widget> getEntries(AppState appState) {
     }
   }
   return journalEntries;
-}
-
-class NewSceneEntryWidget extends StatelessWidget {
-  const NewSceneEntryWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: Colors.black.withOpacity(0.5),
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'New Scene',
-            style: TextStyle(
-              color: Colors.white,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ));
-  }
 }
 
 class Journal extends StatefulWidget {
