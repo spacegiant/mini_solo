@@ -118,7 +118,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 appState.setSaveCallback(saveCampaign);
               }
 
-              if (appState.deleteCampaign != false) {
+              if (appState.deleteCampaign == false) {
                 print('delete compaign does not exist');
                 appState.setDeleteCampaignCallback(deleteCampaign);
               }
