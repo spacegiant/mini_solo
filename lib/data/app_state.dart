@@ -3,20 +3,19 @@ import 'package:mini_solo/data/campaign_data.dart';
 
 import 'note_entry_item.dart';
 
+// FIXME: Rename to PopupLabel
 enum PopupLabels {
   addJournalEntry,
   campaignManager,
   chaos,
-  combat,
   editField,
-  endScene,
-  exploration,
-  fate,
+  editNote,
+  editMythicEntry,
+  editNewSceneEntry,
+  editOracleEntry,
+  editRoll,
   fullJournal,
-  investigation,
   journalFilter,
-  social,
-  travel,
 }
 
 class AppState extends ChangeNotifier {
@@ -32,6 +31,7 @@ class AppState extends ChangeNotifier {
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
+  String _currentEntryId = '';
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>
@@ -80,6 +80,14 @@ class AppState extends ChangeNotifier {
   }
 
   get deleteCampaign => _deleteCampaignCallback;
+
+  // CURRENT CAMPAIGN
+
+  void setCurrentEntryId(String id) {
+    _currentEntryId = id;
+  }
+
+  get currentEntryId => _currentEntryId;
 
   // CHAOS FACTOR
   void increaseChaosFactor() {
@@ -130,10 +138,13 @@ class AppState extends ChangeNotifier {
     ));
   }
 
+  // POPUPS
   PopupLabels get popupLabel => _popupLabel;
 
-  void toggleShowPopup(PopupLabels? label, [Function()? callback]) {
-    // TODO: update so function is not optional if possible
+  void toggleShowPopup({
+    PopupLabels? label,
+    Function()? callback,
+  }) {
     if (label != null) _popupLabel = label;
     if (callback != null) callback();
     _showPopup = !_showPopup;
@@ -166,8 +177,6 @@ class AppState extends ChangeNotifier {
   }
 
   // WRAP CONTROLS
-
-  // ZOCCHI DICE
   bool get wrapControls =>
       _campaignData?.settings.general.wrapControls ?? false;
 
@@ -202,6 +211,7 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // NEW SCENE ENTRIES
   // NOTE: This just adds a marker for a new scene.
   void addNewScene() {
     addJournalEntry(
@@ -213,6 +223,12 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteNewSceneEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+  }
+
+  // PERSON ENTRIES
   void addPerson(Person person) {
     _campaignData?.people.add(person);
     addJournalEntry(
@@ -224,6 +240,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // PLACE ENTRIES
   void addPlace(Place place) {
     _campaignData?.places.add(place);
     addJournalEntry(
@@ -235,6 +252,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // THING ENTRIES
   void addThing(Thing thing) {
     _campaignData?.things.add(thing);
     addJournalEntry(
@@ -246,6 +264,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // FACTION ENTRIES
   void addFaction(Faction faction) {
     _campaignData?.factions.add(faction);
     addJournalEntry(
@@ -257,6 +276,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // CLUE ENTRIES
   void addClue(Clue clue) {
     _campaignData?.clues.add(clue);
     addJournalEntry(
@@ -268,6 +288,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // CREATURE ENTRIES
   void addCreature(Creature creature) {
     _campaignData?.creatures.add(creature);
     addJournalEntry(
@@ -279,7 +300,8 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void addRoll(RollEntryItem roll) {
+  // ROLL ENTRIES
+  void addRollEntry(RollEntryItem roll) {
     _campaignData?.rolls.add(roll);
     addJournalEntry(
       JournalEntryItem(
@@ -290,6 +312,14 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteRollEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.rolls.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+    // notifyListeners();
+  }
+
+  // NOTE ENTRIES
   void addNoteItem(NoteEntryItem noteEntryItem) {
     _campaignData?.notes.add(noteEntryItem);
     addJournalEntry(
@@ -301,6 +331,22 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void updateNoteItem(String id, String detail) {
+    int index =
+        _campaignData!.notes.indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.notes[index].detail = detail;
+    saveCampaignDataToDisk();
+  }
+
+  void deleteNoteItem(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+    // notifyListeners();
+  }
+
+  // ORACLE ENTRY
   void addOracleEntry(OracleEntry oracleEntry) {
     _campaignData?.oracle.add(oracleEntry);
     addJournalEntry(
@@ -312,6 +358,13 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteOracleEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.oracle.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+  }
+
+  // MYTHIC ENTRY
   void addMythicEntry(MythicEntry mythicEntry) {
     _campaignData?.mythic.add(mythicEntry);
     addJournalEntry(
@@ -321,5 +374,11 @@ class AppState extends ChangeNotifier {
         id: mythicEntry.id,
       ),
     );
+  }
+
+  void deleteMythicEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.mythic.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
   }
 }

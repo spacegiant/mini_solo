@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -113,7 +112,7 @@ class _JournalViewState extends State<JournalView> {
         List<DiceRoll> myDiceResults = List.from(diceResults);
 
         if (diceResults.isNotEmpty) {
-          appState.addRoll(
+          appState.addRollEntry(
             RollEntryItem(isFavourite: false, result: myDiceResults),
           );
           clearResults();
@@ -163,13 +162,13 @@ class _JournalViewState extends State<JournalView> {
                           });
                           // send the array to the temp dice roll
                         }),
+                    Container(
+                      width: 10.0,
+                      height: 44.0,
+                      alignment: Alignment.center,
+                      child: const Text('·'),
+                    ),
                   ],
-                  Container(
-                    width: 10.0,
-                    height: 44.0,
-                    alignment: Alignment.center,
-                    child: const Text('·'),
-                  ),
                   ...generalDice.getDice(),
                 ],
               ),
@@ -304,21 +303,6 @@ class _JournalViewState extends State<JournalView> {
               // const MarkdownBlock(
               //   newString: '# hello\n*hello* hello\n- hello',
               // ),
-              // TODO: Replace this with menuSpacer or other way round
-              const Gap(),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'End Scene',
-                  onPressed: () {
-                    appState.toggleShowPopup(PopupLabels.endScene);
-                  },
-                ),
-
-              // combat,
-              // social,
-              // exploration,
-              // travel,
-              // investigate,
             ]),
           ),
         ],

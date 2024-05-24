@@ -20,28 +20,36 @@ class RollEntryWidget extends StatelessWidget {
     RollEntryItem entry = appState.campaignData!.rolls
         .firstWhere((entry) => entry.id == journalEntry.id);
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          JournalEntryLabel(
-            label: entry.label,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 6.0),
-            child: Wrap(
-              children: [
-                ...entry.result.map<Widget>(
-                  (roll) => DiceGlyph(
-                    diceRoll: roll,
-                    dieType: roll.diceType,
-                  ),
-                ),
-              ],
+    return GestureDetector(
+      onLongPress: () {
+        appState.setCurrentEntryId(entry.id);
+        appState.toggleShowPopup(
+          label: PopupLabels.editRoll,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            JournalEntryLabel(
+              label: entry.label,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 6.0),
+              child: Wrap(
+                children: [
+                  ...entry.result.map<Widget>(
+                    (roll) => DiceGlyph(
+                      diceRoll: roll,
+                      dieType: roll.diceType,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

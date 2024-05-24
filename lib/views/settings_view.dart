@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/views/settings/dev_settings.dart';
+import 'package:mini_solo/views/settings/dice_settings.dart';
+import 'package:mini_solo/views/settings/general_settings.dart';
+import 'package:mini_solo/views/settings/theme_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
+import '../widgets/gap.dart';
 
 enum Category { general, campaign, tools }
 
@@ -145,8 +150,6 @@ class GeneralSettings extends StatefulWidget {
 }
 
 class _GeneralSettingsState extends State<GeneralSettings> {
-  bool autoCopy = true;
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
@@ -156,59 +159,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SettingsHeading(label: 'General settings'),
-              // if (kDebugMode)
-              DestructiveDeleteCurrentCampaign(
-                appState: appState,
-              ),
-              SettingsOption(
-                isActive:
-                    appState.campaignData!.settings.general.showFutureSettings,
-                label: 'Show future features',
-                onChanged: (isChecked) {
-                  appState.toggleShowFutureFeatures();
-                },
-              ),
-              SettingsOption(
-                isActive: appState.campaignData!.settings.general.wrapControls,
-                label: 'Wrap Controls',
-                onChanged: (isChecked) {
-                  appState.toggleWrapControls();
-                },
-              ),
-              SettingsOption(
-                isActive: autoCopy,
-                label: 'Copy to clipboard automatically',
-                onChanged: (isChecked) {
-                  setState(() {
-                    autoCopy = isChecked!;
-                  });
-                },
-              ),
-              SettingsOption(
-                isActive: true,
-                label: 'Send to journal',
-                onChanged: (isChecked) {},
-              ),
-              const SettingsHeading(label: 'Dice'),
-              const Text('Choose which dice you want shown'),
-              SettingsOption(
-                isActive: appState.campaignData!.settings.general.useFateDice,
-                label: 'Use Fate Dice',
-                onChanged: (isChecked) {
-                  appState.toggleUseFateDice();
-                },
-              ),
-              SettingsOption(
-                isActive: appState.campaignData!.settings.general.useZocchiDice,
-                label: 'Use Zocchi Dice',
-                onChanged: (isChecked) {
-                  appState.toggleUseZocchiDice();
-                },
-              ),
-              const SettingsHeading(label: 'Theme'),
-              const Text('Light/Dark/Match OS'),
-              const Text('Fantasy/Scifi/Modern Theme?')
+              ...devSettings(appState),
+              const Gap(),
+              ...generalSettings(appState),
+              const Gap(),
+              ...diceSettings(appState),
+              const Gap(),
+              ...themeSettings(appState),
             ],
           ),
         );

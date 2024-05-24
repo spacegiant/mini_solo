@@ -4,32 +4,38 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
-import '../../views/dice/dice_glyph.dart';
+import 'entryWidgets/journal_end_glyphs.dart';
+import 'entryWidgets/journal_footer.dart';
+import 'entryWidgets/journal_start_entry.dart';
+import 'entryWidgets/new_scene_entry_widget.dart';
+import 'entryWidgets/note_entry_input.dart';
 import 'entryWidgets/note_entry_widget.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
 import 'entryWidgets/roll_entry_widget.dart';
+import 'entryWidgets/temp_dice_display.dart';
 
-List<Widget> getEntries(AppState appState) {
-  List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
+List<Widget> getEntries(
+    AppState appState, List<JournalEntryItem> journalItems) {
   List<Widget> journalEntries = [];
   Color dividerColor = Colors.black.withOpacity(0.1);
 
-  if (journalItems!.isEmpty) return [const SizedBox.shrink()];
+  if (journalItems.isEmpty) return [const SizedBox.shrink()];
   for (var element in journalItems) {
     switch (element.type) {
       case JournalEntryTypes.mythic:
-        journalEntries.add(MythicEntryWidget(
-          appState: appState,
-          journalEntry: element,
-        ));
+        journalEntries
+            .add(MythicEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.note:
-        journalEntries.add(NoteEntryWidget(
-          appState: appState,
-          journalEntry: element,
-        ));
+        journalEntries
+            .add(NoteEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.newScene:
-        journalEntries.add(const NewSceneEntryWidget());
+        journalEntries.add(
+          NewSceneEntryWidget(
+            appState: appState,
+            journalEntry: element,
+          ),
+        );
       case JournalEntryTypes.newClue:
         journalEntries.add(const Text('newClue'));
       case JournalEntryTypes.newCreature:
@@ -61,28 +67,6 @@ List<Widget> getEntries(AppState appState) {
     }
   }
   return journalEntries;
-}
-
-class NewSceneEntryWidget extends StatelessWidget {
-  const NewSceneEntryWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: Colors.black.withOpacity(0.5),
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'New Scene',
-            style: TextStyle(
-              color: Colors.white,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ));
-  }
 }
 
 class Journal extends StatefulWidget {
@@ -126,9 +110,11 @@ class _JournalState extends State<Journal> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
+
         bool showFutureFeatures =
             appState.campaignData!.settings.general.showFutureSettings;
-        List<Widget> entries = getEntries(appState);
+        List<Widget> entries = getEntries(appState, journalItems!);
 
         onInputSubmit() {
           if (_controller.text.characters.isNotEmpty) {
@@ -150,9 +136,9 @@ class _JournalState extends State<Journal> {
               showInput = !showInput;
             });
           },
-          onLongPress: () {
-            appState.toggleShowPopup(PopupLabels.fullJournal);
-          },
+          // onLongPress: () {
+          //   appState.toggleShowPopup(PopupLabels.fullJournal);
+          // },
           child: Container(
             color: CupertinoColors.systemTeal,
             child: Column(
@@ -173,210 +159,19 @@ class _JournalState extends State<Journal> {
                         if (widget.diceRoll!.isNotEmpty)
                           TempDiceDisplay(widget: widget),
                         if (showInput)
-                          Stack(
-                            children: [
-                              CupertinoTextField(
-                                controller: _controller,
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.zero,
-                                  color: Colors.transparent,
-                                ),
-                                placeholder: 'Type here',
-                                autofocus: true,
-                                expands: true,
-                                minLines: null,
-                                maxLines: null,
-                              ),
-                              Positioned(
-                                  right: 0.0,
-                                  bottom: 0.0,
-                                  child: CupertinoButton(
-                                      padding: const EdgeInsets.all(0.0),
-                                      onPressed: onInputSubmit,
-                                      child: const Icon(
-                                          CupertinoIcons.add_circled_solid)))
-                            ],
+                          NoteEntryInput(
+                            controller: _controller,
+                            onInputSubmit: onInputSubmit,
                           )
                       ],
                     ),
                   ),
                 ),
-                if (showFutureFeatures) const JournalInput(),
+                if (showFutureFeatures) const JournalFooter(),
               ],
             ),
           ),
         );
-      },
-    );
-  }
-}
-
-class TempDiceDisplay extends StatelessWidget {
-  const TempDiceDisplay({
-    super.key,
-    required this.widget,
-  });
-
-  final Journal widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        widget.submitDice();
-      },
-      onLongPress: () {
-        widget.clearDice();
-      },
-      child: Container(
-        color: CupertinoColors.lightBackgroundGray,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                children: [
-                  ...widget.diceRoll!.map<Widget>(
-                    (roll) => DiceGlyph(
-                      diceRoll: roll,
-                      dieType: roll.diceType,
-                    ),
-                  ),
-                ],
-              ),
-              const Text('Press to submit, Long Hold to clear')
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class JournalStartEntry extends StatelessWidget {
-  const JournalStartEntry({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(child: Text('The Adventure Begins...')),
-    );
-  }
-}
-
-class JournalEndGlyphs extends StatelessWidget {
-  const JournalEndGlyphs({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(
-        child: Text(
-          '❊❊❊',
-          style: TextStyle(
-            color: Colors.blueGrey,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class JournalInput extends StatelessWidget {
-  const JournalInput({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AppState>(
-      builder: (BuildContext context, appState, Widget? child) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  const Spacer(),
-                  addJournalEntryButton(appState),
-                  const SizedBox(
-                    width: 16.0,
-                  ),
-                  jumpToFirstButton(),
-                  const SizedBox(
-                    width: 4.0,
-                  ),
-                  jumpToLatestButton(),
-                  const SizedBox(
-                    width: 4.0,
-                  ),
-                  journalFilterButton(appState)
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  CupertinoButton journalFilterButton(AppState appState) {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.destructiveRed,
-      child: const Icon(
-        CupertinoIcons.line_horizontal_3_decrease,
-        size: 20.0,
-      ),
-      onPressed: () {
-        appState.toggleShowPopup(PopupLabels.journalFilter);
-      },
-    );
-  }
-
-  CupertinoButton jumpToLatestButton() {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.destructiveRed,
-      child: const Icon(
-        CupertinoIcons.arrow_down_to_line,
-        size: 20.0,
-      ),
-      onPressed: () {},
-    );
-  }
-
-  CupertinoButton jumpToFirstButton() {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.destructiveRed,
-      child: const Icon(
-        CupertinoIcons.arrow_up_to_line,
-        size: 20.0,
-      ),
-      onPressed: () {},
-    );
-  }
-
-  CupertinoButton addJournalEntryButton(AppState appState) {
-    return CupertinoButton(
-      padding: const EdgeInsets.all(0.0),
-      color: CupertinoColors.white,
-      borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-      child: const Icon(
-        CupertinoIcons.add,
-        size: 20.0,
-        color: CupertinoColors.black,
-      ),
-      onPressed: () {
-        appState.toggleShowPopup(PopupLabels.addJournalEntry);
       },
     );
   }

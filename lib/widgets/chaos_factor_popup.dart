@@ -60,7 +60,7 @@ class ChaosFactorPopup extends StatelessWidget {
           ListButton(
             label: 'Close',
             labelAlignment: Alignment.center,
-            onPressed: () => appState.toggleShowPopup(null),
+            onPressed: () => appState.toggleShowPopup(label: null),
           ),
         ],
       ),
