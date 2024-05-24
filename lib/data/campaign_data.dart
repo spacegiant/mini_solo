@@ -178,7 +178,7 @@ CampaignData initCampaignDataData(String campaignName) {
         useJournal: true,
         useZocchiDice: false,
         useFateDice: false,
-        wrapControls: true,
+        wrapControls: false,
       ),
     ),
     things: [],
