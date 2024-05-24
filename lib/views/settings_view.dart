@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/settings/dev_settings.dart';
+import 'package:mini_solo/views/settings/general_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
@@ -149,6 +150,8 @@ class GeneralSettings extends StatefulWidget {
 class _GeneralSettingsState extends State<GeneralSettings> {
   bool autoCopy = true;
 
+  void onToggle() {}
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(
@@ -161,35 +164,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             children: [
               ...devSettings(appState),
               const Gap(),
-              const SettingsHeading(label: 'General settings'),
-              SettingsOption(
-                isActive: general.showFutureSettings,
-                label: 'Show future features',
-                onChanged: (isChecked) {
-                  appState.toggleShowFutureFeatures();
-                },
-              ),
-              SettingsOption(
-                isActive: general.wrapControls,
-                label: 'Wrap Controls',
-                onChanged: (isChecked) {
-                  appState.toggleWrapControls();
-                },
-              ),
-              SettingsOption(
-                isActive: autoCopy,
-                label: 'Copy to clipboard automatically',
-                onChanged: (isChecked) {
-                  setState(() {
-                    autoCopy = isChecked!;
-                  });
-                },
-              ),
-              SettingsOption(
-                isActive: true,
-                label: 'Send to journal',
-                onChanged: (isChecked) {},
-              ),
+              ...generalSettings(appState),
               const SettingsHeading(label: 'Dice'),
               const Text('Choose which dice you want shown'),
               SettingsOption(
