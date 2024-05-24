@@ -22,13 +22,13 @@ class NoteEntryWidget extends StatelessWidget {
 
     String? detail = entry.detail;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(detail),
-        ],
+    return GestureDetector(
+      onLongPress: () {
+        appState.toggleShowPopup(PopupLabels.editNote);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(detail),
       ),
     );
   }

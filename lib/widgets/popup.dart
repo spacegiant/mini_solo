@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:provider/provider.dart';
 import '../data/app_state.dart';
 import '../my_homepage.dart';
@@ -56,6 +57,8 @@ Consumer<Object?> popup(
                     const Text('FULL JOURNAL')
                   else if (popup == PopupLabels.editField)
                     const Text('EDIT FIELD')
+                  else if (popup == PopupLabels.editNote)
+                    const EditNotePopup()
                   else
                     const SizedBox.shrink()
                 ],

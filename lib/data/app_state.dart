@@ -9,6 +9,7 @@ enum PopupLabels {
   chaos,
   combat,
   editField,
+  editNote,
   endScene,
   exploration,
   fate,

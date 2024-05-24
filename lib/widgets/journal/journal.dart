@@ -150,9 +150,9 @@ class _JournalState extends State<Journal> {
               showInput = !showInput;
             });
           },
-          onLongPress: () {
-            appState.toggleShowPopup(PopupLabels.fullJournal);
-          },
+          // onLongPress: () {
+          //   appState.toggleShowPopup(PopupLabels.fullJournal);
+          // },
           child: Container(
             color: CupertinoColors.systemTeal,
             child: Column(
