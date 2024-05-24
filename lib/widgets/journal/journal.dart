@@ -9,6 +9,7 @@ import 'entryWidgets/note_entry_widget.dart';
 import 'entryWidgets/mythic_entry_widget.dart';
 import 'entryWidgets/oracle_entry_widget.dart';
 import 'entryWidgets/roll_entry_widget.dart';
+import 'entryWidgets/temp_dice_display.dart';
 
 List<Widget> getEntries(AppState appState) {
   List<JournalEntryItem>? journalItems = appState.campaignData?.journal;
@@ -207,49 +208,6 @@ class _JournalState extends State<Journal> {
           ),
         );
       },
-    );
-  }
-}
-
-class TempDiceDisplay extends StatelessWidget {
-  const TempDiceDisplay({
-    super.key,
-    required this.widget,
-  });
-
-  final Journal widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        widget.submitDice();
-      },
-      onLongPress: () {
-        widget.clearDice();
-      },
-      child: Container(
-        color: CupertinoColors.lightBackgroundGray,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                children: [
-                  ...widget.diceRoll!.map<Widget>(
-                    (roll) => DiceGlyph(
-                      diceRoll: roll,
-                      dieType: roll.diceType,
-                    ),
-                  ),
-                ],
-              ),
-              const Text('Press to submit, Long Hold to clear')
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
