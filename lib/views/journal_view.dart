@@ -303,21 +303,6 @@ class _JournalViewState extends State<JournalView> {
               // const MarkdownBlock(
               //   newString: '# hello\n*hello* hello\n- hello',
               // ),
-              // TODO: Replace this with menuSpacer or other way round
-              const Gap(),
-              if (showFutureFeatures)
-                ListButton(
-                  label: 'End Scene',
-                  onPressed: () {
-                    appState.toggleShowPopup(label: PopupLabels.endScene);
-                  },
-                ),
-
-              // combat,
-              // social,
-              // exploration,
-              // travel,
-              // investigate,
             ]),
           ),
         ],

@@ -8,18 +8,11 @@ enum PopupLabels {
   addJournalEntry,
   campaignManager,
   chaos,
-  combat,
   editField,
   editNote,
   editRoll,
-  endScene,
-  exploration,
-  fate,
   fullJournal,
-  investigation,
   journalFilter,
-  social,
-  travel,
 }
 
 class AppState extends ChangeNotifier {

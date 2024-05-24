@@ -22,20 +22,6 @@ Consumer<Object?> popup(
       // WIDGETS
       if (popup == PopupLabels.chaos) {
         popupWidget = const ChaosFactorPopup();
-      } else if (popup == PopupLabels.fate) {
-        popupWidget = const Text('FATE');
-      } else if (popup == PopupLabels.endScene) {
-        popupWidget = const Text('END SCENE');
-      } else if (popup == PopupLabels.combat) {
-        popupWidget = const Text('COMBAT');
-      } else if (popup == PopupLabels.social) {
-        popupWidget = const Text('SOCIAL');
-      } else if (popup == PopupLabels.exploration) {
-        popupWidget = const Text('EXPLORATION');
-      } else if (popup == PopupLabels.travel) {
-        popupWidget = const Text('TRAVEL');
-      } else if (popup == PopupLabels.investigation) {
-        popupWidget = const Text('INVESTIGATE');
       } else if (popup == PopupLabels.addJournalEntry) {
         popupWidget = const AddToJournalPanel();
       } else if (popup == PopupLabels.journalFilter) {
