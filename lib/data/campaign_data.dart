@@ -91,12 +91,14 @@ class GeneralSettingsData {
   late bool showFutureSettings;
   late bool useJournal;
   late bool useZocchiDice;
+  late bool useRegularDice;
   late bool useFateDice;
   late bool wrapControls;
 
   GeneralSettingsData({
     required this.showFutureSettings,
     required this.useJournal,
+    required this.useRegularDice,
     required this.useZocchiDice,
     required this.useFateDice,
     required this.wrapControls,
@@ -176,6 +178,7 @@ CampaignData initCampaignDataData(String campaignName) {
       general: GeneralSettingsData(
         showFutureSettings: false,
         useJournal: true,
+        useRegularDice: true,
         useZocchiDice: false,
         useFateDice: false,
         wrapControls: false,

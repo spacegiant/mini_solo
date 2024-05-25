@@ -7,6 +7,7 @@ CampaignData sampleCampaignData() {
       general: GeneralSettingsData(
         showFutureSettings: false,
         useJournal: true,
+        useRegularDice: true,
         useZocchiDice: false,
         useFateDice: false,
         wrapControls: false,

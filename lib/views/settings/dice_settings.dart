@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../data/app_state.dart';
 import '../settings_view.dart';
@@ -11,10 +11,10 @@ List<Widget> diceSettings(
     const SettingsHeading(label: 'Dice'),
     const Text('Choose which dice you want shown'),
     SettingsOption(
-      isActive: general.useFateDice,
-      label: 'Use Fate Dice',
+      isActive: general.useRegularDice,
+      label: 'Use General Dice',
       onChanged: (isChecked) {
-        appState.toggleUseFateDice();
+        appState.toggleUseGeneralDice();
       },
     ),
     SettingsOption(
@@ -22,6 +22,14 @@ List<Widget> diceSettings(
       label: 'Use Zocchi Dice',
       onChanged: (isChecked) {
         appState.toggleUseZocchiDice();
+      },
+    ),
+    const Divider(),
+    SettingsOption(
+      isActive: general.useFateDice,
+      label: 'Use Fate Dice',
+      onChanged: (isChecked) {
+        appState.toggleUseFateDice();
       },
     ),
   ];
