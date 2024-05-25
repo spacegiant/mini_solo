@@ -210,7 +210,6 @@ class _JournalViewState extends State<JournalView> {
                 const Divider(),
 
               const Text('Mythic GME'),
-
               FateQuestion(
                 callback: (ReturnObject returnObject) {
                   // For Bubble
@@ -229,9 +228,8 @@ class _JournalViewState extends State<JournalView> {
                 },
                 wrapControls: wrapControls,
               ),
-
-              Wrap(
-                spacing: 10.0,
+              WrapManager(
+                wrapControls: wrapControls,
                 children: [
                   ListButton(
                     label: 'New Scene',
@@ -332,8 +330,6 @@ class _JournalViewState extends State<JournalView> {
                   ),
                 ],
               ),
-              const Gap(),
-              const Divider(),
 
               // const MarkdownBlock(
               //   newString: '# hello\n*hello* hello\n- hello',
