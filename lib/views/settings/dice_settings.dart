@@ -32,5 +32,12 @@ List<Widget> diceSettings(
         appState.toggleUseFateDice();
       },
     ),
+    SettingsOption(
+      isActive: general.useCoriolisDice,
+      label: 'Use Coriolis Dice',
+      onChanged: (isChecked) {
+        appState.toggleUseCoriolisDice();
+      },
+    ),
   ];
 }

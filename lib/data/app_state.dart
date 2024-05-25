@@ -213,6 +213,15 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // CORIOLIS DICE
+  bool? get useCoriolisDice => _campaignData?.settings.general.useCoriolisDice;
+
+  void toggleUseCoriolisDice() {
+    _campaignData?.settings.general.useCoriolisDice =
+        !_campaignData!.settings.general.useCoriolisDice;
+    saveCampaignDataToDisk();
+  }
+
   // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);

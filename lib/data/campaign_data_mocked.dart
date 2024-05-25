@@ -11,6 +11,7 @@ CampaignData sampleCampaignData() {
         useZocchiDice: false,
         useFateDice: false,
         wrapControls: false,
+        useCoriolisDice: false,
       ),
     ),
     mythicData: MythicData(

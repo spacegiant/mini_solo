@@ -10,6 +10,7 @@ void main() {
       useZocchiDice: false,
       useFateDice: false,
       wrapControls: true,
+      useCoriolisDice: false,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -23,6 +24,7 @@ void main() {
       useZocchiDice: true,
       useFateDice: false,
       wrapControls: true,
+      useCoriolisDice: false,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -38,6 +40,7 @@ void main() {
       useZocchiDice: false,
       useFateDice: false,
       wrapControls: true,
+      useCoriolisDice: false,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

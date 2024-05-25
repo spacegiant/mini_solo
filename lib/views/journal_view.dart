@@ -17,6 +17,7 @@ import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
 import 'dice/dice.dart';
 import 'dice/dice_collection.dart';
+import 'dice/other_dice_sets.dart';
 import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
 
@@ -101,6 +102,7 @@ class _JournalViewState extends State<JournalView> {
       bool useRegularDice = generalSettings.useRegularDice;
       bool useGeneralDice = useZocchiDice && useRegularDice;
       bool useFateDice = generalSettings.useFateDice;
+      bool useCoriolisDice = generalSettings.useCoriolisDice;
 
       bool wrapControls = generalSettings.wrapControls;
 
@@ -187,6 +189,18 @@ class _JournalViewState extends State<JournalView> {
                         alignment: Alignment.center,
                         child: const Text('·'),
                       ),
+                  ],
+                  if (useCoriolisDice) ...[
+                    DiceButton(
+                        color: CupertinoColors.darkBackgroundGray,
+                        dieType: coriolis,
+                        label: 'Coriolis',
+                        onPressed: (List<DiceRoll> result) {
+                          setState(() {
+                            diceResults.addAll(result);
+                          });
+                          // send the array to the temp dice roll
+                        }),
                   ],
                   // TODO:
                   if (generalDice != null) ...generalDice.getDice(),
