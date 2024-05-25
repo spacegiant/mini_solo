@@ -125,15 +125,19 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
               return Stack(
                 children: [
-                  homePageTabScaffold(
-                    appState,
-                    appState.toggleShowSettings,
+                  FocusScope(
+                    child: homePageTabScaffold(
+                      appState,
+                      appState.toggleShowSettings,
+                    ),
                   ),
-                  SafeArea(
-                      child: popup(
-                    context,
-                    widget,
-                  )),
+                  FocusScope(
+                    child: SafeArea(
+                        child: popup(
+                      context,
+                      widget,
+                    )),
+                  ),
                 ],
               );
             },

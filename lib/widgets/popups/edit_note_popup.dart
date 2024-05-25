@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../data/app_state.dart';
 import '../../data/note_entry_item.dart';
 import '../gap.dart';
@@ -18,6 +17,7 @@ class EditNotePopup extends StatefulWidget {
 
 class _EditNotePopupState extends State<EditNotePopup> {
   late TextEditingController _controller;
+  static final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -32,9 +32,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     String currentEntryId = widget.appState.currentEntryId;
     NoteEntryItem entry = widget.appState.campaignData!.notes
         .firstWhere((entry) => entry.id == currentEntryId);
@@ -51,6 +49,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: CupertinoTextField(
+            key: _key,
             controller: _controller,
             placeholder: 'Type here',
             autofocus: true,
