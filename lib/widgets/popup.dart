@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
@@ -62,25 +64,32 @@ Consumer<Object?> popup(
 
       return Visibility(
         visible: appState.showPopup,
-        child: Container(
-          color: Colors.black.withOpacity(0.5),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CupertinoPopupSurface(
-              child: SizedBox(
-                height: popupHeight,
-                width: 400.0,
-                child: Column(
-                  children: [
-                    CupertinoButton(
-                        child: const Text('Close'),
-                        onPressed: () {
-                          appState.closePopup();
-                        }),
-                    popupWidget,
-                  ],
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: Container(
+            color: Colors.black.withOpacity(0.5),
+            height: double.infinity,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                SizedBox(
+                  height: popupHeight,
+                  width: 400.0,
+                  child: CupertinoPopupSurface(
+                    child: Column(
+                      children: [
+                        CupertinoButton(
+                            child: const Text('Close'),
+                            onPressed: () {
+                              appState.closePopup();
+                            }),
+                        popupWidget,
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ]),
             ),
           ),
         ),

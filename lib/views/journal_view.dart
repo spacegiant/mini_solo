@@ -91,8 +91,8 @@ class _JournalViewState extends State<JournalView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
-      bool showFutureFeatures =
-          appState.campaignData!.settings.general.showFutureSettings;
+      // bool showFutureFeatures =
+      //     appState.campaignData!.settings.general.showFutureSettings;
 
       bool wrapControls = appState.campaignData!.settings.general.wrapControls;
 
