@@ -6,7 +6,7 @@ import '../settings_view.dart';
 List<Widget> themeSettings(
   AppState appState,
 ) {
-  var general = appState.campaignData!.settings.general;
+  // var general = appState.campaignData!.settings.general;
   return [
     const SettingsHeading(label: 'Theme'),
     const Text('Light/Dark/Match OS'),

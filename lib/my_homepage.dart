@@ -118,22 +118,26 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 appState.setSaveCallback(saveCampaign);
               }
 
-              if (appState.deleteCampaign != false) {
+              if (appState.deleteCampaign == false) {
                 print('delete compaign does not exist');
                 appState.setDeleteCampaignCallback(deleteCampaign);
               }
 
               return Stack(
                 children: [
-                  homePageTabScaffold(
-                    appState,
-                    appState.toggleShowSettings,
+                  FocusScope(
+                    child: homePageTabScaffold(
+                      appState,
+                      appState.toggleShowSettings,
+                    ),
                   ),
-                  SafeArea(
-                      child: popup(
-                    context,
-                    widget,
-                  )),
+                  FocusScope(
+                    child: SafeArea(
+                        child: popup(
+                      context,
+                      widget,
+                    )),
+                  ),
                 ],
               );
             },

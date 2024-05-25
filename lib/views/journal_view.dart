@@ -15,7 +15,9 @@ import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
+import 'dice/dice.dart';
 import 'dice/dice_collection.dart';
+import 'dice/other_dice_sets.dart';
 import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
 
@@ -91,10 +93,18 @@ class _JournalViewState extends State<JournalView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
-      bool showFutureFeatures =
-          appState.campaignData!.settings.general.showFutureSettings;
+      // bool showFutureFeatures =
+      //     appState.campaignData!.settings.general.showFutureSettings;
 
-      bool wrapControls = appState.campaignData!.settings.general.wrapControls;
+      GeneralSettingsData generalSettings =
+          appState.campaignData!.settings.general;
+      bool useZocchiDice = generalSettings.useZocchiDice;
+      bool useRegularDice = generalSettings.useRegularDice;
+      bool useGeneralDice = useZocchiDice && useRegularDice;
+      bool useFateDice = generalSettings.useFateDice;
+      bool useCoriolisDice = generalSettings.useCoriolisDice;
+
+      bool wrapControls = generalSettings.wrapControls;
 
       void addResult(List<DiceRoll> result) {
         setState(() {
@@ -119,13 +129,23 @@ class _JournalViewState extends State<JournalView> {
         }
       }
 
-      DiceCollection generalDice = DiceCollection(
-        diceSet: appState.campaignData?.settings.general.useZocchiDice == true
-            ? all
-            : regularDice,
-        appState: appState,
-        onPressed: addResult,
-      );
+      DiceSet? generalDiceSubset;
+
+      if (useGeneralDice) {
+        generalDiceSubset = all;
+      } else if (useZocchiDice) {
+        generalDiceSubset = zocchiDice;
+      } else if (useRegularDice) {
+        generalDiceSubset = regularDice;
+      }
+
+      DiceCollection? generalDice = generalDiceSubset != null
+          ? DiceCollection(
+              diceSet: generalDiceSubset,
+              appState: appState,
+              onPressed: addResult,
+            )
+          : null;
 
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -150,7 +170,7 @@ class _JournalViewState extends State<JournalView> {
                 wrapControls: wrapControls,
                 hideDivider: true,
                 children: [
-                  if (appState.campaignData!.settings.general.useFateDice) ...[
+                  if (useFateDice) ...[
                     DiceButton(
                         color: CupertinoColors.systemOrange,
                         dieType: fate,
@@ -162,17 +182,32 @@ class _JournalViewState extends State<JournalView> {
                           });
                           // send the array to the temp dice roll
                         }),
-                    Container(
-                      width: 10.0,
-                      height: 44.0,
-                      alignment: Alignment.center,
-                      child: const Text('·'),
-                    ),
+                    if (useZocchiDice || useRegularDice)
+                      Container(
+                        width: 10.0,
+                        height: 44.0,
+                        alignment: Alignment.center,
+                        child: const Text('·'),
+                      ),
                   ],
-                  ...generalDice.getDice(),
+                  if (useCoriolisDice) ...[
+                    DiceButton(
+                        color: CupertinoColors.darkBackgroundGray,
+                        dieType: coriolis,
+                        label: 'Coriolis',
+                        onPressed: (List<DiceRoll> result) {
+                          setState(() {
+                            diceResults.addAll(result);
+                          });
+                          // send the array to the temp dice roll
+                        }),
+                  ],
+                  // TODO:
+                  if (generalDice != null) ...generalDice.getDice(),
                 ],
               ),
-              const Divider(),
+              if (useFateDice || useZocchiDice || useRegularDice)
+                const Divider(),
 
               const Text('Mythic GME'),
 

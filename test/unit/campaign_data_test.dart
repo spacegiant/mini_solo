@@ -6,9 +6,11 @@ void main() {
     final GeneralSettingsData generalSettingsData = GeneralSettingsData(
       showFutureSettings: false,
       useJournal: false,
+      useRegularDice: true,
       useZocchiDice: false,
       useFateDice: false,
       wrapControls: true,
+      useCoriolisDice: false,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -18,9 +20,11 @@ void main() {
     final GeneralSettingsData generalSettingsData2 = GeneralSettingsData(
       showFutureSettings: true,
       useJournal: true,
+      useRegularDice: true,
       useZocchiDice: true,
       useFateDice: false,
       wrapControls: true,
+      useCoriolisDice: false,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -32,9 +36,11 @@ void main() {
     final GeneralSettingsData generalSettingsData = GeneralSettingsData(
       showFutureSettings: false,
       useJournal: false,
+      useRegularDice: true,
       useZocchiDice: false,
       useFateDice: false,
       wrapControls: true,
+      useCoriolisDice: false,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

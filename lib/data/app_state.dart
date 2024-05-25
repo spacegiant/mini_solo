@@ -186,6 +186,15 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // GENERAL DICE
+  bool? get useGeneralDice => _campaignData?.settings.general.useRegularDice;
+
+  void toggleUseGeneralDice() {
+    _campaignData?.settings.general.useRegularDice =
+        !_campaignData!.settings.general.useRegularDice;
+    saveCampaignDataToDisk();
+  }
+
   // ZOCCHI DICE
   bool? get useZocchiDice => _campaignData?.settings.general.useZocchiDice;
 
@@ -201,6 +210,15 @@ class AppState extends ChangeNotifier {
   void toggleUseFateDice() {
     _campaignData?.settings.general.useFateDice =
         !_campaignData!.settings.general.useFateDice;
+    saveCampaignDataToDisk();
+  }
+
+  // CORIOLIS DICE
+  bool? get useCoriolisDice => _campaignData?.settings.general.useCoriolisDice;
+
+  void toggleUseCoriolisDice() {
+    _campaignData?.settings.general.useCoriolisDice =
+        !_campaignData!.settings.general.useCoriolisDice;
     saveCampaignDataToDisk();
   }
 
