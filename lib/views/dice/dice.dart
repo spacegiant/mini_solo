@@ -1,11 +1,12 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import '../../data/campaign_data.dart';
+import '../../icons.dart';
 
 class DiceFace {
   late int value;
   late String? label;
-  late Icon? icon;
+  late Images? icon;
 
   DiceFace({
     required this.value,

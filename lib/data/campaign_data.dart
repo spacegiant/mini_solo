@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
+import '../icons.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';
 
@@ -388,11 +389,13 @@ class BothResults {
 class DiceRoll {
   BothResults result;
   String diceType;
+  Images? icon;
 
   DiceRoll({
     // required super.isFavourite,
     required this.result,
     required this.diceType,
+    this.icon,
   });
 // coverage:ignore-start
   factory DiceRoll.fromJson(Map<String, dynamic> json) =>

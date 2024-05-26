@@ -32,9 +32,11 @@ class DiceButton extends StatelessWidget {
         child: SvgIcon(icon: icon),
         onPressed: () {
           for (int i = 1; i <= numberOfRolls!; i++) {
+            BothResults roll = dieType.roll();
             DiceRoll diceResult = DiceRoll(
-              result: dieType.roll(),
+              result: roll,
               diceType: dieType.label,
+              icon: dieType.faces[roll.rolledValue].icon,
             );
             result.add(diceResult);
           }
@@ -55,6 +57,7 @@ class DiceButton extends StatelessWidget {
             DiceRoll diceResult = DiceRoll(
               result: dieType.roll(),
               diceType: dieType.label,
+              icon: icon,
             );
             result.add(diceResult);
           }

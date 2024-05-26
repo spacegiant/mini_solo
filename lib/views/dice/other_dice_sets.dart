@@ -1,3 +1,4 @@
+import '../../icons.dart';
 import 'dice.dart';
 
 DiceType coriolis = DiceType(
@@ -13,13 +14,13 @@ DiceType coriolis = DiceType(
 );
 
 DiceType d6oracle = DiceType(
-  label: 'D6 Oracle',
+  label: 'Oracle',
   faces: [
-    DiceFace(value: 1, label: 'No +'),
-    DiceFace(value: 2, label: 'No'),
-    DiceFace(value: 3, label: 'No -'),
-    DiceFace(value: 4, label: 'Yes +'),
-    DiceFace(value: 5, label: 'Yes'),
-    DiceFace(value: 6, label: 'Yes -'),
+    DiceFace(value: 1, label: 'No +', icon: Images.d6OracleNoAnd),
+    DiceFace(value: 2, label: 'No', icon: Images.d6OracleNo),
+    DiceFace(value: 3, label: 'No -', icon: Images.d6OracleNoBut),
+    DiceFace(value: 4, label: 'Yes +', icon: Images.d6OracleYesAnd),
+    DiceFace(value: 5, label: 'Yes', icon: Images.d6OracleYes),
+    DiceFace(value: 6, label: 'Yes -', icon: Images.d6OracleYesBut),
   ],
 );
