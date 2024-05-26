@@ -175,7 +175,6 @@ class _JournalViewState extends State<JournalView> {
                 children: [
                   if (useD6OracleDice)
                     DiceButton(
-                        color: CupertinoColors.systemCyan,
                         dieType: d6oracle,
                         label: 'D6 Oracle',
                         icon: Images.d6Oracle,
@@ -207,7 +206,6 @@ class _JournalViewState extends State<JournalView> {
                   ],
                   if (useCoriolisDice)
                     DiceButton(
-                        color: CupertinoColors.systemPink,
                         dieType: coriolis,
                         label: 'Coriolis',
                         icon: Images.coriolis6,
