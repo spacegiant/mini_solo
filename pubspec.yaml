@@ -47,6 +47,7 @@ dependencies:
   url_launcher: ^6.2.5
   font_awesome_flutter: ^10.7.0
   mockito: ^5.4.4
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -78,9 +79,11 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - lib/assets/
     - lib/assets/json/
     - lib/assets/json/mythic/
     - lib/assets/json/mythic_elements/
+    - lib/assets/d6_oracle/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

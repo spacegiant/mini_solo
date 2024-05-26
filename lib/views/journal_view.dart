@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
 import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -96,6 +97,13 @@ class _JournalViewState extends State<JournalView> {
       // bool showFutureFeatures =
       //     appState.campaignData!.settings.general.showFutureSettings;
 
+      const String assetName = 'lib/assets/d6_oracle/d6_oracle_yes_and.svg';
+      final Widget svg = SvgPicture.asset(
+        assetName,
+        semanticsLabel: 'Acme Logo',
+        width: 44.0,
+      );
+
       GeneralSettingsData generalSettings =
           appState.campaignData!.settings.general;
       bool useZocchiDice = generalSettings.useZocchiDice;
@@ -166,6 +174,7 @@ class _JournalViewState extends State<JournalView> {
             flex: 1,
             child: ViewWrapper(children: [
               const Gap(),
+              svg,
 
               WrapManager(
                 wrapControls: wrapControls,
