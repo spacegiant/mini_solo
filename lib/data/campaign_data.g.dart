@@ -117,7 +117,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
-      chaosFactor: json['chaosFactor'] as int,
+      chaosFactor: (json['chaosFactor'] as num).toInt(),
     );
 
 Map<String, dynamic> _$MythicDataToJson(MythicData instance) =>
@@ -268,7 +268,7 @@ Map<String, dynamic> _$CreatureToJson(Creature instance) => <String, dynamic>{
     };
 
 BothResults _$BothResultsFromJson(Map<String, dynamic> json) => BothResults(
-      rolledValue: json['rolledValue'] as int,
+      rolledValue: (json['rolledValue'] as num).toInt(),
       label: json['label'] as String?,
     );
 
@@ -281,12 +281,30 @@ Map<String, dynamic> _$BothResultsToJson(BothResults instance) =>
 DiceRoll _$DiceRollFromJson(Map<String, dynamic> json) => DiceRoll(
       result: BothResults.fromJson(json['result'] as Map<String, dynamic>),
       diceType: json['diceType'] as String,
+      icon: $enumDecodeNullable(_$ImagesEnumMap, json['icon']),
     );
 
 Map<String, dynamic> _$DiceRollToJson(DiceRoll instance) => <String, dynamic>{
       'result': instance.result,
       'diceType': instance.diceType,
+      'icon': _$ImagesEnumMap[instance.icon],
     };
+
+const _$ImagesEnumMap = {
+  Images.d6Oracle: 'd6Oracle',
+  Images.d6OracleYesAnd: 'd6OracleYesAnd',
+  Images.d6OracleYes: 'd6OracleYes',
+  Images.d6OracleYesBut: 'd6OracleYesBut',
+  Images.d6OracleNoBut: 'd6OracleNoBut',
+  Images.d6OracleNo: 'd6OracleNo',
+  Images.d6OracleNoAnd: 'd6OracleNoAnd',
+  Images.coriolis1: 'coriolis1',
+  Images.coriolis2: 'coriolis2',
+  Images.coriolis3: 'coriolis3',
+  Images.coriolis4: 'coriolis4',
+  Images.coriolis5: 'coriolis5',
+  Images.coriolis6: 'coriolis6',
+};
 
 RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
     RollEntryItem(
