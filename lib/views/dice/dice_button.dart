@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/icons.dart';
 
 import '../../data/campaign_data.dart';
 import 'dice.dart';
@@ -11,6 +12,7 @@ class DiceButton extends StatelessWidget {
     this.color,
     this.label,
     this.numberOfRolls = 1,
+    this.icon,
   });
 
   final DiceType dieType;
@@ -18,34 +20,50 @@ class DiceButton extends StatelessWidget {
   final Color? color;
   final String? label;
   final int? numberOfRolls;
+  final Images? icon;
 
   @override
   Widget build(BuildContext context) {
     String buttonLabel = label ?? dieType.label;
     List<DiceRoll> result = [];
 
+    Widget iconButton = CupertinoButton(
+        padding: const EdgeInsets.all(0.0),
+        child: SvgIcon(icon: icon),
+        onPressed: () {
+          for (int i = 1; i <= numberOfRolls!; i++) {
+            DiceRoll diceResult = DiceRoll(
+              result: dieType.roll(),
+              diceType: dieType.label,
+            );
+            result.add(diceResult);
+          }
+          onPressed(result);
+        });
+
+    Widget textButton = CupertinoButton(
+        color: color ?? CupertinoColors.systemPink,
+        padding: const EdgeInsets.all(0.0),
+        child: Text(
+          buttonLabel,
+          style: const TextStyle(
+            color: CupertinoColors.white,
+          ),
+        ),
+        onPressed: () {
+          for (int i = 1; i <= numberOfRolls!; i++) {
+            DiceRoll diceResult = DiceRoll(
+              result: dieType.roll(),
+              diceType: dieType.label,
+            );
+            result.add(diceResult);
+          }
+
+          onPressed(result);
+        });
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: CupertinoButton(
-          color: color ?? CupertinoColors.systemPink,
-          padding: const EdgeInsets.all(0.0),
-          child: Text(
-            buttonLabel,
-            style: const TextStyle(
-              color: CupertinoColors.white,
-            ),
-          ),
-          onPressed: () {
-            for (int i = 1; i <= numberOfRolls!; i++) {
-              DiceRoll diceResult = DiceRoll(
-                result: dieType.roll(),
-                diceType: dieType.label,
-              );
-              result.add(diceResult);
-            }
-
-            onPressed(result);
-          }),
+      child: icon != null ? iconButton : textButton,
     );
   }
 }

@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
+import '../icons.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
@@ -97,13 +98,6 @@ class _JournalViewState extends State<JournalView> {
       // bool showFutureFeatures =
       //     appState.campaignData!.settings.general.showFutureSettings;
 
-      const String assetName = 'lib/assets/d6_oracle/d6_oracle_yes_and.svg';
-      final Widget svg = SvgPicture.asset(
-        assetName,
-        semanticsLabel: 'Acme Logo',
-        width: 44.0,
-      );
-
       GeneralSettingsData generalSettings =
           appState.campaignData!.settings.general;
       bool useZocchiDice = generalSettings.useZocchiDice;
@@ -174,7 +168,6 @@ class _JournalViewState extends State<JournalView> {
             flex: 1,
             child: ViewWrapper(children: [
               const Gap(),
-              svg,
 
               WrapManager(
                 wrapControls: wrapControls,
@@ -185,6 +178,7 @@ class _JournalViewState extends State<JournalView> {
                         color: CupertinoColors.systemCyan,
                         dieType: d6oracle,
                         label: 'D6 Oracle',
+                        icon: Images.d6Oracle,
                         onPressed: (List<DiceRoll> result) {
                           setState(() {
                             diceResults.addAll(result);
