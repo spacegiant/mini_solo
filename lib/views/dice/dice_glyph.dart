@@ -20,7 +20,6 @@ class DiceGlyph extends StatelessWidget {
     Widget glyphContent;
 
     if (diceRoll.icon != null) {
-      print(diceRoll.icon);
       glyphContent = Column(children: [
         SvgIcon(icon: diceRoll.icon),
         Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SvgIcon extends StatelessWidget {
@@ -6,14 +7,17 @@ class SvgIcon extends StatelessWidget {
 
   final Images? icon;
   final String? semanticsLabel;
-  final double width = 50.0;
+  final double width = 56.0;
+  final double height = 56.0;
 
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       imagesPaths[icon]!,
       semanticsLabel: 'd6 Oracle Dice',
-      width: 50.0,
+      width: width,
+      height: height,
+      // colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
     );
   }
 }
