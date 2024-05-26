@@ -12,6 +12,7 @@ CampaignData sampleCampaignData() {
         useFateDice: false,
         wrapControls: false,
         useCoriolisDice: false,
+        useD6Oracle: false,
       ),
     ),
     mythicData: MythicData(

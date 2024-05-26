@@ -11,3 +11,15 @@ DiceType coriolis = DiceType(
     DiceFace(value: 6, label: '🪲'),
   ],
 );
+
+DiceType d6oracle = DiceType(
+  label: 'D6 Oracle',
+  faces: [
+    DiceFace(value: 1, label: 'No +'),
+    DiceFace(value: 2, label: 'No'),
+    DiceFace(value: 3, label: 'No -'),
+    DiceFace(value: 4, label: 'Yes +'),
+    DiceFace(value: 5, label: 'Yes'),
+    DiceFace(value: 6, label: 'Yes -'),
+  ],
+);
