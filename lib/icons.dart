@@ -14,7 +14,7 @@ class SvgIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       imagesPaths[icon]!,
-      semanticsLabel: 'd6 Oracle Dice',
+      semanticsLabel: semanticsLabel,
       width: width,
       height: height,
       // colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
@@ -30,6 +30,12 @@ enum Images {
   d6OracleNoBut,
   d6OracleNo,
   d6OracleNoAnd,
+  coriolis1,
+  coriolis2,
+  coriolis3,
+  coriolis4,
+  coriolis5,
+  coriolis6,
 }
 
 Map<Images, String> imagesPaths = {
@@ -40,4 +46,10 @@ Map<Images, String> imagesPaths = {
   Images.d6OracleNoBut: 'lib/assets/d6_oracle/d6_oracle_no_but.svg',
   Images.d6OracleNo: 'lib/assets/d6_oracle/d6_oracle_no.svg',
   Images.d6OracleNoAnd: 'lib/assets/d6_oracle/d6_oracle_no_and.svg',
+  Images.coriolis1: 'lib/assets/coriolis/coriolis_1.svg',
+  Images.coriolis2: 'lib/assets/coriolis/coriolis_2.svg',
+  Images.coriolis3: 'lib/assets/coriolis/coriolis_3.svg',
+  Images.coriolis4: 'lib/assets/coriolis/coriolis_4.svg',
+  Images.coriolis5: 'lib/assets/coriolis/coriolis_5.svg',
+  Images.coriolis6: 'lib/assets/coriolis/coriolis_6.svg',
 };

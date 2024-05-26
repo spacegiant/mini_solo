@@ -207,9 +207,10 @@ class _JournalViewState extends State<JournalView> {
                   ],
                   if (useCoriolisDice)
                     DiceButton(
-                        color: CupertinoColors.darkBackgroundGray,
+                        color: CupertinoColors.systemPink,
                         dieType: coriolis,
                         label: 'Coriolis',
+                        icon: Images.coriolis6,
                         onPressed: (List<DiceRoll> result) {
                           setState(() {
                             diceResults.addAll(result);

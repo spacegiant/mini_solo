@@ -36,7 +36,7 @@ class DiceButton extends StatelessWidget {
             DiceRoll diceResult = DiceRoll(
               result: roll,
               diceType: dieType.label,
-              icon: dieType.faces[roll.rolledValue].icon,
+              icon: dieType.faces[roll.rolledValue - 1].icon,
             );
             result.add(diceResult);
           }
