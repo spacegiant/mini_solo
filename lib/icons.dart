@@ -36,6 +36,8 @@ enum Images {
   coriolis4,
   coriolis5,
   coriolis6,
+  d2_1,
+  d2_2,
 }
 
 Map<Images, String> imagesPaths = {
@@ -52,4 +54,6 @@ Map<Images, String> imagesPaths = {
   Images.coriolis4: 'lib/assets/coriolis/coriolis_4.svg',
   Images.coriolis5: 'lib/assets/coriolis/coriolis_5.svg',
   Images.coriolis6: 'lib/assets/coriolis/coriolis_6.svg',
+  Images.d2_1: 'lib/assets/zocchi_dice/d2_1.svg',
+  Images.d2_2: 'lib/assets/zocchi_dice/d2_2.svg',
 };
