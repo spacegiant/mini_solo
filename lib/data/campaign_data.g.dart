@@ -39,6 +39,7 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       useZocchiDice: json['useZocchiDice'] as bool,
       useFateDice: json['useFateDice'] as bool,
       useCoriolisDice: json['useCoriolisDice'] as bool,
+      useD6Oracle: json['useD6Oracle'] as bool,
       wrapControls: json['wrapControls'] as bool,
     );
 
@@ -51,6 +52,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'useRegularDice': instance.useRegularDice,
       'useFateDice': instance.useFateDice,
       'useCoriolisDice': instance.useCoriolisDice,
+      'useD6Oracle': instance.useD6Oracle,
       'wrapControls': instance.wrapControls,
     };
 

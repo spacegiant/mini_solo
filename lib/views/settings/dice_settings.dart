@@ -39,5 +39,12 @@ List<Widget> diceSettings(
         appState.toggleUseCoriolisDice();
       },
     ),
+    SettingsOption(
+      isActive: general.useD6Oracle,
+      label: 'Use D6 Oracle Dice',
+      onChanged: (isChecked) {
+        appState.toggleUseD6Oracle();
+      },
+    ),
   ];
 }

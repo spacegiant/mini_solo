@@ -103,6 +103,7 @@ class _JournalViewState extends State<JournalView> {
       bool useGeneralDice = useZocchiDice && useRegularDice;
       bool useFateDice = generalSettings.useFateDice;
       bool useCoriolisDice = generalSettings.useCoriolisDice;
+      bool useD6OracleDice = generalSettings.useD6Oracle;
 
       bool wrapControls = generalSettings.wrapControls;
 
@@ -170,6 +171,17 @@ class _JournalViewState extends State<JournalView> {
                 wrapControls: wrapControls,
                 hideDivider: true,
                 children: [
+                  if (useD6OracleDice)
+                    DiceButton(
+                        color: CupertinoColors.systemCyan,
+                        dieType: d6oracle,
+                        label: 'D6 Oracle',
+                        onPressed: (List<DiceRoll> result) {
+                          setState(() {
+                            diceResults.addAll(result);
+                          });
+                          // send the array to the temp dice roll
+                        }),
                   if (useFateDice) ...[
                     DiceButton(
                         color: CupertinoColors.systemOrange,
@@ -190,7 +202,7 @@ class _JournalViewState extends State<JournalView> {
                         child: const Text('·'),
                       ),
                   ],
-                  if (useCoriolisDice) ...[
+                  if (useCoriolisDice)
                     DiceButton(
                         color: CupertinoColors.darkBackgroundGray,
                         dieType: coriolis,
@@ -201,8 +213,6 @@ class _JournalViewState extends State<JournalView> {
                           });
                           // send the array to the temp dice roll
                         }),
-                  ],
-                  // TODO:
                   if (generalDice != null) ...generalDice.getDice(),
                 ],
               ),

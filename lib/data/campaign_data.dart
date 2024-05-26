@@ -94,6 +94,7 @@ class GeneralSettingsData {
   late bool useRegularDice;
   late bool useFateDice;
   late bool useCoriolisDice;
+  late bool useD6Oracle;
   late bool wrapControls;
 
   GeneralSettingsData({
@@ -103,6 +104,7 @@ class GeneralSettingsData {
     required this.useZocchiDice,
     required this.useFateDice,
     required this.useCoriolisDice,
+    required this.useD6Oracle,
     required this.wrapControls,
   });
 // coverage:ignore-start
@@ -184,6 +186,7 @@ CampaignData initCampaignDataData(String campaignName) {
         useZocchiDice: false,
         useFateDice: false,
         useCoriolisDice: false,
+        useD6Oracle: false,
         wrapControls: false,
       ),
     ),

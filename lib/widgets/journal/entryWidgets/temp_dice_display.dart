@@ -37,7 +37,13 @@ class TempDiceDisplay extends StatelessWidget {
                   ),
                 ],
               ),
-              const Text('Press to submit, Long Hold to clear')
+              const Center(
+                  child: Text(
+                'Press to submit, Long Hold to clear',
+                style: TextStyle(
+                  fontSize: 12.0,
+                ),
+              ))
             ],
           ),
         ),

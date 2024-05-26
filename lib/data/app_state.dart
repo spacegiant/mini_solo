@@ -222,6 +222,15 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // D6 ORACLE DICE
+  bool? get useD6Oracle => _campaignData?.settings.general.useD6Oracle;
+
+  void toggleUseD6Oracle() {
+    _campaignData?.settings.general.useD6Oracle =
+        !_campaignData!.settings.general.useD6Oracle;
+    saveCampaignDataToDisk();
+  }
+
   // JOURNAL ENTRIES
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
