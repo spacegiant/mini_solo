@@ -25,6 +25,13 @@ DiceType ability = DiceType(
   color: Colors.green,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
+    DiceFace(value: 6, label: '7'),
+    DiceFace(value: 6, label: '8'),
   ],
 );
 
@@ -33,6 +40,17 @@ DiceType proficiency = DiceType(
   color: Colors.yellow,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
+    DiceFace(value: 7, label: '7'),
+    DiceFace(value: 8, label: '8'),
+    DiceFace(value: 9, label: '9'),
+    DiceFace(value: 10, label: '10'),
+    DiceFace(value: 11, label: '11'),
+    DiceFace(value: 12, label: '12'),
   ],
 );
 
@@ -41,6 +59,11 @@ DiceType boost = DiceType(
   color: Colors.blue,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
   ],
 );
 
@@ -49,6 +72,13 @@ DiceType difficulty = DiceType(
   color: Colors.purple,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
+    DiceFace(value: 7, label: '7'),
+    DiceFace(value: 8, label: '8'),
   ],
 );
 
@@ -57,6 +87,17 @@ DiceType challenge = DiceType(
   color: Colors.red,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
+    DiceFace(value: 7, label: '7'),
+    DiceFace(value: 8, label: '8'),
+    DiceFace(value: 9, label: '9'),
+    DiceFace(value: 10, label: '10'),
+    DiceFace(value: 11, label: '11'),
+    DiceFace(value: 12, label: '12'),
   ],
 );
 
@@ -65,6 +106,11 @@ DiceType setback = DiceType(
   color: Colors.black,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
   ],
 );
 
@@ -73,6 +119,11 @@ DiceType force = DiceType(
   color: Colors.white,
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
   ],
 );
 
@@ -80,5 +131,10 @@ DiceType percentile = DiceType(
   label: '%',
   faces: [
     DiceFace(value: 1, label: '1'),
+    DiceFace(value: 2, label: '2'),
+    DiceFace(value: 3, label: '3'),
+    DiceFace(value: 4, label: '4'),
+    DiceFace(value: 5, label: '5'),
+    DiceFace(value: 6, label: '6'),
   ],
 );
