@@ -171,11 +171,23 @@ DiceType d7 = DiceType(
 );
 
 DiceType d14 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d14_14,
   label: 'd14',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d14_1),
+    DiceFace(value: 2, label: '2', icon: Images.d14_2),
+    DiceFace(value: 3, label: '3', icon: Images.d14_3),
+    DiceFace(value: 4, label: '4', icon: Images.d14_4),
+    DiceFace(value: 5, label: '5', icon: Images.d14_5),
+    DiceFace(value: 6, label: '6', icon: Images.d14_6),
+    DiceFace(value: 7, label: '7', icon: Images.d14_7),
+    DiceFace(value: 8, label: '8', icon: Images.d14_8),
+    DiceFace(value: 9, label: '9', icon: Images.d14_9),
+    DiceFace(value: 10, label: '10', icon: Images.d14_10),
+    DiceFace(value: 11, label: '11', icon: Images.d14_11),
+    DiceFace(value: 12, label: '12', icon: Images.d14_12),
+    DiceFace(value: 13, label: '13', icon: Images.d14_13),
+    DiceFace(value: 14, label: '14', icon: Images.d14_14),
   ],
 );
 
