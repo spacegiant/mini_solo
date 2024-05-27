@@ -85,6 +85,7 @@ flutter:
     - lib/assets/json/mythic_elements/
     - lib/assets/d6_oracle/
     - lib/assets/coriolis/
+    - lib/assets/zocchi_dice/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

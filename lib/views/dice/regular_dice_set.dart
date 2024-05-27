@@ -1,3 +1,4 @@
+import '../../icons.dart';
 import 'dice.dart';
 
 DiceSet regularDice = DiceSet(
@@ -78,7 +79,10 @@ DiceType d100 = DiceType(
 DiceType d2 = DiceType(
   isZocchi: true,
   label: 'd2',
-  faces: createDice(2),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.d2_1),
+    DiceFace(value: 2, label: '2', icon: Images.d2_2),
+  ],
 );
 
 DiceType d3 = DiceType(
