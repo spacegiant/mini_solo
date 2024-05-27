@@ -135,11 +135,16 @@ DiceType d5 = DiceType(
 );
 
 DiceType d7 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d7_7,
   label: 'd7',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d7_1),
+    DiceFace(value: 2, label: '2', icon: Images.d7_2),
+    DiceFace(value: 3, label: '3', icon: Images.d7_3),
+    DiceFace(value: 4, label: '4', icon: Images.d7_4),
+    DiceFace(value: 5, label: '5', icon: Images.d7_5),
+    DiceFace(value: 6, label: '6', icon: Images.d7_6),
+    DiceFace(value: 7, label: '7', icon: Images.d7_7),
   ],
 );
 
