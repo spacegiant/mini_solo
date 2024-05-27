@@ -32,6 +32,7 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabels.journalFilter) {
         popupWidget = const Text('JOURNAL FILTER');
       } else if (popup == PopupLabels.campaignManager) {
+        popupHeight = 600.0;
         popupWidget = CampaignManager(
           getCampaignList: widget!.storage.getCampaignsList,
         );

@@ -43,20 +43,18 @@ class _CampaignManagerState extends State<CampaignManager> {
             // var test = snapshot.data.forEach((item) => print(item));
             // print(test.runtimeType);
             print(snapshot.data[0].path);
-            return Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(8),
-                scrollDirection: Axis.vertical,
-                children: [
-                  for (var item in snapshot.data)
-                    CupertinoButton(
-                        onPressed: () {
-                          print(snapshot.data[0].path);
-                          // RELOAD WITH THIS CAMPAIGN
-                        },
-                        child: Text(getLabel(item.path)))
-                ],
-              ),
+            return Column(
+              // padding: const EdgeInsets.all(8),
+              // scrollDirection: Axis.vertical,
+              children: [
+                for (var item in snapshot.data)
+                  CupertinoButton(
+                      onPressed: () {
+                        print(snapshot.data[0].path);
+                        // RELOAD WITH THIS CAMPAIGN
+                      },
+                      child: Text(getLabel(item.path)))
+              ],
             );
           } else if (snapshot.hasError) {
             // TODO: What to do here?
