@@ -6,12 +6,28 @@ DiceSet regularDice = DiceSet(
 );
 
 DiceSet zocchiDice = DiceSet(
-  dieTypes: [d3, d5, d7, d14, d16, d24, d30],
+  dieTypes: [d2, d3, d5, d7, d14, d16, d24, d30],
   label: 'Zocchi Dice Set',
 );
 
 DiceSet all = DiceSet(
-  dieTypes: [d3, d4, d5, d6, d7, d8, d10, d12, d14, d16, d20, d24, d30, d100],
+  dieTypes: [
+    d2,
+    d3,
+    d4,
+    d5,
+    d6,
+    d7,
+    d8,
+    d10,
+    d12,
+    d14,
+    d16,
+    d20,
+    d24,
+    d30,
+    d100
+  ],
   label: 'Regular + Zocchi Dice Set',
 );
 
@@ -58,6 +74,12 @@ DiceType d100 = DiceType(
 );
 
 // ZOCCHI DICE
+
+DiceType d2 = DiceType(
+  isZocchi: true,
+  label: 'd2',
+  faces: createDice(2),
+);
 
 DiceType d3 = DiceType(
   isZocchi: true,
