@@ -145,8 +145,9 @@ class _JournalState extends State<Journal> {
               children: [
                 Container(
                   constraints: const BoxConstraints(
-                    minHeight: 350.0,
-                    maxHeight: 350.0,
+                    // Max height used here to prevent android keyboard overlaying input
+                    minHeight: 300.0,
+                    maxHeight: 300.0,
                   ),
                   child: SingleChildScrollView(
                     reverse: true,
