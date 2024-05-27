@@ -2,7 +2,7 @@ import '../../icons.dart';
 import 'dice.dart';
 
 DiceSet regularDice = DiceSet(
-  dieTypes: [d4, d6, d8, d10, d12, d20, d100],
+  dieTypes: [d4, d6, d8, d10, d100, d12, d20],
   label: 'Regular Dice Set',
 );
 
@@ -21,13 +21,13 @@ DiceSet all = DiceSet(
     d7,
     d8,
     d10,
+    d100,
     d12,
     d14,
     d16,
     d20,
     d24,
     d30,
-    d100
   ],
   label: 'Regular + Zocchi Dice Set',
 );
@@ -57,20 +57,34 @@ DiceType d6 = DiceType(
 );
 
 DiceType d8 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d8_8,
   label: 'd8',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d8_1),
+    DiceFace(value: 2, label: '2', icon: Images.d8_2),
+    DiceFace(value: 3, label: '3', icon: Images.d8_3),
+    DiceFace(value: 4, label: '4', icon: Images.d8_4),
+    DiceFace(value: 5, label: '5', icon: Images.d8_5),
+    DiceFace(value: 6, label: '6', icon: Images.d8_6),
+    DiceFace(value: 7, label: '7', icon: Images.d8_7),
+    DiceFace(value: 8, label: '8', icon: Images.d8_8),
   ],
 );
 
 DiceType d10 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d10_10,
   label: 'd10',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d10_1),
+    DiceFace(value: 2, label: '2', icon: Images.d10_2),
+    DiceFace(value: 3, label: '3', icon: Images.d10_3),
+    DiceFace(value: 4, label: '4', icon: Images.d10_4),
+    DiceFace(value: 5, label: '5', icon: Images.d10_5),
+    DiceFace(value: 6, label: '6', icon: Images.d10_6),
+    DiceFace(value: 7, label: '7', icon: Images.d10_7),
+    DiceFace(value: 8, label: '8', icon: Images.d10_8),
+    DiceFace(value: 9, label: '9', icon: Images.d10_9),
+    DiceFace(value: 10, label: '10', icon: Images.d10_10),
   ],
 );
 
@@ -93,11 +107,19 @@ DiceType d20 = DiceType(
 );
 
 DiceType d100 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d100_10,
   label: 'd100',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '10', icon: Images.d100_1),
+    DiceFace(value: 2, label: '20', icon: Images.d100_2),
+    DiceFace(value: 3, label: '30', icon: Images.d100_3),
+    DiceFace(value: 4, label: '40', icon: Images.d100_4),
+    DiceFace(value: 5, label: '50', icon: Images.d100_5),
+    DiceFace(value: 6, label: '60', icon: Images.d100_6),
+    DiceFace(value: 7, label: '70', icon: Images.d100_7),
+    DiceFace(value: 8, label: '80', icon: Images.d100_8),
+    DiceFace(value: 9, label: '90', icon: Images.d100_9),
+    DiceFace(value: 10, label: '100', icon: Images.d100_10),
   ],
 );
 
