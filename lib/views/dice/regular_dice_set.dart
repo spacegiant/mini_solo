@@ -33,7 +33,7 @@ DiceSet all = DiceSet(
 );
 
 DiceType d4 = DiceType(
-  icon: Images.d2_2,
+  icon: Images.placeholder,
   label: 'd4',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -98,7 +98,7 @@ DiceType d100 = DiceType(
 // ZOCCHI DICE
 
 DiceType d2 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d2_2,
   label: 'd2',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.d2_1),
@@ -107,7 +107,7 @@ DiceType d2 = DiceType(
 );
 
 DiceType d3 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d3_3,
   label: 'd3',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.d3_1),
