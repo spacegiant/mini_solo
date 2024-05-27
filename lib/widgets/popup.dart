@@ -21,7 +21,7 @@ Consumer<Object?> popup(
   return Consumer<AppState>(
     builder: (BuildContext context, appState, Widget? child) {
       PopupLabels popup = appState.popupLabel;
-      double popupHeight = double.infinity;
+      double popupHeight = 400.0;
       Widget popupWidget;
 
       // WIDGETS
