@@ -34,7 +34,6 @@ DiceSet all = DiceSet(
 
 DiceType d4 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd4',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -44,7 +43,6 @@ DiceType d4 = DiceType(
 
 DiceType d6 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd6',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -54,7 +52,6 @@ DiceType d6 = DiceType(
 
 DiceType d8 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd8',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -64,7 +61,6 @@ DiceType d8 = DiceType(
 
 DiceType d10 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd10',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -74,7 +70,6 @@ DiceType d10 = DiceType(
 
 DiceType d12 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd12',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -84,7 +79,6 @@ DiceType d12 = DiceType(
 
 DiceType d20 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd20',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -94,7 +88,6 @@ DiceType d20 = DiceType(
 
 DiceType d100 = DiceType(
   icon: Images.placeholder,
-  isZocchi: false,
   label: 'd100',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -106,7 +99,6 @@ DiceType d100 = DiceType(
 
 DiceType d2 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd2',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.d2_1),
@@ -116,7 +108,6 @@ DiceType d2 = DiceType(
 
 DiceType d3 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd3',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.d3_1),
@@ -127,7 +118,6 @@ DiceType d3 = DiceType(
 
 DiceType d5 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd5',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -137,7 +127,6 @@ DiceType d5 = DiceType(
 
 DiceType d7 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd7',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -147,7 +136,6 @@ DiceType d7 = DiceType(
 
 DiceType d14 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd14',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -157,7 +145,6 @@ DiceType d14 = DiceType(
 
 DiceType d16 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd16',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -167,7 +154,6 @@ DiceType d16 = DiceType(
 
 DiceType d24 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd24',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),
@@ -177,7 +163,6 @@ DiceType d24 = DiceType(
 
 DiceType d30 = DiceType(
   icon: Images.placeholder,
-  isZocchi: true,
   label: 'd30',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),

@@ -29,14 +29,12 @@ class DiceType {
   final Color? color;
   final String label;
   final List<DiceFace> faces;
-  final bool? isZocchi;
   final Images icon;
 
   DiceType({
     this.color,
     required this.label,
     required this.faces,
-    this.isZocchi,
     required this.icon,
   });
 
