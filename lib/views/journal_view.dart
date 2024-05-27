@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
 import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -175,27 +174,19 @@ class _JournalViewState extends State<JournalView> {
                 children: [
                   if (useD6OracleDice)
                     DiceButton(
-                        dieType: d6oracle,
-                        label: 'D6 Oracle',
-                        icon: Images.d6Oracle,
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
+                      dieType: d6oracle,
+                      label: 'D6 Oracle',
+                      icon: Images.d6Oracle,
+                      onPressed: addResult,
+                    ),
                   if (useFateDice) ...[
                     DiceButton(
-                        color: CupertinoColors.systemOrange,
-                        dieType: fate,
-                        numberOfRolls: 4,
-                        label: '4dF',
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
+                      color: CupertinoColors.systemOrange,
+                      dieType: fate,
+                      numberOfRolls: 4,
+                      label: '4dF',
+                      onPressed: addResult,
+                    ),
                     if (useZocchiDice || useRegularDice)
                       Container(
                         width: 10.0,
@@ -206,15 +197,11 @@ class _JournalViewState extends State<JournalView> {
                   ],
                   if (useCoriolisDice)
                     DiceButton(
-                        dieType: coriolis,
-                        label: 'Coriolis',
-                        icon: Images.coriolis6,
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
+                      dieType: coriolis,
+                      label: 'Coriolis',
+                      icon: Images.coriolis6,
+                      onPressed: addResult,
+                    ),
                   if (generalDice != null) ...generalDice.getDice(),
                 ],
               ),
