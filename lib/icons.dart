@@ -42,6 +42,10 @@ enum Images {
   d3_1,
   d3_2,
   d3_3,
+  fateDice,
+  fatePlus,
+  fateBlank,
+  fateMinus,
 }
 
 Map<Images, String> imagesPaths = {
@@ -64,4 +68,8 @@ Map<Images, String> imagesPaths = {
   Images.d3_1: 'lib/assets/zocchi_dice/d3_1.svg',
   Images.d3_2: 'lib/assets/zocchi_dice/d3_2.svg',
   Images.d3_3: 'lib/assets/zocchi_dice/d3_3.svg',
+  Images.fateDice: 'lib/assets/fate_dice/dF.svg',
+  Images.fatePlus: 'lib/assets/fate_dice/dF_plus.svg',
+  Images.fateBlank: 'lib/assets/fate_dice/dF_blank.svg',
+  Images.fateMinus: 'lib/assets/fate_dice/dF_minus.svg',
 };

@@ -189,7 +189,7 @@ class _JournalViewState extends State<JournalView> {
                       numberOfRolls: 4,
                       label: '4dF',
                       onPressed: addResult,
-                      icon: Images.placeholder,
+                      icon: Images.fateDice,
                     ),
                     if (useZocchiDice || useRegularDice)
                       Container(

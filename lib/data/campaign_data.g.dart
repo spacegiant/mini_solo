@@ -310,6 +310,10 @@ const _$ImagesEnumMap = {
   Images.d3_1: 'd3_1',
   Images.d3_2: 'd3_2',
   Images.d3_3: 'd3_3',
+  Images.fateDice: 'fateDice',
+  Images.fatePlus: 'fatePlus',
+  Images.fateBlank: 'fateBlank',
+  Images.fateMinus: 'fateMinus',
 };
 
 RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
