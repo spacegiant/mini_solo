@@ -33,7 +33,7 @@ DiceSet all = DiceSet(
 );
 
 DiceType d4 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d2_2,
   label: 'd4',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.placeholder),

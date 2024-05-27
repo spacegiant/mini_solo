@@ -24,7 +24,6 @@ class DiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String buttonLabel = label ?? dieType.label;
     List<DiceRoll> result = [];
 
     Widget iconButton = CupertinoButton(
@@ -43,27 +42,6 @@ class DiceButton extends StatelessWidget {
           onPressed(result);
         });
 
-    Widget textButton = CupertinoButton(
-        color: color ?? CupertinoColors.systemPink,
-        padding: const EdgeInsets.all(0.0),
-        child: Text(
-          buttonLabel,
-          style: const TextStyle(
-            color: CupertinoColors.white,
-          ),
-        ),
-        onPressed: () {
-          for (int i = 1; i <= numberOfRolls!; i++) {
-            DiceRoll diceResult = DiceRoll(
-              result: dieType.roll(),
-              diceType: dieType.label,
-              icon: icon,
-            );
-            result.add(diceResult);
-          }
-
-          onPressed(result);
-        });
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       // child: icon != null ? iconButton : textButton,
