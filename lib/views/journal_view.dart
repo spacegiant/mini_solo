@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
+import '../icons.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
@@ -124,7 +125,10 @@ class _JournalViewState extends State<JournalView> {
 
         if (diceResults.isNotEmpty) {
           appState.addRollEntry(
-            RollEntryItem(isFavourite: false, result: myDiceResults),
+            RollEntryItem(
+              isFavourite: false,
+              result: myDiceResults,
+            ),
           );
           clearResults();
         }
@@ -173,46 +177,28 @@ class _JournalViewState extends State<JournalView> {
                 children: [
                   if (useD6OracleDice)
                     DiceButton(
-                        color: CupertinoColors.systemCyan,
-                        dieType: d6oracle,
-                        label: 'D6 Oracle',
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
+                      dieType: d6oracle,
+                      label: 'D6 Oracle',
+                      icon: Images.d6Oracle,
+                      onPressed: addResult,
+                    ),
                   if (useFateDice) ...[
                     DiceButton(
-                        color: CupertinoColors.systemOrange,
-                        dieType: fate,
-                        numberOfRolls: 4,
-                        label: '4dF',
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
-                    if (useZocchiDice || useRegularDice)
-                      Container(
-                        width: 10.0,
-                        height: 44.0,
-                        alignment: Alignment.center,
-                        child: const Text('·'),
-                      ),
+                      color: CupertinoColors.systemOrange,
+                      dieType: fate,
+                      numberOfRolls: 4,
+                      label: '4dF',
+                      onPressed: addResult,
+                      icon: Images.fateDice,
+                    ),
                   ],
                   if (useCoriolisDice)
                     DiceButton(
-                        color: CupertinoColors.darkBackgroundGray,
-                        dieType: coriolis,
-                        label: 'Coriolis',
-                        onPressed: (List<DiceRoll> result) {
-                          setState(() {
-                            diceResults.addAll(result);
-                          });
-                          // send the array to the temp dice roll
-                        }),
+                      dieType: coriolis,
+                      label: 'Coriolis',
+                      icon: Images.coriolis6,
+                      onPressed: addResult,
+                    ),
                   if (generalDice != null) ...generalDice.getDice(),
                 ],
               ),

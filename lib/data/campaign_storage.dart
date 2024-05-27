@@ -40,6 +40,7 @@ class CampaignStorage {
     try {
       final path = await _localPath;
       File file = File('$path/$fileName');
+      print(file);
 
       // Read the file
       final jsonData = await file.readAsString();

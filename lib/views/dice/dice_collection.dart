@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../icons.dart';
 import 'dice.dart';
 import 'dice_button.dart';
 
@@ -19,9 +20,7 @@ class DiceCollection {
     return diceSet.dieTypes.map((dieType) => DiceButton(
           dieType: dieType,
           onPressed: onPressed,
-          color: dieType.isZocchi == true
-              ? CupertinoColors.systemBlue
-              : CupertinoColors.systemPink,
+          icon: dieType.icon,
         ));
   }
 }
