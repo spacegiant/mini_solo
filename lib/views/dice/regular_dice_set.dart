@@ -98,11 +98,29 @@ DiceType d12 = DiceType(
 );
 
 DiceType d20 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d20_20,
   label: 'd20',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d20_1),
+    DiceFace(value: 2, label: '2', icon: Images.d20_2),
+    DiceFace(value: 3, label: '3', icon: Images.d20_3),
+    DiceFace(value: 4, label: '4', icon: Images.d20_4),
+    DiceFace(value: 5, label: '5', icon: Images.d20_5),
+    DiceFace(value: 6, label: '6', icon: Images.d20_6),
+    DiceFace(value: 7, label: '7', icon: Images.d20_7),
+    DiceFace(value: 8, label: '8', icon: Images.d20_8),
+    DiceFace(value: 9, label: '9', icon: Images.d20_9),
+    DiceFace(value: 10, label: '10', icon: Images.d20_10),
+    DiceFace(value: 11, label: '11', icon: Images.d20_11),
+    DiceFace(value: 12, label: '12', icon: Images.d20_12),
+    DiceFace(value: 13, label: '13', icon: Images.d20_13),
+    DiceFace(value: 14, label: '14', icon: Images.d20_14),
+    DiceFace(value: 15, label: '15', icon: Images.d20_15),
+    DiceFace(value: 16, label: '16', icon: Images.d20_16),
+    DiceFace(value: 17, label: '17', icon: Images.d20_17),
+    DiceFace(value: 18, label: '18', icon: Images.d20_18),
+    DiceFace(value: 19, label: '19', icon: Images.d20_19),
+    DiceFace(value: 20, label: '20', icon: Images.d20_20),
   ],
 );
 
@@ -192,11 +210,25 @@ DiceType d14 = DiceType(
 );
 
 DiceType d16 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d16_16,
   label: 'd16',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d16_1),
+    DiceFace(value: 2, label: '2', icon: Images.d16_2),
+    DiceFace(value: 3, label: '3', icon: Images.d16_3),
+    DiceFace(value: 4, label: '4', icon: Images.d16_4),
+    DiceFace(value: 5, label: '5', icon: Images.d16_5),
+    DiceFace(value: 6, label: '6', icon: Images.d16_6),
+    DiceFace(value: 7, label: '7', icon: Images.d16_7),
+    DiceFace(value: 8, label: '8', icon: Images.d16_8),
+    DiceFace(value: 9, label: '9', icon: Images.d16_9),
+    DiceFace(value: 10, label: '10', icon: Images.d16_10),
+    DiceFace(value: 11, label: '11', icon: Images.d16_11),
+    DiceFace(value: 12, label: '12', icon: Images.d16_12),
+    DiceFace(value: 13, label: '13', icon: Images.d16_13),
+    DiceFace(value: 14, label: '14', icon: Images.d16_14),
+    DiceFace(value: 15, label: '15', icon: Images.d16_15),
+    DiceFace(value: 16, label: '16', icon: Images.d16_16),
   ],
 );
 
