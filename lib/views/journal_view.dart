@@ -191,13 +191,6 @@ class _JournalViewState extends State<JournalView> {
                       onPressed: addResult,
                       icon: Images.fateDice,
                     ),
-                    if (useZocchiDice || useRegularDice)
-                      Container(
-                        width: 10.0,
-                        height: 44.0,
-                        alignment: Alignment.center,
-                        child: const Text('·'),
-                      ),
                   ],
                   if (useCoriolisDice)
                     DiceButton(
