@@ -33,11 +33,13 @@ DiceSet all = DiceSet(
 );
 
 DiceType d4 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d4_4,
   label: 'd4',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d4_1),
+    DiceFace(value: 2, label: '2', icon: Images.d4_2),
+    DiceFace(value: 3, label: '3', icon: Images.d4_3),
+    DiceFace(value: 4, label: '4', icon: Images.d4_4),
   ],
 );
 
