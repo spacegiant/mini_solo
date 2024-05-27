@@ -44,11 +44,15 @@ DiceType d4 = DiceType(
 );
 
 DiceType d6 = DiceType(
-  icon: Images.placeholder,
+  icon: Images.d6_6,
   label: 'd6',
   faces: [
-    DiceFace(value: 1, label: '1', icon: Images.placeholder),
-    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+    DiceFace(value: 1, label: '1', icon: Images.d6_1),
+    DiceFace(value: 2, label: '2', icon: Images.d6_2),
+    DiceFace(value: 3, label: '3', icon: Images.d6_3),
+    DiceFace(value: 4, label: '4', icon: Images.d6_4),
+    DiceFace(value: 5, label: '5', icon: Images.d6_5),
+    DiceFace(value: 6, label: '6', icon: Images.d6_6),
   ],
 );
 
