@@ -39,24 +39,29 @@ enum Images {
   coriolis6,
   d2_1,
   d2_2,
+
   d3_1,
   d3_2,
   d3_3,
+
   d4_1,
   d4_2,
   d4_3,
   d4_4,
+
   d5_1,
   d5_2,
   d5_3,
   d5_4,
   d5_5,
+
   d6_1,
   d6_2,
   d6_3,
   d6_4,
   d6_5,
   d6_6,
+
   d7_1,
   d7_2,
   d7_3,
@@ -64,6 +69,7 @@ enum Images {
   d7_5,
   d7_6,
   d7_7,
+
   d8_1,
   d8_2,
   d8_3,
@@ -72,6 +78,7 @@ enum Images {
   d8_6,
   d8_7,
   d8_8,
+
   d10_1,
   d10_2,
   d10_3,
@@ -82,6 +89,7 @@ enum Images {
   d10_8,
   d10_9,
   d10_10,
+
   d100_1,
   d100_2,
   d100_3,
@@ -92,6 +100,20 @@ enum Images {
   d100_8,
   d100_9,
   d100_10,
+
+  d12_1,
+  d12_2,
+  d12_3,
+  d12_4,
+  d12_5,
+  d12_6,
+  d12_7,
+  d12_8,
+  d12_9,
+  d12_10,
+  d12_11,
+  d12_12,
+
   d14_1,
   d14_2,
   d14_3,
@@ -106,6 +128,7 @@ enum Images {
   d14_12,
   d14_13,
   d14_14,
+
   d16_1,
   d16_2,
   d16_3,
@@ -122,6 +145,7 @@ enum Images {
   d16_14,
   d16_15,
   d16_16,
+
   d20_1,
   d20_2,
   d20_3,
@@ -142,6 +166,7 @@ enum Images {
   d20_18,
   d20_19,
   d20_20,
+
   fateDice,
   fatePlus,
   fateBlank,
@@ -227,6 +252,19 @@ Map<Images, String> imagesPaths = {
   Images.d100_8: 'lib/assets/general_dice/d100_8.svg',
   Images.d100_9: 'lib/assets/general_dice/d100_9.svg',
   Images.d100_10: 'lib/assets/general_dice/d100_10.svg',
+  // d2
+  Images.d12_1: 'lib/assets/general_dice/d12_1.svg',
+  Images.d12_2: 'lib/assets/general_dice/d12_2.svg',
+  Images.d12_3: 'lib/assets/general_dice/d12_3.svg',
+  Images.d12_4: 'lib/assets/general_dice/d12_4.svg',
+  Images.d12_5: 'lib/assets/general_dice/d12_5.svg',
+  Images.d12_6: 'lib/assets/general_dice/d12_6.svg',
+  Images.d12_7: 'lib/assets/general_dice/d12_7.svg',
+  Images.d12_8: 'lib/assets/general_dice/d12_8.svg',
+  Images.d12_9: 'lib/assets/general_dice/d12_9.svg',
+  Images.d12_10: 'lib/assets/general_dice/d12_10.svg',
+  Images.d12_11: 'lib/assets/general_dice/d12_11.svg',
+  Images.d12_12: 'lib/assets/general_dice/d12_12.svg',
   // d14
   Images.d14_1: 'lib/assets/general_dice/d14_1.svg',
   Images.d14_2: 'lib/assets/general_dice/d14_2.svg',
