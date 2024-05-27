@@ -22,6 +22,7 @@ class OracleEntryWidget extends StatelessWidget {
     String? resultText = entry.lines.result;
 
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
@@ -31,7 +32,7 @@ class OracleEntryWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             JournalEntryLabel(
               label: entry.label,

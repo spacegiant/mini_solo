@@ -23,6 +23,7 @@ class NoteEntryWidget extends StatelessWidget {
     String? detail = entry.detail;
 
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
