@@ -12,7 +12,7 @@ class DiceButton extends StatelessWidget {
     this.color,
     this.label,
     this.numberOfRolls = 1,
-    this.icon,
+    required this.icon,
   });
 
   final DiceType dieType;
@@ -20,7 +20,7 @@ class DiceButton extends StatelessWidget {
   final Color? color;
   final String? label;
   final int? numberOfRolls;
-  final Images? icon;
+  final Images icon;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,8 @@ class DiceButton extends StatelessWidget {
         });
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: icon != null ? iconButton : textButton,
+      // child: icon != null ? iconButton : textButton,
+      child: iconButton,
     );
   }
 }

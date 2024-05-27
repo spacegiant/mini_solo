@@ -389,13 +389,13 @@ class BothResults {
 class DiceRoll {
   BothResults result;
   String diceType;
-  Images? icon;
+  Images icon;
 
   DiceRoll({
     // required super.isFavourite,
     required this.result,
     required this.diceType,
-    this.icon,
+    required this.icon,
   });
 // coverage:ignore-start
   factory DiceRoll.fromJson(Map<String, dynamic> json) =>
@@ -410,11 +410,13 @@ class DiceRoll {
 class RollEntryItem extends CampaignItem {
   List<DiceRoll> result;
   String label;
+  Images? icon;
 
   RollEntryItem({
     required super.isFavourite,
     required this.result,
     this.label = 'Dice Roll',
+    this.icon,
   });
 // coverage:ignore-start
   factory RollEntryItem.fromJson(Map<String, dynamic> json) =>

@@ -281,16 +281,17 @@ Map<String, dynamic> _$BothResultsToJson(BothResults instance) =>
 DiceRoll _$DiceRollFromJson(Map<String, dynamic> json) => DiceRoll(
       result: BothResults.fromJson(json['result'] as Map<String, dynamic>),
       diceType: json['diceType'] as String,
-      icon: $enumDecodeNullable(_$ImagesEnumMap, json['icon']),
+      icon: $enumDecode(_$ImagesEnumMap, json['icon']),
     );
 
 Map<String, dynamic> _$DiceRollToJson(DiceRoll instance) => <String, dynamic>{
       'result': instance.result,
       'diceType': instance.diceType,
-      'icon': _$ImagesEnumMap[instance.icon],
+      'icon': _$ImagesEnumMap[instance.icon]!,
     };
 
 const _$ImagesEnumMap = {
+  Images.placeholder: 'placeholder',
   Images.d6Oracle: 'd6Oracle',
   Images.d6OracleYesAnd: 'd6OracleYesAnd',
   Images.d6OracleYes: 'd6OracleYes',
@@ -304,6 +305,11 @@ const _$ImagesEnumMap = {
   Images.coriolis4: 'coriolis4',
   Images.coriolis5: 'coriolis5',
   Images.coriolis6: 'coriolis6',
+  Images.d2_1: 'd2_1',
+  Images.d2_2: 'd2_2',
+  Images.d3_1: 'd3_1',
+  Images.d3_2: 'd3_2',
+  Images.d3_3: 'd3_3',
 };
 
 RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
@@ -313,6 +319,7 @@ RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
           .map((e) => DiceRoll.fromJson(e as Map<String, dynamic>))
           .toList(),
       label: json['label'] as String? ?? 'Dice Roll',
+      icon: $enumDecodeNullable(_$ImagesEnumMap, json['icon']),
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -323,6 +330,7 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
       'id': instance.id,
       'result': instance.result,
       'label': instance.label,
+      'icon': _$ImagesEnumMap[instance.icon],
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

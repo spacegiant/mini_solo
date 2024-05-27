@@ -23,6 +23,7 @@ class SvgIcon extends StatelessWidget {
 }
 
 enum Images {
+  placeholder,
   d6Oracle,
   d6OracleYesAnd,
   d6OracleYes,
@@ -38,9 +39,13 @@ enum Images {
   coriolis6,
   d2_1,
   d2_2,
+  d3_1,
+  d3_2,
+  d3_3,
 }
 
 Map<Images, String> imagesPaths = {
+  Images.placeholder: 'lib/assets/regular_dice/placeholder.svg',
   Images.d6Oracle: 'lib/assets/d6_oracle/d6_oracle.svg',
   Images.d6OracleYesAnd: 'lib/assets/d6_oracle/d6_oracle_yes_and.svg',
   Images.d6OracleYes: 'lib/assets/d6_oracle/d6_oracle_yes.svg',
@@ -56,4 +61,7 @@ Map<Images, String> imagesPaths = {
   Images.coriolis6: 'lib/assets/coriolis/coriolis_6.svg',
   Images.d2_1: 'lib/assets/zocchi_dice/d2_1.svg',
   Images.d2_2: 'lib/assets/zocchi_dice/d2_2.svg',
+  Images.d3_1: 'lib/assets/zocchi_dice/d3_1.svg',
+  Images.d3_2: 'lib/assets/zocchi_dice/d3_2.svg',
+  Images.d3_3: 'lib/assets/zocchi_dice/d3_3.svg',
 };

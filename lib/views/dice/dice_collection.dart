@@ -20,7 +20,7 @@ class DiceCollection {
     return diceSet.dieTypes.map((dieType) => DiceButton(
           dieType: dieType,
           onPressed: onPressed,
-          icon: Images.d2_1,
+          icon: Images.placeholder,
         ));
   }
 }

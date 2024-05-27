@@ -125,7 +125,10 @@ class _JournalViewState extends State<JournalView> {
 
         if (diceResults.isNotEmpty) {
           appState.addRollEntry(
-            RollEntryItem(isFavourite: false, result: myDiceResults),
+            RollEntryItem(
+              isFavourite: false,
+              result: myDiceResults,
+            ),
           );
           clearResults();
         }
@@ -186,6 +189,7 @@ class _JournalViewState extends State<JournalView> {
                       numberOfRolls: 4,
                       label: '4dF',
                       onPressed: addResult,
+                      icon: Images.placeholder,
                     ),
                     if (useZocchiDice || useRegularDice)
                       Container(

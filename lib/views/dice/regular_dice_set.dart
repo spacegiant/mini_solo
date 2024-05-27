@@ -33,50 +33,79 @@ DiceSet all = DiceSet(
 );
 
 DiceType d4 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd4',
-  faces: createDice(4),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d6 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd6',
-  faces: createDice(6),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d8 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd8',
-  faces: createDice(8),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d10 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd10',
-  faces: createDice(10),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d12 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd12',
-  faces: createDice(12),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d20 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd20',
-  faces: createDice(20),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d100 = DiceType(
+  icon: Images.placeholder,
   isZocchi: false,
   label: 'd100',
-  faces: createDice(100),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 // ZOCCHI DICE
 
 DiceType d2 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd2',
   faces: [
@@ -86,43 +115,72 @@ DiceType d2 = DiceType(
 );
 
 DiceType d3 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd3',
-  faces: createDice(3),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.d3_1),
+    DiceFace(value: 2, label: '2', icon: Images.d3_2),
+    DiceFace(value: 2, label: '2', icon: Images.d3_3),
+  ],
 );
 
 DiceType d5 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd5',
-  faces: createDice(5),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d7 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd7',
-  faces: createDice(7),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d14 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd14',
-  faces: createDice(14),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d16 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd16',
-  faces: createDice(16),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d24 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd24',
-  faces: createDice(24),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );
 
 DiceType d30 = DiceType(
+  icon: Images.placeholder,
   isZocchi: true,
   label: 'd30',
-  faces: createDice(30),
+  faces: [
+    DiceFace(value: 1, label: '1', icon: Images.placeholder),
+    DiceFace(value: 2, label: '2', icon: Images.placeholder),
+  ],
 );

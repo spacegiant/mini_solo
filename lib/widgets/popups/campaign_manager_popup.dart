@@ -42,7 +42,6 @@ class _CampaignManagerState extends State<CampaignManager> {
             // return Text('${snapshot.data}');
             // var test = snapshot.data.forEach((item) => print(item));
             // print(test.runtimeType);
-            print(snapshot.data[0].path);
             return Column(
               // padding: const EdgeInsets.all(8),
               // scrollDirection: Axis.vertical,

@@ -6,12 +6,12 @@ import '../../icons.dart';
 class DiceFace {
   late int value;
   late String? label;
-  late Images? icon;
+  late Images icon;
 
   DiceFace({
     required this.value,
     this.label,
-    this.icon,
+    required this.icon,
   });
 }
 
@@ -30,12 +30,14 @@ class DiceType {
   final String label;
   final List<DiceFace> faces;
   final bool? isZocchi;
+  final Images icon;
 
   DiceType({
     this.color,
     required this.label,
     required this.faces,
     this.isZocchi,
+    required this.icon,
   });
 
   BothResults roll() {
@@ -48,7 +50,12 @@ class DiceType {
   }
 }
 
-List<DiceFace> createDice(int numberOfSides) {
-  return List.generate(numberOfSides,
-      (index) => DiceFace(value: index, label: (index + 1).toString()));
-}
+// List<DiceFace> createDice(int numberOfSides) {
+//   return List.generate(
+//       numberOfSides,
+//       (index) => DiceFace(
+//             value: index,
+//             label: (index + 1).toString(),
+//             icon: Images.d2_1,
+//           ));
+// }

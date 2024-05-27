@@ -11,6 +11,7 @@ DiceType coriolis = DiceType(
     DiceFace(value: 5, label: '5', icon: Images.coriolis5),
     DiceFace(value: 6, label: '6', icon: Images.coriolis6),
   ],
+  icon: Images.placeholder,
 );
 
 DiceType d6oracle = DiceType(
@@ -23,4 +24,5 @@ DiceType d6oracle = DiceType(
     DiceFace(value: 5, label: 'Yes', icon: Images.d6OracleYes),
     DiceFace(value: 6, label: 'Yes -', icon: Images.d6OracleYesBut),
   ],
+  icon: Images.placeholder,
 );
