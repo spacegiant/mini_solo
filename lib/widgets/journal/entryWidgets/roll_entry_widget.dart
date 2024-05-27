@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
@@ -21,6 +22,7 @@ class RollEntryWidget extends StatelessWidget {
         .firstWhere((entry) => entry.id == journalEntry.id);
 
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
@@ -30,7 +32,7 @@ class RollEntryWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             JournalEntryLabel(
               label: entry.label,
