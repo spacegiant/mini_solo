@@ -22,31 +22,6 @@ import 'dice/other_dice_sets.dart';
 import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
 
-enum SceneState {
-  expected,
-  altered,
-  interrupt,
-}
-
-Map<SceneState, String> sceneLabels = {
-  SceneState.expected: 'Expected Scene',
-  SceneState.altered: 'Altered Scene',
-  SceneState.interrupt: 'Interrupt Scene'
-};
-
-class SceneStateResult {
-  final String outcome = '';
-  final String info = '';
-
-  SceneStateResult(
-    String outcome,
-    String info,
-  ) {
-    outcome = this.outcome;
-    info = this.info;
-  }
-}
-
 class JournalView extends StatefulWidget {
   const JournalView({super.key});
 
@@ -170,7 +145,6 @@ class _JournalViewState extends State<JournalView> {
             flex: 1,
             child: ViewWrapper(children: [
               const Gap(),
-
               WrapManager(
                 wrapControls: wrapControls,
                 hideDivider: true,

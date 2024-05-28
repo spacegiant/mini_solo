@@ -6,6 +6,8 @@ import 'package:mini_solo/views/new_view.dart';
 import 'package:mini_solo/views/starred_view.dart';
 import 'package:mini_solo/views/tracker_view.dart';
 
+import 'features/scratchpad/scratchpad_view.dart';
+
 class TabBarItem {
   String label;
   IconData icon;
@@ -32,6 +34,11 @@ List<TabBarItem> tabBarItems = [
     viewWidget: const NewView(),
   ),
   TabBarItem(
+    label: 'Scratch',
+    icon: CupertinoIcons.pencil_outline,
+    viewWidget: const ScratchpadView(),
+  ),
+  TabBarItem(
     label: 'Starred',
     icon: CupertinoIcons.star,
     viewWidget: const StarredView(),
@@ -47,9 +54,4 @@ List<TabBarItem> tabBarItems = [
     icon: CupertinoIcons.pencil,
     viewWidget: const ListsView(),
   ),
-  TabBarItem(
-    label: 'Dice',
-    icon: CupertinoIcons.cube,
-    viewWidget: const DiceView(),
-  )
 ];
