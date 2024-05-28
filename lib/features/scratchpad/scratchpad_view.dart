@@ -30,16 +30,26 @@ class _ScratchpadViewState extends State<ScratchpadView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CupertinoTextField.borderless(
-        placeholder: '...',
-        controller: _controller,
-        expands: true,
-        minLines: null,
-        maxLines: null,
-        textCapitalization: TextCapitalization.sentences,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CupertinoTextField.borderless(
+            placeholder: '...',
+            controller: _controller,
+            autofocus: true,
+            expands: true,
+            minLines: null,
+            maxLines: null,
+            textCapitalization: TextCapitalization.sentences,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('button here'),
+        )
+      ],
     );
   }
 }
