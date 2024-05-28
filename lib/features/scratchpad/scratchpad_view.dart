@@ -35,6 +35,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text('Scratchpad'),
+          const Divider(),
           Expanded(
             child: CupertinoTextField.borderless(
               textAlignVertical: TextAlignVertical.top,
@@ -47,12 +48,26 @@ class _ScratchpadViewState extends State<ScratchpadView> {
               textCapitalization: TextCapitalization.sentences,
             ),
           ),
+          const Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CupertinoButton(
-              color: Colors.green,
-              onPressed: () {},
-              child: const Text('Finish'),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CupertinoButton(
+                  color: Colors.blue,
+                  onPressed: () {},
+                  child: const Text('Add'),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                CupertinoButton(
+                  color: Colors.green,
+                  onPressed: () {},
+                  child: const Text('Finish'),
+                ),
+              ],
             ),
           )
         ],
