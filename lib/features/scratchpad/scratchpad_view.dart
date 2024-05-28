@@ -30,30 +30,33 @@ class _ScratchpadViewState extends State<ScratchpadView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: CupertinoTextField.borderless(
-            textAlignVertical: TextAlignVertical.top,
-            placeholder: '...',
-            controller: _controller,
-            autofocus: true,
-            expands: true,
-            minLines: null,
-            maxLines: null,
-            textCapitalization: TextCapitalization.sentences,
+    return Consumer<AppState>(builder: (context, appState, child) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Scratchpad'),
+          Expanded(
+            child: CupertinoTextField.borderless(
+              textAlignVertical: TextAlignVertical.top,
+              placeholder: '...',
+              controller: _controller,
+              autofocus: true,
+              expands: true,
+              minLines: null,
+              maxLines: null,
+              textCapitalization: TextCapitalization.sentences,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CupertinoButton(
-            color: Colors.green,
-            onPressed: () {},
-            child: const Text('Finish'),
-          ),
-        )
-      ],
-    );
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CupertinoButton(
+              color: Colors.green,
+              onPressed: () {},
+              child: const Text('Finish'),
+            ),
+          )
+        ],
+      );
+    });
   }
 }
