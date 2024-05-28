@@ -439,11 +439,15 @@ class AppState extends ChangeNotifier {
     return _campaignData?.scratchPad.firstWhere((entry) => entry.id == id);
   }
 
-  void updateScratchPadEntryItem(String id, String detail) {
-    int index = _campaignData!.scratchPad
-        .indexWhere((entry) => entry.id == currentEntryId);
+  void updateScratchPadEntryItem({
+    required String id,
+    required String title,
+    required String text,
+  }) {
+    int index = _campaignData!.scratchPad.indexWhere((entry) => entry.id == id);
 
-    _campaignData?.notes[index].detail = detail;
+    _campaignData?.scratchPad[index].title = title;
+    _campaignData?.scratchPad[index].text = text;
     saveCampaignDataToDisk();
   }
 

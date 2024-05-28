@@ -84,7 +84,6 @@ class _ScratchpadViewState extends State<ScratchpadView> {
                 CupertinoButton(
                   color: Colors.blue,
                   onPressed: () {
-                    print('create new');
                     _titleController.text = '';
                     _textController.text = '';
                     appState.setCurrentScratchId('');
@@ -97,20 +96,31 @@ class _ScratchpadViewState extends State<ScratchpadView> {
                 CupertinoButton(
                   color: Colors.green,
                   onPressed: () {
-                    print('save or update to data');
-                    ScratchPageEntryItem scratch = ScratchPageEntryItem(
-                      isFavourite: false,
-                      title: _titleController.text,
-                      text: _textController.text,
-                      dateCreated: DateTime.now(),
-                    );
+                    DateTime dateTime = DateTime.now();
+
+                    if (_titleController.text == '') {
+                      _titleController.text =
+                          createDateLabel('scratch', dateTime);
+                    }
+
                     if (appState.currentScratchId == '') {
+                      ScratchPageEntryItem scratch = ScratchPageEntryItem(
+                        isFavourite: false,
+                        title: _titleController.text,
+                        text: _textController.text,
+                        dateCreated: dateTime,
+                      );
+
                       appState.addScratchPadEntry(scratch);
                     } else {
-                      // appState.updateScratchPadEntryItem(, detail)
+                      appState.updateScratchPadEntryItem(
+                        id: appState.currentScratchId,
+                        title: _titleController.text,
+                        text: _textController.text,
+                      );
                     }
                   },
-                  child: const Text('Finish'),
+                  child: const Text('Save'),
                 ),
               ],
             ),
@@ -118,5 +128,15 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         ],
       );
     });
+  }
+
+  String createDateLabel(String prefix, DateTime dateTime) {
+    String day = dateTime.day.toString();
+    String month = dateTime.day.toString();
+    String year = dateTime.year.toString();
+    String hour = dateTime.hour.toString();
+    String minutes = dateTime.minute.toString();
+
+    return '$prefix-$day-$month-$year@$hour.$minutes';
   }
 }
