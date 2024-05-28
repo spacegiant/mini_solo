@@ -408,4 +408,19 @@ class AppState extends ChangeNotifier {
     _campaignData!.mythic.removeWhere((entry) => entry.id == currentEntryId);
     saveCampaignDataToDisk();
   }
+
+  // SCRATCH PAD
+  void addScratchPadEntry(ScratchPageEntryItem scratchPadEntry) {
+    _campaignData?.scratchPad.add(scratchPadEntry);
+
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: scratchPadEntry.type,
+        id: scratchPadEntry.id,
+      ),
+    );
+  }
+
+  void deleteScratchPadEntry(String id) {}
 }

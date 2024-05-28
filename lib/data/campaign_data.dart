@@ -134,7 +134,7 @@ class CampaignData {
   late List<Clue> clues;
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
-  late List<String> scratchPad;
+  late List<ScratchPageEntryItem> scratchPad;
 
   CampaignData({
     required this.settings,
