@@ -36,11 +36,10 @@ class _ScratchpadViewState extends State<ScratchpadView> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
       // get all the notes
-
-      // if no notes, start a new one put in state
+      List<ScratchPageEntryItem> scratchEntriesData =
+          appState.campaignData!.scratchPad;
 
       String currentScratchId = appState.currentScratchId;
-      print('current scratch id = $currentScratchId');
 
       if (currentScratchId != '') {
         ScratchPageEntryItem? scratch =
@@ -54,6 +53,13 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         children: [
           Text('Scratchpad ${appState.currentScratchId}'),
           const Divider(),
+          ScratchList(
+            scratchItems: scratchEntriesData,
+            callback: (String id) {
+              appState.setCurrentScratchId(id);
+            },
+          ),
+          const Divider(),
           CupertinoTextField.borderless(
             textAlignVertical: TextAlignVertical.top,
             placeholder: 'Title here',
@@ -62,6 +68,9 @@ class _ScratchpadViewState extends State<ScratchpadView> {
             minLines: null,
             maxLines: null,
             textCapitalization: TextCapitalization.sentences,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Expanded(
             child: CupertinoTextField.borderless(
@@ -138,5 +147,60 @@ class _ScratchpadViewState extends State<ScratchpadView> {
     String minutes = dateTime.minute.toString();
 
     return '$prefix-$day-$month-$year@$hour.$minutes';
+  }
+}
+
+class ScratchList extends StatelessWidget {
+  final List<ScratchPageEntryItem> scratchItems;
+  final Function(String) callback;
+  const ScratchList({
+    super.key,
+    required this.scratchItems,
+    required this.callback,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    List<ScratchListItem> scratchListData = scratchItems
+        .map(
+          (entry) => ScratchListItem(
+            entry,
+            callback: callback,
+          ),
+        )
+        .toList();
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minHeight: 10.0,
+        maxHeight: 100.0,
+      ),
+      child: ListView(
+        children: scratchListData,
+      ),
+    );
+  }
+}
+
+class ScratchListItem extends StatelessWidget {
+  final ScratchPageEntryItem entry;
+  final Function(String) callback;
+
+  const ScratchListItem(
+    this.entry, {
+    super.key,
+    required this.callback,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      alignment: Alignment.centerLeft,
+      child: Text(entry.title),
+      onPressed: () {
+        print('pressed');
+        callback(entry.id);
+      },
+    );
   }
 }
