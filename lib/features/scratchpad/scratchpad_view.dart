@@ -194,13 +194,25 @@ class ScratchListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      alignment: Alignment.centerLeft,
-      child: Text(entry.title),
-      onPressed: () {
-        print('pressed');
+    // return CupertinoButton(
+    //   alignment: Alignment.centerLeft,
+    //   child: Text(entry.title),
+    //   onPressed: () {
+    //     print('pressed');
+    //     callback(entry.id);
+    //   },
+    // );
+    return GestureDetector(
+      onTap: () {
         callback(entry.id);
       },
+      onLongPress: () {},
+      child: SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(entry.title),
+        ),
+      ),
     );
   }
 }
