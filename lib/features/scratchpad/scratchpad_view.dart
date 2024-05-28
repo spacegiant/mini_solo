@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
@@ -29,13 +30,16 @@ class _ScratchpadViewState extends State<ScratchpadView> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTextField(
-      placeholder: '...',
-      controller: _controller,
-      expands: true,
-      minLines: null,
-      maxLines: null,
-      textCapitalization: TextCapitalization.sentences,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CupertinoTextField.borderless(
+        placeholder: '...',
+        controller: _controller,
+        expands: true,
+        minLines: null,
+        maxLines: null,
+        textCapitalization: TextCapitalization.sentences,
+      ),
     );
   }
 }
