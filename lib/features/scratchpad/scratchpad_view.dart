@@ -57,7 +57,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
                 CupertinoButton(
                   color: Colors.blue,
                   onPressed: () {},
-                  child: const Text('Add'),
+                  child: const Text('New'),
                 ),
                 const SizedBox(
                   width: 10.0,
