@@ -30,6 +30,7 @@ class _InitFormState extends State<InitForm> {
               // TODO: Only allow alpha and numerical
               autocorrect: false,
               placeholder: 'Type here',
+              textCapitalization: TextCapitalization.sentences,
               onFieldSubmitted: (campaignName) {
                 setState(() {
                   widget.initCampaignData(campaignName);

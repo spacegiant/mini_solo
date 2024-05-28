@@ -55,6 +55,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
             autofocus: true,
             minLines: 9,
             maxLines: 9,
+            textCapitalization: TextCapitalization.sentences,
           ),
         ),
         CupertinoButton(

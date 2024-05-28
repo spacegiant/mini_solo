@@ -35,6 +35,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
       expands: true,
       minLines: null,
       maxLines: null,
+      textCapitalization: TextCapitalization.sentences,
     );
   }
 }

@@ -46,6 +46,7 @@ class _UserInputState extends State<UserInput> {
               maxLines: 5,
               minLines: 2,
               autofocus: true,
+              textCapitalization: TextCapitalization.sentences,
             ),
             CupertinoButton(
               child: const Text('Submit'),
