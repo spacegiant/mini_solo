@@ -492,6 +492,7 @@ ScratchPageEntryItem _$ScratchPageEntryItemFromJson(
       isFavourite: json['isFavourite'] as bool?,
       title: json['title'] as String,
       text: json['text'] as String,
+      dateCreated: DateTime.parse(json['dateCreated'] as String),
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -503,6 +504,7 @@ Map<String, dynamic> _$ScratchPageEntryItemToJson(
       'id': instance.id,
       'title': instance.title,
       'text': instance.text,
+      'dateCreated': instance.dateCreated.toIso8601String(),
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

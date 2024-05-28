@@ -414,11 +414,13 @@ class DiceRoll {
 class ScratchPageEntryItem extends CampaignItem {
   String title;
   String text;
+  DateTime dateCreated;
 
   ScratchPageEntryItem({
     required super.isFavourite,
     required this.title,
     required this.text,
+    required this.dateCreated,
   });
 // coverage:ignore-start
   factory ScratchPageEntryItem.fromJson(Map<String, dynamic> json) =>
