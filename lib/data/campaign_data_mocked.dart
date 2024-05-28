@@ -32,5 +32,7 @@ CampaignData sampleCampaignData() {
     mythic: [],
     filename: 'sample_data',
     notes: [],
+    currentScratchEntryId: '',
+    scratchPad: [],
   );
 }

@@ -28,6 +28,7 @@ enum JournalEntryTypes {
   outcome,
   roll,
   transition,
+  scratchPage,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -45,6 +46,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.note: 'note',
   JournalEntryTypes.oracle: 'oracle',
   JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
 };
 
@@ -121,6 +123,7 @@ class GeneralSettingsData {
 class CampaignData {
   late SettingsData settings;
   late String name;
+  late String currentScratchEntryId;
   late String filename;
   late MythicData mythicData;
   late List<MythicEntry> mythic;
@@ -134,10 +137,12 @@ class CampaignData {
   late List<Clue> clues;
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
+  late List<ScratchPageEntryItem> scratchPad;
 
   CampaignData({
     required this.settings,
     required this.name,
+    required this.currentScratchEntryId,
     required this.filename,
     required this.mythic,
     required this.mythicData,
@@ -151,6 +156,7 @@ class CampaignData {
     required this.clues,
     required this.creatures,
     required this.rolls,
+    required this.scratchPad,
   });
 
   // coverage:ignore-start
@@ -166,6 +172,7 @@ CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     clues: [],
     creatures: [],
+    currentScratchEntryId: '',
     factions: [],
     notes: [],
     journal: [],
@@ -179,6 +186,7 @@ CampaignData initCampaignDataData(String campaignName) {
     people: [],
     places: [],
     rolls: [],
+    scratchPad: [],
     settings: SettingsData(
       general: GeneralSettingsData(
         showFutureSettings: false,
@@ -403,6 +411,29 @@ class DiceRoll {
 
   Map<String, dynamic> toJson() => _$DiceRollToJson(this);
 
+// coverage:ignore-end
+}
+
+@JsonSerializable()
+class ScratchPageEntryItem extends CampaignItem {
+  String title;
+  String text;
+  DateTime dateCreated;
+
+  ScratchPageEntryItem({
+    required super.isFavourite,
+    required this.title,
+    required this.text,
+    required this.dateCreated,
+  });
+// coverage:ignore-start
+  factory ScratchPageEntryItem.fromJson(Map<String, dynamic> json) =>
+      _$ScratchPageEntryItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ScratchPageEntryItemToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.scratchPage;
 // coverage:ignore-end
 }
 

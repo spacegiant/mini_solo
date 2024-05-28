@@ -59,6 +59,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
       name: json['name'] as String,
+      currentScratchEntryId: json['currentScratchEntryId'] as String,
       filename: json['filename'] as String,
       mythic: (json['mythic'] as List<dynamic>)
           .map((e) => MythicEntry.fromJson(e as Map<String, dynamic>))
@@ -95,12 +96,16 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       rolls: (json['rolls'] as List<dynamic>)
           .map((e) => RollEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      scratchPad: (json['scratchPad'] as List<dynamic>)
+          .map((e) => ScratchPageEntryItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
       'settings': instance.settings.toJson(),
       'name': instance.name,
+      'currentScratchEntryId': instance.currentScratchEntryId,
       'filename': instance.filename,
       'mythicData': instance.mythicData.toJson(),
       'mythic': instance.mythic.map((e) => e.toJson()).toList(),
@@ -114,6 +119,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'clues': instance.clues.map((e) => e.toJson()).toList(),
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
+      'scratchPad': instance.scratchPad.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -157,6 +163,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.outcome: 'outcome',
   JournalEntryTypes.roll: 'roll',
   JournalEntryTypes.transition: 'transition',
+  JournalEntryTypes.scratchPage: 'scratchPage',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
@@ -481,6 +488,28 @@ const _$ImagesEnumMap = {
   Images.fateBlank: 'fateBlank',
   Images.fateMinus: 'fateMinus',
 };
+
+ScratchPageEntryItem _$ScratchPageEntryItemFromJson(
+        Map<String, dynamic> json) =>
+    ScratchPageEntryItem(
+      isFavourite: json['isFavourite'] as bool?,
+      title: json['title'] as String,
+      text: json['text'] as String,
+      dateCreated: DateTime.parse(json['dateCreated'] as String),
+    )
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$ScratchPageEntryItemToJson(
+        ScratchPageEntryItem instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'title': instance.title,
+      'text': instance.text,
+      'dateCreated': instance.dateCreated.toIso8601String(),
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
 
 RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
     RollEntryItem(

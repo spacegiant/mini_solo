@@ -22,31 +22,6 @@ import 'dice/other_dice_sets.dart';
 import 'dice/regular_dice_set.dart';
 import 'mythic/fate_question.dart';
 
-enum SceneState {
-  expected,
-  altered,
-  interrupt,
-}
-
-Map<SceneState, String> sceneLabels = {
-  SceneState.expected: 'Expected Scene',
-  SceneState.altered: 'Altered Scene',
-  SceneState.interrupt: 'Interrupt Scene'
-};
-
-class SceneStateResult {
-  final String outcome = '';
-  final String info = '';
-
-  SceneStateResult(
-    String outcome,
-    String info,
-  ) {
-    outcome = this.outcome;
-    info = this.info;
-  }
-}
-
 class JournalView extends StatefulWidget {
   const JournalView({super.key});
 
@@ -152,187 +127,188 @@ class _JournalViewState extends State<JournalView> {
             )
           : null;
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          appState.useJournal
-              // ADD TEMP DICE ROLL ENTRY HERE
-              ? Journal(
-                  items: appState.campaignData!.journal,
-                  diceRoll: diceResults,
-                  addDice: addResult,
-                  submitDice: submitResults,
-                  clearDice: clearResults,
-                )
-              : const SizedBox.shrink(),
-          Expanded(
-            flex: 1,
-            child: ViewWrapper(children: [
-              const Gap(),
-
-              WrapManager(
-                wrapControls: wrapControls,
-                hideDivider: true,
-                children: [
-                  if (useD6OracleDice)
-                    DiceButton(
-                      dieType: d6oracle,
-                      label: 'D6 Oracle',
-                      icon: Images.d6Oracle,
-                      onPressed: addResult,
-                    ),
-                  if (useFateDice) ...[
-                    DiceButton(
-                      color: CupertinoColors.systemOrange,
-                      dieType: fate,
-                      numberOfRolls: 4,
-                      label: '4dF',
-                      onPressed: addResult,
-                      icon: Images.fateDice,
-                    ),
+      return FocusScope(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            appState.useJournal
+                // ADD TEMP DICE ROLL ENTRY HERE
+                ? Journal(
+                    items: appState.campaignData!.journal,
+                    diceRoll: diceResults,
+                    addDice: addResult,
+                    submitDice: submitResults,
+                    clearDice: clearResults,
+                  )
+                : const SizedBox.shrink(),
+            Expanded(
+              flex: 1,
+              child: ViewWrapper(children: [
+                const Gap(),
+                WrapManager(
+                  wrapControls: wrapControls,
+                  hideDivider: true,
+                  children: [
+                    if (useD6OracleDice)
+                      DiceButton(
+                        dieType: d6oracle,
+                        label: 'D6 Oracle',
+                        icon: Images.d6Oracle,
+                        onPressed: addResult,
+                      ),
+                    if (useFateDice) ...[
+                      DiceButton(
+                        color: CupertinoColors.systemOrange,
+                        dieType: fate,
+                        numberOfRolls: 4,
+                        label: '4dF',
+                        onPressed: addResult,
+                        icon: Images.fateDice,
+                      ),
+                    ],
+                    if (useCoriolisDice)
+                      DiceButton(
+                        dieType: coriolis,
+                        label: 'Coriolis',
+                        icon: Images.coriolis6,
+                        onPressed: addResult,
+                      ),
+                    if (generalDice != null) ...generalDice.getDice(),
                   ],
-                  if (useCoriolisDice)
-                    DiceButton(
-                      dieType: coriolis,
-                      label: 'Coriolis',
-                      icon: Images.coriolis6,
-                      onPressed: addResult,
-                    ),
-                  if (generalDice != null) ...generalDice.getDice(),
-                ],
-              ),
-              if (useFateDice || useZocchiDice || useRegularDice)
-                const Divider(),
+                ),
+                if (useFateDice || useZocchiDice || useRegularDice)
+                  const Divider(),
 
-              const Text('Mythic GME'),
-              FateQuestion(
-                callback: (ReturnObject returnObject) {
-                  // For Bubble
-                  setState(() {
-                    line1 = returnObject.line1!;
-                    line2 = returnObject.line2;
-                    line3 = returnObject.result;
-                  });
+                const Text('Mythic GME'),
+                FateQuestion(
+                  callback: (ReturnObject returnObject) {
+                    // For Bubble
+                    setState(() {
+                      line1 = returnObject.line1!;
+                      line2 = returnObject.line2;
+                      line3 = returnObject.result;
+                    });
 
-                  appState.addOracleEntry(
-                    OracleEntry(
-                        isFavourite: false,
-                        lines: returnObject,
-                        label: 'Ask the Fate Chart'),
-                  );
-                },
-                wrapControls: wrapControls,
-              ),
-              WrapManager(
-                wrapControls: wrapControls,
-                children: [
-                  ListButton(
-                    label: 'New Scene',
-                    color: Colors.black,
-                    onPressed: () {
-                      appState.addNewScene();
-                    },
-                  ),
-                  ListButton(
-                      label: 'Test Your Expected Scene',
+                    appState.addOracleEntry(
+                      OracleEntry(
+                          isFavourite: false,
+                          lines: returnObject,
+                          label: 'Ask the Fate Chart'),
+                    );
+                  },
+                  wrapControls: wrapControls,
+                ),
+                WrapManager(
+                  wrapControls: wrapControls,
+                  children: [
+                    ListButton(
+                      label: 'New Scene',
+                      color: Colors.black,
                       onPressed: () {
-                        ReturnObject test = testScene(context);
+                        appState.addNewScene();
+                      },
+                    ),
+                    ListButton(
+                        label: 'Test Your Expected Scene',
+                        onPressed: () {
+                          ReturnObject test = testScene(context);
 
-                        // For Bubble
-                        setState(() {
-                          line1 = test.line1!;
-                          line2 = test.line2;
-                          line3 = test.result;
-                        });
+                          // For Bubble
+                          setState(() {
+                            line1 = test.line1!;
+                            line2 = test.line2;
+                            line3 = test.result;
+                          });
 
-                        appState.addOracleEntry(
-                          OracleEntry(
-                              isFavourite: false,
-                              lines: test,
-                              label: 'Test Expected Scene'),
-                        );
-                      }),
-                  ListButton(
-                    label: 'Mythic Action',
-                    onPressed: () {
-                      getRandomResult(
-                        appState: appState,
-                        label: 'Mythic Action',
-                        jsonPath: 'mythic/mythic_action.json',
-                        table1: 'table1',
-                        table2: 'table2',
-                        onResult: (appState, result, label) {
-                          updateState(result);
-                          appState.addMythicEntry(
-                            MythicEntry(
-                              isFavourite: false,
-                              lines: result,
-                              label: 'Mythic Action',
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  ListButton(
-                    label: 'Mythic Description',
-                    onPressed: () {
-                      getRandomResult(
-                        appState: appState,
-                        label: 'Mythic Description',
-                        jsonPath: 'mythic/mythic_description.json',
-                        table1: 'table1',
-                        table2: 'table2',
-                        onResult: (appState, result, label) {
-                          updateState(result);
-                          appState.addMythicEntry(
-                            MythicEntry(
-                              isFavourite: false,
-                              lines: result,
-                              label: 'Mythic Description',
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  ListButton(
-                    label: 'Event Focus',
-                    onPressed: () {
-                      getEventFocus(appState);
-                    },
-                  ),
-                  ListButton(
-                    label: 'Plot Twist',
-                    onPressed: () {
-                      getRandomResult(
-                        appState: appState,
-                        label: 'Mythic - Plot Twist',
-                        jsonPath: 'mythic_elements/plot_twist.json',
-                        table1: 'table',
-                        table2: 'table',
-                        onResult: (appState, result, label) {
-                          updateState(result);
                           appState.addOracleEntry(
                             OracleEntry(
                                 isFavourite: false,
-                                lines: result,
-                                label: 'Plot Twist'),
+                                lines: test,
+                                label: 'Test Expected Scene'),
                           );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+                        }),
+                    ListButton(
+                      label: 'Mythic Action',
+                      onPressed: () {
+                        getRandomResult(
+                          appState: appState,
+                          label: 'Mythic Action',
+                          jsonPath: 'mythic/mythic_action.json',
+                          table1: 'table1',
+                          table2: 'table2',
+                          onResult: (appState, result, label) {
+                            updateState(result);
+                            appState.addMythicEntry(
+                              MythicEntry(
+                                isFavourite: false,
+                                lines: result,
+                                label: 'Mythic Action',
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    ListButton(
+                      label: 'Mythic Description',
+                      onPressed: () {
+                        getRandomResult(
+                          appState: appState,
+                          label: 'Mythic Description',
+                          jsonPath: 'mythic/mythic_description.json',
+                          table1: 'table1',
+                          table2: 'table2',
+                          onResult: (appState, result, label) {
+                            updateState(result);
+                            appState.addMythicEntry(
+                              MythicEntry(
+                                isFavourite: false,
+                                lines: result,
+                                label: 'Mythic Description',
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    ListButton(
+                      label: 'Event Focus',
+                      onPressed: () {
+                        getEventFocus(appState);
+                      },
+                    ),
+                    ListButton(
+                      label: 'Plot Twist',
+                      onPressed: () {
+                        getRandomResult(
+                          appState: appState,
+                          label: 'Mythic - Plot Twist',
+                          jsonPath: 'mythic_elements/plot_twist.json',
+                          table1: 'table',
+                          table2: 'table',
+                          onResult: (appState, result, label) {
+                            updateState(result);
+                            appState.addOracleEntry(
+                              OracleEntry(
+                                  isFavourite: false,
+                                  lines: result,
+                                  label: 'Plot Twist'),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
 
-              // const MarkdownBlock(
-              //   newString: '# hello\n*hello* hello\n- hello',
-              // ),
-            ]),
-          ),
-        ],
+                // const MarkdownBlock(
+                //   newString: '# hello\n*hello* hello\n- hello',
+                // ),
+              ]),
+            ),
+          ],
+        ),
       );
     });
   }

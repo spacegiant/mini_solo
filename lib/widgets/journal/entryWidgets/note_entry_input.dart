@@ -27,6 +27,7 @@ class _NoteEntryInputState extends State<NoteEntryInput> {
             color: Colors.transparent,
           ),
           placeholder: 'Type here',
+          textCapitalization: TextCapitalization.sentences,
           autofocus: true,
           expands: true,
           minLines: null,

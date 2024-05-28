@@ -85,6 +85,7 @@ class AppState extends ChangeNotifier {
 
   void setCurrentEntryId(String id) {
     _currentEntryId = id;
+    // TDDO: Does this need notify listeners?
   }
 
   get currentEntryId => _currentEntryId;
@@ -406,6 +407,51 @@ class AppState extends ChangeNotifier {
   void deleteMythicEntry(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.mythic.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+  }
+
+  // SCRATCH PAD
+
+  void setCurrentScratchId(String id) {
+    _campaignData?.currentScratchEntryId = id;
+    saveCampaignDataToDisk();
+    notifyListeners();
+  }
+
+  get currentScratchId => _campaignData?.currentScratchEntryId;
+
+  void addScratchPadEntry(ScratchPageEntryItem scratchPadEntry) {
+    _campaignData?.scratchPad.add(scratchPadEntry);
+    _campaignData?.currentScratchEntryId = scratchPadEntry.id;
+
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: scratchPadEntry.type,
+        id: scratchPadEntry.id,
+      ),
+    );
+  }
+
+  ScratchPageEntryItem? findScratchPadEntryItem(String id) {
+    return _campaignData?.scratchPad.firstWhere((entry) => entry.id == id);
+  }
+
+  void updateScratchPadEntryItem({
+    required String id,
+    required String title,
+    required String text,
+  }) {
+    int index = _campaignData!.scratchPad.indexWhere((entry) => entry.id == id);
+
+    _campaignData?.scratchPad[index].title = title;
+    _campaignData?.scratchPad[index].text = text;
+    saveCampaignDataToDisk();
+  }
+
+  void deleteScratchPadEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.scratchPad.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 }
