@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
@@ -35,7 +36,20 @@ class _ScratchpadViewState extends State<ScratchpadView> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
       // get all the notes
+      List<ScratchPageEntryItem> scratchPages =
+          appState.campaignData!.scratchPad;
       // if no notes, start a new one put in state
+      print(scratchPages);
+
+      // initState(() {
+      //   if (scratchPages.isEmpty) {
+      //     _titleController.text = 'new';
+      //     _textController.text = 'new';
+      //   } else {
+      //     _titleController.text = scratchPages[0].title;
+      //     _textController.text = scratchPages[0].text;
+      //   }
+      // });
       // if there are notes, access [0] for now put in state
       String scratchNote = '';
 

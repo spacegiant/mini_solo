@@ -32,6 +32,7 @@ class AppState extends ChangeNotifier {
   int maxChaos = 9;
   int minChaos = 1;
   String _currentEntryId = '';
+  String _currentScratchId = '';
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>
@@ -88,6 +89,12 @@ class AppState extends ChangeNotifier {
   }
 
   get currentEntryId => _currentEntryId;
+
+  void setCurrentScratchId(String id) {
+    _currentScratchId = id;
+  }
+
+  get currentScratchId => _currentScratchId;
 
   // CHAOS FACTOR
   void increaseChaosFactor() {
