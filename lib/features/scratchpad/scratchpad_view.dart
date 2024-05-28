@@ -42,23 +42,33 @@ class _ScratchpadViewState extends State<ScratchpadView> {
       String currentScratchId = appState.currentScratchId;
 
       if (currentScratchId != '') {
-        ScratchPageEntryItem? scratch =
-            appState.findScratchPadEntryItem(currentScratchId);
-        _titleController.text = scratch!.title;
-        _textController.text = scratch.text;
+        try {
+          ScratchPageEntryItem? scratch =
+              appState.findScratchPadEntryItem(currentScratchId);
+          _titleController.text = scratch!.title;
+          _textController.text = scratch.text;
+        } catch (e) {
+          appState.setCurrentScratchId('');
+          print(e);
+        }
       }
 
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Scratchpad ${appState.currentScratchId}'),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Scratchpad'),
+          ),
           const Divider(),
           ScratchList(
-            scratchItems: scratchEntriesData,
-            callback: (String id) {
-              appState.setCurrentScratchId(id);
-            },
-          ),
+              scratchItems: scratchEntriesData,
+              onSelect: (String id) {
+                appState.setCurrentScratchId(id);
+              },
+              onDelete: (String id) {
+                appState.deleteScratchPadEntry(id);
+              }),
           const Divider(),
           CupertinoTextField.borderless(
             textAlignVertical: TextAlignVertical.top,
@@ -152,11 +162,14 @@ class _ScratchpadViewState extends State<ScratchpadView> {
 
 class ScratchList extends StatelessWidget {
   final List<ScratchPageEntryItem> scratchItems;
-  final Function(String) callback;
+  final Function(String) onSelect;
+  final Null Function(String id) onDelete;
+
   const ScratchList({
     super.key,
     required this.scratchItems,
-    required this.callback,
+    required this.onSelect,
+    required this.onDelete,
   });
 
   @override
@@ -165,7 +178,8 @@ class ScratchList extends StatelessWidget {
         .map(
           (entry) => ScratchListItem(
             entry,
-            callback: callback,
+            onSelect: onSelect,
+            onDelete: onDelete,
           ),
         )
         .toList();
@@ -173,7 +187,7 @@ class ScratchList extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minHeight: 10.0,
-        maxHeight: 100.0,
+        maxHeight: 140.0,
       ),
       child: ListView(
         children: scratchListData,
@@ -184,35 +198,40 @@ class ScratchList extends StatelessWidget {
 
 class ScratchListItem extends StatelessWidget {
   final ScratchPageEntryItem entry;
-  final Function(String) callback;
+  final Function(String) onSelect;
+  final Null Function(String id) onDelete;
 
   const ScratchListItem(
     this.entry, {
     super.key,
-    required this.callback,
+    required this.onSelect,
+    required this.onDelete,
   });
 
   @override
   Widget build(BuildContext context) {
-    // return CupertinoButton(
-    //   alignment: Alignment.centerLeft,
-    //   child: Text(entry.title),
-    //   onPressed: () {
-    //     print('pressed');
-    //     callback(entry.id);
-    //   },
-    // );
-    return GestureDetector(
-      onTap: () {
-        callback(entry.id);
-      },
-      onLongPress: () {},
-      child: SizedBox(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(entry.title),
+    return Row(
+      children: [
+        Expanded(
+          child: CupertinoButton(
+            alignment: Alignment.centerLeft,
+            child: Text(entry.title),
+            onPressed: () {
+              onSelect(entry.id);
+            },
+          ),
         ),
-      ),
+        CupertinoButton(
+          child: const Icon(CupertinoIcons.star),
+          onPressed: () {},
+        ),
+        CupertinoButton(
+          child: const Icon(CupertinoIcons.trash),
+          onPressed: () {
+            onDelete(entry.id);
+          },
+        ),
+      ],
     );
   }
 }

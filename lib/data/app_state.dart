@@ -32,7 +32,6 @@ class AppState extends ChangeNotifier {
   int maxChaos = 9;
   int minChaos = 1;
   String _currentEntryId = '';
-  String _currentScratchId = '';
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>
@@ -414,7 +413,6 @@ class AppState extends ChangeNotifier {
   // SCRATCH PAD
 
   void setCurrentScratchId(String id) {
-    _currentScratchId = id;
     _campaignData?.currentScratchEntryId = id;
     saveCampaignDataToDisk();
     notifyListeners();
@@ -451,5 +449,9 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
-  void deleteScratchPadEntry(String id) {}
+  void deleteScratchPadEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.scratchPad.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+  }
 }

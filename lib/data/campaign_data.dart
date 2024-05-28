@@ -414,7 +414,6 @@ class DiceRoll {
 // coverage:ignore-end
 }
 
-// SCRATCH PAD
 @JsonSerializable()
 class ScratchPageEntryItem extends CampaignItem {
   String title;
