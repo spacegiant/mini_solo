@@ -422,5 +422,13 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void updateScratchPadEntryItem(String id, String detail) {
+    int index = _campaignData!.scratchPad
+        .indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.notes[index].detail = detail;
+    saveCampaignDataToDisk();
+  }
+
   void deleteScratchPadEntry(String id) {}
 }
