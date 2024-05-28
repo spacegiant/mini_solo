@@ -86,15 +86,10 @@ class AppState extends ChangeNotifier {
 
   void setCurrentEntryId(String id) {
     _currentEntryId = id;
+    // TDDO: Does this need notify listeners?
   }
 
   get currentEntryId => _currentEntryId;
-
-  void setCurrentScratchId(String id) {
-    _currentScratchId = id;
-  }
-
-  get currentScratchId => _currentScratchId;
 
   // CHAOS FACTOR
   void increaseChaosFactor() {
@@ -417,8 +412,19 @@ class AppState extends ChangeNotifier {
   }
 
   // SCRATCH PAD
+
+  void setCurrentScratchId(String id) {
+    _currentScratchId = id;
+    _campaignData?.currentScratchEntryId = id;
+    saveCampaignDataToDisk();
+    notifyListeners();
+  }
+
+  get currentScratchId => _campaignData?.currentScratchEntryId;
+
   void addScratchPadEntry(ScratchPageEntryItem scratchPadEntry) {
     _campaignData?.scratchPad.add(scratchPadEntry);
+    _campaignData?.currentScratchEntryId = scratchPadEntry.id;
 
     addJournalEntry(
       JournalEntryItem(
@@ -427,6 +433,10 @@ class AppState extends ChangeNotifier {
         id: scratchPadEntry.id,
       ),
     );
+  }
+
+  ScratchPageEntryItem? findScratchPadEntryItem(String id) {
+    return _campaignData?.scratchPad.firstWhere((entry) => entry.id == id);
   }
 
   void updateScratchPadEntryItem(String id, String detail) {

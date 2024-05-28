@@ -36,27 +36,23 @@ class _ScratchpadViewState extends State<ScratchpadView> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(builder: (context, appState, child) {
       // get all the notes
-      List<ScratchPageEntryItem> scratchPages =
-          appState.campaignData!.scratchPad;
-      // if no notes, start a new one put in state
-      print(scratchPages);
 
-      // initState(() {
-      //   if (scratchPages.isEmpty) {
-      //     _titleController.text = 'new';
-      //     _textController.text = 'new';
-      //   } else {
-      //     _titleController.text = scratchPages[0].title;
-      //     _textController.text = scratchPages[0].text;
-      //   }
-      // });
-      // if there are notes, access [0] for now put in state
-      String scratchNote = '';
+      // if no notes, start a new one put in state
+
+      String currentScratchId = appState.currentScratchId;
+      print('current scratch id = $currentScratchId');
+
+      if (currentScratchId != '') {
+        ScratchPageEntryItem? scratch =
+            appState.findScratchPadEntryItem(currentScratchId);
+        _titleController.text = scratch!.title;
+        _textController.text = scratch.text;
+      }
 
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Scratchpad'),
+          Text('Scratchpad ${appState.currentScratchId}'),
           const Divider(),
           CupertinoTextField.borderless(
             textAlignVertical: TextAlignVertical.top,
@@ -89,6 +85,9 @@ class _ScratchpadViewState extends State<ScratchpadView> {
                   color: Colors.blue,
                   onPressed: () {
                     print('create new');
+                    _titleController.text = '';
+                    _textController.text = '';
+                    appState.setCurrentScratchId('');
                   },
                   child: const Text('New'),
                 ),
@@ -99,6 +98,17 @@ class _ScratchpadViewState extends State<ScratchpadView> {
                   color: Colors.green,
                   onPressed: () {
                     print('save or update to data');
+                    ScratchPageEntryItem scratch = ScratchPageEntryItem(
+                      isFavourite: false,
+                      title: _titleController.text,
+                      text: _textController.text,
+                      dateCreated: DateTime.now(),
+                    );
+                    if (appState.currentScratchId == '') {
+                      appState.addScratchPadEntry(scratch);
+                    } else {
+                      // appState.updateScratchPadEntryItem(, detail)
+                    }
                   },
                   child: const Text('Finish'),
                 ),

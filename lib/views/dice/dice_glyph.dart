@@ -19,44 +19,16 @@ class DiceGlyph extends StatelessWidget {
     double circleWidth = 50.0;
     Widget glyphContent;
 
-    if (diceRoll.icon != null) {
-      glyphContent = Column(children: [
-        SvgIcon(icon: diceRoll.icon),
-        Text(
-          diceRoll.diceType,
-          style: const TextStyle(
-            fontSize: 12.0,
-          ),
-        )
-      ]);
-    } else {
-      glyphContent = Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Container(
-            height: circleWidth,
-            width: circleWidth,
-            clipBehavior: Clip.none,
-            decoration: const BoxDecoration(
-              color: CupertinoColors.systemYellow,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(diceRoll.result.label!),
-                  Text(
-                    dieType,
-                    style: const TextStyle(
-                      fontSize: 10.0,
-                    ),
-                  ),
-                ],
-              ),
-            )),
-      );
-    }
-
+    glyphContent = Column(children: [
+      SvgIcon(icon: diceRoll.icon),
+      Text(
+        diceRoll.diceType,
+        style: const TextStyle(
+          fontSize: 12.0,
+        ),
+      )
+    ]);
+  
     return glyphContent;
   }
 }

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
 import 'dice.dart';
 import 'dice_button.dart';
 

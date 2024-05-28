@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/views/dice/dice_view.dart';
 import 'package:mini_solo/views/journal_view.dart';
 import 'package:mini_solo/views/lists_view.dart';
 import 'package:mini_solo/views/new_view.dart';

@@ -28,6 +28,7 @@ enum JournalEntryTypes {
   outcome,
   roll,
   transition,
+  scratchPage,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -45,6 +46,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.note: 'note',
   JournalEntryTypes.oracle: 'oracle',
   JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
 };
 
@@ -121,6 +123,7 @@ class GeneralSettingsData {
 class CampaignData {
   late SettingsData settings;
   late String name;
+  late String currentScratchEntryId;
   late String filename;
   late MythicData mythicData;
   late List<MythicEntry> mythic;
@@ -139,6 +142,7 @@ class CampaignData {
   CampaignData({
     required this.settings,
     required this.name,
+    required this.currentScratchEntryId,
     required this.filename,
     required this.mythic,
     required this.mythicData,
@@ -168,6 +172,7 @@ CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
     clues: [],
     creatures: [],
+    currentScratchEntryId: '',
     factions: [],
     notes: [],
     journal: [],
@@ -429,7 +434,7 @@ class ScratchPageEntryItem extends CampaignItem {
   Map<String, dynamic> toJson() => _$ScratchPageEntryItemToJson(this);
 
   @override
-  JournalEntryTypes type = JournalEntryTypes.roll;
+  JournalEntryTypes type = JournalEntryTypes.scratchPage;
 // coverage:ignore-end
 }
 
