@@ -134,6 +134,7 @@ class CampaignData {
   late List<Clue> clues;
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
+  late List<String> scratchPad;
 
   CampaignData({
     required this.settings,
@@ -151,6 +152,7 @@ class CampaignData {
     required this.clues,
     required this.creatures,
     required this.rolls,
+    required this.scratchPad,
   });
 
   // coverage:ignore-start
@@ -179,6 +181,7 @@ CampaignData initCampaignDataData(String campaignName) {
     people: [],
     places: [],
     rolls: [],
+    scratchPad: [],
     settings: SettingsData(
       general: GeneralSettingsData(
         showFutureSettings: false,
@@ -403,6 +406,28 @@ class DiceRoll {
 
   Map<String, dynamic> toJson() => _$DiceRollToJson(this);
 
+// coverage:ignore-end
+}
+
+// SCRATCH PAD
+@JsonSerializable()
+class ScratchPageEntryItem extends CampaignItem {
+  String title;
+  String text;
+
+  ScratchPageEntryItem({
+    required super.isFavourite,
+    required this.title,
+    required this.text,
+  });
+// coverage:ignore-start
+  factory ScratchPageEntryItem.fromJson(Map<String, dynamic> json) =>
+      _$ScratchPageEntryItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ScratchPageEntryItemToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.roll;
 // coverage:ignore-end
 }
 
