@@ -147,6 +147,7 @@ class _JournalViewState extends State<JournalView> {
               flex: 1,
               child: ViewWrapper(children: [
                 const Gap(),
+
                 diceTray(
                   wrapControls,
                   useD6OracleDice,
@@ -155,9 +156,9 @@ class _JournalViewState extends State<JournalView> {
                   useCoriolisDice,
                   generalDice,
                 ),
-                const Divider(),
 
                 const JournalSubheading(label: 'Mythic Fate Chart'),
+
                 FateQuestion(
                   callback: (ReturnObject returnObject) {
                     // For Bubble
@@ -176,10 +177,11 @@ class _JournalViewState extends State<JournalView> {
                   },
                   wrapControls: wrapControls,
                 ),
-                const Divider(),
+
                 const JournalSubheading(
                   label: 'Mythic GME',
                 ),
+
                 mythicGMEControls(wrapControls, appState, context),
 
                 // const MarkdownBlock(

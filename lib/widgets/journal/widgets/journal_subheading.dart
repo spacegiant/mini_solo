@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class JournalSubheading extends StatelessWidget {
   final String label;
@@ -9,11 +9,17 @@ class JournalSubheading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: const TextStyle(
-        fontSize: 12.0,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Divider(),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 12.0,
+          ),
+        ),
+      ],
     );
   }
 }

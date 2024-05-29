@@ -71,7 +71,7 @@ class FateQuestion extends StatelessWidget {
                   ReturnObject result = ReturnObject(
                       type: 'fateChart',
                       line1:
-                          'Odds: ${widget.label} | Chaos Factor ${appState.chaosFactor}',
+                          '${widget.label} odds | Chaos Factor ${appState.chaosFactor}',
                       line2: 'd100 → $random',
                       result: 'Oracles says $answer');
                   callback(result);

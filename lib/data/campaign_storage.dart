@@ -62,7 +62,9 @@ class CampaignStorage {
   Future<void> deleteCampaign(String fileName) async {
     final path = await _localPath;
     File file = File('$path/$fileName');
-    print(file);
+    if (kDebugMode) {
+      print('Deleted file: $file');
+    }
 
     await file.delete();
   }
@@ -72,7 +74,9 @@ class CampaignStorage {
 
     File file = File('$path/$fileName');
 
-    print(file);
+    if (kDebugMode) {
+      print('Write JSON: $file');
+    }
 
     // Convert MAP to String
     String jsonData = jsonEncode(data);
@@ -109,7 +113,9 @@ class CampaignStorage {
 
     File file = File('$path/$fileName');
 
-    print(file);
+    if (kDebugMode) {
+      print('Write App Settings: $file');
+    }
 
     // Convert MAP to String
     // String jsonData = jsonEncode(data);
