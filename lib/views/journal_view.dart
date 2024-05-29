@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
+import '../features/random_names/random_names_controls.dart';
 import '../icons.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';
@@ -183,6 +184,12 @@ class _JournalViewState extends State<JournalView> {
                 ),
 
                 mythicGMEControls(wrapControls, appState, context),
+
+                const JournalSubheading(
+                  label: 'Random Names',
+                ),
+
+                const RandomNames(),
 
                 // const MarkdownBlock(
                 //   newString: '# hello\n*hello* hello\n- hello',
