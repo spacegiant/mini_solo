@@ -1,24 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'note_entry_item.dart';
+part of 'app_settings_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-NoteEntryItem _$NoteEntryItemFromJson(Map<String, dynamic> json) =>
-    NoteEntryItem(
+AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
+    AppSettingsData(
+      currentCampaign: json['currentCampaign'] as String,
+      randomTables: (json['randomTables'] as List<dynamic>)
+          .map((e) => RandomTableEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
+    <String, dynamic>{
+      'currentCampaign': instance.currentCampaign,
+      'randomTables': instance.randomTables.map((e) => e.toJson()).toList(),
+    };
+
+RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
+    RandomTableEntry(
       isFavourite: json['isFavourite'] as bool?,
-      detail: json['detail'] as String,
+      title: json['title'] as String,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
 
-Map<String, dynamic> _$NoteEntryItemToJson(NoteEntryItem instance) =>
+Map<String, dynamic> _$RandomTableEntryToJson(RandomTableEntry instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,
-      'detail': instance.detail,
+      'title': instance.title,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

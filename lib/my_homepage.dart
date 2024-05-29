@@ -1,3 +1,4 @@
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/utilities/init_form.dart';
@@ -31,24 +32,29 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
     String? currentCampaign;
 
+    // IF CAN READ APP SETTINGS DO THIS...
     widget.storage.readAppSettings('appSettings.json').then((data) {
-      currentCampaign = data;
+      currentCampaign = data?.currentCampaign;
 
-      widget.storage.readJSON('${currentCampaign!}.json').then((data) {
-        var appState = context.read<AppState>();
+      if (currentCampaign != null || currentCampaign != '') {
+        widget.storage.readJSON('$currentCampaign.json').then((data) {
+          var appState = context.read<AppState>();
 
-        if (data != null) {
-          appState.setCampaignData(data);
-        }
-      });
+          if (data != null) {
+            appState.setCampaignData(data);
+          }
+        });
+      }
     });
   }
 
+  //
   void initCampaignData(String campaignName) {
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
+    AppSettingsData appSettingsData = initAppSettingsData(campaignName);
     appState.setCampaignData(campaignData);
-    saveAppSettings(campaignData.filename);
+    saveAppSettings(appSettingsData);
     saveCampaign(campaignData);
   }
 
@@ -66,7 +72,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
   }
 
-  void saveAppSettings(String campaignName) {
+  void saveAppSettings(AppSettingsData campaignName) {
     widget.storage.writeAppSettingsJSON(campaignName, 'appSettings.json');
   }
 

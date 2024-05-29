@@ -29,6 +29,7 @@ enum JournalEntryTypes {
   roll,
   transition,
   scratchPage,
+  randomTable,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -46,6 +47,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.note: 'note',
   JournalEntryTypes.oracle: 'oracle',
   JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
 };
