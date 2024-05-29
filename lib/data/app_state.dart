@@ -27,8 +27,9 @@ class AppState extends ChangeNotifier {
   late bool _showSettings = false;
   late bool _useJournal = true;
   CampaignData? _campaignData;
-  final AppSettingsData _appSettingsData = initAppSettingsData();
+  late AppSettingsData _appSettingsData = initAppSettingsData();
   Function(CampaignData)? _saveCallback;
+  Function(AppSettingsData)? _saveAppSettingsCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
@@ -51,6 +52,10 @@ class AppState extends ChangeNotifier {
     _saveCallback = cb;
   }
 
+  void setAppSettingsSaveCallback(cb) {
+    _saveAppSettingsCallback = cb;
+  }
+
   void saveCampaignDataToDisk() {
     if (_saveCallback != null) _saveCallback!(_campaignData!);
     notifyListeners();
@@ -68,6 +73,11 @@ class AppState extends ChangeNotifier {
   void setCampaignData(CampaignData data) {
     _campaignData = data;
     _appSettingsData.currentCampaign = data.name;
+    notifyListeners();
+  }
+
+  void setAppSettingsData(AppSettingsData data) {
+    _appSettingsData = data;
     notifyListeners();
   }
 
@@ -467,5 +477,8 @@ class AppState extends ChangeNotifier {
   //   RANDOM TABLES
   void addRandomTable(RandomTableEntry entry) {
     _appSettingsData.randomTables.add(entry);
+    _saveAppSettingsCallback!(_appSettingsData);
   }
+
+  List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
 }

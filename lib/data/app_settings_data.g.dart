@@ -24,6 +24,7 @@ RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
     RandomTableEntry(
       isFavourite: json['isFavourite'] as bool?,
       title: json['title'] as String,
+      text: json['text'] as String,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -33,6 +34,7 @@ Map<String, dynamic> _$RandomTableEntryToJson(RandomTableEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'title': instance.title,
+      'text': instance.text,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

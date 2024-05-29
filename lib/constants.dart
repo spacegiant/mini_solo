@@ -28,6 +28,7 @@ const kJournalRandomNamesTitle = 'Random Names';
 const kJournalMythicGMETitle = 'Mythic GME';
 const kJournalMythicFateChartTitle = 'Mythic Fate Chart';
 const kJournalMythicAskTheFateChart = 'Ask the Fate Chart';
+const kRandomTablePopupTitle = 'ADD RANDOM TABLE';
 const kScratchPadTitle = 'Scratch Pad';
 const kScratchPadSave = 'Save';
 const kScratchPadNew = 'New';

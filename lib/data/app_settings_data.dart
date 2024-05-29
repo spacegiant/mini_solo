@@ -33,10 +33,13 @@ class AppSettingsData {
 @JsonSerializable(explicitToJson: true)
 class RandomTableEntry extends CampaignItem {
   String title;
+  // TODO: Convert to list of strings
+  String text;
 
   RandomTableEntry({
     required super.isFavourite,
     required this.title,
+    required this.text,
   });
 // coverage:ignore-start
   factory RandomTableEntry.fromJson(Map<String, dynamic> json) =>

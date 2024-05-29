@@ -34,12 +34,15 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
     // IF CAN READ APP SETTINGS DO THIS...
     widget.storage.readAppSettings('appSettings.json').then((data) {
-      currentCampaign = data?.currentCampaign;
+      AppState appState = context.read<AppState>();
+      appState.setAppSettingsData(data!);
+
+      currentCampaign = data.currentCampaign;
+
+      appState.setAppSettingsSaveCallback(saveAppSettings);
 
       if (currentCampaign != null && currentCampaign != '') {
         widget.storage.readJSON('$currentCampaign.json').then((data) {
-          var appState = context.read<AppState>();
-
           if (data != null) {
             appState.setCampaignData(data);
           }

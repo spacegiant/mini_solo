@@ -42,7 +42,9 @@ Consumer<Object?> popup(
         popupWidget = const Text('FULL JOURNAL');
       } else if (popup == PopupLabels.addRandomTable) {
         popupHeight = 500.0;
-        popupWidget = const AddRandomTablePopup();
+        popupWidget = AddRandomTablePopup(
+          appState: appState,
+        );
       } else if (popup == PopupLabels.editField) {
         popupWidget = const Text('EDIT FIELD');
       } else if (popup == PopupLabels.editNote) {
