@@ -5,9 +5,9 @@ import 'campaign_item.dart';
 
 part 'app_settings_data.g.dart';
 
-AppSettingsData initAppSettingsData(String campaignName) {
+AppSettingsData initAppSettingsData() {
   return AppSettingsData(
-    currentCampaign: campaignName,
+    currentCampaign: '',
     randomTables: [],
   );
 }

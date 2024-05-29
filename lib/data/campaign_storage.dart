@@ -152,7 +152,7 @@ class CampaignStorage {
   // }
 
   Future<File> writeAppSettingsJSON(
-    AppSettingsData data,
+    AppSettingsData appSettingsData,
     String fileName,
   ) async {
     final path = await _localPath;
@@ -164,7 +164,7 @@ class CampaignStorage {
     }
 
     // Convert MAP to String
-    String jsonData = jsonEncode(data);
+    String jsonData = jsonEncode(appSettingsData);
 
     // Write the file
     return file.writeAsString(jsonData);

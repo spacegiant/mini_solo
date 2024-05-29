@@ -22,13 +22,12 @@ enum PopupLabels {
 
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
-  String? _currentCampaign;
   late PopupLabels _popupLabel = PopupLabels.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
   late bool _useJournal = true;
   CampaignData? _campaignData;
-  AppSettingsData? _appSettingsData;
+  final AppSettingsData _appSettingsData = initAppSettingsData();
   Function(CampaignData)? _saveCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
@@ -57,6 +56,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void saveAppSettingsDataToDisk() {}
+
   bool get saveCallbackExists => _saveCallback != null;
 
   // CAMPAIGN DATA
@@ -66,16 +67,20 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
-    _appSettingsData?.currentCampaign = data.name;
+    _appSettingsData.currentCampaign = data.name;
     notifyListeners();
   }
 
+  AppSettingsData get appSettingsData {
+    return _appSettingsData;
+  }
+
   // CURRENT CAMPAIGN
-  String? get currentCampaign => _appSettingsData?.currentCampaign;
+  String? get currentCampaign => _appSettingsData.currentCampaign;
 
   void setCurrentCampaign(String campaignName) {
     // _currentCampaign = campaignName;
-    _appSettingsData?.currentCampaign = campaignName;
+    _appSettingsData.currentCampaign = campaignName;
     notifyListeners();
   }
 
@@ -89,7 +94,7 @@ class AppState extends ChangeNotifier {
 
   void setCurrentEntryId(String id) {
     _currentEntryId = id;
-    // TDDO: Does this need notify listeners?
+    // TODO: Does this need notify listeners?
   }
 
   get currentEntryId => _currentEntryId;
@@ -457,5 +462,10 @@ class AppState extends ChangeNotifier {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.scratchPad.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
+  }
+
+  //   RANDOM TABLES
+  void addRandomTable(RandomTableEntry entry) {
+    _appSettingsData.randomTables.add(entry);
   }
 }

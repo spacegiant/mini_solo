@@ -52,7 +52,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initCampaignData(String campaignName) {
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
-    AppSettingsData appSettingsData = initAppSettingsData(campaignName);
+    AppSettingsData appSettingsData = appState.appSettingsData;
     appState.setCampaignData(campaignData);
     saveAppSettings(appSettingsData);
     saveCampaign(campaignData);
@@ -72,8 +72,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
   }
 
-  void saveAppSettings(AppSettingsData campaignName) {
-    widget.storage.writeAppSettingsJSON(campaignName, 'appSettings.json');
+  void saveAppSettings(AppSettingsData appSettingsData) {
+    widget.storage.writeAppSettingsJSON(appSettingsData, 'appSettings.json');
   }
 
   void deleteCampaign(String filename) {
