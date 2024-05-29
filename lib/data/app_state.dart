@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 
 import 'note_entry_item.dart';
@@ -27,6 +28,7 @@ class AppState extends ChangeNotifier {
   late bool _showSettings = false;
   late bool _useJournal = true;
   CampaignData? _campaignData;
+  AppSettingsData? _appSettingsData;
   Function(CampaignData)? _saveCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
@@ -64,15 +66,16 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
-    _currentCampaign = data.name;
+    _appSettingsData?.currentCampaign = data.name;
     notifyListeners();
   }
 
   // CURRENT CAMPAIGN
-  String? get currentCampaign => _currentCampaign;
+  String? get currentCampaign => _appSettingsData?.currentCampaign;
 
   void setCurrentCampaign(String campaignName) {
-    _currentCampaign = campaignName;
+    // _currentCampaign = campaignName;
+    _appSettingsData?.currentCampaign = campaignName;
     notifyListeners();
   }
 
