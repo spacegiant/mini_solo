@@ -16,6 +16,7 @@ import '../utilities/get_weighted_result.dart';
 import '../utilities/test_scene.dart';
 import '../widgets/gap.dart';
 import '../widgets/journal/journal.dart';
+import '../widgets/journal/widgets/journal_subheading.dart';
 import 'dice/dice.dart';
 import 'dice/dice_collection.dart';
 import 'dice/other_dice_sets.dart';
@@ -299,7 +300,7 @@ class _JournalViewState extends State<JournalView> {
   WrapManager diceTray(
       bool wrapControls,
       bool useD6OracleDice,
-      void addResult(List<DiceRoll> result),
+      void Function(List<DiceRoll> result) addResult,
       bool useFateDice,
       bool useCoriolisDice,
       DiceCollection? generalDice) {
@@ -333,24 +334,6 @@ class _JournalViewState extends State<JournalView> {
           ),
         if (generalDice != null) ...generalDice.getDice(),
       ],
-    );
-  }
-}
-
-class JournalSubheading extends StatelessWidget {
-  final String label;
-  const JournalSubheading({
-    super.key,
-    required this.label,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: const TextStyle(
-        fontSize: 12.0,
-      ),
     );
   }
 }
