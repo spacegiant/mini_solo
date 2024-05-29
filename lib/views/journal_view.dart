@@ -146,39 +146,15 @@ class _JournalViewState extends State<JournalView> {
               flex: 1,
               child: ViewWrapper(children: [
                 const Gap(),
-                WrapManager(
-                  wrapControls: wrapControls,
-                  hideDivider: true,
-                  children: [
-                    if (useD6OracleDice)
-                      DiceButton(
-                        dieType: d6oracle,
-                        label: 'D6 Oracle',
-                        icon: Images.d6Oracle,
-                        onPressed: addResult,
-                      ),
-                    if (useFateDice) ...[
-                      DiceButton(
-                        color: CupertinoColors.systemOrange,
-                        dieType: fate,
-                        numberOfRolls: 4,
-                        label: '4dF',
-                        onPressed: addResult,
-                        icon: Images.fateDice,
-                      ),
-                    ],
-                    if (useCoriolisDice)
-                      DiceButton(
-                        dieType: coriolis,
-                        label: 'Coriolis',
-                        icon: Images.coriolis6,
-                        onPressed: addResult,
-                      ),
-                    if (generalDice != null) ...generalDice.getDice(),
-                  ],
+                diceTray(
+                  wrapControls,
+                  useD6OracleDice,
+                  addResult,
+                  useFateDice,
+                  useCoriolisDice,
+                  generalDice,
                 ),
-                if (useFateDice || useZocchiDice || useRegularDice)
-                  const Divider(),
+                const Divider(),
 
                 const JournalSubheading(label: 'Mythic Fate Chart'),
                 FateQuestion(
@@ -314,6 +290,46 @@ class _JournalViewState extends State<JournalView> {
         ),
       );
     });
+  }
+
+  WrapManager diceTray(
+      bool wrapControls,
+      bool useD6OracleDice,
+      void addResult(List<DiceRoll> result),
+      bool useFateDice,
+      bool useCoriolisDice,
+      DiceCollection? generalDice) {
+    return WrapManager(
+      wrapControls: wrapControls,
+      hideDivider: true,
+      children: [
+        if (useD6OracleDice)
+          DiceButton(
+            dieType: d6oracle,
+            label: 'D6 Oracle',
+            icon: Images.d6Oracle,
+            onPressed: addResult,
+          ),
+        if (useFateDice) ...[
+          DiceButton(
+            color: CupertinoColors.systemOrange,
+            dieType: fate,
+            numberOfRolls: 4,
+            label: '4dF',
+            onPressed: addResult,
+            icon: Images.fateDice,
+          ),
+        ],
+        if (useCoriolisDice)
+          DiceButton(
+            dieType: coriolis,
+            label: 'Coriolis',
+            icon: Images.coriolis6,
+            onPressed: addResult,
+          ),
+        if (generalDice != null) ...generalDice.getDice(),
+      ],
+    );
   }
 }
 
