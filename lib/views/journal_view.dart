@@ -180,7 +180,7 @@ class _JournalViewState extends State<JournalView> {
                 if (useFateDice || useZocchiDice || useRegularDice)
                   const Divider(),
 
-                const Text('Mythic Fate Chart'),
+                const JournalSubheading(label: 'Mythic Fate Chart'),
                 FateQuestion(
                   callback: (ReturnObject returnObject) {
                     // For Bubble
@@ -199,7 +199,9 @@ class _JournalViewState extends State<JournalView> {
                   },
                   wrapControls: wrapControls,
                 ),
-                const Text('Mythic GME'),
+                const JournalSubheading(
+                  label: 'Mythic GME',
+                ),
                 WrapManager(
                   wrapControls: wrapControls,
                   children: [
@@ -312,6 +314,24 @@ class _JournalViewState extends State<JournalView> {
         ),
       );
     });
+  }
+}
+
+class JournalSubheading extends StatelessWidget {
+  final String label;
+  const JournalSubheading({
+    super.key,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label.toUpperCase(),
+      style: const TextStyle(
+        fontSize: 12.0,
+      ),
+    );
   }
 }
 
