@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../gap.dart';
 
 class EditMythicEntryPopup extends StatefulWidget {
   const EditMythicEntryPopup({
@@ -23,14 +25,15 @@ class _EditMythicEntryPopupState extends State<EditMythicEntryPopup> {
 
     return Column(
       children: [
-        const Text('Delete Entry'),
+        const Text(kPopupDeleteEntryLabel),
+        const Gap(),
         CupertinoButton(
           color: CupertinoColors.destructiveRed,
           onPressed: () {
             widget.appState.deleteMythicEntry(currentEntryId);
             widget.appState.closePopup();
           },
-          child: const Text('Delete'),
+          child: const Text(kDeleteLabel),
         ),
       ],
     );

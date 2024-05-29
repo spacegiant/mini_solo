@@ -9,6 +9,7 @@ import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:provider/provider.dart';
+import '../constants.dart';
 import '../data/app_state.dart';
 import '../my_homepage.dart';
 import 'chaos_factor_popup.dart';
@@ -21,7 +22,7 @@ Consumer<Object?> popup(
   return Consumer<AppState>(
     builder: (BuildContext context, appState, Widget? child) {
       PopupLabels popup = appState.popupLabel;
-      double popupHeight = 400.0;
+      double popupHeight = kPopupDefaultHeight;
       Widget popupWidget;
 
       // WIDGETS
@@ -68,7 +69,7 @@ Consumer<Object?> popup(
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
           child: Container(
-            color: Colors.black.withOpacity(0.5),
+            color: kBackdropFilterColour,
             height: double.infinity,
             width: double.infinity,
             child: Padding(
@@ -81,10 +82,11 @@ Consumer<Object?> popup(
                     child: Column(
                       children: [
                         CupertinoButton(
-                            child: const Text('Close'),
+                            child: const Text(kPopupCloseButtonLabel),
                             onPressed: () {
                               appState.closePopup();
                             }),
+                        const Divider(),
                         popupWidget,
                       ],
                     ),
