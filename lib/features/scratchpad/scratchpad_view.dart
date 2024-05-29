@@ -128,6 +128,8 @@ class _ScratchpadViewState extends State<ScratchpadView> {
     return CupertinoButton(
       color: Colors.green,
       onPressed: () {
+        if (_textController.text == '') return;
+
         DateTime dateTime = DateTime.now();
 
         if (_titleController.text == '') {
