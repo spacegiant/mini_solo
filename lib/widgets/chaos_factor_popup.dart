@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../data/app_state.dart';
 import 'list_button.dart';
 
@@ -19,7 +20,7 @@ class ChaosFactorPopup extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Center(child: Text('Set Chaos Factor')),
+          const Center(child: Text(kChaosFactorTitle)),
           Center(
             child: Consumer<AppState>(
               builder: (BuildContext context, appState, Widget? child) {
@@ -37,28 +38,28 @@ class ChaosFactorPopup extends StatelessWidget {
             height: 10.0,
           ),
           ListButton(
-            label: 'Chaos Up',
+            label: kChaosFactorUp,
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.increaseChaosFactor();
             },
           ),
           ListButton(
-            label: 'Chaos Down',
+            label: kChaosFactorDown,
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.decreaseChaosFactor();
             },
           ),
           ListButton(
-            label: 'Reset',
+            label: kChaosFactorReset,
             labelAlignment: Alignment.center,
             onPressed: () {
               appState.resetChaosFactor();
             },
           ),
           ListButton(
-            label: 'Close',
+            label: kPopupCloseButtonLabel,
             labelAlignment: Alignment.center,
             onPressed: () => appState.toggleShowPopup(label: null),
           ),

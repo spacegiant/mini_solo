@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
+import '../../constants.dart';
+
 class CampaignManager extends StatefulWidget {
   const CampaignManager({
     super.key,
@@ -46,6 +48,7 @@ class _CampaignManagerState extends State<CampaignManager> {
               // padding: const EdgeInsets.all(8),
               // scrollDirection: Axis.vertical,
               children: [
+                const Text(kCampaignManagerTitle),
                 for (var item in snapshot.data)
                   CupertinoButton(
                       onPressed: () {
