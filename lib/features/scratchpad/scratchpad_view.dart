@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/features/scratchpad/scratch_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import '../../utilities/create_date_label.dart';
 
 class ScratchpadView extends StatefulWidget {
   const ScratchpadView({
@@ -58,10 +61,10 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         children: [
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text('Scratchpad'),
+            child: Text(kScratchPadTitle),
           ),
           const Divider(),
-          ScratchList(
+          ScratchPicker(
               scratchItems: scratchEntriesData,
               onSelect: (String id) {
                 appState.setCurrentScratchId(id);
@@ -72,7 +75,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           const Divider(),
           CupertinoTextField.borderless(
             textAlignVertical: TextAlignVertical.top,
-            placeholder: 'Title here',
+            placeholder: kScratchTitlePlaceholder,
             controller: _titleController,
             expands: true,
             minLines: null,
@@ -85,7 +88,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           Expanded(
             child: CupertinoTextField.borderless(
               textAlignVertical: TextAlignVertical.top,
-              placeholder: '...',
+              placeholder: kScratchTextPlaceholder,
               controller: _textController,
               autofocus: true,
               expands: true,
@@ -98,49 +101,10 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CupertinoButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    _titleController.text = '';
-                    _textController.text = '';
-                    appState.setCurrentScratchId('');
-                  },
-                  child: const Text('New'),
-                ),
-                const SizedBox(
-                  width: 10.0,
-                ),
-                CupertinoButton(
-                  color: Colors.green,
-                  onPressed: () {
-                    DateTime dateTime = DateTime.now();
-
-                    if (_titleController.text == '') {
-                      _titleController.text =
-                          createDateLabel('scratch', dateTime);
-                    }
-
-                    if (appState.currentScratchId == '') {
-                      ScratchPageEntryItem scratch = ScratchPageEntryItem(
-                        isFavourite: false,
-                        title: _titleController.text,
-                        text: _textController.text,
-                        dateCreated: dateTime,
-                      );
-
-                      appState.addScratchPadEntry(scratch);
-                    } else {
-                      appState.updateScratchPadEntryItem(
-                        id: appState.currentScratchId,
-                        title: _titleController.text,
-                        text: _textController.text,
-                      );
-                    }
-                  },
-                  child: const Text('Save'),
-                ),
+                newScratchButton(appState),
+                const SizedBox(width: 10.0),
+                scratchpadSaveButton(appState),
               ],
             ),
           )
@@ -149,89 +113,49 @@ class _ScratchpadViewState extends State<ScratchpadView> {
     });
   }
 
-  String createDateLabel(String prefix, DateTime dateTime) {
-    String day = dateTime.day.toString();
-    String month = dateTime.day.toString();
-    String year = dateTime.year.toString();
-    String hour = dateTime.hour.toString();
-    String minutes = dateTime.minute.toString();
-
-    return '$prefix-$day-$month-$year@$hour.$minutes';
-  }
-}
-
-class ScratchList extends StatelessWidget {
-  final List<ScratchPageEntryItem> scratchItems;
-  final Function(String) onSelect;
-  final Null Function(String id) onDelete;
-
-  const ScratchList({
-    super.key,
-    required this.scratchItems,
-    required this.onSelect,
-    required this.onDelete,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    List<ScratchListItem> scratchListData = scratchItems
-        .map(
-          (entry) => ScratchListItem(
-            entry,
-            onSelect: onSelect,
-            onDelete: onDelete,
-          ),
-        )
-        .toList();
-
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: 10.0,
-        maxHeight: 140.0,
-      ),
-      child: ListView(
-        children: scratchListData,
-      ),
+  CupertinoButton newScratchButton(AppState appState) {
+    return CupertinoButton(
+      color: Colors.blue,
+      onPressed: () {
+        _titleController.text = '';
+        _textController.text = '';
+        appState.setCurrentScratchId('');
+      },
+      child: const Text(kScratchPadNew),
     );
   }
-}
 
-class ScratchListItem extends StatelessWidget {
-  final ScratchPageEntryItem entry;
-  final Function(String) onSelect;
-  final Null Function(String id) onDelete;
+  CupertinoButton scratchpadSaveButton(AppState appState) {
+    return CupertinoButton(
+      color: Colors.green,
+      onPressed: () {
+        if (_textController.text == '') return;
 
-  const ScratchListItem(
-    this.entry, {
-    super.key,
-    required this.onSelect,
-    required this.onDelete,
-  });
+        DateTime dateTime = DateTime.now();
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: CupertinoButton(
-            alignment: Alignment.centerLeft,
-            child: Text(entry.title),
-            onPressed: () {
-              onSelect(entry.id);
-            },
-          ),
-        ),
-        CupertinoButton(
-          child: const Icon(CupertinoIcons.star),
-          onPressed: () {},
-        ),
-        CupertinoButton(
-          child: const Icon(CupertinoIcons.trash),
-          onPressed: () {
-            onDelete(entry.id);
-          },
-        ),
-      ],
+        if (_titleController.text == '') {
+          _titleController.text =
+              createDateLabel(kScratchDateLabelPrefix, dateTime);
+        }
+
+        if (appState.currentScratchId == '') {
+          ScratchPageEntryItem scratch = ScratchPageEntryItem(
+            isFavourite: false,
+            title: _titleController.text,
+            text: _textController.text,
+            dateCreated: dateTime,
+          );
+
+          appState.addScratchPadEntry(scratch);
+        } else {
+          appState.updateScratchPadEntryItem(
+            id: appState.currentScratchId,
+            title: _titleController.text,
+            text: _textController.text,
+          );
+        }
+      },
+      child: const Text(kScratchPadSave),
     );
   }
 }

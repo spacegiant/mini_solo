@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../constants.dart';
+
 class InitForm extends StatefulWidget {
   const InitForm({
     super.key,
@@ -22,7 +24,7 @@ class _InitFormState extends State<InitForm> {
       key: _formKey,
       child: CupertinoFormSection(
         margin: const EdgeInsets.all(8.0),
-        header: const Text('Enter a name for your campaign'),
+        header: const Text(kInitFormHeader),
         children: [
           CupertinoFormRow(
             child: CupertinoTextFormFieldRow(

@@ -46,42 +46,39 @@ class FateQuestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
         builder: (BuildContext context, AppState appState, Widget? child) {
-      return Column(
-        children: [
-          WrapManager(
-            wrapControls: wrapControls,
-            children: fateChart
-                .map<Widget>(
-                  (widget) => ToolbarButton(
-                    label: widget.label,
-                    color: widget.color,
-                    onPressed: () {
-                      OddsValue row = widget.row[appState.chaosFactor - 1];
-                      int random = Random().nextInt(100) + 1;
-                      String answer;
-                      if (random > row.extremeNoValue!.toInt()) {
-                        answer = 'EXTREME NO';
-                      } else if (random < row.extremeYesValue!.toInt()) {
-                        answer = 'EXTREME YES';
-                      } else if (random <= row.yesValue.toInt()) {
-                        answer = 'YES';
-                      } else {
-                        answer = 'NO';
-                      }
+      return WrapManager(
+        wrapControls: wrapControls,
+        hideDivider: true,
+        children: fateChart
+            .map<Widget>(
+              (widget) => ToolbarButton(
+                label: widget.label,
+                color: widget.color,
+                onPressed: () {
+                  OddsValue row = widget.row[appState.chaosFactor - 1];
+                  int random = Random().nextInt(100) + 1;
+                  String answer;
+                  if (random > row.extremeNoValue!.toInt()) {
+                    answer = 'EXTREME NO';
+                  } else if (random < row.extremeYesValue!.toInt()) {
+                    answer = 'EXTREME YES';
+                  } else if (random <= row.yesValue.toInt()) {
+                    answer = 'YES';
+                  } else {
+                    answer = 'NO';
+                  }
 
-                      ReturnObject result = ReturnObject(
-                          type: 'fateChart',
-                          line1:
-                              'FateChart (Chaos Factor ${appState.chaosFactor})',
-                          line2: 'd100 → $random',
-                          result: 'Oracles says $answer');
-                      callback(result);
-                    },
-                  ),
-                )
-                .toList(),
-          ),
-        ],
+                  ReturnObject result = ReturnObject(
+                      type: 'fateChart',
+                      line1:
+                          '${widget.label} odds | Chaos Factor ${appState.chaosFactor}',
+                      line2: 'd100 → $random',
+                      result: 'Oracles says $answer');
+                  callback(result);
+                },
+              ),
+            )
+            .toList(),
       );
     });
   }

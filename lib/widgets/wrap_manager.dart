@@ -25,18 +25,16 @@ class WrapManager extends StatelessWidget {
               if (hideDivider != true) const Divider(),
             ],
           )
-        : Padding(
-            padding: const EdgeInsets.only(
-              bottom: 4.0,
-            ),
-            child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Wrap(
-                  spacing: 4.0,
-                  children: children,
-                )),
-          );
+        : SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Wrap(
+              spacing: 4.0,
+              children: children,
+            ));
 
-    return widget;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: widget,
+    );
   }
 }
