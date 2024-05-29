@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
@@ -91,7 +93,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                       widget.appState.addRandomTable(RandomTableEntry(
                         isFavourite: false,
                         title: title,
-                        lines: ['1', '2'],
+                        lines: convertText(text),
                       ));
                       _titleController.text = '';
                       _textController.text = '';
@@ -112,7 +114,9 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   convertText(String text) {
     // convert to array of strings at line break
     // check if more than one line
+    LineSplitter ls = const LineSplitter();
+    List<String> lines = ls.convert(text);
 
-    return text;
+    return lines;
   }
 }
