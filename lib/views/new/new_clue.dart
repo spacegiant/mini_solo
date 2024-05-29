@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/menu_spacer.dart';
 import '../../widgets/list_button.dart';
-import '../../widgets/speech_bubble/bubble_text.dart';
-import '../../widgets/speech_bubble/speech_bubble.dart';
 import '../../widgets/view_wrapper.dart';
 
 class NewClueMenu extends StatefulWidget {
@@ -21,16 +19,6 @@ class _NewClueMenuState extends State<NewClueMenu> {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      SpeechBubble(
-        widget: BubbleText(
-          lines: [
-            line1,
-            line2,
-            line3,
-          ],
-          type: type,
-        ),
-      ),
       ListButton(
         label: 'Who',
         onPressed: () {
