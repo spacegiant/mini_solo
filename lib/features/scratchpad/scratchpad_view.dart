@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/scratchpad/scratch_picker.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +61,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         children: [
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text('Scratchpad'),
+            child: Text(kScratchPadTitle),
           ),
           const Divider(),
           ScratchPicker(
@@ -74,7 +75,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           const Divider(),
           CupertinoTextField.borderless(
             textAlignVertical: TextAlignVertical.top,
-            placeholder: 'Title here',
+            placeholder: kScratchTitlePlaceholder,
             controller: _titleController,
             expands: true,
             minLines: null,
@@ -87,7 +88,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           Expanded(
             child: CupertinoTextField.borderless(
               textAlignVertical: TextAlignVertical.top,
-              placeholder: '...',
+              placeholder: kScratchTextPlaceholder,
               controller: _textController,
               autofocus: true,
               expands: true,
@@ -120,7 +121,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         _textController.text = '';
         appState.setCurrentScratchId('');
       },
-      child: const Text('New'),
+      child: const Text(kScratchPadNew),
     );
   }
 
@@ -133,7 +134,8 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         DateTime dateTime = DateTime.now();
 
         if (_titleController.text == '') {
-          _titleController.text = createDateLabel('scratch', dateTime);
+          _titleController.text =
+              createDateLabel(kScratchDateLabelPrefix, dateTime);
         }
 
         if (appState.currentScratchId == '') {
@@ -153,7 +155,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           );
         }
       },
-      child: const Text('Save'),
+      child: const Text(kScratchPadSave),
     );
   }
 }

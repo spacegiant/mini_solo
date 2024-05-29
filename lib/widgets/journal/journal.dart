@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:provider/provider.dart';
+import '../../constants.dart';
 import '../../data/app_state.dart';
 import 'entryWidgets/journal_end_glyphs.dart';
 import 'entryWidgets/journal_footer.dart';
@@ -140,7 +141,7 @@ class _JournalState extends State<Journal> {
           //   appState.toggleShowPopup(PopupLabels.fullJournal);
           // },
           child: Container(
-            color: CupertinoColors.systemTeal,
+            color: kJournalBackgroundColour,
             child: Column(
               children: [
                 Container(
