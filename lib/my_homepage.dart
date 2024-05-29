@@ -128,7 +128,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
               }
 
               if (appState.deleteCampaign == false) {
-                print('delete compaign does not exist');
                 appState.setDeleteCampaignCallback(deleteCampaign);
               }
 

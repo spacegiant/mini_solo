@@ -4,8 +4,8 @@ import 'package:mini_solo/widgets/wrap_manager.dart';
 
 import '../../data/app_state.dart';
 
-class RandomNames extends StatelessWidget {
-  const RandomNames({
+class RandomTables extends StatelessWidget {
+  const RandomTables({
     super.key,
     required this.appState,
   });
