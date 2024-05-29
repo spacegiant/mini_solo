@@ -6,6 +6,7 @@ import 'note_entry_item.dart';
 // FIXME: Rename to PopupLabel
 enum PopupLabels {
   addJournalEntry,
+  addRandomTable,
   campaignManager,
   chaos,
   editField,

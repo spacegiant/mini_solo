@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
@@ -39,6 +40,9 @@ Consumer<Object?> popup(
         );
       } else if (popup == PopupLabels.fullJournal) {
         popupWidget = const Text('FULL JOURNAL');
+      } else if (popup == PopupLabels.addRandomTable) {
+        popupHeight = 500.0;
+        popupWidget = const AddRandomTablePopup();
       } else if (popup == PopupLabels.editField) {
         popupWidget = const Text('EDIT FIELD');
       } else if (popup == PopupLabels.editNote) {

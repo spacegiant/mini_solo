@@ -190,7 +190,9 @@ class _JournalViewState extends State<JournalView> {
                   label: kJournalRandomNamesTitle,
                 ),
 
-                const RandomNames(),
+                RandomNames(
+                  appState: appState,
+                ),
 
                 // const MarkdownBlock(
                 //   newString: '# hello\n*hello* hello\n- hello',
