@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/features/scratchpad/scratch_list.dart';
+import 'package:mini_solo/features/scratchpad/scratch_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import '../../utilities/create_date_label.dart';
 
 class ScratchpadView extends StatefulWidget {
   const ScratchpadView({
@@ -62,7 +63,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
             child: Text('Scratchpad'),
           ),
           const Divider(),
-          ScratchList(
+          ScratchPicker(
               scratchItems: scratchEntriesData,
               onSelect: (String id) {
                 appState.setCurrentScratchId(id);
@@ -99,49 +100,10 @@ class _ScratchpadViewState extends State<ScratchpadView> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CupertinoButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    _titleController.text = '';
-                    _textController.text = '';
-                    appState.setCurrentScratchId('');
-                  },
-                  child: const Text('New'),
-                ),
-                const SizedBox(
-                  width: 10.0,
-                ),
-                CupertinoButton(
-                  color: Colors.green,
-                  onPressed: () {
-                    DateTime dateTime = DateTime.now();
-
-                    if (_titleController.text == '') {
-                      _titleController.text =
-                          createDateLabel('scratch', dateTime);
-                    }
-
-                    if (appState.currentScratchId == '') {
-                      ScratchPageEntryItem scratch = ScratchPageEntryItem(
-                        isFavourite: false,
-                        title: _titleController.text,
-                        text: _textController.text,
-                        dateCreated: dateTime,
-                      );
-
-                      appState.addScratchPadEntry(scratch);
-                    } else {
-                      appState.updateScratchPadEntryItem(
-                        id: appState.currentScratchId,
-                        title: _titleController.text,
-                        text: _textController.text,
-                      );
-                    }
-                  },
-                  child: const Text('Save'),
-                ),
+                newScratchButton(appState),
+                const SizedBox(width: 10.0),
+                scratchpadSaveButton(appState),
               ],
             ),
           )
@@ -150,13 +112,46 @@ class _ScratchpadViewState extends State<ScratchpadView> {
     });
   }
 
-  String createDateLabel(String prefix, DateTime dateTime) {
-    String day = dateTime.day.toString();
-    String month = dateTime.day.toString();
-    String year = dateTime.year.toString();
-    String hour = dateTime.hour.toString();
-    String minutes = dateTime.minute.toString();
+  CupertinoButton newScratchButton(AppState appState) {
+    return CupertinoButton(
+      color: Colors.blue,
+      onPressed: () {
+        _titleController.text = '';
+        _textController.text = '';
+        appState.setCurrentScratchId('');
+      },
+      child: const Text('New'),
+    );
+  }
 
-    return '$prefix-$day-$month-$year@$hour.$minutes';
+  CupertinoButton scratchpadSaveButton(AppState appState) {
+    return CupertinoButton(
+      color: Colors.green,
+      onPressed: () {
+        DateTime dateTime = DateTime.now();
+
+        if (_titleController.text == '') {
+          _titleController.text = createDateLabel('scratch', dateTime);
+        }
+
+        if (appState.currentScratchId == '') {
+          ScratchPageEntryItem scratch = ScratchPageEntryItem(
+            isFavourite: false,
+            title: _titleController.text,
+            text: _textController.text,
+            dateCreated: dateTime,
+          );
+
+          appState.addScratchPadEntry(scratch);
+        } else {
+          appState.updateScratchPadEntryItem(
+            id: appState.currentScratchId,
+            title: _titleController.text,
+            text: _textController.text,
+          );
+        }
+      },
+      child: const Text('Save'),
+    );
   }
 }

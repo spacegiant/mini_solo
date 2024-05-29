@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 
 import '../../data/campaign_data.dart';
 
-class ScratchListItem extends StatelessWidget {
+class ScratchPickerItem extends StatelessWidget {
   final ScratchPageEntryItem entry;
   final Function(String) onSelect;
   final Null Function(String id) onDelete;
 
-  const ScratchListItem(
+  const ScratchPickerItem(
     this.entry, {
     super.key,
     required this.onSelect,
