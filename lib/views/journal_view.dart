@@ -175,111 +175,11 @@ class _JournalViewState extends State<JournalView> {
                   },
                   wrapControls: wrapControls,
                 ),
+                const Divider(),
                 const JournalSubheading(
                   label: 'Mythic GME',
                 ),
-                WrapManager(
-                  wrapControls: wrapControls,
-                  children: [
-                    ListButton(
-                      label: 'New Scene',
-                      color: Colors.black,
-                      onPressed: () {
-                        appState.addNewScene();
-                      },
-                    ),
-                    ListButton(
-                        label: 'Test Your Expected Scene',
-                        onPressed: () {
-                          ReturnObject test = testScene(context);
-
-                          // For Bubble
-                          setState(() {
-                            line1 = test.line1!;
-                            line2 = test.line2;
-                            line3 = test.result;
-                          });
-
-                          appState.addOracleEntry(
-                            OracleEntry(
-                                isFavourite: false,
-                                lines: test,
-                                label: 'Test Expected Scene'),
-                          );
-                        }),
-                    ListButton(
-                      label: 'Mythic Action',
-                      onPressed: () {
-                        getRandomResult(
-                          appState: appState,
-                          label: 'Mythic Action',
-                          jsonPath: 'mythic/mythic_action.json',
-                          table1: 'table1',
-                          table2: 'table2',
-                          onResult: (appState, result, label) {
-                            updateState(result);
-                            appState.addMythicEntry(
-                              MythicEntry(
-                                isFavourite: false,
-                                lines: result,
-                                label: 'Mythic Action',
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    ListButton(
-                      label: 'Mythic Description',
-                      onPressed: () {
-                        getRandomResult(
-                          appState: appState,
-                          label: 'Mythic Description',
-                          jsonPath: 'mythic/mythic_description.json',
-                          table1: 'table1',
-                          table2: 'table2',
-                          onResult: (appState, result, label) {
-                            updateState(result);
-                            appState.addMythicEntry(
-                              MythicEntry(
-                                isFavourite: false,
-                                lines: result,
-                                label: 'Mythic Description',
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    ListButton(
-                      label: 'Event Focus',
-                      onPressed: () {
-                        getEventFocus(appState);
-                      },
-                    ),
-                    ListButton(
-                      label: 'Plot Twist',
-                      onPressed: () {
-                        getRandomResult(
-                          appState: appState,
-                          label: 'Mythic - Plot Twist',
-                          jsonPath: 'mythic_elements/plot_twist.json',
-                          table1: 'table',
-                          table2: 'table',
-                          onResult: (appState, result, label) {
-                            updateState(result);
-                            appState.addOracleEntry(
-                              OracleEntry(
-                                  isFavourite: false,
-                                  lines: result,
-                                  label: 'Plot Twist'),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                mythicGMEControls(wrapControls, appState, context),
 
                 // const MarkdownBlock(
                 //   newString: '# hello\n*hello* hello\n- hello',
@@ -290,6 +190,110 @@ class _JournalViewState extends State<JournalView> {
         ),
       );
     });
+  }
+
+  WrapManager mythicGMEControls(
+      bool wrapControls, AppState appState, BuildContext context) {
+    return WrapManager(
+      wrapControls: wrapControls,
+      children: [
+        ListButton(
+          label: 'New Scene',
+          color: Colors.black,
+          onPressed: () {
+            appState.addNewScene();
+          },
+        ),
+        ListButton(
+            label: 'Test Your Expected Scene',
+            onPressed: () {
+              ReturnObject test = testScene(context);
+
+              // For Bubble
+              setState(() {
+                line1 = test.line1!;
+                line2 = test.line2;
+                line3 = test.result;
+              });
+
+              appState.addOracleEntry(
+                OracleEntry(
+                    isFavourite: false,
+                    lines: test,
+                    label: 'Test Expected Scene'),
+              );
+            }),
+        ListButton(
+          label: 'Mythic Action',
+          onPressed: () {
+            getRandomResult(
+              appState: appState,
+              label: 'Mythic Action',
+              jsonPath: 'mythic/mythic_action.json',
+              table1: 'table1',
+              table2: 'table2',
+              onResult: (appState, result, label) {
+                updateState(result);
+                appState.addMythicEntry(
+                  MythicEntry(
+                    isFavourite: false,
+                    lines: result,
+                    label: 'Mythic Action',
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        ListButton(
+          label: 'Mythic Description',
+          onPressed: () {
+            getRandomResult(
+              appState: appState,
+              label: 'Mythic Description',
+              jsonPath: 'mythic/mythic_description.json',
+              table1: 'table1',
+              table2: 'table2',
+              onResult: (appState, result, label) {
+                updateState(result);
+                appState.addMythicEntry(
+                  MythicEntry(
+                    isFavourite: false,
+                    lines: result,
+                    label: 'Mythic Description',
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        ListButton(
+          label: 'Event Focus',
+          onPressed: () {
+            getEventFocus(appState);
+          },
+        ),
+        ListButton(
+          label: 'Plot Twist',
+          onPressed: () {
+            getRandomResult(
+              appState: appState,
+              label: 'Mythic - Plot Twist',
+              jsonPath: 'mythic_elements/plot_twist.json',
+              table1: 'table',
+              table2: 'table',
+              onResult: (appState, result, label) {
+                updateState(result);
+                appState.addOracleEntry(
+                  OracleEntry(
+                      isFavourite: false, lines: result, label: 'Plot Twist'),
+                );
+              },
+            );
+          },
+        ),
+      ],
+    );
   }
 
   WrapManager diceTray(
