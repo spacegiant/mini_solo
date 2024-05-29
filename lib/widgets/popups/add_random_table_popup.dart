@@ -91,7 +91,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                       widget.appState.addRandomTable(RandomTableEntry(
                         isFavourite: false,
                         title: title,
-                        text: convertText(text),
+                        lines: ['1', '2'],
                       ));
                       _titleController.text = '';
                       _textController.text = '';

@@ -61,6 +61,9 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  Function(AppSettingsData)? get appSettingsSaveCallback =>
+      _saveAppSettingsCallback;
+
   void saveAppSettingsDataToDisk() {}
 
   bool get saveCallbackExists => _saveCallback != null;
@@ -477,7 +480,8 @@ class AppState extends ChangeNotifier {
   //   RANDOM TABLES
   void addRandomTable(RandomTableEntry entry) {
     _appSettingsData.randomTables.add(entry);
-    _saveAppSettingsCallback!(_appSettingsData);
+    AppSettingsData data = _appSettingsData;
+    appSettingsSaveCallback!(data);
   }
 
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
