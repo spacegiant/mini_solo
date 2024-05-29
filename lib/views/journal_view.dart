@@ -8,6 +8,7 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
 import '../features/random_names/random_names_controls.dart';
@@ -158,7 +159,7 @@ class _JournalViewState extends State<JournalView> {
                   generalDice,
                 ),
 
-                const JournalSubheading(label: 'Mythic Fate Chart'),
+                const JournalSubheading(label: kJournalMythicFateChartTitle),
 
                 FateQuestion(
                   callback: (ReturnObject returnObject) {
@@ -173,20 +174,20 @@ class _JournalViewState extends State<JournalView> {
                       OracleEntry(
                           isFavourite: false,
                           lines: returnObject,
-                          label: 'Ask the Fate Chart'),
+                          label: kJournalMythicAskTheFateChart),
                     );
                   },
                   wrapControls: wrapControls,
                 ),
 
                 const JournalSubheading(
-                  label: 'Mythic GME',
+                  label: kJournalMythicGMETitle,
                 ),
 
                 mythicGMEControls(wrapControls, appState, context),
 
                 const JournalSubheading(
-                  label: 'Random Names',
+                  label: kJournalRandomNamesTitle,
                 ),
 
                 const RandomNames(),

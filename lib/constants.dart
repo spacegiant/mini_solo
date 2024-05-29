@@ -16,6 +16,10 @@ const kPopupDefaultHeight = 400.0;
 // Labels
 const kDeleteLabel = 'Delete';
 const kInitFormHeader = 'Enter a name for your campaign';
+const kJournalRandomNamesTitle = 'Random Names';
+const kJournalMythicGMETitle = 'Mythic GME';
+const kJournalMythicFateChartTitle = 'Mythic Fate Chart';
+const kJournalMythicAskTheFateChart = 'Ask the Fate Chart';
 const kScratchPadTitle = 'Scratch Pad';
 const kScratchPadSave = 'Save';
 const kScratchPadNew = 'New';
