@@ -180,7 +180,7 @@ class _JournalViewState extends State<JournalView> {
                 if (useFateDice || useZocchiDice || useRegularDice)
                   const Divider(),
 
-                const Text('Mythic GME'),
+                const Text('Mythic Fate Chart'),
                 FateQuestion(
                   callback: (ReturnObject returnObject) {
                     // For Bubble
@@ -199,6 +199,7 @@ class _JournalViewState extends State<JournalView> {
                   },
                   wrapControls: wrapControls,
                 ),
+                const Text('Mythic GME'),
                 WrapManager(
                   wrapControls: wrapControls,
                   children: [

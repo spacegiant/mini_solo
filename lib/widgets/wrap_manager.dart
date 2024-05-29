@@ -37,6 +37,9 @@ class WrapManager extends StatelessWidget {
                 )),
           );
 
-    return widget;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: widget,
+    );
   }
 }
