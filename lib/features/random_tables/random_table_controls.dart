@@ -33,7 +33,7 @@ class RandomTables extends StatelessWidget {
             ),
             onPressed: () {
               appState.toggleShowPopup(
-                label: PopupLabels.addRandomTable,
+                label: PopupLabel.addRandomTable,
               );
             }),
       ],

@@ -26,7 +26,7 @@ class OracleEntryWidget extends StatelessWidget {
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
-          label: PopupLabels.editOracleEntry,
+          label: PopupLabel.editOracleEntry,
         );
       },
       child: Padding(

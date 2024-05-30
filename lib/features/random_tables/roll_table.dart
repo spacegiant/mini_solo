@@ -20,7 +20,7 @@ RollTableResult? rollTable(RandomTableEntry table) {
       result = RollTableResult(
           title: table.title,
           randomRoll: randomRoll,
-          resultString: rows[i].title,
+          resultString: rows[i].label,
           totalEntries: weightsSum,
           isFavourite: false,
           weight: rows[i].chance ?? 0);

@@ -33,7 +33,6 @@ class AppSettingsData {
 @JsonSerializable(explicitToJson: true)
 class RandomTableEntry extends CampaignItem {
   final String title;
-  // TODO: Convert to list of strings
   final List<RandomTableRow> rows;
 
   RandomTableEntry({
@@ -54,13 +53,12 @@ class RandomTableEntry extends CampaignItem {
 
 @JsonSerializable(explicitToJson: true)
 class RandomTableRow {
-  // TODO: Rename title to label
-  final String title;
+  final String label;
   final int? chance;
   final String? otherRandomTable;
 
   RandomTableRow({
-    required this.title,
+    required this.label,
     this.chance,
     this.otherRandomTable,
   });

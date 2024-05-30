@@ -27,7 +27,7 @@ class NoteEntryWidget extends StatelessWidget {
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
-          label: PopupLabels.editNote,
+          label: PopupLabel.editNote,
         );
       },
       child: Padding(

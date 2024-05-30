@@ -22,48 +22,48 @@ Consumer<Object?> popup(
 ) {
   return Consumer<AppState>(
     builder: (BuildContext context, appState, Widget? child) {
-      PopupLabels popup = appState.popupLabel;
+      PopupLabel popup = appState.popupLabel;
       double popupHeight = kPopupDefaultHeight;
       Widget popupWidget;
 
       // WIDGETS
-      if (popup == PopupLabels.chaos) {
+      if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
-      } else if (popup == PopupLabels.addJournalEntry) {
+      } else if (popup == PopupLabel.addJournalEntry) {
         popupWidget = const AddToJournalPanel();
-      } else if (popup == PopupLabels.journalFilter) {
+      } else if (popup == PopupLabel.journalFilter) {
         popupWidget = const Text('JOURNAL FILTER');
-      } else if (popup == PopupLabels.campaignManager) {
+      } else if (popup == PopupLabel.campaignManager) {
         popupHeight = 600.0;
         popupWidget = CampaignManager(
           getCampaignList: widget!.storage.getCampaignsList,
         );
-      } else if (popup == PopupLabels.fullJournal) {
+      } else if (popup == PopupLabel.fullJournal) {
         popupWidget = const Text('FULL JOURNAL');
-      } else if (popup == PopupLabels.addRandomTable) {
+      } else if (popup == PopupLabel.addRandomTable) {
         popupHeight = 500.0;
         popupWidget = AddRandomTablePopup(
           appState: appState,
         );
-      } else if (popup == PopupLabels.editField) {
+      } else if (popup == PopupLabel.editField) {
         popupWidget = const Text('EDIT FIELD');
-      } else if (popup == PopupLabels.editNote) {
+      } else if (popup == PopupLabel.editNote) {
         popupHeight = 420.0;
         popupWidget = EditNotePopup(
           appState: appState,
         );
-      } else if (popup == PopupLabels.editMythicEntry) {
+      } else if (popup == PopupLabel.editMythicEntry) {
         popupHeight = 160.0;
         popupWidget = EditMythicEntryPopup(
           appState: appState,
         );
-      } else if (popup == PopupLabels.editRoll) {
+      } else if (popup == PopupLabel.editRoll) {
         popupHeight = 160.0;
         popupWidget = EditRollPopup(appState: appState);
-      } else if (popup == PopupLabels.editOracleEntry) {
+      } else if (popup == PopupLabel.editOracleEntry) {
         popupHeight = 160.0;
         popupWidget = EditOracleEntryPopup(appState: appState);
-      } else if (popup == PopupLabels.editNewSceneEntry) {
+      } else if (popup == PopupLabel.editNewSceneEntry) {
         popupHeight = 160.0;
         popupWidget = EditNewSceneEntryPopup(appState: appState);
       } else {

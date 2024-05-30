@@ -174,7 +174,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
 
       // if separator, test if
       rows.add(RandomTableRow(
-        title: split.length > 1 ? split[1] : split[0],
+        label: split.length > 1 ? split[1] : split[0],
         chance: chance ?? 1,
       ));
     }

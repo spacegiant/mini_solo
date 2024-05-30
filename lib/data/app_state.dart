@@ -5,7 +5,7 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'note_entry_item.dart';
 
 // FIXME: Rename to PopupLabel
-enum PopupLabels {
+enum PopupLabel {
   addJournalEntry,
   addRandomTable,
   campaignManager,
@@ -22,7 +22,7 @@ enum PopupLabels {
 
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
-  late PopupLabels _popupLabel = PopupLabels.chaos;
+  late PopupLabel _popupLabel = PopupLabel.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
   late bool _useJournal = true;
@@ -162,10 +162,10 @@ class AppState extends ChangeNotifier {
   }
 
   // POPUPS
-  PopupLabels get popupLabel => _popupLabel;
+  PopupLabel get popupLabel => _popupLabel;
 
   void toggleShowPopup({
-    PopupLabels? label,
+    PopupLabel? label,
     Function()? callback,
   }) {
     if (label != null) _popupLabel = label;

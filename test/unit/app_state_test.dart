@@ -127,7 +127,7 @@ void main() {
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
 
-      expect(data.popupLabel, PopupLabels.chaos);
+      expect(data.popupLabel, PopupLabel.chaos);
     });
 
     test('getter showPopup returns bool', () {
@@ -143,7 +143,7 @@ void main() {
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
 
-      data.toggleShowPopup(label: PopupLabels.chaos);
+      data.toggleShowPopup(label: PopupLabel.chaos);
       expect(data.showPopup, isTrue);
     });
 
@@ -155,7 +155,7 @@ void main() {
       expect(data.showPopup, isFalse);
       data.closePopup();
       expect(data.showPopup, isFalse);
-      data.toggleShowPopup(label: PopupLabels.chaos);
+      data.toggleShowPopup(label: PopupLabel.chaos);
       expect(data.showPopup, isTrue);
       data.closePopup();
       expect(data.showPopup, isFalse);
