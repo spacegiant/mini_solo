@@ -30,9 +30,9 @@ class RollTableResultWidget extends StatelessWidget {
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         // FIXME needs wiring up
-        // appState.toggleShowPopup(
-        //   label: PopupLabels.editRollTableResult,
-        // );
+        appState.toggleShowPopup(
+          label: PopupLabel.editRollTableResult,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

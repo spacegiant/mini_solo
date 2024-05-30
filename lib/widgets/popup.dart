@@ -51,6 +51,8 @@ Consumer<Object?> popup(
         popupWidget = AddRandomTablePopup(
           appState: appState,
         );
+      } else if (popup == PopupLabel.editRollTableResult) {
+        popupWidget = const Text('EDIT ROLL TABLE RESULT');
       } else if (popup == PopupLabel.editField) {
         popupWidget = const Text('EDIT FIELD');
       } else if (popup == PopupLabel.editNote) {
