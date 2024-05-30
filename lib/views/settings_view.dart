@@ -339,10 +339,3 @@ class _ToolsSettingsState extends State<ToolsSettings> {
     );
   }
 }
-
-// TODO: Move
-// Future<void> _launchUrl(url) async {
-//   if (!await launchUrl(url)) {
-//     throw Exception('Could not launch $url');
-//   }
-// }

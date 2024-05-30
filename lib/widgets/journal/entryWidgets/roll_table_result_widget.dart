@@ -46,10 +46,6 @@ class RollTableResultWidget extends StatelessWidget {
               details: [calculation, roll],
             ),
             JournalEntryResult(text: resultText),
-            // const Gap(),
-            // const Divider(
-            //   color: CupertinoColors.darkBackgroundGray,
-            // ),
           ],
         ),
       ),

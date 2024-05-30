@@ -41,7 +41,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
       appState.setAppSettingsSaveCallback(saveAppSettings);
 
-      // TODO handle updating save files with new data shape
       if (currentCampaign != null && currentCampaign != '') {
         widget.storage.readJSON('$currentCampaign.json').then((data) {
           if (data != null) {
@@ -160,7 +159,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     AppState appState,
     Function() toggleSettings,
   ) {
-    // FIXME: Build tab pages data here and pass down
     List<TabBarItem> myTabBarItems = List.from(tabBarItems);
     bool showFutureSettings =
         appState.campaignData!.settings.general.showFutureSettings;

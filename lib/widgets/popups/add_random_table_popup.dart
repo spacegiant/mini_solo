@@ -136,50 +136,34 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   }
 
   List<RandomTableRow> convertText(
-    //   TODO: Rename to source text
-    String text,
+    String sourceText,
     String separator,
   ) {
     List<RandomTableRow> rows = [];
-    // convert to array of strings at line break
-    // check if more than one line
     LineSplitter ls = const LineSplitter();
-    List<String> lines = ls.convert(text);
-    print(lines.length);
+    List<String> lines = ls.convert(sourceText);
 
-    // If length of 1 return error
-
-    // iterate the lines
     for (int i = 0; i < lines.length; i++) {
-      String chanceString;
-      // TODO rename chance to weight
-      int? chance;
+      String weightString;
+      int? weight;
       String myString = lines[i];
-      // remove whitespace from ends
       myString = myString.trim();
-      // Split at separator
       List<String> split = myString.split(separator);
-      // remove white space
-      try {
-        chanceString = split[0].trim();
-        chance = int.parse(chanceString);
 
-        print(chance);
+      try {
+        weightString = split[0].trim();
+        weight = int.parse(weightString);
       } catch (e) {
         if (kDebugMode) {
           print(e);
         }
       }
-      // Is [0] a number if converted
 
-      // if separator, test if
       rows.add(RandomTableRow(
         label: split.length > 1 ? split[1] : split[0],
-        chance: chance ?? 1,
+        chance: weight ?? 1,
       ));
     }
-
-    // try splitting at the separtor
 
     return rows;
   }
