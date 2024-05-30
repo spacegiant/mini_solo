@@ -76,17 +76,23 @@ class RandomTableRow {
 
 @JsonSerializable(explicitToJson: true)
 class RollTableResult extends CampaignItem {
-  int randomRoll;
-  String resultString;
-  int lowerBounds;
-  int upperBounds;
+  final String title;
+  final int randomRoll;
+  final String resultString;
+  final int totalEntries;
+  // final int lowerBounds;
+  // final int upperBounds;
+  final int weight;
 
   RollTableResult({
+    required this.weight,
     required super.isFavourite,
+    required this.title,
     required this.randomRoll,
     required this.resultString,
-    required this.lowerBounds,
-    required this.upperBounds,
+    required this.totalEntries,
+    // required this.lowerBounds,
+    // required this.upperBounds,
   });
 
   // coverage:ignore-start

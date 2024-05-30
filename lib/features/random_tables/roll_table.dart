@@ -5,11 +5,13 @@ RollTableResult rollTable(RandomTableEntry table) {
   int weightsSum = 0;
   int tally = 0;
   RollTableResult result = RollTableResult(
-      randomRoll: 0,
-      resultString: '',
-      lowerBounds: 0,
-      upperBounds: 0,
-      isFavourite: false);
+    title: table.title,
+    randomRoll: 0,
+    resultString: '',
+    totalEntries: 0,
+    isFavourite: false,
+    weight: 0,
+  );
   var rows = table.rows;
 
   for (int i = 0; i < rows.length; i++) {
@@ -23,11 +25,13 @@ RollTableResult rollTable(RandomTableEntry table) {
 
     if (randomRoll < tally) {
       result = RollTableResult(
+          // FIXME just update object already created
+          title: table.title,
           randomRoll: randomRoll,
           resultString: rows[i].title,
-          lowerBounds: tally,
-          upperBounds: rows[i].chance ?? 0,
-          isFavourite: false);
+          totalEntries: weightsSum,
+          isFavourite: false,
+          weight: rows[i].chance ?? 0);
 
       break;
     }
