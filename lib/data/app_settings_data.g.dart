@@ -24,7 +24,9 @@ RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
     RandomTableEntry(
       isFavourite: json['isFavourite'] as bool?,
       title: json['title'] as String,
-      lines: (json['lines'] as List<dynamic>).map((e) => e as String).toList(),
+      rows: (json['rows'] as List<dynamic>)
+          .map((e) => RandomTableRow.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -34,7 +36,7 @@ Map<String, dynamic> _$RandomTableEntryToJson(RandomTableEntry instance) =>
       'isFavourite': instance.isFavourite,
       'id': instance.id,
       'title': instance.title,
-      'lines': instance.lines,
+      'rows': instance.rows.map((e) => e.toJson()).toList(),
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
@@ -59,3 +61,17 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
 };
+
+RandomTableRow _$RandomTableRowFromJson(Map<String, dynamic> json) =>
+    RandomTableRow(
+      title: json['title'] as String,
+      chance: (json['chance'] as num?)?.toInt(),
+      otherRandomTable: json['otherRandomTable'] as String?,
+    );
+
+Map<String, dynamic> _$RandomTableRowToJson(RandomTableRow instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'chance': instance.chance,
+      'otherRandomTable': instance.otherRandomTable,
+    };

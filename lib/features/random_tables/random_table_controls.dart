@@ -19,8 +19,12 @@ class RandomTables extends StatelessWidget {
     return WrapManager(
       wrapControls: appState.wrapControls,
       children: [
-        ...randomTables
-            .map((table) => ListButton(label: table.title, onPressed: () {})),
+        ...randomTables.map((table) => ListButton(
+            label: table.title,
+            onPressed: () {
+              String test = rollTable();
+              print(test);
+            })),
         CupertinoButton(
             child: const Icon(
               CupertinoIcons.add_circled_solid,
@@ -33,4 +37,8 @@ class RandomTables extends StatelessWidget {
       ],
     );
   }
+}
+
+String rollTable() {
+  return 'test';
 }

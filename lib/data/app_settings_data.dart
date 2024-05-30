@@ -34,12 +34,12 @@ class AppSettingsData {
 class RandomTableEntry extends CampaignItem {
   final String title;
   // TODO: Convert to list of strings
-  final List<String> lines;
+  final List<RandomTableRow> rows;
 
   RandomTableEntry({
     required super.isFavourite,
     required this.title,
-    required this.lines,
+    required this.rows,
   });
 // coverage:ignore-start
   factory RandomTableEntry.fromJson(Map<String, dynamic> json) =>
@@ -49,5 +49,27 @@ class RandomTableEntry extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.randomTable;
+// coverage:ignore-end
+}
+
+@JsonSerializable(explicitToJson: true)
+class RandomTableRow {
+  // TODO: Rename title to label
+  final String title;
+  final int? chance;
+  final String? otherRandomTable;
+
+  RandomTableRow({
+    required this.title,
+    this.chance,
+    this.otherRandomTable,
+  });
+
+  // coverage:ignore-start
+  factory RandomTableRow.fromJson(Map<String, dynamic> json) =>
+      _$RandomTableRowFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RandomTableRowToJson(this);
+
 // coverage:ignore-end
 }
