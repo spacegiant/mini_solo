@@ -4,7 +4,6 @@ import 'package:mini_solo/data/campaign_data.dart';
 
 import 'note_entry_item.dart';
 
-// FIXME: Rename to PopupLabel
 enum PopupLabel {
   addJournalEntry,
   addRandomTable,
@@ -48,7 +47,7 @@ class AppState extends ChangeNotifier {
 
   // SAVE CALLBACK
   // TODO: Rename to setSaveCampaignCallback
-  void setSaveCallback(cb) {
+  void setSaveCampaignCallback(cb) {
     _saveCallback = cb;
   }
 

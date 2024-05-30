@@ -20,7 +20,7 @@ void main() {
       data.setCampaignData(campaignData);
 
       expect(data.saveCallbackExists, isFalse);
-      data.setSaveCallback((data) {});
+      data.setSaveCampaignCallback((data) {});
       expect(data.saveCallbackExists, isTrue);
     });
 
@@ -29,7 +29,7 @@ void main() {
       final data = AppState();
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
-      data.setSaveCallback((data) {
+      data.setSaveCampaignCallback((data) {
         mock.call();
       });
       data.saveCampaignDataToDisk();

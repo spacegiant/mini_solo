@@ -125,7 +125,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           return Consumer<AppState>(
             builder: (context, appState, child) {
               if (appState.saveCallbackExists == false) {
-                appState.setSaveCallback(saveCampaign);
+                appState.setSaveCampaignCallback(saveCampaign);
               }
 
               if (appState.deleteCampaign == false) {
