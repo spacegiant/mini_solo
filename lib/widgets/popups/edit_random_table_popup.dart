@@ -32,7 +32,7 @@ class EditRandomTable extends StatelessWidget {
           ...rows.map(
             (row) => Row(
               children: [
-                Text(row.chance.toString()),
+                Text(row.weight.toString()),
                 Expanded(child: Text(row.label)),
                 CupertinoButton(child: const Text('Delete'), onPressed: () {})
               ],

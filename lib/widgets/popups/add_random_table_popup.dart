@@ -161,7 +161,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
 
       rows.add(RandomTableRow(
         label: split.length > 1 ? split[1] : split[0],
-        chance: weight ?? 1,
+        weight: weight ?? 1,
       ));
     }
 

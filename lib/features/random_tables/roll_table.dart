@@ -8,13 +8,13 @@ RollTableResult? rollTable(RandomTableEntry table) {
   var rows = table.rows;
 
   for (int i = 0; i < rows.length; i++) {
-    weightsSum += rows[i].chance!;
+    weightsSum += rows[i].weight!;
   }
 
   int randomRoll = Random().nextInt(weightsSum);
 
   for (int i = 0; i < rows.length; i++) {
-    tally += rows[i].chance!;
+    tally += rows[i].weight!;
 
     if (randomRoll < tally) {
       result = RollTableResult(
@@ -23,7 +23,7 @@ RollTableResult? rollTable(RandomTableEntry table) {
           resultString: rows[i].label,
           totalEntries: weightsSum,
           isFavourite: false,
-          weight: rows[i].chance ?? 0);
+          weight: rows[i].weight ?? 0);
 
       break;
     }
