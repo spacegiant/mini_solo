@@ -72,7 +72,7 @@ DiceType d8 = DiceType(
 );
 
 DiceType d10 = DiceType(
-  icon: Images.d10_10,
+  icon: Images.d10_dice,
   label: 'd10',
   faces: [
     DiceFace(value: 1, label: '1', icon: Images.d10_1),

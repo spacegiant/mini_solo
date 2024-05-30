@@ -89,6 +89,7 @@ enum Images {
   d10_8,
   d10_9,
   d10_10,
+  d10_dice,
 
   d100_1,
   d100_2,
@@ -297,6 +298,7 @@ Map<Images, String> imagesPaths = {
   Images.d10_8: 'lib/assets/general_dice/d10_8.svg',
   Images.d10_9: 'lib/assets/general_dice/d10_9.svg',
   Images.d10_10: 'lib/assets/general_dice/d10_10.svg',
+  Images.d10_dice: 'lib/assets/general_dice/d10_dice.svg',
   // d100
   Images.d100_1: 'lib/assets/general_dice/d100_1.svg',
   Images.d100_2: 'lib/assets/general_dice/d100_2.svg',
