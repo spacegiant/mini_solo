@@ -12,7 +12,7 @@ getRandomResult({
   required String? table2,
   required Function(
     AppState appState,
-    ReturnObject result,
+    JournalReturnObject result,
     String label,
   ) onResult,
 }) {
@@ -20,7 +20,7 @@ getRandomResult({
     List<String> t1 = List<String>.from(value[table1]);
     List<String> t2 = List<String>.from(value[table2]);
 
-    ReturnObject result = consultOracle(
+    JournalReturnObject result = consultOracle(
       table1: t1,
       table2: t2,
       type: label,

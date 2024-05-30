@@ -5,7 +5,7 @@ void main() {
   test('Class generates a unique ID as expected', () {
     final item = OracleEntry(
       isFavourite: false,
-      lines: ReturnObject(
+      lines: JournalReturnObject(
         type: 'mythic',
         line1: 'line 1',
         line2: 'line 2',

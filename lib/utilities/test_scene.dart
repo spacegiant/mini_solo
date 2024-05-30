@@ -6,25 +6,25 @@ import 'package:provider/provider.dart';
 import '../data/campaign_data.dart';
 import '../data/app_state.dart';
 
-ReturnObject testScene(BuildContext context) {
+JournalReturnObject testScene(BuildContext context) {
   int d10 = Random().nextInt(10) + 1;
   var chaosFactor = context.read<AppState>().chaosFactor;
 
   if (d10 > chaosFactor) {
-    return ReturnObject(
+    return JournalReturnObject(
       result: 'Expected',
       line1: 'd10 roll = $d10 > CF $chaosFactor',
       type: 'test',
     );
   }
   if (d10.isEven) {
-    return ReturnObject(
+    return JournalReturnObject(
       result: 'Altered',
       line1: 'd10 roll = $d10 (Odd) < CF $chaosFactor',
       type: 'test',
     );
   } else {
-    return ReturnObject(
+    return JournalReturnObject(
       result: 'Interrupt',
       line1: 'd10 roll = $d10 (Even) < CF $chaosFactor',
       type: 'test',

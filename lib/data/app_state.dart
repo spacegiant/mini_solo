@@ -46,7 +46,6 @@ class AppState extends ChangeNotifier {
   }
 
   // SAVE CALLBACK
-  // TODO: Rename to setSaveCampaignCallback
   void setSaveCampaignCallback(cb) {
     _saveCallback = cb;
   }
@@ -119,7 +118,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: ReturnObject(
+        lines: JournalReturnObject(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'UP to $newValue',
@@ -136,7 +135,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: ReturnObject(
+        lines: JournalReturnObject(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'DOWN to $newValue',
@@ -151,7 +150,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.mythicData.chaosFactor = newValue;
     addMythicEntry(MythicEntry(
       isFavourite: false,
-      lines: ReturnObject(
+      lines: JournalReturnObject(
         type: 'chaosFactor',
         line1: 'Chaos Factor',
         result: 'RESET to 5',

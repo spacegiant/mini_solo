@@ -6,14 +6,15 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) => ReturnObject(
+JournalReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) =>
+    JournalReturnObject(
       type: json['type'] as String,
       line1: json['line1'] as String?,
       line2: json['line2'] as String?,
       result: json['result'] as String,
     );
 
-Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
+Map<String, dynamic> _$ReturnObjectToJson(JournalReturnObject instance) =>
     <String, dynamic>{
       'type': instance.type,
       'line1': instance.line1,
@@ -542,7 +543,8 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
 
 OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
       isFavourite: json['isFavourite'] as bool?,
-      lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      lines:
+          JournalReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
       label: json['label'] as String,
     )
       ..id = json['id'] as String
@@ -559,7 +561,8 @@ Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
 
 MythicEntry _$MythicEntryFromJson(Map<String, dynamic> json) => MythicEntry(
       isFavourite: json['isFavourite'] as bool?,
-      lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      lines:
+          JournalReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
       label: json['label'] as String,
     )
       ..id = json['id'] as String

@@ -39,7 +39,7 @@ class _JournalViewState extends State<JournalView> {
   String type = '...';
   List<DiceRoll> diceResults = [];
 
-  void updateState(ReturnObject result) {
+  void updateState(JournalReturnObject result) {
     setState(() {
       line1 = result.line1;
       line2 = result.line2;
@@ -59,7 +59,7 @@ class _JournalViewState extends State<JournalView> {
       appState.addMythicEntry(
         MythicEntry(
           isFavourite: false,
-          lines: ReturnObject(
+          lines: JournalReturnObject(
             result: text,
             type: 'mythic',
           ),
@@ -162,7 +162,7 @@ class _JournalViewState extends State<JournalView> {
                 const JournalSubheading(label: kJournalMythicFateChartTitle),
 
                 FateQuestion(
-                  callback: (ReturnObject returnObject) {
+                  callback: (JournalReturnObject returnObject) {
                     // For Bubble
                     setState(() {
                       line1 = returnObject.line1!;
@@ -220,7 +220,7 @@ class _JournalViewState extends State<JournalView> {
         ListButton(
             label: 'Test Your Expected Scene',
             onPressed: () {
-              ReturnObject test = testScene(context);
+              JournalReturnObject test = testScene(context);
 
               // For Bubble
               setState(() {

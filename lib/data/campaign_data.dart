@@ -9,7 +9,6 @@ part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
 
-// TODO: Set up so that each type has different data shape
 enum JournalEntryTypes {
   action,
   chaosFactor,
@@ -57,13 +56,13 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
 
 // TODO: Rename this
 @JsonSerializable()
-class ReturnObject {
+class JournalReturnObject {
   late String type;
   late String? line1;
   late String? line2;
   late String result;
 
-  ReturnObject({
+  JournalReturnObject({
     required this.type,
     this.line1,
     this.line2,
@@ -71,7 +70,7 @@ class ReturnObject {
   });
 
   // coverage:ignore-start
-  factory ReturnObject.fromJson(Map<String, dynamic> json) =>
+  factory JournalReturnObject.fromJson(Map<String, dynamic> json) =>
       _$ReturnObjectFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReturnObjectToJson(this);
@@ -470,7 +469,7 @@ class RollEntryItem extends CampaignItem {
 
 @JsonSerializable()
 class OracleEntry extends CampaignItem {
-  ReturnObject lines;
+  JournalReturnObject lines;
   String label;
 
   OracleEntry({
@@ -491,7 +490,7 @@ class OracleEntry extends CampaignItem {
 
 @JsonSerializable()
 class MythicEntry extends CampaignItem {
-  ReturnObject lines;
+  JournalReturnObject lines;
   String label;
 
   MythicEntry({
