@@ -86,28 +86,6 @@ class CampaignStorage {
     return file.writeAsString(jsonData);
   }
 
-  // APP SETTINGS
-  // Future<AppSettingsData?> readAppSettings(String fileName) async {
-  //   try {
-  //     // final file = await _localFile;
-  //     // print(file);
-  //
-  //     final path = await _localPath;
-  //     File file = File('$path/$fileName');
-  //
-  //     // Read the file
-  //     final data = await file.readAsString();
-  //
-  //     return data;
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       print('readJSON error: $e');
-  //     }
-  //     // If encountering an error, return null
-  //     return null;
-  //   }
-  // }
-
   Future<AppSettingsData?> readAppSettings(String fileName) async {
     try {
       final path = await _localPath;
@@ -133,23 +111,6 @@ class CampaignStorage {
       return null;
     }
   }
-
-  // TODO: Rename to not be JSON
-  // Future<File> writeAppSettingsJSON(String data, String fileName) async {
-  //   final path = await _localPath;
-  //
-  //   File file = File('$path/$fileName');
-  //
-  //   if (kDebugMode) {
-  //     print('Write App Settings: $file');
-  //   }
-  //
-  //   // Convert MAP to String
-  //   // String jsonData = jsonEncode(data);
-  //
-  //   // Write the file
-  //   return file.writeAsString(data);
-  // }
 
   Future<File> writeAppSettingsJSON(
     AppSettingsData appSettingsData,
