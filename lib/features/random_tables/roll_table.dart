@@ -1,17 +1,10 @@
 import 'dart:math';
 import '../../data/app_settings_data.dart';
 
-RollTableResult rollTable(RandomTableEntry table) {
+RollTableResult? rollTable(RandomTableEntry table) {
   int weightsSum = 0;
   int tally = 0;
-  RollTableResult result = RollTableResult(
-    title: table.title,
-    randomRoll: 0,
-    resultString: '',
-    totalEntries: 0,
-    isFavourite: false,
-    weight: 0,
-  );
+  RollTableResult? result;
   var rows = table.rows;
 
   for (int i = 0; i < rows.length; i++) {
@@ -25,7 +18,6 @@ RollTableResult rollTable(RandomTableEntry table) {
 
     if (randomRoll < tally) {
       result = RollTableResult(
-          // FIXME just update object already created
           title: table.title,
           randomRoll: randomRoll,
           resultString: rows[i].title,
