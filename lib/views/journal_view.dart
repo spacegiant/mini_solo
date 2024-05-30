@@ -187,7 +187,7 @@ class _JournalViewState extends State<JournalView> {
                 mythicGMEControls(wrapControls, appState, context),
 
                 const JournalSubheading(
-                  label: kJournalRandomNamesTitle,
+                  label: kJournalRandomTablesTitle,
                 ),
 
                 RandomTables(
