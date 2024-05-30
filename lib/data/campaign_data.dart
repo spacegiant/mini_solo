@@ -31,6 +31,7 @@ enum JournalEntryTypes {
   transition,
   scratchPage,
   randomTable,
+  rollTableResult,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -49,6 +50,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.oracle: 'oracle',
   JournalEntryTypes.roll: 'roll',
   JournalEntryTypes.randomTable: 'randomTable',
+  JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
 };
@@ -141,7 +143,7 @@ class CampaignData {
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
-  late List<RandomTableEntry> randomTableResults;
+  late List<RollTableResult> rollTableResult;
 
   CampaignData({
     required this.settings,
@@ -161,7 +163,7 @@ class CampaignData {
     required this.creatures,
     required this.rolls,
     required this.scratchPad,
-    required this.randomTableResults,
+    required this.rollTableResult,
   });
 
   // coverage:ignore-start
@@ -205,7 +207,7 @@ CampaignData initCampaignDataData(String campaignName) {
       ),
     ),
     things: [],
-    randomTableResults: [],
+    rollTableResult: [],
   );
 }
 

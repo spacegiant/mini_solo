@@ -34,5 +34,6 @@ CampaignData sampleCampaignData() {
     notes: [],
     currentScratchEntryId: '',
     scratchPad: [],
+    rollTableResult: [],
   );
 }

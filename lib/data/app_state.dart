@@ -487,8 +487,8 @@ class AppState extends ChangeNotifier {
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
 
   // RANDOM TABLE ENTRIES
-  void addRandomTableResultsEntry(RandomTableEntry entry) {
-    _campaignData?.randomTableResults.add(entry);
+  void addRandomTableResultsEntry(RollTableResult entry) {
+    _campaignData?.rollTableResult.add(entry);
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
@@ -498,16 +498,16 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void updateRandomTableResultsEntry(String id, RandomTableEntry entry) {
-    int index = _campaignData!.randomTableResults
+  void updateRandomTableResultsEntry(String id, RollTableResult entry) {
+    int index = _campaignData!.rollTableResult
         .indexWhere((entry) => entry.id == currentEntryId);
 
-    _campaignData?.randomTableResults[index] = entry;
+    _campaignData?.rollTableResult[index] = entry;
     saveCampaignDataToDisk();
   }
 
   void deleteRandomTableResultsEntry(String id) {
-    _campaignData!.randomTableResults
+    _campaignData!.rollTableResult
         .removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
     saveCampaignDataToDisk();

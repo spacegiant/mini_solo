@@ -73,3 +73,30 @@ class RandomTableRow {
 
 // coverage:ignore-end
 }
+
+@JsonSerializable(explicitToJson: true)
+class RollTableResult extends CampaignItem {
+  int randomRoll;
+  String resultString;
+  int lowerBounds;
+  int upperBounds;
+
+  RollTableResult({
+    required super.isFavourite,
+    required this.randomRoll,
+    required this.resultString,
+    required this.lowerBounds,
+    required this.upperBounds,
+  });
+
+  // coverage:ignore-start
+  factory RollTableResult.fromJson(Map<String, dynamic> json) =>
+      _$RollTableResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RollTableResultToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.rollTableResult;
+
+// coverage:ignore-end
+}

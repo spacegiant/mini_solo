@@ -23,9 +23,9 @@ class RandomTables extends StatelessWidget {
         ...randomTables.map((table) => ListButton(
             label: table.title,
             onPressed: () {
-              String test = rollTable(table).resultString;
-              print(test);
+              RollTableResult result = rollTable(table);
               // TODO: Send to Journal
+              appState.addRandomTableResultsEntry(result);
             })),
         CupertinoButton(
             child: const Icon(

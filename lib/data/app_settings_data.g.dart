@@ -60,6 +60,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
+  JournalEntryTypes.rollTableResult: 'rollTableResult',
 };
 
 RandomTableRow _$RandomTableRowFromJson(Map<String, dynamic> json) =>
@@ -74,4 +75,26 @@ Map<String, dynamic> _$RandomTableRowToJson(RandomTableRow instance) =>
       'title': instance.title,
       'chance': instance.chance,
       'otherRandomTable': instance.otherRandomTable,
+    };
+
+RollTableResult _$RollTableResultFromJson(Map<String, dynamic> json) =>
+    RollTableResult(
+      isFavourite: json['isFavourite'] as bool?,
+      randomRoll: (json['randomRoll'] as num).toInt(),
+      resultString: json['resultString'] as String,
+      lowerBounds: (json['lowerBounds'] as num).toInt(),
+      upperBounds: (json['upperBounds'] as num).toInt(),
+    )
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$RollTableResultToJson(RollTableResult instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'randomRoll': instance.randomRoll,
+      'resultString': instance.resultString,
+      'lowerBounds': instance.lowerBounds,
+      'upperBounds': instance.upperBounds,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

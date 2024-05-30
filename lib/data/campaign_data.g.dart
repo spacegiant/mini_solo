@@ -99,8 +99,8 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       scratchPad: (json['scratchPad'] as List<dynamic>)
           .map((e) => ScratchPageEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      randomTableResults: (json['randomTableResults'] as List<dynamic>)
-          .map((e) => RandomTableEntry.fromJson(e as Map<String, dynamic>))
+      rollTableResult: (json['rollTableResult'] as List<dynamic>)
+          .map((e) => RollTableResult.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -123,8 +123,8 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
       'scratchPad': instance.scratchPad.map((e) => e.toJson()).toList(),
-      'randomTableResults':
-          instance.randomTableResults.map((e) => e.toJson()).toList(),
+      'rollTableResult':
+          instance.rollTableResult.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -170,6 +170,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
+  JournalEntryTypes.rollTableResult: 'rollTableResult',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
