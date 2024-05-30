@@ -40,9 +40,10 @@ class RollTableResultWidget extends StatelessWidget {
             JournalEntryLabel(
               label: 'Random Table: ${entry.title}',
             ),
-            JournalEntryDetail(
-              details: [calculation, roll],
-            ),
+            if (appState.showMechanics)
+              JournalEntryDetail(
+                details: [calculation, roll],
+              ),
             JournalEntryResult(text: resultText),
           ],
         ),

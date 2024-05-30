@@ -12,6 +12,7 @@ void main() {
       wrapControls: true,
       useCoriolisDice: false,
       useD6Oracle: false,
+      showMechanics: true,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -27,6 +28,7 @@ void main() {
       wrapControls: true,
       useCoriolisDice: false,
       useD6Oracle: false,
+      showMechanics: true,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -44,6 +46,7 @@ void main() {
       wrapControls: true,
       useCoriolisDice: false,
       useD6Oracle: false,
+      showMechanics: true,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

@@ -37,9 +37,10 @@ class OracleEntryWidget extends StatelessWidget {
             JournalEntryLabel(
               label: entry.label,
             ),
-            JournalEntryDetail(
-              details: [line1, line2],
-            ),
+            if (appState.showMechanics)
+              JournalEntryDetail(
+                details: [line1, line2],
+              ),
             JournalEntryResult(text: resultText),
             // const Gap(),
             // const Divider(

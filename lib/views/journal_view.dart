@@ -193,6 +193,11 @@ class _JournalViewState extends State<JournalView> {
                 RandomTables(
                   appState: appState,
                 ),
+                const Divider(),
+                const Text('Create New Item Toolbar Here'),
+                const Divider(),
+                const Text('Export/Import all data'),
+                const Divider(),
 
                 // const MarkdownBlock(
                 //   newString: '# hello\n*hello* hello\n- hello',
@@ -248,6 +253,7 @@ class _JournalViewState extends State<JournalView> {
               onResult: (appState, result, label) {
                 updateState(result);
                 appState.addMythicEntry(
+                  // TODO: Can MythicEntry be swapped and eventually removed?
                   MythicEntry(
                     isFavourite: false,
                     lines: result,
