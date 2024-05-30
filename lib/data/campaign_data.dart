@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../icons.dart';
+import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';
 
@@ -140,6 +141,7 @@ class CampaignData {
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
+  late List<RandomTableEntry> randomTableResults;
 
   CampaignData({
     required this.settings,
@@ -159,6 +161,7 @@ class CampaignData {
     required this.creatures,
     required this.rolls,
     required this.scratchPad,
+    required this.randomTableResults,
   });
 
   // coverage:ignore-start
@@ -202,6 +205,7 @@ CampaignData initCampaignDataData(String campaignName) {
       ),
     ),
     things: [],
+    randomTableResults: [],
   );
 }
 

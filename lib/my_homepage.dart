@@ -41,6 +41,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
       appState.setAppSettingsSaveCallback(saveAppSettings);
 
+      // TODO handle updating save files with new data shape
       if (currentCampaign != null && currentCampaign != '') {
         widget.storage.readJSON('$currentCampaign.json').then((data) {
           if (data != null) {

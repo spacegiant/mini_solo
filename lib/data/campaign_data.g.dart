@@ -99,6 +99,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       scratchPad: (json['scratchPad'] as List<dynamic>)
           .map((e) => ScratchPageEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      randomTableResults: (json['randomTableResults'] as List<dynamic>)
+          .map((e) => RandomTableEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
@@ -120,6 +123,8 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
       'scratchPad': instance.scratchPad.map((e) => e.toJson()).toList(),
+      'randomTableResults':
+          instance.randomTableResults.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
