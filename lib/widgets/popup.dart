@@ -47,7 +47,7 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabel.fullJournal) {
         popupWidget = const Text('FULL JOURNAL');
       } else if (popup == PopupLabel.addRandomTable) {
-        popupHeight = 420.0;
+        popupHeight = 500.0;
         popupWidget = AddRandomTablePopup(
           appState: appState,
         );

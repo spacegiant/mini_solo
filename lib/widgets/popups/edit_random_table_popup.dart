@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
-import '../../data/note_entry_item.dart';
-import '../gap.dart';
 
 class EditRandomTable extends StatelessWidget {
   final AppState appState;
@@ -29,12 +26,19 @@ class EditRandomTable extends StatelessWidget {
       child: Column(
         children: [
           Text(detail),
-          ...rows.map(
-            (row) => Row(
+          SingleChildScrollView(
+            child: Column(
               children: [
-                Text(row.weight.toString()),
-                Expanded(child: Text(row.label)),
-                CupertinoButton(child: const Text('Delete'), onPressed: () {})
+                ...rows.map(
+                  (row) => Row(
+                    children: [
+                      Text(row.weight.toString()),
+                      Expanded(child: Text(row.label)),
+                      CupertinoButton(
+                          child: const Text('Delete'), onPressed: () {})
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
