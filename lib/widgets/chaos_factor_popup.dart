@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../data/app_state.dart';
+import 'gap.dart';
 import 'list_button.dart';
 
 class ChaosFactorPopup extends StatelessWidget {
@@ -33,10 +34,6 @@ class ChaosFactorPopup extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(
-            width: 10.0,
-            height: 10.0,
-          ),
           ListButton(
             label: kChaosFactorUp,
             labelAlignment: Alignment.center,
@@ -44,6 +41,7 @@ class ChaosFactorPopup extends StatelessWidget {
               appState.increaseChaosFactor();
             },
           ),
+          const Gap(height: 8.0),
           ListButton(
             label: kChaosFactorDown,
             labelAlignment: Alignment.center,
@@ -51,6 +49,7 @@ class ChaosFactorPopup extends StatelessWidget {
               appState.decreaseChaosFactor();
             },
           ),
+          const Gap(height: 8.0),
           ListButton(
             label: kChaosFactorReset,
             labelAlignment: Alignment.center,
@@ -58,6 +57,7 @@ class ChaosFactorPopup extends StatelessWidget {
               appState.resetChaosFactor();
             },
           ),
+          const Gap(height: 8.0),
           ListButton(
             label: kPopupCloseButtonLabel,
             labelAlignment: Alignment.center,

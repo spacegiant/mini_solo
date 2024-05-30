@@ -18,8 +18,6 @@ class RollTableResultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     RollTableResult entry = appState.campaignData!.rollTableResult
         .firstWhere((entry) => entry.id == journalEntry.id);
-    String? line1 = 'line1';
-    String? line2 = 'line2';
     String? resultText = entry.resultString;
 
     String calculation = '${entry.weight} in ${entry.totalEntries} chance';
