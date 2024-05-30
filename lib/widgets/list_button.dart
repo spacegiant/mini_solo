@@ -5,6 +5,7 @@ class ListButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.onLongPress,
     this.labelAlignment = Alignment.centerLeft,
     this.color,
   });
@@ -13,22 +14,29 @@ class ListButton extends StatelessWidget {
   final Function() onPressed;
   final AlignmentGeometry? labelAlignment;
   final Color? color;
+  final Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {
-    Color buttonColor = color ?? CupertinoColors.systemPink;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: CupertinoButton(
-        color: buttonColor,
-        onPressed: onPressed,
-        alignment: labelAlignment!,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-          vertical: 0,
+    return GestureDetector(
+      onTap: onPressed,
+      onLongPress: onLongPress,
+      child: Container(
+        decoration: BoxDecoration(
+          color: color ?? CupertinoColors.systemPink,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        child: Text(
-          label,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 12.0,
+            horizontal: 10.0,
+          ),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: CupertinoColors.white,
+            ),
+          ),
         ),
       ),
     );
