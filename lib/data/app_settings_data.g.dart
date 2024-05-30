@@ -65,15 +65,15 @@ const _$JournalEntryTypesEnumMap = {
 
 RandomTableRow _$RandomTableRowFromJson(Map<String, dynamic> json) =>
     RandomTableRow(
-      label: json['title'] as String,
-      weight: (json['chance'] as num?)?.toInt(),
+      label: json['label'] as String,
+      weight: (json['weight'] as num?)?.toInt(),
       otherRandomTable: json['otherRandomTable'] as String?,
     );
 
 Map<String, dynamic> _$RandomTableRowToJson(RandomTableRow instance) =>
     <String, dynamic>{
-      'title': instance.label,
-      'chance': instance.weight,
+      'label': instance.label,
+      'weight': instance.weight,
       'otherRandomTable': instance.otherRandomTable,
     };
 

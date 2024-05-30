@@ -71,9 +71,9 @@ class JournalReturnObject {
 
   // coverage:ignore-start
   factory JournalReturnObject.fromJson(Map<String, dynamic> json) =>
-      _$ReturnObjectFromJson(json);
+      _$JournalReturnObjectFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ReturnObjectToJson(this);
+  Map<String, dynamic> toJson() => _$JournalReturnObjectToJson(this);
 // coverage:ignore-end
 }
 
@@ -96,6 +96,7 @@ class SettingsData {
 class GeneralSettingsData {
   // TODO: Make showFutureSettings private
   late bool showFutureSettings;
+  late bool showMechanics;
   late bool useJournal;
   late bool useZocchiDice;
   late bool useRegularDice;
@@ -106,6 +107,7 @@ class GeneralSettingsData {
 
   GeneralSettingsData({
     required this.showFutureSettings,
+    required this.showMechanics,
     required this.useJournal,
     required this.useRegularDice,
     required this.useZocchiDice,
@@ -196,6 +198,7 @@ CampaignData initCampaignDataData(String campaignName) {
     settings: SettingsData(
       general: GeneralSettingsData(
         showFutureSettings: false,
+        showMechanics: true,
         useJournal: true,
         useRegularDice: true,
         useZocchiDice: false,

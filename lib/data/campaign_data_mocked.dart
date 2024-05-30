@@ -13,6 +13,7 @@ CampaignData sampleCampaignData() {
         wrapControls: false,
         useCoriolisDice: false,
         useD6Oracle: false,
+        showMechanics: true,
       ),
     ),
     mythicData: MythicData(

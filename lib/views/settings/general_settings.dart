@@ -18,6 +18,13 @@ List<Widget> generalSettings(
       },
     ),
     SettingsOption(
+      isActive: general.showMechanics,
+      label: 'Show mechanics?',
+      onChanged: (isChecked) {
+        appState.toggleShowMechanics();
+      },
+    ),
+    SettingsOption(
       isActive: general.wrapControls,
       label: 'Wrap Controls',
       onChanged: (isChecked) {

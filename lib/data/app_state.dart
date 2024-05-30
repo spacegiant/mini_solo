@@ -47,6 +47,12 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  void toggleShowMechanics() {
+    _campaignData?.settings.general.showMechanics =
+        !_campaignData!.settings.general.showMechanics;
+    saveCampaignDataToDisk();
+  }
+
   // SAVE CALLBACK
   void setSaveCampaignCallback(cb) {
     _saveCallback = cb;

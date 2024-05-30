@@ -6,7 +6,7 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JournalReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) =>
+JournalReturnObject _$JournalReturnObjectFromJson(Map<String, dynamic> json) =>
     JournalReturnObject(
       type: json['type'] as String,
       line1: json['line1'] as String?,
@@ -14,7 +14,8 @@ JournalReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) =>
       result: json['result'] as String,
     );
 
-Map<String, dynamic> _$ReturnObjectToJson(JournalReturnObject instance) =>
+Map<String, dynamic> _$JournalReturnObjectToJson(
+        JournalReturnObject instance) =>
     <String, dynamic>{
       'type': instance.type,
       'line1': instance.line1,
@@ -35,6 +36,7 @@ Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
 GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
     GeneralSettingsData(
       showFutureSettings: json['showFutureSettings'] as bool,
+      showMechanics: json['showMechanics'] as bool,
       useJournal: json['useJournal'] as bool,
       useRegularDice: json['useRegularDice'] as bool,
       useZocchiDice: json['useZocchiDice'] as bool,
@@ -48,6 +50,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
         GeneralSettingsData instance) =>
     <String, dynamic>{
       'showFutureSettings': instance.showFutureSettings,
+      'showMechanics': instance.showMechanics,
       'useJournal': instance.useJournal,
       'useZocchiDice': instance.useZocchiDice,
       'useRegularDice': instance.useRegularDice,
@@ -365,6 +368,7 @@ const _$ImagesEnumMap = {
   Images.d10_8: 'd10_8',
   Images.d10_9: 'd10_9',
   Images.d10_10: 'd10_10',
+  Images.d10_dice: 'd10_dice',
   Images.d100_1: 'd100_1',
   Images.d100_2: 'd100_2',
   Images.d100_3: 'd100_3',
