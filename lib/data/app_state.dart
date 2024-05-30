@@ -485,4 +485,32 @@ class AppState extends ChangeNotifier {
   }
 
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
+
+  // RANDOM TABLE ENTRIES
+  void addRandomTableResultsEntry(RandomTableEntry entry) {
+    _campaignData?.randomTableResults.add(entry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: entry.type,
+        id: entry.id,
+      ),
+    );
+  }
+
+  void updateRandomTableResultsEntry(String id, RandomTableEntry entry) {
+    int index = _campaignData!.randomTableResults
+        .indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.randomTableResults[index] = entry;
+    saveCampaignDataToDisk();
+  }
+
+  void deleteRandomTableResultsEntry(String id) {
+    _campaignData!.randomTableResults
+        .removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
+    saveCampaignDataToDisk();
+    // notifyListeners();
+  }
 }
