@@ -17,6 +17,7 @@ enum PopupLabel {
   editRoll,
   fullJournal,
   journalFilter,
+  editRandomTable,
 }
 
 class AppState extends ChangeNotifier {

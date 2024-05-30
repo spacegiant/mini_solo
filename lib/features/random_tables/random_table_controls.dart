@@ -20,12 +20,21 @@ class RandomTables extends StatelessWidget {
     return WrapManager(
       wrapControls: appState.wrapControls,
       children: [
-        ...randomTables.map((table) => ListButton(
+        ...randomTables.map(
+          (table) => ListButton(
             label: table.title,
             onPressed: () {
               RollTableResult? result = rollTable(table);
               appState.addRandomTableResultsEntry(result!);
-            })),
+            },
+            onLongPress: () {
+              appState.setCurrentEntryId(table.id);
+              appState.toggleShowPopup(
+                label: PopupLabel.editRandomTable,
+              );
+            },
+          ),
+        ),
         CupertinoButton(
             child: const Icon(
               CupertinoIcons.add_circled_solid,

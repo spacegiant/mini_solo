@@ -8,6 +8,7 @@ import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -31,6 +32,11 @@ Consumer<Object?> popup(
         popupWidget = const ChaosFactorPopup();
       } else if (popup == PopupLabel.addJournalEntry) {
         popupWidget = const AddToJournalPanel();
+      } else if (popup == PopupLabel.editRandomTable) {
+        popupHeight = 600.0;
+        popupWidget = EditRandomTable(
+          appState: appState,
+        );
       } else if (popup == PopupLabel.journalFilter) {
         popupWidget = const Text('JOURNAL FILTER');
       } else if (popup == PopupLabel.campaignManager) {
@@ -41,7 +47,7 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabel.fullJournal) {
         popupWidget = const Text('FULL JOURNAL');
       } else if (popup == PopupLabel.addRandomTable) {
-        popupHeight = 500.0;
+        popupHeight = 420.0;
         popupWidget = AddRandomTablePopup(
           appState: appState,
         );
