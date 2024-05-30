@@ -507,9 +507,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteRandomTableResultsEntry(String id) {
-    _campaignData!.rollTableResult
-        .removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.rollTableResult.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }

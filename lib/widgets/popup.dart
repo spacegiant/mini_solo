@@ -9,6 +9,7 @@ import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -52,7 +53,7 @@ Consumer<Object?> popup(
           appState: appState,
         );
       } else if (popup == PopupLabel.editRollTableResult) {
-        popupWidget = const Text('EDIT ROLL TABLE RESULT');
+        popupWidget = EditRollTableResultPopup(appState: appState);
       } else if (popup == PopupLabel.editField) {
         popupWidget = const Text('EDIT FIELD');
       } else if (popup == PopupLabel.editNote) {
