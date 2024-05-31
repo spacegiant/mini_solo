@@ -67,9 +67,9 @@ class AppState extends ChangeNotifier {
 
   // SAVE CALLBACK
 
-  void setAppSettingsSaveCallback(cb) {
-    _saveAppSettingsCallback = cb;
-  }
+  // void setAppSettingsSaveCallback(cb) {
+  //   _saveAppSettingsCallback = cb;
+  // }
 
   void saveCampaignDataToDisk([String? fileName]) {
     String name = fileName ?? _appSettingsData.currentCampaign;
