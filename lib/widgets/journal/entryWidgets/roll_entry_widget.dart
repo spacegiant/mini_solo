@@ -26,7 +26,7 @@ class RollEntryWidget extends StatelessWidget {
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
-          label: PopupLabels.editRoll,
+          label: PopupLabel.editRoll,
         );
       },
       child: Padding(

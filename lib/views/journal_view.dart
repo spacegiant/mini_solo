@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
 import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -8,8 +10,10 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
+import '../features/random_tables/random_table_controls.dart';
 import '../icons.dart';
 import '../utilities/get_random_result.dart';
 import '../utilities/get_weighted_result.dart';
@@ -37,7 +41,7 @@ class _JournalViewState extends State<JournalView> {
   String type = '...';
   List<DiceRoll> diceResults = [];
 
-  void updateState(ReturnObject result) {
+  void updateState(JournalReturnObject result) {
     setState(() {
       line1 = result.line1;
       line2 = result.line2;
@@ -57,7 +61,7 @@ class _JournalViewState extends State<JournalView> {
       appState.addMythicEntry(
         MythicEntry(
           isFavourite: false,
-          lines: ReturnObject(
+          lines: JournalReturnObject(
             result: text,
             type: 'mythic',
           ),
@@ -157,10 +161,10 @@ class _JournalViewState extends State<JournalView> {
                   generalDice,
                 ),
 
-                const JournalSubheading(label: 'Mythic Fate Chart'),
+                const JournalSubheading(label: kJournalMythicFateChartTitle),
 
                 FateQuestion(
-                  callback: (ReturnObject returnObject) {
+                  callback: (JournalReturnObject returnObject) {
                     // For Bubble
                     setState(() {
                       line1 = returnObject.line1!;
@@ -172,17 +176,62 @@ class _JournalViewState extends State<JournalView> {
                       OracleEntry(
                           isFavourite: false,
                           lines: returnObject,
-                          label: 'Ask the Fate Chart'),
+                          label: kJournalMythicAskTheFateChart),
                     );
                   },
                   wrapControls: wrapControls,
                 ),
 
                 const JournalSubheading(
-                  label: 'Mythic GME',
+                  label: kJournalMythicGMETitle,
                 ),
 
                 mythicGMEControls(wrapControls, appState, context),
+
+                const JournalSubheading(
+                  label: kJournalRandomTablesTitle,
+                ),
+
+                RandomTables(
+                  appState: appState,
+                ),
+                const Divider(),
+                const Text('Create New Item Toolbar Here'),
+                const Divider(),
+                const JournalSubheading(
+                  label: 'Import/Export',
+                ),
+                WrapManager(wrapControls: wrapControls, children: [
+                  ListButton(
+                      label: 'Import Manager',
+                      onPressed: () {
+                        appState.toggleShowPopup(
+                            label: PopupLabel.importManager);
+                      }),
+                  ListButton(
+                      label: 'Export Campaign',
+                      onPressed: () async {
+                        CampaignData? campaignData = appState.campaignData;
+                        String jsonString =
+                            appState.storage.getCampaignJSON(campaignData!);
+                        await Clipboard.setData(
+                            ClipboardData(text: jsonString));
+                        // copied successfully
+                      }),
+                  ListButton(
+                      label: 'Export AppSettings',
+                      onPressed: () async {
+                        AppSettingsData? appSettingsData =
+                            appState.appSettingsData;
+                        String jsonString =
+                            appState.storage.appSettingsToJSON(appSettingsData);
+                        await Clipboard.setData(
+                            ClipboardData(text: jsonString));
+                        // copied successfully
+                      }),
+                ]),
+
+                const Divider(),
 
                 // const MarkdownBlock(
                 //   newString: '# hello\n*hello* hello\n- hello',
@@ -210,7 +259,7 @@ class _JournalViewState extends State<JournalView> {
         ListButton(
             label: 'Test Your Expected Scene',
             onPressed: () {
-              ReturnObject test = testScene(context);
+              JournalReturnObject test = testScene(context);
 
               // For Bubble
               setState(() {
@@ -238,6 +287,7 @@ class _JournalViewState extends State<JournalView> {
               onResult: (appState, result, label) {
                 updateState(result);
                 appState.addMythicEntry(
+                  // TODO: Can MythicEntry be swapped and eventually removed?
                   MythicEntry(
                     isFavourite: false,
                     lines: result,

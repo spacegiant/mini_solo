@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -40,7 +41,6 @@ class CampaignStorage {
     try {
       final path = await _localPath;
       File file = File('$path/$fileName');
-      print(file);
 
       // Read the file
       final jsonData = await file.readAsString();
@@ -62,21 +62,21 @@ class CampaignStorage {
   Future<void> deleteCampaign(String fileName) async {
     final path = await _localPath;
     File file = File('$path/$fileName');
-    if (kDebugMode) {
-      print('Deleted file: $file');
-    }
 
     await file.delete();
+  }
+
+  Future printLocalPath() async {
+    final path = await _localPath;
+    if (kDebugMode) {
+      print('Local path -> $path');
+    }
   }
 
   Future<File> writeJSON(CampaignData data, String fileName) async {
     final path = await _localPath;
 
     File file = File('$path/$fileName');
-
-    if (kDebugMode) {
-      print('Write JSON: $file');
-    }
 
     // Convert MAP to String
     String jsonData = jsonEncode(data);
@@ -85,19 +85,19 @@ class CampaignStorage {
     return file.writeAsString(jsonData);
   }
 
-  // APP SETTINGS
-  Future<String?> readAppSettings(String fileName) async {
+  Future<AppSettingsData?> readAppSettings(String fileName) async {
     try {
-      // final file = await _localFile;
-      // print(file);
-
       final path = await _localPath;
       File file = File('$path/$fileName');
 
       // Read the file
-      final data = await file.readAsString();
+      final jsonData = await file.readAsString();
 
-      return data;
+      final data = json.decode(jsonData);
+
+      final dataMap = AppSettingsData.fromJson(data);
+
+      return dataMap;
     } catch (e) {
       if (kDebugMode) {
         print('readJSON error: $e');
@@ -107,20 +107,42 @@ class CampaignStorage {
     }
   }
 
-  // TODO: Rename to not be JSON
-  Future<File> writeAppSettingsJSON(String data, String fileName) async {
+  Future<File> writeAppSettingsJSON(
+    AppSettingsData appSettingsData,
+    String fileName,
+  ) async {
     final path = await _localPath;
 
     File file = File('$path/$fileName');
 
-    if (kDebugMode) {
-      print('Write App Settings: $file');
-    }
-
     // Convert MAP to String
-    // String jsonData = jsonEncode(data);
+    String jsonData = jsonEncode(appSettingsData);
 
     // Write the file
-    return file.writeAsString(data);
+    return file.writeAsString(jsonData);
+  }
+
+  // TODO get this wired up
+  String getCampaignJSON(CampaignData data) {
+    return jsonEncode(data);
+  }
+
+  // TODO get this wired up
+  CampaignData campaignJSONToObject(String jsonData) {
+    var data = json.decode(jsonData);
+    final dataMap = CampaignData.fromJson(data);
+    return dataMap;
+  }
+
+  // TODO get this wired up
+  String appSettingsToJSON(AppSettingsData data) {
+    return jsonEncode(data);
+  }
+
+  // TODO get this wired up
+  AppSettingsData appSettingsJSONToObject(String jsonData) {
+    var data = json.decode(jsonData);
+    final dataMap = AppSettingsData.fromJson(data);
+    return dataMap;
   }
 }

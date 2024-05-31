@@ -68,7 +68,7 @@ class FateQuestion extends StatelessWidget {
                     answer = 'NO';
                   }
 
-                  ReturnObject result = ReturnObject(
+                  JournalReturnObject result = JournalReturnObject(
                       type: 'fateChart',
                       line1:
                           '${widget.label} odds | Chaos Factor ${appState.chaosFactor}',

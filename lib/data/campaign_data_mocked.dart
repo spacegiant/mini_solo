@@ -13,6 +13,7 @@ CampaignData sampleCampaignData() {
         wrapControls: false,
         useCoriolisDice: false,
         useD6Oracle: false,
+        showMechanics: true,
       ),
     ),
     mythicData: MythicData(
@@ -34,5 +35,6 @@ CampaignData sampleCampaignData() {
     notes: [],
     currentScratchEntryId: '',
     scratchPad: [],
+    rollTableResult: [],
   );
 }

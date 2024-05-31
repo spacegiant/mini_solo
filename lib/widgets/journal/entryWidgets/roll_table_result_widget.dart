@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/app_settings_data.dart';
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
 
-class OracleEntryWidget extends StatelessWidget {
+class RollTableResultWidget extends StatelessWidget {
   final AppState appState;
   final JournalEntryItem journalEntry;
 
-  const OracleEntryWidget({
+  const RollTableResultWidget({
     super.key,
     required this.appState,
     required this.journalEntry,
@@ -15,18 +16,20 @@ class OracleEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OracleEntry entry = appState.campaignData!.oracle
+    RollTableResult entry = appState.campaignData!.rollTableResult
         .firstWhere((entry) => entry.id == journalEntry.id);
-    String? line1 = entry.lines.line1;
-    String? line2 = entry.lines.line2;
-    String? resultText = entry.lines.result;
+    String? resultText = entry.resultString;
+
+    String calculation = '${entry.weight} in ${entry.totalEntries} chance';
+    String roll = 'd → ${entry.randomRoll}';
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
+        // FIXME needs wiring up
         appState.toggleShowPopup(
-          label: PopupLabel.editOracleEntry,
+          label: PopupLabel.editRollTableResult,
         );
       },
       child: Padding(
@@ -35,17 +38,13 @@ class OracleEntryWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             JournalEntryLabel(
-              label: entry.label,
+              label: 'Random Table: ${entry.title}',
             ),
             if (appState.showMechanics)
               JournalEntryDetail(
-                details: [line1, line2],
+                details: [calculation, roll],
               ),
             JournalEntryResult(text: resultText),
-            // const Gap(),
-            // const Divider(
-            //   color: CupertinoColors.darkBackgroundGray,
-            // ),
           ],
         ),
       ),
@@ -79,22 +78,22 @@ class JournalEntryDetail extends StatelessWidget {
   }
 }
 
-class JournalEntryDiceRoll extends StatelessWidget {
-  const JournalEntryDiceRoll({
-    super.key,
-    required this.text,
-  });
-
-  final String? text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text!,
-      style: const TextStyle(color: Colors.blueGrey),
-    );
-  }
-}
+// class JournalEntryDiceRoll extends StatelessWidget {
+//   const JournalEntryDiceRoll({
+//     super.key,
+//     required this.text,
+//   });
+//
+//   final String? text;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text(
+//       text!,
+//       style: const TextStyle(color: Colors.blueGrey),
+//     );
+//   }
+// }
 
 class JournalEntryLabel extends StatelessWidget {
   const JournalEntryLabel({

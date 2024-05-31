@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../icons.dart';
+import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';
 
@@ -8,7 +9,6 @@ part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
 
-// TODO: Set up so that each type has different data shape
 enum JournalEntryTypes {
   action,
   chaosFactor,
@@ -29,6 +29,8 @@ enum JournalEntryTypes {
   roll,
   transition,
   scratchPage,
+  randomTable,
+  rollTableResult,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -46,19 +48,21 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.note: 'note',
   JournalEntryTypes.oracle: 'oracle',
   JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.randomTable: 'randomTable',
+  JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
 };
 
 // TODO: Rename this
 @JsonSerializable()
-class ReturnObject {
+class JournalReturnObject {
   late String type;
   late String? line1;
   late String? line2;
   late String result;
 
-  ReturnObject({
+  JournalReturnObject({
     required this.type,
     this.line1,
     this.line2,
@@ -66,10 +70,10 @@ class ReturnObject {
   });
 
   // coverage:ignore-start
-  factory ReturnObject.fromJson(Map<String, dynamic> json) =>
-      _$ReturnObjectFromJson(json);
+  factory JournalReturnObject.fromJson(Map<String, dynamic> json) =>
+      _$JournalReturnObjectFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ReturnObjectToJson(this);
+  Map<String, dynamic> toJson() => _$JournalReturnObjectToJson(this);
 // coverage:ignore-end
 }
 
@@ -92,6 +96,7 @@ class SettingsData {
 class GeneralSettingsData {
   // TODO: Make showFutureSettings private
   late bool showFutureSettings;
+  late bool showMechanics;
   late bool useJournal;
   late bool useZocchiDice;
   late bool useRegularDice;
@@ -102,6 +107,7 @@ class GeneralSettingsData {
 
   GeneralSettingsData({
     required this.showFutureSettings,
+    required this.showMechanics,
     required this.useJournal,
     required this.useRegularDice,
     required this.useZocchiDice,
@@ -138,6 +144,7 @@ class CampaignData {
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
+  late List<RollTableResult> rollTableResult;
 
   CampaignData({
     required this.settings,
@@ -157,6 +164,7 @@ class CampaignData {
     required this.creatures,
     required this.rolls,
     required this.scratchPad,
+    required this.rollTableResult,
   });
 
   // coverage:ignore-start
@@ -190,6 +198,7 @@ CampaignData initCampaignDataData(String campaignName) {
     settings: SettingsData(
       general: GeneralSettingsData(
         showFutureSettings: false,
+        showMechanics: true,
         useJournal: true,
         useRegularDice: true,
         useZocchiDice: false,
@@ -200,6 +209,7 @@ CampaignData initCampaignDataData(String campaignName) {
       ),
     ),
     things: [],
+    rollTableResult: [],
   );
 }
 
@@ -462,7 +472,7 @@ class RollEntryItem extends CampaignItem {
 
 @JsonSerializable()
 class OracleEntry extends CampaignItem {
-  ReturnObject lines;
+  JournalReturnObject lines;
   String label;
 
   OracleEntry({
@@ -483,7 +493,7 @@ class OracleEntry extends CampaignItem {
 
 @JsonSerializable()
 class MythicEntry extends CampaignItem {
-  ReturnObject lines;
+  JournalReturnObject lines;
   String label;
 
   MythicEntry({

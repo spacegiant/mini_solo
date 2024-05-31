@@ -50,7 +50,7 @@ class JournalFooter extends StatelessWidget {
         size: 20.0,
       ),
       onPressed: () {
-        appState.toggleShowPopup(label: PopupLabels.journalFilter);
+        appState.toggleShowPopup(label: PopupLabel.journalFilter);
       },
     );
   }
@@ -90,7 +90,7 @@ class JournalFooter extends StatelessWidget {
         color: CupertinoColors.black,
       ),
       onPressed: () {
-        appState.toggleShowPopup(label: PopupLabels.addJournalEntry);
+        appState.toggleShowPopup(label: PopupLabel.addJournalEntry);
       },
     );
   }

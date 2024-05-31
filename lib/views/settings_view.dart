@@ -215,13 +215,23 @@ class _CampaignSettingsState extends State<CampaignSettings> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // TODO: FIX ME
+          // TODO:
           const Text('dropdown goes here - select current campaign'),
           SettingsOption(
             isActive: true,
             label: 'Copy to clipboard automatically',
             onChanged: (isChecked) {},
           ),
+          CupertinoButton(
+              child: const Text('Export Campaign to Clipboard'),
+              onPressed: () {
+                // TODO
+              }),
+          CupertinoButton(
+              child: const Text('Export App Settings to Clipboard'),
+              onPressed: () {
+                // TODO
+              }),
         ],
       ),
     );
@@ -339,10 +349,3 @@ class _ToolsSettingsState extends State<ToolsSettings> {
     );
   }
 }
-
-// TODO: Move
-// Future<void> _launchUrl(url) async {
-//   if (!await launchUrl(url)) {
-//     throw Exception('Could not launch $url');
-//   }
-// }

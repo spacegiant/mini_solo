@@ -13,30 +13,6 @@ void main() {
     expect(data.campaignData?.mythicData.chaosFactor, 5);
   });
 
-  group('SaveCallback', () {
-    test('saveCallbackExists', () {
-      final data = AppState();
-      CampaignData campaignData = initCampaignDataData('test campaign name');
-      data.setCampaignData(campaignData);
-
-      expect(data.saveCallbackExists, isFalse);
-      data.setSaveCallback((data) {});
-      expect(data.saveCallbackExists, isTrue);
-    });
-
-    test('setSaveCallback is called with saveCampaignDataToDisk', () {
-      MockCallback mock = MockCallback();
-      final data = AppState();
-      CampaignData campaignData = initCampaignDataData('test campaign name');
-      data.setCampaignData(campaignData);
-      data.setSaveCallback((data) {
-        mock.call();
-      });
-      data.saveCampaignDataToDisk();
-      expect(mock.called(1), isTrue);
-    });
-  });
-
   group('General settings', () {
     test('getter currentCampaign returns expected String', () {
       final data = AppState();
@@ -127,7 +103,7 @@ void main() {
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
 
-      expect(data.popupLabel, PopupLabels.chaos);
+      expect(data.popupLabel, PopupLabel.chaos);
     });
 
     test('getter showPopup returns bool', () {
@@ -143,7 +119,7 @@ void main() {
       CampaignData campaignData = initCampaignDataData('test campaign name');
       data.setCampaignData(campaignData);
 
-      data.toggleShowPopup(label: PopupLabels.chaos);
+      data.toggleShowPopup(label: PopupLabel.chaos);
       expect(data.showPopup, isTrue);
     });
 
@@ -155,7 +131,7 @@ void main() {
       expect(data.showPopup, isFalse);
       data.closePopup();
       expect(data.showPopup, isFalse);
-      data.toggleShowPopup(label: PopupLabels.chaos);
+      data.toggleShowPopup(label: PopupLabel.chaos);
       expect(data.showPopup, isTrue);
       data.closePopup();
       expect(data.showPopup, isFalse);

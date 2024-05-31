@@ -36,7 +36,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
 
   void updatePerson(String field, String value) {}
 
-  void updateState(ReturnObject result) {
+  void updateState(JournalReturnObject result) {
     setState(() {
       line1 = result.line1!;
       line2 = result.line2;
@@ -69,7 +69,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         },
                         onLongPress: () {
                           appState.toggleShowPopup(
-                              label: PopupLabels.editField,
+                              label: PopupLabel.editField,
                               callback: () {
                                 setState(() {
                                   sex = 'female';
@@ -89,7 +89,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         },
                         onLongPress: () {
                           appState.toggleShowPopup(
-                              label: PopupLabels.editField,
+                              label: PopupLabel.editField,
                               callback: () {
                                 setState(() {
                                   title = 'boop';
@@ -108,7 +108,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                     print('hello');
                   },
                   onLongPress: () {
-                    appState.toggleShowPopup(label: PopupLabels.editField);
+                    appState.toggleShowPopup(label: PopupLabel.editField);
                   },
                 ),
               ],

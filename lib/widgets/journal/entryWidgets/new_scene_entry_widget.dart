@@ -21,7 +21,7 @@ class NewSceneEntryWidget extends StatelessWidget {
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
-          label: PopupLabels.editNewSceneEntry,
+          label: PopupLabel.editNewSceneEntry,
         );
       },
       child: Container(

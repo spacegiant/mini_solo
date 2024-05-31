@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/note_entry_item.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/roll_table_result_widget.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -53,6 +54,11 @@ List<Widget> getEntries(
         ));
       case JournalEntryTypes.roll:
         journalEntries.add(RollEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.rollTableResult:
+        journalEntries.add(RollTableResultWidget(
           appState: appState,
           journalEntry: element,
         ));

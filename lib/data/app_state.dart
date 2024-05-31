@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/campaign_storage.dart';
 
 import 'note_entry_item.dart';
 
-// FIXME: Rename to PopupLabel
-enum PopupLabels {
+enum PopupLabel {
   addJournalEntry,
+  addRandomTable,
   campaignManager,
   chaos,
   editField,
@@ -16,22 +19,33 @@ enum PopupLabels {
   editRoll,
   fullJournal,
   journalFilter,
+  editRandomTable,
+  editRollTableResult,
+  importManager
 }
 
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
-  String? _currentCampaign;
-  late PopupLabels _popupLabel = PopupLabels.chaos;
+  late CampaignStorage _storage;
+  late PopupLabel _popupLabel = PopupLabel.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
   late bool _useJournal = true;
   CampaignData? _campaignData;
-  Function(CampaignData)? _saveCallback;
+  late AppSettingsData _appSettingsData = initAppSettingsData();
+  Function(AppSettingsData)? _saveAppSettingsCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
   String _currentEntryId = '';
+
+  // CAMPAIGN STORAGE
+  void setCampaignStorage(CampaignStorage storage) {
+    _storage = storage;
+  }
+
+  CampaignStorage get storage => _storage;
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>
@@ -43,18 +57,41 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
-  // SAVE CALLBACK
-  // TODO: Rename to setSaveCampaignCallback
-  void setSaveCallback(cb) {
-    _saveCallback = cb;
+  void toggleShowMechanics() {
+    _campaignData!.settings.general.showMechanics =
+        !_campaignData!.settings.general.showMechanics;
+    saveCampaignDataToDisk();
   }
 
-  void saveCampaignDataToDisk() {
-    if (_saveCallback != null) _saveCallback!(_campaignData!);
+  bool get showMechanics => _campaignData!.settings.general.showMechanics;
+
+  // SAVE CALLBACK
+
+  // void setAppSettingsSaveCallback(cb) {
+  //   _saveAppSettingsCallback = cb;
+  // }
+
+  void loadCampaign(String fileName) {
+    _storage.readJSON(fileName).then((data) {
+      if (data != null) {
+        setCampaignData(data!);
+        setCurrentCampaign(data.name);
+      }
+    });
+  }
+
+  void saveCampaignDataToDisk([String? fileName]) {
+    String name = fileName ?? _appSettingsData.currentCampaign;
+    storage.writeJSON(_campaignData!, '$name.json');
     notifyListeners();
   }
 
-  bool get saveCallbackExists => _saveCallback != null;
+  Function(AppSettingsData)? get appSettingsSaveCallback =>
+      _saveAppSettingsCallback;
+
+  void saveAppSettingsDataToDisk() {
+    storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
+  }
 
   // CAMPAIGN DATA
   CampaignData? get campaignData {
@@ -63,15 +100,26 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
-    _currentCampaign = data.name;
+    saveCampaignDataToDisk(data.name);
     notifyListeners();
   }
 
+  void setAppSettingsData(AppSettingsData data) {
+    _appSettingsData = data;
+    saveAppSettingsDataToDisk();
+    notifyListeners();
+  }
+
+  AppSettingsData get appSettingsData {
+    return _appSettingsData;
+  }
+
   // CURRENT CAMPAIGN
-  String? get currentCampaign => _currentCampaign;
+  String? get currentCampaign => _appSettingsData.currentCampaign;
 
   void setCurrentCampaign(String campaignName) {
-    _currentCampaign = campaignName;
+    // _currentCampaign = campaignName;
+    _appSettingsData.currentCampaign = campaignName;
     notifyListeners();
   }
 
@@ -85,7 +133,7 @@ class AppState extends ChangeNotifier {
 
   void setCurrentEntryId(String id) {
     _currentEntryId = id;
-    // TDDO: Does this need notify listeners?
+    // TODO: Does this need notify listeners?
   }
 
   get currentEntryId => _currentEntryId;
@@ -98,7 +146,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: ReturnObject(
+        lines: JournalReturnObject(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'UP to $newValue',
@@ -115,7 +163,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: ReturnObject(
+        lines: JournalReturnObject(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'DOWN to $newValue',
@@ -130,7 +178,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.mythicData.chaosFactor = newValue;
     addMythicEntry(MythicEntry(
       isFavourite: false,
-      lines: ReturnObject(
+      lines: JournalReturnObject(
         type: 'chaosFactor',
         line1: 'Chaos Factor',
         result: 'RESET to 5',
@@ -140,10 +188,10 @@ class AppState extends ChangeNotifier {
   }
 
   // POPUPS
-  PopupLabels get popupLabel => _popupLabel;
+  PopupLabel get popupLabel => _popupLabel;
 
   void toggleShowPopup({
-    PopupLabels? label,
+    PopupLabel? label,
     Function()? callback,
   }) {
     if (label != null) _popupLabel = label;
@@ -155,6 +203,7 @@ class AppState extends ChangeNotifier {
   void closePopup() {
     if (_showPopup == true) {
       _showPopup = false;
+      _currentEntryId = '';
       notifyListeners();
     }
   }
@@ -453,5 +502,48 @@ class AppState extends ChangeNotifier {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.scratchPad.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
+  }
+
+  //   RANDOM TABLES
+  void addRandomTable(RandomTableEntry entry) {
+    _appSettingsData.randomTables.add(entry);
+    appSettingsSaveCallback!(_appSettingsData);
+    notifyListeners();
+  }
+
+  List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
+
+  void deleteRandomTable(String id) {
+    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
+    // saveCampaignDataToDisk();
+    appSettingsSaveCallback!(_appSettingsData);
+    notifyListeners();
+  }
+
+  // RANDOM TABLE ENTRIES
+  void addRandomTableResultsEntry(RollTableResult entry) {
+    _campaignData?.rollTableResult.add(entry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: entry.type,
+        id: entry.id,
+      ),
+    );
+  }
+
+  void updateRandomTableResultsEntry(String id, RollTableResult entry) {
+    int index = _campaignData!.rollTableResult
+        .indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.rollTableResult[index] = entry;
+    saveCampaignDataToDisk();
+  }
+
+  void deleteRandomTableResultsEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.rollTableResult.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+    // notifyListeners();
   }
 }

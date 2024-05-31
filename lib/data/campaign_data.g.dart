@@ -6,14 +6,16 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReturnObject _$ReturnObjectFromJson(Map<String, dynamic> json) => ReturnObject(
+JournalReturnObject _$JournalReturnObjectFromJson(Map<String, dynamic> json) =>
+    JournalReturnObject(
       type: json['type'] as String,
       line1: json['line1'] as String?,
       line2: json['line2'] as String?,
       result: json['result'] as String,
     );
 
-Map<String, dynamic> _$ReturnObjectToJson(ReturnObject instance) =>
+Map<String, dynamic> _$JournalReturnObjectToJson(
+        JournalReturnObject instance) =>
     <String, dynamic>{
       'type': instance.type,
       'line1': instance.line1,
@@ -34,6 +36,7 @@ Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
 GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
     GeneralSettingsData(
       showFutureSettings: json['showFutureSettings'] as bool,
+      showMechanics: json['showMechanics'] as bool,
       useJournal: json['useJournal'] as bool,
       useRegularDice: json['useRegularDice'] as bool,
       useZocchiDice: json['useZocchiDice'] as bool,
@@ -47,6 +50,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
         GeneralSettingsData instance) =>
     <String, dynamic>{
       'showFutureSettings': instance.showFutureSettings,
+      'showMechanics': instance.showMechanics,
       'useJournal': instance.useJournal,
       'useZocchiDice': instance.useZocchiDice,
       'useRegularDice': instance.useRegularDice,
@@ -99,6 +103,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       scratchPad: (json['scratchPad'] as List<dynamic>)
           .map((e) => ScratchPageEntryItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      rollTableResult: (json['rollTableResult'] as List<dynamic>)
+          .map((e) => RollTableResult.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
@@ -120,6 +127,8 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'creatures': instance.creatures.map((e) => e.toJson()).toList(),
       'rolls': instance.rolls.map((e) => e.toJson()).toList(),
       'scratchPad': instance.scratchPad.map((e) => e.toJson()).toList(),
+      'rollTableResult':
+          instance.rollTableResult.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -164,6 +173,8 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.roll: 'roll',
   JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.scratchPage: 'scratchPage',
+  JournalEntryTypes.randomTable: 'randomTable',
+  JournalEntryTypes.rollTableResult: 'rollTableResult',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
@@ -357,6 +368,7 @@ const _$ImagesEnumMap = {
   Images.d10_8: 'd10_8',
   Images.d10_9: 'd10_9',
   Images.d10_10: 'd10_10',
+  Images.d10_dice: 'd10_dice',
   Images.d100_1: 'd100_1',
   Images.d100_2: 'd100_2',
   Images.d100_3: 'd100_3',
@@ -535,7 +547,8 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
 
 OracleEntry _$OracleEntryFromJson(Map<String, dynamic> json) => OracleEntry(
       isFavourite: json['isFavourite'] as bool?,
-      lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      lines:
+          JournalReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
       label: json['label'] as String,
     )
       ..id = json['id'] as String
@@ -552,7 +565,8 @@ Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
 
 MythicEntry _$MythicEntryFromJson(Map<String, dynamic> json) => MythicEntry(
       isFavourite: json['isFavourite'] as bool?,
-      lines: ReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
+      lines:
+          JournalReturnObject.fromJson(json['lines'] as Map<String, dynamic>),
       label: json['label'] as String,
     )
       ..id = json['id'] as String

@@ -34,9 +34,7 @@ class _InitFormState extends State<InitForm> {
               placeholder: 'Type here',
               textCapitalization: TextCapitalization.sentences,
               onFieldSubmitted: (campaignName) {
-                setState(() {
-                  widget.initCampaignData(campaignName);
-                });
+                widget.initCampaignData(campaignName);
               },
             ),
           )
