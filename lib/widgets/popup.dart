@@ -35,7 +35,8 @@ Consumer<Object?> popup(
       if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
       } else if (popup == PopupLabel.importManager) {
-        popupWidget = const ImportManager();
+        popupHeight = 700.0;
+        popupWidget = ImportManager(appState: appState);
       } else if (popup == PopupLabel.addJournalEntry) {
         popupWidget = const AddToJournalPanel();
       } else if (popup == PopupLabel.editRandomTable) {
