@@ -185,6 +185,7 @@ class AppState extends ChangeNotifier {
   void closePopup() {
     if (_showPopup == true) {
       _showPopup = false;
+      _currentEntryId = '';
       notifyListeners();
     }
   }
@@ -488,11 +489,18 @@ class AppState extends ChangeNotifier {
   //   RANDOM TABLES
   void addRandomTable(RandomTableEntry entry) {
     _appSettingsData.randomTables.add(entry);
-    AppSettingsData data = _appSettingsData;
-    appSettingsSaveCallback!(data);
+    appSettingsSaveCallback!(_appSettingsData);
+    notifyListeners();
   }
 
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
+
+  void deleteRandomTable(String id) {
+    _appSettingsData!.randomTables.removeWhere((entry) => entry.id == id);
+    // saveCampaignDataToDisk();
+    appSettingsSaveCallback!(_appSettingsData);
+    notifyListeners();
+  }
 
   // RANDOM TABLE ENTRIES
   void addRandomTableResultsEntry(RollTableResult entry) {

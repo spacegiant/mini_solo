@@ -48,8 +48,15 @@ class EditRandomTable extends StatelessWidget {
               CupertinoButton(
                   color: kWarningColour,
                   child: const Text('Delete Table'),
-                  onPressed: () {}),
-              CupertinoButton(child: const Text('Export'), onPressed: () {}),
+                  onPressed: () {
+                    appState.deleteRandomTable(currentEntryId);
+                    appState.closePopup();
+                  }),
+              CupertinoButton(
+                  child: const Text('Export'),
+                  onPressed: () {
+                    // TODO EXPORT
+                  }),
             ],
           ),
         ],
