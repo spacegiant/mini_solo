@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
+import 'package:mini_solo/data/campaign_storage.dart';
 
 import '../../data/app_state.dart';
 import '../gap.dart';
@@ -96,10 +97,16 @@ class _ImportManagerState extends State<ImportManager> {
                   onPressed: () {
                     if (_appSettingsJSONController.text.isNotEmpty) {
                       // TODO save text as appSetting
-                      AppSettingsData appSettingsData = widget.appState.storage
+                      AppSettingsData importedData = widget.appState.storage
                           .appSettingsJSONToObject(
                               _appSettingsJSONController.text);
-                      widget.appState.setAppSettingsData(appSettingsData);
+
+                      // Need to deal with the current campaign
+
+                      importedData.currentCampaign =
+                          widget.appState.currentCampaign!;
+
+                      widget.appState.setAppSettingsData(importedData);
                     }
 
                     if (_campaignNameController.text.isNotEmpty &&
