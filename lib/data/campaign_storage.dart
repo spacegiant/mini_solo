@@ -129,7 +129,9 @@ class CampaignStorage {
 
   // TODO get this wired up
   CampaignData campaignJSONToObject(String jsonData) {
-    return json.decode(jsonData);
+    var data = json.decode(jsonData);
+    final dataMap = CampaignData.fromJson(data);
+    return dataMap;
   }
 
   // TODO get this wired up
@@ -139,6 +141,8 @@ class CampaignStorage {
 
   // TODO get this wired up
   AppSettingsData appSettingsJSONToObject(String jsonData) {
-    return json.decode(jsonData);
+    var data = json.decode(jsonData);
+    final dataMap = AppSettingsData.fromJson(data);
+    return dataMap;
   }
 }

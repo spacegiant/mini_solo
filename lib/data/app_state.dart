@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
@@ -83,7 +84,10 @@ class AppState extends ChangeNotifier {
   Function(AppSettingsData)? get appSettingsSaveCallback =>
       _saveAppSettingsCallback;
 
-  void saveAppSettingsDataToDisk() {}
+  void saveAppSettingsDataToDisk() {
+    // TODO
+    storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
+  }
 
   bool get saveCallbackExists => _saveCallback != null;
 
@@ -100,6 +104,7 @@ class AppState extends ChangeNotifier {
 
   void setAppSettingsData(AppSettingsData data) {
     _appSettingsData = data;
+    saveAppSettingsDataToDisk();
     notifyListeners();
   }
 

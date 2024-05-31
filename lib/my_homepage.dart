@@ -38,7 +38,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.readAppSettings('appSettings.json').then((data) {
       AppState appState = context.read<AppState>();
       appState.setAppSettingsData(data!);
-      appState.setCampaignStorage(widget.storage);
 
       currentCampaign = data.currentCampaign;
 
@@ -97,6 +96,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
         // TODO init here?
+        appState.setCampaignStorage(widget.storage);
 
         if (appState.campaignData == null) {
           return Stack(children: [

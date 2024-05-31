@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 
 import '../../data/app_state.dart';
 import '../gap.dart';
@@ -85,7 +86,7 @@ class _ImportManagerState extends State<ImportManager> {
             ),
           ),
           const Gap(),
-          Text('Status here'),
+          const Text('Status here'),
           const Gap(),
           Row(
             children: [
@@ -95,6 +96,10 @@ class _ImportManagerState extends State<ImportManager> {
                   onPressed: () {
                     if (_appSettingsJSONController.text.isNotEmpty) {
                       // TODO save text as appSetting
+                      AppSettingsData appSettingsData = widget.appState.storage
+                          .appSettingsJSONToObject(
+                              _appSettingsJSONController.text);
+                      widget.appState.setAppSettingsData(appSettingsData);
                     }
 
                     if (_campaignNameController.text.isNotEmpty &&
