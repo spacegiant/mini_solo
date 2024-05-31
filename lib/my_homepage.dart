@@ -96,28 +96,10 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   Widget build(BuildContext context) {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
+        // TODO init here?
+
         if (appState.campaignData == null) {
-          return CupertinoPageScaffold(
-            child: SafeArea(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Consumer<AppState>(
-                builder:
-                    (BuildContext context, AppState appState, Widget? child) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Welcome to Solo App'),
-                      InitForm(
-                        initCampaignData: initCampaignData,
-                      ),
-                      const SizedBox.shrink(),
-                    ],
-                  );
-                },
-              ),
-            )),
-          );
+          return welcomeView();
         } else if (appState.showSettings == true) {
           return SettingsView(
             title: widget.title,
@@ -155,6 +137,34 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           );
         }
       },
+    );
+  }
+
+  CupertinoPageScaffold welcomeView() {
+    return CupertinoPageScaffold(
+      child: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Consumer<AppState>(
+          builder: (BuildContext context, AppState appState, Widget? child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Welcome to Solo App'),
+                CupertinoButton(
+                    child: const Text('Import Manager'),
+                    onPressed: () {
+                      appState.toggleShowPopup(label: PopupLabel.importManager);
+                    }),
+                InitForm(
+                  initCampaignData: initCampaignData,
+                ),
+                const SizedBox.shrink(),
+              ],
+            );
+          },
+        ),
+      )),
     );
   }
 
