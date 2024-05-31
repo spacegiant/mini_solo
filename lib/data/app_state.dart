@@ -33,7 +33,6 @@ class AppState extends ChangeNotifier {
   late bool _useJournal = true;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
-  Function(CampaignData)? _saveCallback;
   Function(AppSettingsData)? _saveAppSettingsCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
@@ -67,17 +66,14 @@ class AppState extends ChangeNotifier {
   bool get showMechanics => _campaignData!.settings.general.showMechanics;
 
   // SAVE CALLBACK
-  // TODO can these be refactored so we can just use appState.storage
-  void setSaveCampaignCallback(cb) {
-    _saveCallback = cb;
-  }
 
   void setAppSettingsSaveCallback(cb) {
     _saveAppSettingsCallback = cb;
   }
 
-  void saveCampaignDataToDisk() {
-    if (_saveCallback != null) _saveCallback!(_campaignData!);
+  void saveCampaignDataToDisk([String? fileName]) {
+    String name = fileName ?? _appSettingsData.currentCampaign;
+    storage.writeJSON(_campaignData!, name);
     notifyListeners();
   }
 
@@ -88,8 +84,6 @@ class AppState extends ChangeNotifier {
     // TODO
     storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
   }
-
-  bool get saveCallbackExists => _saveCallback != null;
 
   // CAMPAIGN DATA
   CampaignData? get campaignData {
