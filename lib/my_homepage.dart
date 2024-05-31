@@ -99,7 +99,16 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         // TODO init here?
 
         if (appState.campaignData == null) {
-          return welcomeView();
+          return Stack(children: [
+            welcomeView(),
+            FocusScope(
+              child: SafeArea(
+                  child: popup(
+                context,
+                widget,
+              )),
+            ),
+          ]);
         } else if (appState.showSettings == true) {
           return SettingsView(
             title: widget.title,
