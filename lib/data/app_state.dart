@@ -496,7 +496,7 @@ class AppState extends ChangeNotifier {
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
 
   void deleteRandomTable(String id) {
-    _appSettingsData!.randomTables.removeWhere((entry) => entry.id == id);
+    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     // saveCampaignDataToDisk();
     appSettingsSaveCallback!(_appSettingsData);
     notifyListeners();
