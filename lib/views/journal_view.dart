@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
@@ -196,7 +197,36 @@ class _JournalViewState extends State<JournalView> {
                 const Divider(),
                 const Text('Create New Item Toolbar Here'),
                 const Divider(),
-                const Text('Export/Import all data'),
+                const JournalSubheading(
+                  label: 'Import/Export',
+                ),
+                WrapManager(wrapControls: wrapControls, children: [
+                  ListButton(
+                      label: 'Export Campaign',
+                      onPressed: () async {
+                        await Clipboard.setData(
+                            const ClipboardData(text: "campaign text"));
+                        // copied successfully
+                      }),
+                  ListButton(
+                      label: 'Import Campaign',
+                      onPressed: () {
+                        // TODO
+                      }),
+                  ListButton(
+                      label: 'Export AppSettings',
+                      onPressed: () async {
+                        await Clipboard.setData(
+                            const ClipboardData(text: "app settings text"));
+                        // copied successfully
+                      }),
+                  ListButton(
+                      label: 'Import AppSettings',
+                      onPressed: () {
+                        // TODO
+                      }),
+                ]),
+
                 const Divider(),
 
                 // const MarkdownBlock(

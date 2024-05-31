@@ -32,6 +32,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
     String? currentCampaign;
 
+    widget.storage.printLocalPath();
+
     // IF CAN READ APP SETTINGS DO THIS...
     widget.storage.readAppSettings('appSettings.json').then((data) {
       AppState appState = context.read<AppState>();
