@@ -45,6 +45,14 @@ class _ImportManagerState extends State<ImportManager> {
 
   @override
   Widget build(BuildContext context) {
+    bool? userWantsToSwitch = false;
+
+    void clearAll() {
+      _campaignNameController.text = '';
+      _campaignSettingsJSONController.text = '';
+      _appSettingsJSONController.text = '';
+    }
+
     var count = widget.appState.randomTables.length;
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -92,19 +100,31 @@ class _ImportManagerState extends State<ImportManager> {
           const Gap(),
           Row(
             children: [
+              const Text('Switch to imported campaign?'),
+              CupertinoCheckbox(
+                  value: userWantsToSwitch,
+                  onChanged: (value) {
+                    setState(() {
+                      userWantsToSwitch = value;
+                    });
+                  }),
+            ],
+          ),
+          Row(
+            children: [
               CupertinoButton(
                   color: kSubmitColour,
                   child: const Text('Import'),
                   onPressed: () {
-                    String campaignName = '';
+                    bool appIsEmpty = widget.appState.campaignData == null;
 
+                    bool switchToImportedCampaign = false;
+
+                    // TODO VALIDATE FIRST
                     if (_appSettingsJSONController.text.isNotEmpty) {
-                      // TODO save text as appSetting
                       AppSettingsData importedData = widget.appState.storage
                           .appSettingsJSONToObject(
                               _appSettingsJSONController.text);
-
-                      // Need to deal with the current campaign
 
                       importedData.currentCampaign =
                           widget.appState.currentCampaign!;
@@ -112,15 +132,30 @@ class _ImportManagerState extends State<ImportManager> {
                       widget.appState.setAppSettingsData(importedData);
                     }
 
+                    // TODO VALIDATE FIRST
                     if (_campaignNameController.text.isNotEmpty &&
                         _campaignSettingsJSONController.text.isNotEmpty) {
                       CampaignData importedData = widget.appState.storage
                           .campaignJSONToObject(
                               _campaignSettingsJSONController.text);
-                      // TODO save text as campaign
-                      print(importedData);
 
+                      if (appIsEmpty || userWantsToSwitch!) {
+                        switchToImportedCampaign = true;
+                      }
+
+                      if (switchToImportedCampaign) {
+                        widget.appState.setCurrentCampaign(importedData.name);
+                      } else {
+                        widget.appState.setCurrentCampaign(
+                            widget.appState.appSettingsData.currentCampaign);
+                      }
+
+                      widget.appState.setCurrentCampaign(importedData.name);
+                      widget.appState.saveAppSettingsDataToDisk();
                       widget.appState.setCampaignData(importedData);
+
+                      // TODO VALIDATE FIRST
+                      clearAll();
                     }
                   }),
             ],

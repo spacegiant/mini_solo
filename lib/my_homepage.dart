@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
@@ -36,17 +37,23 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
     // IF CAN READ APP SETTINGS DO THIS...
     widget.storage.readAppSettings('appSettings.json').then((data) {
-      AppState appState = context.read<AppState>();
-      appState.setAppSettingsData(data!);
+      try {
+        AppState appState = context.read<AppState>();
+        appState.setAppSettingsData(data!);
 
-      currentCampaign = data.currentCampaign;
+        currentCampaign = data.currentCampaign;
 
-      if (currentCampaign != null && currentCampaign != '') {
-        widget.storage.readJSON('$currentCampaign.json').then((data) {
-          if (data != null) {
-            appState.setCampaignData(data);
-          }
-        });
+        if (currentCampaign != null && currentCampaign != '') {
+          widget.storage.readJSON('$currentCampaign.json').then((data) {
+            if (data != null) {
+              appState.setCampaignData(data);
+            }
+          });
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
       }
     });
   }
