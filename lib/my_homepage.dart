@@ -58,7 +58,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     AppSettingsData appSettingsData = appState.appSettingsData;
     appState.setCampaignData(campaignData);
     saveAppSettings(appSettingsData);
-    saveCampaign(campaignData);
+    // saveCampaign(campaignData);
   }
 
   void loadData(String filename) {
@@ -71,9 +71,9 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     });
   }
 
-  void saveCampaign(CampaignData campaignData) {
-    widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
-  }
+  // void saveCampaign(CampaignData campaignData) {
+  //   widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
+  // }
 
   void saveAppSettings(AppSettingsData appSettingsData) {
     widget.storage.writeAppSettingsJSON(appSettingsData, 'appSettings.json');
