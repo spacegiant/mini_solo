@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/views/dice/dice_button.dart';
 import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
@@ -219,8 +220,12 @@ class _JournalViewState extends State<JournalView> {
                   ListButton(
                       label: 'Export AppSettings',
                       onPressed: () async {
+                        AppSettingsData? appSettingsData =
+                            appState.appSettingsData;
+                        String jsonString =
+                            appState.storage.appSettingsToJSON(appSettingsData);
                         await Clipboard.setData(
-                            const ClipboardData(text: "app settings text"));
+                            ClipboardData(text: jsonString));
                         // copied successfully
                       }),
                   ListButton(
