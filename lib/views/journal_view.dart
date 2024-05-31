@@ -203,6 +203,12 @@ class _JournalViewState extends State<JournalView> {
                 ),
                 WrapManager(wrapControls: wrapControls, children: [
                   ListButton(
+                      label: 'Import Manager',
+                      onPressed: () {
+                        appState.toggleShowPopup(
+                            label: PopupLabel.importManager);
+                      }),
+                  ListButton(
                       label: 'Export Campaign',
                       onPressed: () async {
                         CampaignData? campaignData = appState.campaignData;
@@ -211,11 +217,6 @@ class _JournalViewState extends State<JournalView> {
                         await Clipboard.setData(
                             ClipboardData(text: jsonString));
                         // copied successfully
-                      }),
-                  ListButton(
-                      label: 'Import Campaign',
-                      onPressed: () {
-                        // TODO
                       }),
                   ListButton(
                       label: 'Export AppSettings',
@@ -227,11 +228,6 @@ class _JournalViewState extends State<JournalView> {
                         await Clipboard.setData(
                             ClipboardData(text: jsonString));
                         // copied successfully
-                      }),
-                  ListButton(
-                      label: 'Import AppSettings',
-                      onPressed: () {
-                        // TODO
                       }),
                 ]),
 

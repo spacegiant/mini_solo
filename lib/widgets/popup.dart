@@ -11,6 +11,7 @@ import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
+import 'package:mini_solo/widgets/popups/import_manager.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../data/app_state.dart';
@@ -28,9 +29,13 @@ Consumer<Object?> popup(
       double popupHeight = kPopupDefaultHeight;
       Widget popupWidget;
 
+      // TODO refactor to make easier to read
+
       // WIDGETS
       if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
+      } else if (popup == PopupLabel.importManager) {
+        popupWidget = const ImportManager();
       } else if (popup == PopupLabel.addJournalEntry) {
         popupWidget = const AddToJournalPanel();
       } else if (popup == PopupLabel.editRandomTable) {

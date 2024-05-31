@@ -19,7 +19,8 @@ enum PopupLabel {
   fullJournal,
   journalFilter,
   editRandomTable,
-  editRollTableResult
+  editRollTableResult,
+  importManager
 }
 
 class AppState extends ChangeNotifier {
@@ -65,6 +66,7 @@ class AppState extends ChangeNotifier {
   bool get showMechanics => _campaignData!.settings.general.showMechanics;
 
   // SAVE CALLBACK
+  // TODO can these be refactored so we can just use appState.storage
   void setSaveCampaignCallback(cb) {
     _saveCallback = cb;
   }
