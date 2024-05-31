@@ -73,7 +73,7 @@ class AppState extends ChangeNotifier {
 
   void saveCampaignDataToDisk([String? fileName]) {
     String name = fileName ?? _appSettingsData.currentCampaign;
-    storage.writeJSON(_campaignData!, name);
+    storage.writeJSON(_campaignData!, '$name.json');
     notifyListeners();
   }
 
@@ -81,7 +81,6 @@ class AppState extends ChangeNotifier {
       _saveAppSettingsCallback;
 
   void saveAppSettingsDataToDisk() {
-    // TODO
     storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
   }
 
@@ -93,6 +92,7 @@ class AppState extends ChangeNotifier {
   void setCampaignData(CampaignData data) {
     _campaignData = data;
     _appSettingsData.currentCampaign = data.name;
+    saveCampaignDataToDisk(data.name);
     notifyListeners();
   }
 

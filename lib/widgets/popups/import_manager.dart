@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 
 import '../../data/app_state.dart';
@@ -95,6 +96,8 @@ class _ImportManagerState extends State<ImportManager> {
                   color: kSubmitColour,
                   child: const Text('Import'),
                   onPressed: () {
+                    String campaignName = '';
+
                     if (_appSettingsJSONController.text.isNotEmpty) {
                       // TODO save text as appSetting
                       AppSettingsData importedData = widget.appState.storage
@@ -111,8 +114,13 @@ class _ImportManagerState extends State<ImportManager> {
 
                     if (_campaignNameController.text.isNotEmpty &&
                         _campaignSettingsJSONController.text.isNotEmpty) {
-                      // TODO if no campaign set as current campaign
+                      CampaignData importedData = widget.appState.storage
+                          .campaignJSONToObject(
+                              _campaignSettingsJSONController.text);
                       // TODO save text as campaign
+                      print(importedData);
+
+                      widget.appState.setCampaignData(importedData);
                     }
                   }),
             ],
