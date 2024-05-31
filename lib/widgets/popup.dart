@@ -89,7 +89,8 @@ Consumer<Object?> popup(
         visible: appState.showPopup,
         child: GestureDetector(
           onTap: () {
-            appState.closePopup();
+            // FIXME event triggers inside the popup not just on background
+            // appState.closePopup();
           },
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),

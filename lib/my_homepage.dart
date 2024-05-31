@@ -63,6 +63,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
     AppSettingsData appSettingsData = appState.appSettingsData;
+    appState.appSettingsData.currentCampaign = campaignName;
     appState.setCampaignData(campaignData);
     saveAppSettings(appSettingsData);
     // saveCampaign(campaignData);
