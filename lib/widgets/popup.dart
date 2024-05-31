@@ -50,6 +50,7 @@ Consumer<Object?> popup(
         popupHeight = 600.0;
         popupWidget = CampaignManager(
           getCampaignList: widget!.storage.getCampaignsList,
+          appState: appState,
         );
       } else if (popup == PopupLabel.fullJournal) {
         popupWidget = const Text('FULL JOURNAL');

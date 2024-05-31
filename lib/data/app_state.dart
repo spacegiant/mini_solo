@@ -71,6 +71,15 @@ class AppState extends ChangeNotifier {
   //   _saveAppSettingsCallback = cb;
   // }
 
+  void loadCampaign(String fileName) {
+    _storage.readJSON(fileName).then((data) {
+      if (data != null) {
+        setCampaignData(data!);
+        setCurrentCampaign(data.name);
+      }
+    });
+  }
+
   void saveCampaignDataToDisk([String? fileName]) {
     String name = fileName ?? _appSettingsData.currentCampaign;
     storage.writeJSON(_campaignData!, '$name.json');
