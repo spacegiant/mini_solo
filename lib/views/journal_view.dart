@@ -204,8 +204,11 @@ class _JournalViewState extends State<JournalView> {
                   ListButton(
                       label: 'Export Campaign',
                       onPressed: () async {
+                        CampaignData? campaignData = appState.campaignData;
+                        String jsonString =
+                            appState.storage.getCampaignJSON(campaignData!);
                         await Clipboard.setData(
-                            const ClipboardData(text: "campaign text"));
+                            ClipboardData(text: jsonString));
                         // copied successfully
                       }),
                   ListButton(

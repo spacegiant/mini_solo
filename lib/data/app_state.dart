@@ -41,7 +41,7 @@ class AppState extends ChangeNotifier {
 
   // CAMPAIGN STORAGE
   void setCampaignStorage(CampaignStorage storage) {
-    _storage;
+    _storage = storage;
   }
 
   CampaignStorage get storage => _storage;
