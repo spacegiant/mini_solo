@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/campaign_storage.dart';
 
 import 'note_entry_item.dart';
 
@@ -23,6 +24,7 @@ enum PopupLabel {
 
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
+  late CampaignStorage _storage;
   late PopupLabel _popupLabel = PopupLabel.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
@@ -36,6 +38,13 @@ class AppState extends ChangeNotifier {
   int maxChaos = 9;
   int minChaos = 1;
   String _currentEntryId = '';
+
+  // CAMPAIGN STORAGE
+  void setCampaignStorage(CampaignStorage storage) {
+    _storage;
+  }
+
+  CampaignStorage get storage => _storage;
 
   // FUTURE FEATURES
   bool? get showFutureFeatures =>

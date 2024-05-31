@@ -38,6 +38,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     widget.storage.readAppSettings('appSettings.json').then((data) {
       AppState appState = context.read<AppState>();
       appState.setAppSettingsData(data!);
+      appState.setCampaignStorage(widget.storage);
 
       currentCampaign = data.currentCampaign;
 
