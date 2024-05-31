@@ -81,33 +81,38 @@ Consumer<Object?> popup(
 
       return Visibility(
         visible: appState.showPopup,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: Container(
-            color: kBackdropFilterColour,
-            height: double.infinity,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                SizedBox(
-                  height: popupHeight,
-                  width: 400.0,
-                  child: CupertinoPopupSurface(
-                    child: Column(
-                      children: [
-                        CupertinoButton(
-                            child: const Text(kPopupCloseButtonLabel),
-                            onPressed: () {
-                              appState.closePopup();
-                            }),
-                        const Divider(),
-                        popupWidget,
-                      ],
+        child: GestureDetector(
+          onTap: () {
+            appState.closePopup();
+          },
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+            child: Container(
+              color: kBackdropFilterColour,
+              height: double.infinity,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  SizedBox(
+                    height: popupHeight,
+                    width: 400.0,
+                    child: CupertinoPopupSurface(
+                      child: Column(
+                        children: [
+                          CupertinoButton(
+                              child: const Text(kPopupCloseButtonLabel),
+                              onPressed: () {
+                                appState.closePopup();
+                              }),
+                          const Divider(),
+                          popupWidget,
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ]),
+                ]),
+              ),
             ),
           ),
         ),
