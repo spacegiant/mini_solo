@@ -88,7 +88,18 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
 
   Widget pipsForm() => Text('Pips');
 
-  Widget ironswornTrackerForm() => Text('Ironsworn Track');
+  Widget ironswornTrackerForm() => Column(
+        children: [
+          Text('Ironsworn Track'),
+          Picker(items: const [
+            'Troublesome',
+            'Dangerous',
+            'Formidable',
+            'Extreme',
+            'Epic',
+          ], onChange: (index) {})
+        ],
+      );
 
   Widget barForm() => const Column(
         children: [
