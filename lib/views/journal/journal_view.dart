@@ -122,6 +122,7 @@ class _JournalViewState extends State<JournalView> {
       void Function() clearResults,
       BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 1,

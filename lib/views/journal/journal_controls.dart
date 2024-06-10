@@ -24,7 +24,7 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
   return ViewWrapper(children: [
-    // const Gap(),
+    const Gap(),
 
     diceTray(
       appState,
@@ -63,6 +63,7 @@ Widget journalControls(
     const JournalSubheading(
       label: 'Import/Export',
     ),
+    // TODO: Don't want this in journal controls. Move somewhere else.
     WrapManager(wrapControls: wrapControls, children: [
       ListButton(
           label: 'Import Manager',

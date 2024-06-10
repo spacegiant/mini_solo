@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../gap.dart';
+
 class JournalSubheading extends StatelessWidget {
   final String label;
   const JournalSubheading({
@@ -18,6 +20,9 @@ class JournalSubheading extends StatelessWidget {
           style: const TextStyle(
             fontSize: 12.0,
           ),
+        ),
+        const Gap(
+          height: 8.0,
         ),
       ],
     );
