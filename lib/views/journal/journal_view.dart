@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/app_settings_data.dart';
-import 'package:mini_solo/widgets/list_button.dart';
-import 'package:mini_solo/widgets/view_wrapper.dart';
-import 'package:mini_solo/widgets/wrap_manager.dart';
 import 'package:provider/provider.dart';
-
-import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../features/random_tables/random_table_controls.dart';
-import '../../utilities/get_random_result.dart';
-import '../../utilities/test_scene.dart';
-import '../../widgets/gap.dart';
-import 'dice_tray.dart';
 import 'journal.dart';
-import '../../widgets/journal/widgets/journal_subheading.dart';
-import '../mythic/fate_question.dart';
-import 'get_event_focus.dart';
 import 'journal_controls.dart';
 
 class JournalView extends StatefulWidget {
@@ -103,33 +87,5 @@ class _JournalViewState extends State<JournalView> {
         ),
       );
     });
-  }
-}
-
-// TODO: Add this to display manual journal entries
-class MarkdownBlock extends StatelessWidget {
-  const MarkdownBlock({
-    super.key,
-    required this.newString,
-  });
-
-  final String newString;
-
-  @override
-  Widget build(BuildContext context) {
-    return MarkdownBody(
-      softLineBreak: true,
-      styleSheetTheme: MarkdownStyleSheetBaseTheme.cupertino,
-      styleSheet: MarkdownStyleSheet(
-        // textScaler: const TextScaler.linear(1.5),
-        p: const TextStyle(
-          color: CupertinoColors.systemRed,
-        ),
-        em: const TextStyle(
-          color: CupertinoColors.systemPink,
-        ),
-      ),
-      data: newString,
-    );
   }
 }
