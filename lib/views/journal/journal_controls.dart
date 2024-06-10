@@ -20,8 +20,9 @@ import 'get_event_focus.dart';
 Expanded journalControls(
     AppState appState,
     void Function(List<DiceRoll> result) addResult,
-    bool wrapControls,
+    // bool wrapControls,
     BuildContext context) {
+  bool wrapControls = appState.wrapControls;
   return Expanded(
     flex: 1,
     child: ViewWrapper(children: [

@@ -62,7 +62,6 @@ class _JournalViewState extends State<JournalView> {
               addResult,
               submitResults,
               clearResults,
-              wrapControls,
               context,
             );
           },
@@ -77,7 +76,6 @@ class _JournalViewState extends State<JournalView> {
       void Function(List<DiceRoll> result) addResult,
       void Function() submitResults,
       void Function() clearResults,
-      bool wrapControls,
       BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -91,7 +89,11 @@ class _JournalViewState extends State<JournalView> {
           submitDice: submitResults,
           clearDice: clearResults,
         ),
-        journalControls(appState, addResult, wrapControls, context),
+        journalControls(
+          appState,
+          addResult,
+          context,
+        ),
       ],
     );
   }
