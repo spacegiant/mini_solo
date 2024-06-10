@@ -45,7 +45,7 @@ WrapManager diceTray(
 
   return WrapManager(
     wrapControls: wrapControls,
-    hideDivider: true,
+    // hideDivider: true,
     children: [
       if (useD6OracleDice)
         DiceButton(

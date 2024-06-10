@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/list_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
@@ -48,10 +49,10 @@ class FateQuestion extends StatelessWidget {
         builder: (BuildContext context, AppState appState, Widget? child) {
       return WrapManager(
         wrapControls: wrapControls,
-        hideDivider: true,
+        // hideDivider: true,
         children: fateChart
             .map<Widget>(
-              (widget) => ToolbarButton(
+              (widget) => ListButton(
                 label: widget.label,
                 color: widget.color,
                 onPressed: () {
@@ -81,37 +82,5 @@ class FateQuestion extends StatelessWidget {
             .toList(),
       );
     });
-  }
-}
-
-class ToolbarButton extends StatelessWidget {
-  const ToolbarButton({
-    super.key,
-    required this.label,
-    required this.color,
-    required this.onPressed,
-  });
-
-  final String label;
-  final CupertinoDynamicColor color;
-  final Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 0.0,
-        vertical: 4.0,
-      ),
-      child: CupertinoButton(
-        color: color,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-          vertical: 0.0,
-        ),
-        onPressed: onPressed,
-        child: Text(label),
-      ),
-    );
   }
 }

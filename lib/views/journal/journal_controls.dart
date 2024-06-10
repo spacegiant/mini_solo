@@ -24,7 +24,7 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
   return ViewWrapper(children: [
-    const Gap(),
+    // const Gap(),
 
     diceTray(
       appState,
@@ -60,7 +60,6 @@ Widget journalControls(
     ),
     const Divider(),
     const Text('Create New Item Toolbar Here'),
-    const Divider(),
     const JournalSubheading(
       label: 'Import/Export',
     ),
