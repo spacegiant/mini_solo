@@ -137,16 +137,13 @@ class _JournalViewState extends State<JournalView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            appState.useJournal
-                // ADD TEMP DICE ROLL ENTRY HERE
-                ? Journal(
-                    items: appState.campaignData!.journal,
-                    diceRoll: diceResults,
-                    addDice: addResult,
-                    submitDice: submitResults,
-                    clearDice: clearResults,
-                  )
-                : const SizedBox.shrink(),
+            Journal(
+              items: appState.campaignData!.journal,
+              diceRoll: diceResults,
+              addDice: addResult,
+              submitDice: submitResults,
+              clearDice: clearResults,
+            ),
             Expanded(
               flex: 1,
               child: ViewWrapper(children: [

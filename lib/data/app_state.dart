@@ -30,6 +30,7 @@ class AppState extends ChangeNotifier {
   late PopupLabel _popupLabel = PopupLabel.chaos;
   late bool _showPopup = false;
   late bool _showSettings = false;
+  // TODO: Remove _useJournal
   late bool _useJournal = true;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
