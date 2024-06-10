@@ -68,24 +68,43 @@ class _JournalViewState extends State<JournalView> {
       return FocusScope(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Journal(
-                  constraints: constraints,
-                  items: appState.campaignData!.journal,
-                  diceRoll: diceResults,
-                  addDice: addResult,
-                  submitDice: submitResults,
-                  clearDice: clearResults,
-                ),
-                journalControls(appState, addResult, wrapControls, context),
-              ],
+            return singleColumnLayout(
+              constraints,
+              appState,
+              addResult,
+              submitResults,
+              clearResults,
+              wrapControls,
+              context,
             );
           },
         ),
       );
     });
+  }
+
+  Column singleColumnLayout(
+      BoxConstraints constraints,
+      AppState appState,
+      void Function(List<DiceRoll> result) addResult,
+      void Function() submitResults,
+      void Function() clearResults,
+      bool wrapControls,
+      BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Journal(
+          constraints: constraints,
+          items: appState.campaignData!.journal,
+          diceRoll: diceResults,
+          addDice: addResult,
+          submitDice: submitResults,
+          clearDice: clearResults,
+        ),
+        journalControls(appState, addResult, wrapControls, context),
+      ],
+    );
   }
 }
