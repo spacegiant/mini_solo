@@ -78,6 +78,7 @@ List<Widget> getEntries(
 class Journal extends StatefulWidget {
   const Journal({
     super.key,
+    required BoxConstraints constraints,
     required this.items,
     this.diceRoll,
     required this.addDice,

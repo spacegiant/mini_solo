@@ -119,6 +119,7 @@ class _JournalViewState extends State<JournalView> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Journal(
+                  constraints: constraints,
                   items: appState.campaignData!.journal,
                   diceRoll: diceResults,
                   addDice: addResult,
@@ -139,7 +140,8 @@ class _JournalViewState extends State<JournalView> {
                       generalDice,
                     ),
 
-                    const JournalSubheading(label: kJournalMythicFateChartTitle),
+                    const JournalSubheading(
+                        label: kJournalMythicFateChartTitle),
 
                     FateQuestion(
                       callback: (JournalReturnObject returnObject) {
@@ -191,7 +193,7 @@ class _JournalViewState extends State<JournalView> {
                           onPressed: () async {
                             CampaignData? campaignData = appState.campaignData;
                             String jsonString =
-                            appState.storage.getCampaignJSON(campaignData!);
+                                appState.storage.getCampaignJSON(campaignData!);
                             await Clipboard.setData(
                                 ClipboardData(text: jsonString));
                             // copied successfully
@@ -201,8 +203,8 @@ class _JournalViewState extends State<JournalView> {
                           onPressed: () async {
                             AppSettingsData? appSettingsData =
                                 appState.appSettingsData;
-                            String jsonString =
-                            appState.storage.appSettingsToJSON(appSettingsData);
+                            String jsonString = appState.storage
+                                .appSettingsToJSON(appSettingsData);
                             await Clipboard.setData(
                                 ClipboardData(text: jsonString));
                             // copied successfully
@@ -217,7 +219,7 @@ class _JournalViewState extends State<JournalView> {
                   ]),
                 ),
               ],
-            )
+            );
           },
         ),
       );
