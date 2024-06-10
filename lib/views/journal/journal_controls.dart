@@ -62,7 +62,9 @@ Widget journalControls(
     const JournalSubheading(
       label: 'Trackers',
     ),
-    const TrackerControls(),
+    TrackerControls(
+      appState: appState,
+    ),
     const JournalSubheading(
       label: 'New Item',
     ),
@@ -95,9 +97,6 @@ Widget journalControls(
             // copied successfully
           }),
     ]),
-
-    const Divider(),
-
     // const MarkdownBlock(
     //   newString: '# hello\n*hello* hello\n- hello',
     // ),

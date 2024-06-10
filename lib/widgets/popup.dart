@@ -12,6 +12,7 @@ import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
+import 'package:mini_solo/widgets/popups/manage_tracker_popup.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../data/app_state.dart';
@@ -34,6 +35,9 @@ Consumer<Object?> popup(
       // WIDGETS
       if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
+      } else if (popup == PopupLabel.manageTracker) {
+        popupHeight = 700.0;
+        popupWidget = ManageTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.importManager) {
         popupHeight = 700.0;
         popupWidget = ImportManager(appState: appState);
