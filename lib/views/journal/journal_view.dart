@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
-import 'package:mini_solo/views/dice/dice_button.dart';
-import 'package:mini_solo/views/dice/fate_dice.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
@@ -14,17 +12,12 @@ import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../features/random_tables/random_table_controls.dart';
-import '../../icons.dart';
 import '../../utilities/get_random_result.dart';
-import '../../utilities/get_weighted_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../widgets/gap.dart';
+import 'dice_tray.dart';
 import 'journal.dart';
 import '../../widgets/journal/widgets/journal_subheading.dart';
-import '../dice/dice.dart';
-import '../dice/dice_collection.dart';
-import '../dice/other_dice_sets.dart';
-import '../dice/regular_dice_set.dart';
 import '../mythic/fate_question.dart';
 import 'get_event_focus.dart';
 
@@ -58,12 +51,6 @@ class _JournalViewState extends State<JournalView> {
 
       GeneralSettingsData generalSettings =
           appState.campaignData!.settings.general;
-      bool useZocchiDice = generalSettings.useZocchiDice;
-      bool useRegularDice = generalSettings.useRegularDice;
-      bool useGeneralDice = useZocchiDice && useRegularDice;
-      bool useFateDice = generalSettings.useFateDice;
-      bool useCoriolisDice = generalSettings.useCoriolisDice;
-      bool useD6OracleDice = generalSettings.useD6Oracle;
 
       bool wrapControls = generalSettings.wrapControls;
 
@@ -93,24 +80,6 @@ class _JournalViewState extends State<JournalView> {
         }
       }
 
-      DiceSet? generalDiceSubset;
-
-      if (useGeneralDice) {
-        generalDiceSubset = all;
-      } else if (useZocchiDice) {
-        generalDiceSubset = zocchiDice;
-      } else if (useRegularDice) {
-        generalDiceSubset = regularDice;
-      }
-
-      DiceCollection? generalDice = generalDiceSubset != null
-          ? DiceCollection(
-              diceSet: generalDiceSubset,
-              appState: appState,
-              onPressed: addResult,
-            )
-          : null;
-
       return FocusScope(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -132,12 +101,8 @@ class _JournalViewState extends State<JournalView> {
                     const Gap(),
 
                     diceTray(
-                      wrapControls,
-                      useD6OracleDice,
+                      appState,
                       addResult,
-                      useFateDice,
-                      useCoriolisDice,
-                      generalDice,
                     ),
 
                     const JournalSubheading(
@@ -333,46 +298,6 @@ class _JournalViewState extends State<JournalView> {
             );
           },
         ),
-      ],
-    );
-  }
-
-  WrapManager diceTray(
-      bool wrapControls,
-      bool useD6OracleDice,
-      void Function(List<DiceRoll> result) addResult,
-      bool useFateDice,
-      bool useCoriolisDice,
-      DiceCollection? generalDice) {
-    return WrapManager(
-      wrapControls: wrapControls,
-      hideDivider: true,
-      children: [
-        if (useD6OracleDice)
-          DiceButton(
-            dieType: d6oracle,
-            label: 'D6 Oracle',
-            icon: Images.d6Oracle,
-            onPressed: addResult,
-          ),
-        if (useFateDice) ...[
-          DiceButton(
-            color: CupertinoColors.systemOrange,
-            dieType: fate,
-            numberOfRolls: 4,
-            label: '4dF',
-            onPressed: addResult,
-            icon: Images.fateDice,
-          ),
-        ],
-        if (useCoriolisDice)
-          DiceButton(
-            dieType: coriolis,
-            label: 'Coriolis',
-            icon: Images.coriolis6,
-            onPressed: addResult,
-          ),
-        if (generalDice != null) ...generalDice.getDice(),
       ],
     );
   }
