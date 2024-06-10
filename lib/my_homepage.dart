@@ -123,6 +123,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         } else {
           return Consumer<AppState>(
             builder: (context, appState, child) {
+              // TODO: Delete campaign not working
               if (appState.deleteCampaign == false) {
                 appState.setDeleteCampaignCallback(deleteCampaign);
               }

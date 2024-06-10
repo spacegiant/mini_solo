@@ -5,12 +5,12 @@ class WrapManager extends StatelessWidget {
     super.key,
     required this.wrapControls,
     required this.children,
-    this.hideDivider = false,
+    // this.hideDivider = false,
   });
 
   final bool wrapControls;
   final List<Widget> children;
-  final bool hideDivider;
+  // final bool hideDivider;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,10 @@ class WrapManager extends StatelessWidget {
             children: [
               Wrap(
                 spacing: 4.0,
+                runSpacing: 8.0,
                 children: children,
               ),
-              if (hideDivider != true) const Divider(),
+              // if (hideDivider != true) const Divider(),
             ],
           )
         : SingleChildScrollView(
@@ -32,9 +33,6 @@ class WrapManager extends StatelessWidget {
               children: children,
             ));
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: widget,
-    );
+    return widget;
   }
 }

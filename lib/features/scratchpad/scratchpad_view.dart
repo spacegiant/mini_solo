@@ -56,15 +56,31 @@ class _ScratchpadViewState extends State<ScratchpadView> {
         }
       }
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(kScratchPadTitle),
-          ),
-          const Divider(),
-          ScratchPicker(
+      return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth > 500) {
+            return twoColumnScratchPad(scratchEntriesData, appState);
+          } else {
+            return singleColumnScratchPad(scratchEntriesData, appState);
+          }
+        },
+      );
+    });
+  }
+
+  Widget singleColumnScratchPad(
+      List<ScratchPageEntryItem> scratchEntriesData, AppState appState) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(kScratchPadTitle),
+        ),
+        const Divider(),
+        Expanded(
+          flex: 1,
+          child: ScratchPicker(
               scratchItems: scratchEntriesData,
               onSelect: (String id) {
                 appState.setCurrentScratchId(id);
@@ -72,45 +88,112 @@ class _ScratchpadViewState extends State<ScratchpadView> {
               onDelete: (String id) {
                 appState.deleteScratchPadEntry(id);
               }),
-          const Divider(),
-          CupertinoTextField.borderless(
+        ),
+        const Divider(),
+        CupertinoTextField.borderless(
+          textAlignVertical: TextAlignVertical.top,
+          placeholder: kScratchTitlePlaceholder,
+          controller: _titleController,
+          expands: true,
+          minLines: null,
+          maxLines: null,
+          textCapitalization: TextCapitalization.sentences,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: CupertinoTextField.borderless(
             textAlignVertical: TextAlignVertical.top,
-            placeholder: kScratchTitlePlaceholder,
-            controller: _titleController,
+            placeholder: kScratchTextPlaceholder,
+            controller: _textController,
+            autofocus: true,
             expands: true,
             minLines: null,
             maxLines: null,
             textCapitalization: TextCapitalization.sentences,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
           ),
-          Expanded(
-            child: CupertinoTextField.borderless(
-              textAlignVertical: TextAlignVertical.top,
-              placeholder: kScratchTextPlaceholder,
-              controller: _textController,
-              autofocus: true,
-              expands: true,
-              minLines: null,
-              maxLines: null,
-              textCapitalization: TextCapitalization.sentences,
-            ),
+        ),
+        const Divider(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              newScratchButton(appState),
+              const SizedBox(width: 10.0),
+              scratchpadSaveButton(appState),
+            ],
           ),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+        )
+      ],
+    );
+  }
+
+  Widget twoColumnScratchPad(
+      List<ScratchPageEntryItem> scratchEntriesData, AppState appState) {
+    return Row(
+      children: [
+        ScratchPicker(
+            scratchItems: scratchEntriesData,
+            onSelect: (String id) {
+              appState.setCurrentScratchId(id);
+            },
+            onDelete: (String id) {
+              appState.deleteScratchPadEntry(id);
+            }),
+        Flexible(
+          flex: 2,
+          child: Container(
+            decoration: const BoxDecoration(
+              border: Border(
+                  left: BorderSide(
+                color: kBorderColour,
+              )),
+            ),
+            child: Column(
               children: [
-                newScratchButton(appState),
-                const SizedBox(width: 10.0),
-                scratchpadSaveButton(appState),
+                CupertinoTextField.borderless(
+                  textAlignVertical: TextAlignVertical.top,
+                  placeholder: kScratchTitlePlaceholder,
+                  controller: _titleController,
+                  expands: true,
+                  minLines: null,
+                  maxLines: null,
+                  textCapitalization: TextCapitalization.sentences,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Expanded(
+                  child: CupertinoTextField.borderless(
+                    textAlignVertical: TextAlignVertical.top,
+                    placeholder: kScratchTextPlaceholder,
+                    controller: _textController,
+                    autofocus: true,
+                    expands: true,
+                    minLines: null,
+                    maxLines: null,
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      newScratchButton(appState),
+                      const SizedBox(width: 10.0),
+                      scratchpadSaveButton(appState),
+                    ],
+                  ),
+                )
               ],
             ),
-          )
-        ],
-      );
-    });
+          ),
+        ),
+      ],
+    );
   }
 
   CupertinoButton newScratchButton(AppState appState) {
