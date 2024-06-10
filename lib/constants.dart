@@ -7,6 +7,7 @@ const kJournalBackgroundColour = Color(0xFFDFD6DA);
 const kBackdropFilterColour = Color(0x66000000);
 const kSubmitColour = Color(0xFF75B160);
 const kWarningColour = Color(0xFFD28DB0);
+const kBorderColour = Color(0x33000000);
 
 // POPUP SIZES
 const kCampaignManagerTitle = 'Campaign Manager';
