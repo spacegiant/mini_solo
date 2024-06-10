@@ -10,22 +10,23 @@ import 'package:mini_solo/widgets/view_wrapper.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../constants.dart';
-import '../data/app_state.dart';
-import '../data/campaign_data.dart';
-import '../features/random_tables/random_table_controls.dart';
-import '../icons.dart';
-import '../utilities/get_random_result.dart';
-import '../utilities/get_weighted_result.dart';
-import '../utilities/test_scene.dart';
-import '../widgets/gap.dart';
-import '../widgets/journal/journal.dart';
-import '../widgets/journal/widgets/journal_subheading.dart';
-import 'dice/dice.dart';
-import 'dice/dice_collection.dart';
-import 'dice/other_dice_sets.dart';
-import 'dice/regular_dice_set.dart';
-import 'mythic/fate_question.dart';
+import '../../constants.dart';
+import '../../data/app_state.dart';
+import '../../data/campaign_data.dart';
+import '../../features/random_tables/random_table_controls.dart';
+import '../../icons.dart';
+import '../../utilities/get_random_result.dart';
+import '../../utilities/get_weighted_result.dart';
+import '../../utilities/test_scene.dart';
+import '../../widgets/gap.dart';
+import '../../widgets/journal/journal.dart';
+import '../../widgets/journal/widgets/journal_subheading.dart';
+import '../dice/dice.dart';
+import '../dice/dice_collection.dart';
+import '../dice/other_dice_sets.dart';
+import '../dice/regular_dice_set.dart';
+import '../mythic/fate_question.dart';
+import 'get_event_focus.dart';
 
 class JournalView extends StatefulWidget {
   const JournalView({super.key});
@@ -46,28 +47,6 @@ class _JournalViewState extends State<JournalView> {
       line1 = result.line1;
       line2 = result.line2;
       line3 = null;
-    });
-  }
-
-  getEventFocus(AppState appState) {
-    getWeightedResult('lib/assets/json/mythic.json', (String text) {
-      setState(() {
-        line1 = text;
-        line2 = null;
-        line3 = null;
-      });
-
-      //  Save to campaign data and push to journal
-      appState.addMythicEntry(
-        MythicEntry(
-          isFavourite: false,
-          lines: JournalReturnObject(
-            result: text,
-            type: 'mythic',
-          ),
-          label: 'Mythic Event Focus',
-        ),
-      );
     });
   }
 
@@ -320,7 +299,13 @@ class _JournalViewState extends State<JournalView> {
         ListButton(
           label: 'Event Focus',
           onPressed: () {
-            getEventFocus(appState);
+            getEventFocus(appState, (String text) {
+              setState(() {
+                line1 = text;
+                line2 = null;
+                line3 = null;
+              });
+            });
           },
         ),
         ListButton(
