@@ -14,19 +14,7 @@ class JournalView extends StatefulWidget {
 }
 
 class _JournalViewState extends State<JournalView> {
-  String? line1;
-  String? line2;
-  String? line3;
-  String type = '...';
   List<DiceRoll> diceResults = [];
-
-  void updateState(JournalReturnObject result) {
-    setState(() {
-      line1 = result.line1;
-      line2 = result.line2;
-      line3 = null;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
