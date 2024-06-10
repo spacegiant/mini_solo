@@ -59,9 +59,13 @@ Widget journalControls(
     RandomTables(
       appState: appState,
     ),
-    const Divider(),
+    const JournalSubheading(
+      label: 'Trackers',
+    ),
     const TrackerControls(),
-    const Divider(),
+    const JournalSubheading(
+      label: 'New Item',
+    ),
     const Text('Create New Item Toolbar Here'),
     const JournalSubheading(
       label: 'Import/Export',

@@ -35,15 +35,15 @@ class RandomTables extends StatelessWidget {
             },
           ),
         ),
-        CupertinoButton(
-            child: const Icon(
-              CupertinoIcons.add_circled_solid,
-            ),
-            onPressed: () {
-              appState.toggleShowPopup(
-                label: PopupLabel.addRandomTable,
-              );
-            }),
+        ListButton(
+          iconData: CupertinoIcons.add,
+          onPressed: () {
+            appState.toggleShowPopup(
+              label: PopupLabel.addRandomTable,
+            );
+          },
+          label: 'Add random table',
+        ),
       ],
     );
   }
