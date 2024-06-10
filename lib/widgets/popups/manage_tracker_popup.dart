@@ -84,9 +84,23 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     );
   }
 
-  Widget simpleValueForm() => Text('Simple Value');
+  Widget simpleValueForm() => const Column(
+        children: [
+          Text('Simple Value'),
+          CupertinoTextField(
+            placeholder: 'Value',
+          ),
+        ],
+      );
 
-  Widget pipsForm() => Text('Pips');
+  Widget pipsForm() => const Column(
+        children: [
+          Text('Pips'),
+          CupertinoTextField(
+            placeholder: 'Number of Pips',
+          ),
+        ],
+      );
 
   Widget ironswornTrackerForm() => Column(
         children: [
