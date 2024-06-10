@@ -112,109 +112,113 @@ class _JournalViewState extends State<JournalView> {
           : null;
 
       return FocusScope(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Journal(
-              items: appState.campaignData!.journal,
-              diceRoll: diceResults,
-              addDice: addResult,
-              submitDice: submitResults,
-              clearDice: clearResults,
-            ),
-            Expanded(
-              flex: 1,
-              child: ViewWrapper(children: [
-                const Gap(),
-
-                diceTray(
-                  wrapControls,
-                  useD6OracleDice,
-                  addResult,
-                  useFateDice,
-                  useCoriolisDice,
-                  generalDice,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Journal(
+                  items: appState.campaignData!.journal,
+                  diceRoll: diceResults,
+                  addDice: addResult,
+                  submitDice: submitResults,
+                  clearDice: clearResults,
                 ),
+                Expanded(
+                  flex: 1,
+                  child: ViewWrapper(children: [
+                    const Gap(),
 
-                const JournalSubheading(label: kJournalMythicFateChartTitle),
+                    diceTray(
+                      wrapControls,
+                      useD6OracleDice,
+                      addResult,
+                      useFateDice,
+                      useCoriolisDice,
+                      generalDice,
+                    ),
 
-                FateQuestion(
-                  callback: (JournalReturnObject returnObject) {
-                    // For Bubble
-                    setState(() {
-                      line1 = returnObject.line1!;
-                      line2 = returnObject.line2;
-                      line3 = returnObject.result;
-                    });
+                    const JournalSubheading(label: kJournalMythicFateChartTitle),
 
-                    appState.addOracleEntry(
-                      OracleEntry(
-                          isFavourite: false,
-                          lines: returnObject,
-                          label: kJournalMythicAskTheFateChart),
-                    );
-                  },
-                  wrapControls: wrapControls,
-                ),
+                    FateQuestion(
+                      callback: (JournalReturnObject returnObject) {
+                        // For Bubble
+                        setState(() {
+                          line1 = returnObject.line1!;
+                          line2 = returnObject.line2;
+                          line3 = returnObject.result;
+                        });
 
-                const JournalSubheading(
-                  label: kJournalMythicGMETitle,
-                ),
+                        appState.addOracleEntry(
+                          OracleEntry(
+                              isFavourite: false,
+                              lines: returnObject,
+                              label: kJournalMythicAskTheFateChart),
+                        );
+                      },
+                      wrapControls: wrapControls,
+                    ),
 
-                mythicGMEControls(wrapControls, appState, context),
+                    const JournalSubheading(
+                      label: kJournalMythicGMETitle,
+                    ),
 
-                const JournalSubheading(
-                  label: kJournalRandomTablesTitle,
-                ),
+                    mythicGMEControls(wrapControls, appState, context),
 
-                RandomTables(
-                  appState: appState,
-                ),
-                const Divider(),
-                const Text('Create New Item Toolbar Here'),
-                const Divider(),
-                const JournalSubheading(
-                  label: 'Import/Export',
-                ),
-                WrapManager(wrapControls: wrapControls, children: [
-                  ListButton(
-                      label: 'Import Manager',
-                      onPressed: () {
-                        appState.toggleShowPopup(
-                            label: PopupLabel.importManager);
-                      }),
-                  ListButton(
-                      label: 'Export Campaign',
-                      onPressed: () async {
-                        CampaignData? campaignData = appState.campaignData;
-                        String jsonString =
+                    const JournalSubheading(
+                      label: kJournalRandomTablesTitle,
+                    ),
+
+                    RandomTables(
+                      appState: appState,
+                    ),
+                    const Divider(),
+                    const Text('Create New Item Toolbar Here'),
+                    const Divider(),
+                    const JournalSubheading(
+                      label: 'Import/Export',
+                    ),
+                    WrapManager(wrapControls: wrapControls, children: [
+                      ListButton(
+                          label: 'Import Manager',
+                          onPressed: () {
+                            appState.toggleShowPopup(
+                                label: PopupLabel.importManager);
+                          }),
+                      ListButton(
+                          label: 'Export Campaign',
+                          onPressed: () async {
+                            CampaignData? campaignData = appState.campaignData;
+                            String jsonString =
                             appState.storage.getCampaignJSON(campaignData!);
-                        await Clipboard.setData(
-                            ClipboardData(text: jsonString));
-                        // copied successfully
-                      }),
-                  ListButton(
-                      label: 'Export AppSettings',
-                      onPressed: () async {
-                        AppSettingsData? appSettingsData =
-                            appState.appSettingsData;
-                        String jsonString =
+                            await Clipboard.setData(
+                                ClipboardData(text: jsonString));
+                            // copied successfully
+                          }),
+                      ListButton(
+                          label: 'Export AppSettings',
+                          onPressed: () async {
+                            AppSettingsData? appSettingsData =
+                                appState.appSettingsData;
+                            String jsonString =
                             appState.storage.appSettingsToJSON(appSettingsData);
-                        await Clipboard.setData(
-                            ClipboardData(text: jsonString));
-                        // copied successfully
-                      }),
-                ]),
+                            await Clipboard.setData(
+                                ClipboardData(text: jsonString));
+                            // copied successfully
+                          }),
+                    ]),
 
-                const Divider(),
+                    const Divider(),
 
-                // const MarkdownBlock(
-                //   newString: '# hello\n*hello* hello\n- hello',
-                // ),
-              ]),
-            ),
-          ],
+                    // const MarkdownBlock(
+                    //   newString: '# hello\n*hello* hello\n- hello',
+                    // ),
+                  ]),
+                ),
+              ],
+            )
+          },
         ),
       );
     });
