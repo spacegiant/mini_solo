@@ -58,22 +58,28 @@ class _EditNotePopupState extends State<EditNotePopup> {
             textCapitalization: TextCapitalization.sentences,
           ),
         ),
-        CupertinoButton(
-            color: CupertinoColors.systemGreen,
-            onPressed: () {
-              widget.appState.updateNoteItem(currentEntryId, _controller.text);
-              widget.appState.setCurrentEntryId('');
-              widget.appState.closePopup();
-            },
-            child: const Text('Submit')),
-        const Gap(),
-        CupertinoButton(
-          color: CupertinoColors.destructiveRed,
-          onPressed: () {
-            widget.appState.deleteNoteItem(currentEntryId);
-            widget.appState.closePopup();
-          },
-          child: const Text('Delete'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CupertinoButton(
+                color: CupertinoColors.systemGreen,
+                onPressed: () {
+                  widget.appState
+                      .updateNoteItem(currentEntryId, _controller.text);
+                  widget.appState.setCurrentEntryId('');
+                  widget.appState.closePopup();
+                },
+                child: const Text('Submit')),
+            const Gap(),
+            CupertinoButton(
+              color: CupertinoColors.destructiveRed,
+              onPressed: () {
+                widget.appState.deleteNoteItem(currentEntryId);
+                widget.appState.closePopup();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
         ),
       ],
     );
