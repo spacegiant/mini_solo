@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mini_solo/views/journal/tracker_controls.dart';
 
 import '../../constants.dart';
 import '../../data/app_settings_data.dart';
@@ -58,6 +59,8 @@ Widget journalControls(
     RandomTables(
       appState: appState,
     ),
+    const Divider(),
+    const TrackerControls(),
     const Divider(),
     const Text('Create New Item Toolbar Here'),
     const JournalSubheading(
