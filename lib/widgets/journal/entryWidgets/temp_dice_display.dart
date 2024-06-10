@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../views/dice/dice_glyph.dart';
-import '../journal.dart';
+import '../../../views/journal/journal.dart';
 
 class TempDiceDisplay extends StatelessWidget {
   const TempDiceDisplay({

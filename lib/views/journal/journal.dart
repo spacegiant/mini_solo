@@ -5,16 +5,16 @@ import 'package:mini_solo/widgets/journal/entryWidgets/roll_table_result_widget.
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
-import 'entryWidgets/journal_end_glyphs.dart';
-import 'entryWidgets/journal_footer.dart';
-import 'entryWidgets/journal_start_entry.dart';
-import 'entryWidgets/new_scene_entry_widget.dart';
-import 'entryWidgets/note_entry_input.dart';
-import 'entryWidgets/note_entry_widget.dart';
-import 'entryWidgets/mythic_entry_widget.dart';
-import 'entryWidgets/oracle_entry_widget.dart';
-import 'entryWidgets/roll_entry_widget.dart';
-import 'entryWidgets/temp_dice_display.dart';
+import '../../widgets/journal/entryWidgets/journal_end_glyphs.dart';
+import '../../widgets/journal/entryWidgets/journal_footer.dart';
+import '../../widgets/journal/entryWidgets/journal_start_entry.dart';
+import '../../widgets/journal/entryWidgets/new_scene_entry_widget.dart';
+import '../../widgets/journal/entryWidgets/note_entry_input.dart';
+import '../../widgets/journal/entryWidgets/note_entry_widget.dart';
+import '../../widgets/journal/entryWidgets/mythic_entry_widget.dart';
+import '../../widgets/journal/entryWidgets/oracle_entry_widget.dart';
+import '../../widgets/journal/entryWidgets/roll_entry_widget.dart';
+import '../../widgets/journal/entryWidgets/temp_dice_display.dart';
 
 List<Widget> getEntries(
     AppState appState, List<JournalEntryItem> journalItems) {

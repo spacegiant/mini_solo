@@ -19,7 +19,7 @@ import '../../utilities/get_random_result.dart';
 import '../../utilities/get_weighted_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../widgets/gap.dart';
-import '../../widgets/journal/journal.dart';
+import 'journal.dart';
 import '../../widgets/journal/widgets/journal_subheading.dart';
 import '../dice/dice.dart';
 import '../dice/dice_collection.dart';
