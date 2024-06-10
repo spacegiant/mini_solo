@@ -9,6 +9,9 @@ const kSubmitColour = Color(0xFF75B160);
 const kWarningColour = Color(0xFFD28DB0);
 const kBorderColour = Color(0x33000000);
 
+// SIZES
+const double kItemExtent = 32.0;
+
 // POPUP SIZES
 const kCampaignManagerTitle = 'Campaign Manager';
 const kChaosFactorTitle = 'Set Chaos Factor';
