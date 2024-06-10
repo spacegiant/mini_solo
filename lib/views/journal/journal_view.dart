@@ -56,29 +56,33 @@ class _JournalViewState extends State<JournalView> {
       return FocusScope(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return singleColumnLayout(
-              constraints,
-              appState,
-              addResult,
-              submitResults,
-              clearResults,
-              context,
-            );
-            // return twoColumnLayout(
-            //   constraints,
-            //   appState,
-            //   addResult,
-            //   submitResults,
-            //   clearResults,
-            //   context,
-            // );
+            print(constraints.maxWidth);
+            if (constraints.maxWidth > 500) {
+              return twoColumnLayout(
+                constraints,
+                appState,
+                addResult,
+                submitResults,
+                clearResults,
+                context,
+              );
+            } else {
+              return singleColumnLayout(
+                constraints,
+                appState,
+                addResult,
+                submitResults,
+                clearResults,
+                context,
+              );
+            }
           },
         ),
       );
     });
   }
 
-  Column singleColumnLayout(
+  Widget singleColumnLayout(
       BoxConstraints constraints,
       AppState appState,
       void Function(List<DiceRoll> result) addResult,
@@ -110,7 +114,7 @@ class _JournalViewState extends State<JournalView> {
     );
   }
 
-  Row twoColumnLayout(
+  Widget twoColumnLayout(
       BoxConstraints constraints,
       AppState appState,
       void Function(List<DiceRoll> result) addResult,
@@ -119,15 +123,19 @@ class _JournalViewState extends State<JournalView> {
       BuildContext context) {
     return Row(
       children: [
-        Journal(
-          constraints: constraints,
-          items: appState.campaignData!.journal,
-          diceRoll: diceResults,
-          addDice: addResult,
-          submitDice: submitResults,
-          clearDice: clearResults,
+        Expanded(
+          flex: 1,
+          child: Journal(
+            constraints: constraints,
+            items: appState.campaignData!.journal,
+            diceRoll: diceResults,
+            addDice: addResult,
+            submitDice: submitResults,
+            clearDice: clearResults,
+          ),
         ),
         Expanded(
+          flex: 1,
           child: journalControls(
             appState,
             addResult,
