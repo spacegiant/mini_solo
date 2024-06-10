@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../widgets/journal/entryWidgets/journal_end_glyphs.dart';
-import '../../widgets/journal/entryWidgets/journal_footer.dart';
 import '../../widgets/journal/entryWidgets/journal_start_entry.dart';
 import '../../widgets/journal/entryWidgets/new_scene_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/note_entry_input.dart';
@@ -17,11 +16,14 @@ import '../../widgets/journal/entryWidgets/roll_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/temp_dice_display.dart';
 
 List<Widget> getEntries(
-    AppState appState, List<JournalEntryItem> journalItems) {
+  AppState appState,
+  List<JournalEntryItem> journalItems,
+) {
   List<Widget> journalEntries = [];
+  if (journalItems.isEmpty) return [const SizedBox.shrink()];
+
   Color dividerColor = Colors.black.withOpacity(0.1);
 
-  if (journalItems.isEmpty) return [const SizedBox.shrink()];
   for (var element in journalItems) {
     switch (element.type) {
       case JournalEntryTypes.mythic:
@@ -148,35 +150,23 @@ class _JournalState extends State<Journal> {
           // },
           child: Container(
             color: kJournalBackgroundColour,
-            child: Column(
-              children: [
-                Container(
-                  constraints: const BoxConstraints(
-                    // Max height used here to prevent android keyboard overlaying input
-                    minHeight: 300.0,
-                    maxHeight: 300.0,
-                  ),
-                  child: SingleChildScrollView(
-                    reverse: true,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const JournalStartEntry(),
-                        ...entries,
-                        const JournalEndGlyphs(),
-                        if (widget.diceRoll!.isNotEmpty)
-                          TempDiceDisplay(widget: widget),
-                        if (showInput)
-                          NoteEntryInput(
-                            controller: _controller,
-                            onInputSubmit: onInputSubmit,
-                          )
-                      ],
-                    ),
-                  ),
-                ),
-                if (showFutureFeatures) const JournalFooter(),
-              ],
+            child: SingleChildScrollView(
+              reverse: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const JournalStartEntry(),
+                  ...entries,
+                  const JournalEndGlyphs(),
+                  if (widget.diceRoll!.isNotEmpty)
+                    TempDiceDisplay(widget: widget),
+                  if (showInput)
+                    NoteEntryInput(
+                      controller: _controller,
+                      onInputSubmit: onInputSubmit,
+                    )
+                ],
+              ),
             ),
           ),
         );

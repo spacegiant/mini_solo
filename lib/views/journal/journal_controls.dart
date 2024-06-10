@@ -17,88 +17,84 @@ import '../mythic/fate_question.dart';
 import 'dice_tray.dart';
 import 'get_event_focus.dart';
 
-Expanded journalControls(
+Widget journalControls(
     AppState appState,
     void Function(List<DiceRoll> result) addResult,
     // bool wrapControls,
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
-  return Expanded(
-    flex: 1,
-    child: ViewWrapper(children: [
-      const Gap(),
+  return ViewWrapper(children: [
+    const Gap(),
 
-      diceTray(
-        appState,
-        addResult,
-      ),
+    diceTray(
+      appState,
+      addResult,
+    ),
 
-      const JournalSubheading(label: kJournalMythicFateChartTitle),
+    const JournalSubheading(label: kJournalMythicFateChartTitle),
 
-      FateQuestion(
-        callback: (JournalReturnObject returnObject) {
-          appState.addOracleEntry(
-            OracleEntry(
-                isFavourite: false,
-                lines: returnObject,
-                label: kJournalMythicAskTheFateChart),
-          );
-        },
-        wrapControls: wrapControls,
-      ),
+    FateQuestion(
+      callback: (JournalReturnObject returnObject) {
+        appState.addOracleEntry(
+          OracleEntry(
+              isFavourite: false,
+              lines: returnObject,
+              label: kJournalMythicAskTheFateChart),
+        );
+      },
+      wrapControls: wrapControls,
+    ),
 
-      const JournalSubheading(
-        label: kJournalMythicGMETitle,
-      ),
+    const JournalSubheading(
+      label: kJournalMythicGMETitle,
+    ),
 
-      mythicGMEControls(wrapControls, appState, context),
+    mythicGMEControls(wrapControls, appState, context),
 
-      const JournalSubheading(
-        label: kJournalRandomTablesTitle,
-      ),
+    const JournalSubheading(
+      label: kJournalRandomTablesTitle,
+    ),
 
-      RandomTables(
-        appState: appState,
-      ),
-      const Divider(),
-      const Text('Create New Item Toolbar Here'),
-      const Divider(),
-      const JournalSubheading(
-        label: 'Import/Export',
-      ),
-      WrapManager(wrapControls: wrapControls, children: [
-        ListButton(
-            label: 'Import Manager',
-            onPressed: () {
-              appState.toggleShowPopup(label: PopupLabel.importManager);
-            }),
-        ListButton(
-            label: 'Export Campaign',
-            onPressed: () async {
-              CampaignData? campaignData = appState.campaignData;
-              String jsonString =
-                  appState.storage.getCampaignJSON(campaignData!);
-              await Clipboard.setData(ClipboardData(text: jsonString));
-              // copied successfully
-            }),
-        ListButton(
-            label: 'Export AppSettings',
-            onPressed: () async {
-              AppSettingsData? appSettingsData = appState.appSettingsData;
-              String jsonString =
-                  appState.storage.appSettingsToJSON(appSettingsData);
-              await Clipboard.setData(ClipboardData(text: jsonString));
-              // copied successfully
-            }),
-      ]),
-
-      const Divider(),
-
-      // const MarkdownBlock(
-      //   newString: '# hello\n*hello* hello\n- hello',
-      // ),
+    RandomTables(
+      appState: appState,
+    ),
+    const Divider(),
+    const Text('Create New Item Toolbar Here'),
+    const Divider(),
+    const JournalSubheading(
+      label: 'Import/Export',
+    ),
+    WrapManager(wrapControls: wrapControls, children: [
+      ListButton(
+          label: 'Import Manager',
+          onPressed: () {
+            appState.toggleShowPopup(label: PopupLabel.importManager);
+          }),
+      ListButton(
+          label: 'Export Campaign',
+          onPressed: () async {
+            CampaignData? campaignData = appState.campaignData;
+            String jsonString = appState.storage.getCampaignJSON(campaignData!);
+            await Clipboard.setData(ClipboardData(text: jsonString));
+            // copied successfully
+          }),
+      ListButton(
+          label: 'Export AppSettings',
+          onPressed: () async {
+            AppSettingsData? appSettingsData = appState.appSettingsData;
+            String jsonString =
+                appState.storage.appSettingsToJSON(appSettingsData);
+            await Clipboard.setData(ClipboardData(text: jsonString));
+            // copied successfully
+          }),
     ]),
-  );
+
+    const Divider(),
+
+    // const MarkdownBlock(
+    //   newString: '# hello\n*hello* hello\n- hello',
+    // ),
+  ]);
 }
 
 WrapManager mythicGMEControls(

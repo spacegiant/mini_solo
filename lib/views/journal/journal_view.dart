@@ -64,6 +64,14 @@ class _JournalViewState extends State<JournalView> {
               clearResults,
               context,
             );
+            // return twoColumnLayout(
+            //   constraints,
+            //   appState,
+            //   addResult,
+            //   submitResults,
+            //   clearResults,
+            //   context,
+            // );
           },
         ),
       );
@@ -78,8 +86,38 @@ class _JournalViewState extends State<JournalView> {
       void Function() clearResults,
       BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 4,
+          child: Journal(
+            constraints: constraints,
+            items: appState.campaignData!.journal,
+            diceRoll: diceResults,
+            addDice: addResult,
+            submitDice: submitResults,
+            clearDice: clearResults,
+          ),
+        ),
+        Expanded(
+          flex: 6,
+          child: journalControls(
+            appState,
+            addResult,
+            context,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row twoColumnLayout(
+      BoxConstraints constraints,
+      AppState appState,
+      void Function(List<DiceRoll> result) addResult,
+      void Function() submitResults,
+      void Function() clearResults,
+      BuildContext context) {
+    return Row(
       children: [
         Journal(
           constraints: constraints,
@@ -89,10 +127,12 @@ class _JournalViewState extends State<JournalView> {
           submitDice: submitResults,
           clearDice: clearResults,
         ),
-        journalControls(
-          appState,
-          addResult,
-          context,
+        Expanded(
+          child: journalControls(
+            appState,
+            addResult,
+            context,
+          ),
         ),
       ],
     );
