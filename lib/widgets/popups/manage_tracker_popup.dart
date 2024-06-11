@@ -63,13 +63,34 @@ class ManageTrackerPopup extends StatefulWidget {
 
 class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   String selectedTracker = '';
+  late TextEditingController _trackerNameController;
+  late TextEditingController _minValueController;
+  late TextEditingController _currentValueController;
+  late TextEditingController _maxValueController;
+
+  @override
+  void initState() {
+    super.initState();
+    _trackerNameController = TextEditingController();
+    _minValueController = TextEditingController(text: '0');
+    _currentValueController = TextEditingController(text: '0');
+    _maxValueController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _trackerNameController.dispose();
+    _minValueController.dispose();
+    _currentValueController.dispose();
+    _maxValueController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var trackerTypes = _trackerTypes.values.toList();
+    // var trackerTypes = _trackerTypes.values.toList();
 
     void handleSelection(String id) {
-      print('handle selection');
       setState(() {
         selectedTracker = id;
       });
@@ -86,11 +107,6 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
               onSelect: handleSelection))
         });
 
-    //
-    // for (var item in trackers.values) {
-    //   controls.add(trackerOptionButton(images: item, id: 'id')) ;
-    // }
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -98,9 +114,15 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         children: [
           Text('Tracker Name $selectedTracker'),
           const Gap(),
-          const CupertinoTextField(
+          CupertinoTextField(
+            controller: _trackerNameController,
             placeholder: 'Tracker name',
           ),
+          const Gap(),
+          rangeValues(),
+          const Divider(),
+          const Gap(),
+          const Text('Select Tracker Type'),
           const Gap(),
           Wrap(
             spacing: 8.0,
@@ -108,28 +130,52 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
             children: [...controls],
           ),
           const Divider(),
-          const Row(
-            children: [
-              Flexible(
-                  child: CupertinoTextField(
-                placeholder: 'min value',
-              )),
-              Gap(),
-              Flexible(
-                  child: CupertinoTextField(
-                placeholder: 'current value',
-              )),
-              Gap(),
-              Flexible(
-                  child: CupertinoTextField(
-                placeholder: 'max value',
-              )),
-            ],
-          ),
           const Gap(),
           buttonBar(),
         ],
       ),
+    );
+  }
+
+  Row rangeValues() {
+    return Row(
+      children: [
+        Flexible(
+            child: Column(
+          children: [
+            const Text('Min Value'),
+            const Gap(height: 4.0),
+            CupertinoTextField(
+              controller: _minValueController,
+              placeholder: 'min value',
+            ),
+          ],
+        )),
+        const Gap(),
+        Flexible(
+            child: Column(
+          children: [
+            const Text('Current Value'),
+            const Gap(height: 4.0),
+            CupertinoTextField(
+              controller: _currentValueController,
+              placeholder: 'current value',
+            ),
+          ],
+        )),
+        const Gap(),
+        Flexible(
+            child: Column(
+          children: [
+            const Text('Max Value'),
+            const Gap(height: 4.0),
+            CupertinoTextField(
+              controller: _maxValueController,
+              placeholder: 'max value',
+            ),
+          ],
+        )),
+      ],
     );
   }
 
