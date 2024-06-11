@@ -3,17 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 
+import '../../data/campaign_data.dart';
 import '../gap.dart';
 import '../my_slider.dart';
 import '../picker.dart';
-
-enum TrackerTypes {
-  clock,
-  bar,
-  ironswornTrack,
-  pips,
-  value,
-}
 
 Map<TrackerTypes, String> _trackerTypes = {
   TrackerTypes.clock: 'Clock',
@@ -178,12 +171,4 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   Widget clockForm() => const Column(
         children: [Text('Number of Segments'), MySlider()],
       );
-}
-
-class Tracker {
-  late TrackerTypes trackerType;
-  late int? min;
-  late int? max;
-  late int current;
-  late String label;
 }

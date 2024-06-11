@@ -61,6 +61,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',
+  JournalEntryTypes.tracker: 'tracker',
 };
 
 RandomTableRow _$RandomTableRowFromJson(Map<String, dynamic> json) =>

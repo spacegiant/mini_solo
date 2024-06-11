@@ -106,7 +106,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       rollTableResult: (json['rollTableResult'] as List<dynamic>)
           .map((e) => RollTableResult.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..tracker = (json['tracker'] as List<dynamic>)
+        .map((e) => TrackerEntry.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
@@ -129,6 +131,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'scratchPad': instance.scratchPad.map((e) => e.toJson()).toList(),
       'rollTableResult':
           instance.rollTableResult.map((e) => e.toJson()).toList(),
+      'tracker': instance.tracker.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -175,6 +178,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',
+  JournalEntryTypes.tracker: 'tracker',
 };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
@@ -580,3 +584,32 @@ Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
       'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
+
+TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
+      currentValue: (json['currentValue'] as num).toInt(),
+      minValue: (json['minValue'] as num?)?.toInt(),
+      maxValue: (json['maxValue'] as num?)?.toInt(),
+      trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
+    )
+      ..isFavourite = json['isFavourite'] as bool?
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'currentValue': instance.currentValue,
+      'minValue': instance.minValue,
+      'maxValue': instance.maxValue,
+      'trackerType': _$TrackerTypesEnumMap[instance.trackerType]!,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
+const _$TrackerTypesEnumMap = {
+  TrackerTypes.clock: 'clock',
+  TrackerTypes.bar: 'bar',
+  TrackerTypes.ironswornTrack: 'ironswornTrack',
+  TrackerTypes.pips: 'pips',
+  TrackerTypes.value: 'value',
+};

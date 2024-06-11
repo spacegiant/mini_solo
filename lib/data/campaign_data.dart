@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../icons.dart';
+import '../widgets/popups/manage_tracker_popup.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';
@@ -8,6 +9,14 @@ import 'note_entry_item.dart';
 part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
+
+enum TrackerTypes {
+  clock,
+  bar,
+  ironswornTrack,
+  pips,
+  value,
+}
 
 enum JournalEntryTypes {
   action,
@@ -31,6 +40,7 @@ enum JournalEntryTypes {
   scratchPage,
   randomTable,
   rollTableResult,
+  tracker,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -52,6 +62,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
+  JournalEntryTypes.tracker: 'tracker',
 };
 
 // TODO: Rename this
@@ -145,6 +156,7 @@ class CampaignData {
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
   late List<RollTableResult> rollTableResult;
+  late List<TrackerEntry> tracker;
 
   CampaignData({
     required this.settings,
@@ -510,4 +522,29 @@ class MythicEntry extends CampaignItem {
   @override
   JournalEntryTypes type = JournalEntryTypes.mythic;
 // coverage:ignore-end
+}
+
+@JsonSerializable()
+class TrackerEntry extends CampaignItem {
+  final int currentValue;
+  final int? minValue;
+  final int? maxValue;
+  final TrackerTypes trackerType;
+
+  TrackerEntry({
+    required this.currentValue,
+    required this.minValue,
+    required this.maxValue,
+    required this.trackerType,
+  });
+
+  // coverage:ignore-start
+  factory TrackerEntry.fromJson(Map<String, dynamic> json) =>
+      _$TrackerEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TrackerEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.tracker;
+  // coverage:ignore-end
 }
