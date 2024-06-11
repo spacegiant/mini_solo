@@ -62,27 +62,28 @@ class ManageTrackerPopup extends StatefulWidget {
 }
 
 class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
-  late TrackerTypes selectedType = TrackerTypes.clock;
+  String selectedTracker = '';
 
   @override
   Widget build(BuildContext context) {
     var trackerTypes = _trackerTypes.values.toList();
-    var selectedTracker;
 
-    void handleChange(int index) {
-      print('handle change ${_trackerTypes.keys.elementAt(index)}');
+    void handleSelection(String id) {
+      print('handle selection');
       setState(() {
-        selectedType = _trackerTypes.keys.elementAt(index);
+        selectedTracker = id;
       });
     }
-
-    void handleSelection(int id) {}
 
     List<Widget> controls = [];
 
     trackers.forEach((label, images) => {
-          controls
-              .add(trackerOptionButton(images: images, label: label, id: label))
+          controls.add(trackerOptionButton(
+              images: images,
+              label: label,
+              id: label,
+              selectedId: selectedTracker,
+              onSelect: handleSelection))
         });
 
     //
@@ -95,7 +96,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Tracker Name'),
+          Text('Tracker Name $selectedTracker'),
           const Gap(),
           const CupertinoTextField(
             placeholder: 'Tracker name',
@@ -137,8 +138,16 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     String? label,
     double? size,
     required String id,
-    String? selectedId,
+    required String selectedId,
+    required Function(String) onSelect,
   }) {
+    Color buttonColor = CupertinoColors.extraLightBackgroundGray;
+    Color textColor = CupertinoColors.black;
+
+    if (selectedId == id) {
+      buttonColor = CupertinoColors.systemYellow;
+    }
+
     List<SvgIcon> svgIcons = images
         .map((image) => SvgIcon(
               icon: image,
@@ -146,12 +155,12 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
             ))
         .toList();
 
-    bool isSelected = id == selectedId;
-
     return CupertinoButton(
-      onPressed: () {},
+      onPressed: () {
+        onSelect(id);
+      },
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      color: CupertinoColors.extraLightBackgroundGray,
+      color: buttonColor,
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
@@ -160,7 +169,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
           if (label != null)
             Text(
               label,
-              style: const TextStyle(color: CupertinoColors.black),
+              style: TextStyle(color: textColor),
             ),
         ],
       ),

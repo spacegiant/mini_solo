@@ -9,22 +9,27 @@ class SvgIcon extends StatelessWidget {
     this.semanticsLabel,
     this.width = 56.0,
     this.height = 56.0,
+    this.color,
   });
 
   final Images? icon;
   final String? semanticsLabel;
   final double? width;
   final double? height;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    ColorFilter? filter =
+        color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null;
+
     if (imagesPaths[icon] != null) {
       return SvgPicture.asset(
         imagesPaths[icon]!,
         semanticsLabel: semanticsLabel,
         width: width,
         height: height,
-        // colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+        colorFilter: filter,
       );
     } else {
       return const SizedBox.shrink();
