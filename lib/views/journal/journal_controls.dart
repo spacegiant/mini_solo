@@ -68,7 +68,25 @@ Widget journalControls(
     const JournalSubheading(
       label: 'New Item',
     ),
-    const Text('Create New Item Toolbar Here'),
+    WrapManager(wrapControls: true, children: [
+      ListButton(
+        label: 'New Tracker',
+        onPressed: () {
+          // TODO: Open Create Tracker Popup
+          appState.toggleShowPopup(
+            label: PopupLabel.manageTracker,
+          );
+        },
+      ),
+      ListButton(
+        onPressed: () {
+          appState.toggleShowPopup(
+            label: PopupLabel.addRandomTable,
+          );
+        },
+        label: 'Add random table',
+      ),
+    ]),
     const JournalSubheading(
       label: 'Import/Export',
     ),
