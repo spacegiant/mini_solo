@@ -2,13 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
-import 'package:mini_solo/widgets/list_button.dart';
 
 import '../../data/campaign_data.dart';
 import '../../icons.dart';
 import '../gap.dart';
-import '../my_slider.dart';
-import '../picker.dart';
 
 Map<TrackerTypes, String> _trackerTypes = {
   TrackerTypes.clock: 'Clock',
@@ -16,6 +13,38 @@ Map<TrackerTypes, String> _trackerTypes = {
   TrackerTypes.ironswornTrack: 'Ironsworn Track',
   TrackerTypes.pips: 'Pips',
   TrackerTypes.value: 'Value',
+};
+
+Map<String, List<Images>> trackers = {
+  '4 Segment': [Images.clock4_0],
+  '6 Segment': [Images.clock6_0],
+  '8 Segment': [Images.clock8_0],
+  'Troublesome': [
+    Images.ironsworn_tick_4,
+    Images.ironsworn_tick_4,
+    Images.ironsworn_tick_4,
+  ],
+  'Dangerous': [
+    Images.ironsworn_tick_4,
+    Images.ironsworn_tick_4,
+  ],
+  'Formidable': [
+    Images.ironsworn_tick_4,
+  ],
+  'Extreme': [Images.ironsworn_tick_2],
+  'Epic': [
+    Images.ironsworn_tick_1,
+  ],
+  'Pip': [
+    Images.pip_icon,
+  ],
+  'Bar': [
+    Images.bar_tracker,
+  ],
+  'Simple Value': [
+    Images.value_tracker,
+  ],
+  'Counter': []
 };
 
 class ManageTrackerPopup extends StatefulWidget {
@@ -38,6 +67,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   @override
   Widget build(BuildContext context) {
     var trackerTypes = _trackerTypes.values.toList();
+    var selectedTracker;
 
     void handleChange(int index) {
       print('handle change ${_trackerTypes.keys.elementAt(index)}');
@@ -45,6 +75,20 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         selectedType = _trackerTypes.keys.elementAt(index);
       });
     }
+
+    void handleSelection(int id) {}
+
+    List<Widget> controls = [];
+
+    trackers.forEach((label, images) => {
+          controls
+              .add(trackerOptionButton(images: images, label: label, id: label))
+        });
+
+    //
+    // for (var item in trackers.values) {
+    //   controls.add(trackerOptionButton(images: item, id: 'id')) ;
+    // }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -60,63 +104,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
           Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: [
-              trackerOptionButton(
-                  images: [Images.clock4_0], label: '4 Segment Clock'),
-              trackerOptionButton(
-                  images: [Images.clock6_0], label: '6 Segment Clock'),
-              trackerOptionButton(
-                  images: [Images.clock8_0], label: '8 Segment Clock'),
-              trackerOptionButton(
-                images: [
-                  Images.ironsworn_tick_4,
-                  Images.ironsworn_tick_4,
-                  Images.ironsworn_tick_4,
-                ],
-                label: 'Troublesome',
-              ),
-              trackerOptionButton(
-                images: [
-                  Images.ironsworn_tick_4,
-                  Images.ironsworn_tick_4,
-                ],
-                label: 'Dangerous',
-              ),
-              trackerOptionButton(
-                images: [
-                  Images.ironsworn_tick_4,
-                ],
-                label: 'Formidable',
-              ),
-              trackerOptionButton(
-                images: [Images.ironsworn_tick_2],
-                label: 'Extreme',
-              ),
-              trackerOptionButton(
-                images: [
-                  Images.ironsworn_tick_1,
-                ],
-                label: 'Epic',
-              ),
-              trackerOptionButton(
-                images: [
-                  Images.pip_icon,
-                ],
-                label: 'Pip',
-              ),
-              trackerOptionButton(
-                images: [
-                  Images.bar_tracker,
-                ],
-                label: 'Bar',
-              ),
-              trackerOptionButton(
-                images: [
-                  Images.value_tracker,
-                ],
-                label: 'Simple Value',
-              ),
-            ],
+            children: [...controls],
           ),
           const Divider(),
           const Row(
@@ -148,13 +136,17 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     required List<Images> images,
     String? label,
     double? size,
+    required String id,
+    String? selectedId,
   }) {
     List<SvgIcon> svgIcons = images
         .map((image) => SvgIcon(
               icon: image,
-              height: 24.0,
+              height: 36.0,
             ))
         .toList();
+
+    bool isSelected = id == selectedId;
 
     return CupertinoButton(
       onPressed: () {},
@@ -175,33 +167,6 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     );
   }
 
-  CupertinoButton eightSegmentClockButton() {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      color: CupertinoColors.extraLightBackgroundGray,
-      onPressed: () {},
-      child: const SvgIcon(icon: Images.clock8_0),
-    );
-  }
-
-  CupertinoButton sixSegmentClockButton() {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      color: CupertinoColors.extraLightBackgroundGray,
-      onPressed: () {},
-      child: const SvgIcon(icon: Images.clock6_0),
-    );
-  }
-
-  CupertinoButton fourSegmentClockButton() {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      color: CupertinoColors.extraLightBackgroundGray,
-      onPressed: () {},
-      child: const SvgIcon(icon: Images.clock4_0),
-    );
-  }
-
   Row buttonBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,6 +174,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         CupertinoButton(
             color: kSubmitColour,
             onPressed: () {
+              // Validate
               // Create Tracker from Class
               // Add to campaign data tracker collection
             },
@@ -222,93 +188,3 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     );
   }
 }
-//
-//   Widget simpleValueForm() => const Column(
-//         children: [
-//           Text('Simple Value'),
-//           CupertinoTextField(
-//             placeholder: 'Value',
-//           ),
-//         ],
-//       );
-//
-//   Widget pipsForm() => const Column(
-//         children: [
-//           Text('Pips'),
-//           CupertinoTextField(
-//             placeholder: 'Number of Pips',
-//           ),
-//         ],
-//       );
-//
-//   /*
-//   TODO: Make this more visual.
-//   The choices should be how many ticks you do each success.
-//    */
-//   Widget ironswornTrackerForm() => Column(
-//         children: [
-//           const Text('Ironsworn Track'),
-//           Picker(items: const [
-//             '*** Troublesome',
-//             '** Dangerous',
-//             '* Formidable',
-//             'x Extreme',
-//             '/\ Epic',
-//           ], onChange: (index) {})
-//         ],
-//       );
-//
-//   Widget barForm() => const Column(
-//         children: [
-//           Text('Bar Tracker Settings'),
-//           Gap(),
-//           Row(
-//             children: [
-//               Flexible(
-//                 child: CupertinoTextField(
-//                   placeholder: 'Min',
-//                 ),
-//               ),
-//               Gap(),
-//               Flexible(
-//                 child: CupertinoTextField(
-//                   placeholder: 'Current',
-//                 ),
-//               ),
-//               Gap(),
-//               Flexible(
-//                 child: CupertinoTextField(
-//                   placeholder: 'Max',
-//                 ),
-//               ),
-//             ],
-//           )
-//         ],
-//       );
-//
-//   Widget clockForm() => Column(
-//         children: [
-//           Text('Number of Segments'),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Flexible(
-//                 child: CupertinoButton(
-//                     child: const SvgIcon(icon: Images.clock4_0),
-//                     onPressed: () {}),
-//               ),
-//               Flexible(
-//                 child: CupertinoButton(
-//                     child: const SvgIcon(icon: Images.clock6_0),
-//                     onPressed: () {}),
-//               ),
-//               Flexible(
-//                 child: CupertinoButton(
-//                     child: const SvgIcon(icon: Images.clock8_0),
-//                     onPressed: () {}),
-//               )
-//             ],
-//           ),
-//         ],
-//       );
-// }
