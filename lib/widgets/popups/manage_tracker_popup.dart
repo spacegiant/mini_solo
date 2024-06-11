@@ -97,6 +97,16 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     void handleSelection(String id) {
       setState(() {
         selectedTracker = id;
+        TrackerOptions currentTracker = trackers.firstWhere((tracker) {
+          return tracker.label == selectedTracker;
+        });
+        if (currentTracker.type == TrackerTypes.clock) {
+          print('CLOCK');
+        } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
+          print('IRONSWORN');
+        } else if (currentTracker.type == TrackerTypes.pips) {
+          print('PIPS');
+        }
         // if (selectedTracker.contains('Segment')) {}
         // else if(selectedTracker)
       });
