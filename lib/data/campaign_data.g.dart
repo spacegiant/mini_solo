@@ -530,6 +530,11 @@ const _$ImagesEnumMap = {
   Images.clock8_6: 'clock8_6',
   Images.clock8_7: 'clock8_7',
   Images.clock8_8: 'clock8_8',
+  Images.bar_tracker: 'bar_tracker',
+  Images.pip_checked: 'pip_checked',
+  Images.pip_icon: 'pip_icon',
+  Images.pip_unchecked: 'pip_unchecked',
+  Images.value_tracker: 'value_tracker',
 };
 
 ScratchPageEntryItem _$ScratchPageEntryItemFromJson(
@@ -639,4 +644,5 @@ const _$TrackerTypesEnumMap = {
   TrackerTypes.ironswornTrack: 'ironswornTrack',
   TrackerTypes.pips: 'pips',
   TrackerTypes.value: 'value',
+  TrackerTypes.counter: 'counter',
 };

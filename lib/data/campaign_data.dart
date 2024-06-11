@@ -16,6 +16,7 @@ enum TrackerTypes {
   ironswornTrack,
   pips,
   value,
+  counter,
 }
 
 enum JournalEntryTypes {

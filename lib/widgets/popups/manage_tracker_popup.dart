@@ -7,45 +7,45 @@ import '../../data/campaign_data.dart';
 import '../../icons.dart';
 import '../gap.dart';
 
-Map<TrackerTypes, String> _trackerTypes = {
-  TrackerTypes.clock: 'Clock',
-  TrackerTypes.bar: 'Bar',
-  TrackerTypes.ironswornTrack: 'Ironsworn Track',
-  TrackerTypes.pips: 'Pips',
-  TrackerTypes.value: 'Value',
-};
+class TrackerOptions {
+  final String label;
+  final TrackerTypes type;
+  final List<Images> images;
 
-Map<String, List<Images>> trackers = {
-  '4 Segment': [Images.clock4_0],
-  '6 Segment': [Images.clock6_0],
-  '8 Segment': [Images.clock8_0],
-  'Troublesome': [
+  TrackerOptions(
+    this.label,
+    this.type,
+    this.images,
+  );
+}
+
+List<TrackerOptions> trackers = [
+  TrackerOptions('4 Segment', TrackerTypes.clock, [Images.clock4_0]),
+  TrackerOptions('6 Segment', TrackerTypes.clock, [Images.clock6_0]),
+  TrackerOptions('8 Segment', TrackerTypes.clock, [Images.clock8_0]),
+  TrackerOptions('Troublesome', TrackerTypes.ironswornTrack, [
     Images.ironsworn_tick_4,
     Images.ironsworn_tick_4,
     Images.ironsworn_tick_4,
-  ],
-  'Dangerous': [
+  ]),
+  TrackerOptions('Dangerous', TrackerTypes.ironswornTrack, [
     Images.ironsworn_tick_4,
     Images.ironsworn_tick_4,
-  ],
-  'Formidable': [
+  ]),
+  TrackerOptions('Formidable', TrackerTypes.ironswornTrack, [
     Images.ironsworn_tick_4,
-  ],
-  'Extreme': [Images.ironsworn_tick_2],
-  'Epic': [
+  ]),
+  TrackerOptions('Extreme', TrackerTypes.ironswornTrack, [
+    Images.ironsworn_tick_2,
+  ]),
+  TrackerOptions('Epic', TrackerTypes.ironswornTrack, [
     Images.ironsworn_tick_1,
-  ],
-  'Pip': [
-    Images.pip_icon,
-  ],
-  'Bar': [
-    Images.bar_tracker,
-  ],
-  'Simple Value': [
-    Images.value_tracker,
-  ],
-  'Counter': []
-};
+  ]),
+  TrackerOptions('Pip', TrackerTypes.pips, [Images.pip_icon]),
+  TrackerOptions('Bar', TrackerTypes.bar, [Images.bar_tracker]),
+  TrackerOptions('Simple Value', TrackerTypes.value, [Images.value_tracker]),
+  TrackerOptions('Counter', TrackerTypes.counter, [Images.value_tracker]),
+];
 
 class ManageTrackerPopup extends StatefulWidget {
   const ManageTrackerPopup({
@@ -63,6 +63,10 @@ class ManageTrackerPopup extends StatefulWidget {
 
 class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   String selectedTracker = '';
+  bool minValueActive = true;
+  bool currentValueActive = true;
+  bool maxValueActive = true;
+
   late TextEditingController _trackerNameController;
   late TextEditingController _minValueController;
   late TextEditingController _currentValueController;
@@ -93,19 +97,23 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     void handleSelection(String id) {
       setState(() {
         selectedTracker = id;
+        // if (selectedTracker.contains('Segment')) {}
+        // else if(selectedTracker)
       });
     }
 
     List<Widget> controls = [];
 
-    trackers.forEach((label, images) => {
-          controls.add(trackerOptionButton(
-              images: images,
-              label: label,
-              id: label,
-              selectedId: selectedTracker,
-              onSelect: handleSelection))
-        });
+    trackers.forEach((tracker) {
+      controls.add(
+        trackerOptionButton(
+            images: tracker.images,
+            label: tracker.label,
+            id: tracker.label,
+            selectedId: selectedTracker,
+            onSelect: handleSelection),
+      );
+    });
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -229,6 +237,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         CupertinoButton(
             color: kSubmitColour,
             onPressed: () {
+              // if(_trackerNameController.text != '' && )
               // Validate
               // Create Tracker from Class
               // Add to campaign data tracker collection
