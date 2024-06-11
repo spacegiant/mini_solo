@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/icons.dart';
@@ -41,7 +42,7 @@ class TrackerControls extends StatelessWidget {
       }
     });
     return WrapManager(
-        wrapControls: true,
+        wrapControls: appState.wrapControls,
         children: [if (trackerWidgets != null) ...trackerWidgets]);
   }
 }
@@ -156,11 +157,18 @@ class ClockWidget extends StatelessWidget {
       Images.clock8_8,
     ];
 
-    return Column(
-      children: [
-        Text(entry.label),
-        const SvgIcon(icon: Images.clock4_0),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: const BoxDecoration(
+          color: CupertinoColors.lightBackgroundGray,
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SvgIcon(icon: Images.clock4_0),
+          Text(entry.label),
+        ],
+      ),
     );
   }
 }
