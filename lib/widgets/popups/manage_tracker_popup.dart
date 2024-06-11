@@ -11,40 +11,123 @@ class TrackerOptions {
   final String label;
   final TrackerTypes type;
   final List<Images> images;
+  final int? minValue;
+  final int? currentValue;
+  final int? maxValue;
+  final bool? editMin;
+  final bool? editCurrent;
+  final bool? editMax;
 
-  TrackerOptions(
-    this.label,
-    this.type,
-    this.images,
-  );
+  TrackerOptions({
+    required this.label,
+    required this.type,
+    required this.images,
+    this.editMin = false,
+    this.editCurrent = false,
+    this.editMax = false,
+    this.minValue,
+    this.currentValue,
+    this.maxValue,
+  });
 }
 
 List<TrackerOptions> trackers = [
-  TrackerOptions('4 Segment', TrackerTypes.clock, [Images.clock4_0]),
-  TrackerOptions('6 Segment', TrackerTypes.clock, [Images.clock6_0]),
-  TrackerOptions('8 Segment', TrackerTypes.clock, [Images.clock8_0]),
-  TrackerOptions('Troublesome', TrackerTypes.ironswornTrack, [
-    Images.ironsworn_tick_4,
-    Images.ironsworn_tick_4,
-    Images.ironsworn_tick_4,
-  ]),
-  TrackerOptions('Dangerous', TrackerTypes.ironswornTrack, [
-    Images.ironsworn_tick_4,
-    Images.ironsworn_tick_4,
-  ]),
-  TrackerOptions('Formidable', TrackerTypes.ironswornTrack, [
-    Images.ironsworn_tick_4,
-  ]),
-  TrackerOptions('Extreme', TrackerTypes.ironswornTrack, [
-    Images.ironsworn_tick_2,
-  ]),
-  TrackerOptions('Epic', TrackerTypes.ironswornTrack, [
-    Images.ironsworn_tick_1,
-  ]),
-  TrackerOptions('Pip', TrackerTypes.pips, [Images.pip_icon]),
-  TrackerOptions('Bar', TrackerTypes.bar, [Images.bar_tracker]),
-  TrackerOptions('Simple Value', TrackerTypes.value, [Images.value_tracker]),
-  TrackerOptions('Counter', TrackerTypes.counter, [Images.value_tracker]),
+  TrackerOptions(
+    label: '4 Segment',
+    type: TrackerTypes.clock,
+    images: [Images.clock4_0],
+    maxValue: 4,
+  ),
+  TrackerOptions(
+    label: '6 Segment',
+    type: TrackerTypes.clock,
+    images: [Images.clock6_0],
+    maxValue: 6,
+  ),
+  TrackerOptions(
+    label: '8 Segment',
+    type: TrackerTypes.clock,
+    images: [Images.clock8_0],
+    maxValue: 8,
+  ),
+  TrackerOptions(
+    label: 'Troublesome',
+    type: TrackerTypes.ironswornTrack,
+    images: [
+      Images.ironsworn_tick_4,
+      Images.ironsworn_tick_4,
+      Images.ironsworn_tick_4,
+    ],
+    maxValue: 10,
+  ),
+  TrackerOptions(
+    label: 'Dangerous',
+    type: TrackerTypes.ironswornTrack,
+    images: [
+      Images.ironsworn_tick_4,
+      Images.ironsworn_tick_4,
+    ],
+    maxValue: 10,
+  ),
+  TrackerOptions(
+    label: 'Formidable',
+    type: TrackerTypes.ironswornTrack,
+    images: [
+      Images.ironsworn_tick_4,
+    ],
+    maxValue: 10,
+  ),
+  TrackerOptions(
+    label: 'Extreme',
+    type: TrackerTypes.ironswornTrack,
+    images: [
+      Images.ironsworn_tick_2,
+    ],
+    maxValue: 10,
+  ),
+  TrackerOptions(
+    label: 'Epic',
+    type: TrackerTypes.ironswornTrack,
+    images: [
+      Images.ironsworn_tick_1,
+    ],
+    maxValue: 10,
+  ),
+  TrackerOptions(
+    label: 'Pip',
+    type: TrackerTypes.pips,
+    images: [Images.pip_icon],
+    minValue: 0,
+    currentValue: 0,
+    maxValue: 6,
+    editCurrent: true,
+    editMax: true,
+  ),
+  TrackerOptions(
+    label: 'Bar',
+    type: TrackerTypes.bar,
+    images: [Images.bar_tracker],
+    minValue: 0,
+    currentValue: 0,
+    maxValue: 10,
+    editMin: true,
+    editCurrent: true,
+    editMax: true,
+  ),
+  TrackerOptions(
+    label: 'Simple Value',
+    type: TrackerTypes.value,
+    images: [Images.value_tracker],
+    currentValue: 9,
+    editCurrent: true,
+  ),
+  TrackerOptions(
+    label: 'Counter',
+    type: TrackerTypes.counter,
+    images: [Images.value_tracker],
+    editCurrent: true,
+    currentValue: 0,
+  ),
 ];
 
 class ManageTrackerPopup extends StatefulWidget {
@@ -63,9 +146,9 @@ class ManageTrackerPopup extends StatefulWidget {
 
 class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   String selectedTracker = '';
-  bool minValueActive = true;
-  bool currentValueActive = true;
-  bool maxValueActive = true;
+  bool minValueActive = false;
+  bool currentValueActive = false;
+  bool maxValueActive = false;
 
   late TextEditingController _trackerNameController;
   late TextEditingController _minValueController;
@@ -76,8 +159,8 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   void initState() {
     super.initState();
     _trackerNameController = TextEditingController();
-    _minValueController = TextEditingController(text: '0');
-    _currentValueController = TextEditingController(text: '0');
+    _minValueController = TextEditingController();
+    _currentValueController = TextEditingController();
     _maxValueController = TextEditingController();
   }
 
@@ -100,15 +183,16 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         TrackerOptions currentTracker = trackers.firstWhere((tracker) {
           return tracker.label == selectedTracker;
         });
-        if (currentTracker.type == TrackerTypes.clock) {
-          print('CLOCK');
-        } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
-          print('IRONSWORN');
-        } else if (currentTracker.type == TrackerTypes.pips) {
-          print('PIPS');
-        }
-        // if (selectedTracker.contains('Segment')) {}
-        // else if(selectedTracker)
+        minValueActive = currentTracker.editMin!;
+        currentValueActive = currentTracker.editCurrent!;
+        maxValueActive = currentTracker.editMax!;
+
+        // TODO: Should this be in the setState?
+        _minValueController.text = manageValue(currentTracker.minValue);
+        _currentValueController.text = manageValue(currentTracker.currentValue);
+        _maxValueController.text = manageValue(currentTracker.maxValue);
+
+        // if(currentTracker.minValue != null ) _minValueController.text = currentTracker.minValue.toString();
       });
     }
 
@@ -159,39 +243,52 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     return Row(
       children: [
         Flexible(
-            child: Column(
-          children: [
-            const Text('Min Value'),
-            const Gap(height: 4.0),
-            CupertinoTextField(
-              controller: _minValueController,
-              placeholder: 'min value',
-            ),
-          ],
+            child: Opacity(
+          opacity: minValueActive == true ? 1.0 : 0.3,
+          child: Column(
+            children: [
+              const Text('Min Value'),
+              const Gap(height: 4.0),
+              CupertinoTextField(
+                keyboardType: TextInputType.number,
+                enabled: minValueActive,
+                controller: _minValueController,
+                placeholder: 'min value',
+              ),
+            ],
+          ),
         )),
         const Gap(),
         Flexible(
-            child: Column(
-          children: [
-            const Text('Current Value'),
-            const Gap(height: 4.0),
-            CupertinoTextField(
-              controller: _currentValueController,
-              placeholder: 'current value',
-            ),
-          ],
+            child: Opacity(
+          opacity: currentValueActive == true ? 1.0 : 0.3,
+          child: Column(
+            children: [
+              const Text('Current Value'),
+              const Gap(height: 4.0),
+              CupertinoTextField(
+                enabled: currentValueActive,
+                controller: _currentValueController,
+                placeholder: 'current value',
+              ),
+            ],
+          ),
         )),
         const Gap(),
         Flexible(
-            child: Column(
-          children: [
-            const Text('Max Value'),
-            const Gap(height: 4.0),
-            CupertinoTextField(
-              controller: _maxValueController,
-              placeholder: 'max value',
-            ),
-          ],
+            child: Opacity(
+          opacity: maxValueActive == true ? 1.0 : 0.3,
+          child: Column(
+            children: [
+              const Text('Max Value'),
+              const Gap(height: 4.0),
+              CupertinoTextField(
+                enabled: maxValueActive,
+                controller: _maxValueController,
+                placeholder: 'max value',
+              ),
+            ],
+          ),
         )),
       ],
     );
@@ -270,14 +367,36 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       return tracker.label == selectedTracker;
     });
     if (currentTracker.type == TrackerTypes.clock) {
-      print('CLOCK');
+      // has preset max and min
+      widget.appState.addTrackerEntry(TrackerEntry(
+        currentValue: 0,
+        minValue: 0,
+        maxValue: currentTracker.maxValue,
+        trackerType: TrackerTypes.clock,
+      ));
     } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
+      // has preset track length etc.
       print('IRONSWORN');
     } else if (currentTracker.type == TrackerTypes.pips) {
+      // Needs a max and current
       print('PIPS');
+    } else if (currentTracker.type == TrackerTypes.bar) {
+      // Needs min, current and max
+    } else if (currentTracker.type == TrackerTypes.value) {
+      // just needs current value
+    } else if (currentTracker.type == TrackerTypes.counter) {
+      // just needs current value
     }
     // Validate
     // Create Tracker from Class
     // Add to campaign data tracker collection
+  }
+
+  String manageValue(int? value) {
+    if (value != null) {
+      return value.toString();
+    } else {
+      return '';
+    }
   }
 }
