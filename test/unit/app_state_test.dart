@@ -1,7 +1,6 @@
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/icons.dart';
-import 'package:mini_solo/utilities/mock_callback.dart';
 import 'package:test/test.dart';
 
 void main() {

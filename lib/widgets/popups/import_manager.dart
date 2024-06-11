@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/data/campaign_storage.dart';
 
 import '../../data/app_state.dart';
 import '../gap.dart';
@@ -52,7 +51,6 @@ class _ImportManagerState extends State<ImportManager> {
       _appSettingsJSONController.text = '';
     }
 
-    var count = widget.appState.randomTables.length;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -117,10 +115,6 @@ class _ImportManagerState extends State<ImportManager> {
                   color: kSubmitColour,
                   child: const Text('Import'),
                   onPressed: () {
-                    bool appIsEmpty = widget.appState.campaignData == null;
-
-                    bool switchToImportedCampaign = false;
-
                     // TODO VALIDATE FIRST
                     if (_appSettingsJSONController.text.isNotEmpty) {
                       AppSettingsData importedData = widget.appState.storage

@@ -220,7 +220,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         CupertinoButton(
             color: kSubmitColour,
             onPressed:
-                (_trackerNameController.text == '' || selectedTracker == null)
+                (_trackerNameController.text == '')
                     ? null
                     : handleSubmit,
             child: const Text('Save')),
@@ -236,7 +236,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   }
 
   void handleSubmit() {
-    if (_trackerNameController.text == '' || selectedTracker == null) {
+    if (_trackerNameController.text == '') {
       return;
     }
     TrackerOptions currentTracker = trackers.firstWhere((tracker) {
@@ -250,30 +250,6 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       trackerType: currentTracker.type,
     ));
     widget.appState.closePopup();
-    // if (currentTracker.type == TrackerTypes.clock) {
-    //   // has preset max and min
-    //   widget.appState.addTrackerEntry(TrackerEntry(
-    //     currentValue: 0,
-    //     minValue: 0,
-    //     maxValue: currentTracker.maxValue,
-    //     trackerType: TrackerTypes.clock,
-    //   ));
-    // } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
-    //   // has preset track length etc.
-    //   print('IRONSWORN');
-    // } else if (currentTracker.type == TrackerTypes.pips) {
-    //   // Needs a max and current
-    //   print('PIPS');
-    // } else if (currentTracker.type == TrackerTypes.bar) {
-    //   // Needs min, current and max
-    // } else if (currentTracker.type == TrackerTypes.value) {
-    //   // just needs current value
-    // } else if (currentTracker.type == TrackerTypes.counter) {
-    //   // just needs current value
-    // }
-    // Validate
-    // Create Tracker from Class
-    // Add to campaign data tracker collection
   }
 
   String manageValue(int? value) {
@@ -287,12 +263,8 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   int parseString(String text) {
     try {
       int value = int.parse(text);
-      if (value is int) {
-        return value;
-      } else {
-        return 0;
-      }
-    } catch (e) {
+      return value;
+        } catch (e) {
       if (kDebugMode) {
         print('parseString() failed. $e');
       }
