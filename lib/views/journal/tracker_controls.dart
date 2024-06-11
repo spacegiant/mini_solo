@@ -6,6 +6,8 @@ import 'package:mini_solo/icons.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 
+import '../../widgets/gap.dart';
+
 class TrackerControls extends StatelessWidget {
   const TrackerControls({
     super.key,
@@ -105,7 +107,13 @@ class IronswornWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       child: Column(
         children: [
-          Text(entry.label),
+          Row(
+            children: [
+              Text(entry.label),
+              Gap(),
+              if (entry.subtype != null) Text(entry.subtype!),
+            ],
+          ),
           const Row(
             children: [
               SvgIcon(
