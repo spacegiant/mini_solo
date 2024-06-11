@@ -56,17 +56,25 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Manage Tracker'),
-          const Gap(),
           const Text('Tracker Name'),
           const CupertinoTextField(
             placeholder: 'Tracker name',
           ),
           const Gap(),
-          const Text('Tracker Type'),
-          Picker(
-            items: trackerTypes,
-            onChange: handleChange,
+          /*
+          TODO: When modifying a tracker, this is grayed-out/disabled
+           */
+          Row(
+            children: [
+              const Flexible(child: Text('Tracker Type')),
+              const Gap(),
+              Flexible(
+                child: Picker(
+                  items: trackerTypes,
+                  onChange: handleChange,
+                ),
+              ),
+            ],
           ),
           const Divider(),
           if (selectedType == TrackerTypes.clock)
@@ -78,7 +86,27 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
           else if (selectedType == TrackerTypes.pips)
             pipsForm()
           else if (selectedType == TrackerTypes.value)
-            simpleValueForm()
+            simpleValueForm(),
+          const Gap(),
+          const Divider(),
+          const Gap(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CupertinoButton(
+                  color: kSubmitColour,
+                  onPressed: () {
+                    // Create Tracker from Class
+                    // Add to campaign data tracker collection
+                  },
+                  child: const Text('Save')),
+              const Gap(),
+              CupertinoButton(
+                  color: kWarningColour,
+                  onPressed: () {},
+                  child: const Text('Cancel')),
+            ],
+          ),
         ],
       ),
     );
@@ -102,15 +130,19 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         ],
       );
 
+  /*
+  TODO: Make this more visual.
+  The choices should be how many ticks you do each success.
+   */
   Widget ironswornTrackerForm() => Column(
         children: [
-          Text('Ironsworn Track'),
+          const Text('Ironsworn Track'),
           Picker(items: const [
-            'Troublesome',
-            'Dangerous',
-            'Formidable',
-            'Extreme',
-            'Epic',
+            '*** Troublesome',
+            '** Dangerous',
+            '* Formidable',
+            'x Extreme',
+            '/\ Epic',
           ], onChange: (index) {})
         ],
       );
@@ -146,4 +178,12 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   Widget clockForm() => const Column(
         children: [Text('Number of Segments'), MySlider()],
       );
+}
+
+class Tracker {
+  late TrackerTypes trackerType;
+  late int? min;
+  late int? max;
+  late int current;
+  late String label;
 }

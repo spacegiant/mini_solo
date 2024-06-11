@@ -48,13 +48,12 @@ class _PickerState extends State<Picker> {
           padding: const EdgeInsets.all(8.0),
           width: double.infinity,
           decoration: const BoxDecoration(
-            color: CupertinoColors.white,
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Text(
             widget.items[_selectedItem],
             style: const TextStyle(
-              fontSize: 16.0,
+              fontSize: 18.0,
             ),
           ),
         ),
