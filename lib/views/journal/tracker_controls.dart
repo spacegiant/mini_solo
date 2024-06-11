@@ -157,6 +157,14 @@ class ClockWidget extends StatelessWidget {
       SVGIcon.clock8_8,
     ];
 
+    var iconList = fourSegment;
+
+    if (entry.maxValue == 6) {
+      iconList = sixSegment;
+    } else if (entry.maxValue == 8) {
+      iconList = eightSegment;
+    }
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: const BoxDecoration(
@@ -165,7 +173,7 @@ class ClockWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgIcon(icon: fourSegment[1]),
+          SvgIcon(icon: iconList[1]),
           Text(entry.label),
         ],
       ),
