@@ -550,7 +550,7 @@ class AppState extends ChangeNotifier {
   }
 
   // TRACKER ENTRIES
-  void addRandomTrackerEntry(TrackerEntry entry) {
+  void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
     addJournalEntry(
       JournalEntryItem(
@@ -561,7 +561,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void updateRandomTrackerEntry(String id, TrackerEntry entry) {
+  void updateTrackerEntry(String id, TrackerEntry entry) {
     int index = _campaignData!.tracker
         .indexWhere((entry) => entry.id == currentEntryId);
 
@@ -569,7 +569,7 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
-  void deleteRandomTrackerEntry(String id) {
+  void deleteTrackerEntry(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
