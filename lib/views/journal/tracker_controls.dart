@@ -42,8 +42,7 @@ class TrackerControls extends StatelessWidget {
       }
     });
     return WrapManager(
-        wrapControls: appState.wrapControls,
-        children: [if (trackerWidgets != null) ...trackerWidgets]);
+        wrapControls: appState.wrapControls, children: [...trackerWidgets]);
   }
 }
 
@@ -99,7 +98,61 @@ class IronswornWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(entry.label);
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: const BoxDecoration(
+          color: CupertinoColors.lightBackgroundGray,
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      child: Column(
+        children: [
+          Text(entry.label),
+          const Row(
+            children: [
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_4,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_2,
+                height: 36.0,
+              ),
+              SvgIcon(
+                icon: SVGIcon.ironsworn_tick_0,
+                height: 36.0,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
