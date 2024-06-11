@@ -165,17 +165,21 @@ class ClockWidget extends StatelessWidget {
       iconList = eightSegment;
     }
 
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: const BoxDecoration(
-          color: CupertinoColors.lightBackgroundGray,
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SvgIcon(icon: iconList[1]),
-          Text(entry.label),
-        ],
+    return GestureDetector(
+      onTap: () {},
+      onLongPress: () {},
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        decoration: const BoxDecoration(
+            color: CupertinoColors.lightBackgroundGray,
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgIcon(icon: iconList[1]),
+            Text(entry.label),
+          ],
+        ),
       ),
     );
   }
