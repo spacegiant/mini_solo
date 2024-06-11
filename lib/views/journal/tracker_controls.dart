@@ -212,9 +212,9 @@ class ClockWidget extends StatelessWidget {
 
     var iconList = fourSegment;
 
-    if (entry.maxValue == 6) {
+    if (entry.subtype == '6segment') {
       iconList = sixSegment;
-    } else if (entry.maxValue == 8) {
+    } else if (entry.subtype == '8segment') {
       iconList = eightSegment;
     }
 

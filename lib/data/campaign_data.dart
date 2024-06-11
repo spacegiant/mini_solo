@@ -533,6 +533,7 @@ class TrackerEntry extends CampaignItem {
   final int minValue;
   final int maxValue;
   final TrackerTypes trackerType;
+  final String? subtype;
 
   TrackerEntry({
     required this.label,
@@ -540,6 +541,7 @@ class TrackerEntry extends CampaignItem {
     this.minValue = 0,
     this.maxValue = 0,
     required this.trackerType,
+    this.subtype,
   });
 
   // coverage:ignore-start

@@ -246,6 +246,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       currentValue: parseString(_currentValueController.text),
       maxValue: parseString(_maxValueController.text),
       trackerType: currentTracker.type,
+      subtype: currentTracker.subType,
     ));
     widget.appState.closePopup();
   }

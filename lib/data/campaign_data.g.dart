@@ -304,16 +304,16 @@ Map<String, dynamic> _$BothResultsToJson(BothResults instance) =>
 DiceRoll _$DiceRollFromJson(Map<String, dynamic> json) => DiceRoll(
       result: BothResults.fromJson(json['result'] as Map<String, dynamic>),
       diceType: json['diceType'] as String,
-      icon: $enumDecode(_$ImagesEnumMap, json['icon']),
+      icon: $enumDecode(_$SVGIconEnumMap, json['icon']),
     );
 
 Map<String, dynamic> _$DiceRollToJson(DiceRoll instance) => <String, dynamic>{
       'result': instance.result,
       'diceType': instance.diceType,
-      'icon': _$ImagesEnumMap[instance.icon]!,
+      'icon': _$SVGIconEnumMap[instance.icon]!,
     };
 
-const _$ImagesEnumMap = {
+const _$SVGIconEnumMap = {
   SVGIcon.placeholder: 'placeholder',
   SVGIcon.d6Oracle: 'd6Oracle',
   SVGIcon.d6OracleYesAnd: 'd6OracleYesAnd',
@@ -566,7 +566,7 @@ RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
           .map((e) => DiceRoll.fromJson(e as Map<String, dynamic>))
           .toList(),
       label: json['label'] as String? ?? 'Dice Roll',
-      icon: $enumDecodeNullable(_$ImagesEnumMap, json['icon']),
+      icon: $enumDecodeNullable(_$SVGIconEnumMap, json['icon']),
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -577,7 +577,7 @@ Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
       'id': instance.id,
       'result': instance.result,
       'label': instance.label,
-      'icon': _$ImagesEnumMap[instance.icon],
+      'icon': _$SVGIconEnumMap[instance.icon],
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
@@ -623,6 +623,7 @@ TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
       minValue: (json['minValue'] as num?)?.toInt() ?? 0,
       maxValue: (json['maxValue'] as num?)?.toInt() ?? 0,
       trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
+      subtype: json['subtype'] as String?,
     )
       ..isFavourite = json['isFavourite'] as bool?
       ..id = json['id'] as String
@@ -637,6 +638,7 @@ Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,
       'trackerType': _$TrackerTypesEnumMap[instance.trackerType]!,
+      'subtype': instance.subtype,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
