@@ -618,9 +618,10 @@ Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
     };
 
 TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
+      label: json['label'] as String,
       currentValue: (json['currentValue'] as num).toInt(),
-      minValue: (json['minValue'] as num?)?.toInt(),
-      maxValue: (json['maxValue'] as num?)?.toInt(),
+      minValue: (json['minValue'] as num?)?.toInt() ?? 0,
+      maxValue: (json['maxValue'] as num?)?.toInt() ?? 0,
       trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
     )
       ..isFavourite = json['isFavourite'] as bool?
@@ -631,6 +632,7 @@ Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,
+      'label': instance.label,
       'currentValue': instance.currentValue,
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,

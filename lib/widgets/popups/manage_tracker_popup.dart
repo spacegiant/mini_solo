@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
@@ -53,24 +54,20 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
-    // var trackerTypes = _trackerTypes.values.toList();
-
     void handleSelection(String id) {
+      selectedTracker = id;
+      TrackerOptions currentTracker = trackers.firstWhere((tracker) {
+        return tracker.label == selectedTracker;
+      });
+
+      _minValueController.text = manageValue(currentTracker.minValue);
+      _currentValueController.text = manageValue(currentTracker.currentValue);
+      _maxValueController.text = manageValue(currentTracker.maxValue);
+
       setState(() {
-        selectedTracker = id;
-        TrackerOptions currentTracker = trackers.firstWhere((tracker) {
-          return tracker.label == selectedTracker;
-        });
         minValueActive = currentTracker.editMin!;
         currentValueActive = currentTracker.editCurrent!;
         maxValueActive = currentTracker.editMax!;
-
-        // TODO: Should this be in the setState?
-        _minValueController.text = manageValue(currentTracker.minValue);
-        _currentValueController.text = manageValue(currentTracker.currentValue);
-        _maxValueController.text = manageValue(currentTracker.maxValue);
-
-        // if(currentTracker.minValue != null ) _minValueController.text = currentTracker.minValue.toString();
       });
     }
 
@@ -245,27 +242,35 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     TrackerOptions currentTracker = trackers.firstWhere((tracker) {
       return tracker.label == selectedTracker;
     });
-    if (currentTracker.type == TrackerTypes.clock) {
-      // has preset max and min
-      widget.appState.addTrackerEntry(TrackerEntry(
-        currentValue: 0,
-        minValue: 0,
-        maxValue: currentTracker.maxValue,
-        trackerType: TrackerTypes.clock,
-      ));
-    } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
-      // has preset track length etc.
-      print('IRONSWORN');
-    } else if (currentTracker.type == TrackerTypes.pips) {
-      // Needs a max and current
-      print('PIPS');
-    } else if (currentTracker.type == TrackerTypes.bar) {
-      // Needs min, current and max
-    } else if (currentTracker.type == TrackerTypes.value) {
-      // just needs current value
-    } else if (currentTracker.type == TrackerTypes.counter) {
-      // just needs current value
-    }
+    widget.appState.addTrackerEntry(TrackerEntry(
+      label: _trackerNameController.text,
+      minValue: parseString(_minValueController.text),
+      currentValue: parseString(_currentValueController.text),
+      maxValue: parseString(_maxValueController.text),
+      trackerType: currentTracker.type,
+    ));
+    widget.appState.closePopup();
+    // if (currentTracker.type == TrackerTypes.clock) {
+    //   // has preset max and min
+    //   widget.appState.addTrackerEntry(TrackerEntry(
+    //     currentValue: 0,
+    //     minValue: 0,
+    //     maxValue: currentTracker.maxValue,
+    //     trackerType: TrackerTypes.clock,
+    //   ));
+    // } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
+    //   // has preset track length etc.
+    //   print('IRONSWORN');
+    // } else if (currentTracker.type == TrackerTypes.pips) {
+    //   // Needs a max and current
+    //   print('PIPS');
+    // } else if (currentTracker.type == TrackerTypes.bar) {
+    //   // Needs min, current and max
+    // } else if (currentTracker.type == TrackerTypes.value) {
+    //   // just needs current value
+    // } else if (currentTracker.type == TrackerTypes.counter) {
+    //   // just needs current value
+    // }
     // Validate
     // Create Tracker from Class
     // Add to campaign data tracker collection
@@ -276,6 +281,22 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       return value.toString();
     } else {
       return '';
+    }
+  }
+
+  int parseString(String text) {
+    try {
+      int value = int.parse(text);
+      if (value is int) {
+        return value;
+      } else {
+        return 0;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('parseString() failed. $e');
+      }
+      return 0;
     }
   }
 }

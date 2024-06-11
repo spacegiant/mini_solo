@@ -529,15 +529,17 @@ class MythicEntry extends CampaignItem {
 
 @JsonSerializable()
 class TrackerEntry extends CampaignItem {
+  final String label;
   final int currentValue;
-  final int? minValue;
-  final int? maxValue;
+  final int minValue;
+  final int maxValue;
   final TrackerTypes trackerType;
 
   TrackerEntry({
+    required this.label,
     required this.currentValue,
-    required this.minValue,
-    required this.maxValue,
+    this.minValue = 0,
+    this.maxValue = 0,
     required this.trackerType,
   });
 
