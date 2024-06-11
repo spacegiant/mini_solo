@@ -548,4 +548,31 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
     // notifyListeners();
   }
+
+  // TRACKER ENTRIES
+  void addRandomTrackerEntry(TrackerEntry entry) {
+    _campaignData?.tracker.add(entry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: entry.type,
+        id: entry.id,
+      ),
+    );
+  }
+
+  void updateRandomTrackerEntry(String id, TrackerEntry entry) {
+    int index = _campaignData!.tracker
+        .indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.tracker[index] = entry;
+    saveCampaignDataToDisk();
+  }
+
+  void deleteRandomTrackerEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+    // notifyListeners();
+  }
 }
