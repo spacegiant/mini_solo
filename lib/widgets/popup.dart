@@ -36,7 +36,7 @@ Consumer<Object?> popup(
       if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
       } else if (popup == PopupLabel.manageTracker) {
-        popupHeight = 700.0;
+        popupHeight = 750.0;
         popupWidget = ManageTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.importManager) {
         popupHeight = 700.0;

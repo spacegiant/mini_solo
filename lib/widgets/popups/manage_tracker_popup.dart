@@ -114,7 +114,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
 
     List<Widget> controls = [];
 
-    trackers.forEach((tracker) {
+    for (var tracker in trackers) {
       controls.add(
         trackerOptionButton(
             images: tracker.images,
@@ -123,7 +123,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
             selectedId: selectedTracker,
             onSelect: handleSelection),
       );
-    });
+    }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -246,19 +246,38 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       children: [
         CupertinoButton(
             color: kSubmitColour,
-            onPressed: () {
-              // if(_trackerNameController.text != '' && )
-              // Validate
-              // Create Tracker from Class
-              // Add to campaign data tracker collection
-            },
+            onPressed:
+                (_trackerNameController.text == '' || selectedTracker == null)
+                    ? null
+                    : handleSubmit,
             child: const Text('Save')),
         const Gap(),
         CupertinoButton(
             color: kWarningColour,
-            onPressed: () {},
+            onPressed: () {
+              widget.appState.closePopup();
+            },
             child: const Text('Cancel')),
       ],
     );
+  }
+
+  void handleSubmit() {
+    if (_trackerNameController.text == '' || selectedTracker == null) {
+      return;
+    }
+    TrackerOptions currentTracker = trackers.firstWhere((tracker) {
+      return tracker.label == selectedTracker;
+    });
+    if (currentTracker.type == TrackerTypes.clock) {
+      print('CLOCK');
+    } else if (currentTracker.type == TrackerTypes.ironswornTrack) {
+      print('IRONSWORN');
+    } else if (currentTracker.type == TrackerTypes.pips) {
+      print('PIPS');
+    }
+    // Validate
+    // Create Tracker from Class
+    // Add to campaign data tracker collection
   }
 }
