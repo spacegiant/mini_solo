@@ -268,6 +268,12 @@ enum Images {
   clock8_6,
   clock8_7,
   clock8_8,
+
+  bar_tracker,
+  pip_checked,
+  pip_icon,
+  pip_unchecked,
+  value_tracker,
 }
 
 Map<Images, String> imagesPaths = {
@@ -508,4 +514,10 @@ Map<Images, String> imagesPaths = {
   Images.clock8_6: 'lib/assets/clocks/clock8_6.svg',
   Images.clock8_7: 'lib/assets/clocks/clock8_7.svg',
   Images.clock8_8: 'lib/assets/clocks/clock8_8.svg',
+
+  Images.bar_tracker: 'lib/assets/other/bar_tracker_icon.svg',
+  Images.pip_checked: 'lib/assets/other/pip_checked.svg',
+  Images.pip_icon: 'lib/assets/other/pip_icon.svg',
+  Images.pip_unchecked: 'lib/assets/other/pip_unchecked.svg',
+  Images.value_tracker: 'lib/assets/other/value_tracker_icon.svg',
 };
