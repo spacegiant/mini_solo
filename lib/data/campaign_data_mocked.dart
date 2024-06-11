@@ -36,5 +36,6 @@ CampaignData sampleCampaignData() {
     currentScratchEntryId: '',
     scratchPad: [],
     rollTableResult: [],
+    tracker: [],
   );
 }

@@ -106,9 +106,10 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       rollTableResult: (json['rollTableResult'] as List<dynamic>)
           .map((e) => RollTableResult.fromJson(e as Map<String, dynamic>))
           .toList(),
-    )..tracker = (json['tracker'] as List<dynamic>)
-        .map((e) => TrackerEntry.fromJson(e as Map<String, dynamic>))
-        .toList();
+      tracker: (json['tracker'] as List<dynamic>)
+          .map((e) => TrackerEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
     <String, dynamic>{
@@ -503,6 +504,32 @@ const _$ImagesEnumMap = {
   Images.fatePlus: 'fatePlus',
   Images.fateBlank: 'fateBlank',
   Images.fateMinus: 'fateMinus',
+  Images.ironsworn_tick_0: 'ironsworn_tick_0',
+  Images.ironsworn_tick_1: 'ironsworn_tick_1',
+  Images.ironsworn_tick_2: 'ironsworn_tick_2',
+  Images.ironsworn_tick_3: 'ironsworn_tick_3',
+  Images.ironsworn_tick_4: 'ironsworn_tick_4',
+  Images.clock4_0: 'clock4_0',
+  Images.clock4_1: 'clock4_1',
+  Images.clock4_2: 'clock4_2',
+  Images.clock4_3: 'clock4_3',
+  Images.clock4_4: 'clock4_4',
+  Images.clock6_0: 'clock6_0',
+  Images.clock6_1: 'clock6_1',
+  Images.clock6_2: 'clock6_2',
+  Images.clock6_3: 'clock6_3',
+  Images.clock6_4: 'clock6_4',
+  Images.clock6_5: 'clock6_5',
+  Images.clock6_6: 'clock6_6',
+  Images.clock8_0: 'clock8_0',
+  Images.clock8_1: 'clock8_1',
+  Images.clock8_2: 'clock8_2',
+  Images.clock8_3: 'clock8_3',
+  Images.clock8_4: 'clock8_4',
+  Images.clock8_5: 'clock8_5',
+  Images.clock8_6: 'clock8_6',
+  Images.clock8_7: 'clock8_7',
+  Images.clock8_8: 'clock8_8',
 };
 
 ScratchPageEntryItem _$ScratchPageEntryItemFromJson(

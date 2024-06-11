@@ -177,6 +177,7 @@ class CampaignData {
     required this.rolls,
     required this.scratchPad,
     required this.rollTableResult,
+    required this.tracker,
   });
 
   // coverage:ignore-start
@@ -222,6 +223,7 @@ CampaignData initCampaignDataData(String campaignName) {
     ),
     things: [],
     rollTableResult: [],
+    tracker: [],
   );
 }
 

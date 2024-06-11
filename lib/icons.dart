@@ -12,13 +12,17 @@ class SvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      imagesPaths[icon]!,
-      semanticsLabel: semanticsLabel,
-      width: width,
-      height: height,
-      // colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
-    );
+    if (imagesPaths[icon] != null) {
+      return SvgPicture.asset(
+        imagesPaths[icon]!,
+        semanticsLabel: semanticsLabel,
+        width: width,
+        height: height,
+        // colorFilter: const ColorFilter.mode(Colors.red, BlendMode.srcIn),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }
 
@@ -228,6 +232,36 @@ enum Images {
   fatePlus,
   fateBlank,
   fateMinus,
+
+  ironsworn_tick_0,
+  ironsworn_tick_1,
+  ironsworn_tick_2,
+  ironsworn_tick_3,
+  ironsworn_tick_4,
+
+  clock4_0,
+  clock4_1,
+  clock4_2,
+  clock4_3,
+  clock4_4,
+
+  clock6_0,
+  clock6_1,
+  clock6_2,
+  clock6_3,
+  clock6_4,
+  clock6_5,
+  clock6_6,
+
+  clock8_0,
+  clock8_1,
+  clock8_2,
+  clock8_3,
+  clock8_4,
+  clock8_5,
+  clock8_6,
+  clock8_7,
+  clock8_8,
 }
 
 Map<Images, String> imagesPaths = {
@@ -438,4 +472,34 @@ Map<Images, String> imagesPaths = {
   Images.fatePlus: 'lib/assets/fate_dice/dF_plus.svg',
   Images.fateBlank: 'lib/assets/fate_dice/dF_blank.svg',
   Images.fateMinus: 'lib/assets/fate_dice/dF_minus.svg',
+
+  Images.ironsworn_tick_0: 'lib/assets/ironsworn/ironsworn_tick_0.svg',
+  Images.ironsworn_tick_1: 'lib/assets/ironsworn/ironsworn_tick_1.svg',
+  Images.ironsworn_tick_2: 'lib/assets/ironsworn/ironsworn_tick_2.svg',
+  Images.ironsworn_tick_3: 'lib/assets/ironsworn/ironsworn_tick_3.svg',
+  Images.ironsworn_tick_4: 'lib/assets/ironsworn/ironsworn_tick_4.svg',
+
+  Images.clock4_0: 'lib/assets/clocks/clock4_0.svg',
+  Images.clock4_1: 'lib/assets/clocks/clock4_1.svg',
+  Images.clock4_2: 'lib/assets/clocks/clock4_2.svg',
+  Images.clock4_3: 'lib/assets/clocks/clock4_3.svg',
+  Images.clock4_4: 'lib/assets/clocks/clock4_4.svg',
+
+  Images.clock6_0: 'lib/assets/clocks/clock6_0.svg',
+  Images.clock6_1: 'lib/assets/clocks/clock6_1.svg',
+  Images.clock6_2: 'lib/assets/clocks/clock6_2.svg',
+  Images.clock6_3: 'lib/assets/clocks/clock6_3.svg',
+  Images.clock6_4: 'lib/assets/clocks/clock6_4.svg',
+  Images.clock6_5: 'lib/assets/clocks/clock6_5.svg',
+  Images.clock6_6: 'lib/assets/clocks/clock6_6.svg',
+
+  Images.clock8_0: 'lib/assets/clocks/clock8_0.svg',
+  Images.clock8_1: 'lib/assets/clocks/clock8_1.svg',
+  Images.clock8_2: 'lib/assets/clocks/clock8_2.svg',
+  Images.clock8_3: 'lib/assets/clocks/clock8_3.svg',
+  Images.clock8_4: 'lib/assets/clocks/clock8_4.svg',
+  Images.clock8_5: 'lib/assets/clocks/clock8_5.svg',
+  Images.clock8_6: 'lib/assets/clocks/clock8_6.svg',
+  Images.clock8_7: 'lib/assets/clocks/clock8_7.svg',
+  Images.clock8_8: 'lib/assets/clocks/clock8_8.svg',
 };
