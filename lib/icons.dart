@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SvgIcon extends StatelessWidget {
-  const SvgIcon({super.key, required this.icon, this.semanticsLabel});
+  const SvgIcon({
+    super.key,
+    required this.icon,
+    this.semanticsLabel,
+    this.width = 56.0,
+    this.height = 56.0,
+  });
 
   final Images? icon;
   final String? semanticsLabel;
-  final double width = 56.0;
-  final double height = 56.0;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

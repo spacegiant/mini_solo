@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
+import 'package:mini_solo/widgets/list_button.dart';
 
 import '../../data/campaign_data.dart';
+import '../../icons.dart';
 import '../gap.dart';
 import '../my_slider.dart';
 import '../picker.dart';
@@ -50,125 +52,248 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Tracker Name'),
+          const Gap(),
           const CupertinoTextField(
             placeholder: 'Tracker name',
           ),
           const Gap(),
-          /*
-          TODO: When modifying a tracker, this is grayed-out/disabled
-           */
-          Row(
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
             children: [
-              const Flexible(child: Text('Tracker Type')),
-              const Gap(),
-              Flexible(
-                child: Picker(
-                  items: trackerTypes,
-                  onChange: handleChange,
-                ),
+              trackerOptionButton(
+                  images: [Images.clock4_0], label: '4 Segment Clock'),
+              trackerOptionButton(
+                  images: [Images.clock6_0], label: '6 Segment Clock'),
+              trackerOptionButton(
+                  images: [Images.clock8_0], label: '8 Segment Clock'),
+              trackerOptionButton(
+                images: [
+                  Images.ironsworn_tick_4,
+                  Images.ironsworn_tick_4,
+                  Images.ironsworn_tick_4,
+                ],
+                label: 'Troublesome',
               ),
+              trackerOptionButton(
+                images: [
+                  Images.ironsworn_tick_4,
+                  Images.ironsworn_tick_4,
+                ],
+                label: 'Dangerous',
+              ),
+              trackerOptionButton(
+                images: [
+                  Images.ironsworn_tick_4,
+                ],
+                label: 'Formidable',
+              ),
+              trackerOptionButton(
+                images: [Images.ironsworn_tick_2],
+                label: 'Extreme',
+              ),
+              trackerOptionButton(
+                images: [
+                  Images.ironsworn_tick_1,
+                ],
+                label: 'Epic',
+              ),
+              Text('Pips'),
+              Text('Bar'),
+              Text('Value'),
             ],
           ),
           const Divider(),
-          if (selectedType == TrackerTypes.clock)
-            clockForm()
-          else if (selectedType == TrackerTypes.bar)
-            barForm()
-          else if (selectedType == TrackerTypes.ironswornTrack)
-            ironswornTrackerForm()
-          else if (selectedType == TrackerTypes.pips)
-            pipsForm()
-          else if (selectedType == TrackerTypes.value)
-            simpleValueForm(),
-          const Gap(),
-          const Divider(),
-          const Gap(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          const Row(
             children: [
-              CupertinoButton(
-                  color: kSubmitColour,
-                  onPressed: () {
-                    // Create Tracker from Class
-                    // Add to campaign data tracker collection
-                  },
-                  child: const Text('Save')),
-              const Gap(),
-              CupertinoButton(
-                  color: kWarningColour,
-                  onPressed: () {},
-                  child: const Text('Cancel')),
+              Flexible(
+                  child: CupertinoTextField(
+                placeholder: 'min value',
+              )),
+              Gap(),
+              Flexible(
+                  child: CupertinoTextField(
+                placeholder: 'current value',
+              )),
+              Gap(),
+              Flexible(
+                  child: CupertinoTextField(
+                placeholder: 'max value',
+              )),
             ],
           ),
+          const Gap(),
+          buttonBar(),
         ],
       ),
     );
   }
 
-  Widget simpleValueForm() => const Column(
-        children: [
-          Text('Simple Value'),
-          CupertinoTextField(
-            placeholder: 'Value',
-          ),
-        ],
-      );
+  Widget trackerOptionButton({
+    required List<Images> images,
+    String? label,
+    double? size,
+  }) {
+    List<SvgIcon> svgIcons = images
+        .map((image) => SvgIcon(
+              icon: image,
+              height: 24.0,
+            ))
+        .toList();
 
-  Widget pipsForm() => const Column(
+    return CupertinoButton(
+      onPressed: () {},
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      color: CupertinoColors.extraLightBackgroundGray,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Text('Pips'),
-          CupertinoTextField(
-            placeholder: 'Number of Pips',
-          ),
+          ...svgIcons,
+          if (label != null) const Gap(),
+          if (label != null)
+            Text(
+              label,
+              style: const TextStyle(color: CupertinoColors.black),
+            ),
         ],
-      );
+      ),
+    );
+  }
 
-  /*
-  TODO: Make this more visual.
-  The choices should be how many ticks you do each success.
-   */
-  Widget ironswornTrackerForm() => Column(
-        children: [
-          const Text('Ironsworn Track'),
-          Picker(items: const [
-            '*** Troublesome',
-            '** Dangerous',
-            '* Formidable',
-            'x Extreme',
-            '/\ Epic',
-          ], onChange: (index) {})
-        ],
-      );
+  CupertinoButton eightSegmentClockButton() {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      color: CupertinoColors.extraLightBackgroundGray,
+      onPressed: () {},
+      child: const SvgIcon(icon: Images.clock8_0),
+    );
+  }
 
-  Widget barForm() => const Column(
-        children: [
-          Text('Bar Tracker Settings'),
-          Gap(),
-          Row(
-            children: [
-              Flexible(
-                child: CupertinoTextField(
-                  placeholder: 'Min',
-                ),
-              ),
-              Gap(),
-              Flexible(
-                child: CupertinoTextField(
-                  placeholder: 'Current',
-                ),
-              ),
-              Gap(),
-              Flexible(
-                child: CupertinoTextField(
-                  placeholder: 'Max',
-                ),
-              ),
-            ],
-          )
-        ],
-      );
+  CupertinoButton sixSegmentClockButton() {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      color: CupertinoColors.extraLightBackgroundGray,
+      onPressed: () {},
+      child: const SvgIcon(icon: Images.clock6_0),
+    );
+  }
 
-  Widget clockForm() => const Column(
-        children: [Text('Number of Segments'), MySlider()],
-      );
+  CupertinoButton fourSegmentClockButton() {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      color: CupertinoColors.extraLightBackgroundGray,
+      onPressed: () {},
+      child: const SvgIcon(icon: Images.clock4_0),
+    );
+  }
+
+  Row buttonBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CupertinoButton(
+            color: kSubmitColour,
+            onPressed: () {
+              // Create Tracker from Class
+              // Add to campaign data tracker collection
+            },
+            child: const Text('Save')),
+        const Gap(),
+        CupertinoButton(
+            color: kWarningColour,
+            onPressed: () {},
+            child: const Text('Cancel')),
+      ],
+    );
+  }
 }
+//
+//   Widget simpleValueForm() => const Column(
+//         children: [
+//           Text('Simple Value'),
+//           CupertinoTextField(
+//             placeholder: 'Value',
+//           ),
+//         ],
+//       );
+//
+//   Widget pipsForm() => const Column(
+//         children: [
+//           Text('Pips'),
+//           CupertinoTextField(
+//             placeholder: 'Number of Pips',
+//           ),
+//         ],
+//       );
+//
+//   /*
+//   TODO: Make this more visual.
+//   The choices should be how many ticks you do each success.
+//    */
+//   Widget ironswornTrackerForm() => Column(
+//         children: [
+//           const Text('Ironsworn Track'),
+//           Picker(items: const [
+//             '*** Troublesome',
+//             '** Dangerous',
+//             '* Formidable',
+//             'x Extreme',
+//             '/\ Epic',
+//           ], onChange: (index) {})
+//         ],
+//       );
+//
+//   Widget barForm() => const Column(
+//         children: [
+//           Text('Bar Tracker Settings'),
+//           Gap(),
+//           Row(
+//             children: [
+//               Flexible(
+//                 child: CupertinoTextField(
+//                   placeholder: 'Min',
+//                 ),
+//               ),
+//               Gap(),
+//               Flexible(
+//                 child: CupertinoTextField(
+//                   placeholder: 'Current',
+//                 ),
+//               ),
+//               Gap(),
+//               Flexible(
+//                 child: CupertinoTextField(
+//                   placeholder: 'Max',
+//                 ),
+//               ),
+//             ],
+//           )
+//         ],
+//       );
+//
+//   Widget clockForm() => Column(
+//         children: [
+//           Text('Number of Segments'),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Flexible(
+//                 child: CupertinoButton(
+//                     child: const SvgIcon(icon: Images.clock4_0),
+//                     onPressed: () {}),
+//               ),
+//               Flexible(
+//                 child: CupertinoButton(
+//                     child: const SvgIcon(icon: Images.clock6_0),
+//                     onPressed: () {}),
+//               ),
+//               Flexible(
+//                 child: CupertinoButton(
+//                     child: const SvgIcon(icon: Images.clock8_0),
+//                     onPressed: () {}),
+//               )
+//             ],
+//           ),
+//         ],
+//       );
+// }
