@@ -421,7 +421,7 @@ class BothResults {
 class DiceRoll {
   BothResults result;
   String diceType;
-  Images icon;
+  SVGIcon icon;
 
   DiceRoll({
     // required super.isFavourite,
@@ -465,7 +465,7 @@ class ScratchPageEntryItem extends CampaignItem {
 class RollEntryItem extends CampaignItem {
   List<DiceRoll> result;
   String label;
-  Images? icon;
+  SVGIcon? icon;
 
   RollEntryItem({
     required super.isFavourite,

@@ -4,7 +4,7 @@ import '../../icons.dart';
 class TrackerOptions {
   final String label;
   final TrackerTypes type;
-  final List<Images> images;
+  final List<SVGIcon> images;
   final int? minValue;
   final int? currentValue;
   final int? maxValue;
@@ -29,28 +29,28 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: '4 Segment',
     type: TrackerTypes.clock,
-    images: [Images.clock4_0],
+    images: [SVGIcon.clock4_0],
     maxValue: 4,
   ),
   TrackerOptions(
     label: '6 Segment',
     type: TrackerTypes.clock,
-    images: [Images.clock6_0],
+    images: [SVGIcon.clock6_0],
     maxValue: 6,
   ),
   TrackerOptions(
     label: '8 Segment',
     type: TrackerTypes.clock,
-    images: [Images.clock8_0],
+    images: [SVGIcon.clock8_0],
     maxValue: 8,
   ),
   TrackerOptions(
     label: 'Troublesome',
     type: TrackerTypes.ironswornTrack,
     images: [
-      Images.ironsworn_tick_4,
-      Images.ironsworn_tick_4,
-      Images.ironsworn_tick_4,
+      SVGIcon.ironsworn_tick_4,
+      SVGIcon.ironsworn_tick_4,
+      SVGIcon.ironsworn_tick_4,
     ],
     maxValue: 10,
   ),
@@ -58,8 +58,8 @@ List<TrackerOptions> trackers = [
     label: 'Dangerous',
     type: TrackerTypes.ironswornTrack,
     images: [
-      Images.ironsworn_tick_4,
-      Images.ironsworn_tick_4,
+      SVGIcon.ironsworn_tick_4,
+      SVGIcon.ironsworn_tick_4,
     ],
     maxValue: 10,
   ),
@@ -67,7 +67,7 @@ List<TrackerOptions> trackers = [
     label: 'Formidable',
     type: TrackerTypes.ironswornTrack,
     images: [
-      Images.ironsworn_tick_4,
+      SVGIcon.ironsworn_tick_4,
     ],
     maxValue: 10,
   ),
@@ -75,7 +75,7 @@ List<TrackerOptions> trackers = [
     label: 'Extreme',
     type: TrackerTypes.ironswornTrack,
     images: [
-      Images.ironsworn_tick_2,
+      SVGIcon.ironsworn_tick_2,
     ],
     maxValue: 10,
   ),
@@ -83,14 +83,14 @@ List<TrackerOptions> trackers = [
     label: 'Epic',
     type: TrackerTypes.ironswornTrack,
     images: [
-      Images.ironsworn_tick_1,
+      SVGIcon.ironsworn_tick_1,
     ],
     maxValue: 10,
   ),
   TrackerOptions(
     label: 'Pip',
     type: TrackerTypes.pips,
-    images: [Images.pip_icon],
+    images: [SVGIcon.pip_icon],
     minValue: 0,
     currentValue: 0,
     maxValue: 6,
@@ -100,7 +100,7 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Bar',
     type: TrackerTypes.bar,
-    images: [Images.bar_tracker],
+    images: [SVGIcon.bar_tracker],
     minValue: 0,
     currentValue: 0,
     maxValue: 10,
@@ -111,14 +111,14 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Simple Value',
     type: TrackerTypes.value,
-    images: [Images.value_tracker],
+    images: [SVGIcon.value_tracker],
     currentValue: 9,
     editCurrent: true,
   ),
   TrackerOptions(
     label: 'Counter',
     type: TrackerTypes.counter,
-    images: [Images.value_tracker],
+    images: [SVGIcon.value_tracker],
     editCurrent: true,
     currentValue: 0,
   ),

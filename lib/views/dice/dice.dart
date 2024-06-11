@@ -6,7 +6,7 @@ import '../../icons.dart';
 class DiceFace {
   late int value;
   late String? label;
-  late Images icon;
+  late SVGIcon icon;
 
   DiceFace({
     required this.value,
@@ -29,7 +29,7 @@ class DiceType {
   final Color? color;
   final String label;
   final List<DiceFace> faces;
-  final Images icon;
+  final SVGIcon icon;
 
   DiceType({
     this.color,

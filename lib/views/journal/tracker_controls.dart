@@ -127,34 +127,34 @@ class ClockWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Images> fourSegment = [
-      Images.clock4_0,
-      Images.clock4_1,
-      Images.clock4_2,
-      Images.clock4_3,
-      Images.clock4_4,
+    List<SVGIcon> fourSegment = [
+      SVGIcon.clock4_0,
+      SVGIcon.clock4_1,
+      SVGIcon.clock4_2,
+      SVGIcon.clock4_3,
+      SVGIcon.clock4_4,
     ];
 
-    List<Images> sixSegment = [
-      Images.clock6_0,
-      Images.clock6_1,
-      Images.clock6_2,
-      Images.clock6_3,
-      Images.clock6_4,
-      Images.clock6_5,
-      Images.clock6_6,
+    List<SVGIcon> sixSegment = [
+      SVGIcon.clock6_0,
+      SVGIcon.clock6_1,
+      SVGIcon.clock6_2,
+      SVGIcon.clock6_3,
+      SVGIcon.clock6_4,
+      SVGIcon.clock6_5,
+      SVGIcon.clock6_6,
     ];
 
-    List<Images> eightSegment = [
-      Images.clock8_0,
-      Images.clock8_1,
-      Images.clock8_2,
-      Images.clock8_3,
-      Images.clock8_4,
-      Images.clock8_5,
-      Images.clock8_6,
-      Images.clock8_7,
-      Images.clock8_8,
+    List<SVGIcon> eightSegment = [
+      SVGIcon.clock8_0,
+      SVGIcon.clock8_1,
+      SVGIcon.clock8_2,
+      SVGIcon.clock8_3,
+      SVGIcon.clock8_4,
+      SVGIcon.clock8_5,
+      SVGIcon.clock8_6,
+      SVGIcon.clock8_7,
+      SVGIcon.clock8_8,
     ];
 
     return Container(
@@ -165,7 +165,7 @@ class ClockWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SvgIcon(icon: Images.clock4_0),
+          SvgIcon(icon: fourSegment[1]),
           Text(entry.label),
         ],
       ),

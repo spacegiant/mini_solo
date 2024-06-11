@@ -51,7 +51,7 @@ WrapManager diceTray(
         DiceButton(
           dieType: d6oracle,
           label: 'D6 Oracle',
-          icon: Images.d6Oracle,
+          icon: SVGIcon.d6Oracle,
           onPressed: addResult,
         ),
       if (useFateDice) ...[
@@ -61,14 +61,14 @@ WrapManager diceTray(
           numberOfRolls: 4,
           label: '4dF',
           onPressed: addResult,
-          icon: Images.fateDice,
+          icon: SVGIcon.fateDice,
         ),
       ],
       if (useCoriolisDice)
         DiceButton(
           dieType: coriolis,
           label: 'Coriolis',
-          icon: Images.coriolis6,
+          icon: SVGIcon.coriolis6,
           onPressed: addResult,
         ),
       if (generalDice != null) ...generalDice.getDice(),

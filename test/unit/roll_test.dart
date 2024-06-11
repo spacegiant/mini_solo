@@ -10,7 +10,7 @@ void main() {
           DiceRoll(
               result: BothResults(rolledValue: 6),
               diceType: 'd6',
-              icon: Images.d2_1)
+              icon: SVGIcon.d2_1)
         ],
         isFavourite: null);
 

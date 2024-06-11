@@ -171,7 +171,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   }
 
   Widget trackerOptionButton({
-    required List<Images> images,
+    required List<SVGIcon> images,
     String? label,
     double? size,
     required String id,
@@ -220,9 +220,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
         CupertinoButton(
             color: kSubmitColour,
             onPressed:
-                (_trackerNameController.text == '')
-                    ? null
-                    : handleSubmit,
+                (_trackerNameController.text == '') ? null : handleSubmit,
             child: const Text('Save')),
         const Gap(),
         CupertinoButton(
@@ -264,7 +262,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     try {
       int value = int.parse(text);
       return value;
-        } catch (e) {
+    } catch (e) {
       if (kDebugMode) {
         print('parseString() failed. $e');
       }

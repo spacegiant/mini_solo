@@ -20,7 +20,7 @@ class DiceButton extends StatelessWidget {
   final Color? color;
   final String? label;
   final int? numberOfRolls;
-  final Images icon;
+  final SVGIcon icon;
 
   @override
   Widget build(BuildContext context) {
