@@ -98,9 +98,24 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
                 ],
                 label: 'Epic',
               ),
-              Text('Pips'),
-              Text('Bar'),
-              Text('Value'),
+              trackerOptionButton(
+                images: [
+                  Images.pip_icon,
+                ],
+                label: 'Pip',
+              ),
+              trackerOptionButton(
+                images: [
+                  Images.bar_tracker,
+                ],
+                label: 'Bar',
+              ),
+              trackerOptionButton(
+                images: [
+                  Images.value_tracker,
+                ],
+                label: 'Simple Value',
+              ),
             ],
           ),
           const Divider(),
