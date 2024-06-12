@@ -366,7 +366,7 @@ class ClockWidget extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgIcon(icon: iconList[1]),
+            SvgIcon(icon: iconList[entry.currentValue]),
             Flexible(
                 child: Text(
               entry.label,
