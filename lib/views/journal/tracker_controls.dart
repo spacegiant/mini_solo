@@ -58,7 +58,7 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(entry.label);
+    return TrackerContainer(child: Text(entry.label));
   }
 }
 
@@ -72,7 +72,7 @@ class ValueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(entry.label);
+    return TrackerContainer(child: Text(entry.label));
   }
 }
 
@@ -86,7 +86,7 @@ class PipsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(entry.label);
+    return TrackerContainer(child: Text(entry.label));
   }
 }
 
@@ -100,11 +100,7 @@ class IronswornWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: const BoxDecoration(
-          color: CupertinoColors.lightBackgroundGray,
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+    return TrackerContainer(
       child: Column(
         children: [
           Row(
@@ -186,7 +182,7 @@ class BarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(entry.label);
+    return TrackerContainer(child: Text(entry.label));
   }
 }
 
@@ -241,11 +237,7 @@ class ClockWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       onLongPress: () {},
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: const BoxDecoration(
-            color: CupertinoColors.lightBackgroundGray,
-            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      child: TrackerContainer(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -254,6 +246,26 @@ class ClockWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class TrackerContainer extends StatelessWidget {
+  const TrackerContainer({
+    super.key,
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: const BoxDecoration(
+          color: CupertinoColors.lightBackgroundGray,
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      child: child,
     );
   }
 }
