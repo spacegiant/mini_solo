@@ -294,12 +294,23 @@ class ClockWidget extends StatelessWidget {
       onTap: () {},
       onLongPress: () {},
       child: TrackerContainer(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgIcon(icon: iconList[1]),
-            Text(entry.label),
-          ],
+        child: Container(
+          constraints: const BoxConstraints(
+            maxWidth: 180.0,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgIcon(icon: iconList[1]),
+              Flexible(
+                  child: Text(
+                entry.label,
+                style: const TextStyle(
+                  overflow: TextOverflow.visible,
+                ),
+              )),
+            ],
+          ),
         ),
       ),
     );
