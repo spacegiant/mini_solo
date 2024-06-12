@@ -230,6 +230,8 @@ class BarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double progress = entry.currentValue / entry.maxValue;
+
     return TrackerContainer(
         child: SizedBox(
       width: 180.0,
@@ -239,15 +241,21 @@ class BarWidget extends StatelessWidget {
           const Gap(
             height: 8.0,
           ),
-          Container(
+          SizedBox(
             height: 10.0,
             // color: CupertinoColors.systemPink,
-            child: const LinearProgressIndicator(
-              value: 0.3,
+            child: LinearProgressIndicator(
+              value: progress,
               backgroundColor: CupertinoColors.white,
             ),
           ),
-          const Gap(),
+          const Gap(
+            height: 8.0,
+          ),
+          Text(
+            '${entry.currentValue}/${entry.maxValue}',
+            style: TextStyle(fontSize: 11.0),
+          ),
         ],
       ),
     ));
