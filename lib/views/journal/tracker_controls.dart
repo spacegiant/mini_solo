@@ -80,18 +80,19 @@ class ValueWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+        minWidth: 60.0,
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          entry.currentValue.toString(),
-          style: const TextStyle(
-            fontSize: 30.0,
-          ),
-        ),
-        Text(entry.label),
-      ],
-    ));
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              entry.currentValue.toString(),
+              style: const TextStyle(
+                fontSize: 30.0,
+              ),
+            ),
+            Text(entry.label),
+          ],
+        ));
   }
 }
 
