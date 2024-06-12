@@ -203,6 +203,7 @@ class IronswornWidget extends StatelessWidget {
                 ),
               ),
               Text(ironswornTrackTypeLabel),
+              Text(entry.currentValue.toString())
             ],
           ),
           const Row(

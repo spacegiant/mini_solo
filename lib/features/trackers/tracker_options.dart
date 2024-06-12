@@ -62,6 +62,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_4,
     ],
     maxValue: 10,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: 'Dangerous',
@@ -71,6 +72,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_4,
     ],
     maxValue: 10,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: 'Formidable',
@@ -79,6 +81,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_4,
     ],
     maxValue: 10,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: 'Extreme',
@@ -87,6 +90,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_2,
     ],
     maxValue: 10,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: 'Epic',
@@ -95,6 +99,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_1,
     ],
     maxValue: 10,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: 'Pip',
