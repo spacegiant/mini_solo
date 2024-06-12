@@ -623,7 +623,6 @@ TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
       minValue: (json['minValue'] as num?)?.toInt() ?? 0,
       maxValue: (json['maxValue'] as num?)?.toInt() ?? 0,
       trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
-      subtype: json['subtype'] as String?,
     )
       ..isFavourite = json['isFavourite'] as bool?
       ..id = json['id'] as String
@@ -638,7 +637,6 @@ Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,
       'trackerType': _$TrackerTypesEnumMap[instance.trackerType]!,
-      'subtype': instance.subtype,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

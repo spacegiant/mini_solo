@@ -136,6 +136,17 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             color: kSubmitColour,
             onPressed: () {
               // Update data and save
+              widget.appState.updateTrackerEntry(
+                currentEntryId,
+                TrackerEntry(
+                  label: _trackerNameController.text,
+                  minValue: int.parse(_minValueController.text),
+                  currentValue: int.parse(_currentValueController.text),
+                  maxValue: int.parse(_maxValueController.text),
+                  trackerType: currentEntry!.trackerType,
+                ),
+              );
+              widget.appState.closePopup();
             },
             child: const Text('Save')),
         CupertinoButton(
@@ -148,7 +159,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             color: kWarningColour,
             onPressed: () {
               widget.appState
-                ..deleteTrackerEntry(widget.appState.currentEntryId);
+                  .deleteTrackerEntry(widget.appState.currentEntryId);
               widget.appState.closePopup();
             },
             child: const Text('Delete')),

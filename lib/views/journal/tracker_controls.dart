@@ -196,7 +196,7 @@ class IronswornWidget extends StatelessWidget {
                 entry.label,
                 style: const TextStyle(overflow: TextOverflow.ellipsis),
               ),
-              if (entry.subtype != null) Text(entry.subtype!),
+              Text(entry.trackerType.toString()),
             ],
           ),
           const Row(
@@ -350,9 +350,9 @@ class ClockWidget extends StatelessWidget {
 
     var iconList = fourSegment;
 
-    if (entry.subtype == '6segment') {
+    if (entry.trackerType == TrackerTypes.clock6) {
       iconList = sixSegment;
-    } else if (entry.subtype == '8segment') {
+    } else if (entry.trackerType == TrackerTypes.clock8) {
       iconList = eightSegment;
     }
 
