@@ -224,7 +224,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
             child: const Text('Save')),
         const Gap(),
         CupertinoButton(
-            color: kWarningColour,
+            color: CupertinoColors.inactiveGray,
             onPressed: () {
               widget.appState.closePopup();
             },
@@ -246,7 +246,6 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       currentValue: parseString(_currentValueController.text),
       maxValue: parseString(_maxValueController.text),
       trackerType: currentTracker.type,
-      subtype: currentTracker.subType,
     ));
     widget.appState.closePopup();
   }

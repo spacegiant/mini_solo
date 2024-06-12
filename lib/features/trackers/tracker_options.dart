@@ -4,7 +4,6 @@ import '../../icons.dart';
 class TrackerOptions {
   final String label;
   final TrackerTypes type;
-  final String? subType;
   final List<SVGIcon> images;
   final int? minValue;
   final int? currentValue;
@@ -16,7 +15,6 @@ class TrackerOptions {
   TrackerOptions({
     required this.label,
     required this.type,
-    this.subType,
     required this.images,
     this.editMin = false,
     this.editCurrent = false,
@@ -31,7 +29,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: '4 Segment',
     type: TrackerTypes.clock4,
-    subType: '4segment',
     images: [SVGIcon.clock4_0],
     maxValue: 4,
     currentValue: 0,
@@ -41,7 +38,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: '6 Segment',
     type: TrackerTypes.clock6,
-    subType: '6segment',
     images: [SVGIcon.clock6_0],
     maxValue: 6,
     currentValue: 0,
@@ -51,7 +47,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: '8 Segment',
     type: TrackerTypes.clock8,
-    subType: '8segment',
     images: [SVGIcon.clock8_0],
     maxValue: 8,
     currentValue: 0,
@@ -61,7 +56,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Troublesome',
     type: TrackerTypes.ironsworn1Troublesome,
-    subType: 'troublesome',
     images: [
       SVGIcon.ironsworn_tick_4,
       SVGIcon.ironsworn_tick_4,
@@ -72,7 +66,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Dangerous',
     type: TrackerTypes.ironsworn2Dangerous,
-    subType: 'dangerous',
     images: [
       SVGIcon.ironsworn_tick_4,
       SVGIcon.ironsworn_tick_4,
@@ -82,7 +75,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Formidable',
     type: TrackerTypes.ironsworn3Formidable,
-    subType: 'formidable',
     images: [
       SVGIcon.ironsworn_tick_4,
     ],
@@ -91,7 +83,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Extreme',
     type: TrackerTypes.ironsworn4Extreme,
-    subType: 'extreme',
     images: [
       SVGIcon.ironsworn_tick_2,
     ],
@@ -100,7 +91,6 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Epic',
     type: TrackerTypes.ironsworn5Epic,
-    subType: 'epic',
     images: [
       SVGIcon.ironsworn_tick_1,
     ],
