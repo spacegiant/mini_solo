@@ -25,6 +25,8 @@ class TrackerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double myDouble = maxWidth ?? double.infinity;
+    bool showButtons = onTap != null && onTapRight != null;
+
     return Stack(
       alignment: AlignmentDirectional.centerStart,
       children: [
@@ -47,29 +49,31 @@ class TrackerContainer extends StatelessWidget {
             child: child,
           ),
         ),
-        Positioned(
-          child: Container(
-            // color: Color(0x88FF9900),
-            child: CupertinoButton(
-              child: SizedBox(width: 44.0, height: 44.0),
-              onPressed: () {
-                if (onTap != null) onTap!();
-              },
+        if (showButtons)
+          Positioned(
+            child: Container(
+              color: Color(0x88FF9900),
+              child: CupertinoButton(
+                child: const SizedBox(width: 44.0, height: 44.0),
+                onPressed: () {
+                  if (onTap != null) onTap!();
+                },
+              ),
             ),
           ),
-        ),
-        Positioned(
-          right: 0.0,
-          child: Container(
-            // color: Color(0x88FF9900),
-            child: CupertinoButton(
-              child: SizedBox(width: 44.0, height: 44.0),
-              onPressed: () {
-                if (onTapRight != null) onTapRight!();
-              },
+        if (showButtons)
+          Positioned(
+            right: 0.0,
+            child: Container(
+              color: Color(0x88FF9900),
+              child: CupertinoButton(
+                child: SizedBox(width: 44.0, height: 44.0),
+                onPressed: () {
+                  if (onTapRight != null) onTapRight!();
+                },
+              ),
             ),
           ),
-        ),
       ],
     );
   }

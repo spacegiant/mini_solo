@@ -260,6 +260,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
     TrackerOptions currentTracker = trackers.firstWhere((tracker) {
       return tracker.label == selectedTrackerType;
     });
+
     widget.appState.addTrackerEntry(TrackerEntry(
       label: _trackerNameController.text,
       minValue: parseString(_minValueController.text),

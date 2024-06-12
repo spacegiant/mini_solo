@@ -18,10 +18,36 @@ class BarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void handleTap({int modifier = 1}) {
+      print('TAPPED ${entry.currentValue}');
+      if (entry.currentValue + modifier > entry.maxValue) return;
+      if (entry.currentValue + modifier < entry.minValue) return;
+
+      int newValue = entry.currentValue + modifier;
+
+      appState.updateTrackerEntry(
+        entry.id,
+        TrackerEntry(
+          label: entry.label,
+          currentValue: newValue,
+          minValue: entry.minValue,
+          maxValue: entry.maxValue,
+          trackerType: entry.trackerType,
+        ),
+      );
+    }
+
     double progress = entry.currentValue / entry.maxValue;
+    print(entry.maxValue);
 
     return TrackerContainer(
         appState: appState,
+        onTap: () {
+          handleTap(modifier: -1);
+        },
+        onTapRight: () {
+          handleTap();
+        },
         id: entry.id,
         child: SizedBox(
           width: 180.0,
