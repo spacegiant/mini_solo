@@ -137,13 +137,17 @@ class IronswornWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+      maxWidth: 320.0,
       child: Column(
         children: [
           Row(
-            mainAxisSize: MainAxisSize.min,
+            // mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(entry.label),
-              const Gap(),
+              Text(
+                entry.label,
+                style: const TextStyle(overflow: TextOverflow.ellipsis),
+              ),
               if (entry.subtype != null) Text(entry.subtype!),
             ],
           ),
@@ -321,17 +325,23 @@ class TrackerContainer extends StatelessWidget {
   const TrackerContainer({
     super.key,
     required this.child,
+    this.minWidth = 100.0,
+    this.maxWidth,
   });
 
   final Widget child;
+  final double minWidth;
+  final double? maxWidth;
 
   @override
   Widget build(BuildContext context) {
+    double myDouble = maxWidth ?? double.infinity;
     return Container(
-      constraints: const BoxConstraints(
-        minWidth: 60.0,
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+        maxWidth: myDouble,
       ),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       decoration: const BoxDecoration(
           color: CupertinoColors.lightBackgroundGray,
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
