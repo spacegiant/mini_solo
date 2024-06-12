@@ -7,6 +7,7 @@ import 'package:mini_solo/icons.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 
+import '../../features/trackers/tracker_options.dart';
 import '../../widgets/gap.dart';
 
 class TrackerControls extends StatelessWidget {
@@ -182,6 +183,9 @@ class IronswornWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String ironswornTrackTypeLabel = trackers
+        .firstWhere((tracker) => tracker.type == entry.trackerType)
+        .label;
     return TrackerContainer(
       maxWidth: 320.0,
       appState: appState,
@@ -192,11 +196,13 @@ class IronswornWidget extends StatelessWidget {
             // mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                entry.label,
-                style: const TextStyle(overflow: TextOverflow.ellipsis),
+              Flexible(
+                child: Text(
+                  entry.label,
+                  style: const TextStyle(overflow: TextOverflow.ellipsis),
+                ),
               ),
-              Text(entry.trackerType.toString()),
+              Text(ironswornTrackTypeLabel),
             ],
           ),
           const Row(
