@@ -10,6 +10,7 @@ class TrackerContainer extends StatelessWidget {
     this.maxWidth,
     required this.appState,
     required this.id,
+    this.onTap,
   });
 
   final Widget child;
@@ -17,12 +18,15 @@ class TrackerContainer extends StatelessWidget {
   final double? maxWidth;
   final AppState appState;
   final String id;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     double myDouble = maxWidth ?? double.infinity;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (onTap != null) onTap!();
+      },
       onLongPress: () {
         appState.setCurrentEntryId(id);
         appState.toggleShowPopup(label: PopupLabel.editTracker);

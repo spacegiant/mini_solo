@@ -56,7 +56,7 @@ class IronswornWidget extends StatelessWidget {
 
     int remainder = entry.currentValue - (numberOfFullBoxes * 4);
 
-    ironswornTrackIndex[count] = remainder;
+    if (count < 10) ironswornTrackIndex[count] = remainder;
 
     for (var index in ironswornTrackIndex) {
       SVGIcon icon = SVGIcon.ironsworn_tick_0;
@@ -85,9 +85,26 @@ class IronswornWidget extends StatelessWidget {
       );
     }
 
+    void handleTap() {
+      if (entry.currentValue < 40) {
+        int newValue = entry.currentValue + step;
+        if (newValue > 40) newValue = 40;
+
+        appState.updateTrackerEntry(
+          entry.id,
+          TrackerEntry(
+            label: entry.label,
+            currentValue: newValue,
+            trackerType: entry.trackerType,
+          ),
+        );
+      }
+    }
+
     return TrackerContainer(
       maxWidth: 320.0,
       appState: appState,
+      onTap: handleTap,
       id: entry.id,
       child: Column(
         children: [
