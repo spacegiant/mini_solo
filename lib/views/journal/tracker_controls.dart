@@ -20,7 +20,13 @@ class TrackerControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> trackerWidgets = [];
-    appState.campaignData?.tracker.forEach((widget) {
+
+    List<TrackerEntry>? trackerEntriesSorted = appState.campaignData?.tracker;
+
+    trackerEntriesSorted?.sort(
+        (a, b) => a.trackerType.toString().compareTo(b.trackerType.toString()));
+
+    trackerEntriesSorted?.forEach((widget) {
       switch (widget.trackerType) {
         case TrackerTypes.clock:
           trackerWidgets.add(ClockWidget(entry: widget));
@@ -44,6 +50,7 @@ class TrackerControls extends StatelessWidget {
           break;
       }
     });
+
     return WrapManager(
         wrapControls: appState.wrapControls, children: [...trackerWidgets]);
   }
