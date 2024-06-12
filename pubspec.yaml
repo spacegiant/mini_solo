@@ -43,11 +43,11 @@ dependencies:
   provider: ^6.1.2
   path_provider: ^2.1.2
   path_provider_foundation: ^2.3.2
-  json_annotation: ^4.8.1
   url_launcher: ^6.2.5
   font_awesome_flutter: ^10.7.0
   mockito: ^5.4.4
   flutter_svg: ^2.0.10+1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
