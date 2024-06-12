@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/icons.dart';
@@ -58,7 +59,13 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TrackerContainer(child: Text(entry.label));
+    return TrackerContainer(
+        child: Column(
+      children: [
+        Text(entry.label),
+        Text(entry.currentValue.toString()),
+      ],
+    ));
   }
 }
 
@@ -72,7 +79,13 @@ class ValueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TrackerContainer(child: Text(entry.label));
+    return TrackerContainer(
+        child: Column(
+      children: [
+        Text(entry.currentValue.toString()),
+        Text(entry.label),
+      ],
+    ));
   }
 }
 
@@ -86,7 +99,24 @@ class PipsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TrackerContainer(child: Text(entry.label));
+    return TrackerContainer(
+        child: Column(
+      children: [
+        Text(entry.label),
+        const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgIcon(
+              icon: SVGIcon.pip_checked,
+              height: 36.0,
+              width: 24.0,
+            ),
+            SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
+            SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
+          ],
+        )
+      ],
+    ));
   }
 }
 
@@ -107,7 +137,7 @@ class IronswornWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(entry.label),
-              Gap(),
+              const Gap(),
               if (entry.subtype != null) Text(entry.subtype!),
             ],
           ),
@@ -182,7 +212,26 @@ class BarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TrackerContainer(child: Text(entry.label));
+    return TrackerContainer(
+        child: SizedBox(
+      width: 180.0,
+      child: Column(
+        children: [
+          Text(entry.label),
+          Gap(
+            height: 8.0,
+          ),
+          Container(
+            height: 10.0,
+            // color: CupertinoColors.systemPink,
+            child: LinearProgressIndicator(
+              value: 0.3,
+              backgroundColor: CupertinoColors.white,
+            ),
+          )
+        ],
+      ),
+    ));
   }
 }
 
