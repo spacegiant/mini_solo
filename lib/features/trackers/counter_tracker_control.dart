@@ -17,6 +17,7 @@ class CounterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+        minWidth: 160.0,
         appState: appState,
         id: entry.id,
         child: Column(

@@ -85,10 +85,11 @@ class IronswornWidget extends StatelessWidget {
       );
     }
 
-    void handleTap() {
-      if (entry.currentValue < 40) {
-        int newValue = entry.currentValue + step;
+    void handleTap({int modifier = 1}) {
+      if (entry.currentValue <= 40 && entry.currentValue >= 0) {
+        int newValue = entry.currentValue + (step * modifier);
         if (newValue > 40) newValue = 40;
+        if (newValue < 0) newValue = 0;
 
         appState.updateTrackerEntry(
           entry.id,
@@ -104,7 +105,12 @@ class IronswornWidget extends StatelessWidget {
     return TrackerContainer(
       maxWidth: 320.0,
       appState: appState,
-      onTap: handleTap,
+      onTap: () {
+        handleTap(modifier: -1);
+      },
+      onTapRight: () {
+        handleTap();
+      },
       id: entry.id,
       child: Column(
         children: [
