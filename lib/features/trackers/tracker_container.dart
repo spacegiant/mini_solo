@@ -31,7 +31,9 @@ class TrackerContainer extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            if (!showButtons && onTap != null) onTap!();
+          },
           onLongPress: () {
             appState.setCurrentEntryId(id);
             appState.toggleShowPopup(label: PopupLabel.editTracker);

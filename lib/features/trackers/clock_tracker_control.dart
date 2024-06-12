@@ -55,7 +55,25 @@ class ClockWidget extends StatelessWidget {
       iconList = eightSegment;
     }
 
+    void handleTap() {
+      int newValue = entry.currentValue + 1;
+      if (newValue > entry.maxValue) return;
+      print(entry.maxValue);
+
+      appState.updateTrackerEntry(
+        entry.id,
+        TrackerEntry(
+          label: entry.label,
+          currentValue: newValue,
+          minValue: entry.minValue,
+          maxValue: entry.maxValue,
+          trackerType: entry.trackerType,
+        ),
+      );
+    }
+
     return TrackerContainer(
+      onTap: handleTap,
       appState: appState,
       id: entry.id,
       child: Container(
