@@ -81,8 +81,14 @@ class ValueWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TrackerContainer(
         child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(entry.currentValue.toString()),
+        Text(
+          entry.currentValue.toString(),
+          style: const TextStyle(
+            fontSize: 30.0,
+          ),
+        ),
         Text(entry.label),
       ],
     ));
@@ -218,17 +224,18 @@ class BarWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(entry.label),
-          Gap(
+          const Gap(
             height: 8.0,
           ),
           Container(
             height: 10.0,
             // color: CupertinoColors.systemPink,
-            child: LinearProgressIndicator(
+            child: const LinearProgressIndicator(
               value: 0.3,
               backgroundColor: CupertinoColors.white,
             ),
-          )
+          ),
+          const Gap(),
         ],
       ),
     ));
@@ -310,6 +317,9 @@ class TrackerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: const BoxConstraints(
+        minWidth: 60.0,
+      ),
       padding: const EdgeInsets.all(8.0),
       decoration: const BoxDecoration(
           color: CupertinoColors.lightBackgroundGray,
