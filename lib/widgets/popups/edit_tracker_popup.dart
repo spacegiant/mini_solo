@@ -27,14 +27,26 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   late bool showMinValue;
   late bool showCurrentValue;
   late bool showMaxValue;
+  late String currentEntryId = widget.appState.currentEntryId;
+  late TrackerEntry? currentEntry = widget.appState.campaignData?.tracker
+      .firstWhere((tracker) => tracker.id == currentEntryId);
+  late TrackerOptions trackerOptions = trackers
+      .firstWhere((tracker) => tracker.type == currentEntry?.trackerType);
 
   @override
   void initState() {
     super.initState();
-    _trackerNameController = TextEditingController();
-    _minValueController = TextEditingController();
-    _currentValueController = TextEditingController();
-    _maxValueController = TextEditingController();
+    _trackerNameController =
+        TextEditingController(text: currentEntry?.label.toString());
+    _minValueController =
+        TextEditingController(text: currentEntry?.minValue.toString());
+    _currentValueController =
+        TextEditingController(text: currentEntry?.currentValue.toString());
+    _maxValueController =
+        TextEditingController(text: currentEntry?.maxValue.toString());
+    showMinValue = trackerOptions.editMin!;
+    showCurrentValue = trackerOptions.editCurrent!;
+    showMaxValue = trackerOptions.editMax!;
   }
 
   @override
@@ -51,25 +63,6 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
     String currentEntryId = widget.appState.currentEntryId;
     TrackerEntry? currentToggleEntry = widget.appState.campaignData?.tracker
         .firstWhere((tracker) => tracker.id == currentEntryId);
-
-    setState(() {
-      _trackerNameController.text = currentToggleEntry!.label;
-    });
-
-    TrackerOptions trackerOptions = trackers.firstWhere(
-        (tracker) => tracker.type == currentToggleEntry?.trackerType);
-
-    setState(() {
-      // FIXME: MOVE THIS OUT OF BUILD
-      showMinValue = trackerOptions.editMin!;
-      showCurrentValue = trackerOptions.editCurrent!;
-      showMaxValue = trackerOptions.editMax!;
-
-      _minValueController.text = currentToggleEntry!.minValue.toString();
-      _currentValueController.text =
-          currentToggleEntry!.currentValue.toString();
-      _maxValueController.text = currentToggleEntry!.maxValue.toString();
-    });
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
