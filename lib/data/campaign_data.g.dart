@@ -643,9 +643,15 @@ Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
     };
 
 const _$TrackerTypesEnumMap = {
-  TrackerTypes.clock: 'clock',
+  TrackerTypes.clock4: 'clock4',
+  TrackerTypes.clock6: 'clock6',
+  TrackerTypes.clock8: 'clock8',
   TrackerTypes.bar: 'bar',
-  TrackerTypes.ironswornTrack: 'ironswornTrack',
+  TrackerTypes.ironsworn1Troublesome: 'ironsworn1Troublesome',
+  TrackerTypes.ironsworn2Dangerous: 'ironsworn2Dangerous',
+  TrackerTypes.ironsworn3Formidable: 'ironsworn3Formidable',
+  TrackerTypes.ironsworn4Extreme: 'ironsworn4Extreme',
+  TrackerTypes.ironsworn5Epic: 'ironsworn5Epic',
   TrackerTypes.pips: 'pips',
   TrackerTypes.value: 'value',
   TrackerTypes.counter: 'counter',

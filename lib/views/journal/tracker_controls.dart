@@ -28,7 +28,9 @@ class TrackerControls extends StatelessWidget {
 
     trackerEntriesSorted?.forEach((widget) {
       switch (widget.trackerType) {
-        case TrackerTypes.clock:
+        case TrackerTypes.clock4:
+        case TrackerTypes.clock6:
+        case TrackerTypes.clock8:
           trackerWidgets.add(ClockWidget(
             entry: widget,
             appState: appState,
@@ -37,7 +39,11 @@ class TrackerControls extends StatelessWidget {
         case TrackerTypes.bar:
           trackerWidgets.add(BarWidget(entry: widget));
           break;
-        case TrackerTypes.ironswornTrack:
+        case TrackerTypes.ironsworn1Troublesome:
+        case TrackerTypes.ironsworn2Dangerous:
+        case TrackerTypes.ironsworn3Formidable:
+        case TrackerTypes.ironsworn4Extreme:
+        case TrackerTypes.ironsworn5Epic:
           trackerWidgets.add(IronswornWidget(entry: widget));
           break;
         case TrackerTypes.pips:

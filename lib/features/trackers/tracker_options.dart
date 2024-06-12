@@ -30,28 +30,28 @@ class TrackerOptions {
 List<TrackerOptions> trackers = [
   TrackerOptions(
     label: '4 Segment',
-    type: TrackerTypes.clock,
+    type: TrackerTypes.clock4,
     subType: '4segment',
     images: [SVGIcon.clock4_0],
     maxValue: 4,
   ),
   TrackerOptions(
     label: '6 Segment',
-    type: TrackerTypes.clock,
+    type: TrackerTypes.clock6,
     subType: '6segment',
     images: [SVGIcon.clock6_0],
     maxValue: 6,
   ),
   TrackerOptions(
     label: '8 Segment',
-    type: TrackerTypes.clock,
+    type: TrackerTypes.clock8,
     subType: '8segment',
     images: [SVGIcon.clock8_0],
     maxValue: 8,
   ),
   TrackerOptions(
     label: 'Troublesome',
-    type: TrackerTypes.ironswornTrack,
+    type: TrackerTypes.ironsworn1Troublesome,
     subType: 'troublesome',
     images: [
       SVGIcon.ironsworn_tick_4,
@@ -62,7 +62,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Dangerous',
-    type: TrackerTypes.ironswornTrack,
+    type: TrackerTypes.ironsworn2Dangerous,
     subType: 'dangerous',
     images: [
       SVGIcon.ironsworn_tick_4,
@@ -72,7 +72,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Formidable',
-    type: TrackerTypes.ironswornTrack,
+    type: TrackerTypes.ironsworn3Formidable,
     subType: 'formidable',
     images: [
       SVGIcon.ironsworn_tick_4,
@@ -81,7 +81,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Extreme',
-    type: TrackerTypes.ironswornTrack,
+    type: TrackerTypes.ironsworn4Extreme,
     subType: 'extreme',
     images: [
       SVGIcon.ironsworn_tick_2,
@@ -90,7 +90,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Epic',
-    type: TrackerTypes.ironswornTrack,
+    type: TrackerTypes.ironsworn5Epic,
     subType: 'epic',
     images: [
       SVGIcon.ironsworn_tick_1,

@@ -10,9 +10,15 @@ part 'campaign_data.g.dart';
 // NOTE: Run `dart run build_runner build` to regenerate files
 
 enum TrackerTypes {
-  clock,
+  clock4,
+  clock6,
+  clock8,
   bar,
-  ironswornTrack,
+  ironsworn1Troublesome,
+  ironsworn2Dangerous,
+  ironsworn3Formidable,
+  ironsworn4Extreme,
+  ironsworn5Epic,
   pips,
   value,
   counter,
