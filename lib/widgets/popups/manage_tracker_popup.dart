@@ -24,7 +24,7 @@ class ManageTrackerPopup extends StatefulWidget {
 }
 
 class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
-  String selectedTracker = '';
+  String selectedTrackerType = '';
   bool minValueActive = false;
   bool currentValueActive = false;
   bool maxValueActive = false;
@@ -55,9 +55,9 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
   @override
   Widget build(BuildContext context) {
     void handleSelection(String id) {
-      selectedTracker = id;
+      selectedTrackerType = id;
       TrackerOptions currentTracker = trackers.firstWhere((tracker) {
-        return tracker.label == selectedTracker;
+        return tracker.label == selectedTrackerType;
       });
 
       _minValueController.text = manageValue(currentTracker.minValue);
@@ -79,7 +79,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
             images: tracker.images,
             label: tracker.label,
             id: tracker.label,
-            selectedId: selectedTracker,
+            selectedId: selectedTrackerType,
             onSelect: handleSelection),
       );
     }
@@ -89,7 +89,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tracker Name $selectedTracker'),
+          Text('Tracker Name $selectedTrackerType'),
           const Gap(),
           CupertinoTextField(
             autofocus: true,
@@ -238,7 +238,7 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       return;
     }
     TrackerOptions currentTracker = trackers.firstWhere((tracker) {
-      return tracker.label == selectedTracker;
+      return tracker.label == selectedTrackerType;
     });
     widget.appState.addTrackerEntry(TrackerEntry(
       label: _trackerNameController.text,
