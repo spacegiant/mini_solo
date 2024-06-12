@@ -12,6 +12,7 @@ import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
 import 'package:mini_solo/widgets/popups/manage_tracker_popup.dart';
 import 'package:provider/provider.dart';
@@ -137,101 +138,4 @@ Consumer<Object?> popup(
       );
     },
   );
-}
-
-class EditTrackerPopup extends StatefulWidget {
-  const EditTrackerPopup({
-    super.key,
-    required this.appState,
-  });
-
-  final AppState appState;
-
-  @override
-  State<EditTrackerPopup> createState() => _EditTrackerPopupState();
-}
-
-class _EditTrackerPopupState extends State<EditTrackerPopup> {
-  late TextEditingController _trackerNameController;
-  late TextEditingController _minValueController;
-  late TextEditingController _currentValueController;
-  late TextEditingController _maxValueController;
-
-  @override
-  void initState() {
-    super.initState();
-    _trackerNameController = TextEditingController();
-    _minValueController = TextEditingController();
-    _currentValueController = TextEditingController();
-    _maxValueController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _trackerNameController.dispose();
-    _minValueController.dispose();
-    _currentValueController.dispose();
-    _maxValueController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    String currentEntryId = widget.appState.currentEntryId;
-    TrackerEntry? currentToggleEntry = widget.appState.campaignData?.tracker
-        .firstWhere((tracker) => tracker.id == currentEntryId);
-
-    setState(() {
-      _trackerNameController.text = currentToggleEntry!.label;
-    });
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Tracker Name'),
-          const Gap(),
-          CupertinoTextField(
-            autofocus: true,
-            controller: _trackerNameController,
-            placeholder: 'Tracker name',
-          ),
-          const Gap(),
-          // rangeValues(),
-          const Divider(),
-          const Gap(),
-          const Text('Select Tracker Type'),
-          const Gap(),
-
-          buttonBar(),
-        ],
-      ),
-    );
-  }
-
-  Wrap buttonBar() {
-    return Wrap(
-      children: [
-        CupertinoButton(
-            color: kSubmitColour, onPressed: () {}, child: const Text('Save')),
-        const Gap(),
-        CupertinoButton(
-            color: CupertinoColors.inactiveGray,
-            onPressed: () {
-              widget.appState.closePopup();
-            },
-            child: const Text('Cancel')),
-        const Gap(),
-        CupertinoButton(
-            color: kWarningColour,
-            onPressed: () {
-              widget.appState
-                ..deleteTrackerEntry(widget.appState.currentEntryId);
-              widget.appState.closePopup();
-            },
-            child: const Text('Delete')),
-      ],
-    );
-  }
 }
