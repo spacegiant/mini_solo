@@ -565,7 +565,10 @@ class AppState extends ChangeNotifier {
   void updateTrackerEntry(String id, TrackerEntry entry) {
     int index = _campaignData!.tracker.indexWhere((entry) => entry.id == id);
 
-    _campaignData?.tracker[index] = entry;
+    _campaignData?.tracker[index].label = entry.label;
+    _campaignData?.tracker[index].currentValue = entry.currentValue;
+    _campaignData?.tracker[index].maxValue = entry.maxValue;
+    _campaignData?.tracker[index].minValue = entry.minValue;
     saveCampaignDataToDisk();
   }
 
