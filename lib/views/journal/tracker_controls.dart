@@ -37,23 +37,38 @@ class TrackerControls extends StatelessWidget {
           ));
           break;
         case TrackerTypes.bar:
-          trackerWidgets.add(BarWidget(entry: widget));
+          trackerWidgets.add(BarWidget(
+            entry: widget,
+            appState: appState,
+          ));
           break;
         case TrackerTypes.ironsworn1Troublesome:
         case TrackerTypes.ironsworn2Dangerous:
         case TrackerTypes.ironsworn3Formidable:
         case TrackerTypes.ironsworn4Extreme:
         case TrackerTypes.ironsworn5Epic:
-          trackerWidgets.add(IronswornWidget(entry: widget));
+          trackerWidgets.add(IronswornWidget(
+            entry: widget,
+            appState: appState,
+          ));
           break;
         case TrackerTypes.pips:
-          trackerWidgets.add(PipsWidget(entry: widget));
+          trackerWidgets.add(PipsWidget(
+            entry: widget,
+            appState: appState,
+          ));
           break;
         case TrackerTypes.value:
-          trackerWidgets.add(ValueWidget(entry: widget));
+          trackerWidgets.add(ValueWidget(
+            entry: widget,
+            appState: appState,
+          ));
           break;
         case TrackerTypes.counter:
-          trackerWidgets.add(CounterWidget(entry: widget));
+          trackerWidgets.add(CounterWidget(
+            entry: widget,
+            appState: appState,
+          ));
           break;
         default:
           break;
@@ -69,19 +84,23 @@ class CounterWidget extends StatelessWidget {
   const CounterWidget({
     super.key,
     required this.entry,
+    required this.appState,
   });
 
   final TrackerEntry entry;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+        appState: appState,
+        id: entry.id,
         child: Column(
-      children: [
-        Text(entry.label),
-        Text(entry.currentValue.toString()),
-      ],
-    ));
+          children: [
+            Text(entry.label),
+            Text(entry.currentValue.toString()),
+          ],
+        ));
   }
 }
 
@@ -89,13 +108,17 @@ class ValueWidget extends StatelessWidget {
   const ValueWidget({
     super.key,
     required this.entry,
+    required this.appState,
   });
 
   final TrackerEntry entry;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+        appState: appState,
+        id: entry.id,
         minWidth: 60.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,30 +139,34 @@ class PipsWidget extends StatelessWidget {
   const PipsWidget({
     super.key,
     required this.entry,
+    required this.appState,
   });
 
   final TrackerEntry entry;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+        appState: appState,
+        id: entry.id,
         child: Column(
-      children: [
-        Text(entry.label),
-        const Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            SvgIcon(
-              icon: SVGIcon.pip_checked,
-              height: 36.0,
-              width: 24.0,
-            ),
-            SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
-            SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
+            Text(entry.label),
+            const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgIcon(
+                  icon: SVGIcon.pip_checked,
+                  height: 36.0,
+                  width: 24.0,
+                ),
+                SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
+                SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
+              ],
+            )
           ],
-        )
-      ],
-    ));
+        ));
   }
 }
 
@@ -147,14 +174,18 @@ class IronswornWidget extends StatelessWidget {
   const IronswornWidget({
     super.key,
     required this.entry,
+    required this.appState,
   });
 
   final TrackerEntry entry;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
       maxWidth: 320.0,
+      appState: appState,
+      id: entry.id,
       child: Column(
         children: [
           Row(
@@ -233,41 +264,45 @@ class BarWidget extends StatelessWidget {
   const BarWidget({
     super.key,
     required this.entry,
+    required this.appState,
   });
 
   final TrackerEntry entry;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
     double progress = entry.currentValue / entry.maxValue;
 
     return TrackerContainer(
+        appState: appState,
+        id: entry.id,
         child: SizedBox(
-      width: 180.0,
-      child: Column(
-        children: [
-          Text(entry.label),
-          const Gap(
-            height: 8.0,
+          width: 180.0,
+          child: Column(
+            children: [
+              Text(entry.label),
+              const Gap(
+                height: 8.0,
+              ),
+              SizedBox(
+                height: 10.0,
+                // color: CupertinoColors.systemPink,
+                child: LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: CupertinoColors.white,
+                ),
+              ),
+              const Gap(
+                height: 8.0,
+              ),
+              Text(
+                '${entry.currentValue}/${entry.maxValue}',
+                style: TextStyle(fontSize: 11.0),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 10.0,
-            // color: CupertinoColors.systemPink,
-            child: LinearProgressIndicator(
-              value: progress,
-              backgroundColor: CupertinoColors.white,
-            ),
-          ),
-          const Gap(
-            height: 8.0,
-          ),
-          Text(
-            '${entry.currentValue}/${entry.maxValue}',
-            style: TextStyle(fontSize: 11.0),
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 }
 
@@ -321,30 +356,25 @@ class ClockWidget extends StatelessWidget {
       iconList = eightSegment;
     }
 
-    return GestureDetector(
-      onTap: () {},
-      onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
-        appState.toggleShowPopup(label: PopupLabel.editTracker);
-      },
-      child: TrackerContainer(
-        child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 180.0,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgIcon(icon: iconList[1]),
-              Flexible(
-                  child: Text(
-                entry.label,
-                style: const TextStyle(
-                  overflow: TextOverflow.visible,
-                ),
-              )),
-            ],
-          ),
+    return TrackerContainer(
+      appState: appState,
+      id: entry.id,
+      child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 180.0,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgIcon(icon: iconList[1]),
+            Flexible(
+                child: Text(
+              entry.label,
+              style: const TextStyle(
+                overflow: TextOverflow.visible,
+              ),
+            )),
+          ],
         ),
       ),
     );
@@ -357,25 +387,36 @@ class TrackerContainer extends StatelessWidget {
     required this.child,
     this.minWidth = 100.0,
     this.maxWidth,
+    required this.appState,
+    required this.id,
   });
 
   final Widget child;
   final double minWidth;
   final double? maxWidth;
+  final AppState appState;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     double myDouble = maxWidth ?? double.infinity;
-    return Container(
-      constraints: BoxConstraints(
-        minWidth: minWidth,
-        maxWidth: myDouble,
+    return GestureDetector(
+      onTap: () {},
+      onLongPress: () {
+        appState.setCurrentEntryId(id);
+        appState.toggleShowPopup(label: PopupLabel.editTracker);
+      },
+      child: Container(
+        constraints: BoxConstraints(
+          minWidth: minWidth,
+          maxWidth: myDouble,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        decoration: const BoxDecoration(
+            color: CupertinoColors.lightBackgroundGray,
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: child,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      decoration: const BoxDecoration(
-          color: CupertinoColors.lightBackgroundGray,
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: child,
     );
   }
 }

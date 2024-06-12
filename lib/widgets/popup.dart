@@ -204,9 +204,34 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
           const Text('Select Tracker Type'),
           const Gap(),
 
-          // buttonBar(),
+          buttonBar(),
         ],
       ),
+    );
+  }
+
+  Wrap buttonBar() {
+    return Wrap(
+      children: [
+        CupertinoButton(
+            color: kSubmitColour, onPressed: () {}, child: const Text('Save')),
+        const Gap(),
+        CupertinoButton(
+            color: CupertinoColors.inactiveGray,
+            onPressed: () {
+              widget.appState.closePopup();
+            },
+            child: const Text('Cancel')),
+        const Gap(),
+        CupertinoButton(
+            color: kWarningColour,
+            onPressed: () {
+              widget.appState
+                ..deleteTrackerEntry(widget.appState.currentEntryId);
+              widget.appState.closePopup();
+            },
+            child: const Text('Delete')),
+      ],
     );
   }
 }

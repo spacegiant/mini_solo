@@ -24,6 +24,9 @@ Widget journalControls(
     // bool wrapControls,
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
+
+  print(appState.campaignData!.tracker.length);
+
   return ViewWrapper(children: [
     const Gap(),
 
@@ -59,12 +62,16 @@ Widget journalControls(
     RandomTables(
       appState: appState,
     ),
-    const JournalSubheading(
-      label: 'Trackers',
-    ),
-    TrackerControls(
-      appState: appState,
-    ),
+
+    if (appState.campaignData!.tracker.isNotEmpty) ...[
+      const JournalSubheading(
+        label: 'Trackers',
+      ),
+      TrackerControls(
+        appState: appState,
+      ),
+    ],
+
     const JournalSubheading(
       label: 'New Item',
     ),
@@ -72,7 +79,6 @@ Widget journalControls(
       ListButton(
         label: 'New Tracker',
         onPressed: () {
-          // TODO: Open Create Tracker Popup
           appState.toggleShowPopup(
             label: PopupLabel.createTracker,
           );
