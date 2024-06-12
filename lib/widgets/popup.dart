@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
@@ -19,6 +20,7 @@ import '../data/app_state.dart';
 import '../my_homepage.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
+import 'gap.dart';
 
 Consumer<Object?> popup(
   BuildContext context,
@@ -38,6 +40,9 @@ Consumer<Object?> popup(
       } else if (popup == PopupLabel.createTracker) {
         popupHeight = 750.0;
         popupWidget = ManageTrackerPopup(appState: appState);
+      } else if (popup == PopupLabel.editTracker) {
+        popupHeight = 600.0;
+        popupWidget = EditTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.importManager) {
         popupHeight = 700.0;
         popupWidget = ImportManager(appState: appState);
@@ -111,6 +116,7 @@ Consumer<Object?> popup(
                     width: 400.0,
                     child: CupertinoPopupSurface(
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           CupertinoButton(
                               child: const Text(kPopupCloseButtonLabel),
@@ -131,4 +137,76 @@ Consumer<Object?> popup(
       );
     },
   );
+}
+
+class EditTrackerPopup extends StatefulWidget {
+  const EditTrackerPopup({
+    super.key,
+    required this.appState,
+  });
+
+  final AppState appState;
+
+  @override
+  State<EditTrackerPopup> createState() => _EditTrackerPopupState();
+}
+
+class _EditTrackerPopupState extends State<EditTrackerPopup> {
+  late TextEditingController _trackerNameController;
+  late TextEditingController _minValueController;
+  late TextEditingController _currentValueController;
+  late TextEditingController _maxValueController;
+
+  @override
+  void initState() {
+    super.initState();
+    _trackerNameController = TextEditingController();
+    _minValueController = TextEditingController();
+    _currentValueController = TextEditingController();
+    _maxValueController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _trackerNameController.dispose();
+    _minValueController.dispose();
+    _currentValueController.dispose();
+    _maxValueController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String currentEntryId = widget.appState.currentEntryId;
+    TrackerEntry? currentToggleEntry = widget.appState.campaignData?.tracker
+        .firstWhere((tracker) => tracker.id == currentEntryId);
+
+    setState(() {
+      _trackerNameController.text = currentToggleEntry!.label;
+    });
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Tracker Name'),
+          const Gap(),
+          CupertinoTextField(
+            autofocus: true,
+            controller: _trackerNameController,
+            placeholder: 'Tracker name',
+          ),
+          const Gap(),
+          // rangeValues(),
+          const Divider(),
+          const Gap(),
+          const Text('Select Tracker Type'),
+          const Gap(),
+
+          // buttonBar(),
+        ],
+      ),
+    );
+  }
 }

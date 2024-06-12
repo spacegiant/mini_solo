@@ -29,7 +29,10 @@ class TrackerControls extends StatelessWidget {
     trackerEntriesSorted?.forEach((widget) {
       switch (widget.trackerType) {
         case TrackerTypes.clock:
-          trackerWidgets.add(ClockWidget(entry: widget));
+          trackerWidgets.add(ClockWidget(
+            entry: widget,
+            appState: appState,
+          ));
           break;
         case TrackerTypes.bar:
           trackerWidgets.add(BarWidget(entry: widget));
@@ -266,9 +269,11 @@ class ClockWidget extends StatelessWidget {
   const ClockWidget({
     super.key,
     required this.entry,
+    required this.appState,
   });
 
   final TrackerEntry entry;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
@@ -312,7 +317,10 @@ class ClockWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {},
-      onLongPress: () {},
+      onLongPress: () {
+        appState.setCurrentEntryId(entry.id);
+        appState.toggleShowPopup(label: PopupLabel.editTracker);
+      },
       child: TrackerContainer(
         child: Container(
           constraints: const BoxConstraints(
