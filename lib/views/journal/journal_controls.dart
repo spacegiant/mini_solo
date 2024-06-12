@@ -74,7 +74,7 @@ Widget journalControls(
         onPressed: () {
           // TODO: Open Create Tracker Popup
           appState.toggleShowPopup(
-            label: PopupLabel.manageTracker,
+            label: PopupLabel.createTracker,
           );
         },
       ),
