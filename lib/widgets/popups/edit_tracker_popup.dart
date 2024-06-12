@@ -60,6 +60,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
         (tracker) => tracker.type == currentToggleEntry?.trackerType);
 
     setState(() {
+      // FIXME: MOVE THIS OUT OF BUILD
       showMinValue = trackerOptions.editMin!;
       showCurrentValue = trackerOptions.editCurrent!;
       showMaxValue = trackerOptions.editMax!;

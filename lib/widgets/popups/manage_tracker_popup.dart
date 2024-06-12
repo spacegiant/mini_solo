@@ -89,12 +89,17 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tracker Name $selectedTrackerType'),
+          Text('Tracker Name ${_currentValueController.text}'),
           const Gap(),
           CupertinoTextField(
             autofocus: true,
             controller: _trackerNameController,
             placeholder: 'Tracker name',
+            onChanged: (value) {
+              setState(() {
+                _trackerNameController.text = value;
+              });
+            },
           ),
           const Gap(),
           rangeValues(),
@@ -130,6 +135,11 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
                 enabled: minValueActive,
                 controller: _minValueController,
                 placeholder: 'min value',
+                onChanged: (value) {
+                  setState(() {
+                    _minValueController.text = value;
+                  });
+                },
               ),
             ],
           ),
@@ -146,6 +156,11 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
                 enabled: currentValueActive,
                 controller: _currentValueController,
                 placeholder: 'current value',
+                onChanged: (value) {
+                  setState(() {
+                    _currentValueController.text = value;
+                  });
+                },
               ),
             ],
           ),
@@ -162,6 +177,11 @@ class _ManageTrackerPopupState extends State<ManageTrackerPopup> {
                 enabled: maxValueActive,
                 controller: _maxValueController,
                 placeholder: 'max value',
+                onChanged: (value) {
+                  setState(() {
+                    _maxValueController.text = value;
+                  });
+                },
               ),
             ],
           ),
