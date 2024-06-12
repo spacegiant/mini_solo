@@ -108,6 +108,7 @@ class IronswornWidget extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(entry.label),
               Gap(),
@@ -115,46 +116,57 @@ class IronswornWidget extends StatelessWidget {
             ],
           ),
           const Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_4,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_2,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
-              SvgIcon(
-                icon: SVGIcon.ironsworn_tick_0,
-                height: 36.0,
+              Flexible(
+                child: SvgIcon(
+                  icon: SVGIcon.ironsworn_tick_4,
+                ),
               ),
             ],
           ),
