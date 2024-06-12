@@ -61,7 +61,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_4,
       SVGIcon.ironsworn_tick_4,
     ],
-    maxValue: 10,
+    maxValue: 40,
     editCurrent: true,
   ),
   TrackerOptions(
@@ -71,7 +71,7 @@ List<TrackerOptions> trackers = [
       SVGIcon.ironsworn_tick_4,
       SVGIcon.ironsworn_tick_4,
     ],
-    maxValue: 10,
+    maxValue: 40,
     editCurrent: true,
   ),
   TrackerOptions(
@@ -80,7 +80,7 @@ List<TrackerOptions> trackers = [
     images: [
       SVGIcon.ironsworn_tick_4,
     ],
-    maxValue: 10,
+    maxValue: 40,
     editCurrent: true,
   ),
   TrackerOptions(
@@ -89,7 +89,7 @@ List<TrackerOptions> trackers = [
     images: [
       SVGIcon.ironsworn_tick_2,
     ],
-    maxValue: 10,
+    maxValue: 40,
     editCurrent: true,
   ),
   TrackerOptions(
@@ -98,7 +98,7 @@ List<TrackerOptions> trackers = [
     images: [
       SVGIcon.ironsworn_tick_1,
     ],
-    maxValue: 10,
+    maxValue: 40,
     editCurrent: true,
   ),
   TrackerOptions(
