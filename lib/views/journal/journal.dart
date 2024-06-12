@@ -14,6 +14,7 @@ import '../../widgets/journal/entryWidgets/mythic_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/oracle_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/roll_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/temp_dice_display.dart';
+import '../../widgets/journal/entryWidgets/tracker_entry_widget.dart';
 
 List<Widget> getEntries(
   AppState appState,
@@ -66,7 +67,11 @@ List<Widget> getEntries(
         ));
       case JournalEntryTypes.transition:
         journalEntries.add(const Text('transition'));
-
+      case JournalEntryTypes.tracker:
+        journalEntries.add(TrackerEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
       default:
         continue;
     }

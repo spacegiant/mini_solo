@@ -56,7 +56,6 @@ class _JournalViewState extends State<JournalView> {
       return FocusScope(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            print(constraints.maxWidth);
             if (constraints.maxWidth > 500) {
               return twoColumnLayout(
                 constraints,

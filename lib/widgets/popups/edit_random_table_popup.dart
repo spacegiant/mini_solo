@@ -16,7 +16,6 @@ class EditRandomTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String currentEntryId = appState.currentEntryId;
-    print(currentEntryId);
     RandomTableEntry entry = appState.appSettingsData.randomTables
         .firstWhere((entry) => entry.id == currentEntryId);
 

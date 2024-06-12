@@ -9,6 +9,21 @@ part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
 
+enum TrackerTypes {
+  clock4,
+  clock6,
+  clock8,
+  bar,
+  ironsworn1Troublesome,
+  ironsworn2Dangerous,
+  ironsworn3Formidable,
+  ironsworn4Extreme,
+  ironsworn5Epic,
+  pips,
+  value,
+  counter,
+}
+
 enum JournalEntryTypes {
   action,
   chaosFactor,
@@ -31,6 +46,7 @@ enum JournalEntryTypes {
   scratchPage,
   randomTable,
   rollTableResult,
+  tracker,
 }
 
 Map<JournalEntryTypes, String> journalEntryTypeLabel = {
@@ -52,6 +68,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.transition: 'transition',
+  JournalEntryTypes.tracker: 'tracker',
 };
 
 // TODO: Rename this
@@ -145,6 +162,7 @@ class CampaignData {
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
   late List<RollTableResult> rollTableResult;
+  late List<TrackerEntry> tracker;
 
   CampaignData({
     required this.settings,
@@ -165,6 +183,7 @@ class CampaignData {
     required this.rolls,
     required this.scratchPad,
     required this.rollTableResult,
+    required this.tracker,
   });
 
   // coverage:ignore-start
@@ -210,6 +229,7 @@ CampaignData initCampaignDataData(String campaignName) {
     ),
     things: [],
     rollTableResult: [],
+    tracker: [],
   );
 }
 
@@ -407,7 +427,7 @@ class BothResults {
 class DiceRoll {
   BothResults result;
   String diceType;
-  Images icon;
+  SVGIcon icon;
 
   DiceRoll({
     // required super.isFavourite,
@@ -451,7 +471,7 @@ class ScratchPageEntryItem extends CampaignItem {
 class RollEntryItem extends CampaignItem {
   List<DiceRoll> result;
   String label;
-  Images? icon;
+  SVGIcon? icon;
 
   RollEntryItem({
     required super.isFavourite,
@@ -510,4 +530,31 @@ class MythicEntry extends CampaignItem {
   @override
   JournalEntryTypes type = JournalEntryTypes.mythic;
 // coverage:ignore-end
+}
+
+@JsonSerializable()
+class TrackerEntry extends CampaignItem {
+  String label;
+  int currentValue;
+  int minValue;
+  int maxValue;
+  TrackerTypes trackerType;
+
+  TrackerEntry({
+    required this.label,
+    required this.currentValue,
+    this.minValue = 0,
+    this.maxValue = 0,
+    required this.trackerType,
+  });
+
+  // coverage:ignore-start
+  factory TrackerEntry.fromJson(Map<String, dynamic> json) =>
+      _$TrackerEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TrackerEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.tracker;
+  // coverage:ignore-end
 }

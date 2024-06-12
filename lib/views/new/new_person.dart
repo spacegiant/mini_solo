@@ -62,7 +62,6 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         label: 'Sex',
                         value: sex,
                         onTap: () {
-                          print('hello');
                           setState(() {
                             sex = 'female';
                           });
@@ -84,9 +83,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                       child: RandomiserButton(
                         label: 'Title',
                         value: title,
-                        onTap: () {
-                          print('hello');
-                        },
+                        onTap: () {},
                         onLongPress: () {
                           appState.toggleShowPopup(
                               label: PopupLabel.editField,
@@ -104,9 +101,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                 RandomiserButton(
                   label: 'First name',
                   value: firstName,
-                  onTap: () {
-                    print('hello');
-                  },
+                  onTap: () {},
                   onLongPress: () {
                     appState.toggleShowPopup(label: PopupLabel.editField);
                   },

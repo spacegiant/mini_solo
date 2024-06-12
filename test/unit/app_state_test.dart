@@ -1,7 +1,6 @@
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/icons.dart';
-import 'package:mini_solo/utilities/mock_callback.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -323,11 +322,11 @@ void main() {
         DiceRoll(
             result: BothResults(rolledValue: 6),
             diceType: 'd6',
-            icon: Images.d2_1),
+            icon: SVGIcon.d2_1),
         DiceRoll(
             result: BothResults(rolledValue: 2),
             diceType: 'd10',
-            icon: Images.d2_1),
+            icon: SVGIcon.d2_1),
       ],
       // diceType: 'd6',
     );

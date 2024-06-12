@@ -21,7 +21,9 @@ enum PopupLabel {
   journalFilter,
   editRandomTable,
   editRollTableResult,
-  importManager
+  importManager,
+  createTracker,
+  editTracker,
 }
 
 class AppState extends ChangeNotifier {
@@ -75,7 +77,7 @@ class AppState extends ChangeNotifier {
   void loadCampaign(String fileName) {
     _storage.readJSON(fileName).then((data) {
       if (data != null) {
-        setCampaignData(data!);
+        setCampaignData(data);
         setCurrentCampaign(data.name);
       }
     });
@@ -544,6 +546,35 @@ class AppState extends ChangeNotifier {
   void deleteRandomTableResultsEntry(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.rollTableResult.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+    // notifyListeners();
+  }
+
+  // TRACKER ENTRIES
+  void addTrackerEntry(TrackerEntry entry) {
+    _campaignData?.tracker.add(entry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: entry.type,
+        id: entry.id,
+      ),
+    );
+  }
+
+  void updateTrackerEntry(String id, TrackerEntry entry) {
+    int index = _campaignData!.tracker.indexWhere((entry) => entry.id == id);
+
+    _campaignData?.tracker[index].label = entry.label;
+    _campaignData?.tracker[index].currentValue = entry.currentValue;
+    _campaignData?.tracker[index].maxValue = entry.maxValue;
+    _campaignData?.tracker[index].minValue = entry.minValue;
+    saveCampaignDataToDisk();
+  }
+
+  void deleteTrackerEntry(String id) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
@@ -11,13 +12,16 @@ import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
+import 'package:mini_solo/widgets/popups/manage_tracker_popup.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../data/app_state.dart';
 import '../my_homepage.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
+import 'gap.dart';
 
 Consumer<Object?> popup(
   BuildContext context,
@@ -34,6 +38,12 @@ Consumer<Object?> popup(
       // WIDGETS
       if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
+      } else if (popup == PopupLabel.createTracker) {
+        popupHeight = 750.0;
+        popupWidget = ManageTrackerPopup(appState: appState);
+      } else if (popup == PopupLabel.editTracker) {
+        popupHeight = 600.0;
+        popupWidget = EditTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.importManager) {
         popupHeight = 700.0;
         popupWidget = ImportManager(appState: appState);
@@ -107,6 +117,7 @@ Consumer<Object?> popup(
                     width: 400.0,
                     child: CupertinoPopupSurface(
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           CupertinoButton(
                               child: const Text(kPopupCloseButtonLabel),

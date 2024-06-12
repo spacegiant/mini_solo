@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mini_solo/views/journal/tracker_controls.dart';
 
 import '../../constants.dart';
 import '../../data/app_settings_data.dart';
@@ -23,6 +24,7 @@ Widget journalControls(
     // bool wrapControls,
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
+
   return ViewWrapper(children: [
     const Gap(),
 
@@ -58,8 +60,37 @@ Widget journalControls(
     RandomTables(
       appState: appState,
     ),
-    const Divider(),
-    const Text('Create New Item Toolbar Here'),
+
+    if (appState.campaignData!.tracker.isNotEmpty) ...[
+      const JournalSubheading(
+        label: 'Trackers',
+      ),
+      TrackerControls(
+        appState: appState,
+      ),
+    ],
+
+    const JournalSubheading(
+      label: 'New Item',
+    ),
+    WrapManager(wrapControls: true, children: [
+      ListButton(
+        label: 'New Tracker',
+        onPressed: () {
+          appState.toggleShowPopup(
+            label: PopupLabel.createTracker,
+          );
+        },
+      ),
+      ListButton(
+        onPressed: () {
+          appState.toggleShowPopup(
+            label: PopupLabel.addRandomTable,
+          );
+        },
+        label: 'Add random table',
+      ),
+    ]),
     const JournalSubheading(
       label: 'Import/Export',
     ),
@@ -88,9 +119,6 @@ Widget journalControls(
             // copied successfully
           }),
     ]),
-
-    const Divider(),
-
     // const MarkdownBlock(
     //   newString: '# hello\n*hello* hello\n- hello',
     // ),

@@ -43,4 +43,5 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',
+  JournalEntryTypes.tracker: 'tracker',
 };
