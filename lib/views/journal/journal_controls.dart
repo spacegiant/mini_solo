@@ -25,8 +25,6 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
 
-  print(appState.campaignData!.tracker.length);
-
   return ViewWrapper(children: [
     const Gap(),
 

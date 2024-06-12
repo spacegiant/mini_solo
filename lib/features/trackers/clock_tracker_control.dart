@@ -58,7 +58,6 @@ class ClockWidget extends StatelessWidget {
     void handleTap() {
       int newValue = entry.currentValue + 1;
       if (newValue > entry.maxValue) return;
-      print(entry.maxValue);
 
       appState.updateTrackerEntry(
         entry.id,

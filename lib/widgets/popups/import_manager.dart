@@ -102,7 +102,6 @@ class _ImportManagerState extends State<ImportManager> {
                 CupertinoCheckbox(
                     value: userWantsToSwitch,
                     onChanged: (value) {
-                      print(value);
                       setState(() {
                         userWantsToSwitch = !userWantsToSwitch!;
                       });

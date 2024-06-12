@@ -19,7 +19,6 @@ class BarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void handleTap({int modifier = 1}) {
-      print('TAPPED ${entry.currentValue}');
       if (entry.currentValue + modifier > entry.maxValue) return;
       if (entry.currentValue + modifier < entry.minValue) return;
 
@@ -38,7 +37,6 @@ class BarWidget extends StatelessWidget {
     }
 
     double progress = entry.currentValue / entry.maxValue;
-    print(entry.maxValue);
 
     return TrackerContainer(
         appState: appState,

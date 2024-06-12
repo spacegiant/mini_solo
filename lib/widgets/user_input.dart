@@ -51,8 +51,6 @@ class _UserInputState extends State<UserInput> {
             CupertinoButton(
               child: const Text('Submit'),
               onPressed: () {
-                print(_textController.text);
-
                 _textController.clear();
               },
             )
