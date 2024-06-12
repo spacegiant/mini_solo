@@ -42,17 +42,18 @@ class CounterWidget extends StatelessWidget {
           child: Column(
             children: [
               Text(entry.label),
+              const Gap(height: 8.0),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(CupertinoIcons.arrowtriangle_left_fill),
+                  const Icon(CupertinoIcons.arrowtriangle_left_fill),
                   SizedBox(
                       width: 100.0,
                       child: Text(
                         entry.currentValue.toString(),
                         textAlign: TextAlign.center,
                       )),
-                  Icon(CupertinoIcons.arrowtriangle_right_fill),
+                  const Icon(CupertinoIcons.arrowtriangle_right_fill),
                 ],
               ),
             ],

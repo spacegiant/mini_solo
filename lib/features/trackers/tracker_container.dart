@@ -54,7 +54,7 @@ class TrackerContainer extends StatelessWidget {
         if (showButtons)
           Positioned(
             child: Container(
-              color: Color(0x88FF9900),
+              // color: Color(0x88FF9900),
               child: CupertinoButton(
                 child: const SizedBox(width: 44.0, height: 44.0),
                 onPressed: () {
@@ -67,7 +67,7 @@ class TrackerContainer extends StatelessWidget {
           Positioned(
             right: 0.0,
             child: Container(
-              color: Color(0x88FF9900),
+              // color: Color(0x88FF9900),
               child: CupertinoButton(
                 child: SizedBox(width: 44.0, height: 44.0),
                 onPressed: () {
