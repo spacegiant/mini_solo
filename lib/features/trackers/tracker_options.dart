@@ -34,6 +34,9 @@ List<TrackerOptions> trackers = [
     subType: '4segment',
     images: [SVGIcon.clock4_0],
     maxValue: 4,
+    currentValue: 0,
+    minValue: 0,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: '6 Segment',
@@ -41,6 +44,9 @@ List<TrackerOptions> trackers = [
     subType: '6segment',
     images: [SVGIcon.clock6_0],
     maxValue: 6,
+    currentValue: 0,
+    minValue: 0,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: '8 Segment',
@@ -48,6 +54,9 @@ List<TrackerOptions> trackers = [
     subType: '8segment',
     images: [SVGIcon.clock8_0],
     maxValue: 8,
+    currentValue: 0,
+    minValue: 0,
+    editCurrent: true,
   ),
   TrackerOptions(
     label: 'Troublesome',
