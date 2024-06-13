@@ -19,7 +19,33 @@ class PipsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double iconHeight = 24.0;
+    List<SvgIcon> pips = [];
+
+    for (int i = 1; i < entry.maxValue + 1; i++) {
+      if (i <= entry.currentValue) {
+        pips.add(
+          SvgIcon(icon: SVGIcon.pip_checked, height: iconHeight),
+        );
+      } else {
+        pips.add(SvgIcon(icon: SVGIcon.pip_unchecked, height: iconHeight));
+      }
+    }
+
+    void handleTap({int modifier = 1}) {
+      appState.updateTrackerEntry(
+        id: entry.id,
+        currentValue: entry.currentValue + modifier,
+        maxValue: entry.maxValue,
+      );
+    }
+
     return TrackerContainer(
+        onTap: () {
+          handleTap(modifier: -1);
+        },
+        onTapRight: () {
+          handleTap();
+        },
         appState: appState,
         id: entry.id,
         child: Column(
@@ -28,11 +54,7 @@ class PipsWidget extends StatelessWidget {
             const Gap(),
             Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgIcon(icon: SVGIcon.pip_checked, height: iconHeight),
-                SvgIcon(icon: SVGIcon.pip_unchecked, height: iconHeight),
-                SvgIcon(icon: SVGIcon.pip_unchecked, height: iconHeight),
-              ],
+              children: pips,
             )
           ],
         ));
