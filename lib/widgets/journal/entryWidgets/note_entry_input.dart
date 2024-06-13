@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NoteEntryInput extends StatefulWidget {
   const NoteEntryInput({
@@ -16,22 +17,42 @@ class NoteEntryInput extends StatefulWidget {
 }
 
 class _NoteEntryInputState extends State<NoteEntryInput> {
+  late bool isUsingPhysicalKeyboard = false;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        CupertinoTextField(
-          controller: widget._controller,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.zero,
-            color: Colors.transparent,
+        KeyboardListener(
+          focusNode: FocusNode(),
+          onKeyEvent: (keyEvent) {
+            setState(() {
+              if (keyEvent.physicalKey != null) {
+                isUsingPhysicalKeyboard = true;
+              } else {
+                isUsingPhysicalKeyboard = false;
+              }
+            });
+          },
+          child: CupertinoTextField(
+            textInputAction: isUsingPhysicalKeyboard == true
+                ? TextInputAction.done
+                : TextInputAction.newline,
+            controller: widget._controller,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.zero,
+              color: Colors.transparent,
+            ),
+            onSubmitted: (value) {
+              widget.onInputSubmit();
+            },
+            placeholder: 'Type here',
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: true,
+            expands: true,
+            minLines: null,
+            maxLines: null,
           ),
-          placeholder: 'Type here',
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: true,
-          expands: true,
-          minLines: null,
-          maxLines: null,
         ),
         Positioned(
             right: 0.0,

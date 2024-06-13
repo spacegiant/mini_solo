@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import 'journal.dart';
@@ -120,7 +121,6 @@ class _JournalViewState extends State<JournalView> {
       void Function() submitResults,
       void Function() clearResults,
       BuildContext context) {
-    double forceHeight = 2000.0;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -144,7 +144,7 @@ class _JournalViewState extends State<JournalView> {
         Expanded(
           flex: 1,
           child: Container(
-            height: forceHeight,
+            height: kForceColumnHeight,
             decoration: const BoxDecoration(
                 border: Border(
               left: BorderSide(
