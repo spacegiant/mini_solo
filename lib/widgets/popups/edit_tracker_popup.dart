@@ -69,7 +69,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tracker Name'),
+          Center(child: Text('Tracker Name')),
           const Gap(),
           CupertinoTextField(
             autofocus: true,
@@ -81,43 +81,70 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             children: [
               if (showMinValue)
                 Flexible(
-                    child: Column(
-                  children: [
-                    const Text('Min Value'),
-                    const Gap(height: 4.0),
-                    CupertinoTextField(
-                      keyboardType: TextInputType.number,
-                      controller: _minValueController,
-                      placeholder: 'min value',
-                    ),
-                  ],
-                )),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Min Value'),
+                      const Gap(height: 4.0),
+                      CupertinoTextField(
+                        keyboardType: TextInputType.number,
+                        controller: _minValueController,
+                        placeholder: 'min value',
+                      ),
+                      const Gap(
+                        height: 4.0,
+                      ),
+                      const Text(
+                        '',
+                        style: TextStyle(fontSize: 11.0),
+                      ),
+                    ],
+                  ),
+                ),
               const Gap(),
               if (showCurrentValue)
                 Flexible(
-                    child: Column(
-                  children: [
-                    const Text('Current Value'),
-                    const Gap(height: 4.0),
-                    CupertinoTextField(
-                      controller: _currentValueController,
-                      placeholder: 'current value',
-                    ),
-                  ],
-                )),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Current Value'),
+                      const Gap(height: 4.0),
+                      CupertinoTextField(
+                        controller: _currentValueController,
+                        placeholder: 'current value',
+                      ),
+                      const Gap(
+                        height: 4.0,
+                      ),
+                      const Text(
+                        '',
+                        style: TextStyle(fontSize: 11.0),
+                      ),
+                    ],
+                  ),
+                ),
               const Gap(),
               if (showMaxValue)
                 Flexible(
-                    child: Column(
-                  children: [
-                    const Text('Max Value'),
-                    const Gap(height: 4.0),
-                    CupertinoTextField(
-                      controller: _maxValueController,
-                      placeholder: 'max value',
-                    ),
-                  ],
-                )),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Max Value'),
+                      const Gap(height: 4.0),
+                      CupertinoTextField(
+                        controller: _maxValueController,
+                        placeholder: 'max value',
+                      ),
+                      const Gap(
+                        height: 4.0,
+                      ),
+                      const Text(
+                        '',
+                        style: TextStyle(fontSize: 11.0),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
           const Divider(),

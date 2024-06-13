@@ -89,7 +89,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tracker Name ${_currentValueController.text}'),
+          const Center(child: Text('Tracker Name')),
           const Gap(),
           CupertinoTextField(
             autofocus: true,
@@ -105,7 +105,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
           rangeValues(),
           const Divider(),
           const Gap(),
-          const Text('Select Tracker Type'),
+          const Center(child: Text('Select Tracker Type')),
           const Gap(),
           Wrap(
             spacing: 8.0,
@@ -127,6 +127,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             child: Opacity(
           opacity: minValueActive == true ? 1.0 : 0.3,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Min Value'),
               const Gap(height: 4.0),
@@ -141,6 +142,13 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
                   });
                 },
               ),
+              const Gap(
+                height: 4.0,
+              ),
+              const Text(
+                '',
+                style: TextStyle(fontSize: 11.0),
+              ),
             ],
           ),
         )),
@@ -149,6 +157,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             child: Opacity(
           opacity: currentValueActive == true ? 1.0 : 0.3,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Current Value'),
               const Gap(height: 4.0),
@@ -162,6 +171,13 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
                   });
                 },
               ),
+              const Gap(
+                height: 4.0,
+              ),
+              const Text(
+                '',
+                style: TextStyle(fontSize: 11.0),
+              ),
             ],
           ),
         )),
@@ -170,6 +186,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             child: Opacity(
           opacity: maxValueActive == true ? 1.0 : 0.3,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Max Value'),
               const Gap(height: 4.0),
@@ -182,6 +199,13 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
                     _maxValueController.text = value;
                   });
                 },
+              ),
+              const Gap(
+                height: 4.0,
+              ),
+              const Text(
+                '',
+                style: TextStyle(fontSize: 11.0),
               ),
             ],
           ),
