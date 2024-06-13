@@ -21,7 +21,7 @@ class PipsWidget extends StatelessWidget {
     double iconHeight = 24.0;
     List<SvgIcon> pips = [];
 
-    for (int i = 1; i < entry.maxValue + 1; i++) {
+    for (int i = 1; i < entry.maxValue! + 1; i++) {
       if (i <= entry.currentValue) {
         pips.add(
           SvgIcon(icon: SVGIcon.pip_checked, height: iconHeight),

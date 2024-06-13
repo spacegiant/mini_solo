@@ -536,15 +536,15 @@ class MythicEntry extends CampaignItem {
 class TrackerEntry extends CampaignItem {
   String label;
   int currentValue;
-  int minValue;
-  int maxValue;
+  int? minValue;
+  int? maxValue;
   TrackerTypes trackerType;
 
   TrackerEntry({
     required this.label,
     required this.currentValue,
-    this.minValue = 0,
-    this.maxValue = 0,
+    this.minValue,
+    this.maxValue,
     required this.trackerType,
   });
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -77,76 +78,87 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             placeholder: 'Tracker name',
           ),
           const Gap(),
-          Row(
-            children: [
-              if (showMinValue)
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Min Value'),
-                      const Gap(height: 4.0),
-                      CupertinoTextField(
-                        keyboardType: TextInputType.number,
-                        controller: _minValueController,
-                        placeholder: 'min value',
-                      ),
-                      const Gap(
-                        height: 4.0,
-                      ),
-                      const Text(
-                        '',
-                        style: TextStyle(fontSize: 11.0),
-                      ),
-                    ],
-                  ),
-                ),
-              const Gap(),
-              if (showCurrentValue)
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Current Value'),
-                      const Gap(height: 4.0),
-                      CupertinoTextField(
-                        controller: _currentValueController,
-                        placeholder: 'current value',
-                      ),
-                      const Gap(
-                        height: 4.0,
-                      ),
-                      const Text(
-                        '',
-                        style: TextStyle(fontSize: 11.0),
-                      ),
-                    ],
-                  ),
-                ),
-              const Gap(),
-              if (showMaxValue)
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Max Value'),
-                      const Gap(height: 4.0),
-                      CupertinoTextField(
-                        controller: _maxValueController,
-                        placeholder: 'max value',
-                      ),
-                      const Gap(
-                        height: 4.0,
-                      ),
-                      const Text(
-                        '',
-                        style: TextStyle(fontSize: 11.0),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
+          RangeValuesForm(
+            minValueActive: showMinValue,
+            currentValueActive: showCurrentValue,
+            maxValueActive: showMaxValue,
+            minValueController: _minValueController,
+            currentValueController: _currentValueController,
+            maxValueController: _maxValueController,
+            setMinValueText: (value) {},
+            setCurrentValueText: (value) {},
+            setMaxValueText: (value) {},
           ),
+          // Row(
+          //   children: [
+          //     if (showMinValue)
+          //       Flexible(
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             const Text('Min Value'),
+          //             const Gap(height: 4.0),
+          //             CupertinoTextField(
+          //               keyboardType: TextInputType.number,
+          //               controller: _minValueController,
+          //               placeholder: 'min value',
+          //             ),
+          //             const Gap(
+          //               height: 4.0,
+          //             ),
+          //             const Text(
+          //               '',
+          //               style: TextStyle(fontSize: 11.0),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     const Gap(),
+          //     if (showCurrentValue)
+          //       Flexible(
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             const Text('Current Value'),
+          //             const Gap(height: 4.0),
+          //             CupertinoTextField(
+          //               controller: _currentValueController,
+          //               placeholder: 'current value',
+          //             ),
+          //             const Gap(
+          //               height: 4.0,
+          //             ),
+          //             const Text(
+          //               '',
+          //               style: TextStyle(fontSize: 11.0),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     const Gap(),
+          //     if (showMaxValue)
+          //       Flexible(
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             const Text('Max Value'),
+          //             const Gap(height: 4.0),
+          //             CupertinoTextField(
+          //               controller: _maxValueController,
+          //               placeholder: 'max value',
+          //             ),
+          //             const Gap(
+          //               height: 4.0,
+          //             ),
+          //             const Text(
+          //               '',
+          //               style: TextStyle(fontSize: 11.0),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //   ],
+          // ),
           const Divider(),
           buttonBar(),
         ],
@@ -162,13 +174,35 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
         CupertinoButton(
             color: kSubmitColour,
             onPressed: () {
-              // Update data and save
+              int? minValue;
+              int? currentValue;
+              int? maxValue;
+
+              try {
+                minValue = int.parse(_minValueController.text);
+              } catch (e) {
+                // print(e);
+              }
+
+              try {
+                currentValue = int.parse(_currentValueController.text);
+                print(currentValue);
+              } catch (e) {
+                // print(e);
+              }
+
+              try {
+                maxValue = int.parse(_maxValueController.text);
+              } catch (e) {
+                // print(e);
+              }
+
               widget.appState.updateTrackerEntry(
                 id: currentEntryId,
                 label: _trackerNameController.text,
-                minValue: int.parse(_minValueController.text),
-                currentValue: int.parse(_currentValueController.text),
-                maxValue: int.parse(_maxValueController.text),
+                minValue: minValue,
+                currentValue: currentValue,
+                maxValue: maxValue,
               );
               widget.appState.closePopup();
             },

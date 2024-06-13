@@ -225,9 +225,13 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
 
     widget.appState.addTrackerEntry(TrackerEntry(
       label: _trackerNameController.text,
-      minValue: parseString(_minValueController.text),
+      minValue: currentTracker.minValue != null
+          ? parseString(_minValueController.text)
+          : null,
       currentValue: parseString(_currentValueController.text),
-      maxValue: parseString(_maxValueController.text),
+      maxValue: currentTracker.maxValue != null
+          ? parseString(_maxValueController.text)
+          : null,
       trackerType: currentTracker.type,
     ));
     widget.appState.closePopup();
