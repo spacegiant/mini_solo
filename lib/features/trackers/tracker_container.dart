@@ -43,8 +43,7 @@ class TrackerContainer extends StatelessWidget {
               minWidth: minWidth,
               maxWidth: myDouble,
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
             decoration: const BoxDecoration(
                 color: CupertinoColors.lightBackgroundGray,
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
