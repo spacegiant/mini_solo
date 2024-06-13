@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 
@@ -28,6 +29,9 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
   bool minValueActive = false;
   bool currentValueActive = false;
   bool maxValueActive = false;
+  String minValueError = '';
+  String currentValueError = '';
+  String maxValueError = '';
 
   late TextEditingController _trackerNameController;
   late TextEditingController _minValueController;
@@ -120,6 +124,87 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
     );
   }
 
+  String? get _minValueErrorText {
+    final text = _minValueController.value.text.trim();
+    try {
+      int.parse(text);
+    } catch (e) {
+      print(e);
+      return 'Needs a number';
+    }
+    if (minValueActive == false) return 'Not editable';
+    if (text.isEmpty) return 'Needs a value';
+    return null;
+  }
+
+  String? get _currentValueErrorText {
+    int currentValue = 0;
+    int maxValue = 0;
+    int minValue = 0;
+    final currentValueText = _currentValueController.value.text.trim();
+    final maxValueText = _maxValueController.value.text.trim();
+    final minValueText = _minValueController.value.text.trim();
+
+    if (currentValueActive == false) return 'Not editable';
+    if (currentValueText.isEmpty) return 'Needs a value';
+
+    try {
+      currentValue = int.parse(currentValueText);
+    } catch (e) {
+      print(e);
+      return 'Needs a number';
+    }
+
+    try {
+      maxValue = int.parse(maxValueText);
+    } catch (e) {
+      print(e);
+      return '';
+    }
+
+    try {
+      minValue = int.parse(minValueText);
+    } catch (e) {
+      print(e);
+      return '';
+    }
+
+    if (currentValue > maxValue) return 'Higher than max';
+    if (currentValue < minValue) return 'Lower than min';
+    return null;
+  }
+
+  String? get _maxValueErrorText {
+    final text = _maxValueController.value.text.trim();
+    try {
+      int.parse(text);
+    } catch (e) {
+      print(e);
+      return 'Needs a number';
+    }
+    if (maxValueActive == false) return 'Not editable';
+    if (text.isEmpty) return 'Needs a value';
+    return null;
+  }
+
+  void setMinValueText(value) {
+    setState(() {
+      _minValueController.text = value;
+    });
+  }
+
+  void setCurrentValueText(value) {
+    setState(() {
+      _currentValueController.text = value;
+    });
+  }
+
+  void setMaxValueText(value) {
+    setState(() {
+      _maxValueController.text = value;
+    });
+  }
+
   Row rangeValues() {
     return Row(
       children: [
@@ -136,18 +221,14 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
                 enabled: minValueActive,
                 controller: _minValueController,
                 placeholder: 'min value',
-                onChanged: (value) {
-                  setState(() {
-                    _minValueController.text = value;
-                  });
-                },
+                onChanged: setMinValueText,
               ),
               const Gap(
                 height: 4.0,
               ),
-              const Text(
-                '',
-                style: TextStyle(fontSize: 11.0),
+              Text(
+                _minValueErrorText ?? '',
+                style: const TextStyle(fontSize: 11.0),
               ),
             ],
           ),
@@ -159,23 +240,27 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Current Value'),
-              const Gap(height: 4.0),
+              Text('Current Value'),
+              Gap(height: 4.0),
               CupertinoTextField(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(kInputBorderRadius),
+                  color: CupertinoColors.white,
+                  border: Border.all(
+                    color: CupertinoColors.systemRed,
+                    width: 2.0,
+                  ),
+                ),
                 enabled: currentValueActive,
                 controller: _currentValueController,
                 placeholder: 'current value',
-                onChanged: (value) {
-                  setState(() {
-                    _currentValueController.text = value;
-                  });
-                },
+                onChanged: setCurrentValueText,
               ),
-              const Gap(
+              Gap(
                 height: 4.0,
               ),
-              const Text(
-                '',
+              Text(
+                _currentValueErrorText ?? '',
                 style: TextStyle(fontSize: 11.0),
               ),
             ],
@@ -194,18 +279,14 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
                 enabled: maxValueActive,
                 controller: _maxValueController,
                 placeholder: 'max value',
-                onChanged: (value) {
-                  setState(() {
-                    _maxValueController.text = value;
-                  });
-                },
+                onChanged: setMaxValueText,
               ),
               const Gap(
                 height: 4.0,
               ),
-              const Text(
-                '',
-                style: TextStyle(fontSize: 11.0),
+              Text(
+                _maxValueErrorText ?? '',
+                style: const TextStyle(fontSize: 11.0),
               ),
             ],
           ),
