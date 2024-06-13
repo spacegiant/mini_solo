@@ -4,7 +4,7 @@ import 'package:mini_solo/features/trackers/tracker_options.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 class IronswornWidget extends StatelessWidget {
   const IronswornWidget({

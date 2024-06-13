@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 import 'dice.dart';
 

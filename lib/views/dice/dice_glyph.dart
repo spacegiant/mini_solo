@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/icons.dart';
+import 'package:mini_solo/svg_icon.dart';
 
 import '../../data/campaign_data.dart';
 
@@ -28,7 +28,7 @@ class DiceGlyph extends StatelessWidget {
         ),
       )
     ]);
-  
+
     return glyphContent;
   }
 }

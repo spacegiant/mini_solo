@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/icons.dart';
+import 'package:mini_solo/svg_icon.dart';
 
 import '../../data/campaign_data.dart';
 import 'dice.dart';

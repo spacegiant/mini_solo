@@ -6,7 +6,7 @@ import 'package:mini_solo/data/app_state.dart';
 
 import '../../data/campaign_data.dart';
 import '../../features/trackers/tracker_options.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 import '../gap.dart';
 
 class ManageTrackerPopup extends StatefulWidget {

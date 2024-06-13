@@ -1,4 +1,4 @@
-import '../../icons.dart';
+import '../../svg_icon.dart';
 import 'dice.dart';
 
 DiceSet regularDice = DiceSet(

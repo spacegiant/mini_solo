@@ -1,5 +1,5 @@
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/icons.dart';
+import 'package:mini_solo/svg_icon.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -3,7 +3,7 @@ import 'package:mini_solo/features/trackers/tracker_container.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 class ClockWidget extends StatelessWidget {
   const ClockWidget({

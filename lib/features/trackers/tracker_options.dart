@@ -1,5 +1,5 @@
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 class TrackerOptions {
   final String label;
