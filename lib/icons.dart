@@ -279,6 +279,7 @@ enum SVGIcon {
   pip_icon,
   pip_unchecked,
   value_tracker,
+  counter_tracker,
 }
 
 Map<SVGIcon, String> imagesPaths = {
@@ -525,4 +526,5 @@ Map<SVGIcon, String> imagesPaths = {
   SVGIcon.pip_icon: 'lib/assets/other/pip_icon.svg',
   SVGIcon.pip_unchecked: 'lib/assets/other/pip_unchecked.svg',
   SVGIcon.value_tracker: 'lib/assets/other/value_tracker_icon.svg',
+  SVGIcon.counter_tracker: 'lib/assets/other/counter_tracker_icon.svg',
 };
