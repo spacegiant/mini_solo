@@ -562,13 +562,21 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void updateTrackerEntry(String id, TrackerEntry entry) {
+  void updateTrackerEntry({
+    required String id,
+    String? label,
+    int? currentValue,
+    int? minValue,
+    int? maxValue,
+  }) {
     int index = _campaignData!.tracker.indexWhere((entry) => entry.id == id);
 
-    _campaignData?.tracker[index].label = entry.label;
-    _campaignData?.tracker[index].currentValue = entry.currentValue;
-    _campaignData?.tracker[index].maxValue = entry.maxValue;
-    _campaignData?.tracker[index].minValue = entry.minValue;
+    if (label != null) _campaignData?.tracker[index].label = label;
+    if (currentValue != null)
+      _campaignData?.tracker[index].currentValue = currentValue;
+    if (maxValue != null) _campaignData?.tracker[index].maxValue = maxValue;
+    if (minValue != null) _campaignData?.tracker[index].minValue = minValue;
+
     saveCampaignDataToDisk();
   }
 

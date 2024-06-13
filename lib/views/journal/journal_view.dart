@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import 'journal.dart';
@@ -122,24 +123,40 @@ class _JournalViewState extends State<JournalView> {
       BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          flex: 1,
-          child: Journal(
-            constraints: constraints,
-            items: appState.campaignData!.journal,
-            diceRoll: diceResults,
-            addDice: addResult,
-            submitDice: submitResults,
-            clearDice: clearResults,
+          child: Container(
+            color: CupertinoColors.systemPink,
+            // TODO: Better way to force height?
+            // height: forceHeight,
+            child: Journal(
+              constraints: constraints,
+              items: appState.campaignData!.journal,
+              diceRoll: diceResults,
+              addDice: addResult,
+              submitDice: submitResults,
+              clearDice: clearResults,
+            ),
           ),
         ),
         Expanded(
           flex: 1,
-          child: journalControls(
-            appState,
-            addResult,
-            context,
+          child: Container(
+            height: kForceColumnHeight,
+            decoration: const BoxDecoration(
+                border: Border(
+              left: BorderSide(
+                color: CupertinoColors.inactiveGray,
+                width: 3.0,
+              ),
+            )),
+            child: journalControls(
+              appState,
+              addResult,
+              context,
+            ),
           ),
         ),
       ],

@@ -3,7 +3,7 @@ import 'package:mini_solo/features/trackers/tracker_container.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 class ClockWidget extends StatelessWidget {
   const ClockWidget({
@@ -60,14 +60,9 @@ class ClockWidget extends StatelessWidget {
       if (newValue > entry.maxValue) return;
 
       appState.updateTrackerEntry(
-        entry.id,
-        TrackerEntry(
-          label: entry.label,
-          currentValue: newValue,
-          minValue: entry.minValue,
-          maxValue: entry.maxValue,
-          trackerType: entry.trackerType,
-        ),
+        id: entry.id,
+        label: entry.label,
+        currentValue: newValue,
       );
     }
 

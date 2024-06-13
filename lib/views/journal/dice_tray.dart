@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 import '../../widgets/wrap_manager.dart';
 import '../dice/dice.dart';
 import '../dice/dice_button.dart';

@@ -137,14 +137,11 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             onPressed: () {
               // Update data and save
               widget.appState.updateTrackerEntry(
-                currentEntryId,
-                TrackerEntry(
-                  label: _trackerNameController.text,
-                  minValue: int.parse(_minValueController.text),
-                  currentValue: int.parse(_currentValueController.text),
-                  maxValue: int.parse(_maxValueController.text),
-                  trackerType: currentEntry!.trackerType,
-                ),
+                id: currentEntryId,
+                label: _trackerNameController.text,
+                minValue: int.parse(_minValueController.text),
+                currentValue: int.parse(_currentValueController.text),
+                maxValue: int.parse(_maxValueController.text),
               );
               widget.appState.closePopup();
             },

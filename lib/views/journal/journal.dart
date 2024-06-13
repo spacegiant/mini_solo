@@ -154,6 +154,7 @@ class _JournalState extends State<Journal> {
           //   appState.toggleShowPopup(PopupLabels.fullJournal);
           // },
           child: Container(
+            height: kForceColumnHeight,
             color: kJournalBackgroundColour,
             child: SingleChildScrollView(
               reverse: true,

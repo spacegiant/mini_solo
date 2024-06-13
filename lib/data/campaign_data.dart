@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
-import '../icons.dart';
+import '../svg_icon.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';

@@ -1,5 +1,5 @@
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 class TrackerOptions {
   final String label;
@@ -132,7 +132,7 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Counter',
     type: TrackerTypes.counter,
-    images: [SVGIcon.value_tracker],
+    images: [SVGIcon.counter_tracker],
     editCurrent: true,
     currentValue: 0,
   ),

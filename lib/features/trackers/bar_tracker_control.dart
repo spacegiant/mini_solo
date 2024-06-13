@@ -25,14 +25,11 @@ class BarWidget extends StatelessWidget {
       int newValue = entry.currentValue + modifier;
 
       appState.updateTrackerEntry(
-        entry.id,
-        TrackerEntry(
-          label: entry.label,
-          currentValue: newValue,
-          minValue: entry.minValue,
-          maxValue: entry.maxValue,
-          trackerType: entry.trackerType,
-        ),
+        id: entry.id,
+        label: entry.label,
+        currentValue: newValue,
+        minValue: entry.minValue,
+        maxValue: entry.maxValue,
       );
     }
 

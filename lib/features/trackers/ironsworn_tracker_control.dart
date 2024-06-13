@@ -4,7 +4,7 @@ import 'package:mini_solo/features/trackers/tracker_options.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../icons.dart';
+import '../../svg_icon.dart';
 
 class IronswornWidget extends StatelessWidget {
   const IronswornWidget({
@@ -92,12 +92,9 @@ class IronswornWidget extends StatelessWidget {
         if (newValue < 0) newValue = 0;
 
         appState.updateTrackerEntry(
-          entry.id,
-          TrackerEntry(
-            label: entry.label,
-            currentValue: newValue,
-            trackerType: entry.trackerType,
-          ),
+          id: entry.id,
+          label: entry.label,
+          currentValue: newValue,
         );
       }
     }
