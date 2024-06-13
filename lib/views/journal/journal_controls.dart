@@ -53,13 +53,14 @@ Widget journalControls(
 
     mythicGMEControls(wrapControls, appState, context),
 
-    const JournalSubheading(
-      label: kJournalRandomTablesTitle,
-    ),
-
-    RandomTables(
-      appState: appState,
-    ),
+    if (appState.randomTables.isNotEmpty) ...[
+      const JournalSubheading(
+        label: kJournalRandomTablesTitle,
+      ),
+      RandomTables(
+        appState: appState,
+      ),
+    ],
 
     if (appState.campaignData!.tracker.isNotEmpty) ...[
       const JournalSubheading(
