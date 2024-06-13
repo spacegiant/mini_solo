@@ -19,12 +19,9 @@ class CounterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     void handleTap({int modifier = 1}) {
       appState.updateTrackerEntry(
-        entry.id,
-        TrackerEntry(
-          label: entry.label,
-          currentValue: entry.currentValue + modifier,
-          trackerType: entry.trackerType,
-        ),
+        id: entry.id,
+        label: entry.label,
+        currentValue: entry.currentValue + modifier,
       );
     }
 

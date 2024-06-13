@@ -92,12 +92,9 @@ class IronswornWidget extends StatelessWidget {
         if (newValue < 0) newValue = 0;
 
         appState.updateTrackerEntry(
-          entry.id,
-          TrackerEntry(
-            label: entry.label,
-            currentValue: newValue,
-            trackerType: entry.trackerType,
-          ),
+          id: entry.id,
+          label: entry.label,
+          currentValue: newValue,
         );
       }
     }

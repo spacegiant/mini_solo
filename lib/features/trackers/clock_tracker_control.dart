@@ -60,14 +60,9 @@ class ClockWidget extends StatelessWidget {
       if (newValue > entry.maxValue) return;
 
       appState.updateTrackerEntry(
-        entry.id,
-        TrackerEntry(
-          label: entry.label,
-          currentValue: newValue,
-          minValue: entry.minValue,
-          maxValue: entry.maxValue,
-          trackerType: entry.trackerType,
-        ),
+        id: entry.id,
+        label: entry.label,
+        currentValue: newValue,
       );
     }
 
