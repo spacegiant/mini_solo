@@ -4,6 +4,7 @@ import 'package:mini_solo/features/trackers/tracker_container.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../svg_icon.dart';
+import '../../widgets/gap.dart';
 
 class PipsWidget extends StatelessWidget {
   const PipsWidget({
@@ -17,22 +18,20 @@ class PipsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double iconHeight = 24.0;
     return TrackerContainer(
         appState: appState,
         id: entry.id,
         child: Column(
           children: [
             Text(entry.label),
-            const Row(
+            const Gap(),
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgIcon(
-                  icon: SVGIcon.pip_checked,
-                  height: 36.0,
-                  width: 24.0,
-                ),
-                SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
-                SvgIcon(icon: SVGIcon.pip_unchecked, height: 36.0),
+                SvgIcon(icon: SVGIcon.pip_checked, height: iconHeight),
+                SvgIcon(icon: SVGIcon.pip_unchecked, height: iconHeight),
+                SvgIcon(icon: SVGIcon.pip_unchecked, height: iconHeight),
               ],
             )
           ],
