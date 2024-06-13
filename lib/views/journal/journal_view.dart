@@ -120,26 +120,43 @@ class _JournalViewState extends State<JournalView> {
       void Function() submitResults,
       void Function() clearResults,
       BuildContext context) {
+    double forceHeight = 2000.0;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          flex: 1,
-          child: Journal(
-            constraints: constraints,
-            items: appState.campaignData!.journal,
-            diceRoll: diceResults,
-            addDice: addResult,
-            submitDice: submitResults,
-            clearDice: clearResults,
+          child: Container(
+            color: CupertinoColors.systemPink,
+            // TODO: Better way to force height?
+            // height: forceHeight,
+            child: Journal(
+              constraints: constraints,
+              items: appState.campaignData!.journal,
+              diceRoll: diceResults,
+              addDice: addResult,
+              submitDice: submitResults,
+              clearDice: clearResults,
+            ),
           ),
         ),
         Expanded(
           flex: 1,
-          child: journalControls(
-            appState,
-            addResult,
-            context,
+          child: Container(
+            height: forceHeight,
+            decoration: const BoxDecoration(
+                border: Border(
+              left: BorderSide(
+                color: CupertinoColors.inactiveGray,
+                width: 3.0,
+              ),
+            )),
+            child: journalControls(
+              appState,
+              addResult,
+              context,
+            ),
           ),
         ),
       ],
