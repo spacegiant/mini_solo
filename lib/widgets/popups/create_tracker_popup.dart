@@ -125,19 +125,23 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
   }
 
   String? get _minValueErrorText {
+    if (minValueActive == false) return null;
+
     final text = _minValueController.value.text.trim();
+    if (text.isEmpty) return 'Needs a value';
     try {
       int.parse(text);
     } catch (e) {
       print(e);
       return 'Needs a number';
     }
-    if (minValueActive == false) return 'Not editable';
-    if (text.isEmpty) return 'Needs a value';
+
     return null;
   }
 
   String? get _currentValueErrorText {
+    if (currentValueActive == false) return null;
+
     int currentValue = 0;
     int maxValue = 0;
     int minValue = 0;
@@ -145,7 +149,6 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
     final maxValueText = _maxValueController.value.text.trim();
     final minValueText = _minValueController.value.text.trim();
 
-    if (currentValueActive == false) return 'Not editable';
     if (currentValueText.isEmpty) return 'Needs a value';
 
     try {
@@ -159,14 +162,14 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       maxValue = int.parse(maxValueText);
     } catch (e) {
       print(e);
-      return '';
+      return null;
     }
 
     try {
       minValue = int.parse(minValueText);
     } catch (e) {
       print(e);
-      return '';
+      return null;
     }
 
     if (currentValue > maxValue) return 'Higher than max';
@@ -175,15 +178,18 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
   }
 
   String? get _maxValueErrorText {
+    if (maxValueActive == false) return null;
+
     final text = _maxValueController.value.text.trim();
+    if (text.isEmpty) return 'Needs a value';
+
     try {
       int.parse(text);
     } catch (e) {
       print(e);
       return 'Needs a number';
     }
-    if (maxValueActive == false) return 'Not editable';
-    if (text.isEmpty) return 'Needs a value';
+
     return null;
   }
 
@@ -205,92 +211,38 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
     });
   }
 
-  Row rangeValues() {
+  Widget rangeValues() {
     return Row(
       children: [
         Flexible(
-            child: Opacity(
-          opacity: minValueActive == true ? 1.0 : 0.3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Min Value'),
-              const Gap(height: 4.0),
-              CupertinoTextField(
-                keyboardType: TextInputType.number,
-                enabled: minValueActive,
-                controller: _minValueController,
-                placeholder: 'min value',
-                onChanged: setMinValueText,
-              ),
-              const Gap(
-                height: 4.0,
-              ),
-              Text(
-                _minValueErrorText ?? '',
-                style: const TextStyle(fontSize: 11.0),
-              ),
-            ],
+          child: FormElement(
+            isActive: minValueActive,
+            controller: _minValueController,
+            errorText: _minValueErrorText,
+            onChanged: setMinValueText,
+            label: 'Min Value',
           ),
-        )),
+        ),
         const Gap(),
         Flexible(
-            child: Opacity(
-          opacity: currentValueActive == true ? 1.0 : 0.3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Current Value'),
-              Gap(height: 4.0),
-              CupertinoTextField(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(kInputBorderRadius),
-                  color: CupertinoColors.white,
-                  border: Border.all(
-                    color: CupertinoColors.systemRed,
-                    width: 2.0,
-                  ),
-                ),
-                enabled: currentValueActive,
-                controller: _currentValueController,
-                placeholder: 'current value',
-                onChanged: setCurrentValueText,
-              ),
-              Gap(
-                height: 4.0,
-              ),
-              Text(
-                _currentValueErrorText ?? '',
-                style: TextStyle(fontSize: 11.0),
-              ),
-            ],
+          child: FormElement(
+            isActive: currentValueActive,
+            controller: _currentValueController,
+            errorText: _currentValueErrorText,
+            onChanged: setCurrentValueText,
+            label: 'Current Value',
           ),
-        )),
+        ),
         const Gap(),
         Flexible(
-            child: Opacity(
-          opacity: maxValueActive == true ? 1.0 : 0.3,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Max Value'),
-              const Gap(height: 4.0),
-              CupertinoTextField(
-                enabled: maxValueActive,
-                controller: _maxValueController,
-                placeholder: 'max value',
-                onChanged: setMaxValueText,
-              ),
-              const Gap(
-                height: 4.0,
-              ),
-              Text(
-                _maxValueErrorText ?? '',
-                style: const TextStyle(fontSize: 11.0),
-              ),
-            ],
+          child: FormElement(
+            isActive: maxValueActive,
+            controller: _maxValueController,
+            errorText: _maxValueErrorText,
+            onChanged: setMaxValueText,
+            label: 'Max Value',
           ),
-        )),
+        ),
       ],
     );
   }
@@ -394,5 +346,68 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       }
       return 0;
     }
+  }
+}
+
+class FormElement extends StatelessWidget {
+  const FormElement({
+    super.key,
+    required this.isActive,
+    required TextEditingController controller,
+    required String? errorText,
+    required this.onChanged,
+    required this.label,
+  })  : _valueController = controller,
+        _errorText = errorText;
+
+  final bool isActive;
+  final TextEditingController _valueController;
+  final String? _errorText;
+  final Function(String) onChanged;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    bool showErrorColour = false;
+    bool hasErrorText = _errorText == null;
+
+    if (_errorText != null && isActive == true) {
+      showErrorColour = true;
+    }
+
+    print('$_errorText $hasErrorText $showErrorColour');
+
+    return Opacity(
+      opacity: isActive == true ? 1.0 : 0.3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label),
+          const Gap(height: 4.0),
+          CupertinoTextField(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(kInputBorderRadius),
+              color: CupertinoColors.white,
+              border: Border.all(
+                color: (showErrorColour == true)
+                    ? CupertinoColors.systemRed
+                    : CupertinoColors.white,
+                width: 2.0,
+                strokeAlign: BorderSide.strokeAlignOutside,
+              ),
+            ),
+            enabled: isActive,
+            controller: _valueController,
+            placeholder: 'current value',
+            onChanged: onChanged,
+          ),
+          const Gap(height: 4.0),
+          Text(
+            _errorText ?? '',
+            style: const TextStyle(fontSize: 11.0),
+          ),
+        ],
+      ),
+    );
   }
 }

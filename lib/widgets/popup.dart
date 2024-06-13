@@ -42,7 +42,7 @@ Consumer<Object?> popup(
         popupHeight = 750.0;
         popupWidget = CreateTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.editTracker) {
-        popupHeight = 600.0;
+        popupHeight = 500.0;
         popupWidget = EditTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.importManager) {
         popupHeight = 700.0;
@@ -117,7 +117,7 @@ Consumer<Object?> popup(
                     width: 400.0,
                     child: CupertinoPopupSurface(
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        // mainAxisSize: MainAxisSize.min,
                         children: [
                           CupertinoButton(
                               child: const Text(kPopupCloseButtonLabel),
