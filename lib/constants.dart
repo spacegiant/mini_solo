@@ -12,6 +12,7 @@ const kBorderColour = Color(0x33000000);
 // SIZES
 const double kItemExtent = 32.0;
 const double kForceColumnHeight = 2000.0;
+const Radius kInputBorderRadius = Radius.circular(5.0);
 
 // POPUP SIZES
 const kCampaignManagerTitle = 'Campaign Manager';

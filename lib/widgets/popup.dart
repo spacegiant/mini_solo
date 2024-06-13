@@ -14,7 +14,7 @@ import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
-import 'package:mini_solo/widgets/popups/manage_tracker_popup.dart';
+import 'package:mini_solo/widgets/popups/create_tracker_popup.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../data/app_state.dart';
@@ -40,9 +40,9 @@ Consumer<Object?> popup(
         popupWidget = const ChaosFactorPopup();
       } else if (popup == PopupLabel.createTracker) {
         popupHeight = 750.0;
-        popupWidget = ManageTrackerPopup(appState: appState);
+        popupWidget = CreateTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.editTracker) {
-        popupHeight = 600.0;
+        popupHeight = 500.0;
         popupWidget = EditTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.importManager) {
         popupHeight = 700.0;
@@ -117,7 +117,7 @@ Consumer<Object?> popup(
                     width: 400.0,
                     child: CupertinoPopupSurface(
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        // mainAxisSize: MainAxisSize.min,
                         children: [
                           CupertinoButton(
                               child: const Text(kPopupCloseButtonLabel),

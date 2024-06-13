@@ -21,7 +21,7 @@ class RollTableResultWidget extends StatelessWidget {
     String? resultText = entry.resultString;
 
     String calculation = '${entry.weight} in ${entry.totalEntries} chance';
-    String roll = 'd → ${entry.randomRoll}';
+    String roll = '${entry.totalEntries}d → ${entry.randomRoll}';
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,

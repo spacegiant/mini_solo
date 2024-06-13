@@ -43,8 +43,7 @@ class TrackerContainer extends StatelessWidget {
               minWidth: minWidth,
               maxWidth: myDouble,
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
             decoration: const BoxDecoration(
                 color: CupertinoColors.lightBackgroundGray,
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -55,6 +54,7 @@ class TrackerContainer extends StatelessWidget {
           Positioned(
             child: Container(
               // color: Color(0x88FF9900),
+              padding: EdgeInsets.zero,
               child: CupertinoButton(
                 child: const SizedBox(width: 44.0, height: 44.0),
                 onPressed: () {
@@ -68,8 +68,9 @@ class TrackerContainer extends StatelessWidget {
             right: 0.0,
             child: Container(
               // color: Color(0x88FF9900),
+              padding: EdgeInsets.zero,
               child: CupertinoButton(
-                child: SizedBox(width: 44.0, height: 44.0),
+                child: const SizedBox(width: 44.0, height: 44.0),
                 onPressed: () {
                   if (onTapRight != null) onTapRight!();
                 },

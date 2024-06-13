@@ -110,22 +110,23 @@ class IronswornWidget extends StatelessWidget {
       },
       id: entry.id,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Text(
-                  entry.label,
-                  style: const TextStyle(overflow: TextOverflow.ellipsis),
-                ),
-              ),
-              Text(ironswornTrackTypeLabel),
-            ],
+          Text(
+            entry.label,
+            style: const TextStyle(overflow: TextOverflow.ellipsis),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: ironswornTrack,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              ironswornTrackTypeLabel.toUpperCase(),
+              style:
+                  TextStyle(color: CupertinoColors.activeBlue, fontSize: 12.0),
+            ),
           ),
         ],
       ),
