@@ -22,10 +22,16 @@ List<Widget> getEntries(
 ) {
   List<Widget> journalEntries = [];
   if (journalItems.isEmpty) return [const SizedBox.shrink()];
+  List<JournalEntryTypes>? hiddenEntryTypes = appState.hiddenEntryTypes;
 
   Color dividerColor = Colors.black.withOpacity(0.1);
 
   for (var element in journalItems) {
+    if (hiddenEntryTypes!.contains(element.type)) {
+      print(element.type);
+      continue;
+    }
+
     switch (element.type) {
       case JournalEntryTypes.mythic:
         journalEntries

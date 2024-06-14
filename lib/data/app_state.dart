@@ -599,6 +599,9 @@ class AppState extends ChangeNotifier {
 
   // HIDE ENTRY TYPES
 
+  List<JournalEntryTypes>? get hiddenEntryTypes =>
+      campaignData?.settings.general.hiddenEntryTypes;
+
   void toggleJournalEntryTypeVisibility(
     JournalEntryTypes type,
   ) {

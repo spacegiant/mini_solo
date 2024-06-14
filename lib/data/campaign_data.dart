@@ -289,7 +289,9 @@ CampaignData initCampaignDataData(String campaignName) {
         useCoriolisDice: false,
         useD6Oracle: false,
         wrapControls: false,
-        hiddenEntryTypes: [],
+        hiddenEntryTypes: [
+          JournalEntryTypes.tracker,
+        ],
       ),
     ),
     things: [],
