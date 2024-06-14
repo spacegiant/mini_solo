@@ -22,6 +22,7 @@ enum TrackerTypes {
   pips,
   value,
   counter,
+  fate_aspect,
 }
 
 enum JournalEntryTypes {

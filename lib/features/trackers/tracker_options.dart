@@ -146,4 +146,13 @@ List<TrackerOptions> trackers = [
     editCurrent: true,
     currentValue: 0,
   ),
+  TrackerOptions(
+    label: 'Fate Aspect',
+    type: TrackerTypes.fate_aspect,
+    images: [SVGIcon.counter_tracker],
+    minValue: 0,
+    currentValue: 0,
+    maxValue: null,
+    editCurrent: true,
+  ),
 ];

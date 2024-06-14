@@ -535,6 +535,7 @@ const _$SVGIconEnumMap = {
   SVGIcon.pip_icon: 'pip_icon',
   SVGIcon.pip_unchecked: 'pip_unchecked',
   SVGIcon.value_tracker: 'value_tracker',
+  SVGIcon.counter_tracker: 'counter_tracker',
 };
 
 ScratchPageEntryItem _$ScratchPageEntryItemFromJson(
@@ -620,8 +621,8 @@ Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
 TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
       label: json['label'] as String,
       currentValue: (json['currentValue'] as num).toInt(),
-      minValue: (json['minValue'] as num?)?.toInt() ?? 0,
-      maxValue: (json['maxValue'] as num?)?.toInt() ?? 0,
+      minValue: (json['minValue'] as num?)?.toInt(),
+      maxValue: (json['maxValue'] as num?)?.toInt(),
       trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
     )
       ..isFavourite = json['isFavourite'] as bool?
@@ -653,4 +654,5 @@ const _$TrackerTypesEnumMap = {
   TrackerTypes.pips: 'pips',
   TrackerTypes.value: 'value',
   TrackerTypes.counter: 'counter',
+  TrackerTypes.fate_aspect: 'fate_aspect',
 };
