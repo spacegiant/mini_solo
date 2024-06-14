@@ -65,8 +65,8 @@ List<Widget> getEntries(
           appState: appState,
           journalEntry: element,
         ));
-      case JournalEntryTypes.transition:
-        journalEntries.add(const Text('transition'));
+      // case JournalEntryTypes.transition:
+      //   journalEntries.add(const Text('transition'));
       case JournalEntryTypes.tracker:
         journalEntries.add(TrackerEntryWidget(
           appState: appState,

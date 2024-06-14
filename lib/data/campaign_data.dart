@@ -43,7 +43,7 @@ enum JournalEntryTypes {
   oracle,
   outcome,
   roll,
-  transition,
+  // transition,
   scratchPage,
   randomTable,
   rollTableResult,
@@ -68,7 +68,7 @@ Map<JournalEntryTypes, String> journalEntryTypeLabel = {
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.scratchPage: 'scratchPage',
-  JournalEntryTypes.transition: 'transition',
+  // JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.tracker: 'tracker',
 };
 
