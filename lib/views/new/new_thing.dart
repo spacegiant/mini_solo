@@ -22,38 +22,38 @@ class _NewThingMenuState extends State<NewThingMenu> {
       ListButton(
         label: 'Name',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Object Type',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Condition',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Owner',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Function',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       menuSpacer(),
       ListButton(
         label: 'Save',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
     ]);

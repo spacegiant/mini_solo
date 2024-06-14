@@ -22,38 +22,38 @@ class _NewClueMenuState extends State<NewClueMenu> {
       ListButton(
         label: 'Who',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'What',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'When',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Where',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'How',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       menuSpacer(),
       ListButton(
         label: 'Save',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
     ]);

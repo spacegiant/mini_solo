@@ -22,38 +22,38 @@ class _NewCreatureMenuState extends State<NewCreatureMenu> {
       ListButton(
         label: 'Type',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Size',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Impulse',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Method',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Attacks',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       menuSpacer(),
       ListButton(
         label: 'Do something',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
     ]);
