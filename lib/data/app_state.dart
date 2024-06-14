@@ -305,7 +305,16 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void updateNewScene(String id, String newLabel) {
+    int index = _campaignData!.newScene
+        .indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.newScene[index].label = newLabel;
+    saveCampaignDataToDisk();
+  }
+
   void deleteNewSceneEntry(String id) {
+    _campaignData!.newScene.removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
     saveCampaignDataToDisk();
   }
@@ -421,6 +430,7 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // TODO: Should/can this use the parameter id instead of currentEntryId directly?
   void deleteNoteItem(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
