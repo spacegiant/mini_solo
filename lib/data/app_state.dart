@@ -4,6 +4,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 
+import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
 
 enum PopupLabel {
@@ -553,11 +554,13 @@ class AppState extends ChangeNotifier {
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
+    TrackerOptions trackerData =
+        trackers.firstWhere((tracker) => tracker.type == entry.trackerType);
 
     // Tracker and journal entry do not need to be linked - just add note
     NoteEntryItem note = NoteEntryItem(
       isFavourite: false,
-      detail: entry.label,
+      detail: 'New ${trackerData.label} tracker create \'${entry.label} \'',
     );
 
     _campaignData?.notes.add(note);
