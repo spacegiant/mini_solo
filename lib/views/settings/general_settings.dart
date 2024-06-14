@@ -15,10 +15,11 @@ List<Widget> generalSettings(
   journalEntryTypeLabel.forEach((type, entry) {
     journalEntryVisibilityOptions.add(
       SettingsOption(
-        isActive: general.wrapControls,
+        isActive: general.hiddenEntryTypes.contains(type),
         label: entry.label,
         onChanged: (isChecked) {
           // TODO: Toggle settings for specific item
+          appState.toggleJournalEntryTypeVisibility(type);
         },
       ),
     );
@@ -61,7 +62,7 @@ List<Widget> generalSettings(
       label: 'Send to journal',
       onChanged: (isChecked) {},
     ),
-    Text('Journal - show/hide types of entries'),
+    const Text('Journal - check entry types to hide'),
     Container(
       color: CupertinoColors.systemGrey5,
       height: 200.0,

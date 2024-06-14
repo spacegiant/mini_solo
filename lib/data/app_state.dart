@@ -596,4 +596,22 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
     // notifyListeners();
   }
+
+  // HIDE ENTRY TYPES
+
+  void toggleJournalEntryTypeVisibility(
+    JournalEntryTypes type,
+  ) {
+    bool? isChecked =
+        campaignData?.settings.general.hiddenEntryTypes.contains(type);
+    if (isChecked == true) {
+      print('remove');
+      campaignData?.settings.general.hiddenEntryTypes.remove(type);
+    } else {
+      print('add');
+      campaignData?.settings.general.hiddenEntryTypes.add(type);
+    }
+    notifyListeners();
+    saveCampaignDataToDisk();
+  }
 }
