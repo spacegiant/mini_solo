@@ -44,6 +44,9 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       useCoriolisDice: json['useCoriolisDice'] as bool,
       useD6Oracle: json['useD6Oracle'] as bool,
       wrapControls: json['wrapControls'] as bool,
+      hiddenEntryTypes: (json['hiddenEntryTypes'] as List<dynamic>)
+          .map((e) => $enumDecode(_$JournalEntryTypesEnumMap, e))
+          .toList(),
     );
 
 Map<String, dynamic> _$GeneralSettingsDataToJson(
@@ -58,7 +61,33 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'useCoriolisDice': instance.useCoriolisDice,
       'useD6Oracle': instance.useD6Oracle,
       'wrapControls': instance.wrapControls,
+      'hiddenEntryTypes': instance.hiddenEntryTypes
+          .map((e) => _$JournalEntryTypesEnumMap[e]!)
+          .toList(),
     };
+
+const _$JournalEntryTypesEnumMap = {
+  JournalEntryTypes.action: 'action',
+  JournalEntryTypes.chaosFactor: 'chaosFactor',
+  JournalEntryTypes.fateCheck: 'fateCheck',
+  JournalEntryTypes.mythic: 'mythic',
+  JournalEntryTypes.newClue: 'newClue',
+  JournalEntryTypes.newCreature: 'newCreature',
+  JournalEntryTypes.newEntity: 'newEntity',
+  JournalEntryTypes.newFaction: 'newFaction',
+  JournalEntryTypes.newPerson: 'newPerson',
+  JournalEntryTypes.newPlace: 'newPlace',
+  JournalEntryTypes.newScene: 'newScene',
+  JournalEntryTypes.newThing: 'newThing',
+  JournalEntryTypes.note: 'note',
+  JournalEntryTypes.oracle: 'oracle',
+  JournalEntryTypes.outcome: 'outcome',
+  JournalEntryTypes.roll: 'roll',
+  JournalEntryTypes.scratchPage: 'scratchPage',
+  JournalEntryTypes.randomTable: 'randomTable',
+  JournalEntryTypes.rollTableResult: 'rollTableResult',
+  JournalEntryTypes.tracker: 'tracker',
+};
 
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       settings: SettingsData.fromJson(json['settings'] as Map<String, dynamic>),
@@ -157,29 +186,6 @@ Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
       'id': instance.id,
     };
-
-const _$JournalEntryTypesEnumMap = {
-  JournalEntryTypes.action: 'action',
-  JournalEntryTypes.chaosFactor: 'chaosFactor',
-  JournalEntryTypes.fateCheck: 'fateCheck',
-  JournalEntryTypes.mythic: 'mythic',
-  JournalEntryTypes.newClue: 'newClue',
-  JournalEntryTypes.newCreature: 'newCreature',
-  JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.newFaction: 'newFaction',
-  JournalEntryTypes.newPerson: 'newPerson',
-  JournalEntryTypes.newPlace: 'newPlace',
-  JournalEntryTypes.newScene: 'newScene',
-  JournalEntryTypes.newThing: 'newThing',
-  JournalEntryTypes.note: 'note',
-  JournalEntryTypes.oracle: 'oracle',
-  JournalEntryTypes.outcome: 'outcome',
-  JournalEntryTypes.roll: 'roll',
-  JournalEntryTypes.scratchPage: 'scratchPage',
-  JournalEntryTypes.randomTable: 'randomTable',
-  JournalEntryTypes.rollTableResult: 'rollTableResult',
-  JournalEntryTypes.tracker: 'tracker',
-};
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
       isFavourite: json['isFavourite'] as bool?,

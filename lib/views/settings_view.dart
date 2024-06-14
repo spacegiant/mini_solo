@@ -74,7 +74,7 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: settingsPages[_selectedSegment] ?? const Text('Eh'),
+                child: settingsPages[_selectedSegment],
               ),
             ),
           ],

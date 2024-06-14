@@ -12,13 +12,13 @@ List<Widget> generalSettings(
 
   List<Widget> journalEntryVisibilityOptions = [];
 
-  journalEntryTypeLabel.forEach((type, label) {
+  journalEntryTypeLabel.forEach((type, entry) {
     journalEntryVisibilityOptions.add(
       SettingsOption(
         isActive: general.wrapControls,
-        label: label,
+        label: entry.label,
         onChanged: (isChecked) {
-          // appState.toggleWrapControls();
+          // TODO: Toggle settings for specific item
         },
       ),
     );

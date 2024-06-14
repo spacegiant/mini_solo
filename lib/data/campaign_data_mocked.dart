@@ -14,6 +14,7 @@ CampaignData sampleCampaignData() {
         useCoriolisDice: false,
         useD6Oracle: false,
         showMechanics: true,
+        hiddenEntryTypes: [],
       ),
     ),
     mythicData: MythicData(

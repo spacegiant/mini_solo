@@ -50,26 +50,87 @@ enum JournalEntryTypes {
   tracker,
 }
 
-Map<JournalEntryTypes, String> journalEntryTypeLabel = {
-  JournalEntryTypes.chaosFactor: 'chaosFactor',
-  // JournalEntryTypes.dialogue: 'dialogue',
-  JournalEntryTypes.mythic: 'mythic',
-  JournalEntryTypes.newClue: 'newClue',
-  JournalEntryTypes.newCreature: 'newCreature',
-  JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.newFaction: 'newFaction',
-  JournalEntryTypes.newPerson: 'newPerson',
-  JournalEntryTypes.newPlace: 'newPlace',
-  JournalEntryTypes.newScene: 'newScene',
-  JournalEntryTypes.newThing: 'newThing',
-  JournalEntryTypes.note: 'note',
-  JournalEntryTypes.oracle: 'oracle',
-  JournalEntryTypes.roll: 'roll',
-  JournalEntryTypes.randomTable: 'randomTable',
-  JournalEntryTypes.rollTableResult: 'rollTableResult',
-  JournalEntryTypes.scratchPage: 'scratchPage',
-  // JournalEntryTypes.transition: 'transition',
-  JournalEntryTypes.tracker: 'tracker',
+class EntryTypeData {
+  final String identifier;
+  final String label;
+
+  EntryTypeData({
+    required this.identifier,
+    required this.label,
+  });
+}
+
+Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {
+  JournalEntryTypes.chaosFactor: EntryTypeData(
+    identifier: 'chaosFactor',
+    label: 'Chaos Factor',
+  ),
+  // JournalEntryTypes.dialogue: EntryTypeData(identifier: 'dialogue', label: 'Dialogue',),
+  JournalEntryTypes.mythic: EntryTypeData(
+    identifier: 'mythic',
+    label: 'Mythic',
+  ),
+  JournalEntryTypes.newClue: EntryTypeData(
+    identifier: 'newClue',
+    label: 'New Clue',
+  ),
+  JournalEntryTypes.newCreature: EntryTypeData(
+    identifier: 'newCreature',
+    label: 'New Creature',
+  ),
+  JournalEntryTypes.newEntity: EntryTypeData(
+    identifier: 'newEntity',
+    label: 'New Entity',
+  ),
+  JournalEntryTypes.newFaction: EntryTypeData(
+    identifier: 'newFaction',
+    label: 'New Faction',
+  ),
+  JournalEntryTypes.newPerson: EntryTypeData(
+    identifier: 'newPerson',
+    label: 'New Person',
+  ),
+  JournalEntryTypes.newPlace: EntryTypeData(
+    identifier: 'newPlace',
+    label: 'New Place',
+  ),
+  JournalEntryTypes.newScene: EntryTypeData(
+    identifier: 'newScene',
+    label: 'New Scene',
+  ),
+  JournalEntryTypes.newThing: EntryTypeData(
+    identifier: 'newThing',
+    label: 'New Thing',
+  ),
+  JournalEntryTypes.note: EntryTypeData(
+    identifier: 'note',
+    label: 'Note',
+  ),
+  JournalEntryTypes.oracle: EntryTypeData(
+    identifier: 'oracle',
+    label: 'Oracle',
+  ),
+  JournalEntryTypes.roll: EntryTypeData(
+    identifier: 'roll',
+    label: 'Roll',
+  ),
+  JournalEntryTypes.randomTable: EntryTypeData(
+    identifier: 'randomTable',
+    label: 'Random Table',
+  ),
+  JournalEntryTypes.rollTableResult: EntryTypeData(
+    identifier: 'rollTableResult',
+    label: 'Roll Table Result',
+  ),
+  JournalEntryTypes.scratchPage: EntryTypeData(
+    identifier: 'scratchPage',
+    label: 'Scratch Page',
+  ),
+  // JournalEntryTypes.transition: EntryTypeData(identifier: 'transition', label: 'Transition',),
+  JournalEntryTypes.tracker: EntryTypeData(
+    identifier: 'tracker',
+    label: 'Tracker',
+  ),
 };
 
 // TODO: Rename this
@@ -122,6 +183,7 @@ class GeneralSettingsData {
   late bool useCoriolisDice;
   late bool useD6Oracle;
   late bool wrapControls;
+  late List<JournalEntryTypes> hiddenEntryTypes;
 
   GeneralSettingsData({
     required this.showFutureSettings,
@@ -133,6 +195,7 @@ class GeneralSettingsData {
     required this.useCoriolisDice,
     required this.useD6Oracle,
     required this.wrapControls,
+    required this.hiddenEntryTypes,
   });
 // coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -226,6 +289,7 @@ CampaignData initCampaignDataData(String campaignName) {
         useCoriolisDice: false,
         useD6Oracle: false,
         wrapControls: false,
+        hiddenEntryTypes: [],
       ),
     ),
     things: [],
