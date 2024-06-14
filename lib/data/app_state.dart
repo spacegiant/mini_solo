@@ -553,11 +553,20 @@ class AppState extends ChangeNotifier {
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
+
+    // Tracker and journal entry do not need to be linked - just add note
+    NoteEntryItem note = NoteEntryItem(
+      isFavourite: false,
+      detail: entry.label,
+    );
+
+    _campaignData?.notes.add(note);
+
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
-        type: entry.type,
-        id: entry.id,
+        type: JournalEntryTypes.note,
+        id: note.id,
       ),
     );
   }
@@ -572,8 +581,9 @@ class AppState extends ChangeNotifier {
     int index = _campaignData!.tracker.indexWhere((entry) => entry.id == id);
 
     if (label != null) _campaignData?.tracker[index].label = label;
-    if (currentValue != null)
+    if (currentValue != null) {
       _campaignData?.tracker[index].currentValue = currentValue;
+    }
     if (maxValue != null) _campaignData?.tracker[index].maxValue = maxValue;
     if (minValue != null) _campaignData?.tracker[index].minValue = minValue;
 
@@ -581,7 +591,7 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    // _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
