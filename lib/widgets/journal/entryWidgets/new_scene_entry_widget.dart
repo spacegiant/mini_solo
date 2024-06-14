@@ -17,6 +17,7 @@ class NewSceneEntryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     NewSceneEntry entry = appState.campaignData!.newScene
         .firstWhere((entry) => entry.id == journalEntry.id);
+
     return GestureDetector(
       onLongPress: () {
         appState.setCurrentEntryId(entry.id);
