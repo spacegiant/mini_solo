@@ -90,7 +90,7 @@ Consumer<Object?> popup(
         popupHeight = 160.0;
         popupWidget = EditOracleEntryPopup(appState: appState);
       } else if (popup == PopupLabel.editNewSceneEntry) {
-        popupHeight = 160.0;
+        popupHeight = 240.0;
         popupWidget = EditNewSceneEntryPopup(appState: appState);
       } else {
         popupWidget = const SizedBox.shrink();

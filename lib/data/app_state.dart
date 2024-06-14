@@ -197,6 +197,7 @@ class AppState extends ChangeNotifier {
   void toggleShowPopup({
     PopupLabel? label,
     Function()? callback,
+    String? id,
   }) {
     if (label != null) _popupLabel = label;
     if (callback != null) callback();

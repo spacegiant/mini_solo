@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 
 import '../../data/app_state.dart';
+import '../gap.dart';
 
 class EditNewSceneEntryPopup extends StatefulWidget {
   const EditNewSceneEntryPopup({
@@ -15,24 +17,65 @@ class EditNewSceneEntryPopup extends StatefulWidget {
 }
 
 class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(
     BuildContext context,
   ) {
     String currentEntryId = widget.appState.currentEntryId;
+    NewSceneEntry entry = widget.appState.campaignData!.newScene
+        .firstWhere((entry) => entry.id == currentEntryId);
 
-    return Column(
-      children: [
-        const Text('Delete Entry'),
-        CupertinoButton(
-          color: CupertinoColors.destructiveRed,
-          onPressed: () {
-            widget.appState.deleteNewSceneEntry(currentEntryId);
-            widget.appState.closePopup();
-          },
-          child: const Text('Delete'),
-        ),
-      ],
+    if (_controller.text == '') {
+      setState(() {
+        _controller.text = entry.label;
+      });
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          const Text('New Scene Marker'),
+          const Gap(),
+          CupertinoTextField(controller: _controller),
+          const Gap(),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            CupertinoButton(
+              color: CupertinoColors.systemGreen,
+              onPressed: () {
+                widget.appState
+                    .updateNewScene(currentEntryId, _controller.text);
+                widget.appState.setCurrentEntryId('');
+                widget.appState.closePopup();
+              },
+              child: const Text('Submit'),
+            ),
+            const Gap(),
+            CupertinoButton(
+              color: CupertinoColors.destructiveRed,
+              onPressed: () {
+                widget.appState.deleteNewSceneEntry(currentEntryId);
+                widget.appState.closePopup();
+              },
+              child: const Text('Delete'),
+            ),
+          ]),
+        ],
+      ),
     );
   }
 }
