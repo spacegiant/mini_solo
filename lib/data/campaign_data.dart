@@ -22,6 +22,7 @@ enum TrackerTypes {
   pips,
   value,
   counter,
+  fate_aspect,
 }
 
 enum JournalEntryTypes {
@@ -42,33 +43,94 @@ enum JournalEntryTypes {
   oracle,
   outcome,
   roll,
-  transition,
+  // transition,
   scratchPage,
   randomTable,
   rollTableResult,
   tracker,
 }
 
-Map<JournalEntryTypes, String> journalEntryTypeLabel = {
-  JournalEntryTypes.chaosFactor: 'chaosFactor',
-  // JournalEntryTypes.dialogue: 'dialogue',
-  JournalEntryTypes.mythic: 'mythic',
-  JournalEntryTypes.newClue: 'newClue',
-  JournalEntryTypes.newCreature: 'newCreature',
-  JournalEntryTypes.newEntity: 'newEntity',
-  JournalEntryTypes.newFaction: 'newFaction',
-  JournalEntryTypes.newPerson: 'newPerson',
-  JournalEntryTypes.newPlace: 'newPlace',
-  JournalEntryTypes.newScene: 'newScene',
-  JournalEntryTypes.newThing: 'newThing',
-  JournalEntryTypes.note: 'note',
-  JournalEntryTypes.oracle: 'oracle',
-  JournalEntryTypes.roll: 'roll',
-  JournalEntryTypes.randomTable: 'randomTable',
-  JournalEntryTypes.rollTableResult: 'rollTableResult',
-  JournalEntryTypes.scratchPage: 'scratchPage',
-  JournalEntryTypes.transition: 'transition',
-  JournalEntryTypes.tracker: 'tracker',
+class EntryTypeData {
+  final String identifier;
+  final String label;
+
+  EntryTypeData({
+    required this.identifier,
+    required this.label,
+  });
+}
+
+Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {
+  JournalEntryTypes.chaosFactor: EntryTypeData(
+    identifier: 'chaosFactor',
+    label: 'Chaos Factor',
+  ),
+  // JournalEntryTypes.dialogue: EntryTypeData(identifier: 'dialogue', label: 'Dialogue',),
+  JournalEntryTypes.mythic: EntryTypeData(
+    identifier: 'mythic',
+    label: 'Mythic',
+  ),
+  JournalEntryTypes.newClue: EntryTypeData(
+    identifier: 'newClue',
+    label: 'New Clue',
+  ),
+  JournalEntryTypes.newCreature: EntryTypeData(
+    identifier: 'newCreature',
+    label: 'New Creature',
+  ),
+  JournalEntryTypes.newEntity: EntryTypeData(
+    identifier: 'newEntity',
+    label: 'New Entity',
+  ),
+  JournalEntryTypes.newFaction: EntryTypeData(
+    identifier: 'newFaction',
+    label: 'New Faction',
+  ),
+  JournalEntryTypes.newPerson: EntryTypeData(
+    identifier: 'newPerson',
+    label: 'New Person',
+  ),
+  JournalEntryTypes.newPlace: EntryTypeData(
+    identifier: 'newPlace',
+    label: 'New Place',
+  ),
+  JournalEntryTypes.newScene: EntryTypeData(
+    identifier: 'newScene',
+    label: 'New Scene',
+  ),
+  JournalEntryTypes.newThing: EntryTypeData(
+    identifier: 'newThing',
+    label: 'New Thing',
+  ),
+  JournalEntryTypes.note: EntryTypeData(
+    identifier: 'note',
+    label: 'Note',
+  ),
+  JournalEntryTypes.oracle: EntryTypeData(
+    identifier: 'oracle',
+    label: 'Oracle',
+  ),
+  JournalEntryTypes.roll: EntryTypeData(
+    identifier: 'roll',
+    label: 'Roll',
+  ),
+  JournalEntryTypes.randomTable: EntryTypeData(
+    identifier: 'randomTable',
+    label: 'Random Table',
+  ),
+  JournalEntryTypes.rollTableResult: EntryTypeData(
+    identifier: 'rollTableResult',
+    label: 'Roll Table Result',
+  ),
+  JournalEntryTypes.scratchPage: EntryTypeData(
+    identifier: 'scratchPage',
+    label: 'Scratch Page',
+  ),
+  // JournalEntryTypes.transition: EntryTypeData(identifier: 'transition', label: 'Transition',),
+  JournalEntryTypes.tracker: EntryTypeData(
+    identifier: 'tracker',
+    label: 'Tracker',
+  ),
 };
 
 // TODO: Rename this
@@ -121,6 +183,7 @@ class GeneralSettingsData {
   late bool useCoriolisDice;
   late bool useD6Oracle;
   late bool wrapControls;
+  late List<JournalEntryTypes> hiddenEntryTypes;
 
   GeneralSettingsData({
     required this.showFutureSettings,
@@ -132,6 +195,7 @@ class GeneralSettingsData {
     required this.useCoriolisDice,
     required this.useD6Oracle,
     required this.wrapControls,
+    required this.hiddenEntryTypes,
   });
 // coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -163,6 +227,7 @@ class CampaignData {
   late List<ScratchPageEntryItem> scratchPad;
   late List<RollTableResult> rollTableResult;
   late List<TrackerEntry> tracker;
+  late List<NewSceneEntry> newScene;
 
   CampaignData({
     required this.settings,
@@ -184,6 +249,7 @@ class CampaignData {
     required this.scratchPad,
     required this.rollTableResult,
     required this.tracker,
+    required this.newScene,
   });
 
   // coverage:ignore-start
@@ -225,11 +291,15 @@ CampaignData initCampaignDataData(String campaignName) {
         useCoriolisDice: false,
         useD6Oracle: false,
         wrapControls: false,
+        hiddenEntryTypes: [
+          JournalEntryTypes.tracker,
+        ],
       ),
     ),
     things: [],
     rollTableResult: [],
     tracker: [],
+    newScene: [],
   );
 }
 
@@ -536,15 +606,15 @@ class MythicEntry extends CampaignItem {
 class TrackerEntry extends CampaignItem {
   String label;
   int currentValue;
-  int minValue;
-  int maxValue;
+  int? minValue;
+  int? maxValue;
   TrackerTypes trackerType;
 
   TrackerEntry({
     required this.label,
     required this.currentValue,
-    this.minValue = 0,
-    this.maxValue = 0,
+    this.minValue,
+    this.maxValue,
     required this.trackerType,
   });
 
@@ -557,4 +627,23 @@ class TrackerEntry extends CampaignItem {
   @override
   JournalEntryTypes type = JournalEntryTypes.tracker;
   // coverage:ignore-end
+}
+
+@JsonSerializable()
+class NewSceneEntry extends CampaignItem {
+  String label;
+
+  NewSceneEntry({
+    required this.label,
+  });
+
+  // coverage:ignore-start
+  factory NewSceneEntry.fromJson(Map<String, dynamic> json) =>
+      _$NewSceneEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NewSceneEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newScene;
+// coverage:ignore-end
 }

@@ -4,6 +4,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 
+import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
 
 enum PopupLabel {
@@ -196,6 +197,7 @@ class AppState extends ChangeNotifier {
   void toggleShowPopup({
     PopupLabel? label,
     Function()? callback,
+    String? id,
   }) {
     if (label != null) _popupLabel = label;
     if (callback != null) callback();
@@ -292,18 +294,28 @@ class AppState extends ChangeNotifier {
   }
 
   // NEW SCENE ENTRIES
-  // NOTE: This just adds a marker for a new scene.
-  void addNewScene() {
+  void addNewScene(NewSceneEntry entry) {
+    _campaignData!.newScene.add(entry);
+
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: JournalEntryTypes.newScene,
-        id: 'new scene marker',
+        id: entry.id,
       ),
     );
   }
 
+  void updateNewScene(String id, String newLabel) {
+    int index = _campaignData!.newScene
+        .indexWhere((entry) => entry.id == currentEntryId);
+
+    _campaignData?.newScene[index].label = newLabel;
+    saveCampaignDataToDisk();
+  }
+
   void deleteNewSceneEntry(String id) {
+    _campaignData!.newScene.removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
     saveCampaignDataToDisk();
   }
@@ -419,6 +431,7 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // TODO: Should/can this use the parameter id instead of currentEntryId directly?
   void deleteNoteItem(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
     _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
@@ -553,11 +566,22 @@ class AppState extends ChangeNotifier {
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
+    TrackerOptions trackerData =
+        trackers.firstWhere((tracker) => tracker.type == entry.trackerType);
+
+    // Tracker and journal entry do not need to be linked - just add note
+    NoteEntryItem note = NoteEntryItem(
+      isFavourite: false,
+      detail: 'New ${trackerData.label} tracker create \'${entry.label} \'',
+    );
+
+    _campaignData?.notes.add(note);
+
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
-        type: entry.type,
-        id: entry.id,
+        type: JournalEntryTypes.note,
+        id: note.id,
       ),
     );
   }
@@ -572,8 +596,9 @@ class AppState extends ChangeNotifier {
     int index = _campaignData!.tracker.indexWhere((entry) => entry.id == id);
 
     if (label != null) _campaignData?.tracker[index].label = label;
-    if (currentValue != null)
+    if (currentValue != null) {
       _campaignData?.tracker[index].currentValue = currentValue;
+    }
     if (maxValue != null) _campaignData?.tracker[index].maxValue = maxValue;
     if (minValue != null) _campaignData?.tracker[index].minValue = minValue;
 
@@ -581,9 +606,30 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    // _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
+  }
+
+  // HIDE ENTRY TYPES
+
+  List<JournalEntryTypes>? get hiddenEntryTypes =>
+      campaignData?.settings.general.hiddenEntryTypes;
+
+  void toggleJournalEntryTypeVisibility(
+    JournalEntryTypes type,
+  ) {
+    bool? isChecked =
+        campaignData?.settings.general.hiddenEntryTypes.contains(type);
+    if (isChecked == true) {
+      print('remove');
+      campaignData?.settings.general.hiddenEntryTypes.remove(type);
+    } else {
+      print('add');
+      campaignData?.settings.general.hiddenEntryTypes.add(type);
+    }
+    notifyListeners();
+    saveCampaignDataToDisk();
   }
 }

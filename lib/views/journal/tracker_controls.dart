@@ -10,6 +10,7 @@ import 'package:mini_solo/widgets/wrap_manager.dart';
 import '../../features/trackers/bar_tracker_control.dart';
 import '../../features/trackers/clock_tracker_control.dart';
 import '../../features/trackers/counter_tracker_control.dart';
+import '../../features/trackers/fate_aspect_tracker.dart';
 import '../../features/trackers/ironsworn_tracker_control.dart';
 import '../../features/trackers/pips_tracker_control.dart';
 import '../../features/trackers/tracker_container.dart';
@@ -74,6 +75,12 @@ class TrackerControls extends StatelessWidget {
           break;
         case TrackerTypes.counter:
           trackerWidgets.add(CounterWidget(
+            entry: widget,
+            appState: appState,
+          ));
+          break;
+        case TrackerTypes.fate_aspect:
+          trackerWidgets.add(FateWidget(
             entry: widget,
             appState: appState,
           ));

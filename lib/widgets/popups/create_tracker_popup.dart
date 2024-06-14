@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
+import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
 import '../../features/trackers/tracker_options.dart';
@@ -106,15 +106,30 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             },
           ),
           const Gap(),
-          rangeValues(),
+          RangeValuesForm(
+            minValueActive: minValueActive,
+            currentValueActive: currentValueActive,
+            maxValueActive: maxValueActive,
+            minValueController: _minValueController,
+            currentValueController: _currentValueController,
+            maxValueController: _maxValueController,
+            setMinValueText: setMinValueText,
+            setCurrentValueText: setCurrentValueText,
+            setMaxValueText: setMaxValueText,
+          ),
           const Divider(),
           const Gap(),
           const Center(child: Text('Select Tracker Type')),
           const Gap(),
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: [...controls],
+          SizedBox(
+            height: 310.0,
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [...controls],
+              ),
+            ),
           ),
           const Divider(),
           const Gap(),
@@ -122,75 +137,6 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
         ],
       ),
     );
-  }
-
-  String? get _minValueErrorText {
-    if (minValueActive == false) return null;
-
-    final text = _minValueController.value.text.trim();
-    if (text.isEmpty) return 'Needs a value';
-    try {
-      int.parse(text);
-    } catch (e) {
-      print(e);
-      return 'Needs a number';
-    }
-
-    return null;
-  }
-
-  String? get _currentValueErrorText {
-    if (currentValueActive == false) return null;
-
-    int currentValue = 0;
-    int maxValue = 0;
-    int minValue = 0;
-    final currentValueText = _currentValueController.value.text.trim();
-    final maxValueText = _maxValueController.value.text.trim();
-    final minValueText = _minValueController.value.text.trim();
-
-    if (currentValueText.isEmpty) return 'Needs a value';
-
-    try {
-      currentValue = int.parse(currentValueText);
-    } catch (e) {
-      print(e);
-      return 'Needs a number';
-    }
-
-    try {
-      maxValue = int.parse(maxValueText);
-    } catch (e) {
-      print(e);
-      return null;
-    }
-
-    try {
-      minValue = int.parse(minValueText);
-    } catch (e) {
-      print(e);
-      return null;
-    }
-
-    if (currentValue > maxValue) return 'Higher than max';
-    if (currentValue < minValue) return 'Lower than min';
-    return null;
-  }
-
-  String? get _maxValueErrorText {
-    if (maxValueActive == false) return null;
-
-    final text = _maxValueController.value.text.trim();
-    if (text.isEmpty) return 'Needs a value';
-
-    try {
-      int.parse(text);
-    } catch (e) {
-      print(e);
-      return 'Needs a number';
-    }
-
-    return null;
   }
 
   void setMinValueText(value) {
@@ -209,42 +155,6 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
     setState(() {
       _maxValueController.text = value;
     });
-  }
-
-  Widget rangeValues() {
-    return Row(
-      children: [
-        Flexible(
-          child: FormElement(
-            isActive: minValueActive,
-            controller: _minValueController,
-            errorText: _minValueErrorText,
-            onChanged: setMinValueText,
-            label: 'Min Value',
-          ),
-        ),
-        const Gap(),
-        Flexible(
-          child: FormElement(
-            isActive: currentValueActive,
-            controller: _currentValueController,
-            errorText: _currentValueErrorText,
-            onChanged: setCurrentValueText,
-            label: 'Current Value',
-          ),
-        ),
-        const Gap(),
-        Flexible(
-          child: FormElement(
-            isActive: maxValueActive,
-            controller: _maxValueController,
-            errorText: _maxValueErrorText,
-            onChanged: setMaxValueText,
-            label: 'Max Value',
-          ),
-        ),
-      ],
-    );
   }
 
   Widget trackerOptionButton({
@@ -320,9 +230,13 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
 
     widget.appState.addTrackerEntry(TrackerEntry(
       label: _trackerNameController.text,
-      minValue: parseString(_minValueController.text),
+      minValue: currentTracker.minValue != null
+          ? parseString(_minValueController.text)
+          : null,
       currentValue: parseString(_currentValueController.text),
-      maxValue: parseString(_maxValueController.text),
+      maxValue: currentTracker.maxValue != null
+          ? parseString(_maxValueController.text)
+          : null,
       trackerType: currentTracker.type,
     ));
     widget.appState.closePopup();
@@ -346,68 +260,5 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       }
       return 0;
     }
-  }
-}
-
-class FormElement extends StatelessWidget {
-  const FormElement({
-    super.key,
-    required this.isActive,
-    required TextEditingController controller,
-    required String? errorText,
-    required this.onChanged,
-    required this.label,
-  })  : _valueController = controller,
-        _errorText = errorText;
-
-  final bool isActive;
-  final TextEditingController _valueController;
-  final String? _errorText;
-  final Function(String) onChanged;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    bool showErrorColour = false;
-    bool hasErrorText = _errorText == null;
-
-    if (_errorText != null && isActive == true) {
-      showErrorColour = true;
-    }
-
-    print('$_errorText $hasErrorText $showErrorColour');
-
-    return Opacity(
-      opacity: isActive == true ? 1.0 : 0.3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label),
-          const Gap(height: 4.0),
-          CupertinoTextField(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(kInputBorderRadius),
-              color: CupertinoColors.white,
-              border: Border.all(
-                color: (showErrorColour == true)
-                    ? CupertinoColors.systemRed
-                    : CupertinoColors.white,
-                width: 2.0,
-                strokeAlign: BorderSide.strokeAlignOutside,
-              ),
-            ),
-            enabled: isActive,
-            controller: _valueController,
-            placeholder: 'current value',
-            onChanged: onChanged,
-          ),
-          const Gap(height: 4.0),
-          Text(
-            _errorText ?? '',
-            style: const TextStyle(fontSize: 11.0),
-          ),
-        ],
-      ),
-    );
   }
 }

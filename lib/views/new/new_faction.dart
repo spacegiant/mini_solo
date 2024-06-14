@@ -22,31 +22,31 @@ class _NewFactionMenuState extends State<NewFactionMenu> {
       ListButton(
         label: 'Purpose',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Faction Name',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Secret',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Goal',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Logo/Icon',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       menuSpacer(),

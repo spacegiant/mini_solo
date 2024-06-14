@@ -21,31 +21,31 @@ class _NewPlaceMenuState extends State<NewPlaceMenu> {
       ListButton(
         label: 'Place Name',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Add Feature',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Problem',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Famed for...',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
       ListButton(
         label: 'Details',
         onPressed: () {
-          print('Pressed');
+          // TODO
         },
       ),
     ]);

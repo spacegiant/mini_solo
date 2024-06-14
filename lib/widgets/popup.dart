@@ -39,7 +39,7 @@ Consumer<Object?> popup(
       if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
       } else if (popup == PopupLabel.createTracker) {
-        popupHeight = 750.0;
+        popupHeight = 710.0;
         popupWidget = CreateTrackerPopup(appState: appState);
       } else if (popup == PopupLabel.editTracker) {
         popupHeight = 500.0;
@@ -90,7 +90,7 @@ Consumer<Object?> popup(
         popupHeight = 160.0;
         popupWidget = EditOracleEntryPopup(appState: appState);
       } else if (popup == PopupLabel.editNewSceneEntry) {
-        popupHeight = 160.0;
+        popupHeight = 240.0;
         popupWidget = EditNewSceneEntryPopup(appState: appState);
       } else {
         popupWidget = const SizedBox.shrink();

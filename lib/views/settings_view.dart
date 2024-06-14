@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/views/settings/dev_settings.dart';
 import 'package:mini_solo/views/settings/dice_settings.dart';
 import 'package:mini_solo/views/settings/general_settings.dart';
@@ -71,7 +72,11 @@ class _SettingsViewState extends State<SettingsView> {
                 },
               ),
             ),
-            settingsPages[_selectedSegment] ?? const Text('Eh'),
+            Expanded(
+              child: SingleChildScrollView(
+                child: settingsPages[_selectedSegment],
+              ),
+            ),
           ],
         ),
       ),

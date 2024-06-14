@@ -57,7 +57,6 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.oracle: 'oracle',
   JournalEntryTypes.outcome: 'outcome',
   JournalEntryTypes.roll: 'roll',
-  JournalEntryTypes.transition: 'transition',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/data/campaign_data.dart';
 
 import '../../data/app_state.dart';
 import '../settings_view.dart';
@@ -8,6 +9,22 @@ List<Widget> generalSettings(
 ) {
   // bool autoCopy = true;
   var general = appState.campaignData!.settings.general;
+
+  List<Widget> journalEntryVisibilityOptions = [];
+
+  journalEntryTypeLabel.forEach((type, entry) {
+    journalEntryVisibilityOptions.add(
+      SettingsOption(
+        isActive: general.hiddenEntryTypes.contains(type),
+        label: entry.label,
+        onChanged: (isChecked) {
+          // TODO: Toggle settings for specific item
+          appState.toggleJournalEntryTypeVisibility(type);
+        },
+      ),
+    );
+  });
+
   return [
     const SettingsHeading(label: 'General settings'),
     SettingsOption(
@@ -45,5 +62,17 @@ List<Widget> generalSettings(
       label: 'Send to journal',
       onChanged: (isChecked) {},
     ),
+    const Text('Journal - check entry types to hide'),
+    Container(
+      color: CupertinoColors.systemGrey5,
+      height: 200.0,
+      width: 400.0,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: journalEntryVisibilityOptions,
+        ),
+      ),
+    )
   ];
 }
