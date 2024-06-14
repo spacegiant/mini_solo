@@ -35,7 +35,7 @@ class RangeValuesForm extends StatelessWidget {
           child: FormElement(
             isActive: minValueActive,
             controller: minValueController,
-            errorText: minValueErrorText,
+            errorText: _minValueErrorText,
             onChanged: setMinValueText,
             label: 'Min Value',
           ),
@@ -45,7 +45,7 @@ class RangeValuesForm extends StatelessWidget {
           child: FormElement(
             isActive: currentValueActive,
             controller: currentValueController,
-            errorText: currentValueErrorText,
+            errorText: _currentValueErrorText,
             onChanged: setCurrentValueText,
             label: 'Current Value',
           ),
@@ -55,7 +55,7 @@ class RangeValuesForm extends StatelessWidget {
           child: FormElement(
             isActive: maxValueActive,
             controller: maxValueController,
-            errorText: maxValueErrorText,
+            errorText: _maxValueErrorText,
             onChanged: setMaxValueText,
             label: 'Max Value',
           ),
@@ -64,7 +64,7 @@ class RangeValuesForm extends StatelessWidget {
     );
   }
 
-  String? get minValueErrorText {
+  String? get _minValueErrorText {
     if (minValueActive == false) return null;
 
     final text = minValueController.value.text.trim();
@@ -72,19 +72,18 @@ class RangeValuesForm extends StatelessWidget {
     try {
       int.parse(text);
     } catch (e) {
-      print(e);
       return 'Needs a number';
     }
 
     return null;
   }
 
-  String? get currentValueErrorText {
+  String? get _currentValueErrorText {
     if (currentValueActive == false) return null;
 
     int currentValue = 0;
-    int maxValue = 0;
-    int minValue = 0;
+    int? maxValue;
+    int? minValue;
     final currentValueText = currentValueController.value.text.trim();
     final maxValueText = maxValueController.value.text.trim();
     final minValueText = minValueController.value.text.trim();
@@ -94,30 +93,27 @@ class RangeValuesForm extends StatelessWidget {
     try {
       currentValue = int.parse(currentValueText);
     } catch (e) {
-      print(e);
       return 'Needs a number';
     }
 
     try {
       maxValue = int.parse(maxValueText);
     } catch (e) {
-      print(e);
-      return null;
+      // return maxValue as null
     }
 
     try {
       minValue = int.parse(minValueText);
     } catch (e) {
-      print(e);
-      return null;
+      // return minValue as null
     }
 
-    if (currentValue > maxValue) return 'Higher than max';
-    if (currentValue < minValue) return 'Lower than min';
+    if (maxValue != null && currentValue > maxValue) return 'Higher than max';
+    if (minValue != null && currentValue < minValue) return 'Lower than min';
     return null;
   }
 
-  String? get maxValueErrorText {
+  String? get _maxValueErrorText {
     if (maxValueActive == false) return null;
 
     final text = maxValueController.value.text.trim();
@@ -126,7 +122,7 @@ class RangeValuesForm extends StatelessWidget {
     try {
       int.parse(text);
     } catch (e) {
-      print(e);
+      print('Error parsing string _maxValueErrorText: $e');
       return 'Needs a number';
     }
 
@@ -154,13 +150,10 @@ class FormElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool showErrorColour = false;
-    bool hasErrorText = _errorText == null;
 
     if (_errorText != null && isActive == true) {
       showErrorColour = true;
     }
-
-    print('$_errorText $hasErrorText $showErrorColour');
 
     return Opacity(
       opacity: isActive == true ? 1.0 : 0.3,

@@ -111,20 +111,19 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               try {
                 minValue = int.parse(_minValueController.text);
               } catch (e) {
-                // print(e);
+                // return minValue as null
               }
 
               try {
                 currentValue = int.parse(_currentValueController.text);
-                print(currentValue);
               } catch (e) {
-                // print(e);
+                // return currentValue as null
               }
 
               try {
                 maxValue = int.parse(_maxValueController.text);
               } catch (e) {
-                // print(e);
+                // return maxValue as null
               }
 
               widget.appState.updateTrackerEntry(
