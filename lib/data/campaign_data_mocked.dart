@@ -38,5 +38,6 @@ CampaignData sampleCampaignData() {
     scratchPad: [],
     rollTableResult: [],
     tracker: [],
+    newScene: [],
   );
 }

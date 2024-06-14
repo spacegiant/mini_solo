@@ -135,7 +135,7 @@ WrapManager mythicGMEControls(
         label: 'New Scene',
         color: Colors.black,
         onPressed: () {
-          appState.addNewScene();
+          appState.addNewScene(NewSceneEntry(label: 'New Scene'));
         },
       ),
       ListButton(

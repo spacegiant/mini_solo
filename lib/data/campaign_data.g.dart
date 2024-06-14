@@ -138,6 +138,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       tracker: (json['tracker'] as List<dynamic>)
           .map((e) => TrackerEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
+      newScene: (json['newScene'] as List<dynamic>)
+          .map((e) => NewSceneEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
@@ -162,6 +165,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'rollTableResult':
           instance.rollTableResult.map((e) => e.toJson()).toList(),
       'tracker': instance.tracker.map((e) => e.toJson()).toList(),
+      'newScene': instance.newScene.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -661,3 +665,19 @@ const _$TrackerTypesEnumMap = {
   TrackerTypes.counter: 'counter',
   TrackerTypes.fate_aspect: 'fate_aspect',
 };
+
+NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>
+    NewSceneEntry(
+      label: json['label'] as String,
+    )
+      ..isFavourite = json['isFavourite'] as bool?
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$NewSceneEntryToJson(NewSceneEntry instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'label': instance.label,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };

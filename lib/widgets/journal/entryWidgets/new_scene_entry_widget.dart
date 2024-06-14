@@ -15,7 +15,7 @@ class NewSceneEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    JournalEntryItem entry = appState.campaignData!.journal
+    NewSceneEntry entry = appState.campaignData!.newScene
         .firstWhere((entry) => entry.id == journalEntry.id);
     return GestureDetector(
       onLongPress: () {
@@ -26,11 +26,11 @@ class NewSceneEntryWidget extends StatelessWidget {
       },
       child: Container(
           color: Colors.black.withOpacity(0.5),
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
-              'New Scene',
-              style: TextStyle(
+              entry.label,
+              style: const TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,
               ),

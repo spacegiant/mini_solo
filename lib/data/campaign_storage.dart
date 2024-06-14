@@ -47,10 +47,11 @@ class CampaignStorage {
 
       final data = json.decode(jsonData);
 
-      // TODO: Go thru initData and check loaded data matches, replaces with placeholder where appropriate
+      // TODO: DATA MIGRATION Go thru initData and check loaded data matches, replaces with placeholder where appropriate
       if (data['settings']['general']['hiddenEntryTypes'] == null) {
         data['settings']['general']['hiddenEntryTypes'] = [];
       }
+      if (data['newScene'] == null) data['newScene'] = [];
 
       final dataMap = CampaignData.fromJson(data);
 

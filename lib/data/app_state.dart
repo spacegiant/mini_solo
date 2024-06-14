@@ -293,13 +293,14 @@ class AppState extends ChangeNotifier {
   }
 
   // NEW SCENE ENTRIES
-  // NOTE: This just adds a marker for a new scene.
-  void addNewScene() {
+  void addNewScene(NewSceneEntry entry) {
+    _campaignData!.newScene.add(entry);
+
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
         type: JournalEntryTypes.newScene,
-        id: 'new scene marker',
+        id: entry.id,
       ),
     );
   }

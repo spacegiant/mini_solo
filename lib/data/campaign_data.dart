@@ -227,6 +227,7 @@ class CampaignData {
   late List<ScratchPageEntryItem> scratchPad;
   late List<RollTableResult> rollTableResult;
   late List<TrackerEntry> tracker;
+  late List<NewSceneEntry> newScene;
 
   CampaignData({
     required this.settings,
@@ -248,6 +249,7 @@ class CampaignData {
     required this.scratchPad,
     required this.rollTableResult,
     required this.tracker,
+    required this.newScene,
   });
 
   // coverage:ignore-start
@@ -297,6 +299,7 @@ CampaignData initCampaignDataData(String campaignName) {
     things: [],
     rollTableResult: [],
     tracker: [],
+    newScene: [],
   );
 }
 
@@ -624,4 +627,23 @@ class TrackerEntry extends CampaignItem {
   @override
   JournalEntryTypes type = JournalEntryTypes.tracker;
   // coverage:ignore-end
+}
+
+@JsonSerializable()
+class NewSceneEntry extends CampaignItem {
+  String label;
+
+  NewSceneEntry({
+    required this.label,
+  });
+
+  // coverage:ignore-start
+  factory NewSceneEntry.fromJson(Map<String, dynamic> json) =>
+      _$NewSceneEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NewSceneEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newScene;
+// coverage:ignore-end
 }
