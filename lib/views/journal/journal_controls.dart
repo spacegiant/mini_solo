@@ -17,6 +17,7 @@ import '../../widgets/wrap_manager.dart';
 import '../mythic/fate_question.dart';
 import 'dice_tray.dart';
 import 'get_event_focus.dart';
+import 'group_container.dart';
 
 Widget journalControls(
     AppState appState,
@@ -33,18 +34,24 @@ Widget journalControls(
       addResult,
     ),
 
-    const JournalSubheading(label: kJournalMythicFateChartTitle),
-
-    FateQuestion(
-      callback: (JournalReturnObject returnObject) {
-        appState.addOracleEntry(
-          OracleEntry(
-              isFavourite: false,
-              lines: returnObject,
-              label: kJournalMythicAskTheFateChart),
-        );
-      },
-      wrapControls: wrapControls,
+    GroupContainer(
+      isExpanded: true,
+      label: kJournalMythicFateChartTitle,
+      groupId: 'mythicChartTitle',
+      appState: appState,
+      children: [
+        FateQuestion(
+          callback: (JournalReturnObject returnObject) {
+            appState.addOracleEntry(
+              OracleEntry(
+                  isFavourite: false,
+                  lines: returnObject,
+                  label: kJournalMythicAskTheFateChart),
+            );
+          },
+          wrapControls: wrapControls,
+        ),
+      ],
     ),
 
     const JournalSubheading(
