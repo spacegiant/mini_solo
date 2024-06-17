@@ -3,6 +3,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/utilities/init_form.dart';
+import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/widgets/popup.dart';
@@ -60,10 +61,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   //
   void initCampaignData(String campaignName) {
+    String campaignFileName = convertToFilename(campaignName);
     var appState = context.read<AppState>();
     CampaignData campaignData = initCampaignDataData(campaignName);
     AppSettingsData appSettingsData = appState.appSettingsData;
-    appState.appSettingsData.currentCampaign = campaignName;
+    appState.appSettingsData.currentCampaign = campaignFileName;
     appState.setCampaignData(campaignData);
     saveAppSettings(appSettingsData);
     // saveCampaign(campaignData);
@@ -123,8 +125,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         } else {
           return Consumer<AppState>(
             builder: (context, appState, child) {
-              // TODO: Delete campaign not working
-              if (appState.deleteCampaign == false) {
+              if (appState.deleteCampaign == null) {
                 appState.setDeleteCampaignCallback(deleteCampaign);
               }
 

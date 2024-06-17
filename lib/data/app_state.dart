@@ -104,7 +104,7 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
-    saveCampaignDataToDisk(data.name);
+    saveCampaignDataToDisk(data.filename);
     notifyListeners();
   }
 
