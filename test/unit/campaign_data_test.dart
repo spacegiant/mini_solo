@@ -13,6 +13,7 @@ void main() {
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
+      hiddenEntryTypes: [],
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -29,6 +30,7 @@ void main() {
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
+      hiddenEntryTypes: [],
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -47,6 +49,7 @@ void main() {
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
+      hiddenEntryTypes: [],
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,
