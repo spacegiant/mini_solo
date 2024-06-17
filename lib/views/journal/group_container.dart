@@ -15,24 +15,31 @@ Map<String, String> journalGroups = {
 class GroupContainer extends StatelessWidget {
   const GroupContainer({
     super.key,
-    required this.children,
-    required this.isExpanded,
+    this.isExpanded = true,
+    this.isVisible = true,
     required this.label,
     required this.groupId,
     required this.appState,
+    required this.children,
   });
 
-  final List<Widget> children;
   final bool isExpanded;
+  final bool isVisible;
   final String label;
   final String groupId;
   final AppState appState;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      JournalSubheading(label: label),
-      if (isExpanded) ...children,
-    ]);
+    return isVisible
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              JournalSubheading(label: label),
+              if (isExpanded) ...children,
+            ],
+          )
+        : const SizedBox.shrink();
   }
 }
