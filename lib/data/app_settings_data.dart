@@ -9,6 +9,7 @@ AppSettingsData initAppSettingsData() {
   return AppSettingsData(
     currentCampaign: '',
     randomTables: [],
+    expandedList: [],
   );
 }
 
@@ -16,10 +17,12 @@ AppSettingsData initAppSettingsData() {
 class AppSettingsData {
   late String currentCampaign;
   late List<RandomTableEntry> randomTables;
+  late List<String> expandedList;
 
   AppSettingsData({
     required this.currentCampaign,
     required this.randomTables,
+    required this.expandedList,
   });
 
   // coverage:ignore-start

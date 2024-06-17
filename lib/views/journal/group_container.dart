@@ -15,7 +15,6 @@ Map<String, String> journalGroups = {
 class GroupContainer extends StatelessWidget {
   const GroupContainer({
     super.key,
-    this.isExpanded = true,
     this.isVisible = true,
     required this.label,
     required this.groupId,
@@ -23,7 +22,6 @@ class GroupContainer extends StatelessWidget {
     required this.children,
   });
 
-  final bool isExpanded;
   final bool isVisible;
   final String label;
   final String groupId;
@@ -32,11 +30,17 @@ class GroupContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isExpanded = appState.isExpanded(groupId);
     return isVisible
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              JournalSubheading(label: label),
+              JournalSubheading(
+                label: label,
+                handlePress: () {
+                  appState.toggleExpanded(groupId);
+                },
+              ),
               if (isExpanded) ...children,
             ],
           )
