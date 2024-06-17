@@ -5,3 +5,8 @@ String idGenerator(JournalEntryTypes type) {
   final now = DateTime.now();
   return '${journalEntryTypeLabel[type]?.identifier}-${now.microsecondsSinceEpoch}';
 }
+
+String genericId(String prefix) {
+  final now = DateTime.now();
+  return '$prefix-${now.microsecondsSinceEpoch}';
+}
