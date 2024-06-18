@@ -9,14 +9,12 @@ part of 'group.dart';
 Group _$GroupFromJson(Map<String, dynamic> json) => Group(
       groupId: json['groupId'] as String,
       label: json['label'] as String,
-      controls:
-          (json['controls'] as List<dynamic>).map((e) => e as String).toList(),
-      isExpanded: json['isExpanded'] as bool,
-      isAppGroup: json['isAppGroup'] as bool,
-      presetOrder: (json['presetOrder'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-    )..isActive = json['isActive'] as bool;
+      controls: json['controls'],
+      isExpanded: json['isExpanded'],
+      isAppGroup: json['isAppGroup'],
+      presetOrder: json['presetOrder'],
+      sortBy: json['sortBy'],
+    )..isActive = json['isActive'] as bool?;
 
 Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
       'groupId': instance.groupId,
@@ -26,4 +24,11 @@ Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
       'isActive': instance.isActive,
       'isAppGroup': instance.isAppGroup,
       'presetOrder': instance.presetOrder,
+      'sortBy': _$SortByEnumMap[instance.sortBy]!,
     };
+
+const _$SortByEnumMap = {
+  SortBy.manual: 'manual',
+  SortBy.aToZ: 'aToZ',
+  SortBy.zToA: 'zToA',
+};

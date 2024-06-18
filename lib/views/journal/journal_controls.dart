@@ -28,6 +28,16 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
 
+  // This list
+  Map<String, Widget> controls = {
+    // ...diceControls,
+    // ...mythicFateChartControls,
+    // ...mythicGMEControls,
+    // ...randomTableControls,
+    // ...trackerControls,
+    // ...newItemControls,
+  };
+
   return ViewWrapper(children: [
     const Gap(),
     GroupContainer(

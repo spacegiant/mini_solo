@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'group.g.dart';
 
+enum SortBy { manual, aToZ, zToA }
+
 @JsonSerializable()
 class Group {
   String groupId; // unique, e.g group-458457648576486
@@ -15,6 +17,7 @@ class Group {
   // Color? colour; // default
   List<String>?
       presetOrder; // used for Mythic Fate Chart. Can't reorder if exists.
+  SortBy sortBy = SortBy.aToZ;
 
   Group({
     required this.groupId,
@@ -24,6 +27,7 @@ class Group {
     isAppGroup,
     // this.colour,
     presetOrder,
+    sortBy,
   });
 
   // coverage:ignore-start
