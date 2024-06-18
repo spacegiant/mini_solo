@@ -31,14 +31,14 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
 
-  Map<String, Widget> diceControls = {
-    'dice-oracle': DiceButton(
-      dieType: d6oracle,
-      label: 'D6 Oracle',
-      icon: SVGIcon.d6Oracle,
-      onPressed: addResult,
-    ),
-  };
+  // Map<String, Widget> diceControls = {
+  //   'dice-oracle': DiceButton(
+  //     dieType: d6oracle,
+  //     label: 'D6 Oracle',
+  //     icon: SVGIcon.d6Oracle,
+  //     onPressed: addResult,
+  //   ),
+  // };
 
   Map<String, Widget> mythicGMEControls2 = {
     'mythic-gme-new-scene': ListButton(
@@ -54,11 +54,18 @@ Widget journalControls(
   Map<String, Widget> trackerControls = {};
   Map<String, Widget> newItemControls = {};
 
-  // This list
+  // This is a list of individual controls by unique id
   Map<String, Widget> controls = {
-    ...diceControls,
+    ...diceControls(addResult),
     ...mythicFateChartControls(appState),
-    ...mythicGMEControls2,
+    'mythic-gme-new-scene': ListButton(
+      label: 'New Scene',
+      color: Colors.black,
+      onPressed: () {
+        int sceneNumber = appState.campaignData!.newScene.length + 1;
+        appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
+      },
+    ),
     ...randomTableControls,
     ...trackerControls,
     ...newItemControls,
@@ -66,6 +73,7 @@ Widget journalControls(
 
   return ViewWrapper(children: [
     const Gap(),
+    ...diceControls(addResult).values,
     GroupContainer(
         label: 'Dice',
         groupId: 'group-dice',

@@ -75,3 +75,25 @@ WrapManager diceTray(
     ],
   );
 }
+
+Map<String, Widget> diceControls(Function(List<DiceRoll>) addResult) => {
+      'dice-d6-oracle': d6Oracle(addResult),
+    };
+
+DiceButton d6Oracle(Function(List<DiceRoll>) addResult) => DiceButton(
+      dieType: d6oracle,
+      label: 'D6 Oracle',
+      icon: SVGIcon.d6Oracle,
+      onPressed: addResult,
+    );
+
+// Map<String, Widget> mythicFateChartControls(
+//     AppState appState,
+//     ) =>
+//     {
+//       for (var row in fateChart)
+//         row.label: FateChartListButton(
+//           fateChartRow: row,
+//           appState: appState,
+//         ),
+//     };
