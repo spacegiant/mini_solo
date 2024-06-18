@@ -47,7 +47,7 @@ class AppState extends ChangeNotifier {
   String _currentEntryId = '';
 
   // GROUPS
-  List<Group> get groups => _campaignData!.groups;
+  List<Group> get groupList => _campaignData!.groups;
 
   bool groupExists(String groupName) {
     int index = _campaignData!.groups.indexWhere((group) {

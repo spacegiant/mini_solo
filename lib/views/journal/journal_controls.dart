@@ -37,7 +37,6 @@ Widget journalControls(
     ListButton(
       label: 'Add Group',
       onPressed: () {
-        // TODO: Remove
         appState.toggleShowPopup(label: PopupLabel.addGroup);
         // appState.addGroup(
         //   Group(

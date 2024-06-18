@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/popups/add_group_popup.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
@@ -34,9 +35,14 @@ Consumer<Object?> popup(
       Widget popupWidget;
 
       // TODO refactor to make easier to read
+      // TODO refactor to pass content widget in
 
       // WIDGETS
-      if (popup == PopupLabel.chaos) {
+      if (popup == PopupLabel.addGroup) {
+        popupWidget = AddGroupPopup(
+          appState: appState,
+        );
+      } else if (popup == PopupLabel.chaos) {
         popupWidget = const ChaosFactorPopup();
       } else if (popup == PopupLabel.createTracker) {
         popupHeight = 710.0;
