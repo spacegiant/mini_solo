@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/utilities/id_generator.dart';
 import 'package:mini_solo/views/journal/tracker_controls.dart';
 
 import '../../constants.dart';
@@ -29,22 +30,21 @@ Widget journalControls(
 
   return ViewWrapper(children: [
     const Gap(),
+    GroupContainer(
+        label: 'Dice',
+        groupId: 'group-dice',
+        appState: appState,
+        children: [
+          diceTray(
+            appState,
+            addResult,
+          ),
+        ]),
 
-    diceTray(
-      appState,
-      addResult,
-    ),
     ListButton(
       label: 'Add Group',
       onPressed: () {
         appState.toggleShowPopup(label: PopupLabel.addGroup);
-        // appState.addGroup(
-        //   Group(
-        //     groupId: 'groupId',
-        //     label: 'mythic5',
-        //     controls: [],
-        //   ),
-        // );
       },
     ),
 
