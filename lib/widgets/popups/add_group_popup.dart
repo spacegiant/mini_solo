@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/utilities/id_generator.dart';
 import '../../data/app_state.dart';
 
 class AddGroupPopup extends StatefulWidget {
@@ -54,7 +55,7 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
         color: CupertinoColors.systemPink,
         onPressed: () {
           widget.appState.addGroup(
-            Group(groupId: 'idhere', label: _controller.value.text),
+            Group(groupId: genericId('group'), label: _controller.value.text),
           );
         },
         child: const Text('Add'),

@@ -48,12 +48,12 @@ Widget journalControls(
       },
     ),
 
-    // ...appState.appSettingsData.groups.map((group) => GroupContainer(
-    //       label: group,
-    //       groupId: 'test',
-    //       appState: appState,
-    //       children: [Text(group)],
-    //     )),
+    ...appState.campaignData!.groups.map((group) => GroupContainer(
+          label: group.label,
+          groupId: group.groupId,
+          appState: appState,
+          children: [Text(group.label)],
+        )),
 
     // TODO: Implement display of groups - sorting, visibility etc
 
