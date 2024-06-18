@@ -9,6 +9,7 @@ import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../features/random_tables/random_table_controls.dart';
+import '../../svg_icon.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../widgets/gap.dart';
@@ -16,6 +17,8 @@ import '../../widgets/journal/widgets/journal_subheading.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/view_wrapper.dart';
 import '../../widgets/wrap_manager.dart';
+import '../dice/dice_button.dart';
+import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
 import 'dice_tray.dart';
 import 'get_event_focus.dart';
@@ -28,14 +31,37 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
 
+  Map<String, Widget> diceControls = {
+    'dice-oracle': DiceButton(
+      dieType: d6oracle,
+      label: 'D6 Oracle',
+      icon: SVGIcon.d6Oracle,
+      onPressed: addResult,
+    ),
+  };
+
+  Map<String, Widget> mythicGMEControls2 = {
+    'mythic-gme-new-scene': ListButton(
+      label: 'New Scene',
+      color: Colors.black,
+      onPressed: () {
+        int sceneNumber = appState.campaignData!.newScene.length + 1;
+        appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
+      },
+    ),
+  };
+  Map<String, Widget> randomTableControls = {};
+  Map<String, Widget> trackerControls = {};
+  Map<String, Widget> newItemControls = {};
+
   // This list
   Map<String, Widget> controls = {
-    // ...diceControls,
-    // ...mythicFateChartControls,
-    // ...mythicGMEControls,
-    // ...randomTableControls,
-    // ...trackerControls,
-    // ...newItemControls,
+    ...diceControls,
+    ...mythicFateChartControls(appState),
+    ...mythicGMEControls2,
+    ...randomTableControls,
+    ...trackerControls,
+    ...newItemControls,
   };
 
   return ViewWrapper(children: [
@@ -68,23 +94,10 @@ Widget journalControls(
     // TODO: Implement display of groups - sorting, visibility etc
 
     GroupContainer(
-      label: kJournalMythicFateChartTitle,
-      groupId: 'mythicChartTitle',
-      appState: appState,
-      children: [
-        FateQuestion(
-          callback: (JournalReturnObject returnObject) {
-            appState.addOracleEntry(
-              OracleEntry(
-                  isFavourite: false,
-                  lines: returnObject,
-                  label: kJournalMythicAskTheFateChart),
-            );
-          },
-          wrapControls: wrapControls,
-        ),
-      ],
-    ),
+        label: kJournalMythicFateChartTitle,
+        groupId: 'mythicChartTitle',
+        appState: appState,
+        children: mythicFateChartControls(appState).values.toList()),
 
     GroupContainer(
       label: kJournalMythicGMETitle,
