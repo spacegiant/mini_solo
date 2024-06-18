@@ -20,6 +20,7 @@ class GroupContainer extends StatelessWidget {
     required this.groupId,
     required this.appState,
     required this.children,
+    this.wrapControls = false,
   });
 
   final bool isVisible;
@@ -27,6 +28,7 @@ class GroupContainer extends StatelessWidget {
   final String groupId;
   final AppState appState;
   final List<Widget> children;
+  final bool? wrapControls;
 
   @override
   Widget build(BuildContext context) {
