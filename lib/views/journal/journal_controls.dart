@@ -17,6 +17,7 @@ import '../../widgets/wrap_manager.dart';
 import '../mythic/fate_question.dart';
 import 'dice_tray.dart';
 import 'get_event_focus.dart';
+import 'group_container.dart';
 
 Widget journalControls(
     AppState appState,
@@ -33,93 +34,108 @@ Widget journalControls(
       addResult,
     ),
 
-    const JournalSubheading(label: kJournalMythicFateChartTitle),
-
-    FateQuestion(
-      callback: (JournalReturnObject returnObject) {
-        appState.addOracleEntry(
-          OracleEntry(
-              isFavourite: false,
-              lines: returnObject,
-              label: kJournalMythicAskTheFateChart),
-        );
-      },
-      wrapControls: wrapControls,
+    GroupContainer(
+      label: kJournalMythicFateChartTitle,
+      groupId: 'mythicChartTitle',
+      appState: appState,
+      children: [
+        FateQuestion(
+          callback: (JournalReturnObject returnObject) {
+            appState.addOracleEntry(
+              OracleEntry(
+                  isFavourite: false,
+                  lines: returnObject,
+                  label: kJournalMythicAskTheFateChart),
+            );
+          },
+          wrapControls: wrapControls,
+        ),
+      ],
     ),
 
-    const JournalSubheading(
+    GroupContainer(
       label: kJournalMythicGMETitle,
+      groupId: 'mythicGME',
+      appState: appState,
+      children: [mythicGMEControls(wrapControls, appState, context)],
     ),
 
-    mythicGMEControls(wrapControls, appState, context),
-
-    if (appState.randomTables.isNotEmpty) ...[
-      const JournalSubheading(
+    GroupContainer(
         label: kJournalRandomTablesTitle,
-      ),
-      RandomTables(
+        isVisible: appState.randomTables.isNotEmpty,
+        groupId: 'randomTables',
         appState: appState,
-      ),
-    ],
+        children: [
+          RandomTables(
+            appState: appState,
+          )
+        ]),
 
-    if (appState.campaignData!.tracker.isNotEmpty) ...[
-      const JournalSubheading(
+    GroupContainer(
+        isVisible: appState.campaignData!.tracker.isNotEmpty,
         label: 'Trackers',
-      ),
-      TrackerControls(
+        groupId: 'trackers',
         appState: appState,
-      ),
-    ],
+        children: [
+          TrackerControls(
+            appState: appState,
+          ),
+        ]),
 
-    const JournalSubheading(
-      label: 'New Item',
-    ),
-    WrapManager(wrapControls: true, children: [
-      ListButton(
-        label: 'New Tracker',
-        onPressed: () {
-          appState.toggleShowPopup(
-            label: PopupLabel.createTracker,
-          );
-        },
-      ),
-      ListButton(
-        onPressed: () {
-          appState.toggleShowPopup(
-            label: PopupLabel.addRandomTable,
-          );
-        },
-        label: 'Add random table',
-      ),
-    ]),
-    const JournalSubheading(
-      label: 'Import/Export',
-    ),
-    // TODO: Don't want this in journal controls. Move somewhere else.
-    WrapManager(wrapControls: wrapControls, children: [
-      ListButton(
-          label: 'Import Manager',
-          onPressed: () {
-            appState.toggleShowPopup(label: PopupLabel.importManager);
-          }),
-      ListButton(
-          label: 'Export Campaign',
-          onPressed: () async {
-            CampaignData? campaignData = appState.campaignData;
-            String jsonString = appState.storage.getCampaignJSON(campaignData!);
-            await Clipboard.setData(ClipboardData(text: jsonString));
-            // copied successfully
-          }),
-      ListButton(
-          label: 'Export AppSettings',
-          onPressed: () async {
-            AppSettingsData? appSettingsData = appState.appSettingsData;
-            String jsonString =
-                appState.storage.appSettingsToJSON(appSettingsData);
-            await Clipboard.setData(ClipboardData(text: jsonString));
-            // copied successfully
-          }),
-    ]),
+    GroupContainer(
+        label: 'New Item',
+        groupId: 'groupId',
+        appState: appState,
+        children: [
+          WrapManager(wrapControls: true, children: [
+            ListButton(
+              label: 'New Tracker',
+              onPressed: () {
+                appState.toggleShowPopup(label: PopupLabel.createTracker);
+              },
+            ),
+            ListButton(
+              onPressed: () {
+                appState.toggleShowPopup(label: PopupLabel.addRandomTable);
+              },
+              label: 'Add random table',
+            ),
+          ]),
+        ]),
+
+    GroupContainer(
+        label: 'Import/Export',
+        groupId: 'groupId',
+        appState: appState,
+        children: [
+          // TODO: Don't want this in journal controls. Move somewhere else.
+          WrapManager(wrapControls: wrapControls, children: [
+            ListButton(
+                label: 'Import Manager',
+                onPressed: () {
+                  appState.toggleShowPopup(label: PopupLabel.importManager);
+                }),
+            ListButton(
+                label: 'Export Campaign',
+                onPressed: () async {
+                  CampaignData? campaignData = appState.campaignData;
+                  String jsonString =
+                      appState.storage.getCampaignJSON(campaignData!);
+                  await Clipboard.setData(ClipboardData(text: jsonString));
+                  // copied successfully
+                }),
+            ListButton(
+                label: 'Export AppSettings',
+                onPressed: () async {
+                  AppSettingsData? appSettingsData = appState.appSettingsData;
+                  String jsonString =
+                      appState.storage.appSettingsToJSON(appSettingsData);
+                  await Clipboard.setData(ClipboardData(text: jsonString));
+                  // copied successfully
+                }),
+          ]),
+        ])
+
     // const MarkdownBlock(
     //   newString: '# hello\n*hello* hello\n- hello',
     // ),

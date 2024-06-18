@@ -1,7 +1,63 @@
+import 'dart:math';
+
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('CampaignData', () {
+    CampaignData campaignData = initCampaignDataData('test campaign');
+    expect(campaignData.runtimeType, CampaignData);
+    expect(campaignData.name, 'test campaign');
+  });
+
+  test('Scratch', () {
+    ScratchPageEntryItem scratchPageEntryItem = ScratchPageEntryItem(
+      isFavourite: true,
+      title: 'scratch title',
+      text: 'scratch test',
+      dateCreated: DateTime.now(),
+    );
+    expect(scratchPageEntryItem.isFavourite, true);
+    expect(scratchPageEntryItem.title, 'scratch title');
+    expect(scratchPageEntryItem.text, 'scratch test');
+    expect(scratchPageEntryItem.dateCreated.runtimeType, DateTime);
+    List<String> parts = scratchPageEntryItem.id.split('-');
+
+    expect(parts[0], 'scratchPage');
+    expect(parts[1].length, 16);
+  });
+
+  test('Tracker Entry', () {
+    TrackerEntry trackerEntry = TrackerEntry(
+      label: 'tracker entry test',
+      minValue: 5,
+      currentValue: 11,
+      maxValue: 20,
+      trackerType: TrackerTypes.bar,
+    );
+    expect(trackerEntry.label, 'tracker entry test');
+    expect(trackerEntry.minValue, 5);
+    expect(trackerEntry.currentValue, 11);
+    expect(trackerEntry.maxValue, 20);
+    expect(trackerEntry.trackerType, TrackerTypes.bar);
+
+    List<String> parts = trackerEntry.id.split('-');
+
+    expect(parts[0], 'tracker');
+    expect(parts[1].length, 16);
+  });
+
+  test('NewSceneEntry', () {
+    NewSceneEntry newSceneEntry = NewSceneEntry(label: 'new scene label');
+
+    expect(newSceneEntry.label, 'new scene label');
+
+    List<String> parts = newSceneEntry.id.split('-');
+
+    expect(parts[0], 'newScene');
+    expect(parts[1].length, 16);
+  });
+
   test('GeneralSettingsData ', () {
     final GeneralSettingsData generalSettingsData = GeneralSettingsData(
       showFutureSettings: false,
@@ -13,6 +69,7 @@ void main() {
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
+      hiddenEntryTypes: [],
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -29,6 +86,7 @@ void main() {
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
+      hiddenEntryTypes: [],
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -47,6 +105,7 @@ void main() {
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
+      hiddenEntryTypes: [],
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

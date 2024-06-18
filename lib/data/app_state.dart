@@ -44,6 +44,21 @@ class AppState extends ChangeNotifier {
   int minChaos = 1;
   String _currentEntryId = '';
 
+  // HANDLE EXPANDED STATE IN APP
+  List<String> get expandedList => _appSettingsData.expandedList;
+
+  void toggleExpanded(String label) {
+    _appSettingsData.expandedList.contains(label)
+        ? _appSettingsData.expandedList.remove(label)
+        : _appSettingsData.expandedList.add(label);
+    saveAppSettingsDataToDisk();
+    notifyListeners();
+  }
+
+  bool isExpanded(String label) {
+    return !_appSettingsData.expandedList.contains(label);
+  }
+
   // CAMPAIGN STORAGE
   void setCampaignStorage(CampaignStorage storage) {
     _storage = storage;
@@ -104,7 +119,7 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
-    saveCampaignDataToDisk(data.name);
+    saveCampaignDataToDisk(data.filename);
     notifyListeners();
   }
 
