@@ -141,6 +141,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       newScene: (json['newScene'] as List<dynamic>)
           .map((e) => NewSceneEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
+      groups: (json['groups'] as List<dynamic>)
+          .map((e) => Group.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
@@ -166,6 +169,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
           instance.rollTableResult.map((e) => e.toJson()).toList(),
       'tracker': instance.tracker.map((e) => e.toJson()).toList(),
       'newScene': instance.newScene.map((e) => e.toJson()).toList(),
+      'groups': instance.groups.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(

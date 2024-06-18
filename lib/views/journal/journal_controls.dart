@@ -33,6 +33,22 @@ Widget journalControls(
       appState,
       addResult,
     ),
+    ListButton(
+      label: 'Add Group',
+      onPressed: () {
+        // add a group
+        // appState.addGroup('mythic');
+      },
+    ),
+
+    // ...appState.appSettingsData.groups.map((group) => GroupContainer(
+    //       label: group,
+    //       groupId: 'test',
+    //       appState: appState,
+    //       children: [Text(group)],
+    //     )),
+
+    // TODO: Implement display of groups - sorting, visibility etc
 
     GroupContainer(
       label: kJournalMythicFateChartTitle,
@@ -84,7 +100,7 @@ Widget journalControls(
 
     GroupContainer(
         label: 'New Item',
-        groupId: 'groupId',
+        groupId: 'newItems',
         appState: appState,
         children: [
           WrapManager(wrapControls: true, children: [
@@ -105,7 +121,7 @@ Widget journalControls(
 
     GroupContainer(
         label: 'Import/Export',
-        groupId: 'groupId',
+        groupId: 'importExport',
         appState: appState,
         children: [
           // TODO: Don't want this in journal controls. Move somewhere else.

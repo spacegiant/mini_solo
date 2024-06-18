@@ -4,6 +4,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 
+import '../features/grouping/groups.dart';
 import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
 
@@ -44,7 +45,37 @@ class AppState extends ChangeNotifier {
   int minChaos = 1;
   String _currentEntryId = '';
 
-  // HANDLE EXPANDED STATE IN APP
+  // GROUPS
+  // Groups get groups => _appSettingsData.groups;
+
+  String? addGroup(String groupName) {
+    // print('addGroup');
+    // if (_appSettingsData.groups.contains(groupName)) {
+    //   return 'Already a group';
+    // } else {
+    //   _appSettingsData.groups.add(groupName);
+    //   saveAppSettingsDataToDisk();
+    //   // return null;
+    // }
+  }
+
+  void deleteGroup(String groupName) {
+    // _appSettingsData.groups.remove(groupName);
+  }
+
+  void renameGroup(String groupName, String newGroupName) {
+    // Add the newGroupName
+    // Update all the place that have the old name to new name
+    // Delete the old name
+  }
+
+  void moveGroup(String groupName, String? beforeGroupName) {
+    // Find beforeGroupName
+    // (if beforeGroupName is not null) Move groupName before beforeGroupName
+    // (if beforeGroupName is null) move to end
+  }
+
+  // EXPANDED LIST
   List<String> get expandedList => _appSettingsData.expandedList;
 
   void toggleExpanded(String label) {
@@ -587,7 +618,7 @@ class AppState extends ChangeNotifier {
     // Tracker and journal entry do not need to be linked - just add note
     NoteEntryItem note = NoteEntryItem(
       isFavourite: false,
-      detail: 'New ${trackerData.label} tracker create \'${entry.label} \'',
+      detail: 'New ${trackerData.label} tracker created: \'${entry.label} \'',
     );
 
     _campaignData?.notes.add(note);

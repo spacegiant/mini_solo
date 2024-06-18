@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
+import '../features/grouping/group.dart';
 import '../svg_icon.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
@@ -228,6 +229,7 @@ class CampaignData {
   late List<RollTableResult> rollTableResult;
   late List<TrackerEntry> tracker;
   late List<NewSceneEntry> newScene;
+  late List<Group> groups;
 
   CampaignData({
     required this.settings,
@@ -250,6 +252,7 @@ class CampaignData {
     required this.rollTableResult,
     required this.tracker,
     required this.newScene,
+    required this.groups,
   });
 
   // coverage:ignore-start
@@ -300,6 +303,7 @@ CampaignData initCampaignDataData(String campaignName) {
     rollTableResult: [],
     tracker: [],
     newScene: [],
+    groups: [],
   );
 }
 
