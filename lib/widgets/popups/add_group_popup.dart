@@ -54,9 +54,12 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
       CupertinoButton(
         color: CupertinoColors.systemPink,
         onPressed: () {
+          String text = _controller.value.text.trim();
+          if (text == '') return;
           widget.appState.addGroup(
-            Group(groupId: genericId('group'), label: _controller.value.text),
+            Group(groupId: genericId('group'), label: text),
           );
+          _controller.text = '';
         },
         child: const Text('Add'),
       )
