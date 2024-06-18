@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mini_solo/features/grouping/group.dart';
 import 'package:mini_solo/views/journal/tracker_controls.dart';
 
 import '../../constants.dart';
@@ -36,8 +37,15 @@ Widget journalControls(
     ListButton(
       label: 'Add Group',
       onPressed: () {
-        // add a group
-        // appState.addGroup('mythic');
+        // TODO: Remove
+        appState.toggleShowPopup(label: PopupLabel.addGroup);
+        // appState.addGroup(
+        //   Group(
+        //     groupId: 'groupId',
+        //     label: 'mythic5',
+        //     controls: [],
+        //   ),
+        // );
       },
     ),
 

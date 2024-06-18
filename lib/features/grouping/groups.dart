@@ -3,6 +3,7 @@ import 'group.dart';
 
 part 'groups.g.dart';
 
+// TODO: Is this needed?
 @JsonSerializable(explicitToJson: true)
 class Groups {
   List<Group> groups;

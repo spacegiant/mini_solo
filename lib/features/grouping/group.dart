@@ -8,10 +8,10 @@ part 'group.g.dart';
 class Group {
   String groupId; // unique, e.g group-458457648576486
   String label; // default/user defined 'Mythic GME', must be unique
-  List<String> controls; // controls by id in order, alpha by default?
-  bool isExpanded = true; // true
-  bool isActive = true; // true
-  bool isAppGroup = false; // Can't be deleted
+  List<String>? controls = []; // controls by id in order, alpha by default?
+  bool? isExpanded = true; // true
+  bool? isActive = true; // true
+  bool? isAppGroup = false; // Can't be deleted
   // Color? colour; // default
   List<String>?
       presetOrder; // used for Mythic Fate Chart. Can't reorder if exists.
@@ -19,11 +19,11 @@ class Group {
   Group({
     required this.groupId,
     required this.label,
-    required this.controls,
-    required this.isExpanded,
-    required this.isAppGroup,
+    controls,
+    isExpanded,
+    isAppGroup,
     // this.colour,
-    this.presetOrder,
+    presetOrder,
   });
 
   // coverage:ignore-start

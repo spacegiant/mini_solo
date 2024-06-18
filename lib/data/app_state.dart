@@ -3,8 +3,8 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
+import 'package:mini_solo/features/grouping/group.dart';
 
-import '../features/grouping/groups.dart';
 import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
 
@@ -26,6 +26,7 @@ enum PopupLabel {
   importManager,
   createTracker,
   editTracker,
+  addGroup,
 }
 
 class AppState extends ChangeNotifier {
@@ -46,17 +47,24 @@ class AppState extends ChangeNotifier {
   String _currentEntryId = '';
 
   // GROUPS
-  // Groups get groups => _appSettingsData.groups;
+  List<Group> get groups => _campaignData!.groups;
 
-  String? addGroup(String groupName) {
-    // print('addGroup');
-    // if (_appSettingsData.groups.contains(groupName)) {
-    //   return 'Already a group';
-    // } else {
-    //   _appSettingsData.groups.add(groupName);
-    //   saveAppSettingsDataToDisk();
-    //   // return null;
-    // }
+  bool groupExists(String groupName) {
+    int index = _campaignData!.groups.indexWhere((group) {
+      return group.label == groupName;
+    });
+    return index > -1;
+  }
+
+  String? addGroup(Group group) {
+    print(groupExists(group.label));
+    if (groupExists(group.label)) {
+      return 'Already a group';
+    } else {
+      _campaignData!.groups.add(group);
+      saveCampaignDataToDisk();
+      // return null;
+    }
   }
 
   void deleteGroup(String groupName) {
