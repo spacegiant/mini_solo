@@ -52,7 +52,8 @@ List<ControlData> mythicFateChartControls2 = [
     ControlData(
         controlId: 'control-${row.label}',
         label: row.label,
-        controlType: ControlTypeEnum.button)
+        fateChartRow: row,
+        controlType: ControlTypeEnum.mythicChart)
 ];
 
 List<String> mythicFateChartIds = [
@@ -82,9 +83,10 @@ class FateChartListButton extends StatelessWidget {
 }
 
 fateChartControlOnPressed(
-  FateChartRow fateChartRow,
+  FateChartRow? fateChartRow,
   AppState appState,
 ) {
+  if (fateChartRow == null) return;
   OddsValue row = fateChartRow.row[appState.chaosFactor - 1];
   int random = Random().nextInt(100) + 1;
   String answer;

@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import 'package:mini_solo/utilities/id_generator.dart';
-import 'package:mini_solo/views/journal/tracker_controls.dart';
 
-import '../../constants.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../features/random_tables/random_table_controls.dart';
-import '../../utilities/get_random_result.dart';
-import '../../utilities/test_scene.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/view_wrapper.dart';
@@ -18,7 +12,6 @@ import '../../widgets/wrap_manager.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'dice_tray.dart';
-import 'get_event_focus.dart';
 import 'group_container.dart';
 
 Widget journalControls(
@@ -105,12 +98,12 @@ Widget journalControls(
       },
     ),
 
-    ...appState.campaignData!.groups.map((group) => GroupContainer(
-          label: group.label,
-          groupId: group.groupId,
-          appState: appState,
-          children: [Text(group.label)],
-        )),
+    // ...appState.campaignData!.groups.map((group) => GroupContainer(
+    //       label: group.label,
+    //       groupId: group.groupId,
+    //       appState: appState,
+    //       children: [Text(group.label)],
+    //     )),
 
     // TODO: Implement display of groups - sorting, visibility etc
 
@@ -138,16 +131,16 @@ Widget journalControls(
     //       )
     //     ]),
 
-    GroupContainer(
-        isVisible: appState.campaignData!.tracker.isNotEmpty,
-        label: 'Trackers',
-        groupId: 'trackers',
-        appState: appState,
-        children: [
-          TrackerControls(
-            appState: appState,
-          ),
-        ]),
+    // GroupContainer(
+    //     isVisible: appState.campaignData!.tracker.isNotEmpty,
+    //     label: 'Trackers',
+    //     groupId: 'trackers',
+    //     appState: appState,
+    //     children: [
+    //       TrackerControls(
+    //         appState: appState,
+    //       ),
+    //     ]),
 
     GroupContainer(
         label: 'New Item',
@@ -240,105 +233,106 @@ List<String> mythicGMEIds = [
   for (var control in mythicGMEControls2) control.controlId
 ];
 
-WrapManager mythicGMEControls(
-    bool wrapControls, AppState appState, BuildContext context) {
-  return WrapManager(
-    wrapControls: wrapControls,
-    children: [
-      ListButton(
-        label: 'New Scene',
-        color: Colors.black,
-        onPressed: () {
-          int sceneNumber = appState.campaignData!.newScene.length + 1;
-          appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
-        },
-      ),
-      ListButton(
-          label: 'Test Your Expected Scene',
-          onPressed: () {
-            JournalReturnObject test = testScene(context);
-
-            appState.addOracleEntry(
-              OracleEntry(
-                  isFavourite: false,
-                  lines: test,
-                  label: 'Test Expected Scene'),
-            );
-          }),
-      ListButton(
-        label: 'Mythic Action',
-        onPressed: () {
-          getRandomResult(
-            appState: appState,
-            label: 'Mythic Action',
-            jsonPath: 'mythic/mythic_action.json',
-            table1: 'table1',
-            table2: 'table2',
-            onResult: (appState, result, label) {
-              appState.addMythicEntry(
-                // TODO: Can MythicEntry be swapped and eventually removed?
-                MythicEntry(
-                  isFavourite: false,
-                  lines: result,
-                  label: 'Mythic Action',
-                ),
-              );
-            },
-          );
-        },
-      ),
-      ListButton(
-        label: 'Mythic Description',
-        onPressed: () {
-          getRandomResult(
-            appState: appState,
-            label: 'Mythic Description',
-            jsonPath: 'mythic/mythic_description.json',
-            table1: 'table1',
-            table2: 'table2',
-            onResult: (appState, result, label) {
-              appState.addMythicEntry(
-                MythicEntry(
-                  isFavourite: false,
-                  lines: result,
-                  label: 'Mythic Description',
-                ),
-              );
-            },
-          );
-        },
-      ),
-      ListButton(
-        label: 'Event Focus',
-        onPressed: () {
-          getEventFocus(appState);
-        },
-      ),
-      ListButton(
-        label: 'Plot Twist',
-        onPressed: () {
-          getRandomResult(
-            appState: appState,
-            label: 'Mythic - Plot Twist',
-            jsonPath: 'mythic_elements/plot_twist.json',
-            table1: 'table',
-            table2: 'table',
-            onResult: (appState, result, label) {
-              appState.addOracleEntry(
-                OracleEntry(
-                    isFavourite: false, lines: result, label: 'Plot Twist'),
-              );
-            },
-          );
-        },
-      ),
-    ],
-  );
-}
+// WrapManager mythicGMEControls(
+//     bool wrapControls, AppState appState, BuildContext context) {
+//   return WrapManager(
+//     wrapControls: wrapControls,
+//     children: [
+//       ListButton(
+//         label: 'New Scene',
+//         color: Colors.black,
+//         onPressed: () {
+//           int sceneNumber = appState.campaignData!.newScene.length + 1;
+//           appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
+//         },
+//       ),
+//       ListButton(
+//           label: 'Test Your Expected Scene',
+//           onPressed: () {
+//             JournalReturnObject test = testScene(context);
+//
+//             appState.addOracleEntry(
+//               OracleEntry(
+//                   isFavourite: false,
+//                   lines: test,
+//                   label: 'Test Expected Scene'),
+//             );
+//           }),
+//       ListButton(
+//         label: 'Mythic Action',
+//         onPressed: () {
+//           getRandomResult(
+//             appState: appState,
+//             label: 'Mythic Action',
+//             jsonPath: 'mythic/mythic_action.json',
+//             table1: 'table1',
+//             table2: 'table2',
+//             onResult: (appState, result, label) {
+//               appState.addMythicEntry(
+//                 // TODO: Can MythicEntry be swapped and eventually removed?
+//                 MythicEntry(
+//                   isFavourite: false,
+//                   lines: result,
+//                   label: 'Mythic Action',
+//                 ),
+//               );
+//             },
+//           );
+//         },
+//       ),
+//       ListButton(
+//         label: 'Mythic Description',
+//         onPressed: () {
+//           getRandomResult(
+//             appState: appState,
+//             label: 'Mythic Description',
+//             jsonPath: 'mythic/mythic_description.json',
+//             table1: 'table1',
+//             table2: 'table2',
+//             onResult: (appState, result, label) {
+//               appState.addMythicEntry(
+//                 MythicEntry(
+//                   isFavourite: false,
+//                   lines: result,
+//                   label: 'Mythic Description',
+//                 ),
+//               );
+//             },
+//           );
+//         },
+//       ),
+//       ListButton(
+//         label: 'Event Focus',
+//         onPressed: () {
+//           getEventFocus(appState);
+//         },
+//       ),
+//       ListButton(
+//         label: 'Plot Twist',
+//         onPressed: () {
+//           getRandomResult(
+//             appState: appState,
+//             label: 'Mythic - Plot Twist',
+//             jsonPath: 'mythic_elements/plot_twist.json',
+//             table1: 'table',
+//             table2: 'table',
+//             onResult: (appState, result, label) {
+//               appState.addOracleEntry(
+//                 OracleEntry(
+//                     isFavourite: false, lines: result, label: 'Plot Twist'),
+//               );
+//             },
+//           );
+//         },
+//       ),
+//     ],
+//   );
+// }
 
 class ControlData {
   final String controlId;
   final String label;
+  final FateChartRow? fateChartRow;
 
   // final String group;
   final ControlTypeEnum controlType;
@@ -348,6 +342,7 @@ class ControlData {
     required this.label,
     // required this.group,
     required this.controlType,
+    this.fateChartRow,
   });
 }
 
@@ -364,8 +359,7 @@ List<GroupContainer> dynamicListOfControls(
 
     for (ControlData control in listOfControls) {
       // is it in group list?
-      if (group.controls == null) break;
-      bool isInGroupList = group.controls!.contains(control.controlId);
+      bool isInGroupList = group.controls.contains(control.controlId);
       if (isInGroupList) {
         Widget controlWidget =
             chooseControlWidget(controlData: control, appState: appState);

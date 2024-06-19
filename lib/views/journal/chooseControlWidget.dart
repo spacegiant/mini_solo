@@ -13,12 +13,14 @@ import '../../svg_icon.dart';
 import '../../widgets/list_button.dart';
 import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';
+import '../mythic/fate_question.dart';
 import 'journal_controls.dart';
 
 enum ControlTypeEnum {
   button,
   dice,
   diceGroup,
+  mythicChart,
   // TRACKER TYPES
   clock4,
   clock6,
@@ -45,6 +47,13 @@ Widget chooseControlWidget({
         label: controlData.label,
         onPressed: () {},
       );
+    case ControlTypeEnum.mythicChart:
+      return ListButton(
+          label: controlData.label,
+          onPressed: () {
+            fateChartControlOnPressed(controlData.fateChartRow, appState);
+          });
+
     case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
     case ControlTypeEnum.dice:
