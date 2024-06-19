@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -33,13 +34,13 @@ void main() {
       minValue: 5,
       currentValue: 11,
       maxValue: 20,
-      trackerType: TrackerTypes.bar,
+      controlType: ControlTypeEnum.bar,
     );
     expect(trackerEntry.label, 'tracker entry test');
     expect(trackerEntry.minValue, 5);
     expect(trackerEntry.currentValue, 11);
     expect(trackerEntry.maxValue, 20);
-    expect(trackerEntry.trackerType, TrackerTypes.bar);
+    expect(trackerEntry.controlType, ControlTypeEnum.bar);
 
     List<String> parts = trackerEntry.id.split('-');
 

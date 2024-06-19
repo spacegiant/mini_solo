@@ -78,25 +78,11 @@ Widget journalControls(
   }
 
   List<ControlData> controlData = [
-    ...listOfControls,
     ...trackerControlData,
+    ...mythicFateChartControls2,
   ];
 
-  String test() {
-    Group group = appState.campaignData!.groups
-        .firstWhere((group) => group.groupId == 'group-trackers');
-
-    group.controls.add('hello');
-
-    print(group.controls);
-
-    return 'yes';
-  }
-
-  ;
-
   return ViewWrapper(children: [
-    Text(test()),
     const Gap(),
     ...dynamicListOfControls(appState, controlData, appState.groupList),
     ...diceControls(addResult).values,
@@ -332,21 +318,6 @@ class ControlData {
     required this.controlType,
   });
 }
-
-List<ControlData> listOfControls = [
-  ControlData(
-      controlId: 'control1',
-      label: 'Button1',
-      controlType: ControlTypeEnum.button),
-  ControlData(
-      controlId: 'control2',
-      label: 'Button2',
-      controlType: ControlTypeEnum.button),
-  ControlData(
-      controlId: 'control3',
-      label: 'D6 Oracle',
-      controlType: ControlTypeEnum.dice),
-];
 
 List<GroupContainer> dynamicListOfControls(
   AppState appState,

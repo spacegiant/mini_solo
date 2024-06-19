@@ -58,15 +58,15 @@ Widget chooseControlWidget({
     case ControlTypeEnum.clock4:
     case ControlTypeEnum.clock6:
     case ControlTypeEnum.clock8:
-      TrackerEntry? entry = getTrackerEntry(appState);
+      TrackerEntry? entry = getTrackerEntry(appState, controlData.controlId);
       if (entry == null) break;
       return ClockWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
     case ControlTypeEnum.bar:
       return BarWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
     case ControlTypeEnum.ironsworn1Troublesome:
@@ -75,37 +75,37 @@ Widget chooseControlWidget({
     case ControlTypeEnum.ironsworn4Extreme:
     case ControlTypeEnum.ironsworn5Epic:
       return IronswornWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
     case ControlTypeEnum.pips:
       return PipsWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
     case ControlTypeEnum.value:
       return ValueWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
     case ControlTypeEnum.counter:
       return CounterWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
     case ControlTypeEnum.fate_aspect:
       return FateWidget(
-        entry: getTrackerEntry(appState)!,
+        entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
   }
   return Text(controlData.label);
 }
 
-TrackerEntry? getTrackerEntry(AppState appState) {
+TrackerEntry? getTrackerEntry(AppState appState, String controlId) {
   try {
     return appState.campaignData?.tracker
-        .firstWhere((tracker) => tracker.id == appState.currentEntryId);
+        .firstWhere((tracker) => tracker.id == controlId);
   } catch (e) {
     return null;
   }
