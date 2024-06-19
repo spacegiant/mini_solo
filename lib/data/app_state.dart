@@ -602,8 +602,8 @@ class AppState extends ChangeNotifier {
 
   void deleteRandomTable(String id) {
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
-    // saveCampaignDataToDisk();
-    appSettingsSaveCallback!(_appSettingsData);
+    //TODO delete from all group collections
+    saveAppSettingsDataToDisk();
     notifyListeners();
   }
 
