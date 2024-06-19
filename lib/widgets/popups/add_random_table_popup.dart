@@ -51,6 +51,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
     List<String> listOfGroups = groupList.map((group) => group.label).toList();
     var groupIndex =
         groupList.indexWhere((group) => group.groupId == 'group-random-tables');
+    String selectedGroup = 'unsorted';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -114,7 +115,11 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
               Picker(
                 items: listOfGroups,
                 initialItem: groupIndex,
-                onChange: (value) {},
+                onChange: (index) {
+                  setState(() {
+                    selectedGroup = groupList[index].groupId;
+                  });
+                },
               ),
             ],
           ),
@@ -131,15 +136,18 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                     if (title != '' && text != '') {
                       List<RandomTableRow> myText =
                           convertText(text, _separatorController.text);
-                      widget.appState.addRandomTable(
-                        RandomTableEntry(
-                          isFavourite: false,
-                          title: title,
-                          rows: myText,
-                        ),
+
+                      RandomTableEntry entry = RandomTableEntry(
+                        isFavourite: false,
+                        title: title,
+                        rows: myText,
                       );
+
+                      widget.appState.addRandomTable(entry);
                       _titleController.text = '';
                       _textController.text = '';
+                      widget.appState.addToGroup(
+                          controlId: entry.id, groupId: selectedGroup);
                     }
                   }),
               const Gap(),
