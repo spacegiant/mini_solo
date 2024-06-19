@@ -37,16 +37,16 @@ Widget journalControls(
   //   ),
   // };
 
-  Map<String, Widget> mythicGMEControls2 = {
-    'mythic-gme-new-scene': ListButton(
-      label: 'New Scene',
-      color: Colors.black,
-      onPressed: () {
-        int sceneNumber = appState.campaignData!.newScene.length + 1;
-        appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
-      },
-    ),
-  };
+  // Map<String, Widget> mythicGMEControls2 = {
+  //   'mythic-gme-new-scene': ListButton(
+  //     label: 'New Scene',
+  //     color: Colors.black,
+  //     onPressed: () {
+  //       int sceneNumber = appState.campaignData!.newScene.length + 1;
+  //       appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
+  //     },
+  //   ),
+  // };
   Map<String, Widget> randomTableControls = {};
   Map<String, Widget> trackerControls = {};
   Map<String, Widget> newItemControls = {};
@@ -80,6 +80,7 @@ Widget journalControls(
   List<ControlData> controlData = [
     ...trackerControlData,
     ...mythicFateChartControls2,
+    ...mythicGMEControls2,
   ];
 
   return ViewWrapper(children: [
@@ -113,11 +114,11 @@ Widget journalControls(
 
     // TODO: Implement display of groups - sorting, visibility etc
 
-    GroupContainer(
-        label: kJournalMythicFateChartTitle,
-        groupId: 'mythicChartTitle',
-        appState: appState,
-        children: mythicFateChartControls(appState).values.toList()),
+    // GroupContainer(
+    //     label: kJournalMythicFateChartTitle,
+    //     groupId: 'mythicChartTitle',
+    //     appState: appState,
+    //     children: mythicFateChartControls(appState).values.toList()),
 
     GroupContainer(
       label: kJournalMythicGMETitle,
@@ -207,6 +208,37 @@ Widget journalControls(
     // ),
   ]);
 }
+
+List<ControlData> mythicGMEControls2 = [
+  ControlData(
+      controlId: 'mythic-new-scene',
+      label: 'New Scene',
+      controlType: ControlTypeEnum.button),
+  ControlData(
+      controlId: 'mythic-expected-scene',
+      label: 'Test Expected Scene',
+      controlType: ControlTypeEnum.button),
+  ControlData(
+      controlId: 'mythic-action',
+      label: 'Mythic Action',
+      controlType: ControlTypeEnum.button),
+  ControlData(
+      controlId: 'mythic-description',
+      label: 'Mythic Description',
+      controlType: ControlTypeEnum.button),
+  ControlData(
+      controlId: 'mythic-event-focus',
+      label: 'Mythic Event Focus',
+      controlType: ControlTypeEnum.button),
+  ControlData(
+      controlId: 'mythic-plot-twist',
+      label: 'Mythic Plot Twist',
+      controlType: ControlTypeEnum.button),
+];
+
+List<String> mythicGMEIds = [
+  for (var control in mythicFateChartControls2) control.controlId
+];
 
 WrapManager mythicGMEControls(
     bool wrapControls, AppState appState, BuildContext context) {

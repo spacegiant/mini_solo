@@ -4,6 +4,7 @@ import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
+import '../views/journal/journal_controls.dart';
 import '../views/mythic/fate_question.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
@@ -329,7 +330,7 @@ CampaignData initCampaignDataData(String campaignName) {
         isAppGroup: true,
         groupId: 'group-mythic-gme',
         label: 'Mythic GME',
-        controls: [],
+        controls: mythicGMEIds,
       ),
       Group(
         isAppGroup: true,
