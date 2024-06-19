@@ -21,44 +21,9 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
 
-  // Map<String, Widget> diceControls = {
-  //   'dice-oracle': DiceButton(
-  //     dieType: d6oracle,
-  //     label: 'D6 Oracle',
-  //     icon: SVGIcon.d6Oracle,
-  //     onPressed: addResult,
-  //   ),
-  // };
-
-  // Map<String, Widget> mythicGMEControls2 = {
-  //   'mythic-gme-new-scene': ListButton(
-  //     label: 'New Scene',
-  //     color: Colors.black,
-  //     onPressed: () {
-  //       int sceneNumber = appState.campaignData!.newScene.length + 1;
-  //       appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
-  //     },
-  //   ),
-  // };
-  // Map<String, Widget> randomTableControls = {};
-  // Map<String, Widget> trackerControls = {};
-  // Map<String, Widget> newItemControls = {};
-
   // This is a list of individual controls by unique id
   Map<String, Widget> controls = {
     ...diceControls(addResult),
-    // ...mythicFateChartControls(appState),
-    // 'mythic-gme-new-scene': ListButton(
-    //   label: 'New Scene',
-    //   color: Colors.black,
-    //   onPressed: () {
-    //     int sceneNumber = appState.campaignData!.newScene.length + 1;
-    //     appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
-    //   },
-    // ),
-    // ...randomTableControls,
-    // ...trackerControls,
-    // ...newItemControls,
   };
 
   List<ControlData> trackerControlData = [];
@@ -79,7 +44,7 @@ Widget journalControls(
   return ViewWrapper(children: [
     const Gap(),
     ...dynamicListOfControls(appState, controlData, appState.groupList),
-    ...diceControls(addResult).values,
+    // ...diceControls(addResult).values,
     GroupContainer(
         label: 'Dice',
         groupId: 'group-dice',
@@ -98,49 +63,7 @@ Widget journalControls(
       },
     ),
 
-    // ...appState.campaignData!.groups.map((group) => GroupContainer(
-    //       label: group.label,
-    //       groupId: group.groupId,
-    //       appState: appState,
-    //       children: [Text(group.label)],
-    //     )),
-
     // TODO: Implement display of groups - sorting, visibility etc
-
-    // GroupContainer(
-    //     label: kJournalMythicFateChartTitle,
-    //     groupId: 'mythicChartTitle',
-    //     appState: appState,
-    //     children: mythicFateChartControls(appState).values.toList()),
-
-    // GroupContainer(
-    //   label: kJournalMythicGMETitle,
-    //   groupId: 'mythicGME',
-    //   appState: appState,
-    //   children: [mythicGMEControls(wrapControls, appState, context)],
-    // ),
-
-    // GroupContainer(
-    //     label: kJournalRandomTablesTitle,
-    //     isVisible: appState.randomTables.isNotEmpty,
-    //     groupId: 'randomTables',
-    //     appState: appState,
-    //     children: [
-    //       RandomTables(
-    //         appState: appState,
-    //       )
-    //     ]),
-
-    // GroupContainer(
-    //     isVisible: appState.campaignData!.tracker.isNotEmpty,
-    //     label: 'Trackers',
-    //     groupId: 'trackers',
-    //     appState: appState,
-    //     children: [
-    //       TrackerControls(
-    //         appState: appState,
-    //       ),
-    //     ]),
 
     GroupContainer(
         label: 'New Item',
@@ -233,102 +156,6 @@ List<String> mythicGMEIds = [
   for (var control in mythicGMEControls2) control.controlId
 ];
 
-// WrapManager mythicGMEControls(
-//     bool wrapControls, AppState appState, BuildContext context) {
-//   return WrapManager(
-//     wrapControls: wrapControls,
-//     children: [
-//       ListButton(
-//         label: 'New Scene',
-//         color: Colors.black,
-//         onPressed: () {
-//           int sceneNumber = appState.campaignData!.newScene.length + 1;
-//           appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
-//         },
-//       ),
-//       ListButton(
-//           label: 'Test Your Expected Scene',
-//           onPressed: () {
-//             JournalReturnObject test = testScene(context);
-//
-//             appState.addOracleEntry(
-//               OracleEntry(
-//                   isFavourite: false,
-//                   lines: test,
-//                   label: 'Test Expected Scene'),
-//             );
-//           }),
-//       ListButton(
-//         label: 'Mythic Action',
-//         onPressed: () {
-//           getRandomResult(
-//             appState: appState,
-//             label: 'Mythic Action',
-//             jsonPath: 'mythic/mythic_action.json',
-//             table1: 'table1',
-//             table2: 'table2',
-//             onResult: (appState, result, label) {
-//               appState.addMythicEntry(
-//                 // TODO: Can MythicEntry be swapped and eventually removed?
-//                 MythicEntry(
-//                   isFavourite: false,
-//                   lines: result,
-//                   label: 'Mythic Action',
-//                 ),
-//               );
-//             },
-//           );
-//         },
-//       ),
-//       ListButton(
-//         label: 'Mythic Description',
-//         onPressed: () {
-//           getRandomResult(
-//             appState: appState,
-//             label: 'Mythic Description',
-//             jsonPath: 'mythic/mythic_description.json',
-//             table1: 'table1',
-//             table2: 'table2',
-//             onResult: (appState, result, label) {
-//               appState.addMythicEntry(
-//                 MythicEntry(
-//                   isFavourite: false,
-//                   lines: result,
-//                   label: 'Mythic Description',
-//                 ),
-//               );
-//             },
-//           );
-//         },
-//       ),
-//       ListButton(
-//         label: 'Event Focus',
-//         onPressed: () {
-//           getEventFocus(appState);
-//         },
-//       ),
-//       ListButton(
-//         label: 'Plot Twist',
-//         onPressed: () {
-//           getRandomResult(
-//             appState: appState,
-//             label: 'Mythic - Plot Twist',
-//             jsonPath: 'mythic_elements/plot_twist.json',
-//             table1: 'table',
-//             table2: 'table',
-//             onResult: (appState, result, label) {
-//               appState.addOracleEntry(
-//                 OracleEntry(
-//                     isFavourite: false, lines: result, label: 'Plot Twist'),
-//               );
-//             },
-//           );
-//         },
-//       ),
-//     ],
-//   );
-// }
-
 class ControlData {
   final String controlId;
   final String label;
@@ -340,7 +167,6 @@ class ControlData {
   ControlData({
     required this.controlId,
     required this.label,
-    // required this.group,
     required this.controlType,
     this.fateChartRow,
   });
@@ -351,7 +177,6 @@ List<GroupContainer> dynamicListOfControls(
   List<ControlData> listOfControls,
   List<Group> groupList,
 ) {
-  // List<Group> groupList = appState.groupList;
   List<GroupContainer> groupContainers = [];
 
   for (Group group in groupList) {
@@ -364,42 +189,17 @@ List<GroupContainer> dynamicListOfControls(
         Widget controlWidget =
             chooseControlWidget(controlData: control, appState: appState);
         children.add(controlWidget);
-      } else {}
+      }
     }
 
-    groupContainers.add(GroupContainer(
-      label: group.label,
-      groupId: 'groupId',
-      appState: appState,
-      children: children,
-    ));
+    if (group.controls.isEmpty == false) {
+      groupContainers.add(GroupContainer(
+        label: group.label,
+        groupId: 'group-container-${group.groupId}',
+        appState: appState,
+        children: children,
+      ));
+    }
   }
   return groupContainers;
 }
-
-// List<ControlData> listOfAppControls = [
-//   ControlData(
-//     controlId: 'control1',
-//     label: 'Button1',
-//     // group: 'group1',
-//     controlType: ControlTypeEnum.button,
-//   ),
-// ];
-
-// Widget chooseControlWidget(ControlData controlData) {
-//   if (controlData.controlType == ControlType.button) {
-//     return ListButton(
-//       label: controlData.label,
-//       onPressed: () {},
-//     );
-//   } else if (controlData.controlType == ControlType.dice) {
-//     return DiceButton(
-//       dieType: d6oracle,
-//       label: 'D6 Oracle',
-//       icon: SVGIcon.d6Oracle,
-//       onPressed: (value) {},
-//     );
-//   } else {
-//     return Text(controlData.label);
-//   }
-// }
