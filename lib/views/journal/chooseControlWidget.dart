@@ -21,6 +21,7 @@ enum ControlTypeEnum {
   dice,
   diceGroup,
   mythicChart,
+  newScene,
   // TRACKER TYPES
   clock4,
   clock6,
@@ -46,6 +47,14 @@ Widget chooseControlWidget({
       return ListButton(
         label: controlData.label,
         onPressed: () {},
+      );
+    case ControlTypeEnum.newScene:
+      return ListButton(
+        label: controlData.label,
+        onPressed: () {
+          int sceneNumber = appState.campaignData!.newScene.length + 1;
+          appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
+        },
       );
     case ControlTypeEnum.mythicChart:
       return ListButton(

@@ -206,7 +206,7 @@ List<ControlData> mythicGMEControls2 = [
   ControlData(
       controlId: 'mythic-new-scene',
       label: 'New Scene',
-      controlType: ControlTypeEnum.button),
+      controlType: ControlTypeEnum.newScene),
   ControlData(
       controlId: 'mythic-expected-scene',
       label: 'Test Expected Scene',
