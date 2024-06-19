@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/wrap_manager.dart';
 
 import '../../data/app_state.dart';
 import '../../widgets/journal/widgets/journal_subheading.dart';
@@ -33,19 +34,21 @@ class GroupContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isExpanded = appState.isExpanded(groupId);
-    return isVisible
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              JournalSubheading(
-                label: label,
-                handlePress: () {
-                  appState.toggleExpanded(groupId);
-                },
-              ),
-              if (isExpanded) ...children,
-            ],
-          )
-        : const SizedBox.shrink();
+    if (isVisible) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          JournalSubheading(
+            label: label,
+            handlePress: () {
+              appState.toggleExpanded(groupId);
+            },
+          ),
+          if (isExpanded) WrapManager(wrapControls: false, children: children),
+        ],
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }

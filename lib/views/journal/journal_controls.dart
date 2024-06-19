@@ -47,25 +47,25 @@ Widget journalControls(
   //     },
   //   ),
   // };
-  Map<String, Widget> randomTableControls = {};
-  Map<String, Widget> trackerControls = {};
-  Map<String, Widget> newItemControls = {};
+  // Map<String, Widget> randomTableControls = {};
+  // Map<String, Widget> trackerControls = {};
+  // Map<String, Widget> newItemControls = {};
 
   // This is a list of individual controls by unique id
   Map<String, Widget> controls = {
     ...diceControls(addResult),
-    ...mythicFateChartControls(appState),
-    'mythic-gme-new-scene': ListButton(
-      label: 'New Scene',
-      color: Colors.black,
-      onPressed: () {
-        int sceneNumber = appState.campaignData!.newScene.length + 1;
-        appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
-      },
-    ),
-    ...randomTableControls,
-    ...trackerControls,
-    ...newItemControls,
+    // ...mythicFateChartControls(appState),
+    // 'mythic-gme-new-scene': ListButton(
+    //   label: 'New Scene',
+    //   color: Colors.black,
+    //   onPressed: () {
+    //     int sceneNumber = appState.campaignData!.newScene.length + 1;
+    //     appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
+    //   },
+    // ),
+    // ...randomTableControls,
+    // ...trackerControls,
+    // ...newItemControls,
   };
 
   List<ControlData> trackerControlData = [];
@@ -120,23 +120,23 @@ Widget journalControls(
     //     appState: appState,
     //     children: mythicFateChartControls(appState).values.toList()),
 
-    GroupContainer(
-      label: kJournalMythicGMETitle,
-      groupId: 'mythicGME',
-      appState: appState,
-      children: [mythicGMEControls(wrapControls, appState, context)],
-    ),
+    // GroupContainer(
+    //   label: kJournalMythicGMETitle,
+    //   groupId: 'mythicGME',
+    //   appState: appState,
+    //   children: [mythicGMEControls(wrapControls, appState, context)],
+    // ),
 
-    GroupContainer(
-        label: kJournalRandomTablesTitle,
-        isVisible: appState.randomTables.isNotEmpty,
-        groupId: 'randomTables',
-        appState: appState,
-        children: [
-          RandomTables(
-            appState: appState,
-          )
-        ]),
+    // GroupContainer(
+    //     label: kJournalRandomTablesTitle,
+    //     isVisible: appState.randomTables.isNotEmpty,
+    //     groupId: 'randomTables',
+    //     appState: appState,
+    //     children: [
+    //       RandomTables(
+    //         appState: appState,
+    //       )
+    //     ]),
 
     GroupContainer(
         isVisible: appState.campaignData!.tracker.isNotEmpty,
@@ -237,7 +237,7 @@ List<ControlData> mythicGMEControls2 = [
 ];
 
 List<String> mythicGMEIds = [
-  for (var control in mythicFateChartControls2) control.controlId
+  for (var control in mythicGMEControls2) control.controlId
 ];
 
 WrapManager mythicGMEControls(
