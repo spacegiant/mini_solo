@@ -68,9 +68,23 @@ Widget journalControls(
     ...newItemControls,
   };
 
+  List<ControlData> trackerControlData = [];
+
+  for (TrackerEntry tracker in appState.campaignData!.tracker) {
+    trackerControlData.add(ControlData(
+        controlId: tracker.id,
+        label: tracker.label,
+        controlType: tracker.controlType));
+  }
+
+  List<ControlData> controlData = [
+    ...listOfControls,
+    ...trackerControlData,
+  ];
+
   return ViewWrapper(children: [
     const Gap(),
-    ...dynamicListOfControls(appState, listOfControls, appState.groupList),
+    ...dynamicListOfControls(appState, controlData, appState.groupList),
     ...diceControls(addResult).values,
     GroupContainer(
         label: 'Dice',
@@ -294,7 +308,7 @@ class ControlData {
   final String controlId;
   final String label;
   // final String group;
-  final ControlType controlType;
+  final ControlTypeEnum controlType;
 
   ControlData({
     required this.controlId,
@@ -306,11 +320,17 @@ class ControlData {
 
 List<ControlData> listOfControls = [
   ControlData(
-      controlId: 'control1', label: 'Button1', controlType: ControlType.button),
+      controlId: 'control1',
+      label: 'Button1',
+      controlType: ControlTypeEnum.button),
   ControlData(
-      controlId: 'control2', label: 'Button2', controlType: ControlType.button),
+      controlId: 'control2',
+      label: 'Button2',
+      controlType: ControlTypeEnum.button),
   ControlData(
-      controlId: 'control3', label: 'D6 Oracle', controlType: ControlType.dice),
+      controlId: 'control3',
+      label: 'D6 Oracle',
+      controlType: ControlTypeEnum.dice),
 ];
 
 List<GroupContainer> dynamicListOfControls(
@@ -350,7 +370,7 @@ List<ControlData> listOfAppControls = [
     controlId: 'control1',
     label: 'Button1',
     // group: 'group1',
-    controlType: ControlType.button,
+    controlType: ControlTypeEnum.button,
   ),
 ];
 

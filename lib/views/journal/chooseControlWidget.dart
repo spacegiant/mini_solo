@@ -15,7 +15,7 @@ import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';
 import 'journal_controls.dart';
 
-enum ControlType {
+enum ControlTypeEnum {
   button,
   dice,
   diceGroup,
@@ -40,14 +40,14 @@ Widget chooseControlWidget({
   required AppState appState,
 }) {
   switch (controlData.controlType) {
-    case ControlType.button:
+    case ControlTypeEnum.button:
       return ListButton(
         label: controlData.label,
         onPressed: () {},
       );
-    case ControlType.diceGroup:
+    case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
-    case ControlType.dice:
+    case ControlTypeEnum.dice:
       return DiceButton(
         dieType: d6oracle,
         label: 'D6 Oracle',
@@ -55,43 +55,43 @@ Widget chooseControlWidget({
         onPressed: (value) {},
       );
     //   TRACKERS
-    case ControlType.clock4:
-    case ControlType.clock6:
-    case ControlType.clock8:
+    case ControlTypeEnum.clock4:
+    case ControlTypeEnum.clock6:
+    case ControlTypeEnum.clock8:
       return ClockWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
       );
-    case ControlType.bar:
+    case ControlTypeEnum.bar:
       return BarWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
       );
-    case ControlType.ironsworn1Troublesome:
-    case ControlType.ironsworn2Dangerous:
-    case ControlType.ironsworn3Formidable:
-    case ControlType.ironsworn4Extreme:
-    case ControlType.ironsworn5Epic:
+    case ControlTypeEnum.ironsworn1Troublesome:
+    case ControlTypeEnum.ironsworn2Dangerous:
+    case ControlTypeEnum.ironsworn3Formidable:
+    case ControlTypeEnum.ironsworn4Extreme:
+    case ControlTypeEnum.ironsworn5Epic:
       return IronswornWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
       );
-    case ControlType.pips:
+    case ControlTypeEnum.pips:
       return PipsWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
       );
-    case ControlType.value:
+    case ControlTypeEnum.value:
       return ValueWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
       );
-    case ControlType.counter:
+    case ControlTypeEnum.counter:
       return CounterWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
       );
-    case ControlType.fate_aspect:
+    case ControlTypeEnum.fate_aspect:
       return FateWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,

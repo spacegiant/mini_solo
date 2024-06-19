@@ -644,7 +644,7 @@ class TrackerEntry extends CampaignItem {
   int currentValue;
   int? minValue;
   int? maxValue;
-  ControlTypes controlType;
+  ControlTypeEnum controlType;
 
   TrackerEntry({
     required this.label,

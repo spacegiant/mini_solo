@@ -1,9 +1,11 @@
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+
 import '../../data/campaign_data.dart';
 import '../../svg_icon.dart';
 
 class TrackerOptions {
   final String label;
-  final ControlTypes type;
+  final ControlTypeEnum type;
   final List<SVGIcon> images;
   final int? minValue;
   final int? currentValue;
@@ -28,7 +30,7 @@ class TrackerOptions {
 List<TrackerOptions> trackers = [
   TrackerOptions(
     label: '4 Segment',
-    type: ControlTypes.clock4,
+    type: ControlTypeEnum.clock4,
     images: [SVGIcon.clock4_0],
     maxValue: 4,
     currentValue: 0,
@@ -37,7 +39,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: '6 Segment',
-    type: ControlTypes.clock6,
+    type: ControlTypeEnum.clock6,
     images: [SVGIcon.clock6_0],
     maxValue: 6,
     currentValue: 0,
@@ -46,7 +48,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: '8 Segment',
-    type: ControlTypes.clock8,
+    type: ControlTypeEnum.clock8,
     images: [SVGIcon.clock8_0],
     maxValue: 8,
     currentValue: 0,
@@ -55,7 +57,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Troublesome',
-    type: ControlTypes.ironsworn1Troublesome,
+    type: ControlTypeEnum.ironsworn1Troublesome,
     images: [
       SVGIcon.ironsworn_tick_4,
       SVGIcon.ironsworn_tick_4,
@@ -68,7 +70,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Dangerous',
-    type: ControlTypes.ironsworn2Dangerous,
+    type: ControlTypeEnum.ironsworn2Dangerous,
     images: [
       SVGIcon.ironsworn_tick_4,
       SVGIcon.ironsworn_tick_4,
@@ -80,7 +82,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Formidable',
-    type: ControlTypes.ironsworn3Formidable,
+    type: ControlTypeEnum.ironsworn3Formidable,
     images: [
       SVGIcon.ironsworn_tick_4,
     ],
@@ -91,7 +93,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Extreme',
-    type: ControlTypes.ironsworn4Extreme,
+    type: ControlTypeEnum.ironsworn4Extreme,
     images: [
       SVGIcon.ironsworn_tick_2,
     ],
@@ -102,7 +104,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Epic',
-    type: ControlTypes.ironsworn5Epic,
+    type: ControlTypeEnum.ironsworn5Epic,
     images: [
       SVGIcon.ironsworn_tick_1,
     ],
@@ -113,7 +115,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Pip',
-    type: ControlTypes.pips,
+    type: ControlTypeEnum.pips,
     images: [SVGIcon.pip_icon],
     minValue: 0,
     currentValue: 0,
@@ -123,7 +125,7 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Bar',
-    type: ControlTypes.bar,
+    type: ControlTypeEnum.bar,
     images: [SVGIcon.bar_tracker],
     minValue: 0,
     currentValue: 0,
@@ -134,21 +136,21 @@ List<TrackerOptions> trackers = [
   ),
   TrackerOptions(
     label: 'Simple Value',
-    type: ControlTypes.value,
+    type: ControlTypeEnum.value,
     images: [SVGIcon.value_tracker],
     currentValue: 9,
     editCurrent: true,
   ),
   TrackerOptions(
     label: 'Counter',
-    type: ControlTypes.counter,
+    type: ControlTypeEnum.counter,
     images: [SVGIcon.counter_tracker],
     editCurrent: true,
     currentValue: 0,
   ),
   TrackerOptions(
     label: 'Fate Aspect',
-    type: ControlTypes.fate_aspect,
+    type: ControlTypeEnum.fate_aspect,
     images: [SVGIcon.counter_tracker],
     minValue: 0,
     currentValue: 0,
