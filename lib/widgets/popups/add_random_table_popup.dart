@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
+import 'package:mini_solo/widgets/picker.dart';
 
 import '../../data/app_state.dart';
+import '../../features/grouping/group.dart';
 import '../gap.dart';
 
 class AddRandomTablePopup extends StatefulWidget {
@@ -44,7 +46,12 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
 
   @override
   Widget build(BuildContext context) {
-    var count = widget.appState.randomTables.length;
+    int count = widget.appState.randomTables.length;
+    List<Group> groupList = widget.appState.groupList;
+    List<String> listOfGroups = groupList.map((group) => group.label).toList();
+    var groupIndex =
+        groupList.indexWhere((group) => group.groupId == 'group-random-tables');
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -96,12 +103,21 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                       textAlign: TextAlign.center,
                       controller: _separatorController,
                     ),
-                  )
+                  ),
                 ],
               ),
             ],
           ),
-          const Gap(),
+          Row(
+            children: [
+              Text('Group: '),
+              Picker(
+                items: listOfGroups,
+                initialItem: groupIndex,
+                onChange: (value) {},
+              ),
+            ],
+          ),
           Row(
             children: [
               CupertinoButton(

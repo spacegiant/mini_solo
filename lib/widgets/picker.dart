@@ -7,17 +7,28 @@ class Picker extends StatefulWidget {
     super.key,
     required this.items,
     required this.onChange,
+    this.initialItem = 0,
   });
 
   final List<String> items;
   final void Function(int index) onChange;
+  final int initialItem;
 
   @override
   State<Picker> createState() => _PickerState();
 }
 
 class _PickerState extends State<Picker> {
-  int _selectedItem = 0;
+  int _selectedItemIndex = 0;
+  late FixedExtentScrollController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedItemIndex = widget.initialItem;
+    _controller = FixedExtentScrollController(initialItem: widget.initialItem);
+  }
 
   void _showDialog(Widget child) {
     showCupertinoModalPopup(
@@ -46,32 +57,35 @@ class _PickerState extends State<Picker> {
         child: Container(
           // margin: EdgeInsets.zero,
           padding: const EdgeInsets.all(8.0),
-          width: double.infinity,
+          // width: double.infinity,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Text(
-            widget.items[_selectedItem],
+            widget.items[_selectedItemIndex],
             style: const TextStyle(
               fontSize: 18.0,
             ),
           ),
         ),
-        onPressed: () => _showDialog(
-              CupertinoPicker(
-                magnification: 1.22,
-                squeeze: 1.2,
-                useMagnifier: true,
-                itemExtent: kItemExtent,
-                looping: true,
-                onSelectedItemChanged: (int selectedItem) {
-                  setState(() {
-                    _selectedItem = selectedItem;
-                  });
-                  widget.onChange(selectedItem);
-                },
-                children: pickerItems,
-              ),
-            ));
+        onPressed: () {
+          _showDialog(
+            CupertinoPicker(
+              scrollController: _controller,
+              magnification: 1.22,
+              squeeze: 1.2,
+              useMagnifier: true,
+              itemExtent: kItemExtent,
+              // looping: true,
+              onSelectedItemChanged: (int selectedItemIndex) {
+                setState(() {
+                  _selectedItemIndex = selectedItemIndex;
+                });
+                widget.onChange(selectedItemIndex);
+              },
+              children: pickerItems,
+            ),
+          );
+        });
   }
 }
