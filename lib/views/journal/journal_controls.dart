@@ -20,6 +20,7 @@ import '../../widgets/wrap_manager.dart';
 import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
+import 'chooseControlWidget.dart';
 import 'dice_tray.dart';
 import 'get_event_focus.dart';
 import 'group_container.dart';
@@ -296,19 +297,33 @@ WrapManager mythicGMEControls(
 class ControlData {
   final String controlId;
   final String label;
-  final String group;
+  // final String group;
+  final ControlType controlType;
 
   ControlData({
     required this.controlId,
     required this.label,
-    required this.group,
+    // required this.group,
+    required this.controlType,
   });
 }
 
 List<ControlData> listOfControls = [
-  ControlData(controlId: 'control1', label: 'Button1', group: 'group1'),
-  ControlData(controlId: 'control2', label: 'Button2', group: 'group2'),
-  ControlData(controlId: 'control3', label: 'Button3', group: 'group3'),
+  ControlData(
+      controlId: 'control1',
+      label: 'Button1',
+      // group: 'group1',
+      controlType: ControlType.button),
+  ControlData(
+      controlId: 'control2',
+      label: 'Button2',
+      // group: 'group2',
+      controlType: ControlType.button),
+  ControlData(
+      controlId: 'control3',
+      label: 'D6 Oracle',
+      // group: 'group3',
+      controlType: ControlType.dice),
 ];
 
 List<GroupContainer> dynamicListOfControls(
@@ -327,7 +342,8 @@ List<GroupContainer> dynamicListOfControls(
       if (group.controls == null) break;
       bool isInGroupList = group.controls!.contains(control.controlId);
       if (isInGroupList) {
-        children.add(Text(control.label));
+        Widget controlWidget = chooseControlWidget(control);
+        children.add(controlWidget);
       }
     }
 
@@ -342,5 +358,28 @@ List<GroupContainer> dynamicListOfControls(
 }
 
 List<ControlData> listOfAppControls = [
-  ControlData(controlId: 'control1', label: 'Button1', group: 'group1'),
+  ControlData(
+    controlId: 'control1',
+    label: 'Button1',
+    // group: 'group1',
+    controlType: ControlType.button,
+  ),
 ];
+
+// Widget chooseControlWidget(ControlData controlData) {
+//   if (controlData.controlType == ControlType.button) {
+//     return ListButton(
+//       label: controlData.label,
+//       onPressed: () {},
+//     );
+//   } else if (controlData.controlType == ControlType.dice) {
+//     return DiceButton(
+//       dieType: d6oracle,
+//       label: 'D6 Oracle',
+//       icon: SVGIcon.d6Oracle,
+//       onPressed: (value) {},
+//     );
+//   } else {
+//     return Text(controlData.label);
+//   }
+// }
