@@ -35,10 +35,24 @@ Widget journalControls(
         controlType: tracker.controlType));
   }
 
+  List<ControlData> randomTableControlData = [];
+
+  for (RandomTableEntry randomTable in appState.appSettingsData.randomTables) {
+    randomTableControlData.add(
+      ControlData(
+        controlId: randomTable.id,
+        label: randomTable.title,
+        controlType: ControlTypeEnum.randomTable,
+        randomTable: randomTable,
+      ),
+    );
+  }
+
   List<ControlData> controlData = [
     ...trackerControlData,
     ...mythicFateChartControls2,
     ...mythicGMEControls2,
+    ...randomTableControlData,
   ];
 
   return ViewWrapper(children: [
@@ -160,6 +174,7 @@ class ControlData {
   final String controlId;
   final String label;
   final FateChartRow? fateChartRow;
+  final RandomTableEntry? randomTable;
 
   // final String group;
   final ControlTypeEnum controlType;
@@ -169,6 +184,7 @@ class ControlData {
     required this.label,
     required this.controlType,
     this.fateChartRow,
+    this.randomTable,
   });
 }
 

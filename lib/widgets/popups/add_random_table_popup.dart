@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mini_solo/constants.dart';
@@ -113,10 +114,15 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                     // TODO: Better validation here with user feedback
 
                     if (title != '' && text != '') {
-                      widget.appState.addRandomTable(RandomTableEntry(
+                      List<RandomTableRow> myText =
+                          convertText(text, _separatorController.text);
+                      widget.appState.addRandomTable(
+                        RandomTableEntry(
                           isFavourite: false,
                           title: title,
-                          rows: convertText(text, _separatorController.text)));
+                          rows: myText,
+                        ),
+                      );
                       _titleController.text = '';
                       _textController.text = '';
                     }
@@ -125,7 +131,9 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
               CupertinoButton(
                   color: kWarningColour,
                   child: const Text(kLabelClose),
-                  onPressed: () {}),
+                  onPressed: () {
+                    widget.appState.closePopup();
+                  }),
             ],
           )
         ],

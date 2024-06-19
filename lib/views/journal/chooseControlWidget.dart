@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 
+import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../features/random_tables/roll_table.dart';
 import '../../features/trackers/bar_tracker_control.dart';
 import '../../features/trackers/clock_tracker_control.dart';
 import '../../features/trackers/counter_tracker_control.dart';
@@ -30,6 +32,7 @@ enum ControlTypeEnum {
   mythicDescription,
   mythicEventFocus,
   mythicPlotTwist,
+  randomTable,
   // TRACKER TYPES
   clock4,
   clock6,
@@ -151,6 +154,22 @@ Widget chooseControlWidget({
                     isFavourite: false, lines: result, label: 'Plot Twist'),
               );
             },
+          );
+        },
+      );
+    case ControlTypeEnum.randomTable:
+      return ListButton(
+        label: controlData.label,
+        onPressed: () {
+          if (controlData.randomTable != null) {
+            RollTableResult? result = rollTable(controlData.randomTable!);
+            appState.addRandomTableResultsEntry(result!);
+          }
+        },
+        onLongPress: () {
+          appState.setCurrentEntryId(controlData.controlId);
+          appState.toggleShowPopup(
+            label: PopupLabel.editRandomTable,
           );
         },
       );

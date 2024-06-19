@@ -589,7 +589,11 @@ class AppState extends ChangeNotifier {
   //   RANDOM TABLES
   void addRandomTable(RandomTableEntry entry) {
     _appSettingsData.randomTables.add(entry);
-    appSettingsSaveCallback!(_appSettingsData);
+    campaignData?.groups
+        .firstWhere((group) => group.groupId == 'group-random-tables')
+        .controls
+        .add(entry.id);
+    saveAppSettingsDataToDisk();
     notifyListeners();
   }
 
