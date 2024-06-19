@@ -303,7 +303,38 @@ CampaignData initCampaignDataData(String campaignName) {
     rollTableResult: [],
     tracker: [],
     newScene: [],
-    groups: [],
+    groups: [
+      Group(
+        isAppGroup: true,
+        groupId: 'unsorted',
+        label: 'Unsorted',
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-dice',
+        label: 'Dice',
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-mythic-fate-chart',
+        label: 'Mythic Fate Chart',
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-mythic-gme',
+        label: 'Mythic GME',
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-random-tables',
+        label: 'Random Tables',
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-trackers',
+        label: 'Trackers',
+      ),
+    ],
   );
 }
 
