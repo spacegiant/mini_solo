@@ -307,6 +307,7 @@ WrapManager mythicGMEControls(
 class ControlData {
   final String controlId;
   final String label;
+
   // final String group;
   final ControlTypeEnum controlType;
 
@@ -352,7 +353,7 @@ List<GroupContainer> dynamicListOfControls(
         Widget controlWidget =
             chooseControlWidget(controlData: control, appState: appState);
         children.add(controlWidget);
-      }
+      } else {}
     }
 
     groupContainers.add(GroupContainer(

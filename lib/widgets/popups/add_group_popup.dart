@@ -56,7 +56,7 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
         onPressed: () {
           String text = _controller.value.text.trim();
           if (text == '') return;
-          widget.appState.addGroup(
+          widget.appState.createNewGroup(
             Group(groupId: genericId('group'), label: text),
           );
           _controller.text = '';

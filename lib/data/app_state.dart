@@ -56,7 +56,7 @@ class AppState extends ChangeNotifier {
     return index > -1;
   }
 
-  String? addGroup(Group group) {
+  String? createNewGroup(Group group) {
     print(groupExists(group.label));
     if (groupExists(group.label)) {
       return 'Already a group';

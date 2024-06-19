@@ -39,6 +39,7 @@ Widget chooseControlWidget({
   required ControlData controlData,
   required AppState appState,
 }) {
+  print(controlData.controlType);
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
       return ListButton(
