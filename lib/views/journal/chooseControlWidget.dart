@@ -39,7 +39,6 @@ Widget chooseControlWidget({
   required ControlData controlData,
   required AppState appState,
 }) {
-  print(controlData.controlType);
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
       return ListButton(
@@ -59,6 +58,8 @@ Widget chooseControlWidget({
     case ControlTypeEnum.clock4:
     case ControlTypeEnum.clock6:
     case ControlTypeEnum.clock8:
+      TrackerEntry? entry = getTrackerEntry(appState);
+      if (entry == null) break;
       return ClockWidget(
         entry: getTrackerEntry(appState)!,
         appState: appState,
@@ -102,6 +103,10 @@ Widget chooseControlWidget({
 }
 
 TrackerEntry? getTrackerEntry(AppState appState) {
-  return appState.campaignData?.tracker
-      .firstWhere((tracker) => tracker.id == appState.currentEntryId);
+  try {
+    return appState.campaignData?.tracker
+        .firstWhere((tracker) => tracker.id == appState.currentEntryId);
+  } catch (e) {
+    return null;
+  }
 }

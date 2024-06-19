@@ -82,7 +82,21 @@ Widget journalControls(
     ...trackerControlData,
   ];
 
+  String test() {
+    Group group = appState.campaignData!.groups
+        .firstWhere((group) => group.groupId == 'group-trackers');
+
+    group.controls.add('hello');
+
+    print(group.controls);
+
+    return 'yes';
+  }
+
+  ;
+
   return ViewWrapper(children: [
+    Text(test()),
     const Gap(),
     ...dynamicListOfControls(appState, controlData, appState.groupList),
     ...diceControls(addResult).values,
@@ -366,14 +380,14 @@ List<GroupContainer> dynamicListOfControls(
   return groupContainers;
 }
 
-List<ControlData> listOfAppControls = [
-  ControlData(
-    controlId: 'control1',
-    label: 'Button1',
-    // group: 'group1',
-    controlType: ControlTypeEnum.button,
-  ),
-];
+// List<ControlData> listOfAppControls = [
+//   ControlData(
+//     controlId: 'control1',
+//     label: 'Button1',
+//     // group: 'group1',
+//     controlType: ControlTypeEnum.button,
+//   ),
+// ];
 
 // Widget chooseControlWidget(ControlData controlData) {
 //   if (controlData.controlType == ControlType.button) {

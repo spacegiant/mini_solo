@@ -9,9 +9,8 @@ part of 'group.dart';
 Group _$GroupFromJson(Map<String, dynamic> json) => Group(
       groupId: json['groupId'] as String,
       label: json['label'] as String,
-      controls: (json['controls'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      controls:
+          (json['controls'] as List<dynamic>).map((e) => e as String).toList(),
       isExpanded: json['isExpanded'] as bool?,
       isAppGroup: json['isAppGroup'] as bool?,
       presetOrder: (json['presetOrder'] as List<dynamic>?)

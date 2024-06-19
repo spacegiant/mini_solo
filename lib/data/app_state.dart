@@ -67,6 +67,18 @@ class AppState extends ChangeNotifier {
     }
   }
 
+  void addToGroup({required String controlId, required String groupId}) {
+    Group group =
+        _campaignData!.groups.firstWhere((group) => group.groupId == groupId);
+
+    print(group.controls);
+
+    _campaignData!.groups
+        .firstWhere((group) => group.groupId == groupId)
+        .controls
+        ?.add(controlId);
+  }
+
   void deleteGroup(String groupName) {
     // _appSettingsData.groups.remove(groupName);
   }
@@ -630,6 +642,7 @@ class AppState extends ChangeNotifier {
     );
 
     _campaignData?.notes.add(note);
+    addToGroup(controlId: entry.id, groupId: 'group-trackers');
 
     addJournalEntry(
       JournalEntryItem(

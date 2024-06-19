@@ -309,31 +309,37 @@ CampaignData initCampaignDataData(String campaignName) {
         isAppGroup: true,
         groupId: 'unsorted',
         label: 'Unsorted',
+        controls: [],
       ),
       Group(
         isAppGroup: true,
         groupId: 'group-dice',
         label: 'Dice',
+        controls: [],
       ),
       Group(
         isAppGroup: true,
         groupId: 'group-mythic-fate-chart',
         label: 'Mythic Fate Chart',
+        controls: [],
       ),
       Group(
         isAppGroup: true,
         groupId: 'group-mythic-gme',
         label: 'Mythic GME',
+        controls: [],
       ),
       Group(
         isAppGroup: true,
         groupId: 'group-random-tables',
         label: 'Random Tables',
+        controls: [],
       ),
       Group(
         isAppGroup: true,
         groupId: 'group-trackers',
         label: 'Trackers',
+        controls: [],
       ),
     ],
   );

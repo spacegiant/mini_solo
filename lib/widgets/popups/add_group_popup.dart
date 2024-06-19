@@ -33,7 +33,6 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.appState.groupList);
     List<Widget> groupWidgets = widget.appState.groupList
         .map((groupItem) => Text(groupItem.label))
         .toList();
@@ -57,7 +56,7 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
           String text = _controller.value.text.trim();
           if (text == '') return;
           widget.appState.createNewGroup(
-            Group(groupId: genericId('group'), label: text),
+            Group(groupId: genericId('group'), label: text, controls: []),
           );
           _controller.text = '';
         },
