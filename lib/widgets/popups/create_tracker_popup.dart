@@ -237,7 +237,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       maxValue: currentTracker.maxValue != null
           ? parseString(_maxValueController.text)
           : null,
-      trackerType: currentTracker.type,
+      controlType: currentTracker.type,
     ));
     widget.appState.closePopup();
   }

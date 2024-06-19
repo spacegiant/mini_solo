@@ -32,7 +32,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   late TrackerEntry? currentEntry = widget.appState.campaignData?.tracker
       .firstWhere((tracker) => tracker.id == currentEntryId);
   late TrackerOptions trackerOptions = trackers
-      .firstWhere((tracker) => tracker.type == currentEntry?.trackerType);
+      .firstWhere((tracker) => tracker.type == currentEntry?.controlType);
 
   @override
   void initState() {

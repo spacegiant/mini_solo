@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../svg_icon.dart';
+import '../views/journal/chooseControlWidget.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';
@@ -10,7 +11,7 @@ part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
 
-enum TrackerTypes {
+enum ControlTypes {
   clock4,
   clock6,
   clock8,
@@ -643,14 +644,14 @@ class TrackerEntry extends CampaignItem {
   int currentValue;
   int? minValue;
   int? maxValue;
-  TrackerTypes trackerType;
+  ControlTypes controlType;
 
   TrackerEntry({
     required this.label,
     required this.currentValue,
     this.minValue,
     this.maxValue,
-    required this.trackerType,
+    required this.controlType,
   });
 
   // coverage:ignore-start

@@ -636,7 +636,7 @@ TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
       currentValue: (json['currentValue'] as num).toInt(),
       minValue: (json['minValue'] as num?)?.toInt(),
       maxValue: (json['maxValue'] as num?)?.toInt(),
-      trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
+      controlType: $enumDecode(_$ControlTypesEnumMap, json['controlType']),
     )
       ..isFavourite = json['isFavourite'] as bool?
       ..id = json['id'] as String
@@ -650,24 +650,24 @@ Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
       'currentValue': instance.currentValue,
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,
-      'trackerType': _$TrackerTypesEnumMap[instance.trackerType]!,
+      'controlType': _$ControlTypesEnumMap[instance.controlType]!,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
-const _$TrackerTypesEnumMap = {
-  TrackerTypes.clock4: 'clock4',
-  TrackerTypes.clock6: 'clock6',
-  TrackerTypes.clock8: 'clock8',
-  TrackerTypes.bar: 'bar',
-  TrackerTypes.ironsworn1Troublesome: 'ironsworn1Troublesome',
-  TrackerTypes.ironsworn2Dangerous: 'ironsworn2Dangerous',
-  TrackerTypes.ironsworn3Formidable: 'ironsworn3Formidable',
-  TrackerTypes.ironsworn4Extreme: 'ironsworn4Extreme',
-  TrackerTypes.ironsworn5Epic: 'ironsworn5Epic',
-  TrackerTypes.pips: 'pips',
-  TrackerTypes.value: 'value',
-  TrackerTypes.counter: 'counter',
-  TrackerTypes.fate_aspect: 'fate_aspect',
+const _$ControlTypesEnumMap = {
+  ControlTypes.clock4: 'clock4',
+  ControlTypes.clock6: 'clock6',
+  ControlTypes.clock8: 'clock8',
+  ControlTypes.bar: 'bar',
+  ControlTypes.ironsworn1Troublesome: 'ironsworn1Troublesome',
+  ControlTypes.ironsworn2Dangerous: 'ironsworn2Dangerous',
+  ControlTypes.ironsworn3Formidable: 'ironsworn3Formidable',
+  ControlTypes.ironsworn4Extreme: 'ironsworn4Extreme',
+  ControlTypes.ironsworn5Epic: 'ironsworn5Epic',
+  ControlTypes.pips: 'pips',
+  ControlTypes.value: 'value',
+  ControlTypes.counter: 'counter',
+  ControlTypes.fate_aspect: 'fate_aspect',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>

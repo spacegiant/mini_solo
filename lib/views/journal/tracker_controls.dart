@@ -33,53 +33,53 @@ class TrackerControls extends StatelessWidget {
     List<TrackerEntry>? trackerEntriesSorted = appState.campaignData?.tracker;
 
     trackerEntriesSorted?.sort(
-        (a, b) => a.trackerType.toString().compareTo(b.trackerType.toString()));
+        (a, b) => a.controlType.toString().compareTo(b.controlType.toString()));
 
     trackerEntriesSorted?.forEach((widget) {
-      switch (widget.trackerType) {
-        case TrackerTypes.clock4:
-        case TrackerTypes.clock6:
-        case TrackerTypes.clock8:
+      switch (widget.controlType) {
+        case ControlTypes.clock4:
+        case ControlTypes.clock6:
+        case ControlTypes.clock8:
           trackerWidgets.add(ClockWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case TrackerTypes.bar:
+        case ControlTypes.bar:
           trackerWidgets.add(BarWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case TrackerTypes.ironsworn1Troublesome:
-        case TrackerTypes.ironsworn2Dangerous:
-        case TrackerTypes.ironsworn3Formidable:
-        case TrackerTypes.ironsworn4Extreme:
-        case TrackerTypes.ironsworn5Epic:
+        case ControlTypes.ironsworn1Troublesome:
+        case ControlTypes.ironsworn2Dangerous:
+        case ControlTypes.ironsworn3Formidable:
+        case ControlTypes.ironsworn4Extreme:
+        case ControlTypes.ironsworn5Epic:
           trackerWidgets.add(IronswornWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case TrackerTypes.pips:
+        case ControlTypes.pips:
           trackerWidgets.add(PipsWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case TrackerTypes.value:
+        case ControlTypes.value:
           trackerWidgets.add(ValueWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case TrackerTypes.counter:
+        case ControlTypes.counter:
           trackerWidgets.add(CounterWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case TrackerTypes.fate_aspect:
+        case ControlTypes.fate_aspect:
           trackerWidgets.add(FateWidget(
             entry: widget,
             appState: appState,

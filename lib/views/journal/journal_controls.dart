@@ -9,16 +9,12 @@ import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../features/random_tables/random_table_controls.dart';
-import '../../svg_icon.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../widgets/gap.dart';
-import '../../widgets/journal/widgets/journal_subheading.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/view_wrapper.dart';
 import '../../widgets/wrap_manager.dart';
-import '../dice/dice_button.dart';
-import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'dice_tray.dart';
@@ -310,20 +306,11 @@ class ControlData {
 
 List<ControlData> listOfControls = [
   ControlData(
-      controlId: 'control1',
-      label: 'Button1',
-      // group: 'group1',
-      controlType: ControlType.button),
+      controlId: 'control1', label: 'Button1', controlType: ControlType.button),
   ControlData(
-      controlId: 'control2',
-      label: 'Button2',
-      // group: 'group2',
-      controlType: ControlType.button),
+      controlId: 'control2', label: 'Button2', controlType: ControlType.button),
   ControlData(
-      controlId: 'control3',
-      label: 'D6 Oracle',
-      // group: 'group3',
-      controlType: ControlType.dice),
+      controlId: 'control3', label: 'D6 Oracle', controlType: ControlType.dice),
 ];
 
 List<GroupContainer> dynamicListOfControls(
@@ -342,7 +329,8 @@ List<GroupContainer> dynamicListOfControls(
       if (group.controls == null) break;
       bool isInGroupList = group.controls!.contains(control.controlId);
       if (isInGroupList) {
-        Widget controlWidget = chooseControlWidget(control);
+        Widget controlWidget =
+            chooseControlWidget(controlData: control, appState: appState);
         children.add(controlWidget);
       }
     }

@@ -621,7 +621,7 @@ class AppState extends ChangeNotifier {
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
     TrackerOptions trackerData =
-        trackers.firstWhere((tracker) => tracker.type == entry.trackerType);
+        trackers.firstWhere((tracker) => tracker.type == entry.controlType);
 
     // Tracker and journal entry do not need to be linked - just add note
     NoteEntryItem note = NoteEntryItem(

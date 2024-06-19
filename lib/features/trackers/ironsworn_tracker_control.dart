@@ -19,22 +19,22 @@ class IronswornWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String ironswornTrackTypeLabel = trackers
-        .firstWhere((tracker) => tracker.type == entry.trackerType)
+        .firstWhere((tracker) => tracker.type == entry.controlType)
         .label;
 
     int step = 12;
 
-    switch (entry.trackerType) {
-      case TrackerTypes.ironsworn2Dangerous:
+    switch (entry.controlType) {
+      case ControlTypes.ironsworn2Dangerous:
         step = 8;
         break;
-      case TrackerTypes.ironsworn3Formidable:
+      case ControlTypes.ironsworn3Formidable:
         step = 4;
         break;
-      case TrackerTypes.ironsworn4Extreme:
+      case ControlTypes.ironsworn4Extreme:
         step = 2;
         break;
-      case TrackerTypes.ironsworn5Epic:
+      case ControlTypes.ironsworn5Epic:
         step = 1;
         break;
       default:
