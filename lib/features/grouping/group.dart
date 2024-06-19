@@ -17,17 +17,17 @@ class Group {
   // Color? colour; // default
   List<String>?
       presetOrder; // used for Mythic Fate Chart. Can't reorder if exists.
-  SortBy sortBy = SortBy.aToZ;
+  SortBy? sortBy = SortBy.aToZ;
 
   Group({
     required this.groupId,
     required this.label,
-    controls,
-    isExpanded,
-    isAppGroup,
+    this.controls,
+    this.isExpanded,
+    this.isAppGroup,
     // this.colour,
-    presetOrder,
-    sortBy,
+    this.presetOrder,
+    this.sortBy,
   });
 
   // coverage:ignore-start

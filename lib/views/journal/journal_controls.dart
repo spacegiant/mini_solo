@@ -73,6 +73,7 @@ Widget journalControls(
 
   return ViewWrapper(children: [
     const Gap(),
+    ...dynamicListOfControls(appState, listOfControls, appState.groupList),
     ...diceControls(addResult).values,
     GroupContainer(
         label: 'Dice',
@@ -291,3 +292,55 @@ WrapManager mythicGMEControls(
     ],
   );
 }
+
+class ControlData {
+  final String controlId;
+  final String label;
+  final String group;
+
+  ControlData({
+    required this.controlId,
+    required this.label,
+    required this.group,
+  });
+}
+
+List<ControlData> listOfControls = [
+  ControlData(controlId: 'control1', label: 'Button1', group: 'group1'),
+  ControlData(controlId: 'control2', label: 'Button2', group: 'group2'),
+  ControlData(controlId: 'control3', label: 'Button3', group: 'group3'),
+];
+
+List<GroupContainer> dynamicListOfControls(
+  AppState appState,
+  List<ControlData> listOfControls,
+  List<Group> groupList,
+) {
+  // List<Group> groupList = appState.groupList;
+  List<GroupContainer> groupContainers = [];
+
+  for (Group group in groupList) {
+    List<Widget> children = [];
+
+    for (ControlData control in listOfControls) {
+      // is it in group list?
+      if (group.controls == null) break;
+      bool isInGroupList = group.controls!.contains(control.controlId);
+      if (isInGroupList) {
+        children.add(Text(control.label));
+      }
+    }
+
+    groupContainers.add(GroupContainer(
+      label: group.label,
+      groupId: 'groupId',
+      appState: appState,
+      children: children,
+    ));
+  }
+  return groupContainers;
+}
+
+List<ControlData> listOfAppControls = [
+  ControlData(controlId: 'control1', label: 'Button1', group: 'group1'),
+];
