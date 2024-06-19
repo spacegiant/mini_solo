@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import '../data/campaign_data.dart';
 import '../data/app_state.dart';
 
-JournalReturnObject testScene(BuildContext context) {
+JournalReturnObject testScene(AppState appState) {
   int d10 = Random().nextInt(10) + 1;
-  var chaosFactor = context.read<AppState>().chaosFactor;
+  var chaosFactor = appState.chaosFactor;
 
   if (d10 > chaosFactor) {
     return JournalReturnObject(

@@ -10,10 +10,13 @@ import '../../features/trackers/ironsworn_tracker_control.dart';
 import '../../features/trackers/pips_tracker_control.dart';
 import '../../features/trackers/value_tracker_widget.dart';
 import '../../svg_icon.dart';
+import '../../utilities/get_random_result.dart';
+import '../../utilities/test_scene.dart';
 import '../../widgets/list_button.dart';
 import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
+import 'get_event_focus.dart';
 import 'journal_controls.dart';
 
 enum ControlTypeEnum {
@@ -22,6 +25,11 @@ enum ControlTypeEnum {
   diceGroup,
   mythicChart,
   newScene,
+  mythicExpectedScene,
+  mythicAction,
+  mythicDescription,
+  mythicEventFocus,
+  mythicPlotTwist,
   // TRACKER TYPES
   clock4,
   clock6,
@@ -62,7 +70,90 @@ Widget chooseControlWidget({
           onPressed: () {
             fateChartControlOnPressed(controlData.fateChartRow, appState);
           });
+    case ControlTypeEnum.mythicExpectedScene:
+      return ListButton(
+          label: controlData.label,
+          onPressed: () {
+            JournalReturnObject test = testScene(appState);
 
+            appState.addOracleEntry(
+              OracleEntry(
+                  isFavourite: false,
+                  lines: test,
+                  label: 'Test Expected Scene'),
+            );
+          });
+    case ControlTypeEnum.mythicAction:
+      return ListButton(
+        label: 'Mythic Action',
+        onPressed: () {
+          getRandomResult(
+            appState: appState,
+            label: 'Mythic Action',
+            jsonPath: 'mythic/mythic_action.json',
+            table1: 'table1',
+            table2: 'table2',
+            onResult: (appState, result, label) {
+              appState.addMythicEntry(
+                // TODO: Can MythicEntry be swapped and eventually removed?
+                MythicEntry(
+                  isFavourite: false,
+                  lines: result,
+                  label: 'Mythic Action',
+                ),
+              );
+            },
+          );
+        },
+      );
+    case ControlTypeEnum.mythicDescription:
+      return ListButton(
+        label: 'Mythic Description',
+        onPressed: () {
+          getRandomResult(
+            appState: appState,
+            label: 'Mythic Description',
+            jsonPath: 'mythic/mythic_description.json',
+            table1: 'table1',
+            table2: 'table2',
+            onResult: (appState, result, label) {
+              appState.addMythicEntry(
+                MythicEntry(
+                  isFavourite: false,
+                  lines: result,
+                  label: 'Mythic Description',
+                ),
+              );
+            },
+          );
+        },
+      );
+    case ControlTypeEnum.mythicEventFocus:
+      return ListButton(
+        label: 'Event Focus',
+        onPressed: () {
+          getEventFocus(appState);
+        },
+      );
+    case ControlTypeEnum.mythicPlotTwist:
+      return ListButton(
+        label: 'Plot Twist',
+        onPressed: () {
+          getRandomResult(
+            appState: appState,
+            label: 'Mythic - Plot Twist',
+            jsonPath: 'mythic_elements/plot_twist.json',
+            table1: 'table',
+            table2: 'table',
+            onResult: (appState, result, label) {
+              appState.addOracleEntry(
+                OracleEntry(
+                    isFavourite: false, lines: result, label: 'Plot Twist'),
+              );
+            },
+          );
+        },
+      );
     case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
     case ControlTypeEnum.dice:
