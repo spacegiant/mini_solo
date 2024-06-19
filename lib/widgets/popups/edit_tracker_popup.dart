@@ -61,16 +61,12 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
-    String currentEntryId = widget.appState.currentEntryId;
-    TrackerEntry? currentToggleEntry = widget.appState.campaignData?.tracker
-        .firstWhere((tracker) => tracker.id == currentEntryId);
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: Text('Tracker Name')),
+          const Center(child: Text('Tracker Name')),
           const Gap(),
           CupertinoTextField(
             autofocus: true,

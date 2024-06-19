@@ -21,11 +21,6 @@ Widget journalControls(
     BuildContext context) {
   bool wrapControls = appState.wrapControls;
 
-  // This is a list of individual controls by unique id
-  Map<String, Widget> controls = {
-    ...diceControls(addResult),
-  };
-
   List<ControlData> trackerControlData = [];
 
   for (TrackerEntry tracker in appState.campaignData!.tracker) {

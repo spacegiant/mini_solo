@@ -104,10 +104,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     return Consumer<AppState>(
       builder: (BuildContext context, AppState appState, Widget? child) {
         // TODO init here?
-        if (appState.setCampaignStorage != null) {
-          appState.setCampaignStorage(widget.storage);
-        }
-
+        appState.setCampaignStorage(widget.storage);
+      
         if (appState.campaignData == null) {
           return Stack(children: [
             welcomeView(),

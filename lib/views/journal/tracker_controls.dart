@@ -1,10 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/svg_icon.dart';
-import 'package:mini_solo/widgets/list_button.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 
 import '../../features/trackers/bar_tracker_control.dart';
@@ -13,10 +23,7 @@ import '../../features/trackers/counter_tracker_control.dart';
 import '../../features/trackers/fate_aspect_tracker.dart';
 import '../../features/trackers/ironsworn_tracker_control.dart';
 import '../../features/trackers/pips_tracker_control.dart';
-import '../../features/trackers/tracker_container.dart';
-import '../../features/trackers/tracker_options.dart';
 import '../../features/trackers/value_tracker_widget.dart';
-import '../../widgets/gap.dart';
 
 class TrackerControls extends StatelessWidget {
   const TrackerControls({
@@ -37,49 +44,49 @@ class TrackerControls extends StatelessWidget {
 
     trackerEntriesSorted?.forEach((widget) {
       switch (widget.controlType) {
-        case ControlTypes.clock4:
-        case ControlTypes.clock6:
-        case ControlTypes.clock8:
+        case ControlTypeEnum.clock4:
+        case ControlTypeEnum.clock6:
+        case ControlTypeEnum.clock8:
           trackerWidgets.add(ClockWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case ControlTypes.bar:
+        case ControlTypeEnum.bar:
           trackerWidgets.add(BarWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case ControlTypes.ironsworn1Troublesome:
-        case ControlTypes.ironsworn2Dangerous:
-        case ControlTypes.ironsworn3Formidable:
-        case ControlTypes.ironsworn4Extreme:
-        case ControlTypes.ironsworn5Epic:
+        case ControlTypeEnum.ironsworn1Troublesome:
+        case ControlTypeEnum.ironsworn2Dangerous:
+        case ControlTypeEnum.ironsworn3Formidable:
+        case ControlTypeEnum.ironsworn4Extreme:
+        case ControlTypeEnum.ironsworn5Epic:
           trackerWidgets.add(IronswornWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case ControlTypes.pips:
+        case ControlTypeEnum.pips:
           trackerWidgets.add(PipsWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case ControlTypes.value:
+        case ControlTypeEnum.value:
           trackerWidgets.add(ValueWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case ControlTypes.counter:
+        case ControlTypeEnum.counter:
           trackerWidgets.add(CounterWidget(
             entry: widget,
             appState: appState,
           ));
           break;
-        case ControlTypes.fate_aspect:
+        case ControlTypeEnum.fate_aspect:
           trackerWidgets.add(FateWidget(
             entry: widget,
             appState: appState,

@@ -4,11 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/list_button.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
-import '../../widgets/wrap_manager.dart';
 import '../journal/journal_controls.dart';
 import 'mythic_chart.dart';
 

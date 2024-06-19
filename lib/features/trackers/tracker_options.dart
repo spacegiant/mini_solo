@@ -1,6 +1,5 @@
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
-import '../../data/campaign_data.dart';
 import '../../svg_icon.dart';
 
 class TrackerOptions {

@@ -65,6 +65,7 @@ class AppState extends ChangeNotifier {
       saveCampaignDataToDisk();
       // return null;
     }
+    return null;
   }
 
   void addToGroup({required String controlId, required String groupId}) {
@@ -76,7 +77,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.groups
         .firstWhere((group) => group.groupId == groupId)
         .controls
-        ?.add(controlId);
+        .add(controlId);
   }
 
   void deleteGroup(String groupName) {

@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/add_group_popup.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
@@ -22,7 +21,6 @@ import '../data/app_state.dart';
 import '../my_homepage.dart';
 import 'chaos_factor_popup.dart';
 import 'game_mode_control.dart';
-import 'gap.dart';
 
 Consumer<Object?> popup(
   BuildContext context,

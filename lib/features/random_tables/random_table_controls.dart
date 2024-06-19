@@ -1,10 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/app_settings_data.dart';
-import 'package:mini_solo/features/random_tables/roll_table.dart';
-import 'package:mini_solo/widgets/list_button.dart';
-import 'package:mini_solo/widgets/wrap_manager.dart';
 
-import '../../data/app_state.dart';
 
 // class RandomTables extends StatelessWidget {
 //   const RandomTables({

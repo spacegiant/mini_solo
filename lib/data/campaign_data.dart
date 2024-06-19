@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mini_solo/utilities/id_generator.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../svg_icon.dart';
