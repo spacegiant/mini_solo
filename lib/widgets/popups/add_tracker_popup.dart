@@ -10,8 +10,8 @@ import '../../features/trackers/tracker_options.dart';
 import '../../svg_icon.dart';
 import '../gap.dart';
 
-class CreateTrackerPopup extends StatefulWidget {
-  const CreateTrackerPopup({
+class AddTrackerPopup extends StatefulWidget {
+  const AddTrackerPopup({
     super.key,
     required this.appState,
     this.id,
@@ -21,10 +21,10 @@ class CreateTrackerPopup extends StatefulWidget {
   final String? id;
 
   @override
-  State<CreateTrackerPopup> createState() => _CreateTrackerPopupState();
+  State<AddTrackerPopup> createState() => _AddTrackerPopupState();
 }
 
-class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
+class _AddTrackerPopupState extends State<AddTrackerPopup> {
   String selectedTrackerType = '';
   bool minValueActive = false;
   bool currentValueActive = false;
