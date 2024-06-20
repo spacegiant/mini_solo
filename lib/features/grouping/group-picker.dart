@@ -9,17 +9,19 @@ class GroupPicker extends StatelessWidget {
     super.key,
     required this.appState,
     required this.onChange,
+    this.initialGroup = 'unsorted',
   });
 
   final AppState appState;
   final Function(String) onChange;
+  final String? initialGroup;
 
   @override
   Widget build(BuildContext context) {
     List<Group> groupList = appState.groupList;
     List<String> listOfGroups = groupList.map((group) => group.label).toList();
     var groupIndex =
-        groupList.indexWhere((group) => group.groupId == 'group-random-tables');
+        groupList.indexWhere((group) => group.groupId == initialGroup);
 
     return Row(
       children: [

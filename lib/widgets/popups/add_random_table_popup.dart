@@ -117,6 +117,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
               });
             },
             appState: widget.appState,
+            initialGroup: 'group-random-tables',
           ),
           Row(
             children: [

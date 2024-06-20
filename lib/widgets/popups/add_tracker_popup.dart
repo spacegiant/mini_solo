@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
+import 'package:mini_solo/features/grouping/group-picker.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
@@ -32,6 +33,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
   String minValueError = '';
   String currentValueError = '';
   String maxValueError = '';
+  String selectedGroup = 'unsorted';
 
   late TextEditingController _trackerNameController;
   late TextEditingController _minValueController;
@@ -122,7 +124,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
           const Center(child: Text('Select Tracker Type')),
           const Gap(),
           SizedBox(
-            height: 310.0,
+            height: 260.0,
             child: SingleChildScrollView(
               child: Wrap(
                 spacing: 8.0,
@@ -132,7 +134,14 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
             ),
           ),
           const Divider(),
-          const Gap(),
+          GroupPicker(
+              appState: widget.appState,
+              initialGroup: 'group-trackers',
+              onChange: (groupName) {
+                setState(() {
+                  selectedGroup = groupName;
+                });
+              }),
           buttonBar(),
         ],
       ),
