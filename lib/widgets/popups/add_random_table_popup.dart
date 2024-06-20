@@ -6,6 +6,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/widgets/picker.dart';
 
 import '../../data/app_state.dart';
+import '../../features/grouping/group-picker.dart';
 import '../../features/grouping/group.dart';
 import '../gap.dart';
 
@@ -27,6 +28,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   late TextEditingController _separatorController;
 
   final String separatorCharacter = '|';
+  String selectedGroup = 'unsorted';
 
   @override
   void initState() {
@@ -51,7 +53,6 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
     List<String> listOfGroups = groupList.map((group) => group.label).toList();
     var groupIndex =
         groupList.indexWhere((group) => group.groupId == 'group-random-tables');
-    String selectedGroup = 'unsorted';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -109,19 +110,15 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
               ),
             ],
           ),
-          Row(
-            children: [
-              Text('Group: '),
-              Picker(
-                items: listOfGroups,
-                initialItem: groupIndex,
-                onChange: (index) {
-                  setState(() {
-                    selectedGroup = groupList[index].groupId;
-                  });
-                },
-              ),
-            ],
+          GroupPicker(
+            listOfGroups: listOfGroups,
+            groupIndex: groupIndex,
+            onChange: (string) {
+              setState(() {
+                selectedGroup = string;
+              });
+            },
+            appState: widget.appState,
           ),
           Row(
             children: [
