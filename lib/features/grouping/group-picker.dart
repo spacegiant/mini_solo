@@ -7,14 +7,10 @@ import 'group.dart';
 class GroupPicker extends StatelessWidget {
   const GroupPicker({
     super.key,
-    required this.listOfGroups,
-    required this.groupIndex,
     required this.appState,
     required this.onChange,
   });
 
-  final List<String> listOfGroups;
-  final int groupIndex;
   final AppState appState;
   final Function(String) onChange;
 

@@ -111,8 +111,6 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
             ],
           ),
           GroupPicker(
-            listOfGroups: listOfGroups,
-            groupIndex: groupIndex,
             onChange: (string) {
               setState(() {
                 selectedGroup = string;
