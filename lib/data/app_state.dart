@@ -647,7 +647,6 @@ class AppState extends ChangeNotifier {
     );
 
     _campaignData?.notes.add(note);
-    addToGroup(controlId: entry.id, groupId: 'group-trackers');
 
     addJournalEntry(
       JournalEntryItem(

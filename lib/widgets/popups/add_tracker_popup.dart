@@ -237,7 +237,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
       return tracker.label == selectedTrackerType;
     });
 
-    widget.appState.addTrackerEntry(TrackerEntry(
+    TrackerEntry entry = TrackerEntry(
       label: _trackerNameController.text,
       minValue: currentTracker.minValue != null
           ? parseString(_minValueController.text)
@@ -247,7 +247,10 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
           ? parseString(_maxValueController.text)
           : null,
       controlType: currentTracker.type,
-    ));
+    );
+
+    widget.appState.addTrackerEntry(entry);
+    widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
     widget.appState.closePopup();
   }
 
