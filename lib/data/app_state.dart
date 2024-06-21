@@ -57,6 +57,12 @@ class AppState extends ChangeNotifier {
     return index > -1;
   }
 
+  Group getGroup(String groupName) {
+    return campaignData!.groups.firstWhere((group) {
+      return group.groupId == groupName;
+    });
+  }
+
   String? createNewGroup(Group group) {
     print(groupExists(group.label));
     if (groupExists(group.label)) {
@@ -70,10 +76,7 @@ class AppState extends ChangeNotifier {
   }
 
   void addToGroup({required String controlId, required String groupId}) {
-    Group group =
-        _campaignData!.groups.firstWhere((group) => group.groupId == groupId);
-
-    print(group.controls);
+    Group group = getGroup(groupId);
 
     _campaignData!.groups
         .firstWhere((group) => group.groupId == groupId)

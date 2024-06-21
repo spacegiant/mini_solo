@@ -17,6 +17,11 @@ class EditGroupPopup extends StatelessWidget {
     // Current Group
     String groupId = appState.currentEntryId;
 
-    return Text(groupId);
+    return Column(
+      children: [
+        Text(groupId),
+        // for(item in gr)
+      ],
+    );
   }
 }
