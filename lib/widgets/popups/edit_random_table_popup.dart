@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../features/grouping/group-picker.dart';
 import '../gap.dart';
 
-class EditRandomTable extends StatelessWidget {
+class EditRandomTable extends StatefulWidget {
   final AppState appState;
 
   const EditRandomTable({
@@ -14,10 +15,18 @@ class EditRandomTable extends StatelessWidget {
   });
 
   @override
+  State<EditRandomTable> createState() => _EditRandomTableState();
+}
+
+class _EditRandomTableState extends State<EditRandomTable> {
+  String selectedGroup = 'unsorted';
+
+  @override
   Widget build(BuildContext context) {
-    String currentEntryId = appState.currentEntryId;
-    RandomTableEntry entry = appState.appSettingsData.randomTables
+    String currentEntryId = widget.appState.currentEntryId;
+    RandomTableEntry entry = widget.appState.appSettingsData.randomTables
         .firstWhere((entry) => entry.id == currentEntryId);
+    String initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
 
     String? detail = entry.title;
 
@@ -31,7 +40,7 @@ class EditRandomTable extends StatelessWidget {
           Text('$detail ($recordCount entries)'),
           const Divider(),
           SizedBox(
-              height: 400.0,
+              height: 300.0,
               child: ListView.builder(
                 itemCount: recordCount,
                 prototypeItem: CupertinoListTile(title: Text(rows.first.label)),
@@ -42,16 +51,37 @@ class EditRandomTable extends StatelessWidget {
                 },
               )),
           const Divider(),
-          Row(
+          GroupPicker(
+            onChange: (string) {
+              setState(() {
+                selectedGroup = string;
+              });
+            },
+            appState: widget.appState,
+            initialGroup: initialGroup,
+          ),
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            alignment: WrapAlignment.center,
             children: [
               CupertinoButton(
-                  color: kWarningColour,
-                  child: const Text('Delete Table'),
+                  color: kSubmitColour,
+                  child: const Text('Update'),
                   onPressed: () {
-                    appState.deleteRandomTable(currentEntryId);
-                    appState.closePopup();
+                    widget.appState.moveToGroup(
+                        controlId: currentEntryId, groupId: selectedGroup);
+                    widget.appState.closePopup();
                   }),
               CupertinoButton(
+                  color: kWarningColour,
+                  child: const Text('Delete'),
+                  onPressed: () {
+                    widget.appState.deleteRandomTable(currentEntryId);
+                    widget.appState.closePopup();
+                  }),
+              CupertinoButton(
+                  color: CupertinoColors.systemGrey3,
                   child: const Text('Export'),
                   onPressed: () {
                     // TODO EXPORT
@@ -65,8 +95,8 @@ class EditRandomTable extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
-        appState.toggleShowPopup(
+        widget.appState.setCurrentEntryId(entry.id);
+        widget.appState.toggleShowPopup(
           label: PopupLabel.editNote,
         );
       },
