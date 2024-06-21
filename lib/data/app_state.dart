@@ -80,6 +80,19 @@ class AppState extends ChangeNotifier {
         .add(controlId);
   }
 
+  void removeFromAllGroups({
+    required String controlId,
+  }) {
+    _campaignData?.groups.forEach((group) {
+      group.controls.remove(controlId);
+    });
+  }
+
+  void moveToGroup({required String controlId, required String groupId}) {
+    removeFromAllGroups(controlId: controlId);
+    addToGroup(controlId: controlId, groupId: groupId);
+  }
+
   void deleteGroup(String groupName) {
     // _appSettingsData.groups.remove(groupName);
   }
