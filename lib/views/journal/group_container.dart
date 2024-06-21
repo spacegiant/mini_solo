@@ -25,11 +25,13 @@ class GroupContainer extends StatelessWidget {
     required this.children,
     this.wrapControls = false,
     this.showDivider = true,
+    required this.groupId,
   });
 
   final bool isVisible;
   final String label;
   final String containerId;
+  final String groupId;
   final AppState appState;
   final List<Widget> children;
   final bool? wrapControls;
@@ -54,7 +56,7 @@ class GroupContainer extends StatelessWidget {
             },
             handleLongPress: () {
               appState.toggleShowPopup(
-                  label: PopupLabel.editGroup, id: containerId);
+                  label: PopupLabel.editGroup, id: groupId);
             },
           ),
           if (isExpanded) WrapManager(wrapControls: false, children: children),
