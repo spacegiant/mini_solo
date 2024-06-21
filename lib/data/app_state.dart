@@ -64,7 +64,6 @@ class AppState extends ChangeNotifier {
   }
 
   String? createNewGroup(Group group) {
-    print(groupExists(group.label));
     if (groupExists(group.label)) {
       return 'Already a group';
     } else {
@@ -123,6 +122,17 @@ class AppState extends ChangeNotifier {
     // Find beforeGroupName
     // (if beforeGroupName is not null) Move groupName before beforeGroupName
     // (if beforeGroupName is null) move to end
+  }
+
+  void updateGroupControls({
+    required String groupName,
+    required List<String> controls,
+  }) {
+    campaignData!.groups.firstWhere((group) {
+      return group.groupId == groupName;
+    }).controls = controls;
+    saveCampaignDataToDisk();
+    notifyListeners();
   }
 
   // EXPANDED LIST
@@ -620,11 +630,6 @@ class AppState extends ChangeNotifier {
   //   RANDOM TABLES
   void addRandomTable(RandomTableEntry entry) {
     _appSettingsData.randomTables.add(entry);
-    campaignData?.groups
-        .firstWhere((group) => group.groupId == 'group-random-tables')
-        .controls
-        .add(entry.id);
-    saveAppSettingsDataToDisk();
     notifyListeners();
   }
 
@@ -633,6 +638,7 @@ class AppState extends ChangeNotifier {
   void deleteRandomTable(String id) {
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     //TODO delete from all group collections
+    removeFromAllGroups(controlId: id);
     saveAppSettingsDataToDisk();
     notifyListeners();
   }
@@ -708,8 +714,8 @@ class AppState extends ChangeNotifier {
 
   void deleteTrackerEntry(String id) {
     _campaignData!.tracker.removeWhere((entry) => entry.id == id);
-    saveCampaignDataToDisk();
     removeFromAllGroups(controlId: id);
+    saveCampaignDataToDisk();
     // notifyListeners();
   }
 

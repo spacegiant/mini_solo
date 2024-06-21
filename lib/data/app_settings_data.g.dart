@@ -15,8 +15,6 @@ AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
       expandedList: (json['expandedList'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      groups:
-          (json['groups'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
@@ -24,7 +22,6 @@ Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
       'currentCampaign': instance.currentCampaign,
       'randomTables': instance.randomTables.map((e) => e.toJson()).toList(),
       'expandedList': instance.expandedList,
-      'groups': instance.groups,
     };
 
 RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
