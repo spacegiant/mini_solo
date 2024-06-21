@@ -8,6 +8,7 @@ List<Widget> devSettings(AppState appState) => [
       DestructiveDeleteCurrentCampaign(
         appState: appState,
       ),
+      DestructiveDeleteRandomTables(appState: appState),
     ];
 
 class DestructiveDeleteCurrentCampaign extends StatelessWidget {
