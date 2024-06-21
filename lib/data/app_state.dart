@@ -58,8 +58,9 @@ class AppState extends ChangeNotifier {
   }
 
   Group getGroup(String groupName) {
-    return campaignData!.groups.firstWhere((group) {
-      return group.groupId == groupName;
+    Group group = campaignData!.groups.firstWhere((group) {
+      print('$groupName ${group.groupId}');
+      return group;
     });
   }
 

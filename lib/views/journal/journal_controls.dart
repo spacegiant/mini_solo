@@ -52,7 +52,7 @@ Widget journalControls(
     // ...diceControls(addResult).values,
     GroupContainer(
         label: 'Dice',
-        groupId: 'group-dice',
+        containerId: 'group-dice',
         appState: appState,
         showDivider: false,
         children: [
@@ -67,7 +67,7 @@ Widget journalControls(
 
     GroupContainer(
         label: 'New Item',
-        groupId: 'newItems',
+        containerId: 'newItems',
         appState: appState,
         children: [
           ListButton(
@@ -86,7 +86,7 @@ Widget journalControls(
 
     GroupContainer(
         label: 'Import/Export',
-        groupId: 'importExport',
+        containerId: 'importExport',
         appState: appState,
         children: [
           // TODO: Don't want this in journal controls. Move somewhere else.
@@ -193,7 +193,7 @@ List<GroupContainer> dynamicListOfControls(
     if (group.controls.isEmpty == false) {
       groupContainers.add(GroupContainer(
         label: group.label,
-        groupId: 'group-container-${group.groupId}',
+        containerId: 'group-container-${group.groupId}',
         appState: appState,
         children: children,
       ));

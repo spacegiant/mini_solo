@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../data/app_state.dart';
+import '../../features/grouping/group.dart';
 
 class EditGroupPopup extends StatelessWidget {
   final AppState appState;
@@ -16,11 +17,17 @@ class EditGroupPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     // Current Group
     String groupId = appState.currentEntryId;
+    Group currentGroup = appState.getGroup(groupId);
+    List<String> controls = currentGroup.controls;
+    List<Widget> widgets;
+
+    for (final control in controls) {
+      print(control);
+    }
 
     return Column(
       children: [
         Text(groupId),
-        // for(item in gr)
       ],
     );
   }

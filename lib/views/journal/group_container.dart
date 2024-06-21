@@ -20,7 +20,7 @@ class GroupContainer extends StatelessWidget {
     super.key,
     this.isVisible = true,
     required this.label,
-    required this.groupId,
+    required this.containerId,
     required this.appState,
     required this.children,
     this.wrapControls = false,
@@ -29,7 +29,7 @@ class GroupContainer extends StatelessWidget {
 
   final bool isVisible;
   final String label;
-  final String groupId;
+  final String containerId;
   final AppState appState;
   final List<Widget> children;
   final bool? wrapControls;
@@ -37,7 +37,7 @@ class GroupContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isExpanded = appState.isExpanded(groupId);
+    bool isExpanded = appState.isExpanded(containerId);
     if (isVisible) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,11 +50,11 @@ class GroupContainer extends StatelessWidget {
           JournalSubheading(
             label: isExpanded ? label : '$label (${children.length})',
             handlePress: () {
-              appState.toggleExpanded(groupId);
+              appState.toggleExpanded(containerId);
             },
             handleLongPress: () {
               appState.toggleShowPopup(
-                  label: PopupLabel.editGroup, id: groupId);
+                  label: PopupLabel.editGroup, id: containerId);
             },
           ),
           if (isExpanded) WrapManager(wrapControls: false, children: children),
