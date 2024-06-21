@@ -48,7 +48,7 @@ class GroupContainer extends StatelessWidget {
                 )
               : const Gap(),
           JournalSubheading(
-            label: label,
+            label: isExpanded ? label : '$label (${children.length})',
             handlePress: () {
               appState.toggleExpanded(groupId);
             },

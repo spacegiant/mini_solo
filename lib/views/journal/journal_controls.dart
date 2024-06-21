@@ -5,10 +5,8 @@ import 'package:mini_solo/features/grouping/group.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/view_wrapper.dart';
-import '../../widgets/wrap_manager.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'dice_tray.dart';
@@ -65,13 +63,6 @@ Widget journalControls(
         ]),
     ...dynamicListOfControls(appState, controlData, appState.groupList),
 
-    ListButton(
-      label: 'Add Group',
-      onPressed: () {
-        appState.toggleShowPopup(label: PopupLabel.addGroup);
-      },
-    ),
-
     // TODO: Implement display of groups - sorting, visibility etc
 
     GroupContainer(
@@ -79,20 +70,18 @@ Widget journalControls(
         groupId: 'newItems',
         appState: appState,
         children: [
-          WrapManager(wrapControls: true, children: [
-            ListButton(
-              label: 'New Tracker',
-              onPressed: () {
-                appState.toggleShowPopup(label: PopupLabel.createTracker);
-              },
-            ),
-            ListButton(
-              onPressed: () {
-                appState.toggleShowPopup(label: PopupLabel.addRandomTable);
-              },
-              label: 'Add random table',
-            ),
-          ]),
+          ListButton(
+            label: 'New Tracker',
+            onPressed: () {
+              appState.toggleShowPopup(label: PopupLabel.createTracker);
+            },
+          ),
+          ListButton(
+            onPressed: () {
+              appState.toggleShowPopup(label: PopupLabel.addRandomTable);
+            },
+            label: 'Add random table',
+          ),
         ]),
 
     GroupContainer(
@@ -101,31 +90,29 @@ Widget journalControls(
         appState: appState,
         children: [
           // TODO: Don't want this in journal controls. Move somewhere else.
-          WrapManager(wrapControls: wrapControls, children: [
-            ListButton(
-                label: 'Import Manager',
-                onPressed: () {
-                  appState.toggleShowPopup(label: PopupLabel.importManager);
-                }),
-            ListButton(
-                label: 'Export Campaign',
-                onPressed: () async {
-                  CampaignData? campaignData = appState.campaignData;
-                  String jsonString =
-                      appState.storage.getCampaignJSON(campaignData!);
-                  await Clipboard.setData(ClipboardData(text: jsonString));
-                  // copied successfully
-                }),
-            ListButton(
-                label: 'Export AppSettings',
-                onPressed: () async {
-                  AppSettingsData? appSettingsData = appState.appSettingsData;
-                  String jsonString =
-                      appState.storage.appSettingsToJSON(appSettingsData);
-                  await Clipboard.setData(ClipboardData(text: jsonString));
-                  // copied successfully
-                }),
-          ]),
+          ListButton(
+              label: 'Import Manager',
+              onPressed: () {
+                appState.toggleShowPopup(label: PopupLabel.importManager);
+              }),
+          ListButton(
+              label: 'Export Campaign',
+              onPressed: () async {
+                CampaignData? campaignData = appState.campaignData;
+                String jsonString =
+                    appState.storage.getCampaignJSON(campaignData!);
+                await Clipboard.setData(ClipboardData(text: jsonString));
+                // copied successfully
+              }),
+          ListButton(
+              label: 'Export AppSettings',
+              onPressed: () async {
+                AppSettingsData? appSettingsData = appState.appSettingsData;
+                String jsonString =
+                    appState.storage.appSettingsToJSON(appSettingsData);
+                await Clipboard.setData(ClipboardData(text: jsonString));
+                // copied successfully
+              }),
         ])
 
     // const MarkdownBlock(
