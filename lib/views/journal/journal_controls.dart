@@ -48,6 +48,15 @@ Widget journalControls(
     ...randomTableControlData,
   ];
 
+  // check controls all have a group or add to unsorted
+  for (final control in controlData) {
+    bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
+    if (isInAGroup == false) {
+      print('IS NOT IN A GROUP');
+      appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
+    }
+  }
+
   return ViewWrapper(children: [
     // ...diceControls(addResult).values,
     GroupContainer(
