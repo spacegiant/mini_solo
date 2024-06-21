@@ -178,32 +178,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   }
 }
 
-class DestructiveDeleteCurrentCampaign extends StatelessWidget {
-  const DestructiveDeleteCurrentCampaign({
-    super.key,
-    required this.appState,
-  });
-
-  final AppState appState;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-        onLongPress: () {
-          String? campaignFilename = appState.campaignData?.filename;
-          appState.deleteCampaign(campaignFilename);
-        },
-        child: Container(
-            color: CupertinoColors.destructiveRed,
-            padding: const EdgeInsets.all(10.0),
-            child: const Text('Hold to delete current campaign')),
-      ),
-    );
-  }
-}
-
 class CampaignSettings extends StatefulWidget {
   const CampaignSettings({super.key});
 
