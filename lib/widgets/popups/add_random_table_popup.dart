@@ -28,7 +28,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   late TextEditingController _separatorController;
 
   final String separatorCharacter = '|';
-  String selectedGroup = 'unsorted';
+  String selectedGroup = 'group-random-tables';
 
   @override
   void initState() {
@@ -49,10 +49,6 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   @override
   Widget build(BuildContext context) {
     int count = widget.appState.randomTables.length;
-    List<Group> groupList = widget.appState.groupList;
-    List<String> listOfGroups = groupList.map((group) => group.label).toList();
-    var groupIndex =
-        groupList.indexWhere((group) => group.groupId == 'group-random-tables');
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
