@@ -93,6 +93,18 @@ class AppState extends ChangeNotifier {
     addToGroup(controlId: controlId, groupId: groupId);
   }
 
+  String findCurrentGroupId(String entryId) {
+    String currentGroupId = 'unsorted';
+
+    for (var group in _campaignData!.groups) {
+      if (group.controls.contains(entryId)) {
+        currentGroupId = group.groupId;
+      }
+    }
+
+    return currentGroupId;
+  }
+
   void deleteGroup(String groupName) {
     // _appSettingsData.groups.remove(groupName);
   }
@@ -690,9 +702,9 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    // _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
+    removeFromAllGroups(controlId: id);
     // notifyListeners();
   }
 
