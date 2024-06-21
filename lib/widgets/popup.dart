@@ -33,76 +33,78 @@ Consumer<Object?> popup(
       double popupHeight = kPopupDefaultHeight;
       Widget popupWidget;
 
-      // TODO refactor to make easier to read
-      // TODO refactor to pass content widget in
-
-      // WIDGETS
-      if (popup == PopupLabel.addGroup) {
-        popupWidget = AddGroupPopup(
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.editGroup) {
-        popupWidget = EditGroupPopup(
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.chaos) {
-        popupWidget = const ChaosFactorPopup();
-      } else if (popup == PopupLabel.createTracker) {
-        popupHeight = 710.0;
-        popupWidget = AddTrackerPopup(appState: appState);
-      } else if (popup == PopupLabel.editTracker) {
-        popupHeight = 500.0;
-        popupWidget = EditTrackerPopup(appState: appState);
-      } else if (popup == PopupLabel.importManager) {
-        popupHeight = 700.0;
-        popupWidget = ImportManager(appState: appState);
-      } else if (popup == PopupLabel.addJournalEntry) {
-        popupWidget = const AddToJournalPanel();
-      } else if (popup == PopupLabel.editRandomTable) {
-        popupHeight = 600.0;
-        popupWidget = EditRandomTable(
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.journalFilter) {
-        popupWidget = const Text('JOURNAL FILTER');
-      } else if (popup == PopupLabel.campaignManager) {
-        popupHeight = 600.0;
-        popupWidget = CampaignManager(
-          getCampaignList: widget!.storage.getCampaignsList,
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.fullJournal) {
-        popupWidget = const Text('FULL JOURNAL');
-      } else if (popup == PopupLabel.addRandomTable) {
-        popupHeight = 530.0;
-        popupWidget = AddRandomTablePopup(
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.editRollTableResult) {
-        popupWidget = EditRollTableResultPopup(appState: appState);
-      } else if (popup == PopupLabel.editField) {
-        popupWidget = const Text('EDIT FIELD');
-      } else if (popup == PopupLabel.editNote) {
-        popupHeight = 420.0;
-        popupWidget = EditNotePopup(
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.editMythicEntry) {
-        popupHeight = 160.0;
-        popupWidget = EditMythicEntryPopup(
-          appState: appState,
-        );
-      } else if (popup == PopupLabel.editRoll) {
-        popupHeight = 160.0;
-        popupWidget = EditRollPopup(appState: appState);
-      } else if (popup == PopupLabel.editOracleEntry) {
-        popupHeight = 160.0;
-        popupWidget = EditOracleEntryPopup(appState: appState);
-      } else if (popup == PopupLabel.editNewSceneEntry) {
-        popupHeight = 240.0;
-        popupWidget = EditNewSceneEntryPopup(appState: appState);
-      } else {
-        popupWidget = const SizedBox.shrink();
+      switch (popup) {
+        case PopupLabel.addJournalEntry:
+          popupWidget = const AddToJournalPanel();
+          break;
+        case PopupLabel.addRandomTable:
+          popupHeight = 530.0;
+          popupWidget = AddRandomTablePopup(appState: appState);
+          break;
+        case PopupLabel.campaignManager:
+          popupHeight = 600.0;
+          popupWidget = CampaignManager(
+            getCampaignList: widget!.storage.getCampaignsList,
+            appState: appState,
+          );
+          break;
+        case PopupLabel.chaos:
+          popupWidget = const ChaosFactorPopup();
+          break;
+        case PopupLabel.editField:
+          popupWidget = const Text('EDIT FIELD');
+          break;
+        case PopupLabel.editNote:
+          popupHeight = 420.0;
+          popupWidget = EditNotePopup(appState: appState);
+          break;
+        case PopupLabel.editMythicEntry:
+          popupHeight = 160.0;
+          popupWidget = EditMythicEntryPopup(appState: appState);
+          break;
+        case PopupLabel.editNewSceneEntry:
+          popupHeight = 240.0;
+          popupWidget = EditNewSceneEntryPopup(appState: appState);
+          break;
+        case PopupLabel.editOracleEntry:
+          popupHeight = 160.0;
+          popupWidget = EditOracleEntryPopup(appState: appState);
+          break;
+        case PopupLabel.editRoll:
+          popupHeight = 160.0;
+          popupWidget = EditRollPopup(appState: appState);
+          break;
+        case PopupLabel.fullJournal:
+          popupWidget = const Text('FULL JOURNAL');
+          break;
+        case PopupLabel.journalFilter:
+          popupWidget = const Text('JOURNAL FILTER');
+          break;
+        case PopupLabel.editRandomTable:
+          popupHeight = 600.0;
+          popupWidget = EditRandomTable(appState: appState);
+          break;
+        case PopupLabel.editRollTableResult:
+          popupWidget = EditRollTableResultPopup(appState: appState);
+          break;
+        case PopupLabel.importManager:
+          popupHeight = 700.0;
+          popupWidget = ImportManager(appState: appState);
+          break;
+        case PopupLabel.createTracker:
+          popupHeight = 710.0;
+          popupWidget = AddTrackerPopup(appState: appState);
+          break;
+        case PopupLabel.editTracker:
+          popupHeight = 500.0;
+          popupWidget = EditTrackerPopup(appState: appState);
+          break;
+        case PopupLabel.addGroup:
+          popupWidget = AddGroupPopup(appState: appState);
+          break;
+        case PopupLabel.editGroup:
+          popupWidget = EditGroupPopup(appState: appState);
+          break;
       }
 
       return Visibility(

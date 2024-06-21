@@ -15,7 +15,8 @@ class EditGroupPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Current Group
+    String groupId = appState.currentEntryId;
 
-    return Text('GROUP EDIT');
+    return Text(groupId);
   }
 }
