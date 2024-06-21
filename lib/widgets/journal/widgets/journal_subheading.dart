@@ -27,7 +27,6 @@ class JournalSubheading extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const Divider(),
           Text(
             label,
             style: const TextStyle(

@@ -51,19 +51,19 @@ Widget journalControls(
   ];
 
   return ViewWrapper(children: [
-    const Gap(),
-    ...dynamicListOfControls(appState, controlData, appState.groupList),
     // ...diceControls(addResult).values,
     GroupContainer(
         label: 'Dice',
         groupId: 'group-dice',
         appState: appState,
+        showDivider: false,
         children: [
           diceTray(
             appState,
             addResult,
           ),
         ]),
+    ...dynamicListOfControls(appState, controlData, appState.groupList),
 
     ListButton(
       label: 'Add Group',

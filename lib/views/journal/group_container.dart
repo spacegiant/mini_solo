@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 
 import '../../data/app_state.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/journal/widgets/journal_subheading.dart';
 
 Map<String, String> journalGroups = {
@@ -22,6 +24,7 @@ class GroupContainer extends StatelessWidget {
     required this.appState,
     required this.children,
     this.wrapControls = false,
+    this.showDivider = true,
   });
 
   final bool isVisible;
@@ -30,6 +33,7 @@ class GroupContainer extends StatelessWidget {
   final AppState appState;
   final List<Widget> children;
   final bool? wrapControls;
+  final bool? showDivider;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,11 @@ class GroupContainer extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          showDivider == true
+              ? const Divider(
+                  thickness: 0.0,
+                )
+              : const Gap(),
           JournalSubheading(
             label: label,
             handlePress: () {
