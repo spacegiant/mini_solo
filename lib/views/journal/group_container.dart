@@ -35,17 +35,23 @@ class GroupContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isExpanded = appState.isExpanded(groupId);
     if (isVisible) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          JournalSubheading(
-            label: label,
-            handlePress: () {
-              appState.toggleExpanded(groupId);
-            },
-          ),
-          if (isExpanded) WrapManager(wrapControls: false, children: children),
-        ],
+      return GestureDetector(
+        onLongPress: () {
+          appState.toggleShowPopup(label: PopupLabel.editGroup);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            JournalSubheading(
+              label: label,
+              handlePress: () {
+                appState.toggleExpanded(groupId);
+              },
+            ),
+            if (isExpanded)
+              WrapManager(wrapControls: false, children: children),
+          ],
+        ),
       );
     } else {
       return const SizedBox.shrink();

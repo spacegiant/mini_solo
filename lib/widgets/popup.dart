@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/add_group_popup.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_group_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
@@ -38,6 +39,10 @@ Consumer<Object?> popup(
       // WIDGETS
       if (popup == PopupLabel.addGroup) {
         popupWidget = AddGroupPopup(
+          appState: appState,
+        );
+      } else if (popup == PopupLabel.editGroup) {
+        popupWidget = EditGroupPopup(
           appState: appState,
         );
       } else if (popup == PopupLabel.chaos) {

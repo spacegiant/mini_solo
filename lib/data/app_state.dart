@@ -27,6 +27,7 @@ enum PopupLabel {
   createTracker,
   editTracker,
   addGroup,
+  editGroup,
 }
 
 class AppState extends ChangeNotifier {
