@@ -167,9 +167,10 @@ Widget chooseControlWidget({
           }
         },
         onLongPress: () {
-          appState.setCurrentEntryId(controlData.controlId);
+          // appState.setCurrentEntryId(controlData.controlId);
           appState.toggleShowPopup(
             label: PopupLabel.editRandomTable,
+            id: controlData.controlId,
           );
         },
       );

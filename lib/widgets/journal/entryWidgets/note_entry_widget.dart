@@ -25,9 +25,10 @@ class NoteEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
+        // appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
           label: PopupLabel.editNote,
+          id: entry.id,
         );
       },
       child: Padding(

@@ -8,15 +8,20 @@ class JournalSubheading extends StatelessWidget {
     super.key,
     required this.label,
     this.handlePress,
+    this.handleLongPress,
   });
 
   final void Function()? handlePress;
+  final void Function()? handleLongPress;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         handlePress!();
+      },
+      onLongPress: () {
+        handleLongPress!();
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

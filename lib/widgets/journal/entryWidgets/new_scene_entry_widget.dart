@@ -20,9 +20,10 @@ class NewSceneEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
+        // appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
           label: PopupLabel.editNewSceneEntry,
+          id: entry.id,
         );
       },
       child: Container(

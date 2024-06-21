@@ -24,9 +24,10 @@ class RollEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
+        // appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
           label: PopupLabel.editRoll,
+          id: entry.id,
         );
       },
       child: Padding(

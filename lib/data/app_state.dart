@@ -294,6 +294,7 @@ class AppState extends ChangeNotifier {
   }) {
     if (label != null) _popupLabel = label;
     if (callback != null) callback();
+    if (id != null) setCurrentEntryId(id);
     _showPopup = !_showPopup;
     notifyListeners();
   }

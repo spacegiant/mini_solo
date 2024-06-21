@@ -4,10 +4,18 @@ import '../../data/app_state.dart';
 
 class EditGroupPopup extends StatelessWidget {
   final AppState appState;
-  const EditGroupPopup({super.key, required this.appState});
+  // final String groupId;
+
+  const EditGroupPopup({
+    super.key,
+    required this.appState,
+    // required this.groupId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    // Current Group
+
+    return Text('GROUP EDIT');
   }
 }

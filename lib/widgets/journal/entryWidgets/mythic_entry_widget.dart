@@ -24,9 +24,10 @@ class MythicEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
+        // appState.setCurrentEntryId(entry.id);
         appState.toggleShowPopup(
           label: PopupLabel.editMythicEntry,
+          id: entry.id,
         );
       },
       child: Padding(

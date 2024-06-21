@@ -26,10 +26,11 @@ class RollTableResultWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
+        // appState.setCurrentEntryId(entry.id);
         // FIXME needs wiring up
         appState.toggleShowPopup(
           label: PopupLabel.editRollTableResult,
+          id: entry.id,
         );
       },
       child: Padding(

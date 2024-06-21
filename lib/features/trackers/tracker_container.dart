@@ -35,8 +35,8 @@ class TrackerContainer extends StatelessWidget {
             if (!showButtons && onTap != null) onTap!();
           },
           onLongPress: () {
-            appState.setCurrentEntryId(id);
-            appState.toggleShowPopup(label: PopupLabel.editTracker);
+            // appState.setCurrentEntryId(id);
+            appState.toggleShowPopup(label: PopupLabel.editTracker, id: id);
           },
           child: Container(
             constraints: BoxConstraints(
