@@ -75,6 +75,7 @@ class AppState extends ChangeNotifier {
   }
 
   void addToGroup({required String controlId, required String groupId}) {
+    print(groupId);
     Group group = getGroup(groupId);
 
     _campaignData!.groups
@@ -639,7 +640,7 @@ class AppState extends ChangeNotifier {
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     //TODO delete from all group collections
     removeFromAllGroups(controlId: id);
-    saveAppSettingsDataToDisk();
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 

@@ -140,10 +140,14 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                       );
 
                       widget.appState.addRandomTable(entry);
+                      widget.appState.saveAppSettingsDataToDisk();
+
                       _titleController.text = '';
                       _textController.text = '';
+
                       widget.appState.addToGroup(
                           controlId: entry.id, groupId: selectedGroup);
+                      widget.appState.saveCampaignDataToDisk();
                     }
                   }),
               const Gap(),
