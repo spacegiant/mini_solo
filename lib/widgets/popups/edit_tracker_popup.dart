@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/range_values_form.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../features/grouping/group-picker.dart';
 import '../../features/trackers/tracker_options.dart';
 import '../gap.dart';
 
@@ -33,6 +34,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
       .firstWhere((tracker) => tracker.id == currentEntryId);
   late TrackerOptions trackerOptions = trackers
       .firstWhere((tracker) => tracker.type == currentEntry?.controlType);
+  String selectedGroup = 'unsorted';
 
   @override
   void initState() {
@@ -61,6 +63,9 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
+    String initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
+    print(initialGroup);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -86,6 +91,15 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             setMaxValueText: (value) {},
           ),
           const Divider(),
+          GroupPicker(
+            onChange: (string) {
+              setState(() {
+                selectedGroup = string;
+              });
+            },
+            appState: widget.appState,
+            initialGroup: initialGroup,
+          ),
           buttonBar(),
         ],
       ),
@@ -103,6 +117,9 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               int? minValue;
               int? currentValue;
               int? maxValue;
+
+              widget.appState.moveToGroup(
+                  controlId: currentEntryId, groupId: selectedGroup);
 
               try {
                 minValue = int.parse(_minValueController.text);
