@@ -67,6 +67,7 @@ Widget journalControls(
         appState: appState,
         showDivider: false,
         groupId: 'group-dice',
+        handleLongPress: () {},
         children: [
           diceTray(
             appState,
@@ -82,6 +83,10 @@ Widget journalControls(
         containerId: 'newItems',
         appState: appState,
         groupId: 'newItems',
+        handleLongPress: () {
+          // appState.toggleShowPopup(
+          //     label: PopupLabel.editN, id: groupId);
+        },
         children: [
           ListButton(
             label: 'New Tracker',
@@ -102,6 +107,10 @@ Widget journalControls(
         containerId: 'importExport',
         appState: appState,
         groupId: 'importExport',
+        handleLongPress: () {
+          // appState.toggleShowPopup(
+          //     label: PopupLabel.editIm, id: groupId);
+        },
         children: [
           // TODO: Don't want this in journal controls. Move somewhere else.
           ListButton(
@@ -181,6 +190,10 @@ List<GroupContainer> dynamicListOfControls(
           groupId: group.groupId,
           appState: appState,
           children: children,
+          handleLongPress: () {
+            appState.toggleShowPopup(
+                label: PopupLabel.editGroup, id: group.groupId);
+          },
         ),
       );
     }

@@ -4,6 +4,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/views/journal/journal_controls.dart';
 
 import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
@@ -35,6 +36,7 @@ class AppState extends ChangeNotifier {
   late CampaignStorage _storage;
   late PopupLabel _popupLabel = PopupLabel.chaos;
   late bool _showPopup = false;
+  late bool _showPopup2 = false;
   late bool _showSettings = false;
   // TODO: Remove _useJournal
   late bool _useJournal = true;
@@ -311,6 +313,12 @@ class AppState extends ChangeNotifier {
     _showPopup = !_showPopup;
     notifyListeners();
   }
+
+//   void toggleShowPopup2({
+//     Widget child
+// }) {
+//
+//   };
 
   void closePopup() {
     if (_showPopup == true) {

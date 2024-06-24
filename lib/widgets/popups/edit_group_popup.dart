@@ -40,8 +40,11 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
           child: Scaffold(
             body: ReorderableListView(
                 children: controls
-                    .map((control) =>
-                        ListTile(title: Text(control), key: Key(control)))
+                    .map((control) => ReorderableItem(
+                          key: Key(control),
+                          id: control,
+                          appState: widget.appState,
+                        ))
                     .toList(),
                 onReorder: (oldIndex, newIndex) {
                   setState(() {
@@ -61,5 +64,23 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
             })
       ],
     );
+  }
+}
+
+class ReorderableItem extends StatelessWidget {
+  const ReorderableItem({
+    super.key,
+    required this.id,
+    required this.appState,
+  });
+
+  final String id;
+  final AppState appState;
+
+  @override
+  Widget build(BuildContext context) {
+    String title;
+
+    return ListTile(title: Text(id));
   }
 }
