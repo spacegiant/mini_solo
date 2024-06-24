@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/widgets/popups/add_group_popup.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
@@ -104,6 +105,15 @@ Widget journalControls(
                   context: context);
             },
             label: 'Add random table',
+          ),
+          ListButton(
+            onPressed: () {
+              toggleShowPopup2(
+                child: AddGroupPopup(appState: appState),
+                context: context,
+              );
+            },
+            label: 'New Group',
           ),
         ]),
 
