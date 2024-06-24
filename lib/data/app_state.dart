@@ -48,7 +48,6 @@ class AppState extends ChangeNotifier {
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
-  String _currentEntryId = '';
 
   // GROUPS
   List<Group> get groupList => _campaignData!.groups;
@@ -250,13 +249,6 @@ class AppState extends ChangeNotifier {
 
   // CURRENT CAMPAIGN
 
-  void setCurrentEntryId(String id) {
-    _currentEntryId = id;
-    // TODO: Does this need notify listeners?
-  }
-
-  get currentEntryId => _currentEntryId;
-
   // CHAOS FACTOR
   void increaseChaosFactor() {
     var cf = chaosFactor;
@@ -312,7 +304,6 @@ class AppState extends ChangeNotifier {
   void closePopup() {
     if (_showPopup == true) {
       _showPopup = false;
-      _currentEntryId = '';
       notifyListeners();
     }
   }
@@ -411,16 +402,15 @@ class AppState extends ChangeNotifier {
   }
 
   void updateNewScene(String id, String newLabel) {
-    int index = _campaignData!.newScene
-        .indexWhere((entry) => entry.id == currentEntryId);
+    int index = _campaignData!.newScene.indexWhere((entry) => entry.id == id);
 
     _campaignData?.newScene[index].label = newLabel;
     saveCampaignDataToDisk();
   }
 
   void deleteNewSceneEntry(String id) {
-    _campaignData!.newScene.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.newScene.removeWhere((entry) => entry.id == id);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -509,8 +499,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteRollEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.rolls.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.rolls.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -528,17 +518,16 @@ class AppState extends ChangeNotifier {
   }
 
   void updateNoteItem(String id, String detail) {
-    int index =
-        _campaignData!.notes.indexWhere((entry) => entry.id == currentEntryId);
+    int index = _campaignData!.notes.indexWhere((entry) => entry.id == id);
 
     _campaignData?.notes[index].detail = detail;
     saveCampaignDataToDisk();
   }
 
-  // TODO: Should/can this use the parameter id instead of currentEntryId directly?
+  // TODO: Should/can this use the parameter id instead of id directly?
   void deleteNoteItem(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.notes.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -556,8 +545,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteOracleEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.oracle.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.oracle.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -574,8 +563,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteMythicEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.mythic.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.mythic.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -653,8 +642,8 @@ class AppState extends ChangeNotifier {
   }
 
   void updateRandomTableResultsEntry(String id, RollTableResult entry) {
-    int index = _campaignData!.rollTableResult
-        .indexWhere((entry) => entry.id == currentEntryId);
+    int index =
+        _campaignData!.rollTableResult.indexWhere((entry) => entry.id == id);
 
     _campaignData?.rollTableResult[index] = entry;
     saveCampaignDataToDisk();

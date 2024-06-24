@@ -66,8 +66,9 @@ class _EditNotePopupState extends State<EditNotePopup> {
                 color: CupertinoColors.systemGreen,
                 onPressed: () {
                   widget.appState.updateNoteItem(widget.id, _controller.text);
-                  widget.appState.setCurrentEntryId('');
-                  widget.appState.closePopup();
+                  // widget.appState.setCurrentEntryId('');
+                  // widget.appState.closePopup();
+                  Navigator.pop(context);
                 },
                 child: const Text('Submit')),
             const Gap(),

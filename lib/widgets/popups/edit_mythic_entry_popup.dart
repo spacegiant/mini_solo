@@ -8,9 +8,11 @@ class EditMythicEntryPopup extends StatefulWidget {
   const EditMythicEntryPopup({
     super.key,
     required this.appState,
+    required this.id,
   });
 
   final AppState appState;
+  final String id;
 
   @override
   State<EditMythicEntryPopup> createState() => _EditMythicEntryPopupState();
@@ -21,8 +23,6 @@ class _EditMythicEntryPopupState extends State<EditMythicEntryPopup> {
   Widget build(
     BuildContext context,
   ) {
-    String currentEntryId = widget.appState.currentEntryId;
-
     return Column(
       children: [
         const Text(kPopupDeleteEntryLabel),
@@ -30,8 +30,8 @@ class _EditMythicEntryPopupState extends State<EditMythicEntryPopup> {
         CupertinoButton(
           color: CupertinoColors.destructiveRed,
           onPressed: () {
-            widget.appState.deleteMythicEntry(currentEntryId);
-            widget.appState.closePopup();
+            widget.appState.deleteMythicEntry(widget.id);
+            Navigator.pop(context);
           },
           child: const Text(kDeleteLabel),
         ),

@@ -159,9 +159,9 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
         CupertinoButton(
             color: kWarningColour,
             onPressed: () {
-              widget.appState
-                  .deleteTrackerEntry(widget.appState.currentEntryId);
-              widget.appState.closePopup();
+              widget.appState.deleteTrackerEntry(widget.id);
+              // widget.appState.closePopup();
+              Navigator.pop(context);
             },
             child: const Text('Delete')),
       ],

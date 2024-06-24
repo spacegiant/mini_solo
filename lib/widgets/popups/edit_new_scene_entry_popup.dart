@@ -37,7 +37,6 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
   Widget build(
     BuildContext context,
   ) {
-    // String currentEntryId = widget.appState.currentEntryId;
     NewSceneEntry entry = widget.appState.campaignData!.newScene
         .firstWhere((entry) => entry.id == widget.id);
 
@@ -60,8 +59,9 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
               color: CupertinoColors.systemGreen,
               onPressed: () {
                 widget.appState.updateNewScene(widget.id, _controller.text);
-                widget.appState.setCurrentEntryId('');
-                widget.appState.closePopup();
+                // widget.appState.setCurrentEntryId('');
+                // widget.appState.closePopup();
+                Navigator.pop(context);
               },
               child: const Text('Submit'),
             ),
