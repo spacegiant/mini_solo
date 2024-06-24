@@ -26,7 +26,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
     String currentEntryId = widget.appState.currentEntryId;
     RandomTableEntry entry = widget.appState.appSettingsData.randomTables
         .firstWhere((entry) => entry.id == currentEntryId);
-    String initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
+    String? initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
 
     String? detail = entry.title;
 

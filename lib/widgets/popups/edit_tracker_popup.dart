@@ -63,7 +63,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
-    String initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
+    String? initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

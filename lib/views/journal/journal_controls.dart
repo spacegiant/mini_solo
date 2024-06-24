@@ -51,7 +51,10 @@ Widget journalControls(
   // TODO test this!
   // check controls all have a group or add to unsorted
   for (final control in controlData) {
-    appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
+    bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
+    if (isInAGroup == false) {
+      appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
+    }
   }
 
   auditGroupItems(appState);

@@ -96,8 +96,8 @@ class AppState extends ChangeNotifier {
     addToGroup(controlId: controlId, groupId: groupId);
   }
 
-  String findCurrentGroupId(String entryId) {
-    String currentGroupId = 'unsorted';
+  String? findCurrentGroupId(String entryId) {
+    String? currentGroupId;
 
     for (var group in _campaignData!.groups) {
       if (group.controls.contains(entryId)) {
