@@ -6,6 +6,8 @@ import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../widgets/list_button.dart';
+import '../../widgets/popups/edit_group_popup.dart';
+import '../../widgets/popups/toggle_show_popup.dart';
 import '../../widgets/view_wrapper.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
@@ -74,7 +76,7 @@ Widget journalControls(
             addResult,
           ),
         ]),
-    ...dynamicListOfControls(appState, controlData),
+    ...dynamicListOfControls(appState, controlData, context),
 
     // TODO: Implement display of groups - sorting, visibility etc
 
@@ -165,6 +167,7 @@ class ControlData {
 List<GroupContainer> dynamicListOfControls(
   AppState appState,
   List<ControlData> listOfControls,
+  BuildContext context,
 ) {
   List<GroupContainer> groupContainers = [];
   List<Group> groupList = appState.groupList;
@@ -191,8 +194,12 @@ List<GroupContainer> dynamicListOfControls(
           appState: appState,
           children: children,
           handleLongPress: () {
-            appState.toggleShowPopup(
-                label: PopupLabel.editGroup, id: group.groupId);
+            toggleShowPopup2(
+                child: EditGroupPopup(
+                  appState: appState,
+                  groupId: group.groupId,
+                ),
+                context: context);
           },
         ),
       );

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
@@ -313,12 +314,6 @@ class AppState extends ChangeNotifier {
     _showPopup = !_showPopup;
     notifyListeners();
   }
-
-//   void toggleShowPopup2({
-//     Widget child
-// }) {
-//
-//   };
 
   void closePopup() {
     if (_showPopup == true) {

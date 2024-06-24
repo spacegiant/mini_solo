@@ -103,7 +103,10 @@ Consumer<Object?> popup(
           popupWidget = AddGroupPopup(appState: appState);
           break;
         case PopupLabel.editGroup:
-          popupWidget = EditGroupPopup(appState: appState);
+          popupWidget = EditGroupPopup(
+            appState: appState,
+            groupId: '',
+          );
           break;
       }
 
