@@ -7,6 +7,7 @@ import 'package:mini_solo/widgets/list_button.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../features/grouping/group.dart';
 import '../journal/journal_controls.dart';
 import 'mythic_chart.dart';
 
@@ -45,14 +46,25 @@ Map<String, Widget> mythicFateChartControls(
         ),
     };
 
-List<ControlData> mythicFateChartControls2 = [
-  for (var row in fateChart)
-    ControlData(
-        controlId: 'control-${row.label}',
-        label: row.label,
-        fateChartRow: row,
-        controlType: ControlTypeEnum.mythicChart)
-];
+List<ControlData> mythicFateChartControls2(AppState appState) {
+  List<FateChartRow> sortedRows = [];
+  Group fateChartGroup = appState.getGroup('group-mythic-fate-chart');
+
+  for (String control in fateChartGroup.controls) {
+    FateChartRow row =
+        fateChart.firstWhere((label) => 'control-${label.label}' == control);
+    sortedRows.add(row);
+  }
+
+  return [
+    for (var row in sortedRows)
+      ControlData(
+          controlId: 'control-${row.label}',
+          label: row.label,
+          fateChartRow: row,
+          controlType: ControlTypeEnum.mythicChart)
+  ];
+}
 
 List<String> mythicFateChartIds = [
   for (var row in fateChart) 'control-${row.label}'

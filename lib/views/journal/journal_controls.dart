@@ -43,7 +43,7 @@ Widget journalControls(
 
   List<ControlData> controlData = [
     ...trackerControlData,
-    ...mythicFateChartControls2,
+    ...mythicFateChartControls2(appState),
     ...mythicGMEControls2,
     ...randomTableControlData,
   ];
