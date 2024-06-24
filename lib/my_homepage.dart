@@ -7,7 +7,6 @@ import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/widgets/chaos_factor_popup.dart';
-import 'package:mini_solo/widgets/popup.dart';
 import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
