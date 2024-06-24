@@ -24,11 +24,13 @@ class EditGroupPopup extends StatefulWidget {
 
 class _EditGroupPopupState extends State<EditGroupPopup> {
   late List<String> controls;
+  late String selectedId;
 
   @override
   void initState() {
     super.initState();
     controls = widget.group.controls;
+    selectedId = '';
   }
 
   @override
@@ -48,6 +50,12 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
                               .firstWhere((controlData) =>
                                   controlData.controlId == control)
                               .label,
+                          selected: selectedId == control,
+                          onTap: () {
+                            setState(() {
+                              selectedId = control;
+                            });
+                          },
                         ))
                     .toList(),
                 onReorder: (oldIndex, newIndex) {
@@ -80,16 +88,27 @@ class ReorderableItem extends StatelessWidget {
     required this.id,
     required this.appState,
     required this.label,
+    this.selected,
+    this.onTap,
   });
 
   final String id;
   final String label;
   final AppState appState;
+  final bool? selected;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     String title;
 
-    return ListTile(title: Text(label));
+    return ListTile(
+      title: Text(label),
+      selected: selected ?? false,
+      onTap: onTap,
+      tileColor: CupertinoColors.systemGrey5,
+      selectedColor: CupertinoColors.black,
+      selectedTileColor: CupertinoColors.systemYellow,
+    );
   }
 }

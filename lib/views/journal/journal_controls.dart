@@ -4,6 +4,7 @@ import 'package:mini_solo/features/grouping/group.dart';
 import 'package:mini_solo/widgets/popups/add_group_popup.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
 
 import '../../data/app_settings_data.dart';
@@ -107,6 +108,10 @@ Widget journalControls(
             label: 'Add random table',
           ),
           ListButton(
+            onLongPress: () {
+              toggleShowPopup2(
+                  child: EditGroupsPopup(appState: appState), context: context);
+            },
             onPressed: () {
               toggleShowPopup2(
                 child: AddGroupPopup(appState: appState),
