@@ -172,7 +172,11 @@ Widget chooseControlWidget({
         },
         onLongPress: () {
           toggleShowPopup2(
-              child: EditRandomTable(appState: appState), context: context);
+              child: EditRandomTable(
+                appState: appState,
+                id: controlData.controlId,
+              ),
+              context: context);
         },
       );
     case ControlTypeEnum.diceGroup:

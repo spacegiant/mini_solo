@@ -7,12 +7,14 @@ import '../../features/grouping/group-picker.dart';
 import '../gap.dart';
 
 class EditRandomTable extends StatefulWidget {
-  final AppState appState;
-
   const EditRandomTable({
     super.key,
     required this.appState,
+    required this.id,
   });
+
+  final AppState appState;
+  final String id;
 
   @override
   State<EditRandomTable> createState() => _EditRandomTableState();
@@ -23,10 +25,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
   @override
   Widget build(BuildContext context) {
-    String currentEntryId = widget.appState.currentEntryId;
     RandomTableEntry entry = widget.appState.appSettingsData.randomTables
-        .firstWhere((entry) => entry.id == currentEntryId);
-    String? initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
+        .firstWhere((entry) => entry.id == widget.id);
+    String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
 
     String? detail = entry.title;
 
@@ -70,14 +71,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   child: const Text('Update'),
                   onPressed: () {
                     widget.appState.moveToGroup(
-                        controlId: currentEntryId, groupId: selectedGroup);
+                        controlId: widget.id, groupId: selectedGroup);
                     widget.appState.closePopup();
                   }),
               CupertinoButton(
                   color: kWarningColour,
                   child: const Text('Delete'),
                   onPressed: () {
-                    widget.appState.deleteRandomTable(currentEntryId);
+                    widget.appState.deleteRandomTable(widget.id);
                     widget.appState.closePopup();
                   }),
               CupertinoButton(
