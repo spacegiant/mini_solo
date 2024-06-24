@@ -75,7 +75,6 @@ class AppState extends ChangeNotifier {
   }
 
   void addToGroup({required String controlId, required String groupId}) {
-    print(groupId);
     Group group = getGroup(groupId);
 
     _campaignData!.groups
@@ -731,10 +730,8 @@ class AppState extends ChangeNotifier {
     bool? isChecked =
         campaignData?.settings.general.hiddenEntryTypes.contains(type);
     if (isChecked == true) {
-      print('remove');
       campaignData?.settings.general.hiddenEntryTypes.remove(type);
     } else {
-      print('add');
       campaignData?.settings.general.hiddenEntryTypes.add(type);
     }
     notifyListeners();
