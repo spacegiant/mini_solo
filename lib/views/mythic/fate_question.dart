@@ -66,6 +66,20 @@ List<ControlData> mythicFateChartControls2(AppState appState) {
   ];
 }
 
+List<ControlData> mythicGMEControls(AppState appState) {
+  List<ControlData> list = [];
+  Group mythicGMEGroup = appState.getGroup('group-mythic-gme');
+
+  for (String label in mythicGMEGroup.controls) {
+    ControlData controlData =
+        mythicGMEControls2.firstWhere((data) => data.controlId == label);
+
+    list.add(controlData);
+  }
+
+  return list;
+}
+
 List<String> mythicFateChartIds = [
   for (var row in fateChart) 'control-${row.label}'
 ];
