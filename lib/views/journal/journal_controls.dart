@@ -73,7 +73,7 @@ Widget journalControls(
             addResult,
           ),
         ]),
-    ...dynamicListOfControls(appState, controlData, appState.groupList),
+    ...dynamicListOfControls(appState, controlData),
 
     // TODO: Implement display of groups - sorting, visibility etc
 
@@ -156,9 +156,9 @@ class ControlData {
 List<GroupContainer> dynamicListOfControls(
   AppState appState,
   List<ControlData> listOfControls,
-  List<Group> groupList,
 ) {
   List<GroupContainer> groupContainers = [];
+  List<Group> groupList = appState.groupList;
 
   for (Group group in groupList) {
     List<Widget> children = [];
@@ -174,13 +174,15 @@ List<GroupContainer> dynamicListOfControls(
     }
 
     if (group.controls.isEmpty == false) {
-      groupContainers.add(GroupContainer(
-        label: group.label,
-        containerId: 'group-container-${group.groupId}',
-        groupId: group.groupId,
-        appState: appState,
-        children: children,
-      ));
+      groupContainers.add(
+        GroupContainer(
+          label: group.label,
+          containerId: 'group-container-${group.groupId}',
+          groupId: group.groupId,
+          appState: appState,
+          children: children,
+        ),
+      );
     }
   }
   return groupContainers;
