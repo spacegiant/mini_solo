@@ -13,9 +13,11 @@ class EditTrackerPopup extends StatefulWidget {
   const EditTrackerPopup({
     super.key,
     required this.appState,
+    required this.id,
   });
 
   final AppState appState;
+  final String id;
 
   @override
   State<EditTrackerPopup> createState() => _EditTrackerPopupState();
@@ -29,9 +31,9 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   late bool showMinValue;
   late bool showCurrentValue;
   late bool showMaxValue;
-  late String currentEntryId = widget.appState.currentEntryId;
+  // late String currentEntryId = widget.appState.currentEntryId;
   late TrackerEntry? currentEntry = widget.appState.campaignData?.tracker
-      .firstWhere((tracker) => tracker.id == currentEntryId);
+      .firstWhere((tracker) => tracker.id == widget.id);
   late TrackerOptions trackerOptions = trackers
       .firstWhere((tracker) => tracker.type == currentEntry?.controlType);
   String selectedGroup = 'unsorted';
@@ -63,7 +65,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
-    String? initialGroup = widget.appState.findCurrentGroupId(currentEntryId);
+    String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -117,8 +119,8 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               int? currentValue;
               int? maxValue;
 
-              widget.appState.moveToGroup(
-                  controlId: currentEntryId, groupId: selectedGroup);
+              widget.appState
+                  .moveToGroup(controlId: widget.id, groupId: selectedGroup);
 
               try {
                 minValue = int.parse(_minValueController.text);
@@ -139,7 +141,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               }
 
               widget.appState.updateTrackerEntry(
-                id: currentEntryId,
+                id: widget.id,
                 label: _trackerNameController.text,
                 minValue: minValue,
                 currentValue: currentValue,

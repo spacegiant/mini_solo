@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/popups/edit_tracker_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_state.dart';
 
@@ -36,7 +38,13 @@ class TrackerContainer extends StatelessWidget {
           },
           onLongPress: () {
             // appState.setCurrentEntryId(id);
-            appState.toggleShowPopup(label: PopupLabel.editTracker, id: id);
+            // appState.toggleShowPopup(label: PopupLabel.editTracker, id: id);
+            toggleShowPopup2(
+                child: EditTrackerPopup(
+                  appState: appState,
+                  id: id,
+                ),
+                context: context);
           },
           child: Container(
             constraints: BoxConstraints(

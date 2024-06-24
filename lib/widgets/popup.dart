@@ -97,7 +97,7 @@ Consumer<Object?> popup(
           break;
         case PopupLabel.editTracker:
           popupHeight = 500.0;
-          popupWidget = EditTrackerPopup(appState: appState);
+          popupWidget = EditTrackerPopup(appState: appState, id: '');
           break;
         case PopupLabel.addGroup:
           popupWidget = AddGroupPopup(appState: appState);
