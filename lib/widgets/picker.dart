@@ -24,7 +24,6 @@ class _PickerState extends State<Picker> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _selectedItemIndex = widget.initialItem;
     _controller = FixedExtentScrollController(initialItem: widget.initialItem);

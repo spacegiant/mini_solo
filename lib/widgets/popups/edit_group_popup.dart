@@ -7,12 +7,12 @@ import '../../features/grouping/group.dart';
 
 class EditGroupPopup extends StatefulWidget {
   final AppState appState;
-  final String groupId;
+  final Group group;
 
   const EditGroupPopup({
     super.key,
     required this.appState,
-    required this.groupId,
+    required this.group,
   });
 
   @override
@@ -20,16 +20,13 @@ class EditGroupPopup extends StatefulWidget {
 }
 
 class _EditGroupPopupState extends State<EditGroupPopup> {
-  List<String> controls = [];
+  late List<String> controls;
   late Group currentGroup;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // String groupId = widget.appState.currentEntryId;
-    currentGroup = widget.appState.getGroup(widget.groupId);
-    controls = currentGroup.controls;
+    controls = widget.group.controls;
   }
 
   @override

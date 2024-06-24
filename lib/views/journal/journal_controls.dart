@@ -201,7 +201,7 @@ List<GroupContainer> dynamicListOfControls(
             toggleShowPopup2(
                 child: EditGroupPopup(
                   appState: appState,
-                  groupId: group.groupId,
+                  group: group,
                 ),
                 context: context);
           },
