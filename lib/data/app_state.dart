@@ -303,18 +303,6 @@ class AppState extends ChangeNotifier {
   // POPUPS
   PopupLabel get popupLabel => _popupLabel;
 
-  void toggleShowPopup({
-    PopupLabel? label,
-    Function()? callback,
-    String? id,
-  }) {
-    if (label != null) _popupLabel = label;
-    if (callback != null) callback();
-    if (id != null) setCurrentEntryId(id);
-    _showPopup = !_showPopup;
-    notifyListeners();
-  }
-
   void closePopup() {
     if (_showPopup == true) {
       _showPopup = false;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_settings_data.dart';
 import '../../../data/app_state.dart';
@@ -26,12 +28,12 @@ class RollTableResultWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        // appState.setCurrentEntryId(entry.id);
-        // FIXME needs wiring up
-        appState.toggleShowPopup(
-          label: PopupLabel.editRollTableResult,
-          id: entry.id,
-        );
+        toggleShowPopup2(
+            child: EditRollTableResultPopup(
+              appState: appState,
+              id: journalEntry.id,
+            ),
+            context: context);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

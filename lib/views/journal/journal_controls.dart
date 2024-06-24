@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
+import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
+import 'package:mini_solo/widgets/popups/import_manager.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -85,20 +88,20 @@ Widget journalControls(
         containerId: 'newItems',
         appState: appState,
         groupId: 'newItems',
-        handleLongPress: () {
-          // appState.toggleShowPopup(
-          //     label: PopupLabel.editN, id: groupId);
-        },
+        handleLongPress: () {},
         children: [
           ListButton(
             label: 'New Tracker',
             onPressed: () {
-              appState.toggleShowPopup(label: PopupLabel.createTracker);
+              toggleShowPopup2(
+                  child: AddTrackerPopup(appState: appState), context: context);
             },
           ),
           ListButton(
             onPressed: () {
-              appState.toggleShowPopup(label: PopupLabel.addRandomTable);
+              toggleShowPopup2(
+                  child: AddRandomTablePopup(appState: appState),
+                  context: context);
             },
             label: 'Add random table',
           ),
@@ -110,15 +113,16 @@ Widget journalControls(
         appState: appState,
         groupId: 'importExport',
         handleLongPress: () {
-          // appState.toggleShowPopup(
-          //     label: PopupLabel.editIm, id: groupId);
+          toggleShowPopup2(
+              child: ImportManager(appState: appState), context: context);
         },
         children: [
           // TODO: Don't want this in journal controls. Move somewhere else.
           ListButton(
               label: 'Import Manager',
               onPressed: () {
-                appState.toggleShowPopup(label: PopupLabel.importManager);
+                toggleShowPopup2(
+                    child: ImportManager(appState: appState), context: context);
               }),
           ListButton(
               label: 'Export Campaign',
@@ -179,8 +183,8 @@ List<GroupContainer> dynamicListOfControls(
       // is it in group list?
       bool isInGroupList = group.controls.contains(control.controlId);
       if (isInGroupList) {
-        Widget controlWidget =
-            chooseControlWidget(controlData: control, appState: appState);
+        Widget controlWidget = chooseControlWidget(
+            controlData: control, appState: appState, context: context);
         children.add(controlWidget);
       }
     }

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -52,6 +55,7 @@ enum ControlTypeEnum {
 Widget chooseControlWidget({
   required ControlData controlData,
   required AppState appState,
+  required BuildContext context,
 }) {
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
@@ -167,11 +171,8 @@ Widget chooseControlWidget({
           }
         },
         onLongPress: () {
-          // appState.setCurrentEntryId(controlData.controlId);
-          appState.toggleShowPopup(
-            label: PopupLabel.editRandomTable,
-            id: controlData.controlId,
-          );
+          toggleShowPopup2(
+              child: EditRandomTable(appState: appState), context: context);
         },
       );
     case ControlTypeEnum.diceGroup:

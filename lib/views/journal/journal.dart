@@ -156,9 +156,6 @@ class _JournalState extends State<Journal> {
               showInput = !showInput;
             });
           },
-          // onLongPress: () {
-          //   appState.toggleShowPopup(PopupLabels.fullJournal);
-          // },
           child: Container(
             height: kForceColumnHeight,
             color: kJournalBackgroundColour,

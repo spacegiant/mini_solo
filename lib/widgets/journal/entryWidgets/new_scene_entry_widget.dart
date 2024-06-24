@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
 
@@ -20,11 +22,12 @@ class NewSceneEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        // appState.setCurrentEntryId(entry.id);
-        appState.toggleShowPopup(
-          label: PopupLabel.editNewSceneEntry,
-          id: entry.id,
-        );
+        toggleShowPopup2(
+            child: EditNewSceneEntryPopup(
+              appState: appState,
+              id: journalEntry.id,
+            ),
+            context: context);
       },
       child: Container(
           color: Colors.black.withOpacity(0.5),

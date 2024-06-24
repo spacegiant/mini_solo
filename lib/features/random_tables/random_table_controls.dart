@@ -1,5 +1,3 @@
-
-
 // class RandomTables extends StatelessWidget {
 //   const RandomTables({
 //     super.key,
@@ -39,10 +37,6 @@
 //         appState.addRandomTableResultsEntry(result!);
 //       },
 //       onLongPress: () {
-//         appState.setCurrentEntryId(table.id);
-//         appState.toggleShowPopup(
-//           label: PopupLabel.editRandomTable,
-//         );
 //       },
 //     );
 //   }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
@@ -67,13 +68,8 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                           });
                         },
                         onLongPress: () {
-                          appState.toggleShowPopup(
-                              label: PopupLabel.editField,
-                              callback: () {
-                                setState(() {
-                                  sex = 'female';
-                                });
-                              });
+                          toggleShowPopup2(
+                              child: Text('EDIT FIELD'), context: context);
                         },
                       ),
                     ),
@@ -85,13 +81,8 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         value: title,
                         onTap: () {},
                         onLongPress: () {
-                          appState.toggleShowPopup(
-                              label: PopupLabel.editField,
-                              callback: () {
-                                setState(() {
-                                  title = 'boop';
-                                });
-                              });
+                          toggleShowPopup2(
+                              child: Text('EDIT FIELD'), context: context);
                         },
                       ),
                     ),
@@ -103,7 +94,8 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                   value: firstName,
                   onTap: () {},
                   onLongPress: () {
-                    appState.toggleShowPopup(label: PopupLabel.editField);
+                    toggleShowPopup2(
+                        child: Text('EDIT FIELD'), context: context);
                   },
                 ),
               ],

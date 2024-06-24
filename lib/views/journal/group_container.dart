@@ -58,8 +58,6 @@ class GroupContainer extends StatelessWidget {
             },
             handleLongPress: () {
               handleLongPress();
-              // appState.toggleShowPopup(
-              //     label: PopupLabel.editGroup, id: groupId);
             },
           ),
           if (isExpanded) WrapManager(wrapControls: false, children: children),

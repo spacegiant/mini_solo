@@ -7,9 +7,11 @@ class EditNotePopup extends StatefulWidget {
   const EditNotePopup({
     super.key,
     required this.appState,
+    required this.id,
   });
 
   final AppState appState;
+  final String id;
 
   @override
   State<EditNotePopup> createState() => _EditNotePopupState();
@@ -33,9 +35,8 @@ class _EditNotePopupState extends State<EditNotePopup> {
 
   @override
   Widget build(BuildContext context) {
-    String currentEntryId = widget.appState.currentEntryId;
     NoteEntryItem entry = widget.appState.campaignData!.notes
-        .firstWhere((entry) => entry.id == currentEntryId);
+        .firstWhere((entry) => entry.id == widget.id);
 
     if (_controller.text == '') {
       setState(() {
@@ -64,8 +65,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
             CupertinoButton(
                 color: CupertinoColors.systemGreen,
                 onPressed: () {
-                  widget.appState
-                      .updateNoteItem(currentEntryId, _controller.text);
+                  widget.appState.updateNoteItem(widget.id, _controller.text);
                   widget.appState.setCurrentEntryId('');
                   widget.appState.closePopup();
                 },
@@ -74,7 +74,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
             CupertinoButton(
               color: CupertinoColors.destructiveRed,
               onPressed: () {
-                widget.appState.deleteNoteItem(currentEntryId);
+                widget.appState.deleteNoteItem(widget.id);
                 widget.appState.closePopup();
               },
               child: const Text('Delete'),

@@ -91,21 +91,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
         ],
       ),
     );
-
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onLongPress: () {
-        // widget.appState.setCurrentEntryId(entry.id);
-        widget.appState.toggleShowPopup(
-          label: PopupLabel.editNote,
-          id: entry.id,
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(detail),
-      ),
-    );
   }
 }
 

@@ -6,7 +6,9 @@ import 'package:mini_solo/utilities/init_form.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/data/app_state.dart';
+import 'package:mini_solo/widgets/chaos_factor_popup.dart';
 import 'package:mini_solo/widgets/popup.dart';
+import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
 import 'package:mini_solo/widgets/popups/import_manager.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 import 'package:provider/provider.dart';
@@ -111,13 +113,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         if (appState.campaignData == null) {
           return Stack(children: [
             welcomeView(),
-            FocusScope(
-              child: SafeArea(
-                  child: popup(
-                context,
-                widget,
-              )),
-            ),
           ]);
         } else if (appState.showSettings == true) {
           return SettingsView(
@@ -139,13 +134,13 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                       appState.toggleShowSettings,
                     ),
                   ),
-                  FocusScope(
-                    child: SafeArea(
-                        child: popup(
-                      context,
-                      widget,
-                    )),
-                  ),
+                  // FocusScope(
+                  //   child: SafeArea(
+                  //       child: popup(
+                  //     context,
+                  //     widget,
+                  //   )),
+                  // ),
                 ],
               );
             },
@@ -169,7 +164,9 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                 CupertinoButton(
                     child: const Text('Import Manager'),
                     onPressed: () {
-                      appState.toggleShowPopup(label: PopupLabel.importManager);
+                      toggleShowPopup2(
+                          child: ImportManager(appState: appState),
+                          context: context);
                     }),
                 InitForm(
                   initCampaignData: initCampaignData,
@@ -248,7 +245,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       leading: homePageChaosFactorButton(appState),
       middle: GestureDetector(
           onTap: () {
-            appState.toggleShowPopup(label: PopupLabel.campaignManager);
+            toggleShowPopup2(
+              child: CampaignManager(
+                  getCampaignList: widget.storage.getCampaignsList,
+                  appState: appState),
+              context: context,
+            );
           },
           child: Text(appState.campaignData!.name)),
       trailing: homePageSettingsButton(toggleSettings),
@@ -268,7 +270,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   CupertinoButton homePageChaosFactorButton(AppState appState) {
     return CupertinoButton(
       onPressed: () {
-        appState.toggleShowPopup(label: PopupLabel.chaos);
+        toggleShowPopup2(child: const ChaosFactorPopup(), context: context);
       },
       padding: const EdgeInsets.all(0.0),
       child: Row(
