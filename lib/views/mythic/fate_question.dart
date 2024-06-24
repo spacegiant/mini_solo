@@ -11,9 +11,9 @@ import '../journal/journal_controls.dart';
 import 'mythic_chart.dart';
 
 class OddsValue {
-  final int? extremeYesValue;
+  final int extremeYesValue;
   final int yesValue;
-  final int? extremeNoValue;
+  final int extremeNoValue;
 
   OddsValue(
     this.extremeYesValue,
@@ -88,9 +88,9 @@ fateChartControlOnPressed(
   OddsValue row = fateChartRow.row[appState.chaosFactor - 1];
   int random = Random().nextInt(100) + 1;
   String answer;
-  if (random > row.extremeNoValue!.toInt()) {
+  if (random > row.extremeNoValue.toInt()) {
     answer = 'EXTREME NO';
-  } else if (random < row.extremeYesValue!.toInt()) {
+  } else if (random < row.extremeYesValue.toInt()) {
     answer = 'EXTREME YES';
   } else if (random <= row.yesValue.toInt()) {
     answer = 'YES';

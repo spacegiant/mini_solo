@@ -48,6 +48,7 @@ Widget journalControls(
     ...randomTableControlData,
   ];
 
+  // TODO test this!
   // check controls all have a group or add to unsorted
   for (final control in controlData) {
     bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
@@ -56,6 +57,8 @@ Widget journalControls(
       appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
     }
   }
+
+  auditGroupItems(appState);
 
   return ViewWrapper(children: [
     // ...diceControls(addResult).values,
@@ -213,4 +216,14 @@ List<GroupContainer> dynamicListOfControls(
     }
   }
   return groupContainers;
+}
+
+void auditGroupItems(AppState appState) {
+  List<String> allGroupedItems = [];
+
+  for (var group in appState.campaignData!.groups) {
+    allGroupedItems.addAll(group.controls);
+  }
+
+  print(allGroupedItems);
 }

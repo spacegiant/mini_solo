@@ -12,9 +12,9 @@ FateChartRow certain = FateChartRow(
     OddsValue(17, 85, 98),
     OddsValue(18, 90, 99),
     OddsValue(19, 95, 100),
-    OddsValue(20, 99, null),
-    OddsValue(20, 99, null),
-    OddsValue(20, 99, null),
+    OddsValue(20, 99, 101),
+    OddsValue(20, 99, 101),
+    OddsValue(20, 99, 101),
   ],
 );
 
@@ -29,8 +29,8 @@ FateChartRow nearlyCertain = FateChartRow(
     OddsValue(17, 85, 98),
     OddsValue(18, 90, 99),
     OddsValue(19, 95, 100),
-    OddsValue(20, 99, null),
-    OddsValue(20, 99, null),
+    OddsValue(20, 99, 101),
+    OddsValue(20, 99, 101),
   ],
 );
 
@@ -46,7 +46,7 @@ FateChartRow veryLikely = FateChartRow(
     OddsValue(17, 85, 98),
     OddsValue(18, 90, 99),
     OddsValue(19, 95, 100),
-    OddsValue(20, 99, null),
+    OddsValue(20, 99, 101),
   ],
 );
 
@@ -102,7 +102,7 @@ FateChartRow veryUnlikely = FateChartRow(
   'Very Unlikely',
   CupertinoColors.systemRed,
   [
-    OddsValue(null, 1, 81),
+    OddsValue(0, 1, 81),
     OddsValue(1, 5, 82),
     OddsValue(2, 10, 83),
     OddsValue(3, 15, 84),
@@ -118,8 +118,8 @@ FateChartRow nearlyImpossible = FateChartRow(
   'Nearly Impossible',
   CupertinoColors.systemRed,
   [
-    OddsValue(null, 1, 81),
-    OddsValue(null, 1, 81),
+    OddsValue(0, 1, 81),
+    OddsValue(0, 1, 81),
     OddsValue(1, 5, 81),
     OddsValue(2, 10, 82),
     OddsValue(3, 15, 83),
@@ -134,9 +134,9 @@ FateChartRow impossible = FateChartRow(
   'Impossible',
   CupertinoColors.systemRed,
   [
-    OddsValue(null, 1, 81),
-    OddsValue(null, 1, 81),
-    OddsValue(null, 1, 81),
+    OddsValue(0, 1, 81),
+    OddsValue(0, 1, 81),
+    OddsValue(0, 1, 81),
     OddsValue(1, 5, 82),
     OddsValue(2, 10, 83),
     OddsValue(3, 15, 84),
