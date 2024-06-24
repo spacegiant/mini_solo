@@ -692,7 +692,7 @@ class NewSceneEntry extends CampaignItem {
 // coverage:ignore-end
 }
 
-List<ControlData> mythicGMEControls2 = [
+List<ControlData> initialMythicGMEControls = [
   ControlData(
       controlId: 'mythic-new-scene',
       label: 'New Scene',
@@ -720,5 +720,5 @@ List<ControlData> mythicGMEControls2 = [
 ];
 
 List<String> initialMythicGMEIds = [
-  for (var control in mythicGMEControls2) control.controlId
+  for (var control in initialMythicGMEControls) control.controlId
 ];

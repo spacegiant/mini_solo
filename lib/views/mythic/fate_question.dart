@@ -72,7 +72,7 @@ List<ControlData> mythicGMEControls(AppState appState) {
 
   for (String label in mythicGMEGroup.controls) {
     ControlData controlData =
-        mythicGMEControls2.firstWhere((data) => data.controlId == label);
+        initialMythicGMEControls.firstWhere((data) => data.controlId == label);
 
     list.add(controlData);
   }
