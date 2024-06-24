@@ -24,7 +24,6 @@ class EditGroupPopup extends StatefulWidget {
 
 class _EditGroupPopupState extends State<EditGroupPopup> {
   late List<String> controls;
-  late Group currentGroup;
 
   @override
   void initState() {
@@ -65,7 +64,10 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
             color: kSubmitColour,
             onPressed: () {
               widget.appState.updateGroupControls(
-                  groupName: currentGroup.groupId, controls: controls);
+                groupName: widget.group.groupId,
+                controls: controls,
+              );
+              Navigator.pop(context);
             })
       ],
     );

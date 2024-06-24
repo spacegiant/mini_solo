@@ -131,9 +131,15 @@ class AppState extends ChangeNotifier {
     required String groupName,
     required List<String> controls,
   }) {
-    campaignData!.groups.firstWhere((group) {
-      return group.groupId == groupName;
-    }).controls = controls;
+    // Group thisGroup = campaignData!.groups.firstWhere((group) {
+    //   return group.groupId == groupName;
+    // });
+    // print(thisGroup.controls);
+    // print(controls);
+    // thisGroup.controls = [];
+    campaignData!.groups
+        .firstWhere((group) => group.groupId == groupName)
+        .controls = controls;
     saveCampaignDataToDisk();
     notifyListeners();
   }

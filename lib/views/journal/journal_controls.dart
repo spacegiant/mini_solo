@@ -179,13 +179,40 @@ List<GroupContainer> dynamicListOfControls(
   for (Group group in groupList) {
     List<Widget> children = [];
 
-    for (ControlData control in listOfControls) {
-      // is it in group list?
-      bool isInGroupList = group.controls.contains(control.controlId);
-      if (isInGroupList) {
-        Widget controlWidget = chooseControlWidget(
-            controlData: control, appState: appState, context: context);
-        children.add(controlWidget);
+    // TODO: Below is code needed to handle ungrouped controls, if ever needed.
+    // List<Widget> ungrouped = [];
+    //
+    // Map<String, String> test = {};
+    //
+    // for (ControlData control in listOfControls) {
+    //   Map<String, String> newItem = {};
+    //   for (String groupControl in group.controls) {
+    //     if (groupControl == control.controlId) {
+    //       newItem = {control.controlId: group.groupId};
+    //     }
+    //   }
+    //   test.addAll(newItem);
+    // }
+    //
+    // Map<String, String> test2 = {};
+    // test.forEach((key, value) {
+    //   if (value == '') {
+    //     test2.addAll({key: value});
+    //   }
+    // });
+
+    for (String groupControl in group.controls) {
+      for (ControlData control in listOfControls) {
+        if (groupControl == control.controlId) {
+          children.add(
+            chooseControlWidget(
+              controlData: control,
+              appState: appState,
+              context: context,
+            ),
+          );
+        }
+        ;
       }
     }
 
