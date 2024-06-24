@@ -33,7 +33,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
   String minValueError = '';
   String currentValueError = '';
   String maxValueError = '';
-  String selectedGroup = 'unsorted';
+  String selectedGroup = 'group-trackers';
 
   late TextEditingController _trackerNameController;
   late TextEditingController _minValueController;

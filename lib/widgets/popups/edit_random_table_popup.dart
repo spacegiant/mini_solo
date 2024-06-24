@@ -79,7 +79,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   child: const Text('Delete'),
                   onPressed: () {
                     widget.appState.deleteRandomTable(widget.id);
-                    widget.appState.closePopup();
+                    Navigator.pop(context);
                   }),
               CupertinoButton(
                   color: CupertinoColors.systemGrey3,
