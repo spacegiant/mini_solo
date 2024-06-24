@@ -202,6 +202,7 @@ List<GroupContainer> dynamicListOfControls(
                 child: EditGroupPopup(
                   appState: appState,
                   group: group,
+                  controlData: listOfControls,
                 ),
                 context: context);
           },

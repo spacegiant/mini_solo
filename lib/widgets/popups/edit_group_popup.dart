@@ -4,15 +4,18 @@ import 'package:mini_solo/constants.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
+import '../../views/journal/journal_controls.dart';
 
 class EditGroupPopup extends StatefulWidget {
   final AppState appState;
   final Group group;
+  final List<ControlData> controlData;
 
   const EditGroupPopup({
     super.key,
     required this.appState,
     required this.group,
+    required this.controlData,
   });
 
   @override
@@ -42,6 +45,10 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
                           key: Key(control),
                           id: control,
                           appState: widget.appState,
+                          label: widget.controlData
+                              .firstWhere((controlData) =>
+                                  controlData.controlId == control)
+                              .label,
                         ))
                     .toList(),
                 onReorder: (oldIndex, newIndex) {
@@ -70,15 +77,17 @@ class ReorderableItem extends StatelessWidget {
     super.key,
     required this.id,
     required this.appState,
+    required this.label,
   });
 
   final String id;
+  final String label;
   final AppState appState;
 
   @override
   Widget build(BuildContext context) {
     String title;
 
-    return ListTile(title: Text(id));
+    return ListTile(title: Text(label));
   }
 }
