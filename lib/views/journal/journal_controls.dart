@@ -88,43 +88,6 @@ Widget journalControls(
         ]),
     ...dynamicListOfControls(appState, controlData, context),
 
-    GroupContainer(
-        label: 'New Item',
-        containerId: 'newItems',
-        appState: appState,
-        groupId: 'newItems',
-        handleLongPress: () {},
-        children: [
-          ListButton(
-            label: 'New Tracker',
-            onPressed: () {
-              toggleShowPopup2(
-                  child: AddTrackerPopup(appState: appState), context: context);
-            },
-          ),
-          ListButton(
-            onPressed: () {
-              toggleShowPopup2(
-                  child: AddRandomTablePopup(appState: appState),
-                  context: context);
-            },
-            label: 'Add random table',
-          ),
-          ListButton(
-            onLongPress: () {
-              toggleShowPopup2(
-                  child: EditGroupsPopup(appState: appState), context: context);
-            },
-            onPressed: () {
-              toggleShowPopup2(
-                child: AddGroupPopup(appState: appState),
-                context: context,
-              );
-            },
-            label: 'New Group',
-          ),
-        ]),
-
     // const MarkdownBlock(
     //   newString: '# hello\n*hello* hello\n- hello',
     // ),
