@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
@@ -33,44 +34,53 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     selectedId = '';
   }
 
+  void handleTap(String id) {
+    setState(() {
+      selectedId = id;
+    });
+  }
+
+  void handleOnReorder(int oldIndex, int newIndex, List<dynamic> controls) {
+    setState(() {
+      if (oldIndex < newIndex) newIndex -= 1;
+      final String itemToRemove = controls.removeAt(oldIndex);
+      controls.insert(newIndex, itemToRemove);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = controls
+        .map((control) => ReorderableItem(
+            key: Key(control),
+            id: control,
+            appState: widget.appState,
+            label: widget.controlData
+                .firstWhere((controlData) => controlData.controlId == control)
+                .label,
+            selected: selectedId == control,
+            onTap: () {
+              handleTap(control);
+            }))
+        .toList();
+
     return Flexible(
       child: Column(
         children: [
           ConstrainedBox(
             // height: 300.0,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxHeight: 600.0,
               minHeight: 200.0,
             ),
             child: Scaffold(
-              body: ReorderableListView(
-                  children: controls
-                      .map((control) => ReorderableItem(
-                            key: Key(control),
-                            id: control,
-                            appState: widget.appState,
-                            label: widget.controlData
-                                .firstWhere((controlData) =>
-                                    controlData.controlId == control)
-                                .label,
-                            selected: selectedId == control,
-                            onTap: () {
-                              setState(() {
-                                selectedId = control;
-                              });
-                            },
-                          ))
-                      .toList(),
-                  onReorder: (oldIndex, newIndex) {
-                    setState(() {
-                      if (oldIndex < newIndex) newIndex -= 1;
-                      final String itemToRemove = controls.removeAt(oldIndex);
-                      controls.insert(newIndex, itemToRemove);
-                    });
-                  }),
-            ),
+                body: MyReorderableListView(
+              itemList: controls,
+              appState: widget.appState,
+              selectedId: selectedId,
+              onReorder: handleOnReorder,
+              children: children,
+            )),
           ),
           CupertinoButton(
               child: Text('Update'),

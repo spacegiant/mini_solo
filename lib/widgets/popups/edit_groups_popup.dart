@@ -33,7 +33,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
     });
   }
 
-  void handleOnReorder(int oldIndex, int newIndex, List<Group> groups) {
+  void handleOnReorder(int oldIndex, int newIndex, List<dynamic> groups) {
     setState(() {
       if (oldIndex < newIndex) newIndex -= 1;
       final Group itemToRemove = groups.removeAt(oldIndex);
@@ -45,17 +45,33 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
   Widget build(BuildContext context) {
     List<Group> groups = widget.appState.groupList;
 
+    List<Widget> children = groups
+        .map((group) => ReorderableItem(
+              key: Key(group.groupId),
+              id: group.groupId,
+              appState: widget.appState,
+              label: group.label,
+              selected: selectedId == group.groupId,
+              onTap: () {
+                handleTap(group.groupId);
+              },
+            ))
+        .toList();
+
     return Column(
       children: [
-        Container(
-          height: 200.0,
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxHeight: 600.0,
+            minHeight: 200.0,
+          ),
           child: Scaffold(
             body: MyReorderableListView(
-              groups: groups,
-              widget: widget,
+              itemList: groups,
+              appState: widget.appState,
               selectedId: selectedId,
-              onTap: handleTap,
               onReorder: handleOnReorder,
+              children: children,
             ),
           ),
         ),
@@ -77,37 +93,26 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
 class MyReorderableListView extends StatelessWidget {
   const MyReorderableListView({
     super.key,
-    required this.groups,
-    required this.widget,
+    required this.itemList,
+    required this.appState,
     required this.selectedId,
-    required this.onTap,
     required this.onReorder,
+    required this.children,
   });
 
-  final List<Group> groups;
-  final EditGroupsPopup widget;
+  final List<dynamic> itemList;
+  final AppState appState;
   final String selectedId;
-  final void Function(String) onTap;
-  final void Function(int, int, List<Group>) onReorder;
+  final void Function(int, int, List<dynamic>) onReorder;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     return ReorderableListView(
       padding: const EdgeInsets.all(8.0),
-      children: groups
-          .map((group) => ReorderableItem(
-                key: Key(group.groupId),
-                id: group.groupId,
-                appState: widget.appState,
-                label: group.label,
-                selected: selectedId == group.groupId,
-                onTap: () {
-                  onTap(group.groupId);
-                },
-              ))
-          .toList(),
+      children: children,
       onReorder: (oldIndex, newIndex) {
-        onReorder(oldIndex, newIndex, groups);
+        onReorder(oldIndex, newIndex, itemList);
       },
     );
   }
