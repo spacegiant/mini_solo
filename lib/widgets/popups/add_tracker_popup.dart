@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
@@ -79,6 +80,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
 
     List<Widget> controls = [];
 
+    // ADD NUMERIC TRACKERS
     for (var tracker in trackers) {
       controls.add(
         trackerOptionButton(
@@ -89,6 +91,19 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
             onSelect: handleSelection),
       );
     }
+
+    // ADD OTHER TRACKERS
+    controls.add(
+      trackerOptionButton(
+        label: 'Stat Block',
+        images: [SVGIcon.value_tracker],
+        id: 'StatBlock',
+        selectedId: selectedTrackerType,
+        onSelect: (value) {
+          print(value);
+        },
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -108,17 +123,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
             },
           ),
           const Gap(),
-          RangeValuesForm(
-            minValueActive: minValueActive,
-            currentValueActive: currentValueActive,
-            maxValueActive: maxValueActive,
-            minValueController: _minValueController,
-            currentValueController: _currentValueController,
-            maxValueController: _maxValueController,
-            setMinValueText: setMinValueText,
-            setCurrentValueText: setCurrentValueText,
-            setMaxValueText: setMaxValueText,
-          ),
+
           const Divider(),
           const Gap(),
           const Center(child: Text('Select Tracker Type')),
@@ -133,6 +138,24 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
               ),
             ),
           ),
+          const Divider(),
+          // TODO: ONLY SHOW FOR SPECIFIC TRACKERS
+
+          SizedBox(
+            height: 100.0,
+            child: RangeValuesForm(
+              minValueActive: minValueActive,
+              currentValueActive: currentValueActive,
+              maxValueActive: maxValueActive,
+              minValueController: _minValueController,
+              currentValueController: _currentValueController,
+              maxValueController: _maxValueController,
+              setMinValueText: setMinValueText,
+              setCurrentValueText: setCurrentValueText,
+              setMaxValueText: setMaxValueText,
+            ),
+          ),
+          CupertinoTextField(),
           const Divider(),
           GroupPicker(
               appState: widget.appState,

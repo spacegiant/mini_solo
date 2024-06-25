@@ -28,7 +28,6 @@ List<Widget> getEntries(
 
   for (var element in journalItems) {
     if (hiddenEntryTypes!.contains(element.type)) {
-      print(element.type);
       continue;
     }
 

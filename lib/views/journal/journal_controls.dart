@@ -55,11 +55,6 @@ Widget journalControls(
     ...initialNewItemControls,
   ];
 
-  // GET GROUPS IN ORDER
-  for (var group in appState.groupList) {
-    print(group.label);
-  }
-
   // TODO test this!
   // check controls all have a group or add to unsorted
   for (final control in controlData) {
