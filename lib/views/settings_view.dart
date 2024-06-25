@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:mini_solo/views/settings/dev_settings.dart';
 import 'package:mini_solo/views/settings/dice_settings.dart';
 import 'package:mini_solo/views/settings/general_settings.dart';
 import 'package:mini_solo/views/settings/theme_settings.dart';
 import 'package:provider/provider.dart';
 
+import '../data/app_settings_data.dart';
 import '../data/app_state.dart';
+import '../data/campaign_data.dart';
 import '../widgets/gap.dart';
+import '../widgets/popups/import_manager.dart';
+import '../widgets/popups/toggle_show_popup.dart';
 
 enum Category { general, campaign, tools }
 
@@ -21,10 +26,12 @@ class SettingsView extends StatefulWidget {
     super.key,
     required this.title,
     required this.closeSettings,
+    required this.appState,
   });
 
   final String title;
   final VoidCallback closeSettings;
+  final AppState appState;
 
   @override
   State<SettingsView> createState() => _SettingsViewState();
@@ -186,32 +193,64 @@ class CampaignSettings extends StatefulWidget {
 }
 
 class _CampaignSettingsState extends State<CampaignSettings> {
+  // return Consumer<AppState>(
+  // builder: (BuildContext context, appState, Widget? child) {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // TODO:
-          const Text('dropdown goes here - select current campaign'),
-          SettingsOption(
-            isActive: true,
-            label: 'Copy to clipboard automatically',
-            onChanged: (isChecked) {},
+    return Consumer(
+      builder: (BuildContext context, AppState appState, Widget? child) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // TODO:
+              const Text('dropdown goes here - select current campaign'),
+              SettingsOption(
+                isActive: true,
+                label: 'Copy to clipboard automatically',
+                onChanged: (isChecked) {},
+              ),
+              CupertinoButton(
+                  child: const Text('Export Campaign to Clipboard'),
+                  onPressed: () {
+                    // TODO
+                  }),
+              CupertinoButton(
+                  child: const Text('Export App Settings to Clipboard'),
+                  onPressed: () {
+                    // TODO
+                  }),
+
+              CupertinoButton(
+                  child: const Text('Import Manager'),
+                  onPressed: () {
+                    toggleShowPopup2(
+                        child: ImportManager(appState: appState),
+                        context: context);
+                  }),
+              CupertinoButton(
+                  child: const Text('Export Campaign'),
+                  onPressed: () async {
+                    CampaignData? campaignData = appState.campaignData;
+                    String jsonString =
+                        appState.storage.getCampaignJSON(campaignData!);
+                    await Clipboard.setData(ClipboardData(text: jsonString));
+                    // copied successfully
+                  }),
+              CupertinoButton(
+                  child: const Text('Export AppSettings'),
+                  onPressed: () async {
+                    AppSettingsData? appSettingsData = appState.appSettingsData;
+                    String jsonString =
+                        appState.storage.appSettingsToJSON(appSettingsData);
+                    await Clipboard.setData(ClipboardData(text: jsonString));
+                    // copied successfully
+                  }),
+            ],
           ),
-          CupertinoButton(
-              child: const Text('Export Campaign to Clipboard'),
-              onPressed: () {
-                // TODO
-              }),
-          CupertinoButton(
-              child: const Text('Export App Settings to Clipboard'),
-              onPressed: () {
-                // TODO
-              }),
-        ],
-      ),
+        );
+      },
     );
   }
 }

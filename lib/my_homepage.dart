@@ -117,6 +117,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           return SettingsView(
             title: widget.title,
             closeSettings: appState.toggleShowSettings,
+            appState: appState,
           );
         } else {
           return Consumer<AppState>(

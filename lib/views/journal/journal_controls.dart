@@ -83,8 +83,6 @@ Widget journalControls(
         ]),
     ...dynamicListOfControls(appState, controlData, context),
 
-    // TODO: Implement display of groups - sorting, visibility etc
-
     GroupContainer(
         label: 'New Item',
         containerId: 'newItems',
