@@ -120,10 +120,15 @@ class MyReorderableItem extends StatelessWidget {
 
     return ListTile(
       title: Text(label),
+      trailing: const Icon(
+        CupertinoIcons.line_horizontal_3,
+        size: 20.0,
+        color: CupertinoColors.systemGrey,
+      ),
       selected: selected ?? false,
       onTap: onTap,
-      tileColor: CupertinoColors.systemGrey5,
-      selectedColor: CupertinoColors.black,
+      // tileColor: CupertinoColors.systemGrey5,
+      // selectedColor: CupertinoColors.black,
       selectedTileColor: CupertinoColors.systemYellow,
     );
   }
