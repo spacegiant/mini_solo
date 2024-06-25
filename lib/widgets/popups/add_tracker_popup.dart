@@ -10,6 +10,8 @@ import 'package:mini_solo/widgets/range_values_form.dart';
 import '../../data/campaign_data.dart';
 import '../../features/trackers/tracker_options.dart';
 import '../../svg_icon.dart';
+import '../../utilities/string/manage_value.dart';
+import '../../utilities/string/parse_string.dart';
 import '../gap.dart';
 import '../trackers/trackerOptionButton.dart';
 
@@ -156,7 +158,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
               setMaxValueText: setMaxValueText,
             ),
           ),
-          CupertinoTextField(),
+          const CupertinoTextField(),
           const Divider(),
           GroupPicker(
               appState: widget.appState,
@@ -233,25 +235,5 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
     widget.appState.addTrackerEntry(entry);
     widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
     widget.appState.closePopup();
-  }
-
-  String manageValue(int? value) {
-    if (value != null) {
-      return value.toString();
-    } else {
-      return '';
-    }
-  }
-
-  int parseString(String text) {
-    try {
-      int value = int.parse(text);
-      return value;
-    } catch (e) {
-      if (kDebugMode) {
-        print('parseString() failed. $e');
-      }
-      return 0;
-    }
   }
 }
