@@ -30,11 +30,24 @@ List<ControlData> getControlData(AppState appState) {
     );
   }
 
-  return [
+  List<ControlData> controlData = [
     ...trackersData,
     ...mythicFateChartControls2(appState),
     ...mythicGMEControls(appState),
     ...randomTableControlData,
     ...initialNewItemControls,
   ];
+
+  // TODO test this!
+  // TODO when should this run?
+  // TODO is this needed?
+  // check controls all have a group or add to unsorted
+  for (final control in controlData) {
+    bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
+    if (isInAGroup == false) {
+      appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
+    }
+  }
+
+  return controlData;
 }
