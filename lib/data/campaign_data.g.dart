@@ -679,6 +679,9 @@ const _$ControlTypeEnumEnumMap = {
   ControlTypeEnum.value: 'value',
   ControlTypeEnum.counter: 'counter',
   ControlTypeEnum.fate_aspect: 'fate_aspect',
+  ControlTypeEnum.newTracker: 'newTracker',
+  ControlTypeEnum.newRandomTable: 'newRandomTable',
+  ControlTypeEnum.newGroup: 'newGroup',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>

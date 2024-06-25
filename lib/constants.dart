@@ -3,6 +3,7 @@ import 'dart:ui';
 const kAppSettingsFileName = 'appSettings';
 
 // COLOURS
+const kButtonColour = Color(0xFF42A5F5);
 const kJournalBackgroundColour = Color(0xFFDFD6DA);
 const kBackdropFilterColour = Color(0x66000000);
 const kSubmitColour = Color(0xFF75B160);

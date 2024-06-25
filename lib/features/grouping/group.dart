@@ -1,3 +1,4 @@
+import 'dart:ui';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,7 +14,7 @@ class Group {
   bool? isExpanded = true; // true
   bool? isActive = true; // true
   bool? isAppGroup = false; // Can't be deleted
-  // Color? colour; // default
+  int? colour; // default
   List<String>?
       presetOrder; // used for Mythic Fate Chart. Can't reorder if exists.
   SortBy? sortBy = SortBy.aToZ;
@@ -24,7 +25,7 @@ class Group {
     required this.controls,
     this.isExpanded,
     this.isAppGroup,
-    // this.colour,
+    this.colour,
     this.presetOrder,
     this.sortBy,
   });
