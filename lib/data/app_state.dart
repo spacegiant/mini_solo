@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
+import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/views/journal/journal_controls.dart';
 
 import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
@@ -25,6 +28,8 @@ enum PopupLabel {
   importManager,
   createTracker,
   editTracker,
+  addGroup,
+  editGroup,
 }
 
 class AppState extends ChangeNotifier {
@@ -32,6 +37,7 @@ class AppState extends ChangeNotifier {
   late CampaignStorage _storage;
   late PopupLabel _popupLabel = PopupLabel.chaos;
   late bool _showPopup = false;
+  late bool _showPopup2 = false;
   late bool _showSettings = false;
   // TODO: Remove _useJournal
   late bool _useJournal = true;
@@ -42,7 +48,121 @@ class AppState extends ChangeNotifier {
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
-  String _currentEntryId = '';
+
+  // GROUPS
+  List<Group> get groupList => _campaignData!.groups;
+
+  bool groupExists(String groupName) {
+    int index = _campaignData!.groups.indexWhere((group) {
+      return group.label == groupName;
+    });
+    return index > -1;
+  }
+
+  Group getGroup(String groupName) {
+    return campaignData!.groups.firstWhere((group) {
+      return group.groupId == groupName;
+    });
+  }
+
+  String? createNewGroup(Group group) {
+    if (groupExists(group.label)) {
+      return 'Already a group';
+    } else {
+      _campaignData!.groups.add(group);
+      saveCampaignDataToDisk();
+      // return null;
+    }
+    return null;
+  }
+
+  void addToGroup({required String controlId, required String groupId}) {
+    Group group = getGroup(groupId);
+
+    _campaignData!.groups
+        .firstWhere((group) => group.groupId == groupId)
+        .controls
+        .add(controlId);
+  }
+
+  void removeFromAllGroups({
+    required String controlId,
+  }) {
+    _campaignData?.groups.forEach((group) {
+      group.controls.remove(controlId);
+    });
+  }
+
+  void moveToGroup({required String controlId, required String groupId}) {
+    removeFromAllGroups(controlId: controlId);
+    addToGroup(controlId: controlId, groupId: groupId);
+  }
+
+  String? findCurrentGroupId(String entryId) {
+    String? currentGroupId;
+
+    for (var group in _campaignData!.groups) {
+      if (group.controls.contains(entryId)) {
+        currentGroupId = group.groupId;
+      }
+    }
+
+    return currentGroupId;
+  }
+
+  void deleteGroup(String groupName) {
+    // _appSettingsData.groups.remove(groupName);
+  }
+
+  void renameGroup(String groupName, String newGroupName) {
+    // Add the newGroupName
+    // Update all the place that have the old name to new name
+    // Delete the old name
+  }
+
+  void moveGroup(String groupName, String? beforeGroupName) {
+    // Find beforeGroupName
+    // (if beforeGroupName is not null) Move groupName before beforeGroupName
+    // (if beforeGroupName is null) move to end
+  }
+
+  void updateGroupControls({
+    required String groupName,
+    required List<String> controls,
+  }) {
+    // Group thisGroup = campaignData!.groups.firstWhere((group) {
+    //   return group.groupId == groupName;
+    // });
+    // print(thisGroup.controls);
+    // print(controls);
+    // thisGroup.controls = [];
+    campaignData!.groups
+        .firstWhere((group) => group.groupId == groupName)
+        .controls = controls;
+    saveCampaignDataToDisk();
+    notifyListeners();
+  }
+
+  void updateGroups({required List<Group> groups}) {
+    campaignData!.groups = groups;
+    saveCampaignDataToDisk();
+    notifyListeners();
+  }
+
+  // EXPANDED LIST
+  List<String> get expandedList => _appSettingsData.expandedList;
+
+  void toggleExpanded(String label) {
+    _appSettingsData.expandedList.contains(label)
+        ? _appSettingsData.expandedList.remove(label)
+        : _appSettingsData.expandedList.add(label);
+    saveAppSettingsDataToDisk();
+    notifyListeners();
+  }
+
+  bool isExpanded(String label) {
+    return !_appSettingsData.expandedList.contains(label);
+  }
 
   // CAMPAIGN STORAGE
   void setCampaignStorage(CampaignStorage storage) {
@@ -104,7 +224,7 @@ class AppState extends ChangeNotifier {
 
   void setCampaignData(CampaignData data) {
     _campaignData = data;
-    saveCampaignDataToDisk(data.name);
+    saveCampaignDataToDisk(data.filename);
     notifyListeners();
   }
 
@@ -134,13 +254,6 @@ class AppState extends ChangeNotifier {
   get deleteCampaign => _deleteCampaignCallback;
 
   // CURRENT CAMPAIGN
-
-  void setCurrentEntryId(String id) {
-    _currentEntryId = id;
-    // TODO: Does this need notify listeners?
-  }
-
-  get currentEntryId => _currentEntryId;
 
   // CHAOS FACTOR
   void increaseChaosFactor() {
@@ -194,21 +307,9 @@ class AppState extends ChangeNotifier {
   // POPUPS
   PopupLabel get popupLabel => _popupLabel;
 
-  void toggleShowPopup({
-    PopupLabel? label,
-    Function()? callback,
-    String? id,
-  }) {
-    if (label != null) _popupLabel = label;
-    if (callback != null) callback();
-    _showPopup = !_showPopup;
-    notifyListeners();
-  }
-
   void closePopup() {
     if (_showPopup == true) {
       _showPopup = false;
-      _currentEntryId = '';
       notifyListeners();
     }
   }
@@ -307,16 +408,15 @@ class AppState extends ChangeNotifier {
   }
 
   void updateNewScene(String id, String newLabel) {
-    int index = _campaignData!.newScene
-        .indexWhere((entry) => entry.id == currentEntryId);
+    int index = _campaignData!.newScene.indexWhere((entry) => entry.id == id);
 
     _campaignData?.newScene[index].label = newLabel;
     saveCampaignDataToDisk();
   }
 
   void deleteNewSceneEntry(String id) {
-    _campaignData!.newScene.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.newScene.removeWhere((entry) => entry.id == id);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -405,8 +505,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteRollEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.rolls.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.rolls.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -424,17 +524,16 @@ class AppState extends ChangeNotifier {
   }
 
   void updateNoteItem(String id, String detail) {
-    int index =
-        _campaignData!.notes.indexWhere((entry) => entry.id == currentEntryId);
+    int index = _campaignData!.notes.indexWhere((entry) => entry.id == id);
 
     _campaignData?.notes[index].detail = detail;
     saveCampaignDataToDisk();
   }
 
-  // TODO: Should/can this use the parameter id instead of currentEntryId directly?
+  // TODO: Should/can this use the parameter id instead of id directly?
   void deleteNoteItem(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.notes.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.notes.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -452,8 +551,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteOracleEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.oracle.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.oracle.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -470,8 +569,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteMythicEntry(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == currentEntryId);
-    _campaignData!.mythic.removeWhere((entry) => entry.id == currentEntryId);
+    _campaignData!.journal.removeWhere((entry) => entry.id == id);
+    _campaignData!.mythic.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -523,7 +622,6 @@ class AppState extends ChangeNotifier {
   //   RANDOM TABLES
   void addRandomTable(RandomTableEntry entry) {
     _appSettingsData.randomTables.add(entry);
-    appSettingsSaveCallback!(_appSettingsData);
     notifyListeners();
   }
 
@@ -531,8 +629,9 @@ class AppState extends ChangeNotifier {
 
   void deleteRandomTable(String id) {
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
-    // saveCampaignDataToDisk();
-    appSettingsSaveCallback!(_appSettingsData);
+    //TODO delete from all group collections
+    removeFromAllGroups(controlId: id);
+    saveCampaignDataToDisk();
     notifyListeners();
   }
 
@@ -549,8 +648,8 @@ class AppState extends ChangeNotifier {
   }
 
   void updateRandomTableResultsEntry(String id, RollTableResult entry) {
-    int index = _campaignData!.rollTableResult
-        .indexWhere((entry) => entry.id == currentEntryId);
+    int index =
+        _campaignData!.rollTableResult.indexWhere((entry) => entry.id == id);
 
     _campaignData?.rollTableResult[index] = entry;
     saveCampaignDataToDisk();
@@ -567,12 +666,12 @@ class AppState extends ChangeNotifier {
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
     TrackerOptions trackerData =
-        trackers.firstWhere((tracker) => tracker.type == entry.trackerType);
+        trackers.firstWhere((tracker) => tracker.type == entry.controlType);
 
     // Tracker and journal entry do not need to be linked - just add note
     NoteEntryItem note = NoteEntryItem(
       isFavourite: false,
-      detail: 'New ${trackerData.label} tracker create \'${entry.label} \'',
+      detail: 'New ${trackerData.label} tracker created: \'${entry.label} \'',
     );
 
     _campaignData?.notes.add(note);
@@ -606,8 +705,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    // _campaignData!.journal.removeWhere((entry) => entry.id == id);
     _campaignData!.tracker.removeWhere((entry) => entry.id == id);
+    removeFromAllGroups(controlId: id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -623,10 +722,8 @@ class AppState extends ChangeNotifier {
     bool? isChecked =
         campaignData?.settings.general.hiddenEntryTypes.contains(type);
     if (isChecked == true) {
-      print('remove');
       campaignData?.settings.general.hiddenEntryTypes.remove(type);
     } else {
-      print('add');
       campaignData?.settings.general.hiddenEntryTypes.add(type);
     }
     notifyListeners();

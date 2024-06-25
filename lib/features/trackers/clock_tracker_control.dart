@@ -49,9 +49,9 @@ class ClockWidget extends StatelessWidget {
 
     var iconList = fourSegment;
 
-    if (entry.trackerType == TrackerTypes.clock6) {
+    if (entry.controlType == ControlTypes.clock6) {
       iconList = sixSegment;
-    } else if (entry.trackerType == TrackerTypes.clock8) {
+    } else if (entry.controlType == ControlTypes.clock8) {
       iconList = eightSegment;
     }
 

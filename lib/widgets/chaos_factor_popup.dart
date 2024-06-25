@@ -61,7 +61,9 @@ class ChaosFactorPopup extends StatelessWidget {
           ListButton(
             label: kPopupCloseButtonLabel,
             labelAlignment: Alignment.center,
-            onPressed: () => appState.toggleShowPopup(label: null),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ],
       ),

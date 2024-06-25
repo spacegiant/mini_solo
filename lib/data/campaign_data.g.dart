@@ -141,6 +141,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       newScene: (json['newScene'] as List<dynamic>)
           .map((e) => NewSceneEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
+      groups: (json['groups'] as List<dynamic>)
+          .map((e) => Group.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
@@ -166,6 +169,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
           instance.rollTableResult.map((e) => e.toJson()).toList(),
       'tracker': instance.tracker.map((e) => e.toJson()).toList(),
       'newScene': instance.newScene.map((e) => e.toJson()).toList(),
+      'groups': instance.groups.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -632,7 +636,7 @@ TrackerEntry _$TrackerEntryFromJson(Map<String, dynamic> json) => TrackerEntry(
       currentValue: (json['currentValue'] as num).toInt(),
       minValue: (json['minValue'] as num?)?.toInt(),
       maxValue: (json['maxValue'] as num?)?.toInt(),
-      trackerType: $enumDecode(_$TrackerTypesEnumMap, json['trackerType']),
+      controlType: $enumDecode(_$ControlTypeEnumEnumMap, json['controlType']),
     )
       ..isFavourite = json['isFavourite'] as bool?
       ..id = json['id'] as String
@@ -646,24 +650,38 @@ Map<String, dynamic> _$TrackerEntryToJson(TrackerEntry instance) =>
       'currentValue': instance.currentValue,
       'minValue': instance.minValue,
       'maxValue': instance.maxValue,
-      'trackerType': _$TrackerTypesEnumMap[instance.trackerType]!,
+      'controlType': _$ControlTypeEnumEnumMap[instance.controlType]!,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
-const _$TrackerTypesEnumMap = {
-  TrackerTypes.clock4: 'clock4',
-  TrackerTypes.clock6: 'clock6',
-  TrackerTypes.clock8: 'clock8',
-  TrackerTypes.bar: 'bar',
-  TrackerTypes.ironsworn1Troublesome: 'ironsworn1Troublesome',
-  TrackerTypes.ironsworn2Dangerous: 'ironsworn2Dangerous',
-  TrackerTypes.ironsworn3Formidable: 'ironsworn3Formidable',
-  TrackerTypes.ironsworn4Extreme: 'ironsworn4Extreme',
-  TrackerTypes.ironsworn5Epic: 'ironsworn5Epic',
-  TrackerTypes.pips: 'pips',
-  TrackerTypes.value: 'value',
-  TrackerTypes.counter: 'counter',
-  TrackerTypes.fate_aspect: 'fate_aspect',
+const _$ControlTypeEnumEnumMap = {
+  ControlTypeEnum.button: 'button',
+  ControlTypeEnum.dice: 'dice',
+  ControlTypeEnum.diceGroup: 'diceGroup',
+  ControlTypeEnum.mythicChart: 'mythicChart',
+  ControlTypeEnum.newScene: 'newScene',
+  ControlTypeEnum.mythicExpectedScene: 'mythicExpectedScene',
+  ControlTypeEnum.mythicAction: 'mythicAction',
+  ControlTypeEnum.mythicDescription: 'mythicDescription',
+  ControlTypeEnum.mythicEventFocus: 'mythicEventFocus',
+  ControlTypeEnum.mythicPlotTwist: 'mythicPlotTwist',
+  ControlTypeEnum.randomTable: 'randomTable',
+  ControlTypeEnum.clock4: 'clock4',
+  ControlTypeEnum.clock6: 'clock6',
+  ControlTypeEnum.clock8: 'clock8',
+  ControlTypeEnum.bar: 'bar',
+  ControlTypeEnum.ironsworn1Troublesome: 'ironsworn1Troublesome',
+  ControlTypeEnum.ironsworn2Dangerous: 'ironsworn2Dangerous',
+  ControlTypeEnum.ironsworn3Formidable: 'ironsworn3Formidable',
+  ControlTypeEnum.ironsworn4Extreme: 'ironsworn4Extreme',
+  ControlTypeEnum.ironsworn5Epic: 'ironsworn5Epic',
+  ControlTypeEnum.pips: 'pips',
+  ControlTypeEnum.value: 'value',
+  ControlTypeEnum.counter: 'counter',
+  ControlTypeEnum.fate_aspect: 'fate_aspect',
+  ControlTypeEnum.newTracker: 'newTracker',
+  ControlTypeEnum.newRandomTable: 'newRandomTable',
+  ControlTypeEnum.newGroup: 'newGroup',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>

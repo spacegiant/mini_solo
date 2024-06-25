@@ -27,7 +27,10 @@ class ScratchPicker extends StatelessWidget {
         )
         .toList();
 
-    return Flexible(
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: 300.0,
+      ),
       child: ListView(
         children: scratchListData,
       ),

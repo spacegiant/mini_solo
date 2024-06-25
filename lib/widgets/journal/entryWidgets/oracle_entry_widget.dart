@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
@@ -24,10 +26,12 @@ class OracleEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
-        appState.toggleShowPopup(
-          label: PopupLabel.editOracleEntry,
-        );
+        toggleShowPopup2(
+            child: EditOracleEntryPopup(
+              appState: appState,
+              id: journalEntry.id,
+            ),
+            context: context);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

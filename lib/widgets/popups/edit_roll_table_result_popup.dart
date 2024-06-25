@@ -8,9 +8,11 @@ class EditRollTableResultPopup extends StatefulWidget {
   const EditRollTableResultPopup({
     super.key,
     required this.appState,
+    required this.id,
   });
 
   final AppState appState;
+  final String id;
 
   @override
   State<EditRollTableResultPopup> createState() => _EditMythicEntryPopupState();
@@ -21,8 +23,6 @@ class _EditMythicEntryPopupState extends State<EditRollTableResultPopup> {
   Widget build(
     BuildContext context,
   ) {
-    String currentEntryId = widget.appState.currentEntryId;
-
     return Column(
       children: [
         const Text(kPopupDeleteEntryLabel),
@@ -30,7 +30,7 @@ class _EditMythicEntryPopupState extends State<EditRollTableResultPopup> {
         CupertinoButton(
           color: CupertinoColors.destructiveRed,
           onPressed: () {
-            widget.appState.deleteRandomTableResultsEntry(currentEntryId);
+            widget.appState.deleteRandomTableResultsEntry(widget.id);
             widget.appState.closePopup();
           },
           child: const Text(kDeleteLabel),

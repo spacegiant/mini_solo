@@ -7,24 +7,37 @@ class JournalSubheading extends StatelessWidget {
   const JournalSubheading({
     super.key,
     required this.label,
+    this.handlePress,
+    this.handleLongPress,
   });
+
+  final void Function()? handlePress;
+  final void Function()? handleLongPress;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Divider(),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12.0,
+    return GestureDetector(
+      onTap: () {
+        handlePress!();
+      },
+      onLongPress: () {
+        handleLongPress!();
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12.0,
+            ),
           ),
-        ),
-        const Gap(
-          height: 8.0,
-        ),
-      ],
+          const Gap(
+            height: 8.0,
+          ),
+        ],
+      ),
     );
   }
 }

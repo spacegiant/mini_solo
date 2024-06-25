@@ -3,15 +3,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
+import 'package:mini_solo/features/grouping/group-picker.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
 import '../../features/trackers/tracker_options.dart';
 import '../../svg_icon.dart';
+import '../../utilities/string/manage_value.dart';
+import '../../utilities/string/parse_string.dart';
 import '../gap.dart';
+import '../trackers/trackerOptionButton.dart';
 
-class CreateTrackerPopup extends StatefulWidget {
-  const CreateTrackerPopup({
+class AddTrackerPopup extends StatefulWidget {
+  const AddTrackerPopup({
     super.key,
     required this.appState,
     this.id,
@@ -21,10 +26,10 @@ class CreateTrackerPopup extends StatefulWidget {
   final String? id;
 
   @override
-  State<CreateTrackerPopup> createState() => _CreateTrackerPopupState();
+  State<AddTrackerPopup> createState() => _AddTrackerPopupState();
 }
 
-class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
+class _AddTrackerPopupState extends State<AddTrackerPopup> {
   String selectedTrackerType = '';
   bool minValueActive = false;
   bool currentValueActive = false;
@@ -32,6 +37,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
   String minValueError = '';
   String currentValueError = '';
   String maxValueError = '';
+  String selectedGroup = 'group-trackers';
 
   late TextEditingController _trackerNameController;
   late TextEditingController _minValueController;
@@ -77,6 +83,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
 
     List<Widget> controls = [];
 
+    // ADD NUMERIC TRACKERS
     for (var tracker in trackers) {
       controls.add(
         trackerOptionButton(
@@ -87,6 +94,19 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             onSelect: handleSelection),
       );
     }
+
+    // ADD OTHER TRACKERS
+    controls.add(
+      trackerOptionButton(
+        label: 'Stat Block',
+        images: [SVGIcon.value_tracker, SVGIcon.value_tracker],
+        id: 'StatBlock',
+        selectedId: selectedTrackerType,
+        onSelect: (value) {
+          print(value);
+        },
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -106,23 +126,13 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             },
           ),
           const Gap(),
-          RangeValuesForm(
-            minValueActive: minValueActive,
-            currentValueActive: currentValueActive,
-            maxValueActive: maxValueActive,
-            minValueController: _minValueController,
-            currentValueController: _currentValueController,
-            maxValueController: _maxValueController,
-            setMinValueText: setMinValueText,
-            setCurrentValueText: setCurrentValueText,
-            setMaxValueText: setMaxValueText,
-          ),
+
           const Divider(),
           const Gap(),
           const Center(child: Text('Select Tracker Type')),
           const Gap(),
           SizedBox(
-            height: 310.0,
+            height: 260.0,
             child: SingleChildScrollView(
               child: Wrap(
                 spacing: 8.0,
@@ -132,7 +142,32 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
             ),
           ),
           const Divider(),
-          const Gap(),
+          // TODO: ONLY SHOW FOR SPECIFIC TRACKERS
+
+          SizedBox(
+            height: 100.0,
+            child: RangeValuesForm(
+              minValueActive: minValueActive,
+              currentValueActive: currentValueActive,
+              maxValueActive: maxValueActive,
+              minValueController: _minValueController,
+              currentValueController: _currentValueController,
+              maxValueController: _maxValueController,
+              setMinValueText: setMinValueText,
+              setCurrentValueText: setCurrentValueText,
+              setMaxValueText: setMaxValueText,
+            ),
+          ),
+          const CupertinoTextField(),
+          const Divider(),
+          GroupPicker(
+              appState: widget.appState,
+              initialGroup: 'group-trackers',
+              onChange: (groupName) {
+                setState(() {
+                  selectedGroup = groupName;
+                });
+              }),
           buttonBar(),
         ],
       ),
@@ -157,55 +192,12 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
     });
   }
 
-  Widget trackerOptionButton({
-    required List<SVGIcon> images,
-    String? label,
-    double? size,
-    required String id,
-    required String selectedId,
-    required Function(String) onSelect,
-  }) {
-    Color buttonColor = CupertinoColors.extraLightBackgroundGray;
-    Color textColor = CupertinoColors.black;
-
-    if (selectedId == id) {
-      buttonColor = CupertinoColors.systemYellow;
-    }
-
-    List<SvgIcon> svgIcons = images
-        .map((image) => SvgIcon(
-              icon: image,
-              height: 36.0,
-            ))
-        .toList();
-
-    return CupertinoButton(
-      onPressed: () {
-        onSelect(id);
-      },
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      color: buttonColor,
-      child: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          ...svgIcons,
-          if (label != null) const Gap(),
-          if (label != null)
-            Text(
-              label,
-              style: TextStyle(color: textColor),
-            ),
-        ],
-      ),
-    );
-  }
-
   Row buttonBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CupertinoButton(
-            color: kSubmitColour,
+            color: kSubmitColor,
             onPressed:
                 (_trackerNameController.text == '') ? null : handleSubmit,
             child: const Text('Save')),
@@ -228,7 +220,7 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       return tracker.label == selectedTrackerType;
     });
 
-    widget.appState.addTrackerEntry(TrackerEntry(
+    TrackerEntry entry = TrackerEntry(
       label: _trackerNameController.text,
       minValue: currentTracker.minValue != null
           ? parseString(_minValueController.text)
@@ -237,28 +229,11 @@ class _CreateTrackerPopupState extends State<CreateTrackerPopup> {
       maxValue: currentTracker.maxValue != null
           ? parseString(_maxValueController.text)
           : null,
-      trackerType: currentTracker.type,
-    ));
+      controlType: currentTracker.type,
+    );
+
+    widget.appState.addTrackerEntry(entry);
+    widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
     widget.appState.closePopup();
-  }
-
-  String manageValue(int? value) {
-    if (value != null) {
-      return value.toString();
-    } else {
-      return '';
-    }
-  }
-
-  int parseString(String text) {
-    try {
-      int value = int.parse(text);
-      return value;
-    } catch (e) {
-      if (kDebugMode) {
-        print('parseString() failed. $e');
-      }
-      return 0;
-    }
   }
 }

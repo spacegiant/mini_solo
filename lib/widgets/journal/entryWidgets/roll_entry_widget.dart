@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
@@ -24,10 +26,12 @@ class RollEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
-        appState.toggleShowPopup(
-          label: PopupLabel.editRoll,
-        );
+        toggleShowPopup2(
+            child: EditRollPopup(
+              appState: appState,
+              id: journalEntry.id,
+            ),
+            context: context);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

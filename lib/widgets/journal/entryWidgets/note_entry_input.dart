@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class NoteEntryInput extends StatefulWidget {
   const NoteEntryInput({
@@ -27,12 +26,8 @@ class _NoteEntryInputState extends State<NoteEntryInput> {
           focusNode: FocusNode(),
           onKeyEvent: (keyEvent) {
             setState(() {
-              if (keyEvent.physicalKey != null) {
-                isUsingPhysicalKeyboard = true;
-              } else {
-                isUsingPhysicalKeyboard = false;
-              }
-            });
+              isUsingPhysicalKeyboard = true;
+                        });
           },
           child: CupertinoTextField(
             textInputAction: isUsingPhysicalKeyboard == true

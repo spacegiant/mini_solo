@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,11 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'Mini Solo',
       theme: const CupertinoThemeData(brightness: Brightness.light),
+      localizationsDelegates: const [
+        DefaultMaterialLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+      ],
       home: MyHomePageIOS(
         title: 'Mini Solo',
         storage: CampaignStorage(),

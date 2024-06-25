@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
+import 'package:mini_solo/widgets/picker.dart';
 
 import '../../data/app_state.dart';
+import '../../features/grouping/group-picker.dart';
+import '../../features/grouping/group.dart';
 import '../gap.dart';
 
 class AddRandomTablePopup extends StatefulWidget {
@@ -25,6 +28,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   late TextEditingController _separatorController;
 
   final String separatorCharacter = '|';
+  String selectedGroup = 'group-random-tables';
 
   @override
   void initState() {
@@ -44,7 +48,8 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
 
   @override
   Widget build(BuildContext context) {
-    var count = widget.appState.randomTables.length;
+    int count = widget.appState.randomTables.length;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -80,7 +85,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                 children: [
                   const Icon(
                     CupertinoIcons.check_mark_circled_solid,
-                    color: kSubmitColour,
+                    color: kSubmitColor,
                   ),
                   const Gap(),
                   Text('Validation $count'),
@@ -96,16 +101,24 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                       textAlign: TextAlign.center,
                       controller: _separatorController,
                     ),
-                  )
+                  ),
                 ],
               ),
             ],
           ),
-          const Gap(),
+          GroupPicker(
+            onChange: (string) {
+              setState(() {
+                selectedGroup = string;
+              });
+            },
+            appState: widget.appState,
+            initialGroup: 'group-random-tables',
+          ),
           Row(
             children: [
               CupertinoButton(
-                  color: kSubmitColour,
+                  color: kSubmitColor,
                   child: const Text(kLabelAdd),
                   onPressed: () {
                     String title = _titleController.text;
@@ -113,19 +126,33 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                     // TODO: Better validation here with user feedback
 
                     if (title != '' && text != '') {
-                      widget.appState.addRandomTable(RandomTableEntry(
-                          isFavourite: false,
-                          title: title,
-                          rows: convertText(text, _separatorController.text)));
+                      List<RandomTableRow> myText =
+                          convertText(text, _separatorController.text);
+
+                      RandomTableEntry entry = RandomTableEntry(
+                        isFavourite: false,
+                        title: title,
+                        rows: myText,
+                      );
+
+                      widget.appState.addRandomTable(entry);
+                      widget.appState.saveAppSettingsDataToDisk();
+
                       _titleController.text = '';
                       _textController.text = '';
+
+                      widget.appState.addToGroup(
+                          controlId: entry.id, groupId: selectedGroup);
+                      widget.appState.saveCampaignDataToDisk();
                     }
                   }),
               const Gap(),
               CupertinoButton(
-                  color: kWarningColour,
+                  color: kWarningColor,
                   child: const Text(kLabelClose),
-                  onPressed: () {}),
+                  onPressed: () {
+                    widget.appState.closePopup();
+                  }),
             ],
           )
         ],

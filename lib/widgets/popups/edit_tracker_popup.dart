@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/range_values_form.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../features/grouping/group-picker.dart';
 import '../../features/trackers/tracker_options.dart';
 import '../gap.dart';
 
@@ -12,9 +13,11 @@ class EditTrackerPopup extends StatefulWidget {
   const EditTrackerPopup({
     super.key,
     required this.appState,
+    required this.id,
   });
 
   final AppState appState;
+  final String id;
 
   @override
   State<EditTrackerPopup> createState() => _EditTrackerPopupState();
@@ -28,11 +31,12 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   late bool showMinValue;
   late bool showCurrentValue;
   late bool showMaxValue;
-  late String currentEntryId = widget.appState.currentEntryId;
+  // late String currentEntryId = widget.appState.currentEntryId;
   late TrackerEntry? currentEntry = widget.appState.campaignData?.tracker
-      .firstWhere((tracker) => tracker.id == currentEntryId);
+      .firstWhere((tracker) => tracker.id == widget.id);
   late TrackerOptions trackerOptions = trackers
-      .firstWhere((tracker) => tracker.type == currentEntry?.trackerType);
+      .firstWhere((tracker) => tracker.type == currentEntry?.controlType);
+  String selectedGroup = 'unsorted';
 
   @override
   void initState() {
@@ -61,16 +65,14 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
-    String currentEntryId = widget.appState.currentEntryId;
-    TrackerEntry? currentToggleEntry = widget.appState.campaignData?.tracker
-        .firstWhere((tracker) => tracker.id == currentEntryId);
+    String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: Text('Tracker Name')),
+          const Center(child: Text('Tracker Name')),
           const Gap(),
           CupertinoTextField(
             autofocus: true,
@@ -90,6 +92,15 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             setMaxValueText: (value) {},
           ),
           const Divider(),
+          GroupPicker(
+            onChange: (string) {
+              setState(() {
+                selectedGroup = string;
+              });
+            },
+            appState: widget.appState,
+            initialGroup: initialGroup,
+          ),
           buttonBar(),
         ],
       ),
@@ -102,11 +113,14 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
       runSpacing: 8.0,
       children: [
         CupertinoButton(
-            color: kSubmitColour,
+            color: kSubmitColor,
             onPressed: () {
               int? minValue;
               int? currentValue;
               int? maxValue;
+
+              widget.appState
+                  .moveToGroup(controlId: widget.id, groupId: selectedGroup);
 
               try {
                 minValue = int.parse(_minValueController.text);
@@ -127,7 +141,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               }
 
               widget.appState.updateTrackerEntry(
-                id: currentEntryId,
+                id: widget.id,
                 label: _trackerNameController.text,
                 minValue: minValue,
                 currentValue: currentValue,
@@ -143,11 +157,11 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             },
             child: const Text('Cancel')),
         CupertinoButton(
-            color: kWarningColour,
+            color: kWarningColor,
             onPressed: () {
-              widget.appState
-                  .deleteTrackerEntry(widget.appState.currentEntryId);
-              widget.appState.closePopup();
+              widget.appState.deleteTrackerEntry(widget.id);
+              // widget.appState.closePopup();
+              Navigator.pop(context);
             },
             child: const Text('Delete')),
       ],
