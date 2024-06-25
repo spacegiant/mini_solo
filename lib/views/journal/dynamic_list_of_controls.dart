@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
 import '../../widgets/popups/edit_group_popup.dart';
@@ -16,35 +15,13 @@ List<GroupContainer> dynamicListOfControls(
   List<GroupContainer> groupContainers = [];
   List<Group> groupList = appState.groupList;
 
-  // ITERATE ALL GROUPS
+  // ITERATE ALL GROUPS STORED IN ORDER
   for (Group group in groupList) {
     if (group.controls.isEmpty) continue;
 
     List<Widget> children = [];
 
     int? groupButtonColor = group.color;
-
-    // TODO: Below is code needed to handle ungrouped controls, if ever needed.
-    // List<Widget> ungrouped = [];
-    //
-    // Map<String, String> test = {};
-    //
-    // for (ControlData control in listOfControls) {
-    //   Map<String, String> newItem = {};
-    //   for (String groupControl in group.controls) {
-    //     if (groupControl == control.controlId) {
-    //       newItem = {control.controlId: group.groupId};
-    //     }
-    //   }
-    //   test.addAll(newItem);
-    // }
-    //
-    // Map<String, String> test2 = {};
-    // test.forEach((key, value) {
-    //   if (value == '') {
-    //     test2.addAll({key: value});
-    //   }
-    // });
 
     // ITERATE ALL CONTROLS STORED IN GROUP
     for (String groupControl in group.controls) {
