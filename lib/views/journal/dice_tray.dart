@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../svg_icon.dart';
@@ -86,14 +85,3 @@ DiceButton d6Oracle(Function(List<DiceRoll>) addResult) => DiceButton(
       icon: SVGIcon.d6Oracle,
       onPressed: addResult,
     );
-
-// Map<String, Widget> mythicFateChartControls(
-//     AppState appState,
-//     ) =>
-//     {
-//       for (var row in fateChart)
-//         row.label: FateChartListButton(
-//           fateChartRow: row,
-//           appState: appState,
-//         ),
-//     };

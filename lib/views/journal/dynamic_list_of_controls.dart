@@ -16,7 +16,10 @@ List<GroupContainer> dynamicListOfControls(
   List<GroupContainer> groupContainers = [];
   List<Group> groupList = appState.groupList;
 
+  // ITERATE ALL GROUPS
   for (Group group in groupList) {
+    if (group.controls.isEmpty) continue;
+
     List<Widget> children = [];
 
     int? groupButtonColor = group.color;
@@ -43,8 +46,11 @@ List<GroupContainer> dynamicListOfControls(
     //   }
     // });
 
+    // ITERATE ALL CONTROLS STORED IN GROUP
     for (String groupControl in group.controls) {
+      // ITERATE ALL CONTROLS IN LISTOFCONTROLS
       for (ControlData control in listOfControls) {
+        // CHECK IF CURRENT CONTROL MATCHES THE CURRENT GROUP CONTROL
         if (groupControl == control.controlId) {
           children.add(
             chooseControlWidget(
@@ -58,26 +64,24 @@ List<GroupContainer> dynamicListOfControls(
       }
     }
 
-    if (group.controls.isEmpty == false) {
-      groupContainers.add(
-        GroupContainer(
-          label: group.label,
-          containerId: 'group-container-${group.groupId}',
-          groupId: group.groupId,
-          appState: appState,
-          children: children,
-          handleLongPress: () {
-            toggleShowPopup2(
-                child: EditGroupPopup(
-                  appState: appState,
-                  group: group,
-                  controlData: listOfControls,
-                ),
-                context: context);
-          },
-        ),
-      );
-    }
+    groupContainers.add(
+      GroupContainer(
+        label: group.label,
+        containerId: 'group-container-${group.groupId}',
+        groupId: group.groupId,
+        appState: appState,
+        children: children,
+        handleLongPress: () {
+          toggleShowPopup2(
+              child: EditGroupPopup(
+                appState: appState,
+                group: group,
+                controlData: listOfControls,
+              ),
+              context: context);
+        },
+      ),
+    );
   }
   return groupContainers;
 }
