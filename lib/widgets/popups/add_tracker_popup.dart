@@ -99,7 +99,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
     controls.add(
       trackerOptionButton(
         label: 'Stat Block',
-        images: [SVGIcon.value_tracker],
+        images: [SVGIcon.value_tracker, SVGIcon.value_tracker],
         id: 'StatBlock',
         selectedId: selectedTrackerType,
         onSelect: (value) {
