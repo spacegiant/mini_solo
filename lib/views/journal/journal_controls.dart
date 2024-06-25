@@ -8,7 +8,9 @@ import '../../widgets/popups/toggle_show_popup.dart';
 import '../../widgets/view_wrapper.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
+import 'control_data.dart';
 import 'dice_tray.dart';
+import 'get_control_data.dart';
 import 'group_container.dart';
 
 Widget journalControls(
@@ -16,38 +18,7 @@ Widget journalControls(
   void Function(List<DiceRoll> result) addResult,
   BuildContext context,
 ) {
-  List<ControlData> trackersData = [];
-
-  for (TrackerEntry tracker in appState.campaignData!.tracker) {
-    trackersData.add(
-      ControlData(
-        controlId: tracker.id,
-        label: tracker.label,
-        controlType: tracker.controlType,
-      ),
-    );
-  }
-
-  List<ControlData> randomTableControlData = [];
-
-  for (RandomTableEntry randomTable in appState.appSettingsData.randomTables) {
-    randomTableControlData.add(
-      ControlData(
-        controlId: randomTable.id,
-        label: randomTable.title,
-        controlType: ControlTypeEnum.randomTable,
-        randomTable: randomTable,
-      ),
-    );
-  }
-
-  List<ControlData> controlData = [
-    ...trackersData,
-    ...mythicFateChartControls2(appState),
-    ...mythicGMEControls(appState),
-    ...randomTableControlData,
-    ...initialNewItemControls,
-  ];
+  List<ControlData> controlData = getControlData(appState);
 
   // TODO test this!
   // check controls all have a group or add to unsorted
@@ -81,24 +52,6 @@ Widget journalControls(
     //   newString: '# hello\n*hello* hello\n- hello',
     // ),
   ]);
-}
-
-class ControlData {
-  final String controlId;
-  final String label;
-  final FateChartRow? fateChartRow;
-  final RandomTableEntry? randomTable;
-
-  // final String group;
-  final ControlTypeEnum controlType;
-
-  ControlData({
-    required this.controlId,
-    required this.label,
-    required this.controlType,
-    this.fateChartRow,
-    this.randomTable,
-  });
 }
 
 List<GroupContainer> dynamicListOfControls(

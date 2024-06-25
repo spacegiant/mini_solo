@@ -3,6 +3,7 @@ import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
+import '../views/journal/control_data.dart';
 import '../views/journal/journal_controls.dart';
 import '../views/mythic/fate_question.dart';
 import 'app_settings_data.dart';

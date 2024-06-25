@@ -8,6 +8,7 @@ import 'package:mini_solo/widgets/list_button.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
+import '../journal/control_data.dart';
 import '../journal/journal_controls.dart';
 import 'mythic_chart.dart';
 

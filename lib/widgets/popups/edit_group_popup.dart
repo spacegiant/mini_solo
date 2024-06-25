@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
+import '../../views/journal/control_data.dart';
 import '../../views/journal/journal_controls.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';

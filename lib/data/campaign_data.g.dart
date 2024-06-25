@@ -682,6 +682,7 @@ const _$ControlTypeEnumEnumMap = {
   ControlTypeEnum.newTracker: 'newTracker',
   ControlTypeEnum.newRandomTable: 'newRandomTable',
   ControlTypeEnum.newGroup: 'newGroup',
+  ControlTypeEnum.statBlock: 'statBlock',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>
