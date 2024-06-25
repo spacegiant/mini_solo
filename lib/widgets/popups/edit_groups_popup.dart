@@ -50,23 +50,12 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
         Container(
           height: 200.0,
           child: Scaffold(
-            body: ReorderableListView(
-              padding: const EdgeInsets.all(8.0),
-              children: groups
-                  .map((group) => ReorderableItem(
-                        key: Key(group.groupId),
-                        id: group.groupId,
-                        appState: widget.appState,
-                        label: group.label,
-                        selected: selectedId == group.groupId,
-                        onTap: () {
-                          handleTap(group.groupId);
-                        },
-                      ))
-                  .toList(),
-              onReorder: (oldIndex, newIndex) {
-                handleOnReorder(oldIndex, newIndex, groups);
-              },
+            body: MyReorderableListView(
+              groups: groups,
+              widget: widget,
+              selectedId: selectedId,
+              onTap: handleTap,
+              onReorder: handleOnReorder,
             ),
           ),
         ),
@@ -81,6 +70,45 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
               Navigator.pop(context);
             })
       ],
+    );
+  }
+}
+
+class MyReorderableListView extends StatelessWidget {
+  const MyReorderableListView({
+    super.key,
+    required this.groups,
+    required this.widget,
+    required this.selectedId,
+    required this.onTap,
+    required this.onReorder,
+  });
+
+  final List<Group> groups;
+  final EditGroupsPopup widget;
+  final String selectedId;
+  final void Function(String) onTap;
+  final void Function(int, int, List<Group>) onReorder;
+
+  @override
+  Widget build(BuildContext context) {
+    return ReorderableListView(
+      padding: const EdgeInsets.all(8.0),
+      children: groups
+          .map((group) => ReorderableItem(
+                key: Key(group.groupId),
+                id: group.groupId,
+                appState: widget.appState,
+                label: group.label,
+                selected: selectedId == group.groupId,
+                onTap: () {
+                  onTap(group.groupId);
+                },
+              ))
+          .toList(),
+      onReorder: (oldIndex, newIndex) {
+        onReorder(oldIndex, newIndex, groups);
+      },
     );
   }
 }
