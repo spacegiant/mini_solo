@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
@@ -67,6 +68,8 @@ Widget chooseControlWidget({
   int? color,
 }) {
   Color buttonColor = color != null ? Color(color) : kButtonColor;
+
+  IconData icon;
 
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
@@ -184,6 +187,7 @@ Widget chooseControlWidget({
       return ListButton(
         color: buttonColor,
         label: controlData.label,
+        iconData: FontAwesomeIcons.diceD6,
         onPressed: () {
           if (controlData.randomTable != null) {
             RollTableResult? result = rollTable(controlData.randomTable!);
