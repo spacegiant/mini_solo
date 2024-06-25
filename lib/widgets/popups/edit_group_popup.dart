@@ -51,7 +51,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = controls
-        .map((control) => ReorderableItem(
+        .map((control) => MyReorderableItem(
             key: Key(control),
             id: control,
             appState: widget.appState,
@@ -98,8 +98,8 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   }
 }
 
-class ReorderableItem extends StatelessWidget {
-  const ReorderableItem({
+class MyReorderableItem extends StatelessWidget {
+  const MyReorderableItem({
     super.key,
     required this.id,
     required this.appState,

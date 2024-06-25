@@ -46,7 +46,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
     List<Group> groups = widget.appState.groupList;
 
     List<Widget> children = groups
-        .map((group) => ReorderableItem(
+        .map((group) => MyReorderableItem(
               key: Key(group.groupId),
               id: group.groupId,
               appState: widget.appState,
