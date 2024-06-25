@@ -5,7 +5,6 @@ import 'package:mini_solo/widgets/popups/add_group_popup.dart';
 import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
-import 'package:mini_solo/widgets/popups/import_manager.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -119,43 +118,6 @@ Widget journalControls(
             label: 'New Group',
           ),
         ]),
-
-    GroupContainer(
-        label: 'Import/Export',
-        containerId: 'importExport',
-        appState: appState,
-        groupId: 'importExport',
-        handleLongPress: () {
-          toggleShowPopup2(
-              child: ImportManager(appState: appState), context: context);
-        },
-        children: [
-          // TODO: Don't want this in journal controls. Move somewhere else.
-          ListButton(
-              label: 'Import Manager',
-              onPressed: () {
-                toggleShowPopup2(
-                    child: ImportManager(appState: appState), context: context);
-              }),
-          ListButton(
-              label: 'Export Campaign',
-              onPressed: () async {
-                CampaignData? campaignData = appState.campaignData;
-                String jsonString =
-                    appState.storage.getCampaignJSON(campaignData!);
-                await Clipboard.setData(ClipboardData(text: jsonString));
-                // copied successfully
-              }),
-          ListButton(
-              label: 'Export AppSettings',
-              onPressed: () async {
-                AppSettingsData? appSettingsData = appState.appSettingsData;
-                String jsonString =
-                    appState.storage.appSettingsToJSON(appSettingsData);
-                await Clipboard.setData(ClipboardData(text: jsonString));
-                // copied successfully
-              }),
-        ])
 
     // const MarkdownBlock(
     //   newString: '# hello\n*hello* hello\n- hello',
