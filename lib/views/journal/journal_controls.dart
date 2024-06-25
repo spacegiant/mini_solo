@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import 'package:mini_solo/widgets/popups/add_group_popup.dart';
-import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
-import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
-
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
-import '../../widgets/list_button.dart';
 import '../../widgets/popups/edit_group_popup.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import '../../widgets/view_wrapper.dart';
@@ -19,19 +12,20 @@ import 'dice_tray.dart';
 import 'group_container.dart';
 
 Widget journalControls(
-    AppState appState,
-    void Function(List<DiceRoll> result) addResult,
-    // bool wrapControls,
-    BuildContext context) {
-  bool wrapControls = appState.wrapControls;
-
-  List<ControlData> trackerControlData = [];
+  AppState appState,
+  void Function(List<DiceRoll> result) addResult,
+  BuildContext context,
+) {
+  List<ControlData> trackersData = [];
 
   for (TrackerEntry tracker in appState.campaignData!.tracker) {
-    trackerControlData.add(ControlData(
+    trackersData.add(
+      ControlData(
         controlId: tracker.id,
         label: tracker.label,
-        controlType: tracker.controlType));
+        controlType: tracker.controlType,
+      ),
+    );
   }
 
   List<ControlData> randomTableControlData = [];
@@ -48,7 +42,7 @@ Widget journalControls(
   }
 
   List<ControlData> controlData = [
-    ...trackerControlData,
+    ...trackersData,
     ...mythicFateChartControls2(appState),
     ...mythicGMEControls(appState),
     ...randomTableControlData,
