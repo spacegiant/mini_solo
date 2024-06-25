@@ -315,12 +315,6 @@ CampaignData initCampaignDataData(String campaignName) {
       ),
       Group(
         isAppGroup: true,
-        groupId: 'group-dice',
-        label: 'Dice',
-        controls: [],
-      ),
-      Group(
-        isAppGroup: true,
         groupId: 'group-mythic-fate-chart',
         label: 'Mythic Fate Chart',
         controls: initialMythicFateChartIds,
