@@ -35,49 +35,55 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 200.0,
-          child: Scaffold(
-            body: ReorderableListView(
-                children: controls
-                    .map((control) => ReorderableItem(
-                          key: Key(control),
-                          id: control,
-                          appState: widget.appState,
-                          label: widget.controlData
-                              .firstWhere((controlData) =>
-                                  controlData.controlId == control)
-                              .label,
-                          selected: selectedId == control,
-                          onTap: () {
-                            setState(() {
-                              selectedId = control;
-                            });
-                          },
-                        ))
-                    .toList(),
-                onReorder: (oldIndex, newIndex) {
-                  setState(() {
-                    if (oldIndex < newIndex) newIndex -= 1;
-                    final String itemToRemove = controls.removeAt(oldIndex);
-                    controls.insert(newIndex, itemToRemove);
-                  });
-                }),
+    return Flexible(
+      child: Column(
+        children: [
+          ConstrainedBox(
+            // height: 300.0,
+            constraints: BoxConstraints(
+              maxHeight: 600.0,
+              minHeight: 200.0,
+            ),
+            child: Scaffold(
+              body: ReorderableListView(
+                  children: controls
+                      .map((control) => ReorderableItem(
+                            key: Key(control),
+                            id: control,
+                            appState: widget.appState,
+                            label: widget.controlData
+                                .firstWhere((controlData) =>
+                                    controlData.controlId == control)
+                                .label,
+                            selected: selectedId == control,
+                            onTap: () {
+                              setState(() {
+                                selectedId = control;
+                              });
+                            },
+                          ))
+                      .toList(),
+                  onReorder: (oldIndex, newIndex) {
+                    setState(() {
+                      if (oldIndex < newIndex) newIndex -= 1;
+                      final String itemToRemove = controls.removeAt(oldIndex);
+                      controls.insert(newIndex, itemToRemove);
+                    });
+                  }),
+            ),
           ),
-        ),
-        CupertinoButton(
-            child: Text('Update'),
-            color: kSubmitColour,
-            onPressed: () {
-              widget.appState.updateGroupControls(
-                groupName: widget.group.groupId,
-                controls: controls,
-              );
-              Navigator.pop(context);
-            })
-      ],
+          CupertinoButton(
+              child: Text('Update'),
+              color: kSubmitColour,
+              onPressed: () {
+                widget.appState.updateGroupControls(
+                  groupName: widget.group.groupId,
+                  controls: controls,
+                );
+                Navigator.pop(context);
+              })
+        ],
+      ),
     );
   }
 }

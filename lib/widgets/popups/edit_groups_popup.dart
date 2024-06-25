@@ -27,6 +27,20 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
     selectedId = '';
   }
 
+  void handleTap(String id) {
+    setState(() {
+      selectedId = id;
+    });
+  }
+
+  void handleOnReorder(int oldIndex, int newIndex, List<Group> groups) {
+    setState(() {
+      if (oldIndex < newIndex) newIndex -= 1;
+      final Group itemToRemove = groups.removeAt(oldIndex);
+      groups.insert(newIndex, itemToRemove);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Group> groups = widget.appState.groupList;
@@ -37,28 +51,23 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
           height: 200.0,
           child: Scaffold(
             body: ReorderableListView(
-                padding: const EdgeInsets.all(8.0),
-                children: groups
-                    .map((group) => ReorderableItem(
-                          key: Key(group.groupId),
-                          id: group.groupId,
-                          appState: widget.appState,
-                          label: group.label,
-                          selected: selectedId == group.groupId,
-                          onTap: () {
-                            setState(() {
-                              selectedId = group.groupId;
-                            });
-                          },
-                        ))
-                    .toList(),
-                onReorder: (oldIndex, newIndex) {
-                  setState(() {
-                    if (oldIndex < newIndex) newIndex -= 1;
-                    final Group itemToRemove = groups.removeAt(oldIndex);
-                    groups.insert(newIndex, itemToRemove);
-                  });
-                }),
+              padding: const EdgeInsets.all(8.0),
+              children: groups
+                  .map((group) => ReorderableItem(
+                        key: Key(group.groupId),
+                        id: group.groupId,
+                        appState: widget.appState,
+                        label: group.label,
+                        selected: selectedId == group.groupId,
+                        onTap: () {
+                          handleTap(group.groupId);
+                        },
+                      ))
+                  .toList(),
+              onReorder: (oldIndex, newIndex) {
+                handleOnReorder(oldIndex, newIndex, groups);
+              },
+            ),
           ),
         ),
         CupertinoButton(
