@@ -6,6 +6,8 @@ import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
 import '../../views/journal/journal_controls.dart';
+import '../my_reorderable_item.dart';
+import '../my_reorderable_list_view.dart';
 
 class EditGroupPopup extends StatefulWidget {
   final AppState appState;
@@ -94,42 +96,6 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
               })
         ],
       ),
-    );
-  }
-}
-
-class MyReorderableItem extends StatelessWidget {
-  const MyReorderableItem({
-    super.key,
-    required this.id,
-    required this.appState,
-    required this.label,
-    this.selected,
-    this.onTap,
-  });
-
-  final String id;
-  final String label;
-  final AppState appState;
-  final bool? selected;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    String title;
-
-    return ListTile(
-      title: Text(label),
-      trailing: const Icon(
-        CupertinoIcons.line_horizontal_3,
-        size: 20.0,
-        color: CupertinoColors.systemGrey,
-      ),
-      selected: selected ?? false,
-      onTap: onTap,
-      // tileColor: CupertinoColors.systemGrey5,
-      // selectedColor: CupertinoColors.black,
-      selectedTileColor: CupertinoColors.systemYellow,
     );
   }
 }

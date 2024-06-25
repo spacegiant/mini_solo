@@ -4,6 +4,8 @@ import 'package:mini_solo/constants.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
+import '../my_reorderable_item.dart';
+import '../my_reorderable_list_view.dart';
 import 'edit_group_popup.dart';
 
 class EditGroupsPopup extends StatefulWidget {
@@ -86,35 +88,6 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
               Navigator.pop(context);
             })
       ],
-    );
-  }
-}
-
-class MyReorderableListView extends StatelessWidget {
-  const MyReorderableListView({
-    super.key,
-    required this.itemList,
-    required this.appState,
-    required this.selectedId,
-    required this.onReorder,
-    required this.children,
-  });
-
-  final List<dynamic> itemList;
-  final AppState appState;
-  final String selectedId;
-  final void Function(int, int, List<dynamic>) onReorder;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return ReorderableListView(
-      buildDefaultDragHandles: false,
-      padding: const EdgeInsets.all(8.0),
-      children: children,
-      onReorder: (oldIndex, newIndex) {
-        onReorder(oldIndex, newIndex, itemList);
-      },
     );
   }
 }
