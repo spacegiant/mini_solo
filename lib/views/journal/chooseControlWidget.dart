@@ -18,6 +18,9 @@ import '../../svg_icon.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../widgets/list_button.dart';
+import '../../widgets/popups/add_group_popup.dart';
+import '../../widgets/popups/add_random_table_popup.dart';
+import '../../widgets/popups/edit_groups_popup.dart';
 import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
@@ -50,6 +53,9 @@ enum ControlTypeEnum {
   value,
   counter,
   fate_aspect,
+  newTracker,
+  newRandomTable,
+  newGroup,
 }
 
 Widget chooseControlWidget({
@@ -231,6 +237,36 @@ Widget chooseControlWidget({
       return FateWidget(
         entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
+      );
+    case ControlTypeEnum.newTracker:
+      return ListButton(
+        onPressed: () {
+          toggleShowPopup2(
+              child: AddRandomTablePopup(appState: appState), context: context);
+        },
+        label: controlData.label,
+      );
+    case ControlTypeEnum.newRandomTable:
+      return ListButton(
+        onPressed: () {
+          toggleShowPopup2(
+              child: AddRandomTablePopup(appState: appState), context: context);
+        },
+        label: controlData.label,
+      );
+    case ControlTypeEnum.newGroup:
+      return ListButton(
+        onLongPress: () {
+          toggleShowPopup2(
+              child: EditGroupsPopup(appState: appState), context: context);
+        },
+        onPressed: () {
+          toggleShowPopup2(
+            child: AddGroupPopup(appState: appState),
+            context: context,
+          );
+        },
+        label: 'New Group',
       );
   }
   return Text(controlData.label);

@@ -80,7 +80,7 @@ List<ControlData> mythicGMEControls(AppState appState) {
   return list;
 }
 
-List<String> mythicFateChartIds = [
+List<String> initialMythicFateChartIds = [
   for (var row in fateChart) 'control-${row.label}'
 ];
 

@@ -52,7 +52,13 @@ Widget journalControls(
     ...mythicFateChartControls2(appState),
     ...mythicGMEControls(appState),
     ...randomTableControlData,
+    ...initialNewItemControls,
   ];
+
+  // GET GROUPS IN ORDER
+  for (var group in appState.groupList) {
+    print(group.label);
+  }
 
   // TODO test this!
   // check controls all have a group or add to unsorted

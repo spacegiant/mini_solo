@@ -323,7 +323,7 @@ CampaignData initCampaignDataData(String campaignName) {
         isAppGroup: true,
         groupId: 'group-mythic-fate-chart',
         label: 'Mythic Fate Chart',
-        controls: mythicFateChartIds,
+        controls: initialMythicFateChartIds,
       ),
       Group(
         isAppGroup: true,
@@ -342,6 +342,12 @@ CampaignData initCampaignDataData(String campaignName) {
         groupId: 'group-trackers',
         label: 'Trackers',
         controls: [],
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'new-items',
+        label: 'New Items',
+        controls: initialNewItemControlIds,
       ),
     ],
   );
@@ -721,4 +727,23 @@ List<ControlData> initialMythicGMEControls = [
 
 List<String> initialMythicGMEIds = [
   for (var control in initialMythicGMEControls) control.controlId
+];
+
+List<ControlData> initialNewItemControls = [
+  ControlData(
+      controlId: 'new-tracker',
+      label: 'New Tracker',
+      controlType: ControlTypeEnum.newTracker),
+  ControlData(
+      controlId: 'new-random-table',
+      label: 'New Random Table',
+      controlType: ControlTypeEnum.newRandomTable),
+  ControlData(
+      controlId: 'new-group',
+      label: 'New Group',
+      controlType: ControlTypeEnum.newGroup),
+];
+
+List<String> initialNewItemControlIds = [
+  for (var control in initialNewItemControls) control.controlId
 ];
