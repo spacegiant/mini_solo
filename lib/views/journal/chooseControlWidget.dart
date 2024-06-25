@@ -64,20 +64,20 @@ Widget chooseControlWidget({
   required ControlData controlData,
   required AppState appState,
   required BuildContext context,
-  int? colour,
+  int? color,
 }) {
-  Color buttonColour = colour != null ? Color(colour) : kButtonColour;
+  Color buttonColor = color != null ? Color(color) : kButtonColor;
 
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: controlData.label,
         onPressed: () {},
       );
     case ControlTypeEnum.newScene:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: controlData.label,
         onPressed: () {
           int sceneNumber = appState.campaignData!.newScene.length + 1;
@@ -86,14 +86,14 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.mythicChart:
       return ListButton(
-          color: buttonColour,
+          color: buttonColor,
           label: controlData.label,
           onPressed: () {
             fateChartControlOnPressed(controlData.fateChartRow, appState);
           });
     case ControlTypeEnum.mythicExpectedScene:
       return ListButton(
-          color: buttonColour,
+          color: buttonColor,
           label: controlData.label,
           onPressed: () {
             JournalReturnObject test = testScene(appState);
@@ -107,7 +107,7 @@ Widget chooseControlWidget({
           });
     case ControlTypeEnum.mythicAction:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: 'Mythic Action',
         onPressed: () {
           getRandomResult(
@@ -131,7 +131,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.mythicDescription:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: 'Mythic Description',
         onPressed: () {
           getRandomResult(
@@ -154,7 +154,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.mythicEventFocus:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: 'Event Focus',
         onPressed: () {
           getEventFocus(appState);
@@ -162,7 +162,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.mythicPlotTwist:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: 'Plot Twist',
         onPressed: () {
           getRandomResult(
@@ -182,7 +182,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.randomTable:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         label: controlData.label,
         onPressed: () {
           if (controlData.randomTable != null) {
@@ -254,7 +254,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.newTracker:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         onPressed: () {
           toggleShowPopup2(
               child: AddTrackerPopup(appState: appState), context: context);
@@ -263,7 +263,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.newRandomTable:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         onPressed: () {
           toggleShowPopup2(
               child: AddRandomTablePopup(appState: appState), context: context);
@@ -272,7 +272,7 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.newGroup:
       return ListButton(
-        color: buttonColour,
+        color: buttonColor,
         onLongPress: () {
           toggleShowPopup2(
               child: EditGroupsPopup(appState: appState), context: context);

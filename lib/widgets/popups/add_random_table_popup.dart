@@ -85,7 +85,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                 children: [
                   const Icon(
                     CupertinoIcons.check_mark_circled_solid,
-                    color: kSubmitColour,
+                    color: kSubmitColor,
                   ),
                   const Gap(),
                   Text('Validation $count'),
@@ -118,7 +118,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
           Row(
             children: [
               CupertinoButton(
-                  color: kSubmitColour,
+                  color: kSubmitColor,
                   child: const Text(kLabelAdd),
                   onPressed: () {
                     String title = _titleController.text;
@@ -148,7 +148,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                   }),
               const Gap(),
               CupertinoButton(
-                  color: kWarningColour,
+                  color: kWarningColor,
                   child: const Text(kLabelClose),
                   onPressed: () {
                     widget.appState.closePopup();

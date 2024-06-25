@@ -158,7 +158,7 @@ class _JournalState extends State<Journal> {
           },
           child: Container(
             height: kForceColumnHeight,
-            color: kJournalBackgroundColour,
+            color: kJournalBackgroundColor,
             child: SingleChildScrollView(
               reverse: true,
               child: Column(

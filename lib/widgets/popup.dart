@@ -40,7 +40,7 @@ Consumer<Object?> popup(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
             child: Container(
-              color: kBackdropFilterColour,
+              color: kBackdropFilterColor,
               height: double.infinity,
               width: double.infinity,
               child: Padding(

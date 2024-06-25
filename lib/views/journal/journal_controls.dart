@@ -123,7 +123,7 @@ List<GroupContainer> dynamicListOfControls(
   for (Group group in groupList) {
     List<Widget> children = [];
 
-    int? groupButtonColour = group.colour;
+    int? groupButtonColor = group.color;
 
     // TODO: Below is code needed to handle ungrouped controls, if ever needed.
     // List<Widget> ungrouped = [];
@@ -155,7 +155,7 @@ List<GroupContainer> dynamicListOfControls(
               controlData: control,
               appState: appState,
               context: context,
-              colour: groupButtonColour,
+              color: groupButtonColor,
             ),
           );
         }

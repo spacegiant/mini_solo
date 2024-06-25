@@ -111,7 +111,7 @@ class _ImportManagerState extends State<ImportManager> {
           Row(
             children: [
               CupertinoButton(
-                  color: kSubmitColour,
+                  color: kSubmitColor,
                   child: const Text('Import'),
                   onPressed: () {
                     // TODO VALIDATE FIRST

@@ -14,7 +14,7 @@ class Group {
   bool? isExpanded = true; // true
   bool? isActive = true; // true
   bool? isAppGroup = false; // Can't be deleted
-  int? colour; // default
+  int? color; // default
   List<String>?
       presetOrder; // used for Mythic Fate Chart. Can't reorder if exists.
   SortBy? sortBy = SortBy.aToZ;
@@ -25,7 +25,7 @@ class Group {
     required this.controls,
     this.isExpanded,
     this.isAppGroup,
-    this.colour,
+    this.color,
     this.presetOrder,
     this.sortBy,
   });

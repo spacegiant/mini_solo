@@ -214,7 +214,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CupertinoButton(
-            color: kSubmitColour,
+            color: kSubmitColor,
             onPressed:
                 (_trackerNameController.text == '') ? null : handleSubmit,
             child: const Text('Save')),

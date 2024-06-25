@@ -67,7 +67,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
             alignment: WrapAlignment.center,
             children: [
               CupertinoButton(
-                  color: kSubmitColour,
+                  color: kSubmitColor,
                   child: const Text('Update'),
                   onPressed: () {
                     widget.appState.moveToGroup(
@@ -75,7 +75,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     widget.appState.closePopup();
                   }),
               CupertinoButton(
-                  color: kWarningColour,
+                  color: kWarningColor,
                   child: const Text('Delete'),
                   onPressed: () {
                     widget.appState.deleteRandomTable(widget.id);

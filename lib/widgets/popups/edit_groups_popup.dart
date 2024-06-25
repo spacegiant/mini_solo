@@ -79,7 +79,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
         ),
         CupertinoButton(
             child: Text('Update'),
-            color: kSubmitColour,
+            color: kSubmitColor,
             onPressed: () {
               widget.appState.updateGroups(groups: groups);
               // Navigator.pop(context);

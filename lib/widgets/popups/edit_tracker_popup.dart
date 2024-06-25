@@ -113,7 +113,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
       runSpacing: 8.0,
       children: [
         CupertinoButton(
-            color: kSubmitColour,
+            color: kSubmitColor,
             onPressed: () {
               int? minValue;
               int? currentValue;
@@ -157,7 +157,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             },
             child: const Text('Cancel')),
         CupertinoButton(
-            color: kWarningColour,
+            color: kWarningColor,
             onPressed: () {
               widget.appState.deleteTrackerEntry(widget.id);
               // widget.appState.closePopup();
