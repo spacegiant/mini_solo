@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/features/trackers/tracker_container.dart';
 import 'package:mini_solo/features/trackers/tracker_options.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';

@@ -2,26 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/widgets/popups/add_group_popup.dart';
-import 'package:mini_solo/widgets/popups/add_random_table_popup.dart';
-import 'package:mini_solo/widgets/popups/campaign_manager_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_group_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_tracker_popup.dart';
-import 'package:mini_solo/widgets/popups/import_manager.dart';
-import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../data/app_state.dart';
 import '../my_homepage.dart';
-import 'chaos_factor_popup.dart';
-import 'game_mode_control.dart';
 
 Consumer<Object?> popup(
   BuildContext context,

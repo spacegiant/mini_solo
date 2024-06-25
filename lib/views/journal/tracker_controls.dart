@@ -3,18 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 
 import '../../features/trackers/bar_tracker_control.dart';

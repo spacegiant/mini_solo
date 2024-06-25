@@ -63,7 +63,7 @@ class ListButton extends StatelessWidget {
     } else {
       child = Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           color: buttonTextColor,
         ),
       );

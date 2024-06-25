@@ -6,7 +6,6 @@ import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';
-import 'edit_group_popup.dart';
 
 class EditGroupsPopup extends StatefulWidget {
   final AppState appState;
@@ -78,12 +77,12 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
           ),
         ),
         CupertinoButton(
-            child: Text('Update'),
             color: kSubmitColor,
             onPressed: () {
               widget.appState.updateGroups(groups: groups);
               // Navigator.pop(context);
-            })
+            },
+            child: const Text('Update'))
       ],
     );
   }

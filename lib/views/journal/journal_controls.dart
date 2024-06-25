@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../widgets/popups/edit_group_popup.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import '../../widgets/view_wrapper.dart';
-import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'control_data.dart';
 import 'dice_tray.dart';
@@ -101,7 +99,6 @@ List<GroupContainer> dynamicListOfControls(
             ),
           );
         }
-        ;
       }
     }
 

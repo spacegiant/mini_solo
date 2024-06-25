@@ -29,7 +29,6 @@ import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
 import 'control_data.dart';
 import 'get_event_focus.dart';
-import 'journal_controls.dart';
 
 enum ControlTypeEnum {
   button,

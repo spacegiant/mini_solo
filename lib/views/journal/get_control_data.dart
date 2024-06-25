@@ -4,7 +4,6 @@ import '../../data/campaign_data.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'control_data.dart';
-import 'journal_controls.dart';
 
 List<ControlData> getControlData(AppState appState) {
   List<ControlData> trackersData = [];

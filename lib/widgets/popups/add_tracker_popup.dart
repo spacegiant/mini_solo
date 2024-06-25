@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
