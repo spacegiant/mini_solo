@@ -143,6 +143,12 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateGroups({required List<Group> groups}) {
+    campaignData!.groups = groups;
+    saveCampaignDataToDisk();
+    notifyListeners();
+  }
+
   // EXPANDED LIST
   List<String> get expandedList => _appSettingsData.expandedList;
 
