@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'gap.dart';
+
 class ListButton extends StatelessWidget {
   const ListButton({
     super.key,
@@ -10,6 +12,7 @@ class ListButton extends StatelessWidget {
     this.color,
     this.iconData,
     this.textColor,
+    this.iconOnly = false,
   });
 
   final String label;
@@ -19,11 +22,12 @@ class ListButton extends StatelessWidget {
   final Color? textColor;
   final Function()? onLongPress;
   final IconData? iconData;
+  final bool? iconOnly;
 
   @override
   Widget build(BuildContext context) {
     Color? buttonColor = CupertinoColors.systemPink;
-    Color? buttonTextColor = CupertinoColors.white;
+    const Color buttonTextColor = CupertinoColors.white;
 
     if (color != null) {
       buttonColor = color;
@@ -31,24 +35,39 @@ class ListButton extends StatelessWidget {
       buttonColor = CupertinoColors.extraLightBackgroundGray;
     }
 
-    if (textColor != null) {
-      buttonTextColor = textColor;
-    } else if (iconData != null) {
-      buttonTextColor = CupertinoColors.black;
-    }
+    Widget? child;
 
-    StatelessWidget? child = iconData != null
-        ? Icon(
+    if (iconOnly == true && iconData != null) {
+      child = Icon(
+        iconData,
+        color: buttonTextColor,
+        size: 20.0,
+      );
+    } else if (iconOnly == false && iconData != null) {
+      child = Row(
+        children: [
+          Icon(
             iconData,
             color: buttonTextColor,
             size: 20.0,
-          )
-        : Text(
+          ),
+          const Gap(),
+          Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               color: buttonTextColor,
             ),
-          );
+          )
+        ],
+      );
+    } else {
+      child = Text(
+        label,
+        style: TextStyle(
+          color: buttonTextColor,
+        ),
+      );
+    }
 
     return GestureDetector(
       onTap: onPressed,

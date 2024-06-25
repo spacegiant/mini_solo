@@ -8,9 +8,11 @@ class EditNewSceneEntryPopup extends StatefulWidget {
   const EditNewSceneEntryPopup({
     super.key,
     required this.appState,
+    required this.id,
   });
 
   final AppState appState;
+  final String id;
 
   @override
   State<EditNewSceneEntryPopup> createState() => _EditNewSceneEntryPopupState();
@@ -35,9 +37,8 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
   Widget build(
     BuildContext context,
   ) {
-    String currentEntryId = widget.appState.currentEntryId;
     NewSceneEntry entry = widget.appState.campaignData!.newScene
-        .firstWhere((entry) => entry.id == currentEntryId);
+        .firstWhere((entry) => entry.id == widget.id);
 
     if (_controller.text == '') {
       setState(() {
@@ -57,10 +58,10 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
             CupertinoButton(
               color: CupertinoColors.systemGreen,
               onPressed: () {
-                widget.appState
-                    .updateNewScene(currentEntryId, _controller.text);
-                widget.appState.setCurrentEntryId('');
-                widget.appState.closePopup();
+                widget.appState.updateNewScene(widget.id, _controller.text);
+                // widget.appState.setCurrentEntryId('');
+                // widget.appState.closePopup();
+                Navigator.pop(context);
               },
               child: const Text('Submit'),
             ),
@@ -68,7 +69,7 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
             CupertinoButton(
               color: CupertinoColors.destructiveRed,
               onPressed: () {
-                widget.appState.deleteNewSceneEntry(currentEntryId);
+                widget.appState.deleteNewSceneEntry(widget.id);
                 widget.appState.closePopup();
               },
               child: const Text('Delete'),

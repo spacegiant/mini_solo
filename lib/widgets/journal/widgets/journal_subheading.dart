@@ -8,9 +8,11 @@ class JournalSubheading extends StatelessWidget {
     super.key,
     required this.label,
     this.handlePress,
+    this.handleLongPress,
   });
 
   final void Function()? handlePress;
+  final void Function()? handleLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,13 @@ class JournalSubheading extends StatelessWidget {
       onTap: () {
         handlePress!();
       },
+      onLongPress: () {
+        handleLongPress!();
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const Divider(),
           Text(
             label,
             style: const TextStyle(

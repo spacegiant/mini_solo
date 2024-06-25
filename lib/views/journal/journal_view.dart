@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
@@ -25,8 +24,6 @@ class _JournalViewState extends State<JournalView> {
 
       GeneralSettingsData generalSettings =
           appState.campaignData!.settings.general;
-
-      bool wrapControls = generalSettings.wrapControls;
 
       void addResult(List<DiceRoll> result) {
         setState(() {

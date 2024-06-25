@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
+import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
@@ -24,10 +26,12 @@ class MythicEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        appState.setCurrentEntryId(entry.id);
-        appState.toggleShowPopup(
-          label: PopupLabel.editMythicEntry,
-        );
+        toggleShowPopup2(
+            child: EditMythicEntryPopup(
+              appState: appState,
+              id: journalEntry.id,
+            ),
+            context: context);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -2,17 +2,19 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/list_button.dart';
-import 'package:provider/provider.dart';
 
+import '../../constants.dart';
 import '../../data/app_state.dart';
-import '../../widgets/wrap_manager.dart';
+import '../../features/grouping/group.dart';
+import '../journal/journal_controls.dart';
 import 'mythic_chart.dart';
 
 class OddsValue {
-  final int? extremeYesValue;
+  final int extremeYesValue;
   final int yesValue;
-  final int? extremeNoValue;
+  final int extremeNoValue;
 
   OddsValue(
     this.extremeYesValue,
@@ -33,54 +35,107 @@ class FateChartRow {
   );
 }
 
-class FateQuestion extends StatelessWidget {
-  const FateQuestion({
+Map<String, Widget> mythicFateChartControls(
+  AppState appState,
+) =>
+    {
+      for (var row in fateChart)
+        row.label: FateChartListButton(
+          fateChartRow: row,
+          appState: appState,
+        ),
+    };
+
+List<ControlData> mythicFateChartControls2(AppState appState) {
+  List<FateChartRow> sortedRows = [];
+  Group fateChartGroup = appState.getGroup('group-mythic-fate-chart');
+
+  for (String control in fateChartGroup.controls) {
+    FateChartRow row =
+        fateChart.firstWhere((label) => 'control-${label.label}' == control);
+    sortedRows.add(row);
+  }
+
+  return [
+    for (var row in sortedRows)
+      ControlData(
+          controlId: 'control-${row.label}',
+          label: row.label,
+          fateChartRow: row,
+          controlType: ControlTypeEnum.mythicChart)
+  ];
+}
+
+List<ControlData> mythicGMEControls(AppState appState) {
+  List<ControlData> list = [];
+  Group mythicGMEGroup = appState.getGroup('group-mythic-gme');
+
+  for (String label in mythicGMEGroup.controls) {
+    ControlData controlData =
+        initialMythicGMEControls.firstWhere((data) => data.controlId == label);
+
+    list.add(controlData);
+  }
+
+  return list;
+}
+
+List<String> initialMythicFateChartIds = [
+  for (var row in fateChart) 'control-${row.label}'
+];
+
+class FateChartListButton extends StatelessWidget {
+  const FateChartListButton({
     super.key,
-    required this.callback,
-    required this.wrapControls,
+    required this.fateChartRow,
+    required this.appState,
   });
 
-  final Function callback;
-  final bool wrapControls;
+  final FateChartRow fateChartRow;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
-        builder: (BuildContext context, AppState appState, Widget? child) {
-      return WrapManager(
-        wrapControls: wrapControls,
-        // hideDivider: true,
-        children: fateChart
-            .map<Widget>(
-              (widget) => ListButton(
-                label: widget.label,
-                color: widget.color,
-                onPressed: () {
-                  OddsValue row = widget.row[appState.chaosFactor - 1];
-                  int random = Random().nextInt(100) + 1;
-                  String answer;
-                  if (random > row.extremeNoValue!.toInt()) {
-                    answer = 'EXTREME NO';
-                  } else if (random < row.extremeYesValue!.toInt()) {
-                    answer = 'EXTREME YES';
-                  } else if (random <= row.yesValue.toInt()) {
-                    answer = 'YES';
-                  } else {
-                    answer = 'NO';
-                  }
-
-                  JournalReturnObject result = JournalReturnObject(
-                      type: 'fateChart',
-                      line1:
-                          '${widget.label} odds | Chaos Factor ${appState.chaosFactor}',
-                      line2: 'd100 → $random',
-                      result: 'Oracles says $answer');
-                  callback(result);
-                },
-              ),
-            )
-            .toList(),
-      );
-    });
+    return ListButton(
+      label: fateChartRow.label,
+      color: fateChartRow.color,
+      onPressed: () {
+        fateChartControlOnPressed(fateChartRow, appState);
+      },
+    );
   }
+}
+
+fateChartControlOnPressed(
+  FateChartRow? fateChartRow,
+  AppState appState,
+) {
+  if (fateChartRow == null) return;
+  OddsValue row = fateChartRow.row[appState.chaosFactor - 1];
+  int random = Random().nextInt(100) + 1;
+  String answer;
+  if (random > row.extremeNoValue.toInt()) {
+    answer = 'EXTREME NO';
+  } else if (random < row.extremeYesValue.toInt()) {
+    answer = 'EXTREME YES';
+  } else if (random <= row.yesValue.toInt()) {
+    answer = 'YES';
+  } else {
+    answer = 'NO';
+  }
+
+  JournalReturnObject result = JournalReturnObject(
+    type: 'fateChart',
+    line1: '${fateChartRow.label} odds | Chaos Factor ${appState.chaosFactor}',
+    line2: 'd100 → $random',
+    result: 'Oracles says $answer',
+  );
+
+  appState.addOracleEntry(
+    OracleEntry(
+      isFavourite: false,
+      lines: result,
+      label: kJournalMythicAskTheFateChart,
+    ),
+  );
 }

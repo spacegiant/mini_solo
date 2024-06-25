@@ -1,6 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
+import '../features/grouping/group.dart';
 import '../svg_icon.dart';
+import '../views/journal/chooseControlWidget.dart';
+import '../views/journal/journal_controls.dart';
+import '../views/mythic/fate_question.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'note_entry_item.dart';
@@ -9,7 +13,7 @@ part 'campaign_data.g.dart';
 
 // NOTE: Run `dart run build_runner build` to regenerate files
 
-enum TrackerTypes {
+enum ControlTypes {
   clock4,
   clock6,
   clock8,
@@ -228,6 +232,7 @@ class CampaignData {
   late List<RollTableResult> rollTableResult;
   late List<TrackerEntry> tracker;
   late List<NewSceneEntry> newScene;
+  late List<Group> groups;
 
   CampaignData({
     required this.settings,
@@ -250,6 +255,7 @@ class CampaignData {
     required this.rollTableResult,
     required this.tracker,
     required this.newScene,
+    required this.groups,
   });
 
   // coverage:ignore-start
@@ -300,6 +306,50 @@ CampaignData initCampaignDataData(String campaignName) {
     rollTableResult: [],
     tracker: [],
     newScene: [],
+    groups: [
+      Group(
+        isAppGroup: true,
+        groupId: 'unsorted',
+        label: 'Unsorted',
+        controls: [],
+        color: 0xFF512500,
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-mythic-fate-chart',
+        label: 'Mythic Fate Chart',
+        controls: initialMythicFateChartIds,
+        color: 0xFF7D1D3F,
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-mythic-gme',
+        label: 'Mythic GME',
+        controls: initialMythicGMEIds,
+        color: 0xFF827191,
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-random-tables',
+        label: 'Random Tables',
+        controls: [],
+        color: 0xFF84ACCE,
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-trackers',
+        label: 'Trackers',
+        controls: [],
+        color: 0xFFD7D9B1,
+      ),
+      Group(
+        isAppGroup: true,
+        groupId: 'new-items',
+        label: 'New Items',
+        controls: initialNewItemControlIds,
+        color: 0xFFFB8F67,
+      ),
+    ],
   );
 }
 
@@ -608,14 +658,14 @@ class TrackerEntry extends CampaignItem {
   int currentValue;
   int? minValue;
   int? maxValue;
-  TrackerTypes trackerType;
+  ControlTypeEnum controlType;
 
   TrackerEntry({
     required this.label,
     required this.currentValue,
     this.minValue,
     this.maxValue,
-    required this.trackerType,
+    required this.controlType,
   });
 
   // coverage:ignore-start
@@ -647,3 +697,53 @@ class NewSceneEntry extends CampaignItem {
   JournalEntryTypes type = JournalEntryTypes.newScene;
 // coverage:ignore-end
 }
+
+List<ControlData> initialMythicGMEControls = [
+  ControlData(
+      controlId: 'mythic-new-scene',
+      label: 'New Scene',
+      controlType: ControlTypeEnum.newScene),
+  ControlData(
+      controlId: 'mythic-expected-scene',
+      label: 'Test Expected Scene',
+      controlType: ControlTypeEnum.mythicExpectedScene),
+  ControlData(
+      controlId: 'mythic-action',
+      label: 'Mythic Action',
+      controlType: ControlTypeEnum.mythicAction),
+  ControlData(
+      controlId: 'mythic-description',
+      label: 'Mythic Description',
+      controlType: ControlTypeEnum.mythicDescription),
+  ControlData(
+      controlId: 'mythic-event-focus',
+      label: 'Mythic Event Focus',
+      controlType: ControlTypeEnum.mythicEventFocus),
+  ControlData(
+      controlId: 'mythic-plot-twist',
+      label: 'Mythic Plot Twist',
+      controlType: ControlTypeEnum.mythicPlotTwist),
+];
+
+List<String> initialMythicGMEIds = [
+  for (var control in initialMythicGMEControls) control.controlId
+];
+
+List<ControlData> initialNewItemControls = [
+  ControlData(
+      controlId: 'new-tracker',
+      label: 'New Tracker',
+      controlType: ControlTypeEnum.newTracker),
+  ControlData(
+      controlId: 'new-random-table',
+      label: 'New Random Table',
+      controlType: ControlTypeEnum.newRandomTable),
+  ControlData(
+      controlId: 'new-group',
+      label: 'New Group',
+      controlType: ControlTypeEnum.newGroup),
+];
+
+List<String> initialNewItemControlIds = [
+  for (var control in initialNewItemControls) control.controlId
+];

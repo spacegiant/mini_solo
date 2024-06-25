@@ -149,10 +149,10 @@ class FormElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool showErrorColour = false;
+    bool showErrorColor = false;
 
     if (_errorText != null && isActive == true) {
-      showErrorColour = true;
+      showErrorColor = true;
     }
 
     return Opacity(
@@ -167,7 +167,7 @@ class FormElement extends StatelessWidget {
               borderRadius: const BorderRadius.all(kInputBorderRadius),
               color: CupertinoColors.white,
               border: Border.all(
-                color: (showErrorColour == true)
+                color: (showErrorColor == true)
                     ? CupertinoColors.systemRed
                     : CupertinoColors.white,
                 width: 2.0,

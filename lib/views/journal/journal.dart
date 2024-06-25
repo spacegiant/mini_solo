@@ -28,7 +28,6 @@ List<Widget> getEntries(
 
   for (var element in journalItems) {
     if (hiddenEntryTypes!.contains(element.type)) {
-      print(element.type);
       continue;
     }
 
@@ -156,12 +155,9 @@ class _JournalState extends State<Journal> {
               showInput = !showInput;
             });
           },
-          // onLongPress: () {
-          //   appState.toggleShowPopup(PopupLabels.fullJournal);
-          // },
           child: Container(
             height: kForceColumnHeight,
-            color: kJournalBackgroundColour,
+            color: kJournalBackgroundColor,
             child: SingleChildScrollView(
               reverse: true,
               child: Column(

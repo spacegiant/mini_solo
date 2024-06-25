@@ -148,7 +148,7 @@ class _ScratchpadViewState extends State<ScratchpadView> {
             decoration: const BoxDecoration(
               border: Border(
                   left: BorderSide(
-                color: kBorderColour,
+                color: kBorderColor,
               )),
             ),
             child: Column(

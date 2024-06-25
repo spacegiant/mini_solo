@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/features/trackers/tracker_container.dart';
 import 'package:mini_solo/features/trackers/tracker_options.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
@@ -19,22 +23,22 @@ class IronswornWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String ironswornTrackTypeLabel = trackers
-        .firstWhere((tracker) => tracker.type == entry.trackerType)
+        .firstWhere((tracker) => tracker.type == entry.controlType)
         .label;
 
     int step = 12;
 
-    switch (entry.trackerType) {
-      case TrackerTypes.ironsworn2Dangerous:
+    switch (entry.controlType) {
+      case ControlTypeEnum.ironsworn2Dangerous:
         step = 8;
         break;
-      case TrackerTypes.ironsworn3Formidable:
+      case ControlTypeEnum.ironsworn3Formidable:
         step = 4;
         break;
-      case TrackerTypes.ironsworn4Extreme:
+      case ControlTypeEnum.ironsworn4Extreme:
         step = 2;
         break;
-      case TrackerTypes.ironsworn5Epic:
+      case ControlTypeEnum.ironsworn5Epic:
         step = 1;
         break;
       default:
@@ -124,8 +128,8 @@ class IronswornWidget extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Text(
               ironswornTrackTypeLabel.toUpperCase(),
-              style:
-                  TextStyle(color: CupertinoColors.activeBlue, fontSize: 12.0),
+              style: const TextStyle(
+                  color: CupertinoColors.activeBlue, fontSize: 12.0),
             ),
           ),
         ],
