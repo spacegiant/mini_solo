@@ -43,7 +43,7 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       useFateDice: json['useFateDice'] as bool,
       useCoriolisDice: json['useCoriolisDice'] as bool,
       useD6Oracle: json['useD6Oracle'] as bool,
-      wrapControls: json['wrapControls'] as bool,
+      wrapDiceControls: json['wrapDiceControls'] as bool,
       hiddenEntryTypes: (json['hiddenEntryTypes'] as List<dynamic>)
           .map((e) => $enumDecode(_$JournalEntryTypesEnumMap, e))
           .toList(),
@@ -60,7 +60,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'useFateDice': instance.useFateDice,
       'useCoriolisDice': instance.useCoriolisDice,
       'useD6Oracle': instance.useD6Oracle,
-      'wrapControls': instance.wrapControls,
+      'wrapDiceControls': instance.wrapDiceControls,
       'hiddenEntryTypes': instance.hiddenEntryTypes
           .map((e) => _$JournalEntryTypesEnumMap[e]!)
           .toList(),

@@ -42,10 +42,10 @@ List<Widget> generalSettings(
       },
     ),
     SettingsOption(
-      isActive: general.wrapControls,
-      label: 'Wrap Controls',
+      isActive: general.wrapDiceControls,
+      label: 'Wrap Dice Controls',
       onChanged: (isChecked) {
-        appState.toggleWrapControls();
+        appState.toggleWrapDiceControls(isChecked!);
       },
     ),
     // SettingsOption(

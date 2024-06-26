@@ -326,12 +326,11 @@ class AppState extends ChangeNotifier {
   }
 
   // WRAP CONTROLS
-  bool get wrapControls =>
-      _campaignData?.settings.general.wrapControls ?? false;
+  bool get wrapDiceControls =>
+      _campaignData?.settings.general.wrapDiceControls ?? false;
 
-  void toggleWrapControls() {
-    _campaignData?.settings.general.wrapControls =
-        !_campaignData!.settings.general.wrapControls;
+  void toggleWrapDiceControls(bool isWrapped) {
+    _campaignData?.settings.general.wrapDiceControls = isWrapped;
     saveCampaignDataToDisk();
   }
 

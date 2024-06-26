@@ -22,7 +22,7 @@ WrapManager diceTray(
   bool useCoriolisDice = generalSettings.useCoriolisDice;
   bool useD6OracleDice = generalSettings.useD6Oracle;
 
-  bool wrapControls = generalSettings.wrapControls;
+  bool wrapControls = generalSettings.wrapDiceControls;
 
   DiceSet? generalDiceSubset;
 

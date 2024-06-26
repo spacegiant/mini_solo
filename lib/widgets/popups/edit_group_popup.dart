@@ -37,7 +37,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     controls = widget.group.controls;
     selectedId = '';
     // TODO wire up to data
-    isWrapped = widget.group.isWrapped!;
+    isWrapped = widget.group.isWrapped ?? false;
   }
 
   void handleTap(String id) {

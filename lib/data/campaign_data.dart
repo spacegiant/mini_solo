@@ -186,7 +186,7 @@ class GeneralSettingsData {
   late bool useFateDice;
   late bool useCoriolisDice;
   late bool useD6Oracle;
-  late bool wrapControls;
+  late bool wrapDiceControls;
   late List<JournalEntryTypes> hiddenEntryTypes;
 
   GeneralSettingsData({
@@ -198,7 +198,7 @@ class GeneralSettingsData {
     required this.useFateDice,
     required this.useCoriolisDice,
     required this.useD6Oracle,
-    required this.wrapControls,
+    required this.wrapDiceControls,
     required this.hiddenEntryTypes,
   });
 // coverage:ignore-start
@@ -296,7 +296,7 @@ CampaignData initCampaignDataData(String campaignName) {
         useFateDice: false,
         useCoriolisDice: false,
         useD6Oracle: false,
-        wrapControls: false,
+        wrapDiceControls: false,
         hiddenEntryTypes: [
           JournalEntryTypes.tracker,
         ],

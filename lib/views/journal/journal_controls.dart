@@ -16,7 +16,7 @@ Widget journalControls(
   List<ControlData> controlData = getControlData(appState);
 
   return ViewWrapper(children: [
-    diceJournalControls(appState, addResult),
+    diceJournalControls(appState, addResult, context),
     ...dynamicListOfControls(appState, controlData, context),
     const Gap(),
 
