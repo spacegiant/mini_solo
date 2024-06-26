@@ -197,6 +197,8 @@ Widget chooseControlWidget({
         },
         onLongPress: () {
           toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 600.0,
               child: EditRandomTable(
                 appState: appState,
                 id: controlData.controlId,
