@@ -268,6 +268,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.newTracker:
       return ListButton(
         color: buttonColor,
+        iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 600.0,
@@ -280,6 +281,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.newRandomTable:
       return ListButton(
         color: buttonColor,
+        iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 600.0,
@@ -292,6 +294,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.newGroup:
       return ListButton(
         color: buttonColor,
+        iconData: CupertinoIcons.sparkles,
         onLongPress: () {
           toggleShowPopup2(
               maxWidth: 400.0,
@@ -315,6 +318,7 @@ Widget chooseControlWidget({
       return ListButton(
         color: buttonColor,
         label: controlData.label,
+        iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 400.0,
