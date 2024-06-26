@@ -5,6 +5,7 @@ import 'package:mini_solo/constants.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
+import '../gap.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';
 
@@ -78,6 +79,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
             ),
           ),
         ),
+        const Gap(),
         CupertinoButton(
             color: kSubmitColor,
             onPressed: () {

@@ -280,7 +280,10 @@ Widget chooseControlWidget({
         color: buttonColor,
         onLongPress: () {
           toggleShowPopup2(
-              child: EditGroupsPopup(appState: appState), context: context);
+              maxWidth: 400.0,
+              maxHeight: 740.0,
+              child: EditGroupsPopup(appState: appState),
+              context: context);
         },
         onPressed: () {
           toggleShowPopup2(
