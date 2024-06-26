@@ -5,6 +5,7 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 
+import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
 
@@ -72,8 +73,6 @@ class AppState extends ChangeNotifier {
   }
 
   void addToGroup({required String controlId, required String groupId}) {
-    Group group = getGroup(groupId);
-
     _campaignData!.groups
         .firstWhere((group) => group.groupId == groupId)
         .controls
@@ -141,6 +140,14 @@ class AppState extends ChangeNotifier {
 
   void updateGroups({required List<Group> groups}) {
     campaignData!.groups = groups;
+    saveCampaignDataToDisk();
+  }
+
+  // LABELS
+
+  String? createNewLabel(Kard kard) {
+    _campaignData!.kards.add(kard);
+    addToGroup(controlId: kard.id, groupId: 'unsorted');
     saveCampaignDataToDisk();
   }
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/widgets/popups/add_label_popup.dart';
+import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
@@ -62,7 +62,8 @@ enum ControlTypeEnum {
   newRandomTable,
   newGroup,
   statBlock,
-  newLabel,
+  kard,
+  newCard,
 }
 
 Widget chooseControlWidget({
@@ -307,25 +308,36 @@ Widget chooseControlWidget({
         label: 'New Group',
       );
     case ControlTypeEnum.statBlock:
-      const Text('Stat Block');
-    case ControlTypeEnum.newLabel:
+      return const Text('Stat Block');
+    case ControlTypeEnum.newCard:
       return ListButton(
         color: buttonColor,
         label: controlData.label,
         onPressed: () {
           toggleShowPopup2(
-              child: AddLabelPopup(
+              maxWidth: 400.0,
+              maxHeight: 220.0,
+              child: AddKardPopup(
                 appState: appState,
               ),
               context: context);
         },
         onLongPress: () {
           toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 220.0,
               child: EditLabelPopup(
                 appState: appState,
               ),
               context: context);
         },
+      );
+    case ControlTypeEnum.kard:
+      // TODO: Handle this case.
+      return ListButton(
+        color: buttonColor,
+        label: controlData.label,
+        onPressed: () {},
       );
   }
   return Text(controlData.label);

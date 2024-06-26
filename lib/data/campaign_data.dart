@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
-import '../features/labels/label.dart';
+import '../features/kard/kard.dart';
 import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
@@ -53,6 +53,7 @@ enum JournalEntryTypes {
   randomTable,
   rollTableResult,
   tracker,
+  kard,
 }
 
 class EntryTypeData {
@@ -236,7 +237,7 @@ class CampaignData {
   late List<TrackerEntry> tracker;
   late List<NewSceneEntry> newScene;
   late List<Group> groups;
-  late List<Label> labels;
+  late List<Kard> kards;
 
   CampaignData({
     required this.settings,
@@ -260,7 +261,7 @@ class CampaignData {
     required this.tracker,
     required this.newScene,
     required this.groups,
-    required this.labels,
+    required this.kards,
   });
 
   // coverage:ignore-start
@@ -356,7 +357,7 @@ CampaignData initCampaignDataData(String campaignName) {
           color: 0xFFFB8F67,
         ),
       ],
-      labels: []);
+      kards: []);
 }
 
 @JsonSerializable()
@@ -750,8 +751,8 @@ List<ControlData> initialNewItemControls = [
       controlType: ControlTypeEnum.newGroup),
   ControlData(
       controlId: 'new-label',
-      label: 'New Label',
-      controlType: ControlTypeEnum.newLabel),
+      label: 'New Card',
+      controlType: ControlTypeEnum.newCard),
 ];
 
 List<String> initialNewItemControlIds = [

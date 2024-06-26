@@ -1,6 +1,7 @@
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../features/kard/kard.dart';
 import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'control_data.dart';
@@ -8,6 +9,17 @@ import 'control_data.dart';
 List<ControlData> getControlData(AppState appState) {
   List<ControlData> trackersData = [];
   List<ControlData> randomTableControlData = [];
+  List<ControlData> kardControlData = [];
+
+  for (Kard kard in appState.campaignData!.kards) {
+    trackersData.add(
+      ControlData(
+        controlId: kard.id,
+        label: kard.title,
+        controlType: kard.controlType,
+      ),
+    );
+  }
 
   for (TrackerEntry tracker in appState.campaignData!.tracker) {
     trackersData.add(

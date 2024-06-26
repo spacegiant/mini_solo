@@ -89,6 +89,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.tracker: 'tracker',
+  JournalEntryTypes.kard: 'kard',
 };
 
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
@@ -146,8 +147,8 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       groups: (json['groups'] as List<dynamic>)
           .map((e) => Group.fromJson(e as Map<String, dynamic>))
           .toList(),
-      labels: (json['labels'] as List<dynamic>)
-          .map((e) => Label.fromJson(e as Map<String, dynamic>))
+      kards: (json['kards'] as List<dynamic>)
+          .map((e) => Kard.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -175,7 +176,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'tracker': instance.tracker.map((e) => e.toJson()).toList(),
       'newScene': instance.newScene.map((e) => e.toJson()).toList(),
       'groups': instance.groups.map((e) => e.toJson()).toList(),
-      'labels': instance.labels.map((e) => e.toJson()).toList(),
+      'kards': instance.kards.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -689,7 +690,8 @@ const _$ControlTypeEnumEnumMap = {
   ControlTypeEnum.newRandomTable: 'newRandomTable',
   ControlTypeEnum.newGroup: 'newGroup',
   ControlTypeEnum.statBlock: 'statBlock',
-  ControlTypeEnum.newLabel: 'newLabel',
+  ControlTypeEnum.kard: 'kard',
+  ControlTypeEnum.newCard: 'newCard',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>
