@@ -11,7 +11,7 @@ class Group {
   List<String> controls = []; // controls by id in order, alpha by default?
   bool? isExpanded = true; // true
   bool? isAppGroup = false; // Can't be deleted
-  bool? isActive = true; // true
+  bool isActive = true; // true
   bool? isWrapped = false;
   int? color; // default
   List<String>?

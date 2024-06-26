@@ -19,7 +19,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) => Group(
           ?.map((e) => e as String)
           .toList(),
       sortBy: $enumDecodeNullable(_$SortByEnumMap, json['sortBy']),
-    )..isActive = json['isActive'] as bool?;
+    )..isActive = json['isActive'] as bool;
 
 Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
       'groupId': instance.groupId,

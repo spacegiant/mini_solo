@@ -12,6 +12,8 @@ class MyReorderableItem extends StatefulWidget {
     this.selected,
     this.onTap,
     required this.index,
+    this.handleToggleActive,
+    this.groupIsActive,
   });
 
   final String id;
@@ -19,7 +21,9 @@ class MyReorderableItem extends StatefulWidget {
   final AppState appState;
   final bool? selected;
   final Function()? onTap;
+  final Function(bool)? handleToggleActive;
   final int index;
+  final bool? groupIsActive;
 
   @override
   State<MyReorderableItem> createState() => _MyReorderableItemState();
@@ -32,12 +36,11 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    isActive = widget.appState.getGroup(widget.id).isActive ?? false;
+    isActive = widget.groupIsActive ?? true;
   }
 
   @override
   Widget build(BuildContext context) {
-    bool? isActive = widget.appState.getGroup(widget.id).isActive;
     return ReorderableDelayedDragStartListener(
       index: widget.index,
       child: GestureDetector(
@@ -53,20 +56,21 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
                 Expanded(child: Text(widget.label)),
                 Row(
                   children: [
-                    CupertinoButton(
-                        child: isActive == true
-                            ? const Icon(CupertinoIcons.eye)
-                            : const Icon(
-                                CupertinoIcons.eye_slash,
-                                color: CupertinoColors.inactiveGray,
-                              ),
-                        onPressed: () {
-                          widget.appState.toggleGroupIsActive(widget.id);
-                          setState(() {
-                            isActive =
-                                widget.appState.getGroup(widget.id).isActive;
-                          });
-                        }),
+                    if (widget.handleToggleActive != null)
+                      CupertinoButton(
+                          child: isActive == true
+                              ? const Icon(CupertinoIcons.eye)
+                              : const Icon(
+                                  CupertinoIcons.eye_slash,
+                                  color: CupertinoColors.inactiveGray,
+                                ),
+                          onPressed: () {
+                            // widget.appState.toggleGroupIsActive(widget.id);
+                            setState(() {
+                              isActive = !isActive;
+                            });
+                            widget.handleToggleActive!(isActive);
+                          }),
                     const Icon(
                       CupertinoIcons.line_horizontal_3,
                       size: 20.0,

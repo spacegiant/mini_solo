@@ -34,14 +34,10 @@ class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
   late CampaignStorage _storage;
   late final PopupLabel _popupLabel = PopupLabel.chaos;
-  late bool _showPopup = false;
-  late final bool _showPopup2 = false;
+  late final bool _showPopup = false;
   late bool _showSettings = false;
-  // TODO: Remove _useJournal
-  late bool _useJournal = true;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
-  Function(AppSettingsData)? _saveAppSettingsCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
@@ -58,6 +54,7 @@ class AppState extends ChangeNotifier {
   }
 
   Group getGroup(String groupName) {
+    // print(groupName);
     return campaignData!.groups.firstWhere((group) {
       return group.groupId == groupName;
     });
@@ -140,13 +137,11 @@ class AppState extends ChangeNotifier {
     group.controls = controls;
     group.isWrapped = isWrapped;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   void updateGroups({required List<Group> groups}) {
     campaignData!.groups = groups;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   // EXPANDED LIST
@@ -164,10 +159,10 @@ class AppState extends ChangeNotifier {
   }
 
   // GROUP IS ACTIVE
-  void toggleGroupIsActive(String id) {
+  void toggleGroupIsActive(String id, bool? checked) {
     Group group = getGroup(id);
-    if (group != null) group.isActive = !group.isActive!;
-    print(group.isActive);
+    group.isActive = checked ?? !group.isActive;
+    saveCampaignDataToDisk();
   }
 
   // CAMPAIGN STORAGE
@@ -566,7 +561,6 @@ class AppState extends ChangeNotifier {
   void setCurrentScratchId(String id) {
     _campaignData?.currentScratchEntryId = id;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   get currentScratchId => _campaignData?.currentScratchEntryId;
@@ -619,7 +613,6 @@ class AppState extends ChangeNotifier {
     //TODO delete from all group collections
     removeFromAllGroups(controlId: id);
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   // RANDOM TABLE ENTRIES

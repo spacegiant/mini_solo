@@ -17,7 +17,7 @@ List<GroupContainer> dynamicListOfControls(
 
   // ITERATE ALL GROUPS STORED IN ORDER
   for (Group group in groupList) {
-    if (group.controls.isEmpty) continue;
+    if (group.controls.isEmpty || group.isActive == false) continue;
 
     List<Widget> children = [];
 

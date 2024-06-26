@@ -23,11 +23,13 @@ class EditGroupsPopup extends StatefulWidget {
 
 class _EditGroupsPopupState extends State<EditGroupsPopup> {
   late String selectedId;
+  late List<Group> groups;
 
   @override
   void initState() {
     super.initState();
     selectedId = '';
+    groups = widget.appState.groupList;
   }
 
   void handleTap(String id) {
@@ -46,7 +48,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
 
   @override
   Widget build(BuildContext context) {
-    List<Group> groups = widget.appState.groupList;
+    // List<Group> groups = widget.appState.groupList;
 
     List<Widget> children = groups
         .mapIndexed((index, group) => MyReorderableItem(
@@ -58,6 +60,11 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
               onTap: () {
                 handleTap(group.groupId);
               },
+              handleToggleActive: (bool checked) {
+                widget.appState.getGroup(group.groupId).isActive = checked;
+                widget.appState.saveCampaignDataToDisk();
+              },
+              groupIsActive: group.isActive,
               index: index,
             ))
         .toList();
