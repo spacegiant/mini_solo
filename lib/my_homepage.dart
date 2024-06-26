@@ -74,16 +74,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     // saveCampaign(campaignData);
   }
 
-  void loadData(String filename) {
-    widget.storage.readJSON('$filename.json').then((data) {
-      var appState = context.read<AppState>();
-
-      if (data != null) {
-        appState.setCampaignData(data);
-      }
-    });
-  }
-
   // void saveCampaign(CampaignData campaignData) {
   //   widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
   // }

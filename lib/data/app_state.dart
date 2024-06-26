@@ -150,7 +150,6 @@ class AppState extends ChangeNotifier {
   }
 
   // EXPANDED LIST
-  List<String> get expandedList => _appSettingsData.expandedList;
 
   void toggleExpanded(String label) {
     _appSettingsData.expandedList.contains(label)
@@ -209,9 +208,6 @@ class AppState extends ChangeNotifier {
     storage.writeJSON(_campaignData!, '$name.json');
     notifyListeners();
   }
-
-  Function(AppSettingsData)? get appSettingsSaveCallback =>
-      _saveAppSettingsCallback;
 
   void saveAppSettingsDataToDisk() {
     storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
@@ -316,14 +312,6 @@ class AppState extends ChangeNotifier {
   }
 
   bool get showSettings => _showSettings;
-
-//   USE JOURNAL
-  bool get useJournal => _useJournal;
-
-  void toggleUseJournal() {
-    _useJournal = !_useJournal;
-    notifyListeners();
-  }
 
   // WRAP CONTROLS
   bool get wrapDiceControls =>
