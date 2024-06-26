@@ -22,7 +22,7 @@ class GroupContainer extends StatelessWidget {
     required this.containerId,
     required this.appState,
     required this.children,
-    this.wrapControls = false,
+    this.isWrapped = false,
     this.showDivider = true,
     required this.groupId,
     required this.handleLongPress,
@@ -34,7 +34,7 @@ class GroupContainer extends StatelessWidget {
   final String groupId;
   final AppState appState;
   final List<Widget> children;
-  final bool? wrapControls;
+  final bool? isWrapped;
   final bool? showDivider;
   final Function() handleLongPress;
 
@@ -59,7 +59,8 @@ class GroupContainer extends StatelessWidget {
               handleLongPress();
             },
           ),
-          if (isExpanded) WrapManager(wrapControls: false, children: children),
+          if (isExpanded)
+            WrapManager(wrapControls: isWrapped ?? false, children: children),
         ],
       );
     } else {

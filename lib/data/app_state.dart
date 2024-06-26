@@ -127,6 +127,7 @@ class AppState extends ChangeNotifier {
   void updateGroupControls({
     required String groupName,
     required List<String> controls,
+    required bool isWrapped,
   }) {
     // Group thisGroup = campaignData!.groups.firstWhere((group) {
     //   return group.groupId == groupName;
@@ -134,9 +135,10 @@ class AppState extends ChangeNotifier {
     // print(thisGroup.controls);
     // print(controls);
     // thisGroup.controls = [];
-    campaignData!.groups
-        .firstWhere((group) => group.groupId == groupName)
-        .controls = controls;
+    Group group =
+        campaignData!.groups.firstWhere((group) => group.groupId == groupName);
+    group.controls = controls;
+    group.isWrapped = isWrapped;
     saveCampaignDataToDisk();
     notifyListeners();
   }

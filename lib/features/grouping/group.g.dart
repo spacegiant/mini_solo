@@ -11,8 +11,9 @@ Group _$GroupFromJson(Map<String, dynamic> json) => Group(
       label: json['label'] as String,
       controls:
           (json['controls'] as List<dynamic>).map((e) => e as String).toList(),
-      isExpanded: json['isExpanded'] as bool?,
       isAppGroup: json['isAppGroup'] as bool?,
+      isExpanded: json['isExpanded'] as bool?,
+      isWrapped: json['isWrapped'] as bool?,
       color: (json['color'] as num?)?.toInt(),
       presetOrder: (json['presetOrder'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -25,8 +26,9 @@ Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
       'label': instance.label,
       'controls': instance.controls,
       'isExpanded': instance.isExpanded,
-      'isActive': instance.isActive,
       'isAppGroup': instance.isAppGroup,
+      'isActive': instance.isActive,
+      'isWrapped': instance.isWrapped,
       'color': instance.color,
       'presetOrder': instance.presetOrder,
       'sortBy': _$SortByEnumMap[instance.sortBy],

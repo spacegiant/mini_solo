@@ -29,12 +29,15 @@ class EditGroupPopup extends StatefulWidget {
 class _EditGroupPopupState extends State<EditGroupPopup> {
   late List<String> controls;
   late String selectedId;
+  late bool isWrapped;
 
   @override
   void initState() {
     super.initState();
     controls = widget.group.controls;
     selectedId = '';
+    // TODO wire up to data
+    isWrapped = widget.group.isWrapped!;
   }
 
   void handleTap(String id) {
@@ -72,10 +75,12 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     return Flexible(
       child: Column(
         children: [
+          const Text('Edit Group'),
+          const Divider(),
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
-              maxHeight: 650.0,
+              maxHeight: 500.0,
               minHeight: 200.0,
             ),
             child: Scaffold(
@@ -88,16 +93,34 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
             )),
           ),
           const Gap(),
-          CupertinoButton(
-              color: kSubmitColor,
-              onPressed: () {
-                widget.appState.updateGroupControls(
-                  groupName: widget.group.groupId,
-                  controls: controls,
-                );
-                Navigator.pop(context);
-              },
-              child: const Text('Update'))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  CupertinoSwitch(
+                      value: isWrapped,
+                      onChanged: (value) {
+                        setState(() {
+                          isWrapped = !isWrapped;
+                        });
+                      }),
+                  const Text('Wrap controls'),
+                ],
+              ),
+              CupertinoButton(
+                  color: kSubmitColor,
+                  onPressed: () {
+                    widget.appState.updateGroupControls(
+                      groupName: widget.group.groupId,
+                      controls: controls,
+                      isWrapped: isWrapped,
+                    );
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Update'))
+            ],
+          ),
         ],
       ),
     );

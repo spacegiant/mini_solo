@@ -1,4 +1,3 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'group.g.dart';
@@ -11,8 +10,9 @@ class Group {
   String label; // default/user defined 'Mythic GME', must be unique
   List<String> controls = []; // controls by id in order, alpha by default?
   bool? isExpanded = true; // true
-  bool? isActive = true; // true
   bool? isAppGroup = false; // Can't be deleted
+  bool? isActive = true; // true
+  bool? isWrapped = false;
   int? color; // default
   List<String>?
       presetOrder; // used for Mythic Fate Chart. Can't reorder if exists.
@@ -22,8 +22,9 @@ class Group {
     required this.groupId,
     required this.label,
     required this.controls,
-    this.isExpanded,
     this.isAppGroup,
+    this.isExpanded,
+    this.isWrapped,
     this.color,
     this.presetOrder,
     this.sortBy,

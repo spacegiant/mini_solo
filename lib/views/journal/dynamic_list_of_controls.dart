@@ -47,7 +47,7 @@ List<GroupContainer> dynamicListOfControls(
         containerId: 'group-container-${group.groupId}',
         groupId: group.groupId,
         appState: appState,
-        children: children,
+        isWrapped: group.isWrapped,
         handleLongPress: () {
           toggleShowPopup2(
               maxWidth: 400.0,
@@ -59,6 +59,7 @@ List<GroupContainer> dynamicListOfControls(
               ),
               context: context);
         },
+        children: children,
       ),
     );
   }
