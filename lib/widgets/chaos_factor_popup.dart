@@ -6,11 +6,16 @@ import '../data/app_state.dart';
 import 'gap.dart';
 import 'list_button.dart';
 
-class ChaosFactorPopup extends StatelessWidget {
+class ChaosFactorPopup extends StatefulWidget {
   const ChaosFactorPopup({
     super.key,
   });
 
+  @override
+  State<ChaosFactorPopup> createState() => _ChaosFactorPopupState();
+}
+
+class _ChaosFactorPopupState extends State<ChaosFactorPopup> {
   @override
   Widget build(BuildContext context) {
     var appState = context.read<AppState>();
