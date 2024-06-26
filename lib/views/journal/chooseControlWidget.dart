@@ -295,8 +295,8 @@ Widget chooseControlWidget({
         },
         onPressed: () {
           toggleShowPopup2(
-            maxWidth: 600.0,
-            maxHeight: 600.0,
+            maxWidth: 400.0,
+            maxHeight: 220.0,
             child: AddGroupPopup(appState: appState),
             context: context,
           );
