@@ -307,7 +307,8 @@ Widget chooseControlWidget({
     case ControlTypeEnum.statBlock:
       const Text('Stat Block');
     case ControlTypeEnum.newLabel:
-      const Text('New Label');
+      return ListButton(
+          color: buttonColor, label: controlData.label, onPressed: () {});
   }
   return Text(controlData.label);
 }
