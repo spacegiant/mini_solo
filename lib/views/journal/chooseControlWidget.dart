@@ -317,7 +317,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 400.0,
-              maxHeight: 220.0,
+              maxHeight: 800.0,
               child: AddKardPopup(
                 appState: appState,
               ),
@@ -345,36 +345,6 @@ Widget chooseControlWidget({
     // );
   }
   return Text(controlData.label);
-}
-
-class KardWidget extends StatelessWidget {
-  const KardWidget({
-    super.key,
-    required this.entry,
-  });
-
-  final Kard entry;
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> textLines =
-        entry.lines?.map((line) => Text(line)).toList() ?? [];
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.pink,
-        borderRadius: BorderRadius.all(kInputBorderRadius),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text(entry.title),
-            ...textLines,
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 TrackerEntry? getTrackerEntry(AppState appState, String controlId) {
