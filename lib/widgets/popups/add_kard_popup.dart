@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
@@ -16,17 +18,20 @@ class AddKardPopup extends StatefulWidget {
 }
 
 class _AddKardPopupState extends State<AddKardPopup> {
-  late TextEditingController _controller;
+  late TextEditingController _titleController;
+  late TextEditingController _linesController;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _titleController = TextEditingController();
+    _linesController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _titleController.dispose();
+    _linesController.dispose();
     super.dispose();
   }
 
@@ -36,23 +41,35 @@ class _AddKardPopupState extends State<AddKardPopup> {
       const Text('Add Card'),
       const Divider(),
       CupertinoTextField(
-        controller: _controller,
+        controller: _titleController,
+      ),
+      CupertinoTextField(
+        // expands: true,
+        maxLines: 3,
+        controller: _linesController,
       ),
       const Gap(),
       CupertinoButton(
         color: CupertinoColors.systemPink,
         onPressed: () {
-          String text = _controller.value.text.trim();
+          String text = _titleController.value.text.trim();
           if (text == '') return;
-          // widget.appState.createNewGroup(
-          //   Group(groupId: genericId('group'), label: text, controls: []),
-          // );
-          widget.appState.createNewLabel(
-              Kard(title: text, controlType: ControlTypeEnum.kard));
-          _controller.text = '';
+          widget.appState.createNewLabel(Kard(
+            title: text,
+            lines: convertToLines(_linesController.value.text),
+            controlType: ControlTypeEnum.kard,
+          ));
+          _titleController.text = '';
         },
         child: const Text('Add'),
       )
     ]);
+  }
+
+  List<String> convertToLines(String lines) {
+    LineSplitter ls = const LineSplitter();
+    List<String> separated = ls.convert(lines);
+
+    return separated.map((line) => line.trim()).toList();
   }
 }

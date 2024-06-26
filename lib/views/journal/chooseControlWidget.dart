@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/features/kard/kard.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
@@ -334,19 +335,61 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.kard:
       // TODO: Handle this case.
-      return ListButton(
-        color: buttonColor,
-        label: controlData.label,
-        onPressed: () {},
+      return KardWidget(
+        entry: getKardEntry(appState, controlData.controlId)!,
       );
+    // return ListButton(
+    //   color: buttonColor,
+    //   label: controlData.label,
+    //   onPressed: () {},
+    // );
   }
   return Text(controlData.label);
+}
+
+class KardWidget extends StatelessWidget {
+  const KardWidget({
+    super.key,
+    required this.entry,
+  });
+
+  final Kard entry;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> textLines =
+        entry.lines?.map((line) => Text(line)).toList() ?? [];
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.pink,
+        borderRadius: BorderRadius.all(kInputBorderRadius),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(entry.title),
+            ...textLines,
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 TrackerEntry? getTrackerEntry(AppState appState, String controlId) {
   try {
     return appState.campaignData?.tracker
         .firstWhere((tracker) => tracker.id == controlId);
+  } catch (e) {
+    return null;
+  }
+}
+
+Kard? getKardEntry(AppState appState, String controlId) {
+  try {
+    return appState.campaignData?.kards
+        .firstWhere((kard) => kard.id == controlId);
   } catch (e) {
     return null;
   }
