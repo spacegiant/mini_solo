@@ -270,7 +270,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   CupertinoButton homePageChaosFactorButton(AppState appState) {
     return CupertinoButton(
       onPressed: () {
-        toggleShowPopup2(child: const ChaosFactorPopup(), context: context);
+        toggleShowPopup2(
+            maxHeight: 300.0,
+            maxWidth: 200.0,
+            child: const ChaosFactorPopup(),
+            context: context);
       },
       padding: const EdgeInsets.all(0.0),
       child: Row(

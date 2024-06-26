@@ -59,14 +59,6 @@ class _ChaosFactorPopupState extends State<ChaosFactorPopup> {
             appState.resetChaosFactor();
           },
         ),
-        const Gap(height: 8.0),
-        ListButton(
-          label: kPopupCloseButtonLabel,
-          labelAlignment: Alignment.center,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ],
     );
   }
