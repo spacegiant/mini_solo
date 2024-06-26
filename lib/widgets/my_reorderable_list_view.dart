@@ -21,6 +21,7 @@ class MyReorderableListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReorderableListView(
+      buildDefaultDragHandles: false,
       padding: const EdgeInsets.all(8.0),
       children: children,
       onReorder: (oldIndex, newIndex) {

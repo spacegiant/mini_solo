@@ -50,6 +50,8 @@ List<GroupContainer> dynamicListOfControls(
         children: children,
         handleLongPress: () {
           toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 800.0,
               child: EditGroupPopup(
                 appState: appState,
                 group: group,

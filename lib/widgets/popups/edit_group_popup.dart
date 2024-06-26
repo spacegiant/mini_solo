@@ -5,6 +5,7 @@ import 'package:mini_solo/constants.dart';
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
 import '../../views/journal/control_data.dart';
+import '../gap.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';
 
@@ -71,7 +72,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
-              maxHeight: 600.0,
+              maxHeight: 650.0,
               minHeight: 200.0,
             ),
             child: Scaffold(
@@ -83,6 +84,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
               children: children,
             )),
           ),
+          const Gap(),
           CupertinoButton(
               color: kSubmitColor,
               onPressed: () {
