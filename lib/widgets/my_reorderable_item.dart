@@ -11,6 +11,7 @@ class MyReorderableItem extends StatelessWidget {
     required this.label,
     this.selected,
     this.onTap,
+    required this.index,
   });
 
   final String id;
@@ -18,23 +19,25 @@ class MyReorderableItem extends StatelessWidget {
   final AppState appState;
   final bool? selected;
   final Function()? onTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    String title;
-
-    return ListTile(
-      title: Text(label),
-      trailing: const Icon(
-        CupertinoIcons.line_horizontal_3,
-        size: 20.0,
-        color: CupertinoColors.systemGrey,
+    return ReorderableDelayedDragStartListener(
+      index: index,
+      child: ListTile(
+        title: Text(label),
+        trailing: const Icon(
+          CupertinoIcons.line_horizontal_3,
+          size: 20.0,
+          color: CupertinoColors.systemGrey,
+        ),
+        selected: selected ?? false,
+        onTap: onTap,
+        // tileColor: CupertinoColors.systemGrey5,
+        // selectedColor: CupertinoColors.black,
+        selectedTileColor: CupertinoColors.systemYellow,
       ),
-      selected: selected ?? false,
-      onTap: onTap,
-      // tileColor: CupertinoColors.systemGrey5,
-      // selectedColor: CupertinoColors.black,
-      selectedTileColor: CupertinoColors.systemYellow,
     );
   }
 }

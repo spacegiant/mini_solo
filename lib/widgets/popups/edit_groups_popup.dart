@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
@@ -47,7 +48,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
     List<Group> groups = widget.appState.groupList;
 
     List<Widget> children = groups
-        .map((group) => MyReorderableItem(
+        .mapIndexed((index, group) => MyReorderableItem(
               key: Key(group.groupId),
               id: group.groupId,
               appState: widget.appState,
@@ -56,6 +57,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
               onTap: () {
                 handleTap(group.groupId);
               },
+              index: index,
             ))
         .toList();
 

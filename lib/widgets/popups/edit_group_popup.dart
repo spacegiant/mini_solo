@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
@@ -53,17 +54,19 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = controls
-        .map((control) => MyReorderableItem(
-            key: Key(control),
-            id: control,
-            appState: widget.appState,
-            label: widget.controlData
-                .firstWhere((controlData) => controlData.controlId == control)
-                .label,
-            selected: selectedId == control,
-            onTap: () {
-              handleTap(control);
-            }))
+        .mapIndexed((index, control) => MyReorderableItem(
+              key: Key(control),
+              id: control,
+              appState: widget.appState,
+              label: widget.controlData
+                  .firstWhere((controlData) => controlData.controlId == control)
+                  .label,
+              selected: selectedId == control,
+              onTap: () {
+                handleTap(control);
+              },
+              index: index,
+            ))
         .toList();
 
     return Flexible(
