@@ -90,6 +90,7 @@ class AppState extends ChangeNotifier {
   void moveToGroup({required String controlId, required String groupId}) {
     removeFromAllGroups(controlId: controlId);
     addToGroup(controlId: controlId, groupId: groupId);
+    saveCampaignDataToDisk();
   }
 
   String? findCurrentGroupId(String entryId) {
@@ -148,6 +149,12 @@ class AppState extends ChangeNotifier {
   String? createNewLabel(Kard kard) {
     _campaignData!.kards.add(kard);
     addToGroup(controlId: kard.id, groupId: 'unsorted');
+    saveCampaignDataToDisk();
+  }
+
+  void deleteKard(String id) {
+    _campaignData!.kards.removeWhere((entry) => entry.id == id);
+    removeFromAllGroups(controlId: id);
     saveCampaignDataToDisk();
   }
 
@@ -617,7 +624,6 @@ class AppState extends ChangeNotifier {
 
   void deleteRandomTable(String id) {
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
-    //TODO delete from all group collections
     removeFromAllGroups(controlId: id);
     saveCampaignDataToDisk();
   }

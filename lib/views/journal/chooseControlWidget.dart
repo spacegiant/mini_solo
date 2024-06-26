@@ -338,6 +338,7 @@ Widget chooseControlWidget({
       // TODO: Handle this case.
       return KardWidget(
         entry: getKardEntry(appState, controlData.controlId)!,
+        appState: appState,
       );
     // return ListButton(
     //   color: buttonColor,
