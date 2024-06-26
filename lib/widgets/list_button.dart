@@ -45,6 +45,7 @@ class ListButton extends StatelessWidget {
       );
     } else if (iconOnly == false && iconData != null) {
       child = Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             iconData,
