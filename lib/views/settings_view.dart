@@ -10,6 +10,7 @@ import '../data/app_settings_data.dart';
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
 import '../widgets/gap.dart';
+import '../widgets/popups/edit_groups_popup.dart';
 import '../widgets/popups/import_manager.dart';
 import '../widgets/popups/toggle_show_popup.dart';
 
@@ -204,6 +205,15 @@ class _CampaignSettingsState extends State<CampaignSettings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              CupertinoButton(
+                  child: const Text('Manage Groups'),
+                  onPressed: () {
+                    toggleShowPopup2(
+                        maxWidth: 400.0,
+                        maxHeight: 740.0,
+                        child: EditGroupsPopup(appState: appState),
+                        context: context);
+                  }),
               // TODO:
               const Text('dropdown goes here - select current campaign'),
               SettingsOption(
