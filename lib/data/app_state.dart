@@ -163,6 +163,13 @@ class AppState extends ChangeNotifier {
     return !_appSettingsData.expandedList.contains(label);
   }
 
+  // GROUP IS ACTIVE
+  void toggleGroupIsActive(String id) {
+    Group group = getGroup(id);
+    if (group != null) group.isActive = !group.isActive!;
+    print(group.isActive);
+  }
+
   // CAMPAIGN STORAGE
   void setCampaignStorage(CampaignStorage storage) {
     _storage = storage;
