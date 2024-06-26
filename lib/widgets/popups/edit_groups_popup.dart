@@ -91,7 +91,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
             color: kSubmitColor,
             onPressed: () {
               widget.appState.updateGroups(groups: groups);
-              // Navigator.pop(context);
+              Navigator.pop(context);
             },
             child: const Text('Update'))
       ],
