@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/features/kard/kard.dart';
+import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../features/kard/kard_widget.dart';
 import '../../features/random_tables/roll_table.dart';
 import '../../features/trackers/bar_tracker_control.dart';
 import '../../features/trackers/clock_tracker_control.dart';
@@ -27,8 +31,8 @@ import '../../widgets/popups/edit_groups_popup.dart';
 import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';
 import '../mythic/fate_question.dart';
+import 'control_data.dart';
 import 'get_event_focus.dart';
-import 'journal_controls.dart';
 
 enum ControlTypeEnum {
   button,
@@ -60,6 +64,8 @@ enum ControlTypeEnum {
   newRandomTable,
   newGroup,
   statBlock,
+  kard,
+  newCard,
 }
 
 Widget chooseControlWidget({
@@ -197,6 +203,8 @@ Widget chooseControlWidget({
         },
         onLongPress: () {
           toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 600.0,
               child: EditRandomTable(
                 appState: appState,
                 id: controlData.controlId,
@@ -260,30 +268,44 @@ Widget chooseControlWidget({
     case ControlTypeEnum.newTracker:
       return ListButton(
         color: buttonColor,
+        iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
-              child: AddTrackerPopup(appState: appState), context: context);
+              maxWidth: 600.0,
+              maxHeight: 800.0,
+              child: AddTrackerPopup(appState: appState),
+              context: context);
         },
         label: controlData.label,
       );
     case ControlTypeEnum.newRandomTable:
       return ListButton(
         color: buttonColor,
+        iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
-              child: AddRandomTablePopup(appState: appState), context: context);
+              maxWidth: 600.0,
+              maxHeight: 520.0,
+              child: AddRandomTablePopup(appState: appState),
+              context: context);
         },
         label: controlData.label,
       );
     case ControlTypeEnum.newGroup:
       return ListButton(
         color: buttonColor,
+        iconData: CupertinoIcons.sparkles,
         onLongPress: () {
           toggleShowPopup2(
-              child: EditGroupsPopup(appState: appState), context: context);
+              maxWidth: 400.0,
+              maxHeight: 740.0,
+              child: EditGroupsPopup(appState: appState),
+              context: context);
         },
         onPressed: () {
           toggleShowPopup2(
+            maxWidth: 400.0,
+            maxHeight: 220.0,
             child: AddGroupPopup(appState: appState),
             context: context,
           );
@@ -291,7 +313,42 @@ Widget chooseControlWidget({
         label: 'New Group',
       );
     case ControlTypeEnum.statBlock:
-      const Text('Stat Block');
+      return const Text('Stat Block');
+    case ControlTypeEnum.newCard:
+      return ListButton(
+        color: buttonColor,
+        label: controlData.label,
+        iconData: CupertinoIcons.sparkles,
+        onPressed: () {
+          toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 800.0,
+              child: AddKardPopup(
+                appState: appState,
+              ),
+              context: context);
+        },
+        onLongPress: () {
+          toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 220.0,
+              child: EditLabelPopup(
+                appState: appState,
+              ),
+              context: context);
+        },
+      );
+    case ControlTypeEnum.kard:
+      // TODO: Handle this case.
+      return KardWidget(
+        entry: getKardEntry(appState, controlData.controlId)!,
+        appState: appState,
+      );
+    // return ListButton(
+    //   color: buttonColor,
+    //   label: controlData.label,
+    //   onPressed: () {},
+    // );
   }
   return Text(controlData.label);
 }
@@ -300,6 +357,15 @@ TrackerEntry? getTrackerEntry(AppState appState, String controlId) {
   try {
     return appState.campaignData?.tracker
         .firstWhere((tracker) => tracker.id == controlId);
+  } catch (e) {
+    return null;
+  }
+}
+
+Kard? getKardEntry(AppState appState, String controlId) {
+  try {
+    return appState.campaignData?.kards
+        .firstWhere((kard) => kard.id == controlId);
   } catch (e) {
     return null;
   }

@@ -31,7 +31,7 @@ class _EditMythicEntryPopupState extends State<EditOracleEntryPopup> {
           color: CupertinoColors.destructiveRed,
           onPressed: () {
             widget.appState.deleteOracleEntry(widget.id);
-            widget.appState.closePopup();
+            Navigator.pop(context);
           },
           child: const Text(kDeleteLabel),
         ),

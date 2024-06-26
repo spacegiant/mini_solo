@@ -3,11 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
-import 'package:mini_solo/widgets/picker.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group-picker.dart';
-import '../../features/grouping/group.dart';
 import '../gap.dart';
 
 class AddRandomTablePopup extends StatefulWidget {
@@ -151,7 +149,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                   color: kWarningColor,
                   child: const Text(kLabelClose),
                   onPressed: () {
-                    widget.appState.closePopup();
+                    Navigator.pop(context);
                   }),
             ],
           )

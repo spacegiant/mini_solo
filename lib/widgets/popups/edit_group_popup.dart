@@ -1,11 +1,12 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
-import 'package:mini_solo/widgets/popups/edit_groups_popup.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
-import '../../views/journal/journal_controls.dart';
+import '../../views/journal/control_data.dart';
+import '../gap.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';
 
@@ -28,12 +29,15 @@ class EditGroupPopup extends StatefulWidget {
 class _EditGroupPopupState extends State<EditGroupPopup> {
   late List<String> controls;
   late String selectedId;
+  late bool isWrapped;
 
   @override
   void initState() {
     super.initState();
     controls = widget.group.controls;
     selectedId = '';
+    // TODO wire up to data
+    isWrapped = widget.group.isWrapped ?? false;
   }
 
   void handleTap(String id) {
@@ -53,26 +57,30 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = controls
-        .map((control) => MyReorderableItem(
-            key: Key(control),
-            id: control,
-            appState: widget.appState,
-            label: widget.controlData
-                .firstWhere((controlData) => controlData.controlId == control)
-                .label,
-            selected: selectedId == control,
-            onTap: () {
-              handleTap(control);
-            }))
+        .mapIndexed((index, control) => MyReorderableItem(
+              key: Key(control),
+              id: control,
+              appState: widget.appState,
+              label: widget.controlData
+                  .firstWhere((controlData) => controlData.controlId == control)
+                  .label,
+              selected: selectedId == control,
+              onTap: () {
+                handleTap(control);
+              },
+              index: index,
+            ))
         .toList();
 
     return Flexible(
       child: Column(
         children: [
+          const Text('Edit Group'),
+          const Divider(),
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
-              maxHeight: 600.0,
+              maxHeight: 500.0,
               minHeight: 200.0,
             ),
             child: Scaffold(
@@ -84,16 +92,35 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
               children: children,
             )),
           ),
-          CupertinoButton(
-              child: Text('Update'),
-              color: kSubmitColor,
-              onPressed: () {
-                widget.appState.updateGroupControls(
-                  groupName: widget.group.groupId,
-                  controls: controls,
-                );
-                Navigator.pop(context);
-              })
+          const Gap(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  CupertinoSwitch(
+                      value: isWrapped,
+                      onChanged: (value) {
+                        setState(() {
+                          isWrapped = !isWrapped;
+                        });
+                      }),
+                  const Text('Wrap controls'),
+                ],
+              ),
+              CupertinoButton(
+                  color: kSubmitColor,
+                  onPressed: () {
+                    widget.appState.updateGroupControls(
+                      groupName: widget.group.groupId,
+                      controls: controls,
+                      isWrapped: isWrapped,
+                    );
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Update'))
+            ],
+          ),
         ],
       ),
     );

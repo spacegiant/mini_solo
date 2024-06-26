@@ -36,6 +36,7 @@ Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
 GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
     GeneralSettingsData(
       showFutureSettings: json['showFutureSettings'] as bool,
+      diceActive: json['diceActive'] as bool,
       showMechanics: json['showMechanics'] as bool,
       useJournal: json['useJournal'] as bool,
       useRegularDice: json['useRegularDice'] as bool,
@@ -43,7 +44,7 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       useFateDice: json['useFateDice'] as bool,
       useCoriolisDice: json['useCoriolisDice'] as bool,
       useD6Oracle: json['useD6Oracle'] as bool,
-      wrapControls: json['wrapControls'] as bool,
+      wrapDiceControls: json['wrapDiceControls'] as bool,
       hiddenEntryTypes: (json['hiddenEntryTypes'] as List<dynamic>)
           .map((e) => $enumDecode(_$JournalEntryTypesEnumMap, e))
           .toList(),
@@ -53,6 +54,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
         GeneralSettingsData instance) =>
     <String, dynamic>{
       'showFutureSettings': instance.showFutureSettings,
+      'diceActive': instance.diceActive,
       'showMechanics': instance.showMechanics,
       'useJournal': instance.useJournal,
       'useZocchiDice': instance.useZocchiDice,
@@ -60,7 +62,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'useFateDice': instance.useFateDice,
       'useCoriolisDice': instance.useCoriolisDice,
       'useD6Oracle': instance.useD6Oracle,
-      'wrapControls': instance.wrapControls,
+      'wrapDiceControls': instance.wrapDiceControls,
       'hiddenEntryTypes': instance.hiddenEntryTypes
           .map((e) => _$JournalEntryTypesEnumMap[e]!)
           .toList(),
@@ -87,6 +89,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.randomTable: 'randomTable',
   JournalEntryTypes.rollTableResult: 'rollTableResult',
   JournalEntryTypes.tracker: 'tracker',
+  JournalEntryTypes.kard: 'kard',
 };
 
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
@@ -144,6 +147,9 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
       groups: (json['groups'] as List<dynamic>)
           .map((e) => Group.fromJson(e as Map<String, dynamic>))
           .toList(),
+      kards: (json['kards'] as List<dynamic>)
+          .map((e) => Kard.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
@@ -170,6 +176,7 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'tracker': instance.tracker.map((e) => e.toJson()).toList(),
       'newScene': instance.newScene.map((e) => e.toJson()).toList(),
       'groups': instance.groups.map((e) => e.toJson()).toList(),
+      'kards': instance.kards.map((e) => e.toJson()).toList(),
     };
 
 MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
@@ -682,6 +689,9 @@ const _$ControlTypeEnumEnumMap = {
   ControlTypeEnum.newTracker: 'newTracker',
   ControlTypeEnum.newRandomTable: 'newRandomTable',
   ControlTypeEnum.newGroup: 'newGroup',
+  ControlTypeEnum.statBlock: 'statBlock',
+  ControlTypeEnum.kard: 'kard',
+  ControlTypeEnum.newCard: 'newCard',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>

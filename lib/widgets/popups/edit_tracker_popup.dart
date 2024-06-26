@@ -147,20 +147,20 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
                 currentValue: currentValue,
                 maxValue: maxValue,
               );
-              widget.appState.closePopup();
+              Navigator.pop(context);
             },
             child: const Text('Save')),
         CupertinoButton(
             color: CupertinoColors.inactiveGray,
             onPressed: () {
-              widget.appState.closePopup();
+              Navigator.pop(context);
             },
             child: const Text('Cancel')),
         CupertinoButton(
             color: kWarningColor,
             onPressed: () {
               widget.appState.deleteTrackerEntry(widget.id);
-              // widget.appState.closePopup();
+              // Navigator.pop(context);
               Navigator.pop(context);
             },
             child: const Text('Delete')),

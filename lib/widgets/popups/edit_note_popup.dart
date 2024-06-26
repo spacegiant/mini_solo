@@ -67,7 +67,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
                 onPressed: () {
                   widget.appState.updateNoteItem(widget.id, _controller.text);
                   // widget.appState.setCurrentEntryId('');
-                  // widget.appState.closePopup();
+                  // Navigator.pop(context);
                   Navigator.pop(context);
                 },
                 child: const Text('Submit')),
@@ -76,7 +76,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
               color: CupertinoColors.destructiveRed,
               onPressed: () {
                 widget.appState.deleteNoteItem(widget.id);
-                widget.appState.closePopup();
+                Navigator.pop(context);
               },
               child: const Text('Delete'),
             ),

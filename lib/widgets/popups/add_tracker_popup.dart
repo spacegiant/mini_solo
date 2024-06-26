@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
@@ -205,7 +203,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
         CupertinoButton(
             color: CupertinoColors.inactiveGray,
             onPressed: () {
-              widget.appState.closePopup();
+              Navigator.pop(context);
             },
             child: const Text('Cancel')),
       ],
@@ -234,6 +232,6 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
 
     widget.appState.addTrackerEntry(entry);
     widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
-    widget.appState.closePopup();
+    Navigator.pop(context);
   }
 }

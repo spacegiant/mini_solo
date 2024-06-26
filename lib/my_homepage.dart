@@ -74,16 +74,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     // saveCampaign(campaignData);
   }
 
-  void loadData(String filename) {
-    widget.storage.readJSON('$filename.json').then((data) {
-      var appState = context.read<AppState>();
-
-      if (data != null) {
-        appState.setCampaignData(data);
-      }
-    });
-  }
-
   // void saveCampaign(CampaignData campaignData) {
   //   widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
   // }
@@ -165,6 +155,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                     child: const Text('Import Manager'),
                     onPressed: () {
                       toggleShowPopup2(
+                          maxHeight: 560.0,
+                          maxWidth: 400.0,
                           child: ImportManager(appState: appState),
                           context: context);
                     }),
@@ -196,7 +188,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: CupertinoTabScaffold(
-        tabBar: homePageTabBar(myTabBarItems, appState.closePopup),
+        tabBar: homePageTabBar(myTabBarItems),
         tabBuilder: (BuildContext context, int index) {
           return homePageTabView(index, toggleSettings, myTabBarItems);
         },
@@ -224,12 +216,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   CupertinoTabBar homePageTabBar(
     List<TabBarItem> tabBarItems,
-    Function() handleClosePopup,
   ) {
     return CupertinoTabBar(
-      onTap: (value) {
-        handleClosePopup();
-      },
       items: tabBarItems
           .map((e) => BottomNavigationBarItem(
                 label: e.label,
@@ -246,6 +234,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       middle: GestureDetector(
           onTap: () {
             toggleShowPopup2(
+              maxWidth: 600.0,
+              maxHeight: 520.0,
               child: CampaignManager(
                   getCampaignList: widget.storage.getCampaignsList,
                   appState: appState),
@@ -270,7 +260,11 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   CupertinoButton homePageChaosFactorButton(AppState appState) {
     return CupertinoButton(
       onPressed: () {
-        toggleShowPopup2(child: const ChaosFactorPopup(), context: context);
+        toggleShowPopup2(
+            maxHeight: 300.0,
+            maxWidth: 200.0,
+            child: const ChaosFactorPopup(),
+            context: context);
       },
       padding: const EdgeInsets.all(0.0),
       child: Row(

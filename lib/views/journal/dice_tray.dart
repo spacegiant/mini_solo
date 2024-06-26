@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../svg_icon.dart';
@@ -23,7 +22,7 @@ WrapManager diceTray(
   bool useCoriolisDice = generalSettings.useCoriolisDice;
   bool useD6OracleDice = generalSettings.useD6Oracle;
 
-  bool wrapControls = generalSettings.wrapControls;
+  bool wrapControls = generalSettings.wrapDiceControls;
 
   DiceSet? generalDiceSubset;
 
@@ -86,14 +85,3 @@ DiceButton d6Oracle(Function(List<DiceRoll>) addResult) => DiceButton(
       icon: SVGIcon.d6Oracle,
       onPressed: addResult,
     );
-
-// Map<String, Widget> mythicFateChartControls(
-//     AppState appState,
-//     ) =>
-//     {
-//       for (var row in fateChart)
-//         row.label: FateChartListButton(
-//           fateChartRow: row,
-//           appState: appState,
-//         ),
-//     };

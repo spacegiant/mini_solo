@@ -33,11 +33,14 @@ class _CampaignManagerState extends State<CampaignManager> {
         ) {
           // TODO: Tests for this
           if (snapshot.hasData) {
-            return Column(
-              children: [
-                const Text(kCampaignManagerTitle),
-                for (var item in snapshot.data) campaignManagerRow(item),
-              ],
+            return SizedBox(
+              width: 400.0,
+              child: Column(
+                children: [
+                  const Text(kCampaignManagerTitle),
+                  for (var item in snapshot.data) campaignManagerRow(item),
+                ],
+              ),
             );
           } else if (snapshot.hasError) {
             // TODO: What to do here?

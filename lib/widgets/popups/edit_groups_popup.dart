@@ -1,12 +1,13 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
+import '../gap.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';
-import 'edit_group_popup.dart';
 
 class EditGroupsPopup extends StatefulWidget {
   final AppState appState;
@@ -22,11 +23,13 @@ class EditGroupsPopup extends StatefulWidget {
 
 class _EditGroupsPopupState extends State<EditGroupsPopup> {
   late String selectedId;
+  late List<Group> groups;
 
   @override
   void initState() {
     super.initState();
     selectedId = '';
+    groups = widget.appState.groupList;
   }
 
   void handleTap(String id) {
@@ -45,10 +48,10 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
 
   @override
   Widget build(BuildContext context) {
-    List<Group> groups = widget.appState.groupList;
+    // List<Group> groups = widget.appState.groupList;
 
     List<Widget> children = groups
-        .map((group) => MyReorderableItem(
+        .mapIndexed((index, group) => MyReorderableItem(
               key: Key(group.groupId),
               id: group.groupId,
               appState: widget.appState,
@@ -57,6 +60,12 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
               onTap: () {
                 handleTap(group.groupId);
               },
+              handleToggleActive: (bool checked) {
+                widget.appState.getGroup(group.groupId).isActive = checked;
+                widget.appState.saveCampaignDataToDisk();
+              },
+              groupIsActive: group.isActive,
+              index: index,
             ))
         .toList();
 
@@ -77,13 +86,14 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
             ),
           ),
         ),
+        const Gap(),
         CupertinoButton(
-            child: Text('Update'),
             color: kSubmitColor,
             onPressed: () {
               widget.appState.updateGroups(groups: groups);
-              // Navigator.pop(context);
-            })
+              Navigator.pop(context);
+            },
+            child: const Text('Update'))
       ],
     );
   }

@@ -1,4 +1,3 @@
-
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:test/test.dart';
@@ -65,11 +64,12 @@ void main() {
       useRegularDice: true,
       useZocchiDice: false,
       useFateDice: false,
-      wrapControls: true,
+      wrapDiceControls: true,
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
       hiddenEntryTypes: [],
+      diceActive: true,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -82,11 +82,12 @@ void main() {
       useRegularDice: true,
       useZocchiDice: true,
       useFateDice: false,
-      wrapControls: true,
+      wrapDiceControls: true,
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
       hiddenEntryTypes: [],
+      diceActive: true,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -101,11 +102,12 @@ void main() {
       useRegularDice: true,
       useZocchiDice: false,
       useFateDice: false,
-      wrapControls: true,
+      wrapDiceControls: true,
       useCoriolisDice: false,
       useD6Oracle: false,
       showMechanics: true,
       hiddenEntryTypes: [],
+      diceActive: true,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

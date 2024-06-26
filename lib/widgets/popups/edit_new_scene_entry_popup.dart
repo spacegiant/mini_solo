@@ -60,7 +60,7 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
               onPressed: () {
                 widget.appState.updateNewScene(widget.id, _controller.text);
                 // widget.appState.setCurrentEntryId('');
-                // widget.appState.closePopup();
+                // Navigator.pop(context);
                 Navigator.pop(context);
               },
               child: const Text('Submit'),
@@ -70,7 +70,7 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
               color: CupertinoColors.destructiveRed,
               onPressed: () {
                 widget.appState.deleteNewSceneEntry(widget.id);
-                widget.appState.closePopup();
+                Navigator.pop(context);
               },
               child: const Text('Delete'),
             ),
