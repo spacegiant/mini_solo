@@ -36,6 +36,7 @@ Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
 GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
     GeneralSettingsData(
       showFutureSettings: json['showFutureSettings'] as bool,
+      diceActive: json['diceActive'] as bool,
       showMechanics: json['showMechanics'] as bool,
       useJournal: json['useJournal'] as bool,
       useRegularDice: json['useRegularDice'] as bool,
@@ -53,6 +54,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
         GeneralSettingsData instance) =>
     <String, dynamic>{
       'showFutureSettings': instance.showFutureSettings,
+      'diceActive': instance.diceActive,
       'showMechanics': instance.showMechanics,
       'useJournal': instance.useJournal,
       'useZocchiDice': instance.useZocchiDice,

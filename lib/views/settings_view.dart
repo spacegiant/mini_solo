@@ -16,11 +16,15 @@ import '../widgets/popups/toggle_show_popup.dart';
 
 enum Category { general, campaign, tools }
 
-Map<Category, Widget> settingsPages = <Category, Widget>{
-  Category.general: const GeneralSettings(),
-  Category.campaign: const CampaignSettings(),
-  Category.tools: const ToolsSettings(),
-};
+Widget? getSettingsPage(Category category, AppState appState) {
+  Map<Category, Widget> settingsPages = <Category, Widget>{
+    Category.general: const GeneralSettings(),
+    Category.campaign: CampaignSettings(appState: appState),
+    Category.tools: const ToolsSettings(),
+  };
+
+  return settingsPages[category];
+}
 
 class SettingsView extends StatefulWidget {
   const SettingsView({
@@ -81,7 +85,8 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                child: settingsPages[_selectedSegment],
+                // child: settingsPages[_selectedSegment],
+                child: getSettingsPage(_selectedSegment, widget.appState),
               ),
             ),
           ],
@@ -187,80 +192,104 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 }
 
 class CampaignSettings extends StatefulWidget {
-  const CampaignSettings({super.key});
+  const CampaignSettings({super.key, required this.appState});
+
+  final AppState appState;
 
   @override
   State<CampaignSettings> createState() => _CampaignSettingsState();
 }
 
 class _CampaignSettingsState extends State<CampaignSettings> {
+  late bool diceActive = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    diceActive = widget.appState.campaignData!.settings.general.diceActive;
+  }
+
   // return Consumer<AppState>(
   // builder: (BuildContext context, appState, Widget? child) {
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (BuildContext context, AppState appState, Widget? child) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
             children: [
-              CupertinoButton(
-                  child: const Text('Manage Groups'),
-                  onPressed: () {
-                    toggleShowPopup2(
-                        maxWidth: 400.0,
-                        maxHeight: 740.0,
-                        child: EditGroupsPopup(appState: appState),
-                        context: context);
+              CupertinoSwitch(
+                  value:
+                      widget.appState.campaignData!.settings.general.diceActive,
+                  onChanged: (value) {
+                    setState(() {
+                      diceActive = !diceActive;
+                    });
+                    widget.appState.campaignData?.settings.general.diceActive =
+                        diceActive;
                   }),
-              // TODO:
-              const Text('dropdown goes here - select current campaign'),
-              SettingsOption(
-                isActive: true,
-                label: 'Copy to clipboard automatically',
-                onChanged: (isChecked) {},
-              ),
-              CupertinoButton(
-                  child: const Text('Export Campaign to Clipboard'),
-                  onPressed: () {
-                    // TODO
-                  }),
-              CupertinoButton(
-                  child: const Text('Export App Settings to Clipboard'),
-                  onPressed: () {
-                    // TODO
-                  }),
-
-              CupertinoButton(
-                  child: const Text('Import Manager'),
-                  onPressed: () {
-                    toggleShowPopup2(
-                        child: ImportManager(appState: appState),
-                        context: context);
-                  }),
-              CupertinoButton(
-                  child: const Text('Export Campaign'),
-                  onPressed: () async {
-                    CampaignData? campaignData = appState.campaignData;
-                    String jsonString =
-                        appState.storage.getCampaignJSON(campaignData!);
-                    await Clipboard.setData(ClipboardData(text: jsonString));
-                    // copied successfully
-                  }),
-              CupertinoButton(
-                  child: const Text('Export AppSettings'),
-                  onPressed: () async {
-                    AppSettingsData? appSettingsData = appState.appSettingsData;
-                    String jsonString =
-                        appState.storage.appSettingsToJSON(appSettingsData);
-                    await Clipboard.setData(ClipboardData(text: jsonString));
-                    // copied successfully
-                  }),
+              Text('Use dice?'),
             ],
           ),
-        );
-      },
+          CupertinoButton(
+            child: const Text('Manage Groups'),
+            onPressed: () {
+              toggleShowPopup2(
+                  maxWidth: 400.0,
+                  maxHeight: 740.0,
+                  child: EditGroupsPopup(appState: widget.appState),
+                  context: context);
+            },
+          ),
+          // TODO:
+          const Text('dropdown goes here - select current campaign'),
+          SettingsOption(
+            isActive: true,
+            label: 'Copy to clipboard automatically',
+            onChanged: (isChecked) {},
+          ),
+          CupertinoButton(
+              child: const Text('Export Campaign to Clipboard'),
+              onPressed: () {
+                // TODO
+              }),
+          CupertinoButton(
+              child: const Text('Export App Settings to Clipboard'),
+              onPressed: () {
+                // TODO
+              }),
+
+          CupertinoButton(
+              child: const Text('Import Manager'),
+              onPressed: () {
+                toggleShowPopup2(
+                    child: ImportManager(appState: widget.appState),
+                    context: context);
+              }),
+          CupertinoButton(
+              child: const Text('Export Campaign'),
+              onPressed: () async {
+                CampaignData? campaignData = widget.appState.campaignData;
+                String jsonString =
+                    widget.appState.storage.getCampaignJSON(campaignData!);
+                await Clipboard.setData(ClipboardData(text: jsonString));
+                // copied successfully
+              }),
+          CupertinoButton(
+              child: const Text('Export AppSettings'),
+              onPressed: () async {
+                AppSettingsData? appSettingsData =
+                    widget.appState.appSettingsData;
+                String jsonString =
+                    widget.appState.storage.appSettingsToJSON(appSettingsData);
+                await Clipboard.setData(ClipboardData(text: jsonString));
+                // copied successfully
+              }),
+        ],
+      ),
     );
   }
 }

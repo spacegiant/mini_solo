@@ -179,6 +179,7 @@ class SettingsData {
 class GeneralSettingsData {
   // TODO: Make showFutureSettings private
   late bool showFutureSettings;
+  late bool diceActive;
   late bool showMechanics;
   late bool useJournal;
   late bool useZocchiDice;
@@ -191,6 +192,7 @@ class GeneralSettingsData {
 
   GeneralSettingsData({
     required this.showFutureSettings,
+    required this.diceActive,
     required this.showMechanics,
     required this.useJournal,
     required this.useRegularDice,
@@ -300,6 +302,7 @@ CampaignData initCampaignDataData(String campaignName) {
         hiddenEntryTypes: [
           JournalEntryTypes.tracker,
         ],
+        diceActive: true,
       ),
     ),
     things: [],
