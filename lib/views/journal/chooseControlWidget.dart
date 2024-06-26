@@ -262,7 +262,10 @@ Widget chooseControlWidget({
         color: buttonColor,
         onPressed: () {
           toggleShowPopup2(
-              child: AddTrackerPopup(appState: appState), context: context);
+              maxWidth: 600.0,
+              maxHeight: 800.0,
+              child: AddTrackerPopup(appState: appState),
+              context: context);
         },
         label: controlData.label,
       );
