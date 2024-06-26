@@ -231,7 +231,7 @@ class _CampaignSettingsState extends State<CampaignSettings> {
                     widget.appState.campaignData?.settings.general.diceActive =
                         diceActive;
                   }),
-              Text('Use dice?'),
+              const Text('Use dice?'),
             ],
           ),
           CupertinoButton(

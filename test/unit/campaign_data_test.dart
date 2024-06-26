@@ -69,6 +69,7 @@ void main() {
       useD6Oracle: false,
       showMechanics: true,
       hiddenEntryTypes: [],
+      diceActive: true,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -86,6 +87,7 @@ void main() {
       useD6Oracle: false,
       showMechanics: true,
       hiddenEntryTypes: [],
+      diceActive: true,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -105,6 +107,7 @@ void main() {
       useD6Oracle: false,
       showMechanics: true,
       hiddenEntryTypes: [],
+      diceActive: true,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

@@ -6,6 +6,8 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../utilities/fix_json_data.dart';
+
 class CampaignListItem {
   String campaignName;
   String path;
@@ -51,15 +53,17 @@ class CampaignStorage {
 
       // ITERATE INITIAL CAMPAIGN DATA OBJECT
 
-      final tempData = jsonEncode(initCampaignDataData('test'));
-      final initialData = json.decode(tempData);
+      final initialDecodedData =
+          convertCampaignToJSON(initCampaignDataData('test'));
+
+      fixJSONData(initialDecodedData, data);
 
       // EXPERIMENT FINISHED
-
-      if (data['settings']['general']['hiddenEntryTypes'] == null) {
-        data['settings']['general']['hiddenEntryTypes'] = [];
-      }
-      if (data['newScene'] == null) data['newScene'] = [];
+      //
+      // if (data['settings']['general']['hiddenEntryTypes'] == null) {
+      //   data['settings']['general']['hiddenEntryTypes'] = [];
+      // }
+      // if (data['newScene'] == null) data['newScene'] = [];
 
       final dataMap = CampaignData.fromJson(data);
 

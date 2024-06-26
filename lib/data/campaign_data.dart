@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
+import '../features/labels/label.dart';
 import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
@@ -235,6 +236,7 @@ class CampaignData {
   late List<TrackerEntry> tracker;
   late List<NewSceneEntry> newScene;
   late List<Group> groups;
+  late List<Label> labels;
 
   CampaignData({
     required this.settings,
@@ -258,6 +260,7 @@ class CampaignData {
     required this.tracker,
     required this.newScene,
     required this.groups,
+    required this.labels,
   });
 
   // coverage:ignore-start
@@ -271,89 +274,89 @@ class CampaignData {
 // TODO: Replace with better name than initCampaignDataData
 CampaignData initCampaignDataData(String campaignName) {
   return CampaignData(
-    clues: [],
-    creatures: [],
-    currentScratchEntryId: '',
-    factions: [],
-    notes: [],
-    journal: [],
-    mythic: [],
-    mythicData: MythicData(
-      chaosFactor: 5,
-    ),
-    name: campaignName,
-    filename: convertToFilename(campaignName),
-    oracle: [],
-    people: [],
-    places: [],
-    rolls: [],
-    scratchPad: [],
-    settings: SettingsData(
-      general: GeneralSettingsData(
-        showFutureSettings: false,
-        showMechanics: true,
-        useJournal: true,
-        useRegularDice: true,
-        useZocchiDice: false,
-        useFateDice: false,
-        useCoriolisDice: false,
-        useD6Oracle: false,
-        wrapDiceControls: false,
-        hiddenEntryTypes: [
-          JournalEntryTypes.tracker,
-        ],
-        diceActive: true,
+      clues: [],
+      creatures: [],
+      currentScratchEntryId: '',
+      factions: [],
+      notes: [],
+      journal: [],
+      mythic: [],
+      mythicData: MythicData(
+        chaosFactor: 5,
       ),
-    ),
-    things: [],
-    rollTableResult: [],
-    tracker: [],
-    newScene: [],
-    groups: [
-      Group(
-        isAppGroup: true,
-        groupId: 'unsorted',
-        label: 'Unsorted',
-        controls: [],
-        color: 0xFF512500,
+      name: campaignName,
+      filename: convertToFilename(campaignName),
+      oracle: [],
+      people: [],
+      places: [],
+      rolls: [],
+      scratchPad: [],
+      settings: SettingsData(
+        general: GeneralSettingsData(
+          showFutureSettings: false,
+          showMechanics: true,
+          useJournal: true,
+          useRegularDice: true,
+          useZocchiDice: false,
+          useFateDice: false,
+          useCoriolisDice: false,
+          useD6Oracle: false,
+          wrapDiceControls: false,
+          hiddenEntryTypes: [
+            JournalEntryTypes.tracker,
+          ],
+          diceActive: true,
+        ),
       ),
-      Group(
-        isAppGroup: true,
-        groupId: 'group-mythic-fate-chart',
-        label: 'Mythic Fate Chart',
-        controls: initialMythicFateChartIds,
-        color: 0xFF7D1D3F,
-      ),
-      Group(
-        isAppGroup: true,
-        groupId: 'group-mythic-gme',
-        label: 'Mythic GME',
-        controls: initialMythicGMEIds,
-        color: 0xFF827191,
-      ),
-      Group(
-        isAppGroup: true,
-        groupId: 'group-random-tables',
-        label: 'Random Tables',
-        controls: [],
-        color: 0xFF84ACCE,
-      ),
-      Group(
-        isAppGroup: true,
-        groupId: 'group-trackers',
-        label: 'Trackers',
-        controls: [],
-        color: 0xFFD7D9B1,
-      ),
-      Group(
-        isAppGroup: true,
-        groupId: 'new-items',
-        label: 'New Items',
-        controls: initialNewItemControlIds,
-        color: 0xFFFB8F67,
-      ),
-    ],
-  );
+      things: [],
+      rollTableResult: [],
+      tracker: [],
+      newScene: [],
+      groups: [
+        Group(
+          isAppGroup: true,
+          groupId: 'unsorted',
+          label: 'Unsorted',
+          controls: [],
+          color: 0xFF512500,
+        ),
+        Group(
+          isAppGroup: true,
+          groupId: 'group-mythic-fate-chart',
+          label: 'Mythic Fate Chart',
+          controls: initialMythicFateChartIds,
+          color: 0xFF7D1D3F,
+        ),
+        Group(
+          isAppGroup: true,
+          groupId: 'group-mythic-gme',
+          label: 'Mythic GME',
+          controls: initialMythicGMEIds,
+          color: 0xFF827191,
+        ),
+        Group(
+          isAppGroup: true,
+          groupId: 'group-random-tables',
+          label: 'Random Tables',
+          controls: [],
+          color: 0xFF84ACCE,
+        ),
+        Group(
+          isAppGroup: true,
+          groupId: 'group-trackers',
+          label: 'Trackers',
+          controls: [],
+          color: 0xFFD7D9B1,
+        ),
+        Group(
+          isAppGroup: true,
+          groupId: 'new-items',
+          label: 'New Items',
+          controls: initialNewItemControlIds,
+          color: 0xFFFB8F67,
+        ),
+      ],
+      labels: []);
 }
 
 @JsonSerializable()
@@ -745,6 +748,10 @@ List<ControlData> initialNewItemControls = [
       controlId: 'new-group',
       label: 'New Group',
       controlType: ControlTypeEnum.newGroup),
+  ControlData(
+      controlId: 'new-label',
+      label: 'New Label',
+      controlType: ControlTypeEnum.newLabel),
 ];
 
 List<String> initialNewItemControlIds = [

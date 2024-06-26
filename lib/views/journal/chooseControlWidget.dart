@@ -60,6 +60,7 @@ enum ControlTypeEnum {
   newRandomTable,
   newGroup,
   statBlock,
+  newLabel,
 }
 
 Widget chooseControlWidget({
@@ -305,6 +306,8 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.statBlock:
       const Text('Stat Block');
+    case ControlTypeEnum.newLabel:
+      const Text('New Label');
   }
   return Text(controlData.label);
 }
