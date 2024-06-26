@@ -203,7 +203,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
         CupertinoButton(
             color: CupertinoColors.inactiveGray,
             onPressed: () {
-              widget.appState.closePopup();
+              Navigator.pop(context);
             },
             child: const Text('Cancel')),
       ],
@@ -232,6 +232,6 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
 
     widget.appState.addTrackerEntry(entry);
     widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
-    widget.appState.closePopup();
+    Navigator.pop(context);
   }
 }

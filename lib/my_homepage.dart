@@ -196,7 +196,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: CupertinoTabScaffold(
-        tabBar: homePageTabBar(myTabBarItems, appState.closePopup),
+        tabBar: homePageTabBar(myTabBarItems),
         tabBuilder: (BuildContext context, int index) {
           return homePageTabView(index, toggleSettings, myTabBarItems);
         },
@@ -224,12 +224,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   CupertinoTabBar homePageTabBar(
     List<TabBarItem> tabBarItems,
-    Function() handleClosePopup,
   ) {
     return CupertinoTabBar(
-      onTap: (value) {
-        handleClosePopup();
-      },
       items: tabBarItems
           .map((e) => BottomNavigationBarItem(
                 label: e.label,

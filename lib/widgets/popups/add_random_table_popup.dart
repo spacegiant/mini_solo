@@ -149,7 +149,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                   color: kWarningColor,
                   child: const Text(kLabelClose),
                   onPressed: () {
-                    widget.appState.closePopup();
+                    Navigator.pop(context);
                   }),
             ],
           )

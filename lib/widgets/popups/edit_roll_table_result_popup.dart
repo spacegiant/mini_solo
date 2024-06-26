@@ -31,7 +31,7 @@ class _EditMythicEntryPopupState extends State<EditRollTableResultPopup> {
           color: CupertinoColors.destructiveRed,
           onPressed: () {
             widget.appState.deleteRandomTableResultsEntry(widget.id);
-            widget.appState.closePopup();
+            Navigator.pop(context);
           },
           child: const Text(kDeleteLabel),
         ),

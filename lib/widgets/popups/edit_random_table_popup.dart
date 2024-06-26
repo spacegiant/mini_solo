@@ -72,7 +72,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   onPressed: () {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
-                    widget.appState.closePopup();
+                    Navigator.pop(context);
                   }),
               CupertinoButton(
                   color: kWarningColor,
