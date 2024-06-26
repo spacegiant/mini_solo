@@ -48,6 +48,14 @@ class CampaignStorage {
       final data = json.decode(jsonData);
 
       // TODO: DATA MIGRATION Go thru initData and check loaded data matches, replaces with placeholder where appropriate
+
+      // ITERATE INITIAL CAMPAIGN DATA OBJECT
+
+      final tempData = jsonEncode(initCampaignDataData('test'));
+      final initialData = json.decode(tempData);
+
+      // EXPERIMENT FINISHED
+
       if (data['settings']['general']['hiddenEntryTypes'] == null) {
         data['settings']['general']['hiddenEntryTypes'] = [];
       }
@@ -61,6 +69,7 @@ class CampaignStorage {
         print('readJSON error: $e');
       }
       // If encountering an error, return null
+
       return null;
     }
   }
