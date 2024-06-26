@@ -266,6 +266,8 @@ class _CampaignSettingsState extends State<CampaignSettings> {
               child: const Text('Import Manager'),
               onPressed: () {
                 toggleShowPopup2(
+                    maxHeight: 560.0,
+                    maxWidth: 400.0,
                     child: ImportManager(appState: widget.appState),
                     context: context);
               }),
