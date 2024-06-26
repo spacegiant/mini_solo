@@ -271,7 +271,10 @@ Widget chooseControlWidget({
         color: buttonColor,
         onPressed: () {
           toggleShowPopup2(
-              child: AddRandomTablePopup(appState: appState), context: context);
+              maxWidth: 600.0,
+              maxHeight: 520.0,
+              child: AddRandomTablePopup(appState: appState),
+              context: context);
         },
         label: controlData.label,
       );
