@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/popups/add_label_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
+import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -308,7 +310,23 @@ Widget chooseControlWidget({
       const Text('Stat Block');
     case ControlTypeEnum.newLabel:
       return ListButton(
-          color: buttonColor, label: controlData.label, onPressed: () {});
+        color: buttonColor,
+        label: controlData.label,
+        onPressed: () {
+          toggleShowPopup2(
+              child: AddLabelPopup(
+                appState: appState,
+              ),
+              context: context);
+        },
+        onLongPress: () {
+          toggleShowPopup2(
+              child: EditLabelPopup(
+                appState: appState,
+              ),
+              context: context);
+        },
+      );
   }
   return Text(controlData.label);
 }
