@@ -246,6 +246,8 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       middle: GestureDetector(
           onTap: () {
             toggleShowPopup2(
+              maxWidth: 600.0,
+              maxHeight: 520.0,
               child: CampaignManager(
                   getCampaignList: widget.storage.getCampaignsList,
                   appState: appState),
