@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/view_wrapper.dart';
 import 'control_data.dart';
 import 'dice_journal_controls.dart';
@@ -17,6 +18,7 @@ Widget journalControls(
   return ViewWrapper(children: [
     diceJournalControls(appState, addResult),
     ...dynamicListOfControls(appState, controlData, context),
+    const Gap(),
 
     // const MarkdownBlock(
     //   newString: '# hello\n*hello* hello\n- hello',
