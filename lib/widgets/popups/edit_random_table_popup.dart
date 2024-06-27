@@ -93,6 +93,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     ),
                     const Gap(height: 4.0),
                     LabelAndPicker(
+                      enabled: selectedId != '',
                       items: randomTables.map((table) => table.title).toList(),
                       onChange: (thing) {},
                       label: 'Link',
@@ -161,7 +162,10 @@ class LabelAndInput extends StatelessWidget {
       children: [
         Text(label),
         const Gap(),
-        const Flexible(child: CupertinoTextField()),
+        Flexible(
+            child: CupertinoTextField(
+          enabled: enabled ?? false,
+        )),
       ],
     );
   }
@@ -189,7 +193,13 @@ class LabelAndPicker extends StatelessWidget {
         Text(label),
         const Gap(),
         // TODO Change this to some sort of Filter List
-        Flexible(child: Picker(items: items, onChange: onChange)),
+        Flexible(
+          child: Picker(
+            items: items,
+            onChange: onChange,
+            enabled: enabled ?? false,
+          ),
+        ),
       ],
     );
   }

@@ -8,11 +8,13 @@ class Picker extends StatefulWidget {
     required this.items,
     required this.onChange,
     this.initialItem = 0,
+    required this.enabled,
   });
 
   final List<String> items;
   final void Function(int index) onChange;
   final int initialItem;
+  final bool enabled;
 
   @override
   State<Picker> createState() => _PickerState();
@@ -69,23 +71,25 @@ class _PickerState extends State<Picker> {
           ),
         ),
         onPressed: () {
-          _showDialog(
-            CupertinoPicker(
-              scrollController: _controller,
-              magnification: 1.22,
-              squeeze: 1.2,
-              useMagnifier: true,
-              itemExtent: kItemExtent,
-              // looping: true,
-              onSelectedItemChanged: (int selectedItemIndex) {
-                setState(() {
-                  _selectedItemIndex = selectedItemIndex;
-                });
-                widget.onChange(selectedItemIndex);
-              },
-              children: pickerItems,
-            ),
-          );
+          if (widget.enabled) {
+            _showDialog(
+              CupertinoPicker(
+                scrollController: _controller,
+                magnification: 1.22,
+                squeeze: 1.2,
+                useMagnifier: true,
+                itemExtent: kItemExtent,
+                // looping: true,
+                onSelectedItemChanged: (int selectedItemIndex) {
+                  setState(() {
+                    _selectedItemIndex = selectedItemIndex;
+                  });
+                  widget.onChange(selectedItemIndex);
+                },
+                children: pickerItems,
+              ),
+            );
+          }
         });
   }
 }
