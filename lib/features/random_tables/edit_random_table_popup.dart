@@ -72,31 +72,12 @@ class _EditRandomTableState extends State<EditRandomTable> {
           // TODO dedicated title widget for popups for standardisation
           Text('$detail ($recordCount entries)'),
           const Divider(),
-          SizedBox(
-              height: 300.0,
-              child: ListView.builder(
-                itemCount: recordCount,
-                prototypeItem: ListViewWidget(
-                  row: RandomTableRow(label: 'prototype label', weight: 100),
-                  onTap: (String id) {},
-                  id: 'prototypeId',
-                  selectedId: '',
-                ),
-                itemBuilder: (context, index) {
-                  return ListViewWidget(
-                    onTap: (id) {
-                      handleListViewWidgetOnTap(
-                        id: id,
-                        rows: rows,
-                        rowIndex: index,
-                      );
-                    },
-                    row: rows[index],
-                    id: 'random-table-item-$index',
-                    selectedId: selectedId,
-                  );
-                },
-              )),
+          RandomTableEntries(
+            recordCount: recordCount,
+            rows: rows,
+            selectedId: selectedId,
+            onTap: handleListViewWidgetOnTap,
+          ),
           const Divider(),
           const Gap(),
           SizedBox(
@@ -182,6 +163,54 @@ class _EditRandomTableState extends State<EditRandomTable> {
         ],
       ),
     );
+  }
+}
+
+class RandomTableEntries extends StatelessWidget {
+  const RandomTableEntries({
+    super.key,
+    required this.recordCount,
+    required this.rows,
+    required this.selectedId,
+    required this.onTap,
+  });
+
+  final int recordCount;
+  final List<RandomTableRow> rows;
+  final String selectedId;
+  final Null Function({
+    required String id,
+    required List<RandomTableRow> rows,
+    required int rowIndex,
+  }) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: 300.0,
+        child: ListView.builder(
+          itemCount: recordCount,
+          prototypeItem: ListViewWidget(
+            row: RandomTableRow(label: 'prototype label', weight: 100),
+            onTap: (String id) {},
+            id: 'prototypeId',
+            selectedId: '',
+          ),
+          itemBuilder: (context, index) {
+            return ListViewWidget(
+              onTap: (id) {
+                onTap(
+                  id: id,
+                  rows: rows,
+                  rowIndex: index,
+                );
+              },
+              row: rows[index],
+              id: 'random-table-item-$index',
+              selectedId: selectedId,
+            );
+          },
+        ));
   }
 }
 
