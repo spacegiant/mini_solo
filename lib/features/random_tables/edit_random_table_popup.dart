@@ -5,6 +5,7 @@ import 'package:mini_solo/features/random_tables/random_table_item.dart';
 import 'package:mini_solo/widgets/picker.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../widgets/label_and_input.dart';
 import '../grouping/group-picker.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/label_and_picker.dart';
@@ -93,7 +94,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
                       enabled: selectedId != '',
                       controller: _weightController,
                       onChanged: (value) {
-                        print('HOOOOOOG');
                         setState(() {
                           _weightController.text = value;
                         });
@@ -213,38 +213,5 @@ class RandomTableEntries extends StatelessWidget {
             );
           },
         ));
-  }
-}
-
-class LabelAndInput extends StatelessWidget {
-  const LabelAndInput({
-    super.key,
-    required this.label,
-    this.enabled,
-    required this.controller,
-    required this.onChanged,
-  });
-
-  final String label;
-  final bool? enabled;
-  final TextEditingController controller;
-  final void Function(String) onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(label),
-        const Gap(),
-        Flexible(
-          child: CupertinoTextField(
-            onChanged: onChanged,
-            controller: controller,
-            enabled: enabled ?? false,
-          ),
-        ),
-      ],
-    );
   }
 }
