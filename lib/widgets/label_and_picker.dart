@@ -16,7 +16,7 @@ class LabelAndPicker extends StatelessWidget {
   final String label;
   final bool? enabled;
   final List<String> items;
-  final Function(int) onChange;
+  final Function(int?) onChange;
   final String? defunctLabel;
 
   @override

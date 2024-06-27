@@ -106,7 +106,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
               enabled: selectedId != '',
               items: safeList.map((table) => table.title).toList(),
               onChange: (index) {
-                print(safeList[index].title);
+                if (index != null) {
+                  print(safeList[index].title);
+                } else {
+                  print('NULL');
+                }
                 // The index relates to the item in the dropdown
                 // TODO what is the current row?
                 // print(entry.rows[selectedId]);
