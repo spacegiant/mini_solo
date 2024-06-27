@@ -59,7 +59,7 @@ class ListButton extends StatelessWidget {
             ),
             child: Text(
               label,
-              overflow: TextOverflow.clip,
+              overflow: TextOverflow.ellipsis,
               softWrap: false,
               style: const TextStyle(
                 color: buttonTextColor,

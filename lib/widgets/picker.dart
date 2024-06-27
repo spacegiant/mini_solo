@@ -64,6 +64,7 @@ class _PickerState extends State<Picker> {
           ),
           child: Text(
             overflow: TextOverflow.ellipsis,
+            softWrap: false,
             widget.items[_selectedItemIndex],
             style: const TextStyle(
               fontSize: 18.0,
