@@ -41,15 +41,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
   @override
   Widget build(BuildContext context) {
-    RandomTableEntry entry = widget.appState.appSettingsData.randomTables
-        .firstWhere((entry) => entry.id == widget.id);
+    RandomTableEntry entry = widget.appState.getRandomTableById(widget.id);
     String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
-
-    String? detail = entry.title;
-
     List<RandomTableRow> rows = entry.rows;
     int recordCount = rows.length;
-
     List<RandomTableEntry> randomTables =
         widget.appState.appSettingsData.randomTables;
 
@@ -71,7 +66,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
     return Column(
       children: [
         // TODO dedicated title widget for popups for standardisation
-        Text('$detail ($recordCount entries)'),
+        Text('${entry.title} ($recordCount entries)'),
         const Divider(),
         RandomTableEntries(
           recordCount: recordCount,
