@@ -68,99 +68,96 @@ class _EditRandomTableState extends State<EditRandomTable> {
       });
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          // TODO dedicated title widget for popups for standardisation
-          Text('$detail ($recordCount entries)'),
-          const Divider(),
-          RandomTableEntries(
-            recordCount: recordCount,
-            rows: rows,
-            selectedId: selectedId,
-            onTap: handleListViewWidgetOnTap,
-          ),
-          const Divider(),
-          const Gap(),
-          RandomTablesFormContainer(
-            isActive: selectedId != '',
-            children: [
-              LabelAndInput(
-                label: 'Weight',
-                enabled: selectedId != '',
-                controller: _weightController,
-                onChanged: (value) {
-                  setState(() {
-                    _weightController.text = value;
-                  });
-                },
-              ),
-              const Gap(height: 4.0),
-              LabelAndInput(
-                label: 'Text',
-                enabled: selectedId != '',
-                controller: _textController,
-                onChanged: (value) {
-                  setState(() {
-                    _textController.text = value;
-                  });
-                },
-              ),
-              const Gap(height: 4.0),
-              LabelAndPicker(
-                enabled: selectedId != '',
-                items: [
-                  'Not Linked',
-                  ...randomTables.map((table) => table.title)
-                ],
-                onChange: (thing) {},
-                label: 'Link',
-              ),
-            ],
-          ),
-          const Divider(),
-          GroupPicker(
-            onChange: (string) {
-              setState(() {
-                selectedGroup = string;
-              });
-            },
-            appState: widget.appState,
-            initialGroup: initialGroup,
-          ),
-          Wrap(
-            spacing: 8.0,
-            runSpacing: 8.0,
-            alignment: WrapAlignment.center,
-            children: [
-              CupertinoButton(
-                  color: kSubmitColor,
-                  child: const Text('Update'),
-                  onPressed: () {
-                    if (initialGroup != selectedGroup) {
-                      widget.appState.moveToGroup(
-                          controlId: widget.id, groupId: selectedGroup);
-                    }
-                    Navigator.pop(context);
-                  }),
-              CupertinoButton(
-                  color: kWarningColor,
-                  child: const Text('Delete'),
-                  onPressed: () {
-                    widget.appState.deleteRandomTable(widget.id);
-                    Navigator.pop(context);
-                  }),
-              CupertinoButton(
-                  color: CupertinoColors.systemGrey3,
-                  child: const Text('Export'),
-                  onPressed: () {
-                    // TODO EXPORT
-                  }),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        // TODO dedicated title widget for popups for standardisation
+        Text('$detail ($recordCount entries)'),
+        const Divider(),
+        RandomTableEntries(
+          recordCount: recordCount,
+          rows: rows,
+          selectedId: selectedId,
+          onTap: handleListViewWidgetOnTap,
+        ),
+        const Divider(),
+        const Gap(),
+        RandomTablesFormContainer(
+          isActive: selectedId != '',
+          children: [
+            LabelAndInput(
+              label: 'Weight',
+              enabled: selectedId != '',
+              controller: _weightController,
+              onChanged: (value) {
+                setState(() {
+                  _weightController.text = value;
+                });
+              },
+            ),
+            const Gap(height: 4.0),
+            LabelAndInput(
+              label: 'Text',
+              enabled: selectedId != '',
+              controller: _textController,
+              onChanged: (value) {
+                setState(() {
+                  _textController.text = value;
+                });
+              },
+            ),
+            const Gap(height: 4.0),
+            LabelAndPicker(
+              enabled: selectedId != '',
+              items: [
+                'Not Linked',
+                ...randomTables.map((table) => table.title)
+              ],
+              onChange: (thing) {},
+              label: 'Link',
+            ),
+          ],
+        ),
+        const Divider(),
+        GroupPicker(
+          onChange: (string) {
+            setState(() {
+              selectedGroup = string;
+            });
+          },
+          appState: widget.appState,
+          initialGroup: initialGroup,
+        ),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          alignment: WrapAlignment.center,
+          children: [
+            CupertinoButton(
+                color: kSubmitColor,
+                child: const Text('Update'),
+                onPressed: () {
+                  if (initialGroup != selectedGroup) {
+                    widget.appState.moveToGroup(
+                        controlId: widget.id, groupId: selectedGroup);
+                  }
+                  Navigator.pop(context);
+                }),
+            CupertinoButton(
+                color: kWarningColor,
+                child: const Text('Delete'),
+                onPressed: () {
+                  widget.appState.deleteRandomTable(widget.id);
+                  Navigator.pop(context);
+                }),
+            CupertinoButton(
+                color: CupertinoColors.systemGrey3,
+                child: const Text('Export JSON to Clipboard'),
+                onPressed: () {
+                  // TODO EXPORT
+                }),
+          ],
+        ),
+      ],
     );
   }
 }
