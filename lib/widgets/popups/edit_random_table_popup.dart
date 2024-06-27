@@ -22,6 +22,14 @@ class EditRandomTable extends StatefulWidget {
 
 class _EditRandomTableState extends State<EditRandomTable> {
   String selectedGroup = 'unsorted';
+  late String selectedId;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedId = '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +52,22 @@ class _EditRandomTableState extends State<EditRandomTable> {
               height: 300.0,
               child: ListView.builder(
                 itemCount: recordCount,
-                prototypeItem: CupertinoListTile(title: Text(rows.first.label)),
+                prototypeItem: ListViewWidget(
+                  row: RandomTableRow(label: 'prototype label', weight: 100),
+                  onTap: (String id) {},
+                  id: 'prototypeId',
+                  selectedId: '',
+                ),
                 itemBuilder: (context, index) {
                   return ListViewWidget(
+                    onTap: (id) {
+                      setState(() {
+                        selectedId = id;
+                      });
+                    },
                     row: rows[index],
+                    id: 'random-table-item-$index',
+                    selectedId: selectedId,
                   );
                 },
               )),
@@ -99,23 +119,38 @@ class ListViewWidget extends StatelessWidget {
   const ListViewWidget({
     super.key,
     required this.row,
+    required this.onTap,
+    required this.id,
+    required this.selectedId,
   });
 
+  final String id;
   final RandomTableRow row;
+  final Function(String id) onTap;
+  final String selectedId;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoListTile(
-      onTap: () {},
-      title: Row(
-        children: [
-          Text(row.weight.toString()),
-          const Gap(),
-          Expanded(child: Text(row.label)),
-          CupertinoButton(
-              child: const Icon(CupertinoIcons.trash, size: 12.0),
-              onPressed: () {})
-        ],
+      backgroundColor: selectedId == id ? kSelectedRowColor : null,
+      padding: EdgeInsets.zero,
+      onTap: () {
+        onTap(id);
+      },
+      title: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(row.weight.toString()),
+            const Text(' · '),
+            Text(
+              row.label,
+              overflow: TextOverflow.clip,
+              softWrap: false,
+            ),
+          ],
+        ),
       ),
     );
   }
