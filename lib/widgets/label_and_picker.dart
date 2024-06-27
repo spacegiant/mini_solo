@@ -10,12 +10,14 @@ class LabelAndPicker extends StatelessWidget {
     this.enabled,
     required this.items,
     required this.onChange,
+    this.defunctLabel,
   });
 
   final String label;
   final bool? enabled;
   final List<String> items;
   final Function(int) onChange;
+  final String? defunctLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class LabelAndPicker extends StatelessWidget {
         // TODO Change this to some sort of Filter List
         Flexible(
           child: Picker(
+            defunctLabel: defunctLabel,
             items: items,
             onChange: onChange,
             enabled: enabled ?? false,

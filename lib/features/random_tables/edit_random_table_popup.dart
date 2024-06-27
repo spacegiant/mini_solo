@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
-import 'package:mini_solo/widgets/picker.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../widgets/label_and_input.dart';
@@ -48,8 +47,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
     List<RandomTableEntry> randomTables =
         widget.appState.appSettingsData.randomTables;
 
-    // Remove current
-    // Map<String, String> menuItems = [];
+    // TODO Remove current random table from links list
+    List<RandomTableEntry> safeList = List.from(randomTables);
+    safeList.removeWhere((table) => table.id == widget.id);
 
     handleListViewWidgetOnTap({
       required String id,
@@ -102,12 +102,15 @@ class _EditRandomTableState extends State<EditRandomTable> {
             ),
             const Gap(height: 4.0),
             LabelAndPicker(
+              defunctLabel: 'No Link',
               enabled: selectedId != '',
-              items: [
-                'Not Linked',
-                ...randomTables.map((table) => table.title)
-              ],
-              onChange: (thing) {},
+              items: safeList.map((table) => table.title).toList(),
+              onChange: (index) {
+                print(safeList[index].title);
+                // The index relates to the item in the dropdown
+                // TODO what is the current row?
+                // print(entry.rows[selectedId]);
+              },
               label: 'Link',
             ),
           ],

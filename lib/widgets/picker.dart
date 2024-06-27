@@ -9,12 +9,14 @@ class Picker extends StatefulWidget {
     required this.onChange,
     this.initialItem = 0,
     required this.enabled,
+    this.defunctLabel,
   });
 
   final List<String> items;
   final void Function(int index) onChange;
   final int initialItem;
   final bool enabled;
+  final String? defunctLabel;
 
   @override
   State<Picker> createState() => _PickerState();
@@ -48,6 +50,12 @@ class _PickerState extends State<Picker> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.defunctLabel != null) {
+      widget.items.insert(0, widget.defunctLabel!);
+    }
+
+    int offset = widget.defunctLabel != null ? -1 : 0;
+
     List<Widget> pickerItems =
         List<Widget>.generate(widget.items.length, (int index) {
       return Center(child: Text(widget.items[index]));
@@ -85,7 +93,7 @@ class _PickerState extends State<Picker> {
                   setState(() {
                     _selectedItemIndex = selectedItemIndex;
                   });
-                  widget.onChange(selectedItemIndex);
+                  widget.onChange(selectedItemIndex + offset);
                 },
                 children: pickerItems,
               ),
