@@ -7,7 +7,7 @@ import 'package:mini_solo/features/kard/kard.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_random_table_popup.dart';
+import 'package:mini_solo/features/random_tables/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
@@ -26,7 +26,7 @@ import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/popups/add_group_popup.dart';
-import '../../widgets/popups/add_random_table_popup.dart';
+import '../../features/random_tables/add_random_table_popup.dart';
 import '../../widgets/popups/edit_groups_popup.dart';
 import '../dice/dice_button.dart';
 import '../dice/other_dice_sets.dart';

@@ -153,8 +153,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteKard(String id) {
-    _campaignData!.kards.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _campaignData!.kards.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -623,8 +623,8 @@ class AppState extends ChangeNotifier {
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
 
   void deleteRandomTable(String id) {
-    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -698,8 +698,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }

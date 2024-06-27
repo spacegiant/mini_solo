@@ -4,8 +4,8 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/picker.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
-import '../../features/grouping/group-picker.dart';
-import '../gap.dart';
+import '../grouping/group-picker.dart';
+import '../../widgets/gap.dart';
 
 class EditRandomTable extends StatefulWidget {
   const EditRandomTable({
@@ -145,8 +145,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   color: kSubmitColor,
                   child: const Text('Update'),
                   onPressed: () {
-                    widget.appState.moveToGroup(
-                        controlId: widget.id, groupId: selectedGroup);
+                    if (initialGroup != selectedGroup) {
+                      widget.appState.moveToGroup(
+                          controlId: widget.id, groupId: selectedGroup);
+                    }
                     Navigator.pop(context);
                   }),
               CupertinoButton(
