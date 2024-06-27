@@ -83,45 +83,42 @@ class _EditRandomTableState extends State<EditRandomTable> {
           ),
           const Divider(),
           const Gap(),
-          SizedBox(
-              height: 120.0,
-              child: Opacity(
-                opacity: selectedId == '' ? 0.5 : 1,
-                child: Column(
-                  children: [
-                    LabelAndInput(
-                      label: 'Weight',
-                      enabled: selectedId != '',
-                      controller: _weightController,
-                      onChanged: (value) {
-                        setState(() {
-                          _weightController.text = value;
-                        });
-                      },
-                    ),
-                    const Gap(height: 4.0),
-                    LabelAndInput(
-                      label: 'Text',
-                      controller: _textController,
-                      onChanged: (value) {
-                        setState(() {
-                          _textController.text = value;
-                        });
-                      },
-                    ),
-                    const Gap(height: 4.0),
-                    LabelAndPicker(
-                      enabled: selectedId != '',
-                      items: [
-                        'Not Linked',
-                        ...randomTables.map((table) => table.title)
-                      ],
-                      onChange: (thing) {},
-                      label: 'Link',
-                    ),
-                  ],
-                ),
-              )),
+          RandomTablesFormContainer(
+            isActive: selectedId != '',
+            children: [
+              LabelAndInput(
+                label: 'Weight',
+                enabled: selectedId != '',
+                controller: _weightController,
+                onChanged: (value) {
+                  setState(() {
+                    _weightController.text = value;
+                  });
+                },
+              ),
+              const Gap(height: 4.0),
+              LabelAndInput(
+                label: 'Text',
+                enabled: selectedId != '',
+                controller: _textController,
+                onChanged: (value) {
+                  setState(() {
+                    _textController.text = value;
+                  });
+                },
+              ),
+              const Gap(height: 4.0),
+              LabelAndPicker(
+                enabled: selectedId != '',
+                items: [
+                  'Not Linked',
+                  ...randomTables.map((table) => table.title)
+                ],
+                onChange: (thing) {},
+                label: 'Link',
+              ),
+            ],
+          ),
           const Divider(),
           GroupPicker(
             onChange: (string) {
@@ -213,5 +210,29 @@ class RandomTableEntries extends StatelessWidget {
             );
           },
         ));
+  }
+}
+
+class RandomTablesFormContainer extends StatelessWidget {
+  const RandomTablesFormContainer({
+    super.key,
+    required this.children,
+    this.isActive = true,
+  });
+
+  final List<Widget> children;
+  final bool? isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 120.0,
+      child: Opacity(
+        opacity: isActive! ? 1 : 0.5,
+        child: Column(
+          children: children,
+        ),
+      ),
+    );
   }
 }
