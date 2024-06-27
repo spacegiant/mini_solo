@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/features/random_tables/random_table_item.dart';
 import 'package:mini_solo/widgets/picker.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -190,14 +191,14 @@ class RandomTableEntries extends StatelessWidget {
         height: 300.0,
         child: ListView.builder(
           itemCount: recordCount,
-          prototypeItem: ListViewWidget(
+          prototypeItem: RandomTableItem(
             row: RandomTableRow(label: 'prototype label', weight: 100),
             onTap: (String id) {},
             id: 'prototypeId',
             selectedId: '',
           ),
           itemBuilder: (context, index) {
-            return ListViewWidget(
+            return RandomTableItem(
               onTap: (id) {
                 onTap(
                   id: id,
@@ -277,47 +278,6 @@ class LabelAndPicker extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ListViewWidget extends StatelessWidget {
-  const ListViewWidget({
-    super.key,
-    required this.row,
-    required this.onTap,
-    required this.id,
-    required this.selectedId,
-  });
-
-  final String id;
-  final RandomTableRow row;
-  final Function(String id) onTap;
-  final String selectedId;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoListTile(
-      backgroundColor: selectedId == id ? kSelectedRowColor : null,
-      padding: EdgeInsets.zero,
-      onTap: () {
-        onTap(id);
-      },
-      title: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(row.weight.toString()),
-            const Text(' · '),
-            Text(
-              row.label,
-              overflow: TextOverflow.clip,
-              softWrap: false,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
