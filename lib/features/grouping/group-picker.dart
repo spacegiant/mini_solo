@@ -33,6 +33,7 @@ class GroupPicker extends StatelessWidget {
             if (index != null) onChange(groupList[index].groupId);
           },
           enabled: true,
+          selectedItemIndex: 0,
         ),
       ],
     );

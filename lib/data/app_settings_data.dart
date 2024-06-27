@@ -56,9 +56,9 @@ class RandomTableEntry extends CampaignItem {
 
 @JsonSerializable(explicitToJson: true)
 class RandomTableRow {
-  final String label;
-  final int? weight;
-  final String? otherRandomTable;
+  late String label;
+  late int? weight;
+  late String? otherRandomTable;
 
   RandomTableRow({
     required this.label,

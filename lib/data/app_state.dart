@@ -632,6 +632,17 @@ class AppState extends ChangeNotifier {
     return appSettingsData.randomTables.firstWhere((entry) => entry.id == id);
   }
 
+  void updateRandomTable({
+    required String id,
+    required RandomTableEntry entry,
+  }) {
+    int index =
+        _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
+
+    _appSettingsData.randomTables[index] = entry;
+    saveAppSettingsDataToDisk();
+  }
+
   // RANDOM TABLE ENTRIES
   void addRandomTableResultsEntry(RollTableResult entry) {
     _campaignData?.rollTableResult.add(entry);

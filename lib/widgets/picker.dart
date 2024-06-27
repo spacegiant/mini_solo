@@ -10,6 +10,7 @@ class Picker extends StatefulWidget {
     this.initialItem = 0,
     required this.enabled,
     this.defunctLabel,
+    required this.selectedItemIndex,
   });
 
   final List<String> items;
@@ -17,6 +18,7 @@ class Picker extends StatefulWidget {
   final int initialItem;
   final bool enabled;
   final String? defunctLabel;
+  final int selectedItemIndex;
 
   @override
   State<Picker> createState() => _PickerState();

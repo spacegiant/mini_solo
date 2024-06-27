@@ -33,6 +33,7 @@ class LabelAndPicker extends StatelessWidget {
             items: items,
             onChange: onChange,
             enabled: enabled ?? false,
+            selectedItemIndex: 0,
           ),
         ),
       ],

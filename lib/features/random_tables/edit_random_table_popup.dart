@@ -26,8 +26,10 @@ class EditRandomTable extends StatefulWidget {
 class _EditRandomTableState extends State<EditRandomTable> {
   String selectedGroup = 'unsorted';
   late String selectedId;
+  int? currentRowIndex;
   late TextEditingController _weightController;
   late TextEditingController _textController;
+  String? selectedLinkId;
 
   @override
   void initState() {
@@ -58,6 +60,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
     }) {
       setState(() {
         selectedId = id;
+        currentRowIndex = rowIndex;
         _textController.text = rows[rowIndex].label;
         _weightController.text = rows[rowIndex].weight.toString();
       });
@@ -73,6 +76,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
           rows: rows,
           selectedId: selectedId,
           onTap: handleListViewWidgetOnTap,
+          appState: widget.appState,
         ),
         const Divider(),
         const Gap(),
@@ -107,13 +111,12 @@ class _EditRandomTableState extends State<EditRandomTable> {
               items: safeList.map((table) => table.title).toList(),
               onChange: (index) {
                 if (index != null) {
-                  print(safeList[index].title);
+                  setState(() {
+                    selectedLinkId = safeList[index].id;
+                  });
                 } else {
                   print('NULL');
                 }
-                // The index relates to the item in the dropdown
-                // TODO what is the current row?
-                // print(entry.rows[selectedId]);
               },
               label: 'Link',
             ),
@@ -138,10 +141,43 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 color: kSubmitColor,
                 child: const Text('Update'),
                 onPressed: () {
+                  if (currentRowIndex == null) return;
                   if (initialGroup != selectedGroup) {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
                   }
+                  // TODO WRITE TO DATA WITH UPDATED FIELDS
+                  // if (currentRowIndex! != null) {
+                  //   // print(entry.rows[currentRowIndex!].label);
+                  // }
+                  // String newTitle = '';
+                  print(entry.rows[currentRowIndex!].label);
+                  String newLabel = _textController.value.text.trim();
+                  int newWeight;
+
+                  if (selectedLinkId != null) {
+                    entry.rows[currentRowIndex!].otherRandomTable =
+                        selectedLinkId;
+                  }
+                  if (newLabel != '')
+                    entry.rows[currentRowIndex!].label = newLabel;
+                  try {
+                    newWeight = int.parse(_weightController.value.text);
+                    entry.rows[currentRowIndex!].weight = newWeight;
+                  } catch (e) {
+                    print(e);
+                  }
+
+                  // widget.appState.updateRandomTable(
+                  //   id: widget.id,
+                  //   entry: RandomTableEntry(
+                  //     isFavourite: entry.isFavourite,
+                  //     title: entry.title,
+                  //     rows: entry.rows,
+                  //   ),
+                  // );
+                  widget.appState.saveAppSettingsDataToDisk();
+                  widget.appState.saveCampaignDataToDisk();
                   Navigator.pop(context);
                 }),
             CupertinoButton(
@@ -171,6 +207,7 @@ class RandomTableEntries extends StatelessWidget {
     required this.rows,
     required this.selectedId,
     required this.onTap,
+    required this.appState,
   });
 
   final int recordCount;
@@ -181,6 +218,7 @@ class RandomTableEntries extends StatelessWidget {
     required List<RandomTableRow> rows,
     required int rowIndex,
   }) onTap;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +231,7 @@ class RandomTableEntries extends StatelessWidget {
             onTap: (String id) {},
             id: 'prototypeId',
             selectedId: '',
+            appState: appState,
           ),
           itemBuilder: (context, index) {
             return RandomTableItem(
@@ -206,6 +245,7 @@ class RandomTableEntries extends StatelessWidget {
               row: rows[index],
               id: 'random-table-item-$index',
               selectedId: selectedId,
+              appState: appState,
             );
           },
         ));
