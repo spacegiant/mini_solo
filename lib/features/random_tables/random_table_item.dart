@@ -53,10 +53,13 @@ class RandomTableItem extends StatelessWidget {
             Text(row.weight.toString()),
             const Text(' · '),
             if (icon != null) ...[icon, const Gap()],
-            Text(
-              label,
-              overflow: TextOverflow.clip,
-              softWrap: false,
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 330.0),
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
             ),
           ],
         ),

@@ -626,6 +626,7 @@ class AppState extends ChangeNotifier {
     removeFromAllGroups(controlId: id);
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
+    saveAppSettingsDataToDisk();
   }
 
   RandomTableEntry getRandomTableById(String id) {
