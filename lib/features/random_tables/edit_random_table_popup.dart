@@ -53,10 +53,23 @@ class _EditRandomTableState extends State<EditRandomTable> {
     // Remove current
     // Map<String, String> menuItems = [];
 
+    handleListViewWidgetOnTap({
+      required String id,
+      required List<RandomTableRow> rows,
+      required int rowIndex,
+    }) {
+      setState(() {
+        selectedId = id;
+        _textController.text = rows[rowIndex].label;
+        _weightController.text = rows[rowIndex].weight.toString();
+      });
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
+          // TODO dedicated title widget for popups for standardisation
           Text('$detail ($recordCount entries)'),
           const Divider(),
           SizedBox(
@@ -72,11 +85,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 itemBuilder: (context, index) {
                   return ListViewWidget(
                     onTap: (id) {
-                      setState(() {
-                        selectedId = id;
-                        _textController.text = rows[index].label;
-                        _weightController.text = rows[index].weight.toString();
-                      });
+                      handleListViewWidgetOnTap(
+                        id: id,
+                        rows: rows,
+                        rowIndex: index,
+                      );
                     },
                     row: rows[index],
                     id: 'random-table-item-$index',
