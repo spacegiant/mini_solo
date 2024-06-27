@@ -7,6 +7,7 @@ import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../grouping/group-picker.dart';
 import '../../widgets/gap.dart';
+import '../../widgets/label_and_picker.dart';
 
 class EditRandomTable extends StatefulWidget {
   const EditRandomTable({
@@ -240,40 +241,6 @@ class LabelAndInput extends StatelessWidget {
           child: CupertinoTextField(
             onChanged: onChanged,
             controller: controller,
-            enabled: enabled ?? false,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class LabelAndPicker extends StatelessWidget {
-  const LabelAndPicker({
-    super.key,
-    required this.label,
-    this.enabled,
-    required this.items,
-    required this.onChange,
-  });
-
-  final String label;
-  final bool? enabled;
-  final List<String> items;
-  final Function(int) onChange;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(label),
-        const Gap(),
-        // TODO Change this to some sort of Filter List
-        Flexible(
-          child: Picker(
-            items: items,
-            onChange: onChange,
             enabled: enabled ?? false,
           ),
         ),
