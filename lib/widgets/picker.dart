@@ -61,6 +61,7 @@ class _PickerState extends State<Picker> {
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Text(
+            overflow: TextOverflow.ellipsis,
             widget.items[_selectedItemIndex],
             style: const TextStyle(
               fontSize: 18.0,

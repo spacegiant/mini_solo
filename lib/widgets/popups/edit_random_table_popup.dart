@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/picker.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../features/grouping/group-picker.dart';
@@ -42,6 +43,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
     List<RandomTableRow> rows = entry.rows;
     int recordCount = rows.length;
 
+    List<RandomTableEntry> randomTables =
+        widget.appState.appSettingsData.randomTables;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -70,6 +74,31 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     selectedId: selectedId,
                   );
                 },
+              )),
+          const Divider(),
+          const Gap(),
+          SizedBox(
+              height: 120.0,
+              child: Opacity(
+                opacity: selectedId == '' ? 0.5 : 1,
+                child: Column(
+                  children: [
+                    LabelAndInput(
+                      label: 'Weight',
+                      enabled: selectedId != '',
+                    ),
+                    const Gap(height: 4.0),
+                    const LabelAndInput(
+                      label: 'Text',
+                    ),
+                    const Gap(height: 4.0),
+                    LabelAndPicker(
+                      items: randomTables.map((table) => table.title).toList(),
+                      onChange: (thing) {},
+                      label: 'Link',
+                    ),
+                  ],
+                ),
               )),
           const Divider(),
           GroupPicker(
@@ -111,6 +140,57 @@ class _EditRandomTableState extends State<EditRandomTable> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class LabelAndInput extends StatelessWidget {
+  const LabelAndInput({
+    super.key,
+    required this.label,
+    this.enabled,
+  });
+
+  final String label;
+  final bool? enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(label),
+        const Gap(),
+        const Flexible(child: CupertinoTextField()),
+      ],
+    );
+  }
+}
+
+class LabelAndPicker extends StatelessWidget {
+  const LabelAndPicker({
+    super.key,
+    required this.label,
+    this.enabled,
+    required this.items,
+    required this.onChange,
+  });
+
+  final String label;
+  final bool? enabled;
+  final List<String> items;
+  final Function(int) onChange;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(label),
+        const Gap(),
+        // TODO Change this to some sort of Filter List
+        Flexible(child: Picker(items: items, onChange: onChange)),
+      ],
     );
   }
 }
