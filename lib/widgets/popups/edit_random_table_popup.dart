@@ -24,12 +24,16 @@ class EditRandomTable extends StatefulWidget {
 class _EditRandomTableState extends State<EditRandomTable> {
   String selectedGroup = 'unsorted';
   late String selectedId;
+  late TextEditingController _weightController;
+  late TextEditingController _textController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     selectedId = '';
+    _textController = TextEditingController(text: '');
+    _weightController = TextEditingController(text: '');
   }
 
   @override
@@ -45,6 +49,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
     List<RandomTableEntry> randomTables =
         widget.appState.appSettingsData.randomTables;
+
+    // Remove current
+    // Map<String, String> menuItems = [];
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -67,6 +74,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     onTap: (id) {
                       setState(() {
                         selectedId = id;
+                        _textController.text = rows[index].label;
+                        _weightController.text = rows[index].weight.toString();
                       });
                     },
                     row: rows[index],
@@ -86,15 +95,31 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     LabelAndInput(
                       label: 'Weight',
                       enabled: selectedId != '',
+                      controller: _weightController,
+                      onChanged: (value) {
+                        print('HOOOOOOG');
+                        setState(() {
+                          _weightController.text = value;
+                        });
+                      },
                     ),
                     const Gap(height: 4.0),
-                    const LabelAndInput(
+                    LabelAndInput(
                       label: 'Text',
+                      controller: _textController,
+                      onChanged: (value) {
+                        setState(() {
+                          _textController.text = value;
+                        });
+                      },
                     ),
                     const Gap(height: 4.0),
                     LabelAndPicker(
                       enabled: selectedId != '',
-                      items: randomTables.map((table) => table.title).toList(),
+                      items: [
+                        'Not Linked',
+                        ...randomTables.map((table) => table.title)
+                      ],
                       onChange: (thing) {},
                       label: 'Link',
                     ),
@@ -150,10 +175,14 @@ class LabelAndInput extends StatelessWidget {
     super.key,
     required this.label,
     this.enabled,
+    required this.controller,
+    required this.onChanged,
   });
 
   final String label;
   final bool? enabled;
+  final TextEditingController controller;
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -163,9 +192,12 @@ class LabelAndInput extends StatelessWidget {
         Text(label),
         const Gap(),
         Flexible(
-            child: CupertinoTextField(
-          enabled: enabled ?? false,
-        )),
+          child: CupertinoTextField(
+            onChanged: onChanged,
+            controller: controller,
+            enabled: enabled ?? false,
+          ),
+        ),
       ],
     );
   }
