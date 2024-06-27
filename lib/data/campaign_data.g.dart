@@ -48,6 +48,8 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       hiddenEntryTypes: (json['hiddenEntryTypes'] as List<dynamic>)
           .map((e) => $enumDecode(_$JournalEntryTypesEnumMap, e))
           .toList(),
+      randomTableRecursionLimit:
+          (json['randomTableRecursionLimit'] as num).toInt(),
     );
 
 Map<String, dynamic> _$GeneralSettingsDataToJson(
@@ -66,6 +68,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'hiddenEntryTypes': instance.hiddenEntryTypes
           .map((e) => _$JournalEntryTypesEnumMap[e]!)
           .toList(),
+      'randomTableRecursionLimit': instance.randomTableRecursionLimit,
     };
 
 const _$JournalEntryTypesEnumMap = {

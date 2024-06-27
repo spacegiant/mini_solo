@@ -191,6 +191,7 @@ class GeneralSettingsData {
   late bool useD6Oracle;
   late bool wrapDiceControls;
   late List<JournalEntryTypes> hiddenEntryTypes;
+  late int randomTableRecursionLimit;
 
   GeneralSettingsData({
     required this.showFutureSettings,
@@ -204,6 +205,7 @@ class GeneralSettingsData {
     required this.useD6Oracle,
     required this.wrapDiceControls,
     required this.hiddenEntryTypes,
+    required this.randomTableRecursionLimit,
   });
 // coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -307,6 +309,7 @@ CampaignData initCampaignDataData(String campaignName) {
           JournalEntryTypes.tracker,
         ],
         diceActive: true,
+        randomTableRecursionLimit: 3,
       ),
     ),
     things: [],
