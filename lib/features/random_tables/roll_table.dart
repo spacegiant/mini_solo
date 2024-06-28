@@ -33,7 +33,14 @@ List<RollTableResult> getRandomTableResult({
       if (resultFound) {
         // if
         if (randomTable.rows[i].otherRandomTable != null) {
+          String? id = randomTable.rows[i].otherRandomTable;
           print("OTHER RANDOM TABLE!");
+          if (id == null) return;
+          recursiveRandomTableRoll(
+              recursionLimit: recursionLimit - 1,
+              randomTables: randomTables,
+              randomTableId: id,
+              cb: cb);
         }
         // else
         result = RollTableResult(

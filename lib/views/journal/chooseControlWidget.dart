@@ -199,6 +199,7 @@ Widget chooseControlWidget({
           if (controlData.randomTable != null) {
             RollTableResult? result = getRandomTableResult(
                 tableId: controlData.randomTable!.id, appState: appState)[0];
+
             appState.addRandomTableResultsEntry(result);
           }
         },
