@@ -8,7 +8,7 @@ List<RollTableResult> getRandomTableResult({
 }) {
   List<RollTableResult> rollTableResults = [];
 
-  void addToResultString(RollTableResult result) {
+  void addToResultList(RollTableResult result) {
     rollTableResults.add(result);
   }
 
@@ -27,16 +27,26 @@ List<RollTableResult> getRandomTableResult({
     RollTableResult? result;
 
     for (int i = 0; i < randomTable.rows.length; i++) {
+      // IF JUST A LIST OF RANDOM TABLE REFERENCES
+      if (randomTable.isRandomTable == false) {
+        // DON'T ADD OUTCOME OF THIS PART OF ROLL T
+        // print(randomTable.title);
+        // return;
+      }
+
+      // IF NORMAL RANDOM TABLE
       tally += randomTable.rows[i].weight!;
       bool resultFound = randomRoll < tally;
 
       if (resultFound) {
+        // print(randomTable.rows[i].label);
         if (randomTable.rows[i].otherRandomTable != null) {
           String? id = randomTable.rows[i].otherRandomTable;
 
           if (id == null) return;
 
           if (recursionLimit == 0) {
+            print(randomTable.title);
             print('HIT RECURSION LIMIT');
             return;
           }
@@ -48,15 +58,16 @@ List<RollTableResult> getRandomTableResult({
             cb: cb,
           );
         }
-        // else
-        result = RollTableResult(
-          title: randomTable.title,
-          randomRoll: randomRoll,
-          resultString: randomTable.rows[i].label,
-          totalEntries: weightsSum,
-          isFavourite: false,
-          weight: randomTable.rows[i].weight ?? 0,
-        );
+
+        if (randomTable.isRandomTable == true) {
+          result = RollTableResult(
+            title: randomTable.title,
+            randomRoll: randomRoll,
+            resultString: randomTable.rows[i].label,
+            totalEntries: weightsSum,
+            weight: randomTable.rows[i].weight ?? 1,
+          );
+        }
 
         break;
       }
@@ -70,7 +81,7 @@ List<RollTableResult> getRandomTableResult({
         appState.campaignData?.settings.general.randomTableRecursionLimit ?? 3,
     randomTables: appState.randomTables,
     randomTableId: tableId,
-    cb: addToResultString,
+    cb: addToResultList,
   );
 
   return rollTableResults;

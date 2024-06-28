@@ -29,7 +29,6 @@ void main() {
   test('RollTableResult has correct data', () {
     RollTableResult rollTableResult = RollTableResult(
       weight: 10,
-      isFavourite: true,
       title: 'Table Result Title 1',
       randomRoll: 11,
       resultString: 'Result String 1',
@@ -37,7 +36,6 @@ void main() {
     );
 
     expect(rollTableResult.weight, 10);
-    expect(rollTableResult.isFavourite, true);
     expect(rollTableResult.title, 'Table Result Title 1');
     expect(rollTableResult.randomRoll, 11);
     expect(rollTableResult.resultString, 'Result String 1');

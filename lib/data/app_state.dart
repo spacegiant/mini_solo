@@ -645,8 +645,8 @@ class AppState extends ChangeNotifier {
   }
 
   // RANDOM TABLE ENTRIES
-  void addRandomTableResultsEntry(RollTableResult entry) {
-    _campaignData?.rollTableResult.add(entry);
+  void addRandomTableResultsEntry(RollTableResults entry) {
+    _campaignData?.rollTableResults.add(entry);
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
@@ -656,17 +656,17 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void updateRandomTableResultsEntry(String id, RollTableResult entry) {
+  void updateRandomTableResultsEntry(String id, RollTableResults entry) {
     int index =
-        _campaignData!.rollTableResult.indexWhere((entry) => entry.id == id);
+        _campaignData!.rollTableResults.indexWhere((entry) => entry.id == id);
 
-    _campaignData?.rollTableResult[index] = entry;
+    _campaignData?.rollTableResults[index] = entry;
     saveCampaignDataToDisk();
   }
 
   void deleteRandomTableResultsEntry(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
-    _campaignData!.rollTableResult.removeWhere((entry) => entry.id == id);
+    _campaignData!.rollTableResults.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }

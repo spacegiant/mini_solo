@@ -31,6 +31,7 @@ RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
       rows: (json['rows'] as List<dynamic>)
           .map((e) => RandomTableRow.fromJson(e as Map<String, dynamic>))
           .toList(),
+      isRandomTable: json['isRandomTable'] as bool? ?? true,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -41,6 +42,7 @@ Map<String, dynamic> _$RandomTableEntryToJson(RandomTableEntry instance) =>
       'id': instance.id,
       'title': instance.title,
       'rows': instance.rows.map((e) => e.toJson()).toList(),
+      'isRandomTable': instance.isRandomTable,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
@@ -63,7 +65,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.roll: 'roll',
   JournalEntryTypes.scratchPage: 'scratchPage',
   JournalEntryTypes.randomTable: 'randomTable',
-  JournalEntryTypes.rollTableResult: 'rollTableResult',
+  JournalEntryTypes.rollTableResults: 'rollTableResults',
   JournalEntryTypes.tracker: 'tracker',
   JournalEntryTypes.kard: 'kard',
 };
@@ -82,26 +84,40 @@ Map<String, dynamic> _$RandomTableRowToJson(RandomTableRow instance) =>
       'otherRandomTable': instance.otherRandomTable,
     };
 
+RollTableResults _$RollTableResultsFromJson(Map<String, dynamic> json) =>
+    RollTableResults(
+      title: json['title'] as String,
+      results: (json['results'] as List<dynamic>)
+          .map((e) => RollTableResult.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..isFavourite = json['isFavourite'] as bool?
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$RollTableResultsToJson(RollTableResults instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'title': instance.title,
+      'results': instance.results.map((e) => e.toJson()).toList(),
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
 RollTableResult _$RollTableResultFromJson(Map<String, dynamic> json) =>
     RollTableResult(
       weight: (json['weight'] as num).toInt(),
-      isFavourite: json['isFavourite'] as bool?,
       title: json['title'] as String,
       randomRoll: (json['randomRoll'] as num).toInt(),
       resultString: json['resultString'] as String,
       totalEntries: (json['totalEntries'] as num).toInt(),
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+    );
 
 Map<String, dynamic> _$RollTableResultToJson(RollTableResult instance) =>
     <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
       'title': instance.title,
       'randomRoll': instance.randomRoll,
       'resultString': instance.resultString,
       'totalEntries': instance.totalEntries,
       'weight': instance.weight,
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

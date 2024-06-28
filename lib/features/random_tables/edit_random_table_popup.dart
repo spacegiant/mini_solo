@@ -153,6 +153,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   if (selectedLinkId != null) {
                     entry.rows[currentRowIndex!].otherRandomTable =
                         selectedLinkId;
+                  } else {
+                    entry.rows[currentRowIndex!].otherRandomTable = null;
                   }
 
                   if (newLabel != '') {

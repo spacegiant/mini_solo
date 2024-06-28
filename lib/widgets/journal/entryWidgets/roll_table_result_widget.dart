@@ -5,6 +5,7 @@ import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 import '../../../data/app_settings_data.dart';
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
+import '../../gap.dart';
 
 class RollTableResultWidget extends StatelessWidget {
   final AppState appState;
@@ -18,12 +19,30 @@ class RollTableResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RollTableResult entry = appState.campaignData!.rollTableResult
+    List<String> resultsText;
+    RollTableResults entry = appState.campaignData!.rollTableResults
         .firstWhere((entry) => entry.id == journalEntry.id);
-    String? resultText = entry.resultString;
 
-    String calculation = '${entry.weight} in ${entry.totalEntries} chance';
-    String roll = 'd${entry.totalEntries} → rolled ${entry.randomRoll + 1}';
+    List<Widget> resultsWidgets = [];
+
+    for (var result in entry.results) {
+      resultsWidgets.add(Row(
+        children: [
+          Text(
+            result.resultString,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          if (appState.showMechanics) ...[
+            const Gap(),
+            Text(
+                '[${result.title} ${result.randomRoll}/${result.totalEntries}]')
+          ],
+          // Text(result.randomRoll.toString()),
+          // Text(result.totalEntries.toString()),
+          // Text(result.weight.toString()),
+        ],
+      ));
+    }
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -43,11 +62,12 @@ class RollTableResultWidget extends StatelessWidget {
             JournalEntryLabel(
               label: 'Random Table: ${entry.title}',
             ),
-            if (appState.showMechanics)
-              JournalEntryDetail(
-                details: [calculation, roll],
-              ),
-            JournalEntryResult(text: resultText),
+            // if (appState.showMechanics)
+            //   JournalEntryDetail(
+            //     details: [calculation, roll],
+            //   ),
+            // JournalEntryResult(text: resultText),
+            ...resultsWidgets,
           ],
         ),
       ),

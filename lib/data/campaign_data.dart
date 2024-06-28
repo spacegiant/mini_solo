@@ -51,7 +51,7 @@ enum JournalEntryTypes {
   // transition,
   scratchPage,
   randomTable,
-  rollTableResult,
+  rollTableResults,
   tracker,
   kard,
 }
@@ -124,7 +124,7 @@ Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {
     identifier: 'randomTable',
     label: 'Random Table',
   ),
-  JournalEntryTypes.rollTableResult: EntryTypeData(
+  JournalEntryTypes.rollTableResults: EntryTypeData(
     identifier: 'rollTableResult',
     label: 'Roll Table Result',
   ),
@@ -235,7 +235,7 @@ class CampaignData {
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
-  late List<RollTableResult> rollTableResult;
+  late List<RollTableResults> rollTableResults;
   late List<TrackerEntry> tracker;
   late List<NewSceneEntry> newScene;
   late List<Group> groups;
@@ -259,7 +259,7 @@ class CampaignData {
     required this.creatures,
     required this.rolls,
     required this.scratchPad,
-    required this.rollTableResult,
+    required this.rollTableResults,
     required this.tracker,
     required this.newScene,
     required this.groups,
@@ -313,7 +313,7 @@ CampaignData initCampaignDataData(String campaignName) {
       ),
     ),
     things: [],
-    rollTableResult: [],
+    rollTableResults: [],
     tracker: [],
     newScene: [],
     kards: [],
