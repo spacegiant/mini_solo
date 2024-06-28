@@ -23,21 +23,17 @@ class RandomTableItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String label;
-    Icon? icon;
-
-    if (row.otherRandomTable != null) {
-      label = appState.appSettingsData.randomTables
-          .firstWhere((table) => table.id == row.otherRandomTable)
-          .title;
-      icon = const Icon(
-        CupertinoIcons.link,
-        size: 16.0,
-        color: CupertinoColors.black,
-      );
-    } else {
-      label = row.label;
-    }
+    String label = row.label;
+    String linkedLabel = row.otherRandomTable == null
+        ? 'Not Linked'
+        : appState.appSettingsData.randomTables
+            .firstWhere((table) => table.id == row.otherRandomTable)
+            .title;
+    Icon icon = const Icon(
+      CupertinoIcons.link,
+      size: 16.0,
+      color: CupertinoColors.black,
+    );
 
     return CupertinoListTile(
       backgroundColor: selectedId == id ? kSelectedRowColor : null,
@@ -48,19 +44,36 @@ class RandomTableItem extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(row.weight.toString()),
             const Text(' · '),
-            if (icon != null) ...[icon, const Gap()],
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 330.0),
-              child: Text(
-                label,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-              ),
-            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Opacity(
+                    opacity: row.otherRandomTable != null ? 0.5 : 1.0,
+                    child: Text(label)),
+                Opacity(
+                  opacity: row.otherRandomTable == null ? 0.5 : 1.0,
+                  child: Row(
+                    children: [
+                      icon,
+                      Gap(),
+                      Text(linkedLabel),
+                    ],
+                  ),
+                ),
+              ],
+            )
+            // if (icon != null) ...[icon, const Gap()],
+            // ConstrainedBox(
+            //   constraints: const BoxConstraints(maxWidth: 330.0),
+            //   child: Text(
+            //     label,
+            //     overflow: TextOverflow.ellipsis,
+            //     softWrap: false,
+            //   ),
+            // ),
           ],
         ),
       ),
