@@ -2,14 +2,10 @@ import 'dart:math';
 import '../../data/app_settings_data.dart';
 
 RollTableResult? getRandomTableResult(RandomTableEntry table) {
-  int weightsSum = 0;
   int tally = 0;
   RollTableResult? result;
   var rows = table.rows;
-
-  for (int i = 0; i < rows.length; i++) {
-    weightsSum += rows[i].weight!;
-  }
+  int weightsSum = getWeightSum(rows);
 
   int randomRoll = Random().nextInt(weightsSum);
 
@@ -36,4 +32,12 @@ RollTableResult? getRandomTableResult(RandomTableEntry table) {
   }
 
   return result;
+}
+
+int getWeightSum(List<RandomTableRow> rows) {
+  int weightsSum = 0;
+  for (int i = 0; i < rows.length; i++) {
+    weightsSum += rows[i].weight!;
+  }
+  return weightsSum;
 }
