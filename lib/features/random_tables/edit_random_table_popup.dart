@@ -146,12 +146,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
                   }
-                  // TODO WRITE TO DATA WITH UPDATED FIELDS
-                  // if (currentRowIndex! != null) {
-                  //   // print(entry.rows[currentRowIndex!].label);
-                  // }
-                  // String newTitle = '';
-                  print(entry.rows[currentRowIndex!].label);
+
                   String newLabel = _textController.value.text.trim();
                   int newWeight;
 
@@ -159,8 +154,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     entry.rows[currentRowIndex!].otherRandomTable =
                         selectedLinkId;
                   }
-                  if (newLabel != '')
+
+                  if (newLabel != '') {
                     entry.rows[currentRowIndex!].label = newLabel;
+                  }
+
                   try {
                     newWeight = int.parse(_weightController.value.text);
                     entry.rows[currentRowIndex!].weight = newWeight;
