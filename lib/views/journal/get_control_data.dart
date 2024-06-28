@@ -32,14 +32,17 @@ List<ControlData> getControlData(AppState appState) {
   }
 
   for (RandomTableEntry randomTable in appState.appSettingsData.randomTables) {
-    randomTableControlData.add(
-      ControlData(
-        controlId: randomTable.id,
-        label: randomTable.title,
-        controlType: ControlTypeEnum.randomTable,
-        randomTable: randomTable,
-      ),
-    );
+    if (randomTable.isHidden == false) {
+      randomTableControlData.add(
+        ControlData(
+          controlId: randomTable.id,
+          label: randomTable.title,
+          controlType: ControlTypeEnum.randomTable,
+          randomTable: randomTable,
+        ),
+      );
+    }
+    ;
   }
 
   List<ControlData> controlData = [

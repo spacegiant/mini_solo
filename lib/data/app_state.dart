@@ -227,6 +227,7 @@ class AppState extends ChangeNotifier {
 
   void saveAppSettingsDataToDisk() {
     storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
+    notifyListeners();
   }
 
   // CAMPAIGN DATA
@@ -643,6 +644,8 @@ class AppState extends ChangeNotifier {
     _appSettingsData.randomTables[index] = entry;
     saveAppSettingsDataToDisk();
   }
+
+  void randomTableToggleHidden(bool value) {}
 
   // RANDOM TABLE ENTRIES
   void addRandomTableResultsEntry(RollTableResults entry) {

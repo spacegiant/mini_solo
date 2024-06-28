@@ -142,6 +142,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 value: entry.isRandomTable,
                 onChanged: (value) {
                   entry.isRandomTable = value;
+                  widget.appState.saveAppSettingsDataToDisk();
                   setState(() {
                     isRandomTable = value;
                   });
@@ -155,6 +156,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 value: entry.isHidden,
                 onChanged: (value) {
                   entry.isHidden = value;
+                  widget.appState.saveAppSettingsDataToDisk();
                   setState(() {
                     isHidden = value;
                   });
