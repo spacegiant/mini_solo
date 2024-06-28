@@ -1,7 +1,7 @@
 import 'dart:math';
 import '../../data/app_settings_data.dart';
 
-RollTableResult? rollTable(RandomTableEntry table) {
+RollTableResult? getRandomTableResult(RandomTableEntry table) {
   int weightsSum = 0;
   int tally = 0;
   RollTableResult? result;
@@ -17,6 +17,11 @@ RollTableResult? rollTable(RandomTableEntry table) {
     tally += rows[i].weight!;
 
     if (randomRoll < tally) {
+      // if
+      if (rows[i].otherRandomTable != null) {
+        print("OTHER RANDOM TABLE!");
+      }
+      // else
       result = RollTableResult(
           title: table.title,
           randomRoll: randomRoll,

@@ -197,7 +197,8 @@ Widget chooseControlWidget({
         iconData: FontAwesomeIcons.diceD6,
         onPressed: () {
           if (controlData.randomTable != null) {
-            RollTableResult? result = rollTable(controlData.randomTable!);
+            RollTableResult? result =
+                getRandomTableResult(controlData.randomTable!);
             appState.addRandomTableResultsEntry(result!);
           }
         },
