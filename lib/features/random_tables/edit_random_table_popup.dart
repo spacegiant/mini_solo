@@ -30,19 +30,23 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late TextEditingController _weightController;
   late TextEditingController _textController;
   String? selectedLinkId;
+  late bool isRandomTable;
+  late bool isHidden;
+  late RandomTableEntry entry;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     selectedId = '';
     _textController = TextEditingController(text: '');
     _weightController = TextEditingController(text: '');
+    entry = widget.appState.getRandomTableById(widget.id);
+    isRandomTable = entry.isRandomTable;
+    isHidden = entry.isHidden;
   }
 
   @override
   Widget build(BuildContext context) {
-    RandomTableEntry entry = widget.appState.getRandomTableById(widget.id);
     String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
     List<RandomTableRow> rows = entry.rows;
     int recordCount = rows.length;
@@ -131,6 +135,32 @@ class _EditRandomTableState extends State<EditRandomTable> {
           },
           appState: widget.appState,
           initialGroup: initialGroup,
+        ),
+        Row(
+          children: [
+            CupertinoSwitch(
+                value: entry.isRandomTable,
+                onChanged: (value) {
+                  entry.isRandomTable = value;
+                  setState(() {
+                    isRandomTable = value;
+                  });
+                }),
+            const Text('Is a random list'),
+          ],
+        ),
+        Row(
+          children: [
+            CupertinoSwitch(
+                value: entry.isHidden,
+                onChanged: (value) {
+                  entry.isHidden = value;
+                  setState(() {
+                    isHidden = value;
+                  });
+                }),
+            const Text('Hidden'),
+          ],
         ),
         Wrap(
           spacing: 8.0,

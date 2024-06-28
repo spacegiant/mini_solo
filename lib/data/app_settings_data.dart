@@ -38,13 +38,15 @@ class AppSettingsData {
 class RandomTableEntry extends CampaignItem {
   final String title;
   final List<RandomTableRow> rows;
-  final bool isRandomTable;
+  late bool isRandomTable;
+  late bool isHidden;
 
   RandomTableEntry({
     required super.isFavourite,
     required this.title,
     required this.rows,
     this.isRandomTable = true,
+    this.isHidden = false,
   });
 // coverage:ignore-start
   factory RandomTableEntry.fromJson(Map<String, dynamic> json) =>
@@ -103,10 +105,10 @@ class RollTableResults extends CampaignItem {
 @JsonSerializable(explicitToJson: true)
 class RollTableResult {
   final String title;
-  final int randomRoll;
+  final int? randomRoll;
   final String resultString;
-  final int totalEntries;
-  final int weight;
+  final int? totalEntries;
+  final int? weight;
 
   RollTableResult({
     required this.weight,

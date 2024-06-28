@@ -26,22 +26,24 @@ class RollTableResultWidget extends StatelessWidget {
     List<Widget> resultsWidgets = [];
 
     for (var result in entry.results) {
-      resultsWidgets.add(Row(
-        children: [
-          Text(
-            result.resultString,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          if (appState.showMechanics) ...[
-            const Gap(),
+      resultsWidgets.add(
+        Wrap(
+          children: [
             Text(
-                '[${result.title} ${result.randomRoll}/${result.totalEntries}]')
+              result.resultString,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            if (appState.showMechanics) ...[
+              const Gap(),
+              Text(
+                  '[${result.title} ${result.randomRoll}/${result.totalEntries}]')
+            ],
+            // Text(result.randomRoll.toString()),
+            // Text(result.totalEntries.toString()),
+            // Text(result.weight.toString()),
           ],
-          // Text(result.randomRoll.toString()),
-          // Text(result.totalEntries.toString()),
-          // Text(result.weight.toString()),
-        ],
-      ));
+        ),
+      );
     }
 
     return GestureDetector(
