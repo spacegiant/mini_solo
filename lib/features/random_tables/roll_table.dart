@@ -15,8 +15,9 @@ RollTableResult? getRandomTableResult(RandomTableEntry table) {
 
   for (int i = 0; i < rows.length; i++) {
     tally += rows[i].weight!;
+    bool resultFound = randomRoll < tally;
 
-    if (randomRoll < tally) {
+    if (resultFound) {
       // if
       if (rows[i].otherRandomTable != null) {
         print("OTHER RANDOM TABLE!");
