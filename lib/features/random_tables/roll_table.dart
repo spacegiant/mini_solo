@@ -31,25 +31,32 @@ List<RollTableResult> getRandomTableResult({
       bool resultFound = randomRoll < tally;
 
       if (resultFound) {
-        // if
         if (randomTable.rows[i].otherRandomTable != null) {
           String? id = randomTable.rows[i].otherRandomTable;
-          print("OTHER RANDOM TABLE!");
+
           if (id == null) return;
+
+          if (recursionLimit == 0) {
+            print('HIT RECURSION LIMIT');
+            return;
+          }
+
           recursiveRandomTableRoll(
-              recursionLimit: recursionLimit - 1,
-              randomTables: randomTables,
-              randomTableId: id,
-              cb: cb);
+            recursionLimit: recursionLimit - 1,
+            randomTables: randomTables,
+            randomTableId: id,
+            cb: cb,
+          );
         }
         // else
         result = RollTableResult(
-            title: randomTable.title,
-            randomRoll: randomRoll,
-            resultString: randomTable.rows[i].label,
-            totalEntries: weightsSum,
-            isFavourite: false,
-            weight: randomTable.rows[i].weight ?? 0);
+          title: randomTable.title,
+          randomRoll: randomRoll,
+          resultString: randomTable.rows[i].label,
+          totalEntries: weightsSum,
+          isFavourite: false,
+          weight: randomTable.rows[i].weight ?? 0,
+        );
 
         break;
       }
@@ -59,7 +66,8 @@ List<RollTableResult> getRandomTableResult({
   }
 
   recursiveRandomTableRoll(
-    recursionLimit: 3,
+    recursionLimit:
+        appState.campaignData?.settings.general.randomTableRecursionLimit ?? 3,
     randomTables: appState.randomTables,
     randomTableId: tableId,
     cb: addToResultString,
