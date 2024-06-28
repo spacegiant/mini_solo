@@ -16,6 +16,7 @@ AppSettingsData initAppSettingsData() {
 @JsonSerializable(explicitToJson: true)
 class AppSettingsData {
   late String currentCampaign;
+  // TODO: Rename to RandomTables?
   late List<RandomTableEntry> randomTables;
   late List<String> expandedList;
 

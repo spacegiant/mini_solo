@@ -197,9 +197,9 @@ Widget chooseControlWidget({
         iconData: FontAwesomeIcons.diceD6,
         onPressed: () {
           if (controlData.randomTable != null) {
-            RollTableResult? result =
-                getRandomTableResult(controlData.randomTable!);
-            appState.addRandomTableResultsEntry(result!);
+            RollTableResult? result = getRandomTableResult(
+                tableId: controlData.randomTable!.id, appState: appState)[0];
+            appState.addRandomTableResultsEntry(result);
           }
         },
         onLongPress: () {
