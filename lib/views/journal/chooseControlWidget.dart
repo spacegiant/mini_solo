@@ -66,6 +66,7 @@ enum ControlTypeEnum {
   statBlock,
   kard,
   newCard,
+  newActionList,
 }
 
 Widget chooseControlWidget({
@@ -348,6 +349,13 @@ Widget chooseControlWidget({
       return KardWidget(
         entry: getKardEntry(appState, controlData.controlId)!,
         appState: appState,
+      );
+    case ControlTypeEnum.newActionList:
+      return ListButton(
+        color: buttonColor,
+        label: controlData.label,
+        iconData: CupertinoIcons.sparkles,
+        onPressed: () {},
       );
     // return ListButton(
     //   color: buttonColor,

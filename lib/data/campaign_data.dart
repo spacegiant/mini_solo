@@ -757,6 +757,10 @@ List<ControlData> initialNewItemControls = [
       controlId: 'new-kard',
       label: 'New Card',
       controlType: ControlTypeEnum.newCard),
+  ControlData(
+      controlId: 'new-action-list',
+      label: 'New Action List',
+      controlType: ControlTypeEnum.newActionList),
 ];
 
 List<String> initialNewItemControlIds = [
