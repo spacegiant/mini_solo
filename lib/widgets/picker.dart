@@ -7,26 +7,40 @@ class Picker extends StatefulWidget {
     super.key,
     required this.items,
     required this.onChange,
-    this.initialItem = 0,
+    this.selectedIndex,
+    required this.enabled,
+    this.defunctLabel,
+    required this.selectedItemIndex,
   });
 
   final List<String> items;
-  final void Function(int index) onChange;
-  final int initialItem;
+  final void Function(int? index) onChange;
+  final int? selectedIndex;
+  final bool enabled;
+  final String? defunctLabel;
+  final int selectedItemIndex;
 
   @override
   State<Picker> createState() => _PickerState();
 }
 
 class _PickerState extends State<Picker> {
-  int _selectedItemIndex = 0;
-  late FixedExtentScrollController _controller;
+  late int offset;
+  late int _selectedItemIndex;
+  late List<String> pickerStrings;
 
   @override
   void initState() {
     super.initState();
-    _selectedItemIndex = widget.initialItem;
-    _controller = FixedExtentScrollController(initialItem: widget.initialItem);
+
+    offset = widget.defunctLabel != null ? 1 : 0;
+    _selectedItemIndex =
+        widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
+
+    pickerStrings = List.from(widget.items);
+    if (widget.defunctLabel != null) {
+      pickerStrings.insert(0, widget.defunctLabel!);
+    }
   }
 
   void _showDialog(Widget child) {
@@ -46,45 +60,64 @@ class _PickerState extends State<Picker> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> pickerItems =
-        List<Widget>.generate(widget.items.length, (int index) {
-      return Center(child: Text(widget.items[index]));
-    });
+    _selectedItemIndex =
+        widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
+
+    List<Widget> pickerItems = List<Widget>.generate(
+      pickerStrings.length,
+      (int index) {
+        return Center(
+          child: Text(
+            pickerStrings[index],
+          ),
+        );
+      },
+    );
+
+    String text = _selectedItemIndex > -1
+        ? pickerStrings[_selectedItemIndex]
+        : pickerStrings[0];
 
     return CupertinoButton(
         padding: EdgeInsets.zero,
         child: Container(
-          // margin: EdgeInsets.zero,
           padding: const EdgeInsets.all(8.0),
-          // width: double.infinity,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Text(
-            widget.items[_selectedItemIndex],
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
+            text,
             style: const TextStyle(
               fontSize: 18.0,
             ),
           ),
         ),
         onPressed: () {
-          _showDialog(
-            CupertinoPicker(
-              scrollController: _controller,
-              magnification: 1.22,
-              squeeze: 1.2,
-              useMagnifier: true,
-              itemExtent: kItemExtent,
-              // looping: true,
-              onSelectedItemChanged: (int selectedItemIndex) {
-                setState(() {
-                  _selectedItemIndex = selectedItemIndex;
-                });
-                widget.onChange(selectedItemIndex);
-              },
-              children: pickerItems,
-            ),
-          );
+          if (widget.enabled) {
+            _showDialog(
+              CupertinoPicker(
+                scrollController: FixedExtentScrollController(
+                    initialItem: _selectedItemIndex),
+                magnification: 1.22,
+                squeeze: 1.2,
+                useMagnifier: true,
+                itemExtent: kItemExtent,
+                onSelectedItemChanged: (int selectedItemIndex) {
+                  setState(() {
+                    _selectedItemIndex = selectedItemIndex;
+                  });
+                  if (selectedItemIndex > 0) {
+                    widget.onChange(selectedItemIndex - offset);
+                  } else {
+                    widget.onChange(null);
+                  }
+                },
+                children: pickerItems,
+              ),
+            );
+          }
         });
   }
 }

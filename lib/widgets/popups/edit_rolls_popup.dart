@@ -28,7 +28,7 @@ class _EditRollPopupState extends State<EditRollPopup> {
           color: CupertinoColors.destructiveRed,
           onPressed: () {
             widget.appState.deleteRollEntry(widget.id);
-            widget.appState.closePopup();
+            Navigator.pop(context);
           },
           child: const Text('Delete'),
         ),

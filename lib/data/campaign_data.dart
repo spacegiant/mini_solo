@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
+import '../features/kard/kard.dart';
 import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
-import '../views/journal/journal_controls.dart';
+import '../views/journal/control_data.dart';
 import '../views/mythic/fate_question.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
@@ -50,8 +51,9 @@ enum JournalEntryTypes {
   // transition,
   scratchPage,
   randomTable,
-  rollTableResult,
+  rollTableResults,
   tracker,
+  kard,
 }
 
 class EntryTypeData {
@@ -122,7 +124,7 @@ Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {
     identifier: 'randomTable',
     label: 'Random Table',
   ),
-  JournalEntryTypes.rollTableResult: EntryTypeData(
+  JournalEntryTypes.rollTableResults: EntryTypeData(
     identifier: 'rollTableResult',
     label: 'Roll Table Result',
   ),
@@ -179,6 +181,7 @@ class SettingsData {
 class GeneralSettingsData {
   // TODO: Make showFutureSettings private
   late bool showFutureSettings;
+  late bool diceActive;
   late bool showMechanics;
   late bool useJournal;
   late bool useZocchiDice;
@@ -186,11 +189,13 @@ class GeneralSettingsData {
   late bool useFateDice;
   late bool useCoriolisDice;
   late bool useD6Oracle;
-  late bool wrapControls;
+  late bool wrapDiceControls;
   late List<JournalEntryTypes> hiddenEntryTypes;
+  late int randomTableRecursionLimit;
 
   GeneralSettingsData({
     required this.showFutureSettings,
+    required this.diceActive,
     required this.showMechanics,
     required this.useJournal,
     required this.useRegularDice,
@@ -198,8 +203,9 @@ class GeneralSettingsData {
     required this.useFateDice,
     required this.useCoriolisDice,
     required this.useD6Oracle,
-    required this.wrapControls,
+    required this.wrapDiceControls,
     required this.hiddenEntryTypes,
+    required this.randomTableRecursionLimit,
   });
 // coverage:ignore-start
   factory GeneralSettingsData.fromJson(Map<String, dynamic> json) =>
@@ -229,10 +235,11 @@ class CampaignData {
   late List<Creature> creatures;
   late List<RollEntryItem> rolls;
   late List<ScratchPageEntryItem> scratchPad;
-  late List<RollTableResult> rollTableResult;
+  late List<RollTableResults> rollTableResults;
   late List<TrackerEntry> tracker;
   late List<NewSceneEntry> newScene;
   late List<Group> groups;
+  late List<Kard> kards;
 
   CampaignData({
     required this.settings,
@@ -252,10 +259,11 @@ class CampaignData {
     required this.creatures,
     required this.rolls,
     required this.scratchPad,
-    required this.rollTableResult,
+    required this.rollTableResults,
     required this.tracker,
     required this.newScene,
     required this.groups,
+    required this.kards,
   });
 
   // coverage:ignore-start
@@ -296,16 +304,19 @@ CampaignData initCampaignDataData(String campaignName) {
         useFateDice: false,
         useCoriolisDice: false,
         useD6Oracle: false,
-        wrapControls: false,
+        wrapDiceControls: false,
         hiddenEntryTypes: [
           JournalEntryTypes.tracker,
         ],
+        diceActive: true,
+        randomTableRecursionLimit: 3,
       ),
     ),
     things: [],
-    rollTableResult: [],
+    rollTableResults: [],
     tracker: [],
     newScene: [],
+    kards: [],
     groups: [
       Group(
         isAppGroup: true,
@@ -742,6 +753,10 @@ List<ControlData> initialNewItemControls = [
       controlId: 'new-group',
       label: 'New Group',
       controlType: ControlTypeEnum.newGroup),
+  ControlData(
+      controlId: 'new-kard',
+      label: 'New Card',
+      controlType: ControlTypeEnum.newCard),
 ];
 
 List<String> initialNewItemControlIds = [

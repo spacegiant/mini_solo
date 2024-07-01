@@ -65,7 +65,7 @@ List<Widget> getEntries(
           appState: appState,
           journalEntry: element,
         ));
-      case JournalEntryTypes.rollTableResult:
+      case JournalEntryTypes.rollTableResults:
         journalEntries.add(RollTableResultWidget(
           appState: appState,
           journalEntry: element,

@@ -28,6 +28,8 @@ class NoteEntryWidget extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         toggleShowPopup2(
+            maxWidth: 400.0,
+            maxHeight: 360.0,
             child: EditNotePopup(
               appState: appState,
               id: journalEntry.id,

@@ -45,6 +45,7 @@ class ListButton extends StatelessWidget {
       );
     } else if (iconOnly == false && iconData != null) {
       child = Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             iconData,
@@ -52,19 +53,33 @@ class ListButton extends StatelessWidget {
             size: 20.0,
           ),
           const Gap(),
-          Text(
-            label,
-            style: const TextStyle(
-              color: buttonTextColor,
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 320.0,
+            ),
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              style: const TextStyle(
+                color: buttonTextColor,
+              ),
             ),
           )
         ],
       );
     } else {
-      child = Text(
-        label,
-        style: TextStyle(
-          color: buttonTextColor,
+      child = ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: 340.0,
+        ),
+        child: Text(
+          label,
+          overflow: TextOverflow.clip,
+          softWrap: false,
+          style: const TextStyle(
+            color: buttonTextColor,
+          ),
         ),
       );
     }

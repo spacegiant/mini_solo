@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 import 'package:mini_solo/utilities/id_generator.dart';
 import '../../data/app_state.dart';
+import '../gap.dart';
 
 class AddGroupPopup extends StatefulWidget {
   const AddGroupPopup({
@@ -33,23 +34,13 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> groupWidgets = widget.appState.groupList
-        .map((groupItem) => Text(groupItem.label))
-        .toList();
-
     return Column(children: [
-      SizedBox(
-        height: 200.0,
-        child: SingleChildScrollView(
-          child: Column(
-            children: groupWidgets,
-          ),
-        ),
-      ),
+      const Text('Add Group'),
       const Divider(),
       CupertinoTextField(
         controller: _controller,
       ),
+      const Gap(),
       CupertinoButton(
         color: CupertinoColors.systemPink,
         onPressed: () {

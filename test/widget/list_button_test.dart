@@ -24,7 +24,7 @@ void main() {
           }),
     ));
 
-    await tester.tap(find.byType(CupertinoButton));
+    await tester.tap(find.byType(GestureDetector));
     expect(isPressed, isTrue);
   });
 }

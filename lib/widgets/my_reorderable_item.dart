@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../data/app_state.dart';
 
-class MyReorderableItem extends StatelessWidget {
+class MyReorderableItem extends StatefulWidget {
   const MyReorderableItem({
     super.key,
     required this.id,
@@ -11,6 +11,9 @@ class MyReorderableItem extends StatelessWidget {
     required this.label,
     this.selected,
     this.onTap,
+    required this.index,
+    this.handleToggleActive,
+    this.groupIsActive,
   });
 
   final String id;
@@ -18,23 +21,85 @@ class MyReorderableItem extends StatelessWidget {
   final AppState appState;
   final bool? selected;
   final Function()? onTap;
+  final Function(bool)? handleToggleActive;
+  final int index;
+  final bool? groupIsActive;
+
+  @override
+  State<MyReorderableItem> createState() => _MyReorderableItemState();
+}
+
+class _MyReorderableItemState extends State<MyReorderableItem> {
+  late bool isActive;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isActive = widget.groupIsActive ?? true;
+  }
 
   @override
   Widget build(BuildContext context) {
-    String title;
-
-    return ListTile(
-      title: Text(label),
-      trailing: const Icon(
-        CupertinoIcons.line_horizontal_3,
-        size: 20.0,
-        color: CupertinoColors.systemGrey,
+    return ReorderableDelayedDragStartListener(
+      index: widget.index,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          height: 60.0,
+          color: widget.selected == true ? Colors.yellow : null,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: Text(widget.label)),
+                Row(
+                  children: [
+                    if (widget.handleToggleActive != null)
+                      CupertinoButton(
+                          child: isActive == true
+                              ? const Icon(CupertinoIcons.eye)
+                              : const Icon(
+                                  CupertinoIcons.eye_slash,
+                                  color: CupertinoColors.inactiveGray,
+                                ),
+                          onPressed: () {
+                            // widget.appState.toggleGroupIsActive(widget.id);
+                            setState(() {
+                              isActive = !isActive;
+                            });
+                            widget.handleToggleActive!(isActive);
+                          }),
+                    const Icon(
+                      CupertinoIcons.line_horizontal_3,
+                      size: 20.0,
+                      color: CupertinoColors.systemGrey,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
-      selected: selected ?? false,
-      onTap: onTap,
-      // tileColor: CupertinoColors.systemGrey5,
-      // selectedColor: CupertinoColors.black,
-      selectedTileColor: CupertinoColors.systemYellow,
+      // child: ListTile(
+      //   title: Text(label),
+      //   trailing: const Row(
+      //     children: [
+      //       Icon(
+      //         CupertinoIcons.line_horizontal_3,
+      //         size: 20.0,
+      //         color: CupertinoColors.systemGrey,
+      //       ),
+      //     ],
+      //   ),
+      //   selected: selected ?? false,
+      //   onTap: onTap,
+      //   // tileColor: CupertinoColors.systemGrey5,
+      //   // selectedColor: CupertinoColors.black,
+      //   selectedTileColor: CupertinoColors.systemYellow,
+      // ),
     );
   }
 }

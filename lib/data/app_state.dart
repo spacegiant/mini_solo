@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import 'package:mini_solo/views/journal/journal_controls.dart';
 
+import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
 import 'note_entry_item.dart';
 
@@ -35,15 +34,11 @@ enum PopupLabel {
 class AppState extends ChangeNotifier {
   // TODO: Make sure this is not set on first run
   late CampaignStorage _storage;
-  late PopupLabel _popupLabel = PopupLabel.chaos;
-  late bool _showPopup = false;
-  late bool _showPopup2 = false;
+  late final PopupLabel _popupLabel = PopupLabel.chaos;
+  late final bool _showPopup = false;
   late bool _showSettings = false;
-  // TODO: Remove _useJournal
-  late bool _useJournal = true;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
-  Function(AppSettingsData)? _saveAppSettingsCallback;
   Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
@@ -60,6 +55,7 @@ class AppState extends ChangeNotifier {
   }
 
   Group getGroup(String groupName) {
+    // print(groupName);
     return campaignData!.groups.firstWhere((group) {
       return group.groupId == groupName;
     });
@@ -77,8 +73,6 @@ class AppState extends ChangeNotifier {
   }
 
   void addToGroup({required String controlId, required String groupId}) {
-    Group group = getGroup(groupId);
-
     _campaignData!.groups
         .firstWhere((group) => group.groupId == groupId)
         .controls
@@ -96,6 +90,7 @@ class AppState extends ChangeNotifier {
   void moveToGroup({required String controlId, required String groupId}) {
     removeFromAllGroups(controlId: controlId);
     addToGroup(controlId: controlId, groupId: groupId);
+    saveCampaignDataToDisk();
   }
 
   String? findCurrentGroupId(String entryId) {
@@ -129,6 +124,7 @@ class AppState extends ChangeNotifier {
   void updateGroupControls({
     required String groupName,
     required List<String> controls,
+    required bool isWrapped,
   }) {
     // Group thisGroup = campaignData!.groups.firstWhere((group) {
     //   return group.groupId == groupName;
@@ -136,21 +132,33 @@ class AppState extends ChangeNotifier {
     // print(thisGroup.controls);
     // print(controls);
     // thisGroup.controls = [];
-    campaignData!.groups
-        .firstWhere((group) => group.groupId == groupName)
-        .controls = controls;
+    Group group =
+        campaignData!.groups.firstWhere((group) => group.groupId == groupName);
+    group.controls = controls;
+    group.isWrapped = isWrapped;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   void updateGroups({required List<Group> groups}) {
     campaignData!.groups = groups;
     saveCampaignDataToDisk();
-    notifyListeners();
+  }
+
+  // LABELS
+
+  String? createNewLabel(Kard kard) {
+    _campaignData!.kards.add(kard);
+    addToGroup(controlId: kard.id, groupId: 'unsorted');
+    saveCampaignDataToDisk();
+  }
+
+  void deleteKard(String id) {
+    removeFromAllGroups(controlId: id);
+    _campaignData!.kards.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
   }
 
   // EXPANDED LIST
-  List<String> get expandedList => _appSettingsData.expandedList;
 
   void toggleExpanded(String label) {
     _appSettingsData.expandedList.contains(label)
@@ -162,6 +170,13 @@ class AppState extends ChangeNotifier {
 
   bool isExpanded(String label) {
     return !_appSettingsData.expandedList.contains(label);
+  }
+
+  // GROUP IS ACTIVE
+  void toggleGroupIsActive(String id, bool? checked) {
+    Group group = getGroup(id);
+    group.isActive = checked ?? !group.isActive;
+    saveCampaignDataToDisk();
   }
 
   // CAMPAIGN STORAGE
@@ -210,11 +225,9 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Function(AppSettingsData)? get appSettingsSaveCallback =>
-      _saveAppSettingsCallback;
-
   void saveAppSettingsDataToDisk() {
     storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
+    notifyListeners();
   }
 
   // CAMPAIGN DATA
@@ -307,13 +320,6 @@ class AppState extends ChangeNotifier {
   // POPUPS
   PopupLabel get popupLabel => _popupLabel;
 
-  void closePopup() {
-    if (_showPopup == true) {
-      _showPopup = false;
-      notifyListeners();
-    }
-  }
-
   bool get showPopup => _showPopup;
 
 //   SETTINGS
@@ -324,21 +330,12 @@ class AppState extends ChangeNotifier {
 
   bool get showSettings => _showSettings;
 
-//   USE JOURNAL
-  bool get useJournal => _useJournal;
-
-  void toggleUseJournal() {
-    _useJournal = !_useJournal;
-    notifyListeners();
-  }
-
   // WRAP CONTROLS
-  bool get wrapControls =>
-      _campaignData?.settings.general.wrapControls ?? false;
+  bool get wrapDiceControls =>
+      _campaignData?.settings.general.wrapDiceControls ?? false;
 
-  void toggleWrapControls() {
-    _campaignData?.settings.general.wrapControls =
-        !_campaignData!.settings.general.wrapControls;
+  void toggleWrapDiceControls(bool isWrapped) {
+    _campaignData?.settings.general.wrapDiceControls = isWrapped;
     saveCampaignDataToDisk();
   }
 
@@ -579,7 +576,6 @@ class AppState extends ChangeNotifier {
   void setCurrentScratchId(String id) {
     _campaignData?.currentScratchEntryId = id;
     saveCampaignDataToDisk();
-    notifyListeners();
   }
 
   get currentScratchId => _campaignData?.currentScratchEntryId;
@@ -628,16 +624,32 @@ class AppState extends ChangeNotifier {
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
 
   void deleteRandomTable(String id) {
-    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
-    //TODO delete from all group collections
     removeFromAllGroups(controlId: id);
+    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
-    notifyListeners();
+    saveAppSettingsDataToDisk();
   }
 
+  RandomTableEntry getRandomTableById(String id) {
+    return appSettingsData.randomTables.firstWhere((entry) => entry.id == id);
+  }
+
+  void updateRandomTable({
+    required String id,
+    required RandomTableEntry entry,
+  }) {
+    int index =
+        _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
+
+    _appSettingsData.randomTables[index] = entry;
+    saveAppSettingsDataToDisk();
+  }
+
+  void randomTableToggleHidden(bool value) {}
+
   // RANDOM TABLE ENTRIES
-  void addRandomTableResultsEntry(RollTableResult entry) {
-    _campaignData?.rollTableResult.add(entry);
+  void addRandomTableResultsEntry(RollTableResults entry) {
+    _campaignData?.rollTableResults.add(entry);
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
@@ -647,17 +659,17 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void updateRandomTableResultsEntry(String id, RollTableResult entry) {
+  void updateRandomTableResultsEntry(String id, RollTableResults entry) {
     int index =
-        _campaignData!.rollTableResult.indexWhere((entry) => entry.id == id);
+        _campaignData!.rollTableResults.indexWhere((entry) => entry.id == id);
 
-    _campaignData?.rollTableResult[index] = entry;
+    _campaignData?.rollTableResults[index] = entry;
     saveCampaignDataToDisk();
   }
 
   void deleteRandomTableResultsEntry(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
-    _campaignData!.rollTableResult.removeWhere((entry) => entry.id == id);
+    _campaignData!.rollTableResults.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -705,8 +717,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
