@@ -142,33 +142,43 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
   CupertinoPageScaffold welcomeView() {
     return CupertinoPageScaffold(
-      child: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<AppState>(
-          builder: (BuildContext context, AppState appState, Widget? child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Welcome to Solo App'),
-                CupertinoButton(
-                    child: const Text('Import Manager'),
-                    onPressed: () {
-                      toggleShowPopup2(
-                          maxHeight: 560.0,
-                          maxWidth: 400.0,
-                          child: ImportManager(appState: appState),
-                          context: context);
-                    }),
-                InitForm(
-                  initCampaignData: initCampaignData,
+      child: Container(
+        color: CupertinoColors.white,
+        child: SafeArea(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Consumer<AppState>(
+            builder: (BuildContext context, AppState appState, Widget? child) {
+              return Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 400.0,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Welcome to Solo App'),
+                      CupertinoButton(
+                          child: const Text('Import Manager'),
+                          onPressed: () {
+                            toggleShowPopup2(
+                                maxHeight: 560.0,
+                                maxWidth: 400.0,
+                                child: ImportManager(appState: appState),
+                                context: context);
+                          }),
+                      InitForm(
+                        initCampaignData: initCampaignData,
+                      ),
+                      const SizedBox.shrink(),
+                    ],
+                  ),
                 ),
-                const SizedBox.shrink(),
-              ],
-            );
-          },
-        ),
-      )),
+              );
+            },
+          ),
+        )),
+      ),
     );
   }
 
