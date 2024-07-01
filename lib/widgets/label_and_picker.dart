@@ -11,7 +11,7 @@ class LabelAndPicker extends StatelessWidget {
     required this.items,
     required this.onChange,
     this.defunctLabel,
-    required this.initialIndex,
+    required this.selectedIndex,
   });
 
   final String label;
@@ -19,7 +19,7 @@ class LabelAndPicker extends StatelessWidget {
   final List<String> items;
   final Function(int?) onChange;
   final String? defunctLabel;
-  final int? initialIndex;
+  final int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class LabelAndPicker extends StatelessWidget {
             items: items,
             onChange: onChange,
             enabled: enabled ?? false,
-            initialIndex: initialIndex,
+            selectedIndex: selectedIndex,
             selectedItemIndex: 0,
           ),
         ),

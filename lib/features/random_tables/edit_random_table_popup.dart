@@ -34,7 +34,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late bool isHidden;
   late RandomTableEntry entry;
   late RandomTableEntry updatedEntry;
-  late int? initialOtherLinkIndex;
+  late List<RandomTableEntry> randomTables;
+  late List<RandomTableEntry> safeList;
 
   @override
   void initState() {
@@ -47,7 +48,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
     updatedEntry = entry;
     isRandomTable = entry.isRandomTable;
     isHidden = entry.isHidden;
-    initialOtherLinkIndex = 3;
+    randomTables = widget.appState.appSettingsData.randomTables;
+    safeList = List.from(randomTables);
+    safeList.removeWhere((table) => table.id == widget.id);
   }
 
   @override
@@ -55,12 +58,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
     String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
     List<RandomTableRow> rows = entry.rows;
     int recordCount = rows.length;
-    List<RandomTableEntry> randomTables =
-        widget.appState.appSettingsData.randomTables;
 
     // TODO Remove current random table from links list
-    List<RandomTableEntry> safeList = List.from(randomTables);
-    safeList.removeWhere((table) => table.id == widget.id);
 
     handleListViewWidgetOnTap({
       required String id,
@@ -73,6 +72,13 @@ class _EditRandomTableState extends State<EditRandomTable> {
         _textController.text = rows[rowIndex].label;
         _weightController.text = rows[rowIndex].weight.toString();
       });
+    }
+
+    int? getOtherLinkIndex() {
+      return currentRowIndex != null
+          ? safeList.indexWhere((entry) =>
+              entry.id == updatedEntry.rows[currentRowIndex!].otherRandomTable)
+          : null;
     }
 
     return Column(
@@ -129,13 +135,17 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 if (index != null) {
                   setState(() {
                     selectedLinkId = safeList[index].id;
+                    if (currentRowIndex != null) {
+                      updatedEntry.rows[currentRowIndex!].otherRandomTable =
+                          safeList[index].id;
+                    }
                   });
                 } else {
                   print('NULL');
                 }
               },
               label: 'Link',
-              initialIndex: initialOtherLinkIndex ?? null,
+              selectedIndex: getOtherLinkIndex(),
             ),
           ],
         ),
@@ -191,27 +201,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
                   }
-
-                  // String newLabel = _textController.value.text.trim();
-                  // int newWeight;
-                  //
-                  // if (selectedLinkId != null) {
-                  //   entry.rows[currentRowIndex!].otherRandomTable =
-                  //       selectedLinkId;
-                  // } else {
-                  //   entry.rows[currentRowIndex!].otherRandomTable = null;
-                  // }
-                  //
-                  // if (newLabel != '') {
-                  //   entry.rows[currentRowIndex!].label = newLabel;
-                  // }
-                  //
-                  // try {
-                  //   newWeight = int.parse(_weightController.value.text);
-                  //   entry.rows[currentRowIndex!].weight = newWeight;
-                  // } catch (e) {
-                  //   print(e);
-                  // }
 
                   widget.appState.updateRandomTable(
                     id: widget.id,

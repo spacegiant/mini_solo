@@ -7,7 +7,7 @@ class Picker extends StatefulWidget {
     super.key,
     required this.items,
     required this.onChange,
-    this.initialIndex,
+    this.selectedIndex,
     required this.enabled,
     this.defunctLabel,
     required this.selectedItemIndex,
@@ -15,7 +15,7 @@ class Picker extends StatefulWidget {
 
   final List<String> items;
   final void Function(int? index) onChange;
-  final int? initialIndex;
+  final int? selectedIndex;
   final bool enabled;
   final String? defunctLabel;
   final int selectedItemIndex;
@@ -25,6 +25,7 @@ class Picker extends StatefulWidget {
 }
 
 class _PickerState extends State<Picker> {
+  late int offset;
   late int _selectedItemIndex;
   late FixedExtentScrollController _controller;
   late List<String> pickerStrings;
@@ -32,9 +33,11 @@ class _PickerState extends State<Picker> {
   @override
   void initState() {
     super.initState();
-    _selectedItemIndex = widget.initialIndex ?? 0;
-    _controller =
-        FixedExtentScrollController(initialItem: widget.initialIndex ?? 0);
+
+    offset = widget.defunctLabel != null ? 1 : 0;
+    _selectedItemIndex =
+        widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
+    _controller = FixedExtentScrollController(initialItem: _selectedItemIndex);
 
     pickerStrings = List.from(widget.items);
     if (widget.defunctLabel != null) {
@@ -59,7 +62,10 @@ class _PickerState extends State<Picker> {
 
   @override
   Widget build(BuildContext context) {
-    int offset = widget.defunctLabel != null ? -1 : 0;
+    _selectedItemIndex =
+        widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
+
+    print('>>> $_selectedItemIndex');
 
     List<Widget> pickerItems = List<Widget>.generate(
       pickerStrings.length,
@@ -72,6 +78,10 @@ class _PickerState extends State<Picker> {
       },
     );
 
+    String text = _selectedItemIndex > -1
+        ? pickerStrings[_selectedItemIndex]
+        : pickerStrings[0];
+
     return CupertinoButton(
         padding: EdgeInsets.zero,
         child: Container(
@@ -82,7 +92,7 @@ class _PickerState extends State<Picker> {
           child: Text(
             overflow: TextOverflow.ellipsis,
             softWrap: false,
-            pickerStrings[_selectedItemIndex],
+            text,
             style: const TextStyle(
               fontSize: 18.0,
             ),
@@ -102,7 +112,7 @@ class _PickerState extends State<Picker> {
                     _selectedItemIndex = selectedItemIndex;
                   });
                   if (selectedItemIndex > 0) {
-                    widget.onChange(selectedItemIndex + offset);
+                    widget.onChange(selectedItemIndex - offset);
                   } else {
                     widget.onChange(null);
                   }
