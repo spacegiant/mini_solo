@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../data/app_settings_data.dart';
 import '../data/app_state.dart';
 import '../data/campaign_data.dart';
+import '../features/random_tables/edit_random_tables_popup.dart';
 import '../widgets/gap.dart';
 import '../widgets/popups/edit_groups_popup.dart';
 import '../widgets/popups/import_manager.dart';
@@ -241,6 +242,16 @@ class _CampaignSettingsState extends State<CampaignSettings> {
                   maxWidth: 400.0,
                   maxHeight: 740.0,
                   child: EditGroupsPopup(appState: widget.appState),
+                  context: context);
+            },
+          ),
+          CupertinoButton(
+            child: const Text('Manage Random Tables'),
+            onPressed: () {
+              toggleShowPopup2(
+                  maxWidth: 400.0,
+                  maxHeight: 740.0,
+                  child: EditRandomTablesPopup(appState: widget.appState),
                   context: context);
             },
           ),

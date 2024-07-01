@@ -2,34 +2,35 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
-import '../gap.dart';
-import '../my_reorderable_item.dart';
-import '../my_reorderable_list_view.dart';
+import '../../widgets/gap.dart';
+import '../../widgets/my_reorderable_item.dart';
+import '../../widgets/my_reorderable_list_view.dart';
 
-class EditGroupsPopup extends StatefulWidget {
+class EditRandomTablesPopup extends StatefulWidget {
   final AppState appState;
 
-  const EditGroupsPopup({
+  const EditRandomTablesPopup({
     super.key,
     required this.appState,
   });
 
   @override
-  State<EditGroupsPopup> createState() => _EditGroupsPopupState();
+  State<EditRandomTablesPopup> createState() => _EditRandomTablesPopupState();
 }
 
-class _EditGroupsPopupState extends State<EditGroupsPopup> {
+class _EditRandomTablesPopupState extends State<EditRandomTablesPopup> {
   late String selectedId;
-  late List<Group> groups;
+  late List<RandomTableEntry> randomTables;
 
   @override
   void initState() {
     super.initState();
     selectedId = '';
-    groups = widget.appState.groupList;
+    randomTables = widget.appState.randomTables;
   }
 
   void handleTap(String id) {
@@ -41,7 +42,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
   void handleOnReorder(int oldIndex, int newIndex, List<dynamic> groups) {
     setState(() {
       if (oldIndex < newIndex) newIndex -= 1;
-      final Group itemToRemove = groups.removeAt(oldIndex);
+      final RandomTableEntry itemToRemove = randomTables.removeAt(oldIndex);
       groups.insert(newIndex, itemToRemove);
     });
   }
@@ -50,21 +51,23 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
   Widget build(BuildContext context) {
     // List<Group> groups = widget.appState.groupList;
 
-    List<Widget> children = groups
-        .mapIndexed((index, group) => MyReorderableItem(
-              key: Key(group.groupId),
-              id: group.groupId,
+    List<Widget> children = randomTables
+        .mapIndexed((index, randomTable) => MyReorderableItem(
+              key: Key(randomTable.id),
+              id: randomTable.id,
               appState: widget.appState,
-              label: group.label,
-              selected: selectedId == group.groupId,
+              label: randomTable.title,
+              selected: selectedId == randomTable.id,
               onTap: () {
-                handleTap(group.groupId);
+                handleTap(randomTable.id);
               },
-              handleToggleActive: (bool checked) {
-                widget.appState.getGroup(group.groupId).isActive = checked;
+              handleToggleActive: (bool isChecked) {
+                widget.appState.getRandomTableById(randomTable.id).isHidden =
+                    !isChecked;
                 widget.appState.saveCampaignDataToDisk();
               },
-              itemIsActive: group.isActive,
+              itemIsActive:
+                  !widget.appState.getRandomTableById(randomTable.id).isHidden,
               index: index,
             ))
         .toList();
@@ -78,7 +81,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
           ),
           child: Scaffold(
             body: MyReorderableListView(
-              itemList: groups,
+              itemList: randomTables,
               appState: widget.appState,
               selectedId: selectedId,
               onReorder: handleOnReorder,
@@ -90,7 +93,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
         CupertinoButton(
             color: kSubmitColor,
             onPressed: () {
-              widget.appState.updateGroups(groups: groups);
+              // widget.appState.updateRandomTables(groups: randomTables);
               Navigator.pop(context);
             },
             child: const Text('Update'))

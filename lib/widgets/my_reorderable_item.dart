@@ -13,7 +13,7 @@ class MyReorderableItem extends StatefulWidget {
     this.onTap,
     required this.index,
     this.handleToggleActive,
-    this.groupIsActive,
+    this.itemIsActive,
   });
 
   final String id;
@@ -23,7 +23,7 @@ class MyReorderableItem extends StatefulWidget {
   final Function()? onTap;
   final Function(bool)? handleToggleActive;
   final int index;
-  final bool? groupIsActive;
+  final bool? itemIsActive;
 
   @override
   State<MyReorderableItem> createState() => _MyReorderableItemState();
@@ -36,7 +36,7 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    isActive = widget.groupIsActive ?? true;
+    isActive = widget.itemIsActive ?? true;
   }
 
   @override
