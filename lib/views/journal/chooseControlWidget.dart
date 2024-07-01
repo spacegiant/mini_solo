@@ -12,6 +12,7 @@ import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../features/action_lists/add_action_list_popup.dart';
 import '../../features/kard/kard_widget.dart';
 import '../../features/random_tables/roll_table.dart';
 import '../../features/trackers/bar_tracker_control.dart';
@@ -355,7 +356,15 @@ Widget chooseControlWidget({
         color: buttonColor,
         label: controlData.label,
         iconData: CupertinoIcons.sparkles,
-        onPressed: () {},
+        onPressed: () {
+          toggleShowPopup2(
+              maxWidth: 400.0,
+              maxHeight: 300.0,
+              child: AddActionListPopup(
+                appState: appState,
+              ),
+              context: context);
+        },
       );
     // return ListButton(
     //   color: buttonColor,
