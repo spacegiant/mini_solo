@@ -197,13 +197,13 @@ Widget chooseControlWidget({
         iconData: FontAwesomeIcons.diceD6,
         onPressed: () {
           if (controlData.randomTable != null) {
-            List<RollTableResult>? results = getRandomTableResult(
+            Iterable<RollTableResult>? results = getRandomTableResult(
               tableId: controlData.randomTable!.id,
               appState: appState,
             );
 
-            appState.addRandomTableResultsEntry(
-                RollTableResults(title: controlData.label, results: results));
+            appState.addRandomTableResultsEntry(RollTableResults(
+                title: controlData.label, results: results.toList()));
           }
         },
         onLongPress: () {

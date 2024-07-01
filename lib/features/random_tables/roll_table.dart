@@ -3,7 +3,7 @@ import 'package:mini_solo/features/random_tables/recursive_random_table_roll.dar
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 
-List<RollTableResult> getRandomTableResult({
+Iterable<RollTableResult> getRandomTableResult({
   required String tableId,
   required AppState appState,
 }) {
@@ -21,5 +21,5 @@ List<RollTableResult> getRandomTableResult({
     cb: addToResultList,
   );
 
-  return rollTableResults;
+  return rollTableResults.reversed;
 }
