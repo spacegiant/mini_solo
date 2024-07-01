@@ -28,7 +28,7 @@ class GroupPicker extends StatelessWidget {
         const Text('Group: '),
         Picker(
           items: listOfGroups,
-          initialItem: groupIndex,
+          initialIndex: groupIndex,
           onChange: (index) {
             if (index != null) onChange(groupList[index].groupId);
           },

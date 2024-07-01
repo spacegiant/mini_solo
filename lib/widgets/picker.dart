@@ -7,7 +7,7 @@ class Picker extends StatefulWidget {
     super.key,
     required this.items,
     required this.onChange,
-    this.initialItem = 0,
+    this.initialIndex,
     required this.enabled,
     this.defunctLabel,
     required this.selectedItemIndex,
@@ -15,7 +15,7 @@ class Picker extends StatefulWidget {
 
   final List<String> items;
   final void Function(int? index) onChange;
-  final int initialItem;
+  final int? initialIndex;
   final bool enabled;
   final String? defunctLabel;
   final int selectedItemIndex;
@@ -25,15 +25,16 @@ class Picker extends StatefulWidget {
 }
 
 class _PickerState extends State<Picker> {
-  int _selectedItemIndex = 0;
+  late int _selectedItemIndex;
   late FixedExtentScrollController _controller;
   late List<String> pickerStrings;
 
   @override
   void initState() {
     super.initState();
-    _selectedItemIndex = widget.initialItem;
-    _controller = FixedExtentScrollController(initialItem: widget.initialItem);
+    _selectedItemIndex = widget.initialIndex ?? 0;
+    _controller =
+        FixedExtentScrollController(initialItem: widget.initialIndex ?? 0);
 
     pickerStrings = List.from(widget.items);
     if (widget.defunctLabel != null) {

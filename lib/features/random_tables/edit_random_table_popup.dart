@@ -34,6 +34,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late bool isHidden;
   late RandomTableEntry entry;
   late RandomTableEntry updatedEntry;
+  late int? initialOtherLinkIndex;
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
     updatedEntry = entry;
     isRandomTable = entry.isRandomTable;
     isHidden = entry.isHidden;
+    initialOtherLinkIndex = 3;
   }
 
   @override
@@ -133,6 +135,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 }
               },
               label: 'Link',
+              initialIndex: initialOtherLinkIndex ?? null,
             ),
           ],
         ),
