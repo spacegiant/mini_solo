@@ -327,7 +327,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 400.0,
-              maxHeight: 800.0,
+              maxHeight: 300.0,
               child: AddKardPopup(
                 appState: appState,
               ),
