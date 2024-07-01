@@ -10,6 +10,7 @@ AppSettingsData initAppSettingsData() {
     currentCampaign: '',
     randomTables: [],
     expandedList: [],
+    actionList: [],
   );
 }
 
@@ -19,11 +20,13 @@ class AppSettingsData {
   // TODO: Rename to RandomTables?
   late List<RandomTableEntry> randomTables;
   late List<String> expandedList;
+  late List<ActionListEntry> actionList;
 
   AppSettingsData({
     required this.currentCampaign,
     required this.randomTables,
     required this.expandedList,
+    required this.actionList,
   });
 
   // coverage:ignore-start
@@ -125,6 +128,50 @@ class RollTableResult {
       _$RollTableResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RollTableResultToJson(this);
+
+// coverage:ignore-end
+}
+
+@JsonSerializable(explicitToJson: true)
+class ActionListEntry extends CampaignItem {
+  final String title;
+  final List<ActionRow> list;
+  final bool isActive;
+  final bool isHidden;
+
+  ActionListEntry({
+    required this.title,
+    required this.list,
+    required this.isActive,
+    required this.isHidden,
+  });
+
+  // coverage:ignore-start
+  factory ActionListEntry.fromJson(Map<String, dynamic> json) =>
+      _$ActionListEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ActionListEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.randomTable;
+// coverage:ignore-end
+}
+
+@JsonSerializable(explicitToJson: true)
+class ActionRow {
+  late String label;
+  late String? otherEntryId;
+
+  ActionRow({
+    required this.label,
+    this.otherEntryId,
+  });
+
+  // coverage:ignore-start
+  factory ActionRow.fromJson(Map<String, dynamic> json) =>
+      _$ActionRowFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ActionRowToJson(this);
 
 // coverage:ignore-end
 }

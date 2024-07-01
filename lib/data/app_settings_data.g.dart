@@ -15,6 +15,9 @@ AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
       expandedList: (json['expandedList'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      actionList: (json['actionList'] as List<dynamic>)
+          .map((e) => ActionListEntry.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
@@ -22,6 +25,7 @@ Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
       'currentCampaign': instance.currentCampaign,
       'randomTables': instance.randomTables.map((e) => e.toJson()).toList(),
       'expandedList': instance.expandedList,
+      'actionList': instance.actionList.map((e) => e.toJson()).toList(),
     };
 
 RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
@@ -122,4 +126,38 @@ Map<String, dynamic> _$RollTableResultToJson(RollTableResult instance) =>
       'resultString': instance.resultString,
       'totalEntries': instance.totalEntries,
       'weight': instance.weight,
+    };
+
+ActionListEntry _$ActionListEntryFromJson(Map<String, dynamic> json) =>
+    ActionListEntry(
+      title: json['title'] as String,
+      list: (json['list'] as List<dynamic>)
+          .map((e) => ActionRow.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      isActive: json['isActive'] as bool,
+      isHidden: json['isHidden'] as bool,
+    )
+      ..isFavourite = json['isFavourite'] as bool?
+      ..id = json['id'] as String
+      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
+
+Map<String, dynamic> _$ActionListEntryToJson(ActionListEntry instance) =>
+    <String, dynamic>{
+      'isFavourite': instance.isFavourite,
+      'id': instance.id,
+      'title': instance.title,
+      'list': instance.list.map((e) => e.toJson()).toList(),
+      'isActive': instance.isActive,
+      'isHidden': instance.isHidden,
+      'type': _$JournalEntryTypesEnumMap[instance.type]!,
+    };
+
+ActionRow _$ActionRowFromJson(Map<String, dynamic> json) => ActionRow(
+      label: json['label'] as String,
+      otherEntryId: json['otherEntryId'] as String?,
+    );
+
+Map<String, dynamic> _$ActionRowToJson(ActionRow instance) => <String, dynamic>{
+      'label': instance.label,
+      'otherEntryId': instance.otherEntryId,
     };
