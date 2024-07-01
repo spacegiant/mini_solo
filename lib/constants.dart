@@ -9,6 +9,7 @@ const kBackdropFilterColor = Color(0x66000000);
 const kSubmitColor = Color(0xFF75B160);
 const kWarningColor = Color(0xFFD28DB0);
 const kBorderColor = Color(0x33000000);
+const kSelectedRowColor = Color(0xFFDEA61A);
 
 // SIZES
 const double kItemExtent = 32.0;

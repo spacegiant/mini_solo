@@ -39,7 +39,7 @@ class TrackerContainer extends StatelessWidget {
           onLongPress: () {
             toggleShowPopup2(
                 maxWidth: 600.0,
-                maxHeight: 360.0,
+                maxHeight: 460.0,
                 child: EditTrackerPopup(
                   appState: appState,
                   id: id,

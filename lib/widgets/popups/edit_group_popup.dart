@@ -56,21 +56,21 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = controls
-        .mapIndexed((index, control) => MyReorderableItem(
-              key: Key(control),
-              id: control,
-              appState: widget.appState,
-              label: widget.controlData
-                  .firstWhere((controlData) => controlData.controlId == control)
-                  .label,
-              selected: selectedId == control,
-              onTap: () {
-                handleTap(control);
-              },
-              index: index,
-            ))
-        .toList();
+    List<Widget> children = controls.mapIndexed((index, control) {
+      return MyReorderableItem(
+        key: Key(control),
+        id: control,
+        appState: widget.appState,
+        label: widget.controlData
+            .firstWhere((controlData) => controlData.controlId == control)
+            .label,
+        selected: selectedId == control,
+        onTap: () {
+          handleTap(control);
+        },
+        index: index,
+      );
+    }).toList();
 
     return Flexible(
       child: Column(
@@ -111,6 +111,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
               CupertinoButton(
                   color: kSubmitColor,
                   onPressed: () {
+                    print(controls.length);
                     widget.appState.updateGroupControls(
                       groupName: widget.group.groupId,
                       controls: controls,

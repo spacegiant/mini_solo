@@ -70,6 +70,7 @@ void main() {
       showMechanics: true,
       hiddenEntryTypes: [],
       diceActive: true,
+      randomTableRecursionLimit: 3,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -88,6 +89,7 @@ void main() {
       showMechanics: true,
       hiddenEntryTypes: [],
       diceActive: true,
+      randomTableRecursionLimit: 3,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -108,6 +110,7 @@ void main() {
       showMechanics: true,
       hiddenEntryTypes: [],
       diceActive: true,
+      randomTableRecursionLimit: 3,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

@@ -153,8 +153,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteKard(String id) {
-    _campaignData!.kards.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _campaignData!.kards.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
@@ -227,6 +227,7 @@ class AppState extends ChangeNotifier {
 
   void saveAppSettingsDataToDisk() {
     storage.writeAppSettingsJSON(appSettingsData, '$kAppSettingsFileName.json');
+    notifyListeners();
   }
 
   // CAMPAIGN DATA
@@ -623,14 +624,32 @@ class AppState extends ChangeNotifier {
   List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
 
   void deleteRandomTable(String id) {
-    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
+    saveAppSettingsDataToDisk();
   }
 
+  RandomTableEntry getRandomTableById(String id) {
+    return appSettingsData.randomTables.firstWhere((entry) => entry.id == id);
+  }
+
+  void updateRandomTable({
+    required String id,
+    required RandomTableEntry entry,
+  }) {
+    int index =
+        _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
+
+    _appSettingsData.randomTables[index] = entry;
+    saveAppSettingsDataToDisk();
+  }
+
+  void randomTableToggleHidden(bool value) {}
+
   // RANDOM TABLE ENTRIES
-  void addRandomTableResultsEntry(RollTableResult entry) {
-    _campaignData?.rollTableResult.add(entry);
+  void addRandomTableResultsEntry(RollTableResults entry) {
+    _campaignData?.rollTableResults.add(entry);
     addJournalEntry(
       JournalEntryItem(
         isFavourite: false,
@@ -640,17 +659,17 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  void updateRandomTableResultsEntry(String id, RollTableResult entry) {
+  void updateRandomTableResultsEntry(String id, RollTableResults entry) {
     int index =
-        _campaignData!.rollTableResult.indexWhere((entry) => entry.id == id);
+        _campaignData!.rollTableResults.indexWhere((entry) => entry.id == id);
 
-    _campaignData?.rollTableResult[index] = entry;
+    _campaignData?.rollTableResults[index] = entry;
     saveCampaignDataToDisk();
   }
 
   void deleteRandomTableResultsEntry(String id) {
     _campaignData!.journal.removeWhere((entry) => entry.id == id);
-    _campaignData!.rollTableResult.removeWhere((entry) => entry.id == id);
+    _campaignData!.rollTableResults.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -698,8 +717,8 @@ class AppState extends ChangeNotifier {
   }
 
   void deleteTrackerEntry(String id) {
-    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     removeFromAllGroups(controlId: id);
+    _campaignData!.tracker.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     // notifyListeners();
   }

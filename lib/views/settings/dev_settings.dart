@@ -9,6 +9,9 @@ List<Widget> devSettings(AppState appState) => [
         appState: appState,
       ),
       DestructiveDeleteRandomTables(appState: appState),
+      DestructiveClearJournal(
+        appState: appState,
+      )
     ];
 
 class DestructiveDeleteCurrentCampaign extends StatelessWidget {
@@ -58,6 +61,32 @@ class DestructiveDeleteRandomTables extends StatelessWidget {
             color: CupertinoColors.destructiveRed,
             padding: const EdgeInsets.all(10.0),
             child: const Text('Hold to delete random tables')),
+      ),
+    );
+  }
+}
+
+class DestructiveClearJournal extends StatelessWidget {
+  const DestructiveClearJournal({
+    super.key,
+    required this.appState,
+  });
+
+  final AppState appState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onLongPress: () {
+          appState.campaignData?.journal = [];
+          appState.saveAppSettingsDataToDisk();
+        },
+        child: Container(
+            color: CupertinoColors.destructiveRed,
+            padding: const EdgeInsets.all(10.0),
+            child: const Text('Hold to clear jouranl')),
       ),
     );
   }

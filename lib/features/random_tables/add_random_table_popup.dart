@@ -5,8 +5,8 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 
 import '../../data/app_state.dart';
-import '../../features/grouping/group-picker.dart';
-import '../gap.dart';
+import '../grouping/group-picker.dart';
+import '../../widgets/gap.dart';
 
 class AddRandomTablePopup extends StatefulWidget {
   const AddRandomTablePopup({

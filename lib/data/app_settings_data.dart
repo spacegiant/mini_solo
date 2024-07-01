@@ -16,6 +16,7 @@ AppSettingsData initAppSettingsData() {
 @JsonSerializable(explicitToJson: true)
 class AppSettingsData {
   late String currentCampaign;
+  // TODO: Rename to RandomTables?
   late List<RandomTableEntry> randomTables;
   late List<String> expandedList;
 
@@ -37,11 +38,15 @@ class AppSettingsData {
 class RandomTableEntry extends CampaignItem {
   final String title;
   final List<RandomTableRow> rows;
+  late bool isRandomTable;
+  late bool isHidden;
 
   RandomTableEntry({
     required super.isFavourite,
     required this.title,
     required this.rows,
+    this.isRandomTable = true,
+    this.isHidden = false,
   });
 // coverage:ignore-start
   factory RandomTableEntry.fromJson(Map<String, dynamic> json) =>
@@ -56,9 +61,9 @@ class RandomTableEntry extends CampaignItem {
 
 @JsonSerializable(explicitToJson: true)
 class RandomTableRow {
-  final String label;
-  final int? weight;
-  final String? otherRandomTable;
+  late String label;
+  late int? weight;
+  late String? otherRandomTable;
 
   RandomTableRow({
     required this.label,
@@ -76,18 +81,37 @@ class RandomTableRow {
 }
 
 @JsonSerializable(explicitToJson: true)
-class RollTableResult extends CampaignItem {
+class RollTableResults extends CampaignItem {
   final String title;
-  final int randomRoll;
+  final List<RollTableResult> results;
+
+  RollTableResults({
+    required this.title,
+    required this.results,
+  });
+
+  // coverage:ignore-start
+  factory RollTableResults.fromJson(Map<String, dynamic> json) =>
+      _$RollTableResultsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RollTableResultsToJson(this);
+
+// coverage:ignore-end
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.rollTableResults;
+}
+
+@JsonSerializable(explicitToJson: true)
+class RollTableResult {
+  final String title;
+  final int? randomRoll;
   final String resultString;
-  final int totalEntries;
-  // final int lowerBounds;
-  // final int upperBounds;
-  final int weight;
+  final int? totalEntries;
+  final int? weight;
 
   RollTableResult({
     required this.weight,
-    required super.isFavourite,
     required this.title,
     required this.randomRoll,
     required this.resultString,
@@ -101,9 +125,6 @@ class RollTableResult extends CampaignItem {
       _$RollTableResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RollTableResultToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.rollTableResult;
 
 // coverage:ignore-end
 }

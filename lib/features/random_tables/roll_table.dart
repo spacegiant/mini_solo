@@ -1,33 +1,25 @@
-import 'dart:math';
+import 'package:mini_solo/features/random_tables/recursive_random_table_roll.dart';
+
 import '../../data/app_settings_data.dart';
+import '../../data/app_state.dart';
 
-RollTableResult? rollTable(RandomTableEntry table) {
-  int weightsSum = 0;
-  int tally = 0;
-  RollTableResult? result;
-  var rows = table.rows;
+Iterable<RollTableResult> getRandomTableResult({
+  required String tableId,
+  required AppState appState,
+}) {
+  List<RollTableResult> rollTableResults = [];
 
-  for (int i = 0; i < rows.length; i++) {
-    weightsSum += rows[i].weight!;
+  void addToResultList(RollTableResult result) {
+    rollTableResults.add(result);
   }
 
-  int randomRoll = Random().nextInt(weightsSum);
+  recursiveRandomTableRoll(
+    recursionLimit:
+        appState.campaignData?.settings.general.randomTableRecursionLimit ?? 3,
+    randomTables: appState.randomTables,
+    randomTableId: tableId,
+    cb: addToResultList,
+  );
 
-  for (int i = 0; i < rows.length; i++) {
-    tally += rows[i].weight!;
-
-    if (randomRoll < tally) {
-      result = RollTableResult(
-          title: table.title,
-          randomRoll: randomRoll,
-          resultString: rows[i].label,
-          totalEntries: weightsSum,
-          isFavourite: false,
-          weight: rows[i].weight ?? 0);
-
-      break;
-    }
-  }
-
-  return result;
+  return rollTableResults.reversed;
 }
