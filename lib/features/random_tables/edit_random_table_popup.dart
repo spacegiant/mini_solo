@@ -33,6 +33,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late bool isRandomTable;
   late bool isHidden;
   late RandomTableEntry entry;
+  late RandomTableEntry updatedEntry;
 
   @override
   void initState() {
@@ -40,7 +41,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
     selectedId = '';
     _textController = TextEditingController(text: '');
     _weightController = TextEditingController(text: '');
+    // TODO is entry needed if we are using updatedEntry?
     entry = widget.appState.getRandomTableById(widget.id);
+    updatedEntry = entry;
     isRandomTable = entry.isRandomTable;
     isHidden = entry.isHidden;
   }
@@ -95,6 +98,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 setState(() {
                   _weightController.text = value;
                 });
+                if (currentRowIndex != null) {
+                  updatedEntry.rows[currentRowIndex!].weight =
+                      int.tryParse(value.trim());
+                }
               },
             ),
             const Gap(height: 4.0),
@@ -106,6 +113,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 setState(() {
                   _textController.text = value;
                 });
+                if (currentRowIndex != null) {
+                  updatedEntry.rows[currentRowIndex!].label = value.trim();
+                }
               },
             ),
             const Gap(height: 4.0),
@@ -179,35 +189,31 @@ class _EditRandomTableState extends State<EditRandomTable> {
                         controlId: widget.id, groupId: selectedGroup);
                   }
 
-                  String newLabel = _textController.value.text.trim();
-                  int newWeight;
+                  // String newLabel = _textController.value.text.trim();
+                  // int newWeight;
+                  //
+                  // if (selectedLinkId != null) {
+                  //   entry.rows[currentRowIndex!].otherRandomTable =
+                  //       selectedLinkId;
+                  // } else {
+                  //   entry.rows[currentRowIndex!].otherRandomTable = null;
+                  // }
+                  //
+                  // if (newLabel != '') {
+                  //   entry.rows[currentRowIndex!].label = newLabel;
+                  // }
+                  //
+                  // try {
+                  //   newWeight = int.parse(_weightController.value.text);
+                  //   entry.rows[currentRowIndex!].weight = newWeight;
+                  // } catch (e) {
+                  //   print(e);
+                  // }
 
-                  if (selectedLinkId != null) {
-                    entry.rows[currentRowIndex!].otherRandomTable =
-                        selectedLinkId;
-                  } else {
-                    entry.rows[currentRowIndex!].otherRandomTable = null;
-                  }
-
-                  if (newLabel != '') {
-                    entry.rows[currentRowIndex!].label = newLabel;
-                  }
-
-                  try {
-                    newWeight = int.parse(_weightController.value.text);
-                    entry.rows[currentRowIndex!].weight = newWeight;
-                  } catch (e) {
-                    print(e);
-                  }
-
-                  // widget.appState.updateRandomTable(
-                  //   id: widget.id,
-                  //   entry: RandomTableEntry(
-                  //     isFavourite: entry.isFavourite,
-                  //     title: entry.title,
-                  //     rows: entry.rows,
-                  //   ),
-                  // );
+                  widget.appState.updateRandomTable(
+                    id: widget.id,
+                    entry: updatedEntry,
+                  );
                   widget.appState.saveAppSettingsDataToDisk();
                   widget.appState.saveCampaignDataToDisk();
                   Navigator.pop(context);
