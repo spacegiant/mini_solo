@@ -84,7 +84,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
     return Column(
       children: [
         // TODO dedicated title widget for popups for standardisation
-        Text('${entry.title} ($recordCount entries)'),
+        Text(
+          '${entry.title} ($recordCount entries)',
+          overflow: TextOverflow.ellipsis,
+        ),
         const Divider(),
         RandomTableEntries(
           recordCount: recordCount,

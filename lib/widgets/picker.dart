@@ -27,7 +27,6 @@ class Picker extends StatefulWidget {
 class _PickerState extends State<Picker> {
   late int offset;
   late int _selectedItemIndex;
-  late FixedExtentScrollController _controller;
   late List<String> pickerStrings;
 
   @override
@@ -37,7 +36,6 @@ class _PickerState extends State<Picker> {
     offset = widget.defunctLabel != null ? 1 : 0;
     _selectedItemIndex =
         widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
-    _controller = FixedExtentScrollController(initialItem: _selectedItemIndex);
 
     pickerStrings = List.from(widget.items);
     if (widget.defunctLabel != null) {
@@ -64,8 +62,6 @@ class _PickerState extends State<Picker> {
   Widget build(BuildContext context) {
     _selectedItemIndex =
         widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
-
-    print('>>> $_selectedItemIndex');
 
     List<Widget> pickerItems = List<Widget>.generate(
       pickerStrings.length,
@@ -102,7 +98,8 @@ class _PickerState extends State<Picker> {
           if (widget.enabled) {
             _showDialog(
               CupertinoPicker(
-                scrollController: _controller,
+                scrollController: FixedExtentScrollController(
+                    initialItem: _selectedItemIndex),
                 magnification: 1.22,
                 squeeze: 1.2,
                 useMagnifier: true,

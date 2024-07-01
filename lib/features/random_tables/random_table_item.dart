@@ -61,21 +61,19 @@ class RandomTableItem extends StatelessWidget {
                     )),
                 Opacity(
                   opacity: row.otherRandomTable == null ? 0.5 : 1.0,
-                  child: Flexible(
-                    child: Row(
-                      children: [
-                        icon,
-                        const Gap(),
-                        // TODO deal with overflow here
-                        SizedBox(
-                          width: 310.0,
-                          child: Text(
-                            linkedLabel,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                  child: Row(
+                    children: [
+                      icon,
+                      const Gap(),
+                      // TODO deal with overflow here
+                      SizedBox(
+                        width: 310.0,
+                        child: Text(
+                          linkedLabel,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
