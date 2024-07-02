@@ -1,4 +1,3 @@
-// TODO Does this need to be in AppState?
 import 'package:flutter/cupertino.dart';
 
 void toggleShowPopup2({
@@ -24,6 +23,4 @@ void toggleShowPopup2({
       ),
     ),
   );
-  // _showPopup2 = !_showPopup2;
-  // notifyListeners();
 }
