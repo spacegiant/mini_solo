@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
@@ -266,7 +267,7 @@ class RandomTableEntries extends StatelessWidget {
     return SizedBox(
         height: 300.0,
         child: ListView.builder(
-          itemCount: recordCount,
+          itemCount: rows.length,
           prototypeItem: RandomTableItem(
             row: RandomTableRow(label: 'prototype label', weight: 100),
             onTap: (String id) {},

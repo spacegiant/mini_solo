@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
@@ -618,6 +619,8 @@ class AppState extends ChangeNotifier {
 
   void deleteRandomTable(String id) {
     removeFromAllGroups(controlId: id);
+    // remove from all random table other links
+    removeLinkFromAllRandomTables(id);
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     saveAppSettingsDataToDisk();
@@ -625,6 +628,14 @@ class AppState extends ChangeNotifier {
 
   RandomTableEntry getRandomTableById(String id) {
     return appSettingsData.randomTables.firstWhere((entry) => entry.id == id);
+  }
+
+  void removeLinkFromAllRandomTables(String id) {
+    for (var table in appSettingsData.randomTables) {
+      table.rows
+          .firstWhereOrNull((row) => row.otherRandomTable == id)
+          ?.otherRandomTable = null;
+    }
   }
 
   void updateRandomTable({
