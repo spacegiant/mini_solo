@@ -76,8 +76,6 @@ Widget chooseControlWidget({
 }) {
   Color buttonColor = color != null ? Color(color) : kButtonColor;
 
-  IconData icon;
-
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
       return ListButton(
