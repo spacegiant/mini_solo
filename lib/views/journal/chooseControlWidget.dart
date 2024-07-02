@@ -6,7 +6,6 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/kard/kard.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
 import 'package:mini_solo/features/random_tables/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -331,15 +330,6 @@ Widget chooseControlWidget({
               maxWidth: 400.0,
               maxHeight: 300.0,
               child: AddKardPopup(
-                appState: appState,
-              ),
-              context: context);
-        },
-        onLongPress: () {
-          toggleShowPopup2(
-              maxWidth: 400.0,
-              maxHeight: 220.0,
-              child: EditLabelPopup(
                 appState: appState,
               ),
               context: context);
