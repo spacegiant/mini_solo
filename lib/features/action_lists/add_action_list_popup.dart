@@ -37,6 +37,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     super.initState();
     _labelController = TextEditingController();
     _actionLabelController = TextEditingController();
+    isLink;
   }
 
   @override
@@ -76,6 +77,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             LabelAndInput(
+                autoFocus: true,
                 label: 'Action List Label',
                 controller: _labelController,
                 onChanged: (value) {
@@ -119,23 +121,29 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
               ],
             ),
             const Divider(),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (isLink == true) addLink(),
-                if (isLink == false) addLabel(),
-                if (isLink != null) ...[
-                  const Gap(),
-                  CupertinoButton(
-                    minSize: 44.0,
-                    padding: EdgeInsets.zero,
-                    color: Colors.pink,
-                    child: const Icon(CupertinoIcons.add),
-                    onPressed: () {},
-                  )
-                ]
-              ],
+            Opacity(
+              opacity: isLink == null ? 0.2 : 1.0,
+              child: IgnorePointer(
+                ignoring: isLink == null,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (isLink == true) addLink(),
+                    if (isLink != true) addLabel(),
+                    ...[
+                      const Gap(),
+                      CupertinoButton(
+                        minSize: 44.0,
+                        padding: EdgeInsets.zero,
+                        color: Colors.pink,
+                        child: const Icon(CupertinoIcons.add),
+                        onPressed: () {},
+                      )
+                    ]
+                  ],
+                ),
+              ),
             ),
           ],
         ),

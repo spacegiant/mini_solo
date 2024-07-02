@@ -10,6 +10,7 @@ class LabelAndInput extends StatelessWidget {
     required this.controller,
     required this.onChanged,
     this.axis = Axis.vertical,
+    this.autoFocus = false,
   });
 
   final String label;
@@ -17,6 +18,7 @@ class LabelAndInput extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String) onChanged;
   final Axis axis;
+  final bool autoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +52,11 @@ class LabelAndInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label),
-        Gap(
+        const Gap(
           height: 6.0,
         ),
         CupertinoTextField(
+          autofocus: autoFocus,
           onChanged: onChanged,
           controller: controller,
           enabled: enabled ?? false,
