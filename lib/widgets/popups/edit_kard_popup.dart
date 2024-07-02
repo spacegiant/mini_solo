@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -32,6 +33,42 @@ class _EditKardPopupState extends State<EditKardPopup> {
 
   @override
   Widget build(BuildContext context) {
+    return PopupLayout(
+      header: const Text('Edit Card'),
+      body: Column(children: [
+        GroupPicker(
+          onChange: (string) {
+            setState(() {
+              selectedGroup = string;
+            });
+          },
+          appState: widget.appState,
+          initialGroup: selectedGroup,
+        ),
+      ]),
+      footer: Row(
+        children: [
+          CupertinoButton(
+            color: kSubmitColor,
+            onPressed: () {
+              widget.appState
+                  .moveToGroup(controlId: widget.id, groupId: selectedGroup);
+              Navigator.pop(context);
+            },
+            child: const Text('Update'),
+          ),
+          Gap(),
+          CupertinoButton(
+            color: CupertinoColors.destructiveRed,
+            onPressed: () {
+              widget.appState.deleteKard(widget.id);
+              Navigator.pop(context);
+            },
+            child: const Text(kDeleteLabel),
+          ),
+        ],
+      ),
+    );
     return Column(
       children: [
         const Text(kPopupDeleteEntryLabel),
