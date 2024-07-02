@@ -108,10 +108,10 @@ class _PickerState extends State<Picker> {
                   setState(() {
                     _selectedItemIndex = selectedItemIndex;
                   });
-                  if (selectedItemIndex > 0) {
+                  if (widget.defunctLabel != null) {
                     widget.onChange(selectedItemIndex - offset);
                   } else {
-                    widget.onChange(null);
+                    widget.onChange(selectedItemIndex);
                   }
                 },
                 children: pickerItems,
