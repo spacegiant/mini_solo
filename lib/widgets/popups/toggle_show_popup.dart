@@ -18,16 +18,7 @@ void toggleShowPopup2({
         child: CupertinoPopupSurface(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                child,
-                CupertinoButton(
-                    child: const Text('Close'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    })
-              ],
-            ),
+            child: child,
           ),
         ),
       ),
