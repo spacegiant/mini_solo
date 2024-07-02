@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
@@ -104,6 +106,77 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
           print(value);
         },
       ),
+    );
+
+    Column body() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Center(child: Text('Tracker Name')),
+          const Gap(),
+          CupertinoTextField(
+            autofocus: true,
+            controller: _trackerNameController,
+            placeholder: 'Tracker name',
+            onChanged: (value) {
+              setState(() {
+                _trackerNameController.text = value;
+              });
+            },
+          ),
+          const Gap(),
+
+          const Divider(),
+          const Gap(),
+          const Center(child: Text('Select Tracker Type')),
+          const Gap(),
+          SizedBox(
+            height: 260.0,
+            child: SingleChildScrollView(
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [...controls],
+              ),
+            ),
+          ),
+          const Divider(),
+          // TODO: ONLY SHOW FOR SPECIFIC TRACKERS
+
+          SizedBox(
+            height: 100.0,
+            child: RangeValuesForm(
+              minValueActive: minValueActive,
+              currentValueActive: currentValueActive,
+              maxValueActive: maxValueActive,
+              minValueController: _minValueController,
+              currentValueController: _currentValueController,
+              maxValueController: _maxValueController,
+              setMinValueText: setMinValueText,
+              setCurrentValueText: setCurrentValueText,
+              setMaxValueText: setMaxValueText,
+            ),
+          ),
+          const CupertinoTextField(),
+          const Divider(),
+          GroupPicker(
+              appState: widget.appState,
+              initialGroup: 'group-trackers',
+              onChange: (groupName) {
+                setState(() {
+                  selectedGroup = groupName;
+                });
+              }),
+        ],
+      );
+    }
+
+    ;
+
+    return PopupLayout(
+      header: Text('Add Tracker'),
+      body: body(),
+      footer: buttonBar(),
     );
 
     return Padding(
