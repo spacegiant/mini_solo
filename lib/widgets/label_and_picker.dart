@@ -7,7 +7,7 @@ class LabelAndPicker extends StatelessWidget {
   const LabelAndPicker({
     super.key,
     required this.label,
-    this.enabled,
+    this.enabled = true,
     required this.items,
     required this.onChange,
     this.defunctLabel,

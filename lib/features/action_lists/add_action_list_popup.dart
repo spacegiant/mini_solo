@@ -79,7 +79,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           items: const ['one', 'two'],
           onChange: (value) {
             setState(() {
-              print(value);
               pickerIndex = value;
             });
           },

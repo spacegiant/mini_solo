@@ -99,9 +99,9 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
             ],
           ),
           GroupPicker(
-            onChange: (string) {
+            onChange: (idString) {
               setState(() {
-                selectedGroup = string;
+                selectedGroup = idString;
               });
             },
             appState: widget.appState,

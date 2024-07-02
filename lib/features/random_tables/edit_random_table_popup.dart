@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
@@ -155,10 +157,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
           ],
         ),
         const Divider(),
+
         GroupPicker(
-          onChange: (string) {
+          onChange: (idString) {
             setState(() {
-              selectedGroup = string;
+              selectedGroup = idString;
             });
           },
           appState: widget.appState,
@@ -201,18 +204,21 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 color: kSubmitColor,
                 child: const Text('Update'),
                 onPressed: () {
-                  if (currentRowIndex == null) return;
+                  if (currentRowIndex != null) {
+                    widget.appState.updateRandomTable(
+                      id: widget.id,
+                      entry: updatedEntry,
+                    );
+                    // widget.appState.saveAppSettingsDataToDisk();
+                  }
+                  ;
+
                   if (initialGroup != selectedGroup) {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
                   }
 
-                  widget.appState.updateRandomTable(
-                    id: widget.id,
-                    entry: updatedEntry,
-                  );
-                  widget.appState.saveAppSettingsDataToDisk();
-                  widget.appState.saveCampaignDataToDisk();
+                  // widget.appState.saveCampaignDataToDisk();
                   Navigator.pop(context);
                 }),
             CupertinoButton(

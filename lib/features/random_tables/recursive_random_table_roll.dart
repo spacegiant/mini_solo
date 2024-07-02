@@ -22,7 +22,6 @@ void recursiveRandomTableRoll({
       bool resultFound = randomRoll < tally;
 
       if (resultFound) {
-        // print(randomTable.rows[i].label);
         if (randomTable.rows[i].otherRandomTable != null) {
           String? id = randomTable.rows[i].otherRandomTable;
 
