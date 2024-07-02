@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../data/app_state.dart';
 import '../gap.dart';
@@ -46,14 +47,11 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
       });
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
+    return PopupLayout(
+      header: const Text('Edit Scene Marker'),
+      body: CupertinoTextField(controller: _controller),
+      footer: Column(
         children: [
-          const Text('New Scene Marker'),
-          const Gap(),
-          CupertinoTextField(controller: _controller),
-          const Gap(),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             CupertinoButton(
               color: CupertinoColors.systemGreen,
