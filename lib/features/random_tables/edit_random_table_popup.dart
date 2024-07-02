@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
+import 'package:mini_solo/widgets/toggle_active_block.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../widgets/label_and_input.dart';
@@ -135,25 +136,28 @@ class _EditRandomTableState extends State<EditRandomTable> {
               },
             ),
             const Gap(height: 4.0),
-            LabelAndPicker(
-              defunctLabel: 'No Link',
-              enabled: selectedId != '',
-              items: safeList.map((table) => table.title).toList(),
-              onChange: (index) {
-                if (index != null) {
-                  setState(() {
-                    selectedLinkId = safeList[index].id;
-                    if (currentRowIndex != null) {
-                      updatedEntry.rows[currentRowIndex!].otherRandomTable =
-                          safeList[index].id;
-                    }
-                  });
-                } else {
-                  print('NULL');
-                }
-              },
-              label: 'Link',
-              selectedIndex: getOtherLinkIndex(),
+            ToggleActiveBlock(
+              isActive: safeList.isNotEmpty && selectedId != '',
+              child: LabelAndPicker(
+                defunctLabel:
+                    safeList.isEmpty ? 'No Other Random Tables' : 'No Link',
+                items: safeList.map((table) => table.title).toList(),
+                onChange: (index) {
+                  if (index != null) {
+                    setState(() {
+                      selectedLinkId = safeList[index].id;
+                      if (currentRowIndex != null) {
+                        updatedEntry.rows[currentRowIndex!].otherRandomTable =
+                            safeList[index].id;
+                      }
+                    });
+                  } else {
+                    print('NULL');
+                  }
+                },
+                label: 'Link',
+                selectedIndex: getOtherLinkIndex(),
+              ),
             ),
           ],
         ),
