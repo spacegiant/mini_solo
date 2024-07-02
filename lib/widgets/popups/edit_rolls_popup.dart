@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../data/app_state.dart';
 
@@ -21,18 +23,16 @@ class _EditRollPopupState extends State<EditRollPopup> {
   Widget build(
     BuildContext context,
   ) {
-    return Column(
-      children: [
-        const Text('Delete Entry'),
-        CupertinoButton(
-          color: CupertinoColors.destructiveRed,
-          onPressed: () {
-            widget.appState.deleteRollEntry(widget.id);
-            Navigator.pop(context);
-          },
-          child: const Text('Delete'),
-        ),
-      ],
+    return PopupLayout(
+      header: const Text(kPopupDeleteEntryLabel),
+      footer: CupertinoButton(
+        color: CupertinoColors.destructiveRed,
+        onPressed: () {
+          widget.appState.deleteRollEntry(widget.id);
+          Navigator.pop(context);
+        },
+        child: const Text('Delete'),
+      ),
     );
   }
 }
