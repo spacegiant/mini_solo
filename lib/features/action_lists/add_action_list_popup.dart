@@ -37,6 +37,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late String? selectedId;
   bool? isLink;
   List<ActionListAction> listOfActions = [];
+  int? pickerIndex;
 
   @override
   void initState() {
@@ -55,16 +56,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     _actionLabelController.dispose();
   }
 
-  Widget addLink() {
-    return Flexible(
-      child: LabelAndPicker(
-          label: 'Link',
-          items: ['one', 'two'],
-          onChange: (value) {},
-          selectedIndex: 0),
-    );
-  }
-
   Widget addLabel() {
     return Flexible(
       child: LabelAndInput(
@@ -80,6 +71,22 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     );
   }
 
+  Widget addLink() {
+    return Flexible(
+      child: LabelAndPicker(
+          enabled: true,
+          label: 'Link',
+          items: const ['one', 'two'],
+          onChange: (value) {
+            setState(() {
+              print(value);
+              pickerIndex = value;
+            });
+          },
+          selectedIndex: pickerIndex),
+    );
+  }
+
   void handleSubmit() {}
 
   @override
@@ -88,8 +95,8 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       return isLink == null && _labelController.value.text != '';
     }
 
-    bool canAddNewAction = _labelController.value.text.trim() != '' ||
-        _actionLabelController.value.text.trim() != '';
+    bool canAddNewAction =
+        pickerIndex != null || _actionLabelController.value.text.trim() != '';
 
     bool displayLink = isLink == true;
     bool displayLabel = isLink != true;
