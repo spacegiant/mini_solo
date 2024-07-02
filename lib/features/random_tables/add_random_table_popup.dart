@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../data/app_state.dart';
 import '../grouping/group-picker.dart';
@@ -48,17 +49,10 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   Widget build(BuildContext context) {
     int count = widget.appState.randomTables.length;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
+    Widget body() {
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Center(
-              child: Text(
-            kRandomTablePopupTitle,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          )),
-          const Gap(),
           CupertinoTextField(
             controller: _titleController,
             textAlignVertical: TextAlignVertical.top,
@@ -113,48 +107,59 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
             appState: widget.appState,
             initialGroup: 'group-random-tables',
           ),
-          Row(
-            children: [
-              CupertinoButton(
-                  color: kSubmitColor,
-                  child: const Text(kLabelAdd),
-                  onPressed: () {
-                    String title = _titleController.text;
-                    String text = _textController.text;
-                    // TODO: Better validation here with user feedback
-
-                    if (title != '' && text != '') {
-                      List<RandomTableRow> myText =
-                          convertText(text, _separatorController.text);
-
-                      RandomTableEntry entry = RandomTableEntry(
-                        isFavourite: false,
-                        title: title,
-                        rows: myText,
-                      );
-
-                      widget.appState.addRandomTable(entry);
-                      widget.appState.saveAppSettingsDataToDisk();
-
-                      _titleController.text = '';
-                      _textController.text = '';
-
-                      widget.appState.addToGroup(
-                          controlId: entry.id, groupId: selectedGroup);
-                      widget.appState.saveCampaignDataToDisk();
-                    }
-                  }),
-              const Gap(),
-              CupertinoButton(
-                  color: kWarningColor,
-                  child: const Text(kLabelClose),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }),
-            ],
-          )
         ],
-      ),
+      );
+    }
+
+    ;
+
+    Widget footer() {
+      return Row(
+        children: [
+          CupertinoButton(
+              color: kSubmitColor,
+              child: const Text(kLabelAdd),
+              onPressed: () {
+                String title = _titleController.text;
+                String text = _textController.text;
+                // TODO: Better validation here with user feedback
+
+                if (title != '' && text != '') {
+                  List<RandomTableRow> myText =
+                      convertText(text, _separatorController.text);
+
+                  RandomTableEntry entry = RandomTableEntry(
+                    isFavourite: false,
+                    title: title,
+                    rows: myText,
+                  );
+
+                  widget.appState.addRandomTable(entry);
+                  widget.appState.saveAppSettingsDataToDisk();
+
+                  _titleController.text = '';
+                  _textController.text = '';
+
+                  widget.appState
+                      .addToGroup(controlId: entry.id, groupId: selectedGroup);
+                  widget.appState.saveCampaignDataToDisk();
+                }
+              }),
+          const Gap(),
+          CupertinoButton(
+              color: kWarningColor,
+              child: const Text(kLabelClose),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+        ],
+      );
+    }
+
+    return PopupLayout(
+      header: const Text(kRandomTablePopupTitle),
+      body: body(),
+      footer: footer(),
     );
   }
 
