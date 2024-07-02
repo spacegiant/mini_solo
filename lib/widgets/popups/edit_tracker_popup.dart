@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../constants.dart';
@@ -67,9 +68,8 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   Widget build(BuildContext context) {
     String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
+    Widget body() {
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Center(child: Text('Tracker Name')),
@@ -101,9 +101,14 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
             appState: widget.appState,
             initialGroup: initialGroup,
           ),
-          buttonBar(),
         ],
-      ),
+      );
+    }
+
+    return PopupLayout(
+      header: Text('Edit \'${_trackerNameController.value.text}\' Tracker'),
+      body: body(),
+      footer: buttonBar(),
     );
   }
 
