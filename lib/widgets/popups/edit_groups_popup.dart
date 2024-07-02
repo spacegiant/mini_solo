@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
@@ -69,32 +70,35 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
             ))
         .toList();
 
-    return Column(
-      children: [
-        ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxHeight: 600.0,
-            minHeight: 200.0,
-          ),
-          child: Scaffold(
-            body: MyReorderableListView(
-              itemList: groups,
-              appState: widget.appState,
-              selectedId: selectedId,
-              onReorder: handleOnReorder,
-              children: children,
+    return PopupLayout(
+      header: const Text('Edit Groups'),
+      body: Column(
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 570.0,
+              minHeight: 200.0,
+            ),
+            child: Scaffold(
+              body: MyReorderableListView(
+                itemList: groups,
+                appState: widget.appState,
+                selectedId: selectedId,
+                onReorder: handleOnReorder,
+                children: children,
+              ),
             ),
           ),
-        ),
-        const Gap(),
-        CupertinoButton(
-            color: kSubmitColor,
-            onPressed: () {
-              widget.appState.updateGroups(groups: groups);
-              Navigator.pop(context);
-            },
-            child: const Text('Update'))
-      ],
+        ],
+      ),
+      footer: CupertinoButton(
+        color: kSubmitColor,
+        onPressed: () {
+          widget.appState.updateGroups(groups: groups);
+          Navigator.pop(context);
+        },
+        child: const Text('Update'),
+      ),
     );
   }
 }
