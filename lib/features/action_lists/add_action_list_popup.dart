@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/label_and_input.dart';
+import 'package:mini_solo/widgets/label_and_picker.dart';
+import 'package:mini_solo/widgets/my_reorderable_item.dart';
 import 'package:mini_solo/widgets/my_reorderable_list_view.dart';
 
 import '../../data/app_state.dart';
@@ -27,6 +29,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late TextEditingController _labelController;
   late TextEditingController _actionLabelController;
   late String? selectedId;
+  bool? isLink;
 
   @override
   void initState() {
@@ -44,6 +47,27 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     _actionLabelController.dispose();
   }
 
+  Widget addLink() {
+    return Flexible(
+      child: LabelAndPicker(
+          label: 'Link',
+          items: ['one', 'two'],
+          onChange: (value) {},
+          selectedIndex: 0),
+    );
+  }
+
+  Widget addLabel() {
+    return Flexible(
+      child: LabelAndInput(
+        axis: Axis.horizontal,
+        label: 'Label',
+        controller: _actionLabelController,
+        onChanged: (value) {},
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopupLayout(
@@ -59,29 +83,60 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                     _labelController.text = value;
                   });
                 }),
+            Gap(),
             LabelAndSwitch(
               label: 'Active?',
               onChanged: (value) {},
               switchValue: true,
             ),
-            Divider(),
-            // MyReorderableListView(itemList: [], appState: appState, selectedId: '', onReorder: (){}, children: [Text('Child')])
-            Gap(),
+            const Divider(),
+            const Gap(),
             const Text('Actions List'),
-            Gap(),
+            const Gap(height: 6.0),
+            // MyReorderableListView(itemList: [], appState: appState, selectedId: '', onReorder: (){}, children: [Text('Child')])
             Container(
               height: 200.0,
               color: CupertinoColors.white,
-              child: Text('List of Actions Here'),
+              child: MyReorderableItem(
+                  id: '', appState: widget.appState, label: 'label', index: 1),
+            ),
+            Row(
+              children: [
+                CupertinoButton(
+                    child: const Text('Add Link'),
+                    onPressed: () {
+                      setState(() {
+                        isLink = true;
+                      });
+                    }),
+                CupertinoButton(
+                    child: const Text('Add Label'),
+                    onPressed: () {
+                      setState(() {
+                        isLink = false;
+                      });
+                    }),
+              ],
             ),
             const Divider(),
-            const Text('New Action'),
-            const Text('current action link'),
-            LabelAndInput(
-                axis: Axis.horizontal,
-                label: 'Label',
-                controller: _actionLabelController,
-                onChanged: (value) {}),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (isLink == true) addLink(),
+                if (isLink == false) addLabel(),
+                if (isLink != null) ...[
+                  const Gap(),
+                  CupertinoButton(
+                    minSize: 44.0,
+                    padding: EdgeInsets.zero,
+                    color: Colors.pink,
+                    child: const Icon(CupertinoIcons.add),
+                    onPressed: () {},
+                  )
+                ]
+              ],
+            ),
           ],
         ),
         footer: CupertinoButton(
