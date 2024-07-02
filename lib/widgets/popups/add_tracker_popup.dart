@@ -174,7 +174,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
     ;
 
     return PopupLayout(
-      header: Text('Add Tracker'),
+      header: const Text('Add Tracker'),
       body: body(),
       footer: buttonBar(),
     );
