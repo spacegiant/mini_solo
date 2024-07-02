@@ -10,6 +10,7 @@ import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/label_and_switch.dart';
 import '../../widgets/popups/popup_layout.dart';
+import '../../widgets/toggle_active_block.dart';
 
 class AddActionListPopup extends StatefulWidget {
   const AddActionListPopup({
@@ -69,8 +70,18 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     );
   }
 
+  void handleSubmit() {}
+
   @override
   Widget build(BuildContext context) {
+    // TODO check there is something to submit
+    bool canSubmit = isLink == null;
+    String newLabel = '';
+    String newLinkId = '';
+
+    bool displayLink = isLink == true;
+    bool displayLabel = isLink != true;
+
     return PopupLayout(
         header: const Text('Add Action List'),
         body: Column(
@@ -121,35 +132,33 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
               ],
             ),
             const Divider(),
-            Opacity(
-              opacity: isLink == null ? 0.2 : 1.0,
-              child: IgnorePointer(
-                ignoring: isLink == null,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (isLink == true) addLink(),
-                    if (isLink != true) addLabel(),
-                    ...[
-                      const Gap(),
-                      CupertinoButton(
-                        minSize: 44.0,
-                        padding: EdgeInsets.zero,
-                        color: Colors.pink,
-                        child: const Icon(CupertinoIcons.add),
-                        onPressed: () {},
-                      )
-                    ]
-                  ],
-                ),
+
+            ToggleActiveBlock(
+              isActive: isLink != null,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (displayLink) addLink(),
+                  if (displayLabel) addLabel(),
+                  ...[
+                    const Gap(),
+                    CupertinoButton(
+                      minSize: 44.0,
+                      padding: EdgeInsets.zero,
+                      color: kSubmitColor,
+                      child: const Icon(CupertinoIcons.add),
+                      onPressed: () {},
+                    )
+                  ]
+                ],
               ),
             ),
           ],
         ),
         footer: CupertinoButton(
           color: kSubmitColor,
-          onPressed: () {},
+          onPressed: canSubmit ? handleSubmit : null,
           child: const Text('Add'),
         ));
   }
