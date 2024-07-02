@@ -17,7 +17,10 @@ class PopupLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        header,
+        DefaultTextStyle(
+            style:
+                const TextStyle(fontSize: 24.0, color: CupertinoColors.black),
+            child: header),
         const Divider(),
         if (body != null) ...[
           body ?? const SizedBox.shrink(),
