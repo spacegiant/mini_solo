@@ -102,6 +102,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
           isActive: selectedId != '',
           children: [
             LabelAndInput(
+              axis: Axis.horizontal,
               label: 'Weight',
               enabled: selectedId != '',
               controller: _weightController,
@@ -117,6 +118,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
             ),
             const Gap(height: 4.0),
             LabelAndInput(
+              axis: Axis.horizontal,
               label: 'Text',
               enabled: selectedId != '',
               controller: _textController,
