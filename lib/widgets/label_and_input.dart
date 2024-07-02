@@ -47,8 +47,12 @@ class LabelAndInput extends StatelessWidget {
   Column verticalLayout() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label),
+        Gap(
+          height: 6.0,
+        ),
         CupertinoTextField(
           onChanged: onChanged,
           controller: controller,

@@ -18,8 +18,10 @@ class PopupLayout extends StatelessWidget {
     return Column(
       children: [
         DefaultTextStyle(
-            style:
-                const TextStyle(fontSize: 24.0, color: CupertinoColors.black),
+            style: const TextStyle(
+              fontSize: 20.0,
+              color: CupertinoColors.black,
+            ),
             child: header),
         const Divider(),
         if (body != null) ...[
