@@ -40,6 +40,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late RandomTableEntry updatedEntry;
   late List<RandomTableEntry> randomTables;
   late List<RandomTableEntry> safeList;
+  late String? initialGroup;
 
   @override
   void initState() {
@@ -55,11 +56,12 @@ class _EditRandomTableState extends State<EditRandomTable> {
     randomTables = widget.appState.appSettingsData.randomTables;
     safeList = List.from(randomTables);
     safeList.removeWhere((table) => table.id == widget.id);
+    initialGroup = widget.appState.findCurrentGroupId(widget.id);
+    selectedGroup = initialGroup!;
   }
 
   @override
   Widget build(BuildContext context) {
-    String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
     List<RandomTableRow> rows = entry.rows;
     int recordCount = rows.length;
 
@@ -216,7 +218,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
                     );
                     // widget.appState.saveAppSettingsDataToDisk();
                   }
-                  ;
 
                   if (initialGroup != selectedGroup) {
                     widget.appState.moveToGroup(
