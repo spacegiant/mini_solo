@@ -111,7 +111,6 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
       );
     }
 
-    ;
 
     Widget footer() {
       return Row(

@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';

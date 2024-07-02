@@ -4,7 +4,6 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/label_and_picker.dart';
 import 'package:mini_solo/widgets/my_reorderable_item.dart';
-import 'package:mini_solo/widgets/my_reorderable_list_view.dart';
 
 import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
@@ -117,7 +116,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                     _labelController.text = value;
                   });
                 }),
-            Gap(),
+            const Gap(),
             LabelAndSwitch(
               label: 'Active?',
               onChanged: (value) {},

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 import 'package:mini_solo/utilities/id_generator.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import '../../data/app_state.dart';
-import '../gap.dart';
 
 class AddGroupPopup extends StatefulWidget {
   const AddGroupPopup({

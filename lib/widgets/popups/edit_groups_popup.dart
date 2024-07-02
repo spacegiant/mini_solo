@@ -6,7 +6,6 @@ import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
-import '../gap.dart';
 import '../my_reorderable_item.dart';
 import '../my_reorderable_list_view.dart';
 

@@ -144,6 +144,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.kards.add(kard);
     addToGroup(controlId: kard.id, groupId: 'unsorted');
     saveCampaignDataToDisk();
+    return null;
   }
 
   void deleteKard(String id) {

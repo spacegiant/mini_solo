@@ -42,7 +42,6 @@ List<ControlData> getControlData(AppState appState) {
         ),
       );
     }
-    ;
   }
 
   List<ControlData> controlData = [

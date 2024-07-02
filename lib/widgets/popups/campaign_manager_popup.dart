@@ -43,7 +43,7 @@ class _CampaignManagerState extends State<CampaignManager> {
               ),
             ),
             // TODO To complete this popup
-            footer: Text('BUTTON HERE'),
+            footer: const Text('BUTTON HERE'),
           );
         });
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
@@ -171,7 +170,6 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
       );
     }
 
-    ;
 
     return PopupLayout(
       header: const Text('Add Tracker'),

@@ -3,7 +3,6 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../data/app_state.dart';
-import '../gap.dart';
 
 class EditOracleEntryPopup extends StatefulWidget {
   const EditOracleEntryPopup({

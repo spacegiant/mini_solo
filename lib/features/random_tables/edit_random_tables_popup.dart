@@ -5,7 +5,6 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 
 import '../../data/app_state.dart';
-import '../../features/grouping/group.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/my_reorderable_item.dart';
 import '../../widgets/my_reorderable_list_view.dart';

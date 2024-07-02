@@ -57,7 +57,7 @@ class _EditKardPopupState extends State<EditKardPopup> {
             },
             child: const Text('Update'),
           ),
-          Gap(),
+          const Gap(),
           CupertinoButton(
             color: CupertinoColors.destructiveRed,
             onPressed: () {
@@ -72,7 +72,7 @@ class _EditKardPopupState extends State<EditKardPopup> {
     return Column(
       children: [
         const Text(kPopupDeleteEntryLabel),
-        Divider(),
+        const Divider(),
         GroupPicker(
           onChange: (string) {
             setState(() {
@@ -92,7 +92,7 @@ class _EditKardPopupState extends State<EditKardPopup> {
           },
           child: const Text('Update'),
         ),
-        Gap(),
+        const Gap(),
         CupertinoButton(
           color: CupertinoColors.destructiveRed,
           onPressed: () {

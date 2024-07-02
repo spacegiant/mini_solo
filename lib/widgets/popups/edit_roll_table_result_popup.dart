@@ -3,7 +3,6 @@ import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
-import '../gap.dart';
 
 class EditRollTableResultPopup extends StatefulWidget {
   const EditRollTableResultPopup({

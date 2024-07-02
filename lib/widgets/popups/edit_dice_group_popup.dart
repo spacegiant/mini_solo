@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 
@@ -56,6 +55,6 @@ class _EditDiceGroupPopupState extends State<EditDiceGroupPopup> {
                 child: const Text('Update'))
           ],
         ),
-        footer: SizedBox.shrink());
+        footer: const SizedBox.shrink());
   }
 }
