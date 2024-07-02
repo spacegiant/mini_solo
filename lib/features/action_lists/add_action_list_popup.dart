@@ -12,6 +12,11 @@ import '../../widgets/label_and_switch.dart';
 import '../../widgets/popups/popup_layout.dart';
 import '../../widgets/toggle_active_block.dart';
 
+class ActionListAction {
+  late String label;
+  late String link;
+}
+
 class AddActionListPopup extends StatefulWidget {
   const AddActionListPopup({
     super.key,
@@ -31,13 +36,14 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late TextEditingController _actionLabelController;
   late String? selectedId;
   bool? isLink;
+  List<ActionListAction> listOfActions = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _labelController = TextEditingController();
-    _actionLabelController = TextEditingController();
+    _labelController = TextEditingController(text: '');
+    _actionLabelController = TextEditingController(text: '');
     isLink;
   }
 
@@ -65,7 +71,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         axis: Axis.horizontal,
         label: 'Label',
         controller: _actionLabelController,
-        onChanged: (value) {},
+        onChanged: (value) {
+          setState(() {
+            _actionLabelController.text = value;
+          });
+        },
       ),
     );
   }
@@ -74,19 +84,24 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO check there is something to submit
-    bool canSubmit = isLink == null;
-    String newLabel = '';
-    String newLinkId = '';
+    bool canSubmit() {
+      return isLink == null && _labelController.value.text != '';
+    }
+
+    bool canAddNewAction = _labelController.value.text.trim() != '' ||
+        _actionLabelController.value.text.trim() != '';
 
     bool displayLink = isLink == true;
     bool displayLabel = isLink != true;
 
     return PopupLayout(
+        // TODO add sparkle icon here
         header: const Text('Add Action List'),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text(_labelController.value.text),
+            Text(canAddNewAction.toString()),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',
@@ -143,12 +158,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                   if (displayLabel) addLabel(),
                   ...[
                     const Gap(),
-                    CupertinoButton(
-                      minSize: 44.0,
-                      padding: EdgeInsets.zero,
-                      color: kSubmitColor,
-                      child: const Icon(CupertinoIcons.add),
-                      onPressed: () {},
+                    ToggleActiveBlock(
+                      isActive: canAddNewAction,
+                      child: submitActionListButton(),
                     )
                   ]
                 ],
@@ -158,8 +170,18 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         ),
         footer: CupertinoButton(
           color: kSubmitColor,
-          onPressed: canSubmit ? handleSubmit : null,
+          onPressed: canSubmit() ? handleSubmit : null,
           child: const Text('Add'),
         ));
+  }
+
+  CupertinoButton submitActionListButton() {
+    return CupertinoButton(
+      minSize: 44.0,
+      padding: EdgeInsets.zero,
+      color: kSubmitColor,
+      child: const Icon(CupertinoIcons.add),
+      onPressed: () {},
+    );
   }
 }
