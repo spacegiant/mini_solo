@@ -9,19 +9,19 @@ class PopupLayout extends StatelessWidget {
     required this.footer,
   });
 
-  final List<Widget> header;
-  final List<Widget> body;
-  final List<Widget> footer;
+  final Widget header;
+  final Widget body;
+  final Widget footer;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...header,
+        header,
         const Divider(),
-        ...body,
+        body,
         const Divider(),
-        ...footer,
+        footer,
         CupertinoButton(
             child: const Text('Close'),
             onPressed: () {

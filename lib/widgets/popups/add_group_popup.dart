@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 import 'package:mini_solo/utilities/id_generator.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import '../../data/app_state.dart';
 import '../gap.dart';
 
@@ -34,25 +35,22 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const Text('Add Group'),
-      const Divider(),
-      CupertinoTextField(
-        controller: _controller,
-      ),
-      const Gap(),
-      CupertinoButton(
-        color: CupertinoColors.systemPink,
-        onPressed: () {
-          String text = _controller.value.text.trim();
-          if (text == '') return;
-          widget.appState.createNewGroup(
-            Group(groupId: genericId('group'), label: text, controls: []),
-          );
-          _controller.text = '';
-        },
-        child: const Text('Add'),
-      )
-    ]);
+    return PopupLayout(
+        header: const Text('Add Group'),
+        body: CupertinoTextField(
+          controller: _controller,
+        ),
+        footer: CupertinoButton(
+          color: CupertinoColors.systemPink,
+          onPressed: () {
+            String text = _controller.value.text.trim();
+            if (text == '') return;
+            widget.appState.createNewGroup(
+              Group(groupId: genericId('group'), label: text, controls: []),
+            );
+            _controller.text = '';
+          },
+          child: const Text('Add'),
+        ));
   }
 }

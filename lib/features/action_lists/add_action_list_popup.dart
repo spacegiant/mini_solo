@@ -17,15 +17,9 @@ class AddActionListPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const PopupLayout(
-      header: [
-        Text('HEADER'),
-      ],
-      body: [
-        Text('BODY'),
-      ],
-      footer: [
-        Text('FOOTER'),
-      ],
+      header: Text('HEADER'),
+      body: Text('BODY'),
+      footer: Text('FOOTER'),
     );
   }
 }
