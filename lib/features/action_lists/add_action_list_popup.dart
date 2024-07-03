@@ -48,11 +48,16 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   List<ActionRow> entryListOfActions = [];
   String? randomTableEntryId;
   String? actionTableEntryId;
+  ActionListEntry? entry;
 
   @override
   void initState() {
     super.initState();
-    _labelController = TextEditingController(text: '');
+    entry = widget.appState.actionLists
+        .firstWhereOrNull((entry) => entry.id == widget.id);
+    _labelController =
+        TextEditingController(text: entry != null ? entry?.title : '');
+    if (entry != null) entryListOfActions = entry!.list;
     _actionLabelController = TextEditingController(text: '');
   }
 
