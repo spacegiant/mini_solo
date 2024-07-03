@@ -319,7 +319,7 @@ CampaignData initCampaignDataData(String campaignName) {
     kards: [],
     groups: [
       Group(
-        isAppGroup: true,
+        isAppGroup: false,
         groupId: 'unsorted',
         label: 'Unsorted',
         controls: [],
@@ -340,14 +340,14 @@ CampaignData initCampaignDataData(String campaignName) {
         color: 0xFF827191,
       ),
       Group(
-        isAppGroup: true,
+        isAppGroup: false,
         groupId: 'group-random-tables',
         label: 'Random Tables',
         controls: [],
         color: 0xFF84ACCE,
       ),
       Group(
-        isAppGroup: true,
+        isAppGroup: false,
         groupId: 'group-trackers',
         label: 'Trackers',
         controls: [],
