@@ -71,12 +71,13 @@ List<ControlData> getControlData(AppState appState) {
   // TODO when should this run?
   // TODO is this needed?
   // check controls all have a group or add to unsorted
-  for (final control in controlData) {
-    bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
-    if (isInAGroup == false) {
-      appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
-    }
-  }
+  // TODO Fix this, so it doesn't force update at same time as other actions
+  // for (final control in controlData) {
+  //   bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
+  //   if (isInAGroup == false) {
+  //     appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
+  //   }
+  // }
 
   return controlData;
 }

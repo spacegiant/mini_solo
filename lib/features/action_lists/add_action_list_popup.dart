@@ -140,6 +140,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   }
 
   void handleSubmit() {
+    // if (entry != null) {
+    //   print('HOOOOOOG');
+    // }
     widget.appState.addActionListsEntry(
       ActionListEntry(
           title: _labelController.value.text,
@@ -286,10 +289,23 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             )
           ],
         ),
-        footer: CupertinoButton(
-          color: kSubmitColor,
-          onPressed: canSubmit() ? handleSubmit : null,
-          child: const Text('Add'),
+        footer: Row(
+          children: [
+            CupertinoButton(
+              color: kSubmitColor,
+              onPressed: canSubmit() ? handleSubmit : null,
+              child: const Text('Add'),
+            ),
+            if (entry != null)
+              CupertinoButton(
+                color: kWarningColor,
+                onPressed: () {
+                  widget.appState.deleteActionList(entry!.id);
+                  Navigator.pop(context);
+                },
+                child: const Text('Delete'),
+              ),
+          ],
         ));
   }
 

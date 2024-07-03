@@ -688,6 +688,12 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
+  void deleteActionList(String id) {
+    removeFromAllGroups(controlId: id);
+    _appSettingsData!.actionLists.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+  }
+
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
