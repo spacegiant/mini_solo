@@ -17,6 +17,8 @@ import '../../widgets/toggle_active_block.dart';
 
 enum ActionType { label, list }
 
+enum ActionEditorType { label, randomTable, actionList }
+
 class ActionListAction {
   late ActionType type;
   late String string;
@@ -45,7 +47,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late TextEditingController _labelController;
   late TextEditingController _actionLabelController;
   late String? selectedId;
-  bool? isRandomTableLink;
+  ActionEditorType? actionEditorType;
   int? pickerIndex;
   late String entryTitle;
   late bool entryIsActive;
@@ -57,7 +59,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     super.initState();
     _labelController = TextEditingController(text: '');
     _actionLabelController = TextEditingController(text: '');
-    isRandomTableLink;
     entryTitle = '';
     entryIsActive = true;
   }
@@ -89,7 +90,22 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     return Flexible(
       child: LabelAndPicker(
           enabled: true,
-          label: 'Link',
+          label: 'Random Table',
+          items: const ['one', 'two'],
+          onChange: (value) {
+            setState(() {
+              pickerIndex = value;
+            });
+          },
+          selectedIndex: pickerIndex),
+    );
+  }
+
+  Widget addActionListLink() {
+    return Flexible(
+      child: LabelAndPicker(
+          enabled: true,
+          label: 'Action',
           items: const ['one', 'two'],
           onChange: (value) {
             setState(() {
@@ -105,14 +121,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   @override
   Widget build(BuildContext context) {
     bool canSubmit() {
-      return isRandomTableLink == null && _labelController.value.text != '';
+      return actionEditorType != null;
+      // return isRandomTableLink == null && _labelController.value.text != '';
     }
 
     bool canAddNewAction =
         pickerIndex != null || _actionLabelController.value.text.trim() != '';
-
-    bool displayLink = isRandomTableLink == true;
-    bool displayLabel = isRandomTableLink != true;
 
     return PopupLayout(
         // TODO add sparkle icon here
@@ -152,7 +166,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             ...actionsList(),
             addNewEntryToolbar(),
             const Divider(),
-            editBlock(displayLink, displayLabel, canAddNewAction),
+            editBlock(actionEditorType, canAddNewAction),
           ],
         ),
         footer: CupertinoButton(
@@ -201,14 +215,22 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             child: const Text('Label'),
             onPressed: () {
               setState(() {
-                isRandomTableLink = false;
+                actionEditorType = ActionEditorType.label;
               });
             }),
         CupertinoButton(
             child: const Text('Random Table'),
             onPressed: () {
               setState(() {
-                isRandomTableLink = true;
+                actionEditorType = ActionEditorType.randomTable;
+                _actionLabelController.text = '';
+              });
+            }),
+        CupertinoButton(
+            child: const Text('Action'),
+            onPressed: () {
+              setState(() {
+                actionEditorType = ActionEditorType.actionList;
                 _actionLabelController.text = '';
               });
             }),
@@ -216,16 +238,16 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     );
   }
 
-  ToggleActiveBlock editBlock(
-      bool displayLink, bool displayLabel, bool canAddNewAction) {
+  ToggleActiveBlock editBlock(ActionEditorType? type, bool canAddNewAction) {
     return ToggleActiveBlock(
-      isActive: isRandomTableLink != null,
+      isActive: type != null,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (displayLink) addRandomTableLink(),
-          if (displayLabel) addLabel(),
+          if (type == ActionEditorType.randomTable) addRandomTableLink(),
+          if (type == ActionEditorType.label) addLabel(),
+          if (type == ActionEditorType.actionList) addActionListLink(),
           ...[
             const Gap(),
             ToggleActiveBlock(
