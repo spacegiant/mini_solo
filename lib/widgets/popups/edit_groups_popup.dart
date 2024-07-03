@@ -76,7 +76,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
         children: [
           ConstrainedBox(
             constraints: const BoxConstraints(
-              maxHeight: 570.0,
+              maxHeight: 550.0,
               minHeight: 200.0,
             ),
             child: Scaffold(
