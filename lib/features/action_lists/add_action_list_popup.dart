@@ -91,18 +91,31 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   }
 
   Widget addRandomTableLink() {
-    return Flexible(
-      child: LabelAndPicker(
-          enabled: true,
-          label: 'Random Table',
-          items: const ['one', 'two'],
-          onChange: (value) {
-            setState(() {
-              pickerIndex = value;
-            });
-          },
-          selectedIndex: pickerIndex),
-    );
+    List<RandomTableEntry> randomTables = widget.appState.randomTables;
+    List<String> pickerOptions = [];
+
+    for (RandomTableEntry tableEntry in randomTables) {
+      pickerOptions.add(tableEntry.title);
+    }
+
+    if (pickerOptions.isEmpty) {
+      return const Text('No Random Tables');
+    } else if (pickerOptions.length == 1) {
+      return Text('Random Table: ${pickerOptions[0]}');
+    } else {
+      return Flexible(
+        child: LabelAndPicker(
+            enabled: true,
+            label: 'Random Table',
+            items: pickerOptions,
+            onChange: (value) {
+              setState(() {
+                pickerIndex = value;
+              });
+            },
+            selectedIndex: pickerIndex),
+      );
+    }
   }
 
   Widget addActionListLink() {
@@ -165,8 +178,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             ),
             const Divider(),
             const Gap(),
-
-            // MyReorderableListView(itemList: [], appState: appState, selectedId: '', onReorder: (){}, children: [Text('Child')])
             ...actionsList(),
             addNewEntryToolbar(),
             const Divider(),
