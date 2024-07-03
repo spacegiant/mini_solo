@@ -86,7 +86,7 @@ class ListButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: onPressed,
-      onLongPress: onLongPress,
+      onLongPress: onLongPress ?? () {},
       child: Container(
         decoration: BoxDecoration(
           color: buttonColor,
