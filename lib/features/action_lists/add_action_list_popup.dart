@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
@@ -9,13 +10,21 @@ import 'package:mini_solo/widgets/my_reorderable_item.dart';
 import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/label_and_switch.dart';
+import '../../widgets/my_reorderable_list_view.dart';
 import '../../widgets/popups/popup_layout.dart';
 import '../../widgets/popups/popup_layout_header.dart';
 import '../../widgets/toggle_active_block.dart';
 
+enum ActionType { label, list }
+
 class ActionListAction {
-  late String label;
-  late String link;
+  late ActionType type;
+  late String string;
+
+  ActionListAction({
+    required this.type,
+    required this.string,
+  });
 }
 
 class AddActionListPopup extends StatefulWidget {
@@ -114,7 +123,8 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('${entryTitle} ${entryIsActive.toString()}'),
+            Text(
+                '$entryTitle ${entryIsActive.toString()} ${_actionLabelController.value.text}'),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',
@@ -157,13 +167,25 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       const Text('Actions List'),
       const Gap(height: 6.0),
       Container(
-        height: 200.0,
-        color: CupertinoColors.white,
-        child: entryListOfActions.isEmpty
-            ? const Text('Add an Action')
-            : MyReorderableItem(
-                id: '', appState: widget.appState, label: 'label', index: 1),
-      )
+          height: 200.0,
+          color: CupertinoColors.white,
+          child: entryListOfActions.isEmpty
+              ? const Text('Add an Action')
+              : MyReorderableListView(
+                  itemList: entryListOfActions,
+                  appState: widget.appState,
+                  selectedId: '',
+                  onReorder: (oldIndex, newIndex, list) {},
+                  children: entryListOfActions
+                      .mapIndexed(
+                        (index, entry) =>
+                            Text(key: Key('action-$index'), entry.string),
+                      )
+                      .toList(),
+                )
+
+          // MyReorderableItem( id: '', appState: widget.appState, label: 'label', index: 1),
+          )
     ];
   }
 
@@ -175,6 +197,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             onPressed: () {
               setState(() {
                 isLink = true;
+                _actionLabelController.text = '';
               });
             }),
         CupertinoButton(
@@ -216,7 +239,17 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       padding: EdgeInsets.zero,
       color: kSubmitColor,
       child: const Icon(CupertinoIcons.add),
-      onPressed: () {},
+      onPressed: () {
+        if (_actionLabelController.value.text != '') {
+          entryListOfActions.add(ActionListAction(
+            string: _actionLabelController.value.text,
+            type: ActionType.label,
+          ));
+          setState(() {
+            _actionLabelController.text = '';
+          });
+        }
+      },
     );
   }
 }
