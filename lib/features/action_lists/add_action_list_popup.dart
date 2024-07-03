@@ -188,7 +188,14 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           height: 200.0,
           color: CupertinoColors.white,
           child: entryListOfActions.isEmpty
-              ? const Text('Add an Action')
+              ? const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Add an Action'),
+                    Gap(),
+                    Icon(CupertinoIcons.down_arrow),
+                  ],
+                )
               : MyReorderableListView(
                   itemList: entryListOfActions,
                   appState: widget.appState,
