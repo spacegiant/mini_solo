@@ -58,7 +58,7 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
               children: [
                 if (widget.icon != null) ...[
                   Icon(widget.icon),
-                  Gap(),
+                  const Gap(),
                 ],
                 Expanded(child: Text(widget.label)),
                 Row(

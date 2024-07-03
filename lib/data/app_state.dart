@@ -690,7 +690,7 @@ class AppState extends ChangeNotifier {
 
   void deleteActionList(String id) {
     removeFromAllGroups(controlId: id);
-    _appSettingsData!.actionLists.removeWhere((entry) => entry.id == id);
+    _appSettingsData.actionLists.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
   }
 
