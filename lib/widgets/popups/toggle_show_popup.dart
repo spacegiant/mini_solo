@@ -4,7 +4,7 @@ void toggleShowPopup2({
   required Widget child,
   required BuildContext context,
   double maxWidth = 240.0,
-  double maxHeight = 170.0,
+  double maxHeight = 180.0,
 }) {
   showCupertinoModalPopup(
     context: context,
