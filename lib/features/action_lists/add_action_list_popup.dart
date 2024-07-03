@@ -171,8 +171,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-                '$entryTitle ${entryIsActive.toString()} ${_actionLabelController.value.text} $actionTableEntryId'),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',

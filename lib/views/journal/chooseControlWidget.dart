@@ -284,7 +284,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 600.0,
-              maxHeight: 800.0,
+              maxHeight: 820.0,
               child: AddTrackerPopup(appState: appState),
               context: context);
         },
@@ -317,7 +317,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 220.0,
+            maxHeight: 240.0,
             child: AddGroupPopup(appState: appState),
             context: context,
           );
@@ -334,7 +334,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 400.0,
-              maxHeight: 300.0,
+              maxHeight: 320.0,
               child: AddKardPopup(
                 appState: appState,
               ),
