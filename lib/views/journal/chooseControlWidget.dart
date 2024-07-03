@@ -224,7 +224,17 @@ Widget chooseControlWidget({
         onPressed: () {
           print('ACTION LIST');
         },
-        onLongPress: () {},
+        onLongPress: () {
+          toggleShowPopup2(
+            maxWidth: 400.0,
+            maxHeight: 800.0,
+            child: AddActionListPopup(
+              appState: appState,
+              id: controlData.controlId,
+            ),
+            context: context,
+          );
+        },
       );
     case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
@@ -356,13 +366,15 @@ Widget chooseControlWidget({
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
-              maxWidth: 400.0,
-              maxHeight: 800.0,
-              child: AddActionListPopup(
-                appState: appState,
-              ),
-              context: context);
+            maxWidth: 400.0,
+            maxHeight: 800.0,
+            child: AddActionListPopup(
+              appState: appState,
+            ),
+            context: context,
+          );
         },
+        onLongPress: () {},
       );
     // return ListButton(
     //   color: buttonColor,

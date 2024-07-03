@@ -149,6 +149,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     List<RandomTableEntry> randomTables = widget.appState.randomTables;
     List<ActionListEntry> actionListEntries =
         widget.appState.appSettingsData.actionLists;
+
     entryTitle = '';
     entryIsActive = true;
     bool canSubmit() {
