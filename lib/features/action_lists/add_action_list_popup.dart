@@ -56,6 +56,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late String entryTitle;
   late bool entryIsActive;
   List<ActionListAction> entryListOfActions = [];
+  String? randomTableEntryId;
 
   @override
   void initState() {
@@ -90,8 +91,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     );
   }
 
-  Widget addRandomTableLink() {
-    List<RandomTableEntry> randomTables = widget.appState.randomTables;
+  Widget addRandomTableLink(List<RandomTableEntry> randomTables) {
     List<String> pickerOptions = [];
 
     for (RandomTableEntry tableEntry in randomTables) {
@@ -110,6 +110,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             items: pickerOptions,
             onChange: (value) {
               setState(() {
+                if (value != null) randomTableEntryId = randomTables[value].id;
                 pickerIndex = value;
               });
             },
@@ -137,16 +138,16 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
   @override
   Widget build(BuildContext context) {
+    List<RandomTableEntry> randomTables = widget.appState.randomTables;
     bool canSubmit() {
       return actionEditorType != null;
       // return isRandomTableLink == null && _labelController.value.text != '';
     }
 
-    bool canAddNewAction =
-        pickerIndex != null || _actionLabelController.value.text.trim() != '';
+    bool canAddNewAction = randomTableEntryId != null ||
+        _actionLabelController.value.text.trim() != '';
 
     return PopupLayout(
-        // TODO add sparkle icon here
         header: const PopupLayoutHeader(
           label: 'Add Action List',
           icon: CupertinoIcons.sparkles,
@@ -155,7 +156,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-                '$entryTitle ${entryIsActive.toString()} ${_actionLabelController.value.text}'),
+                '$entryTitle ${entryIsActive.toString()} ${_actionLabelController.value.text} $randomTableEntryId'),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',
@@ -178,10 +179,92 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             ),
             const Divider(),
             const Gap(),
-            ...actionsList(),
-            addNewEntryToolbar(),
+            const Text('Actions List'),
+            const Gap(height: 6.0),
+            Container(
+                height: 200.0,
+                color: CupertinoColors.white,
+                child: entryListOfActions.isEmpty
+                    ? const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Add an Action'),
+                          Gap(),
+                          Icon(CupertinoIcons.down_arrow),
+                        ],
+                      )
+                    : MyReorderableListView(
+                        itemList: entryListOfActions,
+                        appState: widget.appState,
+                        selectedId: '',
+                        onReorder: (oldIndex, newIndex, list) {},
+                        children: entryListOfActions
+                            .mapIndexed((index, entry) => MyReorderableItem(
+                                  icon: typeIcons[entry.type],
+                                  key: Key('action-$index'),
+                                  id: 'action-$index',
+                                  appState: widget.appState,
+                                  label: handleString(
+                                    widget.appState,
+                                    entry.string,
+                                    entry.type,
+                                  ),
+                                  index: index,
+                                  handleToggleActive: (value) {},
+                                ))
+                            .toList(),
+                      )),
+            Row(
+              children: [
+                const Text('Add: '),
+                CupertinoButton(
+                    child: const Text('Label'),
+                    onPressed: () {
+                      setState(() {
+                        actionEditorType = ActionEditorType.label;
+                      });
+                    }),
+                CupertinoButton(
+                    child: const Text('Random Table'),
+                    onPressed: () {
+                      setState(() {
+                        randomTableEntryId = randomTables[0].id;
+                        actionEditorType = ActionEditorType.randomTable;
+                        _actionLabelController.text = '';
+                      });
+                    }),
+                CupertinoButton(
+                    child: const Text('Action'),
+                    onPressed: () {
+                      setState(() {
+                        actionEditorType = ActionEditorType.actionList;
+                        _actionLabelController.text = '';
+                      });
+                    }),
+              ],
+            ),
             const Divider(),
-            editBlock(actionEditorType, canAddNewAction),
+            ToggleActiveBlock(
+              isActive: actionEditorType != null,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (actionEditorType == ActionEditorType.randomTable)
+                    addRandomTableLink(randomTables),
+                  if (actionEditorType == ActionEditorType.label) addLabel(),
+                  if (actionEditorType == ActionEditorType.actionList)
+                    addActionListLink(),
+                  ...[
+                    const Gap(),
+                    ToggleActiveBlock(
+                      isActive: canAddNewAction,
+                      child: submitActionListButton(),
+                    )
+                  ]
+                ],
+              ),
+            )
           ],
         ),
         footer: CupertinoButton(
@@ -191,98 +274,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         ));
   }
 
-  List<Widget> actionsList() {
-    return [
-      const Text('Actions List'),
-      const Gap(height: 6.0),
-      Container(
-          height: 200.0,
-          color: CupertinoColors.white,
-          child: entryListOfActions.isEmpty
-              ? const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Add an Action'),
-                    Gap(),
-                    Icon(CupertinoIcons.down_arrow),
-                  ],
-                )
-              : MyReorderableListView(
-                  itemList: entryListOfActions,
-                  appState: widget.appState,
-                  selectedId: '',
-                  onReorder: (oldIndex, newIndex, list) {},
-                  children: entryListOfActions
-                      .mapIndexed((index, entry) => MyReorderableItem(
-                            icon: typeIcons[entry.type],
-                            key: Key('action-$index'),
-                            id: 'action-$index',
-                            appState: widget.appState,
-                            label: entry.string,
-                            index: index,
-                            handleToggleActive: (value) {},
-                          ))
-                      .toList(),
-                )
-
-          // MyReorderableItem( id: '', appState: widget.appState, label: 'label', index: 1),
-          )
-    ];
-  }
-
-  Row addNewEntryToolbar() {
-    return Row(
-      children: [
-        const Text('Add: '),
-        CupertinoButton(
-            child: const Text('Label'),
-            onPressed: () {
-              setState(() {
-                actionEditorType = ActionEditorType.label;
-              });
-            }),
-        CupertinoButton(
-            child: const Text('Random Table'),
-            onPressed: () {
-              setState(() {
-                actionEditorType = ActionEditorType.randomTable;
-                _actionLabelController.text = '';
-              });
-            }),
-        CupertinoButton(
-            child: const Text('Action'),
-            onPressed: () {
-              setState(() {
-                actionEditorType = ActionEditorType.actionList;
-                _actionLabelController.text = '';
-              });
-            }),
-      ],
-    );
-  }
-
-  ToggleActiveBlock editBlock(ActionEditorType? type, bool canAddNewAction) {
-    return ToggleActiveBlock(
-      isActive: type != null,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (type == ActionEditorType.randomTable) addRandomTableLink(),
-          if (type == ActionEditorType.label) addLabel(),
-          if (type == ActionEditorType.actionList) addActionListLink(),
-          ...[
-            const Gap(),
-            ToggleActiveBlock(
-              isActive: canAddNewAction,
-              child: submitActionListButton(),
-            )
-          ]
-        ],
-      ),
-    );
-  }
-
   CupertinoButton submitActionListButton() {
     return CupertinoButton(
       minSize: 44.0,
@@ -290,16 +281,45 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       color: kSubmitColor,
       child: const Icon(CupertinoIcons.add),
       onPressed: () {
+        ActionEditorType type = ActionEditorType.label;
+        String string = '';
+
         if (_actionLabelController.value.text != '') {
-          entryListOfActions.add(ActionListAction(
-            string: _actionLabelController.value.text,
-            type: actionEditorType!,
-          ));
-          setState(() {
-            _actionLabelController.text = '';
-          });
+          string = _actionLabelController.value.text;
+          type = ActionEditorType.label;
+        } else if (actionEditorType! == ActionEditorType.randomTable &&
+            randomTableEntryId != null &&
+            randomTableEntryId != '') {
+          if (randomTableEntryId != null) string = randomTableEntryId!;
+          type = ActionEditorType.randomTable;
+        } else if (actionEditorType! == ActionEditorType.actionList) {
+          print('ACTION LIST');
         }
+
+        if (type == null || string == '') return;
+
+        setState(() {
+          entryListOfActions.add(ActionListAction(
+            type: type,
+            string: string,
+          ));
+          // CLEAR ALL
+          _actionLabelController.text = '';
+          actionEditorType = ActionEditorType.label;
+        });
       },
     );
+  }
+
+  handleString(AppState appState, String string, ActionEditorType type) {
+    if (type == ActionEditorType.randomTable) {
+      return appState.randomTables
+          .firstWhere((table) => table.id == string)
+          .title;
+    } else if (type == ActionEditorType.actionList) {
+      return string;
+    } else {
+      return string;
+    }
   }
 }
