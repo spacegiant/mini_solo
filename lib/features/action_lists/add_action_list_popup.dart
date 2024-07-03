@@ -177,10 +177,14 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                   selectedId: '',
                   onReorder: (oldIndex, newIndex, list) {},
                   children: entryListOfActions
-                      .mapIndexed(
-                        (index, entry) =>
-                            Text(key: Key('action-$index'), entry.string),
-                      )
+                      .mapIndexed((index, entry) => MyReorderableItem(
+                            key: Key('action-$index'),
+                            id: 'action-$index',
+                            appState: widget.appState,
+                            label: entry.string,
+                            index: index,
+                            handleToggleActive: (value) {},
+                          ))
                       .toList(),
                 )
 

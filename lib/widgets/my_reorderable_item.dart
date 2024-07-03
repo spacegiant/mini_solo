@@ -5,7 +5,7 @@ import '../data/app_state.dart';
 
 class MyReorderableItem extends StatefulWidget {
   const MyReorderableItem({
-    super.key,
+    required super.key,
     required this.id,
     required this.appState,
     required this.label,
