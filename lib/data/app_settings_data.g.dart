@@ -15,7 +15,7 @@ AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
       expandedList: (json['expandedList'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      actionList: (json['actionList'] as List<dynamic>)
+      actionLists: (json['actionLists'] as List<dynamic>)
           .map((e) => ActionListEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -25,7 +25,7 @@ Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
       'currentCampaign': instance.currentCampaign,
       'randomTables': instance.randomTables.map((e) => e.toJson()).toList(),
       'expandedList': instance.expandedList,
-      'actionList': instance.actionList.map((e) => e.toJson()).toList(),
+      'actionLists': instance.actionLists.map((e) => e.toJson()).toList(),
     };
 
 RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
@@ -74,6 +74,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.rollTableResults: 'rollTableResults',
   JournalEntryTypes.tracker: 'tracker',
   JournalEntryTypes.kard: 'kard',
+  JournalEntryTypes.actionList: 'actionList',
 };
 
 RandomTableRow _$RandomTableRowFromJson(Map<String, dynamic> json) =>
@@ -153,11 +154,17 @@ Map<String, dynamic> _$ActionListEntryToJson(ActionListEntry instance) =>
     };
 
 ActionRow _$ActionRowFromJson(Map<String, dynamic> json) => ActionRow(
-      label: json['label'] as String,
-      otherEntryId: json['otherEntryId'] as String?,
+      type: $enumDecode(_$ActionEditorTypeEnumMap, json['type']),
+      string: json['string'] as String,
     );
 
 Map<String, dynamic> _$ActionRowToJson(ActionRow instance) => <String, dynamic>{
-      'label': instance.label,
-      'otherEntryId': instance.otherEntryId,
+      'type': _$ActionEditorTypeEnumMap[instance.type]!,
+      'string': instance.string,
     };
+
+const _$ActionEditorTypeEnumMap = {
+  ActionEditorType.label: 'label',
+  ActionEditorType.randomTable: 'randomTable',
+  ActionEditorType.actionList: 'actionList',
+};

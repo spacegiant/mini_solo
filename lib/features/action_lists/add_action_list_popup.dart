@@ -23,16 +23,6 @@ Map<ActionEditorType, IconData> typeIcons = {
   ActionEditorType.actionList: CupertinoIcons.ant,
 };
 
-class ActionListAction {
-  late ActionEditorType type;
-  late String string;
-
-  ActionListAction({
-    required this.type,
-    required this.string,
-  });
-}
-
 class AddActionListPopup extends StatefulWidget {
   const AddActionListPopup({
     super.key,
@@ -55,8 +45,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   int? pickerIndex;
   late String entryTitle;
   late bool entryIsActive;
-  List<ActionListAction> entryListOfActions = [];
+  List<ActionRow> entryListOfActions = [];
   String? randomTableEntryId;
+  String? actionTableEntryId;
 
   @override
   void initState() {
@@ -119,26 +110,49 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     }
   }
 
-  Widget addActionListLink() {
-    return Flexible(
-      child: LabelAndPicker(
-          enabled: true,
-          label: 'Action',
-          items: const ['one', 'two'],
-          onChange: (value) {
-            setState(() {
-              pickerIndex = value;
-            });
-          },
-          selectedIndex: pickerIndex),
-    );
+  Widget addActionListLink(List<ActionListEntry> actionEntries) {
+    List<String> pickerOptions = [];
+
+    for (ActionListEntry actionListEntry in actionEntries) {
+      pickerOptions.add(actionListEntry.title);
+    }
+
+    if (pickerOptions.isEmpty) {
+      return const Text('No Action Lists');
+    } else if (pickerOptions.length == 1) {
+      return Text('Action Table: ${pickerOptions[0]}');
+    } else {
+      return Flexible(
+        child: LabelAndPicker(
+            enabled: true,
+            label: 'Action',
+            items: pickerOptions,
+            onChange: (value) {
+              setState(() {
+                if (value != null) actionTableEntryId = actionEntries[value].id;
+                pickerIndex = value;
+              });
+            },
+            selectedIndex: pickerIndex),
+      );
+    }
   }
 
-  void handleSubmit() {}
+  void handleSubmit() {
+    widget.appState.addActionListsEntry(
+      ActionListEntry(
+          title: _labelController.value.text,
+          list: entryListOfActions,
+          isActive: true,
+          isHidden: false),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     List<RandomTableEntry> randomTables = widget.appState.randomTables;
+    List<ActionListEntry> actionListEntries =
+        widget.appState.appSettingsData.actionLists;
     bool canSubmit() {
       bool hasTitle = _labelController.value.text != '';
       bool actionListHasItems = entryListOfActions.isNotEmpty;
@@ -158,7 +172,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-                '$entryTitle ${entryIsActive.toString()} ${_actionLabelController.value.text} $randomTableEntryId'),
+                '$entryTitle ${entryIsActive.toString()} ${_actionLabelController.value.text} $actionTableEntryId'),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',
@@ -239,6 +253,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                     child: const Text('Action'),
                     onPressed: () {
                       setState(() {
+                        if (actionListEntries.isNotEmpty) {
+                          actionTableEntryId = actionListEntries[0].id;
+                        }
                         actionEditorType = ActionEditorType.actionList;
                         _actionLabelController.text = '';
                       });
@@ -256,7 +273,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                     addRandomTableLink(randomTables),
                   if (actionEditorType == ActionEditorType.label) addLabel(),
                   if (actionEditorType == ActionEditorType.actionList)
-                    addActionListLink(),
+                    addActionListLink(actionListEntries),
                   ...[
                     const Gap(),
                     ToggleActiveBlock(
@@ -294,14 +311,17 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             randomTableEntryId != '') {
           if (randomTableEntryId != null) string = randomTableEntryId!;
           type = ActionEditorType.randomTable;
-        } else if (actionEditorType! == ActionEditorType.actionList) {
-          print('ACTION LIST');
+        } else if (actionEditorType! == ActionEditorType.actionList &&
+            actionTableEntryId != null &&
+            actionTableEntryId != '') {
+          if (actionTableEntryId != null) string = actionTableEntryId!;
+          type = ActionEditorType.actionList;
         }
 
-        if (type == null || string == '') return;
+        if (string == '') return;
 
         setState(() {
-          entryListOfActions.add(ActionListAction(
+          entryListOfActions.add(ActionRow(
             type: type,
             string: string,
           ));

@@ -679,6 +679,15 @@ class AppState extends ChangeNotifier {
     // notifyListeners();
   }
 
+  // ACTION LIST ENTRIES
+
+  List<ActionListEntry> get actionLists => _appSettingsData.actionLists;
+
+  void addActionListsEntry(ActionListEntry entry) {
+    _appSettingsData.actionLists.add(entry);
+    saveAppSettingsDataToDisk();
+  }
+
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../features/action_lists/add_action_list_popup.dart';
 import 'campaign_data.dart';
 import 'campaign_item.dart';
 
@@ -10,7 +11,7 @@ AppSettingsData initAppSettingsData() {
     currentCampaign: '',
     randomTables: [],
     expandedList: [],
-    actionList: [],
+    actionLists: [],
   );
 }
 
@@ -20,13 +21,13 @@ class AppSettingsData {
   // TODO: Rename to RandomTables?
   late List<RandomTableEntry> randomTables;
   late List<String> expandedList;
-  late List<ActionListEntry> actionList;
+  late List<ActionListEntry> actionLists;
 
   AppSettingsData({
     required this.currentCampaign,
     required this.randomTables,
     required this.expandedList,
-    required this.actionList,
+    required this.actionLists,
   });
 
   // coverage:ignore-start
@@ -153,18 +154,18 @@ class ActionListEntry extends CampaignItem {
   Map<String, dynamic> toJson() => _$ActionListEntryToJson(this);
 
   @override
-  JournalEntryTypes type = JournalEntryTypes.randomTable;
+  JournalEntryTypes type = JournalEntryTypes.actionList;
 // coverage:ignore-end
 }
 
 @JsonSerializable(explicitToJson: true)
 class ActionRow {
-  late String label;
-  late String? otherEntryId;
+  late ActionEditorType type;
+  late String string;
 
   ActionRow({
-    required this.label,
-    this.otherEntryId,
+    required this.type,
+    required this.string,
   });
 
   // coverage:ignore-start

@@ -93,6 +93,7 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.rollTableResults: 'rollTableResults',
   JournalEntryTypes.tracker: 'tracker',
   JournalEntryTypes.kard: 'kard',
+  JournalEntryTypes.actionList: 'actionList',
 };
 
 CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
@@ -695,6 +696,8 @@ const _$ControlTypeEnumEnumMap = {
   ControlTypeEnum.statBlock: 'statBlock',
   ControlTypeEnum.kard: 'kard',
   ControlTypeEnum.newCard: 'newCard',
+  ControlTypeEnum.newActionList: 'newActionList',
+  ControlTypeEnum.actionList: 'actionList',
 };
 
 NewSceneEntry _$NewSceneEntryFromJson(Map<String, dynamic> json) =>

@@ -54,6 +54,7 @@ enum JournalEntryTypes {
   rollTableResults,
   tracker,
   kard,
+  actionList,
 }
 
 class EntryTypeData {
@@ -136,6 +137,10 @@ Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {
   JournalEntryTypes.tracker: EntryTypeData(
     identifier: 'tracker',
     label: 'Tracker',
+  ),
+  JournalEntryTypes.actionList: EntryTypeData(
+    identifier: 'actionList',
+    label: 'Action List',
   ),
 };
 

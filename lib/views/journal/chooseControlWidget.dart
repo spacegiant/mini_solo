@@ -66,6 +66,7 @@ enum ControlTypeEnum {
   kard,
   newCard,
   newActionList,
+  actionList,
 }
 
 Widget chooseControlWidget({
@@ -214,6 +215,14 @@ Widget chooseControlWidget({
               ),
               context: context);
         },
+      );
+    case ControlTypeEnum.actionList:
+      return ListButton(
+        color: buttonColor,
+        label: controlData.label,
+        iconData: FontAwesomeIcons.robot,
+        onPressed: () {},
+        onLongPress: () {},
       );
     case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
