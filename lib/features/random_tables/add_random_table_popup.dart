@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../grouping/group-picker.dart';
@@ -111,7 +112,6 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
       );
     }
 
-
     Widget footer() {
       return Row(
         children: [
@@ -156,7 +156,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
     }
 
     return PopupLayout(
-      header: const Text(kRandomTablePopupTitle),
+      header: const PopupLayoutHeader(label: kRandomTablePopupTitle),
       body: body(),
       footer: footer(),
     );

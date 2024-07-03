@@ -9,6 +9,7 @@ import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/label_and_switch.dart';
 import '../../widgets/popups/popup_layout.dart';
+import '../../widgets/popups/popup_layout_header.dart';
 import '../../widgets/toggle_active_block.dart';
 
 class ActionListAction {
@@ -101,12 +102,13 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
     return PopupLayout(
         // TODO add sparkle icon here
-        header: const Text('Add Action List'),
+        header: const PopupLayoutHeader(
+          label: 'Add Action List',
+          icon: CupertinoIcons.sparkles,
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(_labelController.value.text),
-            Text(canAddNewAction.toString()),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',
@@ -124,53 +126,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             ),
             const Divider(),
             const Gap(),
-            const Text('Actions List'),
-            const Gap(height: 6.0),
-            // MyReorderableListView(itemList: [], appState: appState, selectedId: '', onReorder: (){}, children: [Text('Child')])
-            Container(
-              height: 200.0,
-              color: CupertinoColors.white,
-              child: MyReorderableItem(
-                  id: '', appState: widget.appState, label: 'label', index: 1),
-            ),
-            Row(
-              children: [
-                CupertinoButton(
-                    child: const Text('Add Link'),
-                    onPressed: () {
-                      setState(() {
-                        isLink = true;
-                      });
-                    }),
-                CupertinoButton(
-                    child: const Text('Add Label'),
-                    onPressed: () {
-                      setState(() {
-                        isLink = false;
-                      });
-                    }),
-              ],
-            ),
-            const Divider(),
 
-            ToggleActiveBlock(
-              isActive: isLink != null,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (displayLink) addLink(),
-                  if (displayLabel) addLabel(),
-                  ...[
-                    const Gap(),
-                    ToggleActiveBlock(
-                      isActive: canAddNewAction,
-                      child: submitActionListButton(),
-                    )
-                  ]
-                ],
-              ),
-            ),
+            // MyReorderableListView(itemList: [], appState: appState, selectedId: '', onReorder: (){}, children: [Text('Child')])
+            ...actionsList(),
+            addNewEntryToolbar(),
+            const Divider(),
+            editBlock(displayLink, displayLabel, canAddNewAction),
           ],
         ),
         footer: CupertinoButton(
@@ -178,6 +139,62 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           onPressed: canSubmit() ? handleSubmit : null,
           child: const Text('Add'),
         ));
+  }
+
+  List<Widget> actionsList() {
+    return [
+      const Text('Actions List'),
+      const Gap(height: 6.0),
+      Container(
+        height: 200.0,
+        color: CupertinoColors.white,
+        child: MyReorderableItem(
+            id: '', appState: widget.appState, label: 'label', index: 1),
+      )
+    ];
+  }
+
+  Row addNewEntryToolbar() {
+    return Row(
+      children: [
+        CupertinoButton(
+            child: const Text('Add Link'),
+            onPressed: () {
+              setState(() {
+                isLink = true;
+              });
+            }),
+        CupertinoButton(
+            child: const Text('Add Label'),
+            onPressed: () {
+              setState(() {
+                isLink = false;
+              });
+            }),
+      ],
+    );
+  }
+
+  ToggleActiveBlock editBlock(
+      bool displayLink, bool displayLabel, bool canAddNewAction) {
+    return ToggleActiveBlock(
+      isActive: isLink != null,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (displayLink) addLink(),
+          if (displayLabel) addLabel(),
+          ...[
+            const Gap(),
+            ToggleActiveBlock(
+              isActive: canAddNewAction,
+              child: submitActionListButton(),
+            )
+          ]
+        ],
+      ),
+    );
   }
 
   CupertinoButton submitActionListButton() {

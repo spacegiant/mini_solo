@@ -4,6 +4,7 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
@@ -171,7 +172,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
     }
 
     return PopupLayout(
-      header: const Text('Add Tracker'),
+      header: const PopupLayoutHeader(label: 'Add Tracker'),
       body: body(),
       footer: buttonBar(),
     );

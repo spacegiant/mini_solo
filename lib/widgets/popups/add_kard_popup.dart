@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../../features/kard/kard.dart';
@@ -38,7 +39,7 @@ class _AddKardPopupState extends State<AddKardPopup> {
   @override
   Widget build(BuildContext context) {
     return PopupLayout(
-        header: const Text('Add Card'),
+        header: const PopupLayoutHeader(label: 'Add Card'),
         body: Column(
           children: [
             CupertinoTextField(

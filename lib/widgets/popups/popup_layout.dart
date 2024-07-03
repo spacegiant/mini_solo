@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../gap.dart';
+
 class PopupLayout extends StatelessWidget {
   const PopupLayout({
     super.key,
@@ -24,6 +26,7 @@ class PopupLayout extends StatelessWidget {
             ),
             child: header),
         const Divider(),
+        const Gap(),
         if (body != null) ...[
           body ?? const SizedBox.shrink(),
           const Divider(),

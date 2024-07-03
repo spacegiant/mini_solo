@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import '../../data/app_state.dart';
 import '../../data/note_entry_item.dart';
 import '../gap.dart';
@@ -46,7 +47,7 @@ class _EditNotePopupState extends State<EditNotePopup> {
     }
 
     return PopupLayout(
-      header: const Text('Edit Note Entry'),
+      header: const PopupLayoutHeader(label: 'Edit Note Entry'),
       body: CupertinoTextField(
         key: _key,
         controller: _controller,

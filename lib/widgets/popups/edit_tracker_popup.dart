@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../constants.dart';
@@ -106,7 +107,9 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
     }
 
     return PopupLayout(
-      header: Text('Edit \'${_trackerNameController.value.text}\' Tracker'),
+      header: PopupLayoutHeader(
+        label: 'Edit \'${_trackerNameController.value.text}\' Tracker',
+      ),
       body: body(),
       footer: buttonBar(),
     );

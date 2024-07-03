@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 
@@ -29,7 +30,7 @@ class _EditDiceGroupPopupState extends State<EditDiceGroupPopup> {
   @override
   Widget build(BuildContext context) {
     return PopupLayout(
-        header: const Text('Edit Dice Group'),
+        header: const PopupLayoutHeader(label: 'Edit Dice Group'),
         body: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

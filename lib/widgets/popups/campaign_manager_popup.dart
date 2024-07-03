@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -33,7 +34,7 @@ class _CampaignManagerState extends State<CampaignManager> {
           AsyncSnapshot snapshot,
         ) {
           return PopupLayout(
-            header: const Text(kCampaignManagerTitle),
+            header: const PopupLayoutHeader(label: kCampaignManagerTitle),
             body: SizedBox(
               width: 400.0,
               child: Column(

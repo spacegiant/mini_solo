@@ -4,6 +4,7 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../gap.dart';
@@ -108,7 +109,7 @@ class _ImportManagerState extends State<ImportManager> {
     }
 
     return PopupLayout(
-      header: const Text('Import Data'),
+      header: const PopupLayoutHeader(label: 'Import Data'),
       body: body(),
       footer: CupertinoButton(
           color: kSubmitColor,

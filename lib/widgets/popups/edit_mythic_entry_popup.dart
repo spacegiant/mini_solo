@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -25,7 +26,7 @@ class _EditMythicEntryPopupState extends State<EditMythicEntryPopup> {
     BuildContext context,
   ) {
     return PopupLayout(
-        header: const Text(kPopupDeleteEntryLabel),
+        header: const PopupLayoutHeader(label: kPopupDeleteEntryLabel),
         footer: CupertinoButton(
           color: CupertinoColors.destructiveRed,
           onPressed: () {

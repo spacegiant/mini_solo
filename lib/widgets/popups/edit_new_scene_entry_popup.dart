@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../gap.dart';
@@ -48,7 +49,7 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
     }
 
     return PopupLayout(
-      header: const Text('Edit Scene Marker'),
+      header: const PopupLayoutHeader(label: 'Edit Scene Marker'),
       body: CupertinoTextField(controller: _controller),
       footer: Column(
         children: [

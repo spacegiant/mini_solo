@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -34,7 +35,7 @@ class _EditKardPopupState extends State<EditKardPopup> {
   @override
   Widget build(BuildContext context) {
     return PopupLayout(
-      header: const Text('Edit Card'),
+      header: const PopupLayoutHeader(label: 'Edit Card'),
       body: Column(children: [
         GroupPicker(
           onChange: (string) {

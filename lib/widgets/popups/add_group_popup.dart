@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 import 'package:mini_solo/utilities/id_generator.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import '../../data/app_state.dart';
 
 class AddGroupPopup extends StatefulWidget {
@@ -34,7 +35,7 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
   @override
   Widget build(BuildContext context) {
     return PopupLayout(
-        header: const Text('Add Group'),
+        header: const PopupLayoutHeader(label: 'Add Group'),
         body: CupertinoTextField(
           controller: _controller,
         ),

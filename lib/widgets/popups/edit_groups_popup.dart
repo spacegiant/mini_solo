@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
@@ -70,7 +71,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
         .toList();
 
     return PopupLayout(
-      header: const Text('Edit Groups'),
+      header: const PopupLayoutHeader(label: 'Edit Groups'),
       body: Column(
         children: [
           ConstrainedBox(
