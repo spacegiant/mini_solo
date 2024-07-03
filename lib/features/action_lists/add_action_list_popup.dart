@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/label_and_picker.dart';
 import 'package:mini_solo/widgets/my_reorderable_item.dart';
@@ -36,8 +37,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late TextEditingController _actionLabelController;
   late String? selectedId;
   bool? isLink;
-  List<ActionListAction> listOfActions = [];
   int? pickerIndex;
+  late String entryTitle;
+  late bool entryIsActive;
+  List<ActionListAction> entryListOfActions = [];
 
   @override
   void initState() {
@@ -46,6 +49,8 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     _labelController = TextEditingController(text: '');
     _actionLabelController = TextEditingController(text: '');
     isLink;
+    entryTitle = '';
+    entryIsActive = true;
   }
 
   @override
@@ -109,6 +114,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text('${entryTitle} ${entryIsActive.toString()}'),
             LabelAndInput(
                 autoFocus: true,
                 label: 'Action List Label',
@@ -116,13 +122,18 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 onChanged: (value) {
                   setState(() {
                     _labelController.text = value;
+                    entryTitle = value;
                   });
                 }),
             const Gap(),
             LabelAndSwitch(
               label: 'Active?',
-              onChanged: (value) {},
-              switchValue: true,
+              onChanged: (value) {
+                setState(() {
+                  entryIsActive = !entryIsActive;
+                });
+              },
+              switchValue: entryIsActive,
             ),
             const Divider(),
             const Gap(),
