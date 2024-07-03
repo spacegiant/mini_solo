@@ -9,6 +9,7 @@ import 'control_data.dart';
 List<ControlData> getControlData(AppState appState) {
   List<ControlData> trackersData = [];
   List<ControlData> randomTableControlData = [];
+  List<ControlData> actionListControlData = [];
   List<ControlData> kardControlData = [];
 
   for (Kard kard in appState.campaignData!.kards) {
@@ -44,11 +45,25 @@ List<ControlData> getControlData(AppState appState) {
     }
   }
 
+  for (ActionListEntry actionList in appState.appSettingsData.actionLists) {
+    if (actionList.isHidden == false) {
+      actionListControlData.add(
+        ControlData(
+          controlId: actionList.id,
+          label: actionList.title,
+          controlType: ControlTypeEnum.actionList,
+          actionList: actionList,
+        ),
+      );
+    }
+  }
+
   List<ControlData> controlData = [
     ...trackersData,
     ...mythicFateChartControls2(appState),
     ...mythicGMEControls(appState),
     ...randomTableControlData,
+    ...actionListControlData,
     ...initialNewItemControls,
   ];
 
