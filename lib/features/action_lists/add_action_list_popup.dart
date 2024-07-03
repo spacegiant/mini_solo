@@ -140,7 +140,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   Widget build(BuildContext context) {
     List<RandomTableEntry> randomTables = widget.appState.randomTables;
     bool canSubmit() {
-      return actionEditorType != null;
+      bool hasTitle = _labelController.value.text != '';
+      bool actionListHasItems = entryListOfActions.isNotEmpty;
+      return hasTitle && actionListHasItems;
       // return isRandomTableLink == null && _labelController.value.text != '';
     }
 
