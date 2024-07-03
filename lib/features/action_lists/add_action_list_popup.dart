@@ -296,7 +296,8 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
               onPressed: canSubmit() ? handleSubmit : null,
               child: const Text('Add'),
             ),
-            if (entry != null)
+            if (entry != null) ...[
+              const Gap(),
               CupertinoButton(
                 color: kWarningColor,
                 onPressed: () {
@@ -305,6 +306,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 },
                 child: const Text('Delete'),
               ),
+            ]
           ],
         ));
   }

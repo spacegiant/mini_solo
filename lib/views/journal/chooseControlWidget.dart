@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
@@ -220,7 +221,8 @@ Widget chooseControlWidget({
       return ListButton(
         color: buttonColor,
         label: controlData.label,
-        iconData: FontAwesomeIcons.robot,
+        // iconData: CupertinoIcons.rocket,
+        iconData: CupertinoIcons.rocket_fill,
         onPressed: () {
           print('ACTION LIST');
         },

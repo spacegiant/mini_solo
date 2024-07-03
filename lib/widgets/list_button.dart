@@ -50,7 +50,7 @@ class ListButton extends StatelessWidget {
           Icon(
             iconData,
             color: buttonTextColor,
-            size: 20.0,
+            size: 16.0,
           ),
           const Gap(),
           ConstrainedBox(
