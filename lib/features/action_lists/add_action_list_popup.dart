@@ -15,12 +15,16 @@ import '../../widgets/popups/popup_layout.dart';
 import '../../widgets/popups/popup_layout_header.dart';
 import '../../widgets/toggle_active_block.dart';
 
-enum ActionType { label, list }
-
 enum ActionEditorType { label, randomTable, actionList }
 
+Map<ActionEditorType, IconData> typeIcons = {
+  ActionEditorType.label: CupertinoIcons.add,
+  ActionEditorType.randomTable: CupertinoIcons.alarm,
+  ActionEditorType.actionList: CupertinoIcons.ant,
+};
+
 class ActionListAction {
-  late ActionType type;
+  late ActionEditorType type;
   late String string;
 
   ActionListAction({
@@ -192,6 +196,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                   onReorder: (oldIndex, newIndex, list) {},
                   children: entryListOfActions
                       .mapIndexed((index, entry) => MyReorderableItem(
+                            icon: typeIcons[entry.type],
                             key: Key('action-$index'),
                             id: 'action-$index',
                             appState: widget.appState,
@@ -270,7 +275,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         if (_actionLabelController.value.text != '') {
           entryListOfActions.add(ActionListAction(
             string: _actionLabelController.value.text,
-            type: ActionType.label,
+            type: actionEditorType!,
           ));
           setState(() {
             _actionLabelController.text = '';
