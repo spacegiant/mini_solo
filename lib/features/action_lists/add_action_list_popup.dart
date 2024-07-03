@@ -51,23 +51,19 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _labelController = TextEditingController(text: '');
     _actionLabelController = TextEditingController(text: '');
-    entryTitle = '';
-    entryIsActive = true;
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _labelController.dispose();
     _actionLabelController.dispose();
   }
 
-  Widget addLabel() {
+  Widget addLabelForm() {
     return Flexible(
       child: LabelAndInput(
         axis: Axis.horizontal,
@@ -153,11 +149,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     List<RandomTableEntry> randomTables = widget.appState.randomTables;
     List<ActionListEntry> actionListEntries =
         widget.appState.appSettingsData.actionLists;
+    entryTitle = '';
+    entryIsActive = true;
     bool canSubmit() {
       bool hasTitle = _labelController.value.text != '';
       bool actionListHasItems = entryListOfActions.isNotEmpty;
       return hasTitle && actionListHasItems;
-      // return isRandomTableLink == null && _labelController.value.text != '';
     }
 
     bool canAddNewAction = randomTableEntryId != null ||
@@ -269,16 +266,15 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 children: [
                   if (actionEditorType == ActionEditorType.randomTable)
                     addRandomTableLink(randomTables),
-                  if (actionEditorType == ActionEditorType.label) addLabel(),
+                  if (actionEditorType == ActionEditorType.label)
+                    addLabelForm(),
                   if (actionEditorType == ActionEditorType.actionList)
                     addActionListLink(actionListEntries),
-                  ...[
-                    const Gap(),
-                    ToggleActiveBlock(
-                      isActive: canAddNewAction,
-                      child: submitActionListButton(),
-                    )
-                  ]
+                  const Gap(),
+                  ToggleActiveBlock(
+                    isActive: canAddNewAction,
+                    child: submitActionListButton(),
+                  )
                 ],
               ),
             )

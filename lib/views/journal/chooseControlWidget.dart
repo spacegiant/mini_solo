@@ -221,7 +221,9 @@ Widget chooseControlWidget({
         color: buttonColor,
         label: controlData.label,
         iconData: FontAwesomeIcons.robot,
-        onPressed: () {},
+        onPressed: () {
+          print('ACTION LIST');
+        },
         onLongPress: () {},
       );
     case ControlTypeEnum.diceGroup:
