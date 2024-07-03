@@ -221,7 +221,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                                   key: Key('action-$index'),
                                   id: 'action-$index',
                                   appState: widget.appState,
-                                  label: handleString(
+                                  label: processStringDependingOnType(
                                     widget.appState,
                                     entry.string,
                                     entry.type,
@@ -333,13 +333,16 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     );
   }
 
-  handleString(AppState appState, String string, ActionEditorType type) {
+  processStringDependingOnType(
+      AppState appState, String string, ActionEditorType type) {
     if (type == ActionEditorType.randomTable) {
       return appState.randomTables
-          .firstWhere((table) => table.id == string)
+          .firstWhere((entry) => entry.id == string)
           .title;
     } else if (type == ActionEditorType.actionList) {
-      return string;
+      return appState.actionLists
+          .firstWhere((entry) => entry.id == string)
+          .title;
     } else {
       return string;
     }
