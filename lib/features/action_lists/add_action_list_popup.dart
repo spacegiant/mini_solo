@@ -159,8 +159,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       Container(
         height: 200.0,
         color: CupertinoColors.white,
-        child: MyReorderableItem(
-            id: '', appState: widget.appState, label: 'label', index: 1),
+        child: entryListOfActions.isEmpty
+            ? const Text('Add an Action')
+            : MyReorderableItem(
+                id: '', appState: widget.appState, label: 'label', index: 1),
       )
     ];
   }
