@@ -15,7 +15,7 @@ class LabelAndSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CupertinoSwitch(value: true, onChanged: onChanged),
+        CupertinoSwitch(value: switchValue, onChanged: onChanged),
         Text(label),
       ],
     );
