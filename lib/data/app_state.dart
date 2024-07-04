@@ -693,7 +693,7 @@ class AppState extends ChangeNotifier {
 
   List<ActionListEntry> get actionLists => _appSettingsData.actionLists;
 
-  void addActionListsEntry(ActionListEntry entry) {
+  void addActionList(ActionListEntry entry) {
     _appSettingsData.actionLists.add(entry);
     saveAppSettingsDataToDisk();
   }

@@ -143,7 +143,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     // if (entry != null) {
     //   print('HOOOOOOG');
     // }
-    widget.appState.addActionListsEntry(
+    widget.appState.addActionList(
       ActionListEntry(
           title: _labelController.value.text,
           list: entryListOfActions,
