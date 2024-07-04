@@ -365,6 +365,13 @@ CampaignData initCampaignDataData(String campaignName) {
         controls: initialNewItemControlIds,
         color: 0xFFFB8F67,
       ),
+      Group(
+        isAppGroup: true,
+        groupId: 'group-action-lists',
+        label: 'Action Lists',
+        controls: [],
+        color: 0xFFFB8F67,
+      ),
     ],
   );
 }
