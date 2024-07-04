@@ -13,6 +13,8 @@ List<ControlData> getControlData(AppState appState) {
   List<ControlData> kardControlData = [];
 
   for (Kard kard in appState.campaignData!.kards) {
+    auditControl(appState, kard.id);
+
     trackersData.add(
       ControlData(
         controlId: kard.id,
@@ -23,6 +25,8 @@ List<ControlData> getControlData(AppState appState) {
   }
 
   for (TrackerEntry tracker in appState.campaignData!.tracker) {
+    auditControl(appState, tracker.id);
+
     trackersData.add(
       ControlData(
         controlId: tracker.id,
@@ -34,6 +38,8 @@ List<ControlData> getControlData(AppState appState) {
 
   for (RandomTableEntry randomTable in appState.appSettingsData.randomTables) {
     if (randomTable.isHidden == false) {
+      auditControl(appState, randomTable.id);
+
       randomTableControlData.add(
         ControlData(
           controlId: randomTable.id,
@@ -47,6 +53,8 @@ List<ControlData> getControlData(AppState appState) {
 
   for (ActionListEntry actionList in appState.appSettingsData.actionLists) {
     if (actionList.isHidden == false) {
+      auditControl(appState, actionList.id);
+
       actionListControlData.add(
         ControlData(
           controlId: actionList.id,
@@ -67,17 +75,13 @@ List<ControlData> getControlData(AppState appState) {
     ...initialNewItemControls,
   ];
 
-  // TODO test this!
-  // TODO when should this run?
-  // TODO is this needed?
-  // check controls all have a group or add to unsorted
-  // TODO Fix this, so it doesn't force update at same time as other actions
-  // for (final control in controlData) {
-  //   bool isInAGroup = appState.findCurrentGroupId(control.controlId) != null;
-  //   if (isInAGroup == false) {
-  //     appState.moveToGroup(controlId: control.controlId, groupId: 'unsorted');
-  //   }
-  // }
-
   return controlData;
+}
+
+auditControl(AppState appState, String id) {
+  String? actionListId = appState.findCurrentGroupId(id);
+
+  if (actionListId == null) {
+    appState.moveToGroup(controlId: id, groupId: 'unsorted');
+  }
 }

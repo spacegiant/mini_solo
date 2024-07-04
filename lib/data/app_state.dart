@@ -87,10 +87,20 @@ class AppState extends ChangeNotifier {
     });
   }
 
-  void moveToGroup({required String controlId, required String groupId}) {
+  void moveToGroup({
+    required String controlId,
+    required String groupId,
+    bool? save = true,
+  }) {
     removeFromAllGroups(controlId: controlId);
     addToGroup(controlId: controlId, groupId: groupId);
-    saveCampaignDataToDisk();
+
+    // Can get error when it's trying to save too much.
+    // This function is low risk, so we can move the items
+    // and the app can wait until something else saves to
+    // keep the changes. If changes are lost, it will just
+    // run it again at some point.
+    if (save == false) saveCampaignDataToDisk();
   }
 
   String? findCurrentGroupId(String entryId) {
