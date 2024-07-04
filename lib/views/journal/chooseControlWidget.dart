@@ -224,7 +224,23 @@ Widget chooseControlWidget({
         // iconData: CupertinoIcons.rocket,
         iconData: CupertinoIcons.rocket_fill,
         onPressed: () {
-          print('ACTION LIST');
+          ActionListEntry? entry = controlData.actionList;
+          List<ActionRow> actionRows = entry!.list;
+          for (ActionRow row in actionRows) {
+            switch (row.type) {
+              case ActionEditorType.label:
+                print('LABEL');
+                break;
+              case ActionEditorType.randomTable:
+                print('RANDOM TABLE');
+                break;
+              case ActionEditorType.actionList:
+                print('ACTION LIST');
+                break;
+              default:
+                break;
+            }
+          }
         },
         onLongPress: () {
           toggleShowPopup2(
