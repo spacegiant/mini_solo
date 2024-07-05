@@ -24,10 +24,11 @@ ResultEntries _$ResultEntriesFromJson(Map<String, dynamic> json) =>
       list: (json['list'] as List<dynamic>)
           .map((e) => ResultEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..id = json['id'] as String;
 
 Map<String, dynamic> _$ResultEntriesToJson(ResultEntries instance) =>
     <String, dynamic>{
       'list': instance.list,
       'title': instance.title,
+      'id': instance.id,
     };

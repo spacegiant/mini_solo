@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/data/result_entry.dart';
 
+import '../utilities/id_generator.dart';
+
 part 'result_entries.g.dart';
 
 enum ResultEntryTypes {
@@ -41,8 +43,15 @@ Map<ResultEntryTypes, ResultTypeData> resultEntryTypeLabel = {
 class ResultEntries {
   final List<ResultEntry> list;
   final String title;
+  late String id;
 
-  ResultEntries({required this.title, required this.list});
+  ResultEntries({required this.title, required this.list}) {
+    _initID();
+  }
+
+  void _initID() {
+    id = genericId('result-entries');
+  }
 
   // coverage:ignore-start
   factory ResultEntries.fromJson(Map<String, dynamic> json) =>

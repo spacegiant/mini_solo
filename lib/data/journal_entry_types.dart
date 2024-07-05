@@ -33,6 +33,7 @@ enum JournalEntryTypes {
   tracker,
   kard,
   actionList,
+  resultEntry,
 }
 
 Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {

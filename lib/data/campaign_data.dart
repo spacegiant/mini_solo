@@ -1,15 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/data/initialise_groups.dart';
+import 'package:mini_solo/data/result_entries.dart';
+import 'package:mini_solo/data/result_entry.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../features/kard/kard.dart';
 import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
-import '../views/mythic/fate_question.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
-import 'initial_new_item_controls.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
@@ -134,6 +134,7 @@ class CampaignData {
   late List<NewSceneEntry> newScene;
   late List<Group> groups;
   late List<Kard> kards;
+  late List<ResultEntries> resultEntries;
 
   CampaignData({
     required this.settings,
@@ -158,6 +159,7 @@ class CampaignData {
     required this.newScene,
     required this.groups,
     required this.kards,
+    required this.resultEntries,
   });
 
   // coverage:ignore-start
@@ -212,6 +214,7 @@ CampaignData initCampaignDataData(String campaignName) {
     newScene: [],
     kards: [],
     groups: initialiseGroups,
+    resultEntries: [],
   );
 }
 

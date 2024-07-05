@@ -39,10 +39,13 @@ class ActionListControlWidget extends StatelessWidget {
           },
         );
 
-        print('----------------------');
-        for (var item in resultEntries.list) {
-          print(item.title);
-        }
+        // print('----------------------');
+        // for (var item in resultEntries.list) {
+        //   print(item.title);
+        // }
+
+        appState.addResultEntry(
+            ResultEntries(title: controlData.label, list: resultEntries.list));
       },
       onLongPress: () {
         toggleShowPopup2(
