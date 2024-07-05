@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/note_entry_item.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/result_entry_widget.dart';
 import 'package:mini_solo/widgets/journal/entryWidgets/roll_table_result_widget.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
@@ -75,6 +76,11 @@ List<Widget> getEntries(
       //   journalEntries.add(const Text('transition'));
       case JournalEntryTypes.tracker:
         journalEntries.add(TrackerEntryWidget(
+          appState: appState,
+          journalEntry: element,
+        ));
+      case JournalEntryTypes.resultEntry:
+        journalEntries.add(ResultEntryWidget(
           appState: appState,
           journalEntry: element,
         ));
