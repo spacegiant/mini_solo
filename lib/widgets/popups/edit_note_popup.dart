@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import '../../data/app_state.dart';
 import '../../data/note_entry_item.dart';
 import '../gap.dart';
@@ -44,45 +46,40 @@ class _EditNotePopupState extends State<EditNotePopup> {
       });
     }
 
-    return Column(
-      children: [
-        const Text('Edit Note Entry'),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CupertinoTextField(
-            key: _key,
-            controller: _controller,
-            placeholder: 'Type here',
-            autofocus: true,
-            minLines: 9,
-            maxLines: 9,
-            textCapitalization: TextCapitalization.sentences,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CupertinoButton(
-                color: CupertinoColors.systemGreen,
-                onPressed: () {
-                  widget.appState.updateNoteItem(widget.id, _controller.text);
-                  // widget.appState.setCurrentEntryId('');
-                  // Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                child: const Text('Submit')),
-            const Gap(),
-            CupertinoButton(
-              color: CupertinoColors.destructiveRed,
+    return PopupLayout(
+      header: const PopupLayoutHeader(label: 'Edit Note Entry'),
+      body: CupertinoTextField(
+        key: _key,
+        controller: _controller,
+        placeholder: 'Type here',
+        autofocus: true,
+        minLines: 9,
+        maxLines: 9,
+        textCapitalization: TextCapitalization.sentences,
+      ),
+      footer: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CupertinoButton(
+              color: CupertinoColors.systemGreen,
               onPressed: () {
-                widget.appState.deleteNoteItem(widget.id);
+                widget.appState.updateNoteItem(widget.id, _controller.text);
+                // widget.appState.setCurrentEntryId('');
+                // Navigator.pop(context);
                 Navigator.pop(context);
               },
-              child: const Text('Delete'),
-            ),
-          ],
-        ),
-      ],
+              child: const Text('Submit')),
+          const Gap(),
+          CupertinoButton(
+            color: CupertinoColors.destructiveRed,
+            onPressed: () {
+              widget.appState.deleteNoteItem(widget.id);
+              Navigator.pop(context);
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ class ControlData {
   final String label;
   final FateChartRow? fateChartRow;
   final RandomTableEntry? randomTable;
+  final ActionListEntry? actionList;
 
   // final String group;
   final ControlTypeEnum controlType;
@@ -17,5 +18,6 @@ class ControlData {
     required this.controlType,
     this.fateChartRow,
     this.randomTable,
+    this.actionList,
   });
 }

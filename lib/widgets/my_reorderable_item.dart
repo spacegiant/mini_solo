@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../data/app_state.dart';
+import 'gap.dart';
 
 class MyReorderableItem extends StatefulWidget {
   const MyReorderableItem({
-    super.key,
+    required super.key,
     required this.id,
     required this.appState,
     required this.label,
@@ -13,9 +14,11 @@ class MyReorderableItem extends StatefulWidget {
     this.onTap,
     required this.index,
     this.handleToggleActive,
-    this.groupIsActive,
+    this.itemIsActive,
+    this.icon,
   });
 
+  final IconData? icon;
   final String id;
   final String label;
   final AppState appState;
@@ -23,7 +26,7 @@ class MyReorderableItem extends StatefulWidget {
   final Function()? onTap;
   final Function(bool)? handleToggleActive;
   final int index;
-  final bool? groupIsActive;
+  final bool? itemIsActive;
 
   @override
   State<MyReorderableItem> createState() => _MyReorderableItemState();
@@ -36,7 +39,7 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    isActive = widget.groupIsActive ?? true;
+    isActive = widget.itemIsActive ?? true;
   }
 
   @override
@@ -53,6 +56,10 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                if (widget.icon != null) ...[
+                  Icon(widget.icon),
+                  const Gap(),
+                ],
                 Expanded(child: Text(widget.label)),
                 Row(
                   children: [

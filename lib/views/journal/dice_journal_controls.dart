@@ -21,7 +21,7 @@ Widget diceJournalControls(
       handleLongPress: () {
         toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 800.0,
+            maxHeight: 200.0,
             child: EditDiceGroupPopup(
               appState: appState,
             ),

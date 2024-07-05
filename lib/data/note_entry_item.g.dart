@@ -44,4 +44,6 @@ const _$JournalEntryTypesEnumMap = {
   JournalEntryTypes.rollTableResults: 'rollTableResults',
   JournalEntryTypes.tracker: 'tracker',
   JournalEntryTypes.kard: 'kard',
+  JournalEntryTypes.actionList: 'actionList',
+  JournalEntryTypes.resultEntry: 'resultEntry',
 };

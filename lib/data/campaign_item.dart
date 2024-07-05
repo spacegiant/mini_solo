@@ -1,5 +1,5 @@
 import '../utilities/id_generator.dart';
-import 'campaign_data.dart';
+import 'journal_entry_types.dart';
 
 abstract class CampaignItem {
   bool? isFavourite = false;

@@ -35,8 +35,8 @@ class KardWidget extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         toggleShowPopup2(
-            maxWidth: 300.0,
-            maxHeight: 600.0,
+            maxWidth: 400.0,
+            maxHeight: 220.0,
             child: EditKardPopup(
               appState: appState,
               id: entry.id,

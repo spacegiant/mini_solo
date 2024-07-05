@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/kard/kard.dart';
+import 'package:mini_solo/views/control_widgets/action_list_control_widget.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
-import 'package:mini_solo/widgets/popups/edit_label_popup.dart';
 import 'package:mini_solo/features/random_tables/edit_random_table_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../features/action_lists/add_action_list_popup.dart';
 import '../../features/kard/kard_widget.dart';
 import '../../features/random_tables/roll_table.dart';
 import '../../features/trackers/bar_tracker_control.dart';
@@ -66,6 +66,8 @@ enum ControlTypeEnum {
   statBlock,
   kard,
   newCard,
+  newActionList,
+  actionList,
 }
 
 Widget chooseControlWidget({
@@ -76,10 +78,9 @@ Widget chooseControlWidget({
 }) {
   Color buttonColor = color != null ? Color(color) : kButtonColor;
 
-  IconData icon;
-
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
+      // TODO Move all control widgets to own files in /control_widgets folder
       return ListButton(
         color: buttonColor,
         label: controlData.label,
@@ -217,6 +218,12 @@ Widget chooseControlWidget({
               context: context);
         },
       );
+    case ControlTypeEnum.actionList:
+      return ActionListControlWidget(
+        controlData: controlData,
+        buttonColor: buttonColor,
+        appState: appState,
+      );
     case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
     case ControlTypeEnum.dice:
@@ -277,7 +284,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 600.0,
-              maxHeight: 800.0,
+              maxHeight: 820.0,
               child: AddTrackerPopup(appState: appState),
               context: context);
         },
@@ -290,7 +297,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 600.0,
-              maxHeight: 520.0,
+              maxHeight: 540.0,
               child: AddRandomTablePopup(appState: appState),
               context: context);
         },
@@ -310,7 +317,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 220.0,
+            maxHeight: 240.0,
             child: AddGroupPopup(appState: appState),
             context: context,
           );
@@ -327,17 +334,8 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 400.0,
-              maxHeight: 800.0,
+              maxHeight: 320.0,
               child: AddKardPopup(
-                appState: appState,
-              ),
-              context: context);
-        },
-        onLongPress: () {
-          toggleShowPopup2(
-              maxWidth: 400.0,
-              maxHeight: 220.0,
-              child: EditLabelPopup(
                 appState: appState,
               ),
               context: context);
@@ -349,17 +347,31 @@ Widget chooseControlWidget({
         entry: getKardEntry(appState, controlData.controlId)!,
         appState: appState,
       );
-    // return ListButton(
-    //   color: buttonColor,
-    //   label: controlData.label,
-    //   onPressed: () {},
-    // );
+    case ControlTypeEnum.newActionList:
+      return ListButton(
+        color: buttonColor,
+        label: controlData.label,
+        iconData: CupertinoIcons.sparkles,
+        onPressed: () {
+          toggleShowPopup2(
+            maxWidth: 400.0,
+            maxHeight: 800.0,
+            child: AddActionListPopup(
+              appState: appState,
+              id: controlData.controlId,
+            ),
+            context: context,
+          );
+        },
+        onLongPress: () {},
+      );
   }
   return Text(controlData.label);
 }
 
 TrackerEntry? getTrackerEntry(AppState appState, String controlId) {
   try {
+    // TODO remove app state argument from function
     return appState.campaignData?.tracker
         .firstWhere((tracker) => tracker.id == controlId);
   } catch (e) {

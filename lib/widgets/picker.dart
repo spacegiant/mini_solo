@@ -60,8 +60,8 @@ class _PickerState extends State<Picker> {
 
   @override
   Widget build(BuildContext context) {
-    _selectedItemIndex =
-        widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
+    // _selectedItemIndex =
+    //     widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
 
     List<Widget> pickerItems = List<Widget>.generate(
       pickerStrings.length,
@@ -104,14 +104,15 @@ class _PickerState extends State<Picker> {
                 squeeze: 1.2,
                 useMagnifier: true,
                 itemExtent: kItemExtent,
+                // TODO use listener to get change when scrolling settles
                 onSelectedItemChanged: (int selectedItemIndex) {
                   setState(() {
                     _selectedItemIndex = selectedItemIndex;
                   });
-                  if (selectedItemIndex > 0) {
+                  if (widget.defunctLabel != null) {
                     widget.onChange(selectedItemIndex - offset);
                   } else {
-                    widget.onChange(null);
+                    widget.onChange(selectedItemIndex);
                   }
                 },
                 children: pickerItems,

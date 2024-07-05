@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
-import '../gap.dart';
 
 class EditOracleEntryPopup extends StatefulWidget {
   const EditOracleEntryPopup({
@@ -23,19 +24,16 @@ class _EditMythicEntryPopupState extends State<EditOracleEntryPopup> {
   Widget build(
     BuildContext context,
   ) {
-    return Column(
-      children: [
-        const Text(kPopupDeleteEntryLabel),
-        const Gap(),
-        CupertinoButton(
-          color: CupertinoColors.destructiveRed,
-          onPressed: () {
-            widget.appState.deleteOracleEntry(widget.id);
-            Navigator.pop(context);
-          },
-          child: const Text(kDeleteLabel),
-        ),
-      ],
+    return PopupLayout(
+      header: const PopupLayoutHeader(label: kPopupDeleteEntryLabel),
+      footer: CupertinoButton(
+        color: CupertinoColors.destructiveRed,
+        onPressed: () {
+          widget.appState.deleteOracleEntry(widget.id);
+          Navigator.pop(context);
+        },
+        child: const Text(kDeleteLabel),
+      ),
     );
   }
 }
