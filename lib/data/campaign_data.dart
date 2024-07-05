@@ -8,6 +8,7 @@ import '../views/journal/control_data.dart';
 import '../views/mythic/fate_question.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
+import 'initial_new_item_controls.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
@@ -637,31 +638,4 @@ List<ControlData> initialMythicGMEControls = [
 
 List<String> initialMythicGMEIds = [
   for (var control in initialMythicGMEControls) control.controlId
-];
-
-List<ControlData> initialNewItemControls = [
-  ControlData(
-      controlId: 'new-tracker',
-      label: 'New Tracker',
-      controlType: ControlTypeEnum.newTracker),
-  ControlData(
-      controlId: 'new-random-table',
-      label: 'New Random Table',
-      controlType: ControlTypeEnum.newRandomTable),
-  ControlData(
-      controlId: 'new-group',
-      label: 'New Group',
-      controlType: ControlTypeEnum.newGroup),
-  ControlData(
-      controlId: 'new-kard',
-      label: 'New Card',
-      controlType: ControlTypeEnum.newCard),
-  ControlData(
-      controlId: 'new-action-list',
-      label: 'New Action List',
-      controlType: ControlTypeEnum.newActionList),
-];
-
-List<String> initialNewItemControlIds = [
-  for (var control in initialNewItemControls) control.controlId
 ];
