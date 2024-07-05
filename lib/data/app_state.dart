@@ -100,7 +100,7 @@ class AppState extends ChangeNotifier {
     // and the app can wait until something else saves to
     // keep the changes. If changes are lost, it will just
     // run it again at some point.
-    if (save == false) saveCampaignDataToDisk();
+    if (save == true) saveCampaignDataToDisk();
   }
 
   String? findCurrentGroupId(String entryId) {

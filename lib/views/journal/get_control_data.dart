@@ -79,9 +79,13 @@ List<ControlData> getControlData(AppState appState) {
 }
 
 auditControl(AppState appState, String id) {
-  String? actionListId = appState.findCurrentGroupId(id);
+  String? groupId = appState.findCurrentGroupId(id);
 
-  if (actionListId == null) {
-    appState.moveToGroup(controlId: id, groupId: 'unsorted');
+  if (groupId == null) {
+    appState.moveToGroup(
+      controlId: id,
+      groupId: 'unsorted',
+      save: false,
+    );
   }
 }
