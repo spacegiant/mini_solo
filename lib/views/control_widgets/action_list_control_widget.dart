@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -28,7 +30,19 @@ class ActionListControlWidget extends StatelessWidget {
       label: controlData.label,
       iconData: CupertinoIcons.rocket_fill,
       onPressed: () {
-        runAction();
+        ResultEntries resultEntries = ResultEntries(list: []);
+
+        recursiveActionListRoll(
+          actionListId: controlData.controlId,
+          cb: (resultEntry) {
+            resultEntries.list.add(resultEntry);
+          },
+        );
+
+        print('----------------------');
+        for (var item in resultEntries.list) {
+          print(item.title);
+        }
       },
       onLongPress: () {
         toggleShowPopup2(
@@ -44,41 +58,56 @@ class ActionListControlWidget extends StatelessWidget {
     );
   }
 
-  void runAction() {
-    ResultEntries resultEntries = ResultEntries(list: []);
+  recursiveActionListRoll({
+    int? recursionLimit,
+    required String actionListId,
+    required Function(ResultEntry) cb,
+  }) {
+    if (recursionLimit == 0) return;
 
-    ActionListEntry? entry = controlData.actionList;
-    List<ActionRow> actionRows = entry!.list;
-    for (ActionRow row in actionRows) {
-      switch (row.type) {
-        case ActionEditorType.label:
-          resultEntries.list.add(LabelResultEntry(title: row.string));
-          break;
-        case ActionEditorType.randomTable:
-          recursiveRandomTableRoll(
-            recursionLimit: appState
-                    .campaignData?.settings.general.randomTableRecursionLimit ??
-                3,
-            randomTables: appState.randomTables,
-            randomTableId: row.string,
-            cb: (RollTableResult result) {
-              resultEntries.list
-                  .add(RandomTableResultEntry(title: result.resultString));
-            },
-          );
-          break;
-        case ActionEditorType.actionList:
-          resultEntries.list.add(ActionListResultEntry(title: row.string));
-          // runRunActionAgain();
-          break;
-        default:
-          break;
+    int myRecursionLimit = recursionLimit ??
+        appState.campaignData!.settings.general.randomTableRecursionLimit;
+
+    void runAction({
+      int? recursionLimit,
+      required String id,
+    }) {
+      ActionListEntry? actionListEntry = appState.actionLists
+          .firstWhereOrNull((actionList) => actionList.id == id);
+
+      if (actionListEntry == null) return;
+
+      for (ActionRow row in actionListEntry.list) {
+        switch (row.type) {
+          case ActionEditorType.label:
+            // print('LABEL');
+            cb(LabelResultEntry(title: row.string));
+            break;
+          case ActionEditorType.randomTable:
+            // print('RANDOM LIST');
+            recursiveRandomTableRoll(
+              recursionLimit: myRecursionLimit,
+              randomTables: appState.randomTables,
+              randomTableId: row.string,
+              cb: (RollTableResult result) {
+                cb(RandomTableResultEntry(title: result.resultString));
+              },
+            );
+            break;
+          case ActionEditorType.actionList:
+            // print('ACTION LIST');
+
+            runAction(
+              recursionLimit: myRecursionLimit--,
+              id: row.string,
+            );
+            break;
+          default:
+            break;
+        }
       }
     }
-    // TODO when for loop finished publish results
-    // Add to journal
-    for (var entry in resultEntries.list) {
-      print(entry.title);
-    }
+
+    runAction(recursionLimit: myRecursionLimit, id: actionListId);
   }
 }
