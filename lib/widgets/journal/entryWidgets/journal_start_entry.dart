@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../gap.dart';
+
 class JournalStartEntry extends StatelessWidget {
   const JournalStartEntry({
     super.key,
@@ -7,9 +9,28 @@ class JournalStartEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(child: Text('The Adventure Begins...')),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              color: CupertinoColors.placeholderText,
+              child: const Text(
+                'The Adventure Begins...',
+                style: TextStyle(
+                  color: CupertinoColors.systemGrey6,
+                ),
+              ),
+            ),
+            const Gap(),
+          ],
+        ),
+      ),
     );
   }
 }
