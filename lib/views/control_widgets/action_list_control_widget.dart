@@ -1,11 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
-
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../data/result_entries.dart';
+import '../../data/result_entry.dart';
 import '../../features/action_lists/add_action_list_popup.dart';
 import '../../features/action_lists/recursive_action_list_roll.dart';
 import '../../widgets/list_button.dart';
@@ -31,7 +29,8 @@ class ActionListControlWidget extends StatelessWidget {
       label: controlData.label,
       iconData: CupertinoIcons.rocket_fill,
       onPressed: () {
-        ResultEntries resultEntries = ResultEntries(list: []);
+        ResultEntries resultEntries =
+            ResultEntries(list: [], title: controlData.label);
 
         recursiveActionListRoll(
           actionListId: controlData.controlId,
@@ -82,7 +81,7 @@ class ActionListControlWidget extends StatelessWidget {
         switch (row.type) {
           case ActionEditorType.label:
             // print('LABEL');
-            cb(LabelResultEntry(title: row.string));
+            cb(ResultEntry(title: row.string, type: ResultEntryTypes.label));
             break;
           case ActionEditorType.randomTable:
             // print('RANDOM LIST');
@@ -91,7 +90,9 @@ class ActionListControlWidget extends StatelessWidget {
               randomTables: appState.randomTables,
               randomTableId: row.string,
               cb: (RollTableResult result) {
-                cb(RandomTableResultEntry(title: result.resultString));
+                cb(ResultEntry(
+                    title: result.resultString,
+                    type: ResultEntryTypes.randomTable));
               },
             );
             break;

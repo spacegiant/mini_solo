@@ -1,11 +1,16 @@
-import '../utilities/id_generator.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mini_solo/data/result_entry.dart';
+
+part 'result_entries.g.dart';
 
 enum ResultEntryTypes {
   label,
   randomTable,
+  // TODO: Is this needed?
   actionList,
 }
 
+@JsonSerializable()
 class ResultTypeData {
   final String identifier;
   final String label;
@@ -14,6 +19,13 @@ class ResultTypeData {
     required this.identifier,
     required this.label,
   });
+
+  // coverage:ignore-start
+  factory ResultTypeData.fromJson(Map<String, dynamic> json) =>
+      _$ResultTypeDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ResultTypeDataToJson(this);
+// coverage:ignore-end
 }
 
 Map<ResultEntryTypes, ResultTypeData> resultEntryTypeLabel = {
@@ -25,49 +37,21 @@ Map<ResultEntryTypes, ResultTypeData> resultEntryTypeLabel = {
       identifier: 'action-list-result', label: 'Action List Result'),
 };
 
-abstract class ResultEntry {
-  abstract ResultEntryTypes type;
-  late String id = genericId(resultEntryTypeLabel[type]!.identifier);
-  late String title;
-
-  ResultEntry({
-    required this.title,
-  });
-}
-
-class LabelResultEntry extends ResultEntry {
-  @override
-  ResultEntryTypes type = ResultEntryTypes.label;
-
-  LabelResultEntry({required super.title});
-}
-
-class RandomTableResultEntry extends ResultEntry {
-  @override
-  ResultEntryTypes type = ResultEntryTypes.randomTable;
-
-  RandomTableResultEntry({required super.title});
-}
-
-class ActionListResultEntry extends ResultEntry {
-  @override
-  ResultEntryTypes type = ResultEntryTypes.actionList;
-
-  ActionListResultEntry({required super.title});
-}
-
+@JsonSerializable()
 class ResultEntries {
   final List<ResultEntry> list;
+  final String title;
 
-  ResultEntries({
-    required this.list,
-  });
+  ResultEntries({required this.title, required this.list});
+
+  // coverage:ignore-start
+  factory ResultEntries.fromJson(Map<String, dynamic> json) =>
+      _$ResultEntriesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ResultEntriesToJson(this);
+// coverage:ignore-end
 }
 
 ResultEntries entries = ResultEntries(
-  list: [
-    LabelResultEntry(title: ''),
-    RandomTableResultEntry(title: ''),
-    ActionListResultEntry(title: ''),
-  ],
-);
+    list: [ResultEntry(type: ResultEntryTypes.actionList, title: 'title')],
+    title: '');

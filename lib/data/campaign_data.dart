@@ -309,14 +309,14 @@ class Thing extends CampaignItem {
     this.detail,
   });
 
+  @override
+  JournalEntryTypes type = JournalEntryTypes.newThing;
+
   // coverage:ignore-start
   factory Thing.fromJson(Map<String, dynamic> json) => _$ThingFromJson(json);
 
   Map<String, dynamic> toJson() => _$ThingToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.newThing;
-// coverage:ignore-end
+  // coverage:ignore-end
 }
 
 @JsonSerializable()
