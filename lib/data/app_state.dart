@@ -634,6 +634,7 @@ class AppState extends ChangeNotifier {
     removeFromAllGroups(controlId: id);
     // remove from all random table other links
     removeLinkFromAllRandomTables(id);
+    removeLinkFromAllActionLists(id);
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     saveAppSettingsDataToDisk();
@@ -702,7 +703,9 @@ class AppState extends ChangeNotifier {
 
   void deleteActionList(String id) {
     removeFromAllGroups(controlId: id);
+    removeLinkFromAllActionLists(id);
     _appSettingsData.actionLists.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
     saveAppSettingsDataToDisk();
   }
 
@@ -715,6 +718,12 @@ class AppState extends ChangeNotifier {
         id: entry.id,
       ),
     );
+  }
+
+  void removeLinkFromAllActionLists(String id) {
+    for (var table in appSettingsData.actionLists) {
+      table.list.removeWhere((item) => item.string == id);
+    }
   }
 
   // TRACKER ENTRIES

@@ -115,7 +115,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   Widget addActionListLink(List<ActionListEntry> actionEntries) {
     List<String> pickerOptions = [];
 
-    for (ActionListEntry actionListEntry in actionEntries) {
+    List<ActionListEntry> safeList = List.from(actionEntries);
+    safeList.removeWhere((entry) => entry.id == widget.id);
+
+    for (ActionListEntry actionListEntry in safeList) {
       pickerOptions.add(actionListEntry.title);
     }
 
