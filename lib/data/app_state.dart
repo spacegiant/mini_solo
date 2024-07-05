@@ -8,6 +8,7 @@ import 'package:mini_solo/features/grouping/group.dart';
 
 import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
+import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
 enum PopupLabel {

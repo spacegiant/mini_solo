@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../features/action_lists/add_action_list_popup.dart';
 import 'campaign_data.dart';
 import 'campaign_item.dart';
+import 'journal_entry_types.dart';
 
 part 'app_settings_data.g.dart';
 
