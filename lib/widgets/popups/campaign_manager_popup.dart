@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
@@ -31,24 +33,19 @@ class _CampaignManagerState extends State<CampaignManager> {
           BuildContext context,
           AsyncSnapshot snapshot,
         ) {
-          // TODO: Tests for this
-          if (snapshot.hasData) {
-            return SizedBox(
+          return PopupLayout(
+            header: const PopupLayoutHeader(label: kCampaignManagerTitle),
+            body: SizedBox(
               width: 400.0,
               child: Column(
                 children: [
-                  const Text(kCampaignManagerTitle),
                   for (var item in snapshot.data) campaignManagerRow(item),
                 ],
               ),
-            );
-          } else if (snapshot.hasError) {
-            // TODO: What to do here?
-            return const Text('CAMPAIGN MANAGER');
-          } else {
-            // TODO: Loading state
-            return const Text('CAMPAIGN MANAGER');
-          }
+            ),
+            // TODO To complete this popup
+            footer: const Text('BUTTON HERE'),
+          );
         });
   }
 

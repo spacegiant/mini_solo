@@ -25,6 +25,11 @@ List<GroupContainer> dynamicListOfControls(
 
     // ITERATE ALL CONTROLS STORED IN GROUP
     for (String groupControl in group.controls) {
+      // TODO delete
+      // appState.deleteEntityById(groupControl);
+      if (appState.entityExists(groupControl) == false) {
+        print(groupControl);
+      }
       // ITERATE ALL CONTROLS IN LISTOFCONTROLS
       for (ControlData control in listOfControls) {
         // CHECK IF CURRENT CONTROL MATCHES THE CURRENT GROUP CONTROL

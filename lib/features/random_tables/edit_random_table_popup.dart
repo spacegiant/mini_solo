@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
+import 'package:mini_solo/widgets/toggle_active_block.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../widgets/label_and_input.dart';
@@ -36,6 +37,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late RandomTableEntry updatedEntry;
   late List<RandomTableEntry> randomTables;
   late List<RandomTableEntry> safeList;
+  late String? initialGroup;
 
   @override
   void initState() {
@@ -44,18 +46,19 @@ class _EditRandomTableState extends State<EditRandomTable> {
     _textController = TextEditingController(text: '');
     _weightController = TextEditingController(text: '');
     // TODO is entry needed if we are using updatedEntry?
-    entry = widget.appState.getRandomTableById(widget.id);
+    entry = widget.appState.getRandomTableById(widget.id)!;
     updatedEntry = entry;
     isRandomTable = entry.isRandomTable;
     isHidden = entry.isHidden;
     randomTables = widget.appState.appSettingsData.randomTables;
     safeList = List.from(randomTables);
     safeList.removeWhere((table) => table.id == widget.id);
+    initialGroup = widget.appState.findCurrentGroupId(widget.id);
+    selectedGroup = initialGroup!;
   }
 
   @override
   Widget build(BuildContext context) {
-    String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
     List<RandomTableRow> rows = entry.rows;
     int recordCount = rows.length;
 
@@ -102,6 +105,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
           isActive: selectedId != '',
           children: [
             LabelAndInput(
+              axis: Axis.horizontal,
               label: 'Weight',
               enabled: selectedId != '',
               controller: _weightController,
@@ -117,6 +121,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
             ),
             const Gap(height: 4.0),
             LabelAndInput(
+              axis: Axis.horizontal,
               label: 'Text',
               enabled: selectedId != '',
               controller: _textController,
@@ -130,33 +135,37 @@ class _EditRandomTableState extends State<EditRandomTable> {
               },
             ),
             const Gap(height: 4.0),
-            LabelAndPicker(
-              defunctLabel: 'No Link',
-              enabled: selectedId != '',
-              items: safeList.map((table) => table.title).toList(),
-              onChange: (index) {
-                if (index != null) {
-                  setState(() {
-                    selectedLinkId = safeList[index].id;
-                    if (currentRowIndex != null) {
-                      updatedEntry.rows[currentRowIndex!].otherRandomTable =
-                          safeList[index].id;
-                    }
-                  });
-                } else {
-                  print('NULL');
-                }
-              },
-              label: 'Link',
-              selectedIndex: getOtherLinkIndex(),
+            ToggleActiveBlock(
+              isActive: safeList.isNotEmpty && selectedId != '',
+              child: LabelAndPicker(
+                defunctLabel:
+                    safeList.isEmpty ? 'No Other Random Tables' : 'No Link',
+                items: safeList.map((table) => table.title).toList(),
+                onChange: (index) {
+                  if (index != null) {
+                    setState(() {
+                      selectedLinkId = safeList[index].id;
+                      if (currentRowIndex != null) {
+                        updatedEntry.rows[currentRowIndex!].otherRandomTable =
+                            safeList[index].id;
+                      }
+                    });
+                  } else {
+                    print('NULL');
+                  }
+                },
+                label: 'Link',
+                selectedIndex: getOtherLinkIndex(),
+              ),
             ),
           ],
         ),
         const Divider(),
+
         GroupPicker(
-          onChange: (string) {
+          onChange: (idString) {
             setState(() {
-              selectedGroup = string;
+              selectedGroup = idString;
             });
           },
           appState: widget.appState,
@@ -199,18 +208,20 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 color: kSubmitColor,
                 child: const Text('Update'),
                 onPressed: () {
-                  if (currentRowIndex == null) return;
+                  if (currentRowIndex != null) {
+                    widget.appState.updateRandomTable(
+                      id: widget.id,
+                      entry: updatedEntry,
+                    );
+                    // widget.appState.saveAppSettingsDataToDisk();
+                  }
+
                   if (initialGroup != selectedGroup) {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
                   }
 
-                  widget.appState.updateRandomTable(
-                    id: widget.id,
-                    entry: updatedEntry,
-                  );
-                  widget.appState.saveAppSettingsDataToDisk();
-                  widget.appState.saveCampaignDataToDisk();
+                  // widget.appState.saveCampaignDataToDisk();
                   Navigator.pop(context);
                 }),
             CupertinoButton(
@@ -258,7 +269,7 @@ class RandomTableEntries extends StatelessWidget {
     return SizedBox(
         height: 300.0,
         child: ListView.builder(
-          itemCount: recordCount,
+          itemCount: rows.length,
           prototypeItem: RandomTableItem(
             row: RandomTableRow(label: 'prototype label', weight: 100),
             onTap: (String id) {},

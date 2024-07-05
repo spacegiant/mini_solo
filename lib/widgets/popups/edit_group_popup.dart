@@ -2,6 +2,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../../features/grouping/group.dart';
@@ -72,11 +74,9 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
       );
     }).toList();
 
-    return Flexible(
-      child: Column(
+    Widget body() {
+      return Column(
         children: [
-          const Text('Edit Group'),
-          const Divider(),
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
@@ -108,21 +108,26 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
                   const Text('Wrap controls'),
                 ],
               ),
-              CupertinoButton(
-                  color: kSubmitColor,
-                  onPressed: () {
-                    print(controls.length);
-                    widget.appState.updateGroupControls(
-                      groupName: widget.group.groupId,
-                      controls: controls,
-                      isWrapped: isWrapped,
-                    );
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Update'))
             ],
           ),
         ],
+      );
+    }
+
+    return PopupLayout(
+      header: const PopupLayoutHeader(label: 'Edit Group'),
+      body: body(),
+      footer: CupertinoButton(
+        color: kSubmitColor,
+        onPressed: () {
+          widget.appState.updateGroupControls(
+            groupName: widget.group.groupId,
+            controls: controls,
+            isWrapped: isWrapped,
+          );
+          Navigator.pop(context);
+        },
+        child: const Text('Update'),
       ),
     );
   }

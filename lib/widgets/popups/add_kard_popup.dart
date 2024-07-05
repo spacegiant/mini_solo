@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
 import '../../features/kard/kard.dart';
@@ -37,33 +38,35 @@ class _AddKardPopupState extends State<AddKardPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const Text('Add Card'),
-      const Divider(),
-      CupertinoTextField(
-        controller: _titleController,
-      ),
-      CupertinoTextField(
-        // expands: true,
-        maxLines: 3,
-        controller: _linesController,
-      ),
-      const Gap(),
-      CupertinoButton(
-        color: CupertinoColors.systemPink,
-        onPressed: () {
-          String text = _titleController.value.text.trim();
-          if (text == '') return;
-          widget.appState.createNewLabel(Kard(
-            title: text,
-            lines: convertToLines(_linesController.value.text),
-            controlType: ControlTypeEnum.kard,
-          ));
-          _titleController.text = '';
-        },
-        child: const Text('Add'),
-      )
-    ]);
+    return PopupLayout(
+        header: const PopupLayoutHeader(label: 'Add Card'),
+        body: Column(
+          children: [
+            CupertinoTextField(
+              controller: _titleController,
+            ),
+            const Gap(),
+            CupertinoTextField(
+              // expands: true,
+              maxLines: 3,
+              controller: _linesController,
+            ),
+          ],
+        ),
+        footer: CupertinoButton(
+          color: CupertinoColors.systemPink,
+          onPressed: () {
+            String text = _titleController.value.text.trim();
+            if (text == '') return;
+            widget.appState.createNewLabel(Kard(
+              title: text,
+              lines: convertToLines(_linesController.value.text),
+              controlType: ControlTypeEnum.kard,
+            ));
+            _titleController.text = '';
+          },
+          child: const Text('Add'),
+        ));
   }
 
   List<String> convertToLines(String lines) {

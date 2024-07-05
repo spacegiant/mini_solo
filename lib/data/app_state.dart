@@ -1,12 +1,17 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/campaign_item.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
+import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
+import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
 enum PopupLabel {
@@ -47,6 +52,22 @@ class AppState extends ChangeNotifier {
   // GROUPS
   List<Group> get groupList => _campaignData!.groups;
 
+  bool entityExists(String id) {
+    RandomTableEntry? randomTableEntry = getRandomTableById(id);
+    TrackerEntry? trackerEntry = getTrackerEntryById(id);
+    ActionListEntry? actionListEntry = getActionListById(id);
+
+    return randomTableEntry == null &&
+        trackerEntry == null &&
+        actionListEntry == null;
+  }
+
+  void deleteEntityById(String id) {
+    appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
+    appSettingsData.actionLists.removeWhere((entry) => entry.id == id);
+    campaignData?.tracker.removeWhere((entry) => entry.id == id);
+  }
+
   bool groupExists(String groupName) {
     int index = _campaignData!.groups.indexWhere((group) {
       return group.label == groupName;
@@ -55,7 +76,6 @@ class AppState extends ChangeNotifier {
   }
 
   Group getGroup(String groupName) {
-    // print(groupName);
     return campaignData!.groups.firstWhere((group) {
       return group.groupId == groupName;
     });
@@ -87,10 +107,20 @@ class AppState extends ChangeNotifier {
     });
   }
 
-  void moveToGroup({required String controlId, required String groupId}) {
+  void moveToGroup({
+    required String controlId,
+    required String groupId,
+    bool? save = true,
+  }) {
     removeFromAllGroups(controlId: controlId);
     addToGroup(controlId: controlId, groupId: groupId);
-    saveCampaignDataToDisk();
+
+    // Can get error when it's trying to save too much.
+    // This function is low risk, so we can move the items
+    // and the app can wait until something else saves to
+    // keep the changes. If changes are lost, it will just
+    // run it again at some point.
+    if (save == true) saveCampaignDataToDisk();
   }
 
   String? findCurrentGroupId(String entryId) {
@@ -126,12 +156,6 @@ class AppState extends ChangeNotifier {
     required List<String> controls,
     required bool isWrapped,
   }) {
-    // Group thisGroup = campaignData!.groups.firstWhere((group) {
-    //   return group.groupId == groupName;
-    // });
-    // print(thisGroup.controls);
-    // print(controls);
-    // thisGroup.controls = [];
     Group group =
         campaignData!.groups.firstWhere((group) => group.groupId == groupName);
     group.controls = controls;
@@ -150,6 +174,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.kards.add(kard);
     addToGroup(controlId: kard.id, groupId: 'unsorted');
     saveCampaignDataToDisk();
+    return null;
   }
 
   void deleteKard(String id) {
@@ -625,13 +650,25 @@ class AppState extends ChangeNotifier {
 
   void deleteRandomTable(String id) {
     removeFromAllGroups(controlId: id);
+    // remove from all random table other links
+    removeLinkFromAllRandomTables(id);
+    removeLinkFromAllActionLists(id);
     _appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
     saveCampaignDataToDisk();
     saveAppSettingsDataToDisk();
   }
 
-  RandomTableEntry getRandomTableById(String id) {
-    return appSettingsData.randomTables.firstWhere((entry) => entry.id == id);
+  RandomTableEntry? getRandomTableById(String id) {
+    return appSettingsData.randomTables
+        .firstWhereOrNull((entry) => entry.id == id);
+  }
+
+  void removeLinkFromAllRandomTables(String id) {
+    for (var table in appSettingsData.randomTables) {
+      table.rows
+          .firstWhereOrNull((row) => row.otherRandomTable == id)
+          ?.otherRandomTable = null;
+    }
   }
 
   void updateRandomTable({
@@ -674,6 +711,60 @@ class AppState extends ChangeNotifier {
     // notifyListeners();
   }
 
+  // ACTION LIST ENTRIES
+
+  List<ActionListEntry> get actionLists => _appSettingsData.actionLists;
+
+  void addActionList(ActionListEntry entry) {
+    _appSettingsData.actionLists.add(entry);
+    saveAppSettingsDataToDisk();
+  }
+
+  ActionListEntry? getActionListById(String id) {
+    return appSettingsData.actionLists
+        .firstWhereOrNull((entry) => entry.id == id);
+  }
+
+  void deleteActionList(String id) {
+    removeFromAllGroups(controlId: id);
+    removeLinkFromAllActionLists(id);
+    _appSettingsData.actionLists.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+    saveAppSettingsDataToDisk();
+  }
+
+  void updateActionList({
+    required String id,
+    required ActionListEntry entry,
+  }) {
+    int index =
+        _appSettingsData.actionLists.indexWhere((entry) => entry.id == id);
+
+    _appSettingsData.actionLists[index] = entry;
+    saveAppSettingsDataToDisk();
+  }
+
+  void addResultEntry(ResultEntries entry) {
+    _campaignData?.resultEntries.add(entry);
+    addJournalEntry(
+      JournalEntryItem(
+        isFavourite: false,
+        type: JournalEntryTypes.resultEntry,
+        id: entry.id,
+      ),
+    );
+  }
+
+  void removeLinkFromAllActionLists(String id) {
+    for (var table in appSettingsData.actionLists) {
+      table.list.removeWhere((item) => item.string == id);
+    }
+  }
+
+  // ActionListEntry getActionListById(String id) {
+  //   return appSettingsData.actionLists.firstWhere((entry) => entry.id == id);
+  // }
+
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
@@ -695,6 +786,10 @@ class AppState extends ChangeNotifier {
         id: note.id,
       ),
     );
+  }
+
+  TrackerEntry? getTrackerEntryById(String id) {
+    return campaignData!.tracker.firstWhereOrNull((entry) => entry.id == id);
   }
 
   void updateTrackerEntry({

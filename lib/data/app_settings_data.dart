@@ -1,7 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'campaign_data.dart';
+import '../features/action_lists/add_action_list_popup.dart';
 import 'campaign_item.dart';
+import 'journal_entry_types.dart';
 
 part 'app_settings_data.g.dart';
 
@@ -10,6 +11,7 @@ AppSettingsData initAppSettingsData() {
     currentCampaign: '',
     randomTables: [],
     expandedList: [],
+    actionLists: [],
   );
 }
 
@@ -19,11 +21,13 @@ class AppSettingsData {
   // TODO: Rename to RandomTables?
   late List<RandomTableEntry> randomTables;
   late List<String> expandedList;
+  late List<ActionListEntry> actionLists;
 
   AppSettingsData({
     required this.currentCampaign,
     required this.randomTables,
     required this.expandedList,
+    required this.actionLists,
   });
 
   // coverage:ignore-start
@@ -125,6 +129,50 @@ class RollTableResult {
       _$RollTableResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$RollTableResultToJson(this);
+
+// coverage:ignore-end
+}
+
+@JsonSerializable(explicitToJson: true)
+class ActionListEntry extends CampaignItem {
+  final String title;
+  final List<ActionRow> list;
+  final bool isActive;
+  final bool isHidden;
+
+  ActionListEntry({
+    required this.title,
+    required this.list,
+    required this.isActive,
+    required this.isHidden,
+  });
+
+  // coverage:ignore-start
+  factory ActionListEntry.fromJson(Map<String, dynamic> json) =>
+      _$ActionListEntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ActionListEntryToJson(this);
+
+  @override
+  JournalEntryTypes type = JournalEntryTypes.actionList;
+// coverage:ignore-end
+}
+
+@JsonSerializable(explicitToJson: true)
+class ActionRow {
+  late ActionEditorType type;
+  late String string;
+
+  ActionRow({
+    required this.type,
+    required this.string,
+  });
+
+  // coverage:ignore-start
+  factory ActionRow.fromJson(Map<String, dynamic> json) =>
+      _$ActionRowFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ActionRowToJson(this);
 
 // coverage:ignore-end
 }

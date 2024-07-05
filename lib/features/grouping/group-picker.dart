@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/label_and_picker.dart';
 
 import '../../data/app_state.dart';
 import '../../widgets/picker.dart';
@@ -18,10 +19,20 @@ class GroupPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Group> groupList = appState.groupList;
+    List<Group> groupList = List.from(appState.groupList);
+    groupList.removeWhere((group) => group.isAppGroup == true);
     List<String> listOfGroups = groupList.map((group) => group.label).toList();
     var groupIndex =
         groupList.indexWhere((group) => group.groupId == initialGroup);
+
+    return LabelAndPicker(
+      label: 'Group: ',
+      items: listOfGroups,
+      onChange: (index) {
+        if (index != null) onChange(groupList[index].groupId);
+      },
+      selectedIndex: groupIndex,
+    );
 
     return Row(
       children: [

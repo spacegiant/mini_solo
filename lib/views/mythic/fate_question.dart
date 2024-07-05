@@ -35,17 +35,6 @@ class FateChartRow {
   );
 }
 
-Map<String, Widget> mythicFateChartControls(
-  AppState appState,
-) =>
-    {
-      for (var row in fateChart)
-        row.label: FateChartListButton(
-          fateChartRow: row,
-          appState: appState,
-        ),
-    };
-
 List<ControlData> mythicFateChartControls2(AppState appState) {
   List<FateChartRow> sortedRows = [];
   Group fateChartGroup = appState.getGroup('group-mythic-fate-chart');
