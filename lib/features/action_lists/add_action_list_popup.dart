@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
+import 'package:mini_solo/features/grouping/group-picker.dart';
 import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/label_and_picker.dart';
 import 'package:mini_solo/widgets/my_reorderable_item.dart';
@@ -50,6 +51,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   String? actionTableEntryId;
   ActionListEntry? entry;
   String selectedGroup = 'group-action-lists';
+  late String? initialGroup;
 
   @override
   void initState() {
@@ -60,6 +62,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         TextEditingController(text: entry != null ? entry?.title : '');
     if (entry != null) entryListOfActions = entry!.list;
     _actionLabelController = TextEditingController(text: '');
+    initialGroup = widget.id.runtimeType == null
+        ? 'unsorted'
+        : widget.appState.findCurrentGroupId(widget.id!);
+    selectedGroup = initialGroup!;
   }
 
   @override
@@ -149,8 +155,18 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         list: entryListOfActions,
         isActive: true,
         isHidden: false);
-    widget.appState.addActionList(entry);
+
+    if (widget.id == null) {
+      widget.appState.addActionList(entry);
+    } else {
+      widget.appState.updateActionList(id: widget.id!, entry: entry);
+    }
+
+    widget.appState.removeFromAllGroups(controlId: entry.id);
     widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
+
+    widget.appState.saveAppSettingsDataToDisk();
+    widget.appState.saveCampaignDataToDisk();
   }
 
   @override
@@ -287,7 +303,17 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                   )
                 ],
               ),
-            )
+            ),
+            const Divider(),
+            GroupPicker(
+              onChange: (idString) {
+                setState(() {
+                  selectedGroup = idString;
+                });
+              },
+              appState: widget.appState,
+              initialGroup: initialGroup,
+            ),
           ],
         ),
         footer: Row(

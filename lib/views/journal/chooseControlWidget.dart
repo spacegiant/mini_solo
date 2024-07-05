@@ -358,6 +358,7 @@ Widget chooseControlWidget({
             maxHeight: 800.0,
             child: AddActionListPopup(
               appState: appState,
+              id: controlData.controlId,
             ),
             context: context,
           );

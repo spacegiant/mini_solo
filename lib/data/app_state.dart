@@ -709,6 +709,17 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
+  void updateActionList({
+    required String id,
+    required ActionListEntry entry,
+  }) {
+    int index =
+        _appSettingsData.actionLists.indexWhere((entry) => entry.id == id);
+
+    _appSettingsData.actionLists[index] = entry;
+    saveAppSettingsDataToDisk();
+  }
+
   void addResultEntry(ResultEntries entry) {
     _campaignData?.resultEntries.add(entry);
     addJournalEntry(
@@ -725,6 +736,10 @@ class AppState extends ChangeNotifier {
       table.list.removeWhere((item) => item.string == id);
     }
   }
+
+  // ActionListEntry getActionListById(String id) {
+  //   return appSettingsData.actionLists.firstWhere((entry) => entry.id == id);
+  // }
 
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
