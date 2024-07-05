@@ -61,12 +61,12 @@ class _EditRandomTablesPopupState extends State<EditRandomTablesPopup> {
                 handleTap(randomTable.id);
               },
               handleToggleActive: (bool isChecked) {
-                widget.appState.getRandomTableById(randomTable.id).isHidden =
+                widget.appState.getRandomTableById(randomTable.id)!.isHidden =
                     !isChecked;
                 widget.appState.saveCampaignDataToDisk();
               },
               itemIsActive:
-                  !widget.appState.getRandomTableById(randomTable.id).isHidden,
+                  !widget.appState.getRandomTableById(randomTable.id)!.isHidden,
               index: index,
             ))
         .toList();

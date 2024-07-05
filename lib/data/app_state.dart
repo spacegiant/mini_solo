@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/campaign_item.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
@@ -49,6 +51,22 @@ class AppState extends ChangeNotifier {
 
   // GROUPS
   List<Group> get groupList => _campaignData!.groups;
+
+  bool entityExists(String id) {
+    RandomTableEntry? randomTableEntry = getRandomTableById(id);
+    TrackerEntry? trackerEntry = getTrackerEntryById(id);
+    ActionListEntry? actionListEntry = getActionListById(id);
+
+    return randomTableEntry == null &&
+        trackerEntry == null &&
+        actionListEntry == null;
+  }
+
+  void deleteEntityById(String id) {
+    appSettingsData.randomTables.removeWhere((entry) => entry.id == id);
+    appSettingsData.actionLists.removeWhere((entry) => entry.id == id);
+    campaignData?.tracker.removeWhere((entry) => entry.id == id);
+  }
 
   bool groupExists(String groupName) {
     int index = _campaignData!.groups.indexWhere((group) {
@@ -640,8 +658,9 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
-  RandomTableEntry getRandomTableById(String id) {
-    return appSettingsData.randomTables.firstWhere((entry) => entry.id == id);
+  RandomTableEntry? getRandomTableById(String id) {
+    return appSettingsData.randomTables
+        .firstWhereOrNull((entry) => entry.id == id);
   }
 
   void removeLinkFromAllRandomTables(String id) {
@@ -699,6 +718,11 @@ class AppState extends ChangeNotifier {
   void addActionList(ActionListEntry entry) {
     _appSettingsData.actionLists.add(entry);
     saveAppSettingsDataToDisk();
+  }
+
+  ActionListEntry? getActionListById(String id) {
+    return appSettingsData.actionLists
+        .firstWhereOrNull((entry) => entry.id == id);
   }
 
   void deleteActionList(String id) {
@@ -762,6 +786,10 @@ class AppState extends ChangeNotifier {
         id: note.id,
       ),
     );
+  }
+
+  TrackerEntry? getTrackerEntryById(String id) {
+    return campaignData!.tracker.firstWhereOrNull((entry) => entry.id == id);
   }
 
   void updateTrackerEntry({

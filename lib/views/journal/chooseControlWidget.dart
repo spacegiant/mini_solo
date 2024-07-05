@@ -371,6 +371,7 @@ Widget chooseControlWidget({
 
 TrackerEntry? getTrackerEntry(AppState appState, String controlId) {
   try {
+    // TODO remove app state argument from function
     return appState.campaignData?.tracker
         .firstWhere((tracker) => tracker.id == controlId);
   } catch (e) {

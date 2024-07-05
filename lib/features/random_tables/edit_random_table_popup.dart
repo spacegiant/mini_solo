@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
@@ -47,7 +46,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
     _textController = TextEditingController(text: '');
     _weightController = TextEditingController(text: '');
     // TODO is entry needed if we are using updatedEntry?
-    entry = widget.appState.getRandomTableById(widget.id);
+    entry = widget.appState.getRandomTableById(widget.id)!;
     updatedEntry = entry;
     isRandomTable = entry.isRandomTable;
     isHidden = entry.isHidden;
