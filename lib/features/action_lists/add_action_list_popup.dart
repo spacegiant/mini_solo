@@ -49,6 +49,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   String? randomTableEntryId;
   String? actionTableEntryId;
   ActionListEntry? entry;
+  String selectedGroup = 'group-action-lists';
 
   @override
   void initState() {
@@ -143,13 +144,13 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     // if (entry != null) {
     //   print('HOOOOOOG');
     // }
-    widget.appState.addActionList(
-      ActionListEntry(
-          title: _labelController.value.text,
-          list: entryListOfActions,
-          isActive: true,
-          isHidden: false),
-    );
+    ActionListEntry entry = ActionListEntry(
+        title: _labelController.value.text,
+        list: entryListOfActions,
+        isActive: true,
+        isHidden: false);
+    widget.appState.addActionList(entry);
+    widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
   }
 
   @override
