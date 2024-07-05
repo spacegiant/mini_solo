@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../features/action_lists/add_action_list_popup.dart';
-import 'campaign_data.dart';
+import '../utilities/id_generator.dart';
 import 'campaign_item.dart';
 import 'journal_entry_types.dart';
 
@@ -177,46 +177,3 @@ class ActionRow {
 
 // coverage:ignore-end
 }
-
-abstract class JournalEntry {
-  abstract String title;
-}
-
-// USED FOR ALL RESULTS
-class ResultEntries {
-  final List<ResultEntry> list;
-
-  ResultEntries({
-    required this.list,
-  });
-}
-
-abstract class ResultEntry implements JournalEntry {}
-
-class LabelResultEntry implements ResultEntry {
-  @override
-  String title;
-
-  LabelResultEntry({required this.title});
-}
-
-class RandomTableResultEntry implements ResultEntry {
-  @override
-  String title;
-
-  RandomTableResultEntry({required this.title});
-}
-
-class ActionListResultEntry implements ResultEntry {
-  @override
-  String title;
-
-  ActionListResultEntry({required this.title});
-}
-
-ResultEntries entries = ResultEntries(
-  list: [
-    RandomTableResultEntry(title: ''),
-    ActionListResultEntry(title: ''),
-  ],
-);

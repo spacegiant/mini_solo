@@ -5,6 +5,7 @@ import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../data/result_entries.dart';
 import '../../features/action_lists/add_action_list_popup.dart';
 import '../../features/action_lists/recursive_action_list_roll.dart';
 import '../../widgets/list_button.dart';
