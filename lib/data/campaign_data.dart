@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mini_solo/data/initialise_groups.dart';
 import 'package:mini_solo/data/result_entries.dart';
-import 'package:mini_solo/data/result_entry.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../features/kard/kard.dart';

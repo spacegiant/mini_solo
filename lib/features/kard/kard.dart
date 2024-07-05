@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_item.dart';
 
 import '../../data/journal_entry_types.dart';

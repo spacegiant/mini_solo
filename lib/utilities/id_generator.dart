@@ -1,5 +1,4 @@
 // Source: https://stackoverflow.com/questions/15548652/how-to-generate-unique-id-in-dart
-import '../data/campaign_data.dart';
 import '../data/journal_entry_types.dart';
 
 String idGenerator(JournalEntryTypes type) {

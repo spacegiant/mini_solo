@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'campaign_item.dart';
-import 'campaign_data.dart';
 import 'journal_entry_types.dart';
 
 part 'note_entry_item.g.dart';

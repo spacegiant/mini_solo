@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 
 import '../../data/app_state.dart';
 import '../../data/journal_entry_types.dart';

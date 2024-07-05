@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/result_entries.dart';
-import 'package:mini_solo/widgets/popups/edit_tracker_popup.dart';
-import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
-import '../../../data/result_entry.dart';
 
 class ResultEntryWidget extends StatelessWidget {
   const ResultEntryWidget({

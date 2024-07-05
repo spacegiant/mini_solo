@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../features/action_lists/add_action_list_popup.dart';
-import '../utilities/id_generator.dart';
 import 'campaign_item.dart';
 import 'journal_entry_types.dart';
 
