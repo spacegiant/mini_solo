@@ -704,6 +704,8 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
+  void addResultsEntry() {}
+
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);

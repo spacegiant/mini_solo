@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/kard/kard.dart';
+import 'package:mini_solo/views/control_widgets/action_list_control_widget.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
 import 'package:mini_solo/widgets/popups/add_tracker_popup.dart';
 import 'package:mini_solo/features/random_tables/edit_random_table_popup.dart';
@@ -80,6 +81,7 @@ Widget chooseControlWidget({
 
   switch (controlData.controlType) {
     case ControlTypeEnum.button:
+      // TODO Move all control widgets to own files in /control_widgets folder
       return ListButton(
         color: buttonColor,
         label: controlData.label,
@@ -218,41 +220,10 @@ Widget chooseControlWidget({
         },
       );
     case ControlTypeEnum.actionList:
-      return ListButton(
-        color: buttonColor,
-        label: controlData.label,
-        // iconData: CupertinoIcons.rocket,
-        iconData: CupertinoIcons.rocket_fill,
-        onPressed: () {
-          ActionListEntry? entry = controlData.actionList;
-          List<ActionRow> actionRows = entry!.list;
-          for (ActionRow row in actionRows) {
-            switch (row.type) {
-              case ActionEditorType.label:
-                print('LABEL');
-                break;
-              case ActionEditorType.randomTable:
-                print('RANDOM TABLE');
-                break;
-              case ActionEditorType.actionList:
-                print('ACTION LIST');
-                break;
-              default:
-                break;
-            }
-          }
-        },
-        onLongPress: () {
-          toggleShowPopup2(
-            maxWidth: 400.0,
-            maxHeight: 800.0,
-            child: AddActionListPopup(
-              appState: appState,
-              id: controlData.controlId,
-            ),
-            context: context,
-          );
-        },
+      return ActionListControlWidget(
+        controlData: controlData,
+        buttonColor: buttonColor,
+        appState: appState,
       );
     case ControlTypeEnum.diceGroup:
       return Text(controlData.label);
@@ -394,11 +365,6 @@ Widget chooseControlWidget({
         },
         onLongPress: () {},
       );
-    // return ListButton(
-    //   color: buttonColor,
-    //   label: controlData.label,
-    //   onPressed: () {},
-    // );
   }
   return Text(controlData.label);
 }

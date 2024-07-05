@@ -176,3 +176,46 @@ class ActionRow {
 
 // coverage:ignore-end
 }
+
+abstract class JournalEntry {
+  abstract String title;
+}
+
+// USED FOR ALL RESULTS
+class ResultEntries {
+  final List<ResultEntry> list;
+
+  ResultEntries({
+    required this.list,
+  });
+}
+
+abstract class ResultEntry implements JournalEntry {}
+
+class LabelResultEntry implements ResultEntry {
+  @override
+  String title;
+
+  LabelResultEntry({required this.title});
+}
+
+class RandomTableResultEntry implements ResultEntry {
+  @override
+  String title;
+
+  RandomTableResultEntry({required this.title});
+}
+
+class ActionListResultEntry implements ResultEntry {
+  @override
+  String title;
+
+  ActionListResultEntry({required this.title});
+}
+
+ResultEntries entries = ResultEntries(
+  list: [
+    RandomTableResultEntry(title: ''),
+    ActionListResultEntry(title: ''),
+  ],
+);
