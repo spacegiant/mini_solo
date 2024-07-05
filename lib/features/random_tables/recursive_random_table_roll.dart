@@ -28,8 +28,7 @@ void recursiveRandomTableRoll({
           if (id == null) return;
 
           if (recursionLimit == 0) {
-            print(randomTable.title);
-            print('HIT RECURSION LIMIT');
+            print('HIT RECURSION LIMIT at ${randomTable.title}');
             return;
           }
 
@@ -76,6 +75,7 @@ void recursiveRandomTableRoll({
     }
   }
 
+  print(result);
   if (result != null) cb(result);
 }
 

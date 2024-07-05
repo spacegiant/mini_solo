@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
 import '../../features/action_lists/add_action_list_popup.dart';
+import '../../features/action_lists/recursive_action_list_roll.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import '../journal/control_data.dart';
@@ -54,10 +55,21 @@ class ActionListControlWidget extends StatelessWidget {
           resultEntries.list.add(LabelResultEntry(title: row.string));
           break;
         case ActionEditorType.randomTable:
-          resultEntries.list.add(RandomTableResultEntry(title: row.string));
+          recursiveRandomTableRoll(
+            recursionLimit: appState
+                    .campaignData?.settings.general.randomTableRecursionLimit ??
+                3,
+            randomTables: appState.randomTables,
+            randomTableId: row.string,
+            cb: (RollTableResult result) {
+              resultEntries.list
+                  .add(RandomTableResultEntry(title: result.resultString));
+            },
+          );
           break;
         case ActionEditorType.actionList:
           resultEntries.list.add(ActionListResultEntry(title: row.string));
+          // runRunActionAgain();
           break;
         default:
           break;
@@ -65,6 +77,8 @@ class ActionListControlWidget extends StatelessWidget {
     }
     // TODO when for loop finished publish results
     // Add to journal
-    print(resultEntries);
+    for (var entry in resultEntries.list) {
+      print(entry.title);
+    }
   }
 }

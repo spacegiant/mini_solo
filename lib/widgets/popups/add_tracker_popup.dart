@@ -103,7 +103,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
         id: 'StatBlock',
         selectedId: selectedTrackerType,
         onSelect: (value) {
-          print(value);
+          // print(value);
         },
       ),
     );
