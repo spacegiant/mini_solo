@@ -141,9 +141,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   }
 
   void handleSubmit() {
-    // if (entry != null) {
-    //   print('HOOOOOOG');
-    // }
     ActionListEntry entry = ActionListEntry(
         title: _labelController.value.text,
         list: entryListOfActions,
@@ -275,11 +272,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   if (actionEditorType == ActionEditorType.randomTable)
-                    addRandomTableLink(randomTables),
-                  if (actionEditorType == ActionEditorType.label)
+                    addRandomTableLink(randomTables)
+                  else if (actionEditorType == ActionEditorType.actionList)
+                    addActionListLink(actionListEntries)
+                  else
                     addLabelForm(),
-                  if (actionEditorType == ActionEditorType.actionList)
-                    addActionListLink(actionListEntries),
                   const Gap(),
                   ToggleActiveBlock(
                     isActive: canAddNewAction,
