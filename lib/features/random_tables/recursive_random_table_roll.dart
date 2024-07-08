@@ -75,7 +75,6 @@ void recursiveRandomTableRoll({
     }
   }
 
-  print(result);
   if (result != null) cb(result);
 }
 

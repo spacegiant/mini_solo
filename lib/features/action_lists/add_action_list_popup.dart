@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -150,20 +152,20 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   }
 
   void handleSubmit() {
-    ActionListEntry entry = ActionListEntry(
+    ActionListEntry actionListEntry = ActionListEntry(
         title: _labelController.value.text,
         list: entryListOfActions,
         isActive: true,
         isHidden: false);
 
-    if (widget.id == null) {
-      widget.appState.addActionList(entry);
+    if (entry == null) {
+      widget.appState.addActionList(actionListEntry);
     } else {
-      widget.appState.updateActionList(id: widget.id!, entry: entry);
+      widget.appState.updateActionList(id: entry!.id, entry: actionListEntry);
     }
 
-    widget.appState.removeFromAllGroups(controlId: entry.id);
-    widget.appState.addToGroup(controlId: entry.id, groupId: selectedGroup);
+    widget.appState.removeFromAllGroups(controlId: entry!.id);
+    widget.appState.addToGroup(controlId: entry!.id, groupId: selectedGroup);
 
     widget.appState.saveAppSettingsDataToDisk();
     widget.appState.saveCampaignDataToDisk();
@@ -321,7 +323,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             CupertinoButton(
               color: kSubmitColor,
               onPressed: canSubmit() ? handleSubmit : null,
-              child: const Text('Add'),
+              child: Text(entry == null ? 'Add' : 'Update'),
             ),
             if (entry != null) ...[
               const Gap(),
