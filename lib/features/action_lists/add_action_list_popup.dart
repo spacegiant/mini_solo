@@ -99,6 +99,23 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     });
   }
 
+  void handleGroupChange(String groupId) {
+    setState(() {
+      selectedGroup = groupId;
+    });
+  }
+
+  void handleAddActionRowToList(ActionRow actionRow) {
+    setState(() {
+      if (currentEntry == null) {
+        entryListOfActions.add(actionRow);
+        // CLEAR ALL
+        _actionLabelController.text = '';
+        actionEditorType = ActionEditorType.label;
+      }
+    });
+  }
+
   void handleAddLabelChoice() {
     _actionLabelController.text = '';
     setState(() {
@@ -357,11 +374,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             ),
             const Divider(),
             GroupPicker(
-              onChange: (idString) {
-                setState(() {
-                  selectedGroup = idString;
-                });
-              },
+              onChange: handleGroupChange,
               appState: widget.appState,
               initialGroup: initialGroup,
             ),
@@ -427,17 +440,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
         if (string == '') return;
 
-        setState(() {
-          if (currentEntry == null) {
-            entryListOfActions.add(ActionRow(
-              type: type,
-              string: string,
-            ));
-            // CLEAR ALL
-            _actionLabelController.text = '';
-            actionEditorType = ActionEditorType.label;
-          }
-        });
+        handleAddActionRowToList(
+          ActionRow(
+            type: type,
+            string: string,
+          ),
+        );
       },
     );
   }
