@@ -64,6 +64,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         TextEditingController(text: entry != null ? entry?.title : '');
     if (entry != null) entryListOfActions = entry!.list;
     _actionLabelController = TextEditingController(text: '');
+    // TODO fix this
     initialGroup = widget.id.runtimeType == null
         ? 'unsorted'
         : widget.appState.findCurrentGroupId(widget.id!);
@@ -265,6 +266,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                               setState(() {
                                 selectedId = itemIndex;
                                 actionEditorType = entry.type;
+                                _actionLabelController.text = entry.string;
                               });
                             },
                             onToggleActive: (value) {
