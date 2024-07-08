@@ -135,10 +135,10 @@ class RollTableResult {
 
 @JsonSerializable(explicitToJson: true)
 class ActionListEntry extends CampaignItem {
-  final String title;
-  final List<ActionRow> list;
-  final bool isActive;
-  final bool isHidden;
+  late String title;
+  late List<ActionRow> list;
+  late bool isActive;
+  late bool isHidden;
 
   ActionListEntry({
     required this.title,

@@ -268,6 +268,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   }
 
   CupertinoButton homePageChaosFactorButton(AppState appState) {
+    // TODO do not display if mythic turned off
     return CupertinoButton(
       onPressed: () {
         toggleShowPopup2(

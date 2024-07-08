@@ -27,6 +27,7 @@ class _CampaignManagerState extends State<CampaignManager> {
     BuildContext context,
   ) {
     Future<List<FileSystemEntity>> campaigns = widget.getCampaignList;
+    // TODO Finish this functionality. Users should be a able to switch and manage campaigns
     return FutureBuilder(
         future: campaigns,
         builder: (

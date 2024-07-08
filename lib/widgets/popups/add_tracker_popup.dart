@@ -161,7 +161,7 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
           const Divider(),
           GroupPicker(
               appState: widget.appState,
-              initialGroup: 'group-trackers',
+              initialGroupId: 'group-trackers',
               onChange: (groupName) {
                 setState(() {
                   selectedGroup = groupName;

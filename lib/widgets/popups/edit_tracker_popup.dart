@@ -100,7 +100,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               });
             },
             appState: widget.appState,
-            initialGroup: initialGroup,
+            initialGroupId: initialGroup,
           ),
         ],
       );

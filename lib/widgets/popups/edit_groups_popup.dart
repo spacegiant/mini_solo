@@ -61,7 +61,7 @@ class _EditGroupsPopupState extends State<EditGroupsPopup> {
               onTap: () {
                 handleTap(group.groupId);
               },
-              handleToggleActive: (bool checked) {
+              onToggleActive: (bool checked) {
                 widget.appState.getGroup(group.groupId).isActive = checked;
                 widget.appState.saveCampaignDataToDisk();
               },

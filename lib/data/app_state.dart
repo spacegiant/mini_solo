@@ -735,12 +735,22 @@ class AppState extends ChangeNotifier {
 
   void updateActionList({
     required String id,
-    required ActionListEntry entry,
+    required String title,
+    required List<ActionRow> list,
+    bool? isActive,
+    bool? isHidden,
   }) {
     int index =
         _appSettingsData.actionLists.indexWhere((entry) => entry.id == id);
 
-    _appSettingsData.actionLists[index] = entry;
+    _appSettingsData.actionLists[index].title = title;
+    _appSettingsData.actionLists[index].list = list;
+    if (isActive != null) {
+      _appSettingsData.actionLists[index].isActive = isActive;
+    }
+    if (isHidden != null) {
+      _appSettingsData.actionLists[index].isHidden = isHidden;
+    }
     saveAppSettingsDataToDisk();
   }
 

@@ -155,7 +155,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   }
                 },
                 label: 'Link',
-                selectedIndex: getOtherLinkIndex(),
               ),
             ),
           ],
@@ -169,7 +168,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
             });
           },
           appState: widget.appState,
-          initialGroup: initialGroup,
+          initialGroupId: initialGroup,
         ),
         Row(
           children: [
