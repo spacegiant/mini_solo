@@ -13,7 +13,7 @@ class MyReorderableItem extends StatefulWidget {
     this.selected,
     this.onTap,
     required this.index,
-    this.handleToggleActive,
+    this.onToggleActive,
     this.itemIsActive,
     this.icon,
   });
@@ -24,7 +24,7 @@ class MyReorderableItem extends StatefulWidget {
   final AppState appState;
   final bool? selected;
   final Function()? onTap;
-  final Function(bool)? handleToggleActive;
+  final Function(bool)? onToggleActive;
   final int index;
   final bool? itemIsActive;
 
@@ -63,7 +63,7 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
                 Expanded(child: Text(widget.label)),
                 Row(
                   children: [
-                    if (widget.handleToggleActive != null)
+                    if (widget.onToggleActive != null)
                       CupertinoButton(
                           child: isActive == true
                               ? const Icon(CupertinoIcons.eye)
@@ -76,7 +76,7 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
                             setState(() {
                               isActive = !isActive;
                             });
-                            widget.handleToggleActive!(isActive);
+                            widget.onToggleActive!(isActive);
                           }),
                     const Icon(
                       CupertinoIcons.line_horizontal_3,

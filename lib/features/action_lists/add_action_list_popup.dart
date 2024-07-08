@@ -43,7 +43,7 @@ class AddActionListPopup extends StatefulWidget {
 class _AddActionListPopupState extends State<AddActionListPopup> {
   late TextEditingController _labelController;
   late TextEditingController _actionLabelController;
-  late String? selectedId;
+  String? selectedId;
   ActionEditorType? actionEditorType;
   int? pickerIndex;
   late String entryTitle;
@@ -171,6 +171,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     widget.appState.saveCampaignDataToDisk();
   }
 
+  void handleItemSelected(String id) {
+    setState(() {
+      selectedId = id;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     List<RandomTableEntry> randomTables = widget.appState.randomTables;
@@ -238,7 +244,8 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                     : MyReorderableListView(
                         itemList: entryListOfActions,
                         appState: widget.appState,
-                        selectedId: '',
+                        // TODO link selectedId below to state
+                        selectedId: selectedId,
                         onReorder: (oldIndex, newIndex, list) {},
                         children: entryListOfActions
                             .mapIndexed((index, entry) => MyReorderableItem(
@@ -252,7 +259,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                                     entry.type,
                                   ),
                                   index: index,
-                                  handleToggleActive: (value) {},
+                                  onTap: () {},
+                                  onToggleActive: (value) {
+                                    // TODO toggle the activeId in State
+                                  },
                                 ))
                             .toList(),
                       )),
