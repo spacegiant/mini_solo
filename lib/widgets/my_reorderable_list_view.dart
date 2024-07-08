@@ -14,7 +14,7 @@ class MyReorderableListView extends StatelessWidget {
 
   final List<dynamic> itemList;
   final AppState appState;
-  final String selectedId;
+  final String? selectedId;
   final void Function(int, int, List<dynamic>) onReorder;
   final List<Widget> children;
 

@@ -60,7 +60,7 @@ class _EditRandomTablesPopupState extends State<EditRandomTablesPopup> {
               onTap: () {
                 handleTap(randomTable.id);
               },
-              handleToggleActive: (bool isChecked) {
+              onToggleActive: (bool isChecked) {
                 widget.appState.getRandomTableById(randomTable.id)!.isHidden =
                     !isChecked;
                 widget.appState.saveCampaignDataToDisk();

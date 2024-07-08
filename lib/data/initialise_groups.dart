@@ -47,7 +47,7 @@ var initialiseGroups = [
     color: 0xFFFB8F67,
   ),
   Group(
-    isAppGroup: true,
+    isAppGroup: false,
     groupId: 'group-action-lists',
     label: 'Action Lists',
     controls: [],
