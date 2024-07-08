@@ -253,6 +253,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                             icon: typeIcons[entry.type],
                             key: Key(itemIndex),
                             id: itemIndex,
+                            selected: selectedId == itemIndex,
                             appState: widget.appState,
                             label: processStringDependingOnType(
                               widget.appState,
@@ -261,7 +262,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                             ),
                             index: index,
                             onTap: () {
-                              print(itemIndex);
+                              setState(() {
+                                selectedId = itemIndex;
+                              });
                             },
                             onToggleActive: (value) {
                               // TODO toggle the activeId in State
