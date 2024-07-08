@@ -75,6 +75,13 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     _actionLabelController.dispose();
   }
 
+  void handleRandomTableChange(int? value) {
+    if (value == null) return;
+    setState(() {
+      randomTableEntryId = widget.appState.randomTables[value].id;
+    });
+  }
+
   Widget addRandomTableLink(List<RandomTableEntry> randomTables) {
     List<String> pickerOptions = [];
 
@@ -92,11 +99,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           enabled: true,
           label: 'Random Table',
           items: pickerOptions,
-          onChange: (value) {
-            setState(() {
-              if (value != null) randomTableEntryId = randomTables[value].id;
-            });
-          },
+          onChange: handleRandomTableChange,
         ),
       );
     }
