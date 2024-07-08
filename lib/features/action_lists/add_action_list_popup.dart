@@ -87,6 +87,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     });
   }
 
+  void handleActionListItemLabelChange(String value) {
+    setState(() {
+      _actionLabelController.text = value;
+    });
+  }
+
   void handleToggleActive(value) {
     setState(() {
       entryIsActive = !entryIsActive;
@@ -338,11 +344,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                         axis: Axis.horizontal,
                         label: 'Label',
                         controller: _actionLabelController,
-                        onChanged: (value) {
-                          setState(() {
-                            _actionLabelController.text = value;
-                          });
-                        },
+                        onChanged: handleActionListItemLabelChange,
                       ),
                     ),
                   const Gap(),
