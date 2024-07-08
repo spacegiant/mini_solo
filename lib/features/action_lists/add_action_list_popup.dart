@@ -224,13 +224,16 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 height: 200.0,
                 color: CupertinoColors.white,
                 child: entryListOfActions.isEmpty
-                    ? const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Add an Action'),
-                          Gap(),
-                          Icon(CupertinoIcons.down_arrow),
-                        ],
+                    ? ToggleActiveBlock(
+                        isActive: _labelController.value.text != '',
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Add an Action'),
+                            Gap(),
+                            Icon(CupertinoIcons.down_arrow),
+                          ],
+                        ),
                       )
                     : MyReorderableListView(
                         itemList: entryListOfActions,
