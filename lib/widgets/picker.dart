@@ -7,7 +7,7 @@ class Picker extends StatefulWidget {
     super.key,
     required this.items,
     required this.onChange,
-    this.selectedIndex,
+    this.initialItem,
     required this.enabled,
     this.defunctLabel,
     required this.selectedItemIndex,
@@ -15,7 +15,7 @@ class Picker extends StatefulWidget {
 
   final List<String> items;
   final void Function(int? index) onChange;
-  final int? selectedIndex;
+  final int? initialItem;
   final bool enabled;
   final String? defunctLabel;
   final int selectedItemIndex;
@@ -26,7 +26,7 @@ class Picker extends StatefulWidget {
 
 class _PickerState extends State<Picker> {
   late int offset;
-  late int _selectedItemIndex;
+  late int initialItem;
   late List<String> pickerStrings;
 
   @override
@@ -34,8 +34,7 @@ class _PickerState extends State<Picker> {
     super.initState();
 
     offset = widget.defunctLabel != null ? 1 : 0;
-    _selectedItemIndex =
-        widget.selectedIndex != null ? widget.selectedIndex! + offset : 0;
+    initialItem = widget.initialItem != null ? widget.initialItem! + offset : 0;
 
     pickerStrings = List.from(widget.items);
     if (widget.defunctLabel != null) {
@@ -74,9 +73,8 @@ class _PickerState extends State<Picker> {
       },
     );
 
-    String text = _selectedItemIndex > -1
-        ? pickerStrings[_selectedItemIndex]
-        : pickerStrings[0];
+    String text =
+        initialItem > -1 ? pickerStrings[initialItem] : pickerStrings[0];
 
     return CupertinoButton(
         padding: EdgeInsets.zero,
@@ -98,8 +96,8 @@ class _PickerState extends State<Picker> {
           if (widget.enabled) {
             _showDialog(
               CupertinoPicker(
-                scrollController: FixedExtentScrollController(
-                    initialItem: _selectedItemIndex),
+                scrollController:
+                    FixedExtentScrollController(initialItem: initialItem),
                 magnification: 1.22,
                 squeeze: 1.2,
                 useMagnifier: true,
@@ -107,7 +105,7 @@ class _PickerState extends State<Picker> {
                 // TODO use listener to get change when scrolling settles
                 onSelectedItemChanged: (int selectedItemIndex) {
                   setState(() {
-                    _selectedItemIndex = selectedItemIndex;
+                    initialItem = selectedItemIndex;
                   });
                   if (widget.defunctLabel != null) {
                     widget.onChange(selectedItemIndex - offset);

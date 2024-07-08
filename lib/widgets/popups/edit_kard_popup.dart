@@ -44,7 +44,7 @@ class _EditKardPopupState extends State<EditKardPopup> {
             });
           },
           appState: widget.appState,
-          initialGroup: selectedGroup,
+          initialGroupId: selectedGroup,
         ),
       ]),
       footer: Row(
@@ -81,7 +81,7 @@ class _EditKardPopupState extends State<EditKardPopup> {
             });
           },
           appState: widget.appState,
-          initialGroup: selectedGroup,
+          initialGroupId: selectedGroup,
         ),
         const Gap(),
         CupertinoButton(

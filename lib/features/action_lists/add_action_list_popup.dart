@@ -51,8 +51,8 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   String? randomTableEntryId;
   String? actionTableEntryId;
   ActionListEntry? entry;
-  String selectedGroup = 'group-action-lists';
-  late String? initialGroup;
+  String? initialGroupId;
+  String? selectedGroupId;
 
   @override
   void initState() {
@@ -63,8 +63,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         TextEditingController(text: entry != null ? entry?.title : '');
     if (entry != null) entryListOfActions = entry!.list;
     _actionLabelController = TextEditingController(text: '');
-    initialGroup = widget.appState.findCurrentGroupId(widget.id!);
-    selectedGroup = initialGroup!;
+    if (entry != null) {
+      initialGroupId = widget.appState.findCurrentGroupId(entry!.id);
+    }
+    selectedGroupId = initialGroupId ?? 'group-action-lists';
   }
 
   @override
@@ -101,7 +103,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
   void handleGroupChange(String groupId) {
     setState(() {
-      selectedGroup = groupId;
+      selectedGroupId = groupId;
     });
   }
 
@@ -208,10 +210,20 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
     if (entry == null) {
       widget.appState.addActionList(actionListEntry);
+      widget.appState.addToGroup(
+          controlId: actionListEntry.id,
+          groupId: selectedGroupId ?? initialGroupId ?? 'unsorted');
     } else {
-      widget.appState.updateActionList(id: entry!.id, entry: actionListEntry);
+      print(entry!.id);
+      widget.appState.updateActionList(
+        id: entry!.id,
+        title: actionListEntry.title,
+        list: actionListEntry.list,
+      );
       widget.appState.removeFromAllGroups(controlId: entry!.id);
-      widget.appState.addToGroup(controlId: entry!.id, groupId: selectedGroup);
+      widget.appState.addToGroup(
+          controlId: entry!.id,
+          groupId: selectedGroupId ?? initialGroupId ?? 'unsorted');
     }
 
     widget.appState.saveAppSettingsDataToDisk();
@@ -376,7 +388,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
             GroupPicker(
               onChange: handleGroupChange,
               appState: widget.appState,
-              initialGroup: initialGroup,
+              initialGroupId: selectedGroupId,
             ),
           ],
         ),

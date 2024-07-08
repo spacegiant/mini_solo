@@ -11,6 +11,7 @@ class LabelAndPicker extends StatefulWidget {
     required this.items,
     required this.onChange,
     this.defunctLabel,
+    this.initialItem,
   });
 
   final String label;
@@ -18,14 +19,13 @@ class LabelAndPicker extends StatefulWidget {
   final List<String> items;
   final Function(int?) onChange;
   final String? defunctLabel;
+  final int? initialItem;
 
   @override
   State<LabelAndPicker> createState() => _LabelAndPickerState();
 }
 
 class _LabelAndPickerState extends State<LabelAndPicker> {
-  int? selectedIndex;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,7 +40,7 @@ class _LabelAndPickerState extends State<LabelAndPicker> {
             items: widget.items,
             onChange: widget.onChange,
             enabled: widget.enabled ?? false,
-            selectedIndex: selectedIndex,
+            initialItem: widget.initialItem,
             selectedItemIndex: 0,
           ),
         ),

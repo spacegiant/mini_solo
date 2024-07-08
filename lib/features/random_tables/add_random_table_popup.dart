@@ -28,7 +28,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
   late TextEditingController _separatorController;
 
   final String separatorCharacter = '|';
-  String selectedGroup = 'group-random-tables';
+  String selectedGroupId = 'group-random-tables';
 
   @override
   void initState() {
@@ -102,11 +102,11 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
           GroupPicker(
             onChange: (idString) {
               setState(() {
-                selectedGroup = idString;
+                selectedGroupId = idString;
               });
             },
             appState: widget.appState,
-            initialGroup: 'group-random-tables',
+            initialGroupId: 'group-random-tables',
           ),
         ],
       );
@@ -139,8 +139,8 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                   _titleController.text = '';
                   _textController.text = '';
 
-                  widget.appState
-                      .addToGroup(controlId: entry.id, groupId: selectedGroup);
+                  widget.appState.addToGroup(
+                      controlId: entry.id, groupId: selectedGroupId);
                   widget.appState.saveCampaignDataToDisk();
                 }
               }),
