@@ -262,14 +262,21 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 children: [
                   const Text('Add: '),
                   CupertinoButton(
-                      child: const Text('Label'),
+                      child: TextWithIndicator(
+                        text: 'Label',
+                        selected: actionEditorType == ActionEditorType.label,
+                      ),
                       onPressed: () {
                         setState(() {
                           actionEditorType = ActionEditorType.label;
                         });
                       }),
                   CupertinoButton(
-                      child: const Text('Random Table'),
+                      child: TextWithIndicator(
+                        text: 'RandomTable',
+                        selected:
+                            actionEditorType == ActionEditorType.randomTable,
+                      ),
                       onPressed: () {
                         setState(() {
                           if (randomTables.isNotEmpty) {
@@ -280,7 +287,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                         });
                       }),
                   CupertinoButton(
-                      child: const Text('Action'),
+                      child: TextWithIndicator(
+                        text: 'Action',
+                        selected:
+                            actionEditorType == ActionEditorType.actionList,
+                      ),
                       onPressed: () {
                         setState(() {
                           if (actionListEntries.isNotEmpty) {
@@ -401,5 +412,27 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     } else {
       return string;
     }
+  }
+}
+
+class TextWithIndicator extends StatelessWidget {
+  const TextWithIndicator({
+    super.key,
+    required this.text,
+    required this.selected,
+  });
+
+  final String text;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+            bottom: selected ? const BorderSide(width: 1.0) : BorderSide.none),
+      ),
+      child: Text(text),
+    );
   }
 }
