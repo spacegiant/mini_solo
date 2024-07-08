@@ -44,6 +44,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   late TextEditingController _labelController;
   late TextEditingController _actionLabelController;
   String? selectedId;
+  ActionRow? currentEntry;
   ActionEditorType? actionEditorType;
   int? pickerIndex;
   late String entryTitle;
@@ -245,7 +246,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                     : MyReorderableListView(
                         itemList: entryListOfActions,
                         appState: widget.appState,
-                        // TODO link selectedId below to state
                         selectedId: selectedId,
                         onReorder: (oldIndex, newIndex, list) {},
                         children: entryListOfActions.mapIndexed((index, entry) {
@@ -265,6 +265,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                             onTap: () {
                               setState(() {
                                 selectedId = itemIndex;
+                                currentEntry = entry;
                                 actionEditorType = entry.type;
                                 _actionLabelController.text = entry.string;
                               });
@@ -284,8 +285,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                       child: TextWithIndicator(
                         text: 'Label',
                         selected: actionEditorType == ActionEditorType.label,
+                        // TODO this will clear the current item being edited
                       ),
                       onPressed: () {
+                        currentEntry = null;
+                        _actionLabelController.text = '';
                         setState(() {
                           actionEditorType = ActionEditorType.label;
                         });
@@ -298,6 +302,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                       ),
                       onPressed: () {
                         setState(() {
+                          currentEntry = null;
                           if (randomTables.isNotEmpty) {
                             randomTableEntryId = randomTables[0].id;
                           }
@@ -313,6 +318,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                       ),
                       onPressed: () {
                         setState(() {
+                          currentEntry = null;
                           if (actionListEntries.isNotEmpty) {
                             actionTableEntryId = actionListEntries[0].id;
                           }
