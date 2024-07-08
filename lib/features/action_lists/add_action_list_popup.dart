@@ -253,37 +253,42 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                                 ))
                             .toList(),
                       )),
-            Row(
-              children: [
-                const Text('Add: '),
-                CupertinoButton(
-                    child: const Text('Label'),
-                    onPressed: () {
-                      setState(() {
-                        actionEditorType = ActionEditorType.label;
-                      });
-                    }),
-                CupertinoButton(
-                    child: const Text('Random Table'),
-                    onPressed: () {
-                      setState(() {
-                        randomTableEntryId = randomTables[0].id;
-                        actionEditorType = ActionEditorType.randomTable;
-                        _actionLabelController.text = '';
-                      });
-                    }),
-                CupertinoButton(
-                    child: const Text('Action'),
-                    onPressed: () {
-                      setState(() {
-                        if (actionListEntries.isNotEmpty) {
-                          actionTableEntryId = actionListEntries[0].id;
-                        }
-                        actionEditorType = ActionEditorType.actionList;
-                        _actionLabelController.text = '';
-                      });
-                    }),
-              ],
+            ToggleActiveBlock(
+              isActive: _labelController.value.text != '',
+              child: Row(
+                children: [
+                  const Text('Add: '),
+                  CupertinoButton(
+                      child: const Text('Label'),
+                      onPressed: () {
+                        setState(() {
+                          actionEditorType = ActionEditorType.label;
+                        });
+                      }),
+                  CupertinoButton(
+                      child: const Text('Random Table'),
+                      onPressed: () {
+                        setState(() {
+                          if (randomTables.isNotEmpty) {
+                            randomTableEntryId = randomTables[0].id;
+                          }
+                          actionEditorType = ActionEditorType.randomTable;
+                          _actionLabelController.text = '';
+                        });
+                      }),
+                  CupertinoButton(
+                      child: const Text('Action'),
+                      onPressed: () {
+                        setState(() {
+                          if (actionListEntries.isNotEmpty) {
+                            actionTableEntryId = actionListEntries[0].id;
+                          }
+                          actionEditorType = ActionEditorType.actionList;
+                          _actionLabelController.text = '';
+                        });
+                      }),
+                ],
+              ),
             ),
             const Divider(),
             ToggleActiveBlock(
