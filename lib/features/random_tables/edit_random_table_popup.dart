@@ -155,7 +155,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   }
                 },
                 label: 'Link',
-                selectedIndex: getOtherLinkIndex(),
               ),
             ),
           ],

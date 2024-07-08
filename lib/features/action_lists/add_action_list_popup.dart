@@ -46,7 +46,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   String? selectedId;
   ActionRow? currentEntry;
   ActionEditorType? actionEditorType;
-  int? pickerIndex;
   late String entryTitle;
   late bool entryIsActive;
   List<ActionRow> entryListOfActions = [];
@@ -76,21 +75,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     _actionLabelController.dispose();
   }
 
-  Widget addLabelForm() {
-    return Flexible(
-      child: LabelAndInput(
-        axis: Axis.horizontal,
-        label: 'Label',
-        controller: _actionLabelController,
-        onChanged: (value) {
-          setState(() {
-            _actionLabelController.text = value;
-          });
-        },
-      ),
-    );
-  }
-
   Widget addRandomTableLink(List<RandomTableEntry> randomTables) {
     List<String> pickerOptions = [];
 
@@ -105,16 +89,15 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     } else {
       return Flexible(
         child: LabelAndPicker(
-            enabled: true,
-            label: 'Random Table',
-            items: pickerOptions,
-            onChange: (value) {
-              setState(() {
-                if (value != null) randomTableEntryId = randomTables[value].id;
-                pickerIndex = value;
-              });
-            },
-            selectedIndex: pickerIndex),
+          enabled: true,
+          label: 'Random Table',
+          items: pickerOptions,
+          onChange: (value) {
+            setState(() {
+              if (value != null) randomTableEntryId = randomTables[value].id;
+            });
+          },
+        ),
       );
     }
   }
@@ -136,16 +119,15 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     } else {
       return Flexible(
         child: LabelAndPicker(
-            enabled: true,
-            label: 'Action',
-            items: pickerOptions,
-            onChange: (value) {
-              setState(() {
-                if (value != null) actionTableEntryId = actionEntries[value].id;
-                pickerIndex = value;
-              });
-            },
-            selectedIndex: pickerIndex),
+          enabled: true,
+          label: 'Action',
+          items: pickerOptions,
+          onChange: (value) {
+            setState(() {
+              if (value != null) actionTableEntryId = actionEntries[value].id;
+            });
+          },
+        ),
       );
     }
   }
@@ -337,7 +319,18 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                   else if (actionEditorType == ActionEditorType.actionList)
                     addActionListLink(actionListEntries)
                   else
-                    addLabelForm(),
+                    Flexible(
+                      child: LabelAndInput(
+                        axis: Axis.horizontal,
+                        label: 'Label',
+                        controller: _actionLabelController,
+                        onChanged: (value) {
+                          setState(() {
+                            _actionLabelController.text = value;
+                          });
+                        },
+                      ),
+                    ),
                   const Gap(),
                   ToggleActiveBlock(
                     isActive: canAddNewAction,
