@@ -247,24 +247,27 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                         // TODO link selectedId below to state
                         selectedId: selectedId,
                         onReorder: (oldIndex, newIndex, list) {},
-                        children: entryListOfActions
-                            .mapIndexed((index, entry) => MyReorderableItem(
-                                  icon: typeIcons[entry.type],
-                                  key: Key('action-$index'),
-                                  id: 'action-$index',
-                                  appState: widget.appState,
-                                  label: processStringDependingOnType(
-                                    widget.appState,
-                                    entry.string,
-                                    entry.type,
-                                  ),
-                                  index: index,
-                                  onTap: () {},
-                                  onToggleActive: (value) {
-                                    // TODO toggle the activeId in State
-                                  },
-                                ))
-                            .toList(),
+                        children: entryListOfActions.mapIndexed((index, entry) {
+                          String itemIndex = 'action-$index';
+                          return MyReorderableItem(
+                            icon: typeIcons[entry.type],
+                            key: Key(itemIndex),
+                            id: itemIndex,
+                            appState: widget.appState,
+                            label: processStringDependingOnType(
+                              widget.appState,
+                              entry.string,
+                              entry.type,
+                            ),
+                            index: index,
+                            onTap: () {
+                              print(itemIndex);
+                            },
+                            onToggleActive: (value) {
+                              // TODO toggle the activeId in State
+                            },
+                          );
+                        }).toList(),
                       )),
             ToggleActiveBlock(
               isActive: _labelController.value.text != '',
