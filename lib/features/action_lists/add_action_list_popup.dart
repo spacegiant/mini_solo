@@ -164,10 +164,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       widget.appState.addActionList(actionListEntry);
     } else {
       widget.appState.updateActionList(id: entry!.id, entry: actionListEntry);
+      widget.appState.removeFromAllGroups(controlId: entry!.id);
+      widget.appState.addToGroup(controlId: entry!.id, groupId: selectedGroup);
     }
-
-    widget.appState.removeFromAllGroups(controlId: entry!.id);
-    widget.appState.addToGroup(controlId: entry!.id, groupId: selectedGroup);
 
     widget.appState.saveAppSettingsDataToDisk();
     widget.appState.saveCampaignDataToDisk();
@@ -389,22 +388,30 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       minSize: 44.0,
       padding: EdgeInsets.zero,
       color: kSubmitColor,
-      child: const Icon(CupertinoIcons.add),
+      child: Icon(currentEntry == null
+          ? CupertinoIcons.add
+          : CupertinoIcons.check_mark),
       onPressed: () {
         ActionEditorType type = ActionEditorType.label;
         String string = '';
 
-        if (_actionLabelController.value.text != '') {
+        bool actionListLabelIsNotBlank =
+            _actionLabelController.value.text != '';
+        bool isRandomTable =
+            actionEditorType! == ActionEditorType.randomTable &&
+                randomTableEntryId != null &&
+                randomTableEntryId != '';
+        bool isActionList = actionEditorType! == ActionEditorType.actionList &&
+            actionTableEntryId != null &&
+            actionTableEntryId != '';
+
+        if (actionListLabelIsNotBlank) {
           string = _actionLabelController.value.text;
           type = ActionEditorType.label;
-        } else if (actionEditorType! == ActionEditorType.randomTable &&
-            randomTableEntryId != null &&
-            randomTableEntryId != '') {
+        } else if (isRandomTable) {
           if (randomTableEntryId != null) string = randomTableEntryId!;
           type = ActionEditorType.randomTable;
-        } else if (actionEditorType! == ActionEditorType.actionList &&
-            actionTableEntryId != null &&
-            actionTableEntryId != '') {
+        } else if (isActionList) {
           if (actionTableEntryId != null) string = actionTableEntryId!;
           type = ActionEditorType.actionList;
         }
