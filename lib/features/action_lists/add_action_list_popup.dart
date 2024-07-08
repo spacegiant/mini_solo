@@ -264,6 +264,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                             onTap: () {
                               setState(() {
                                 selectedId = itemIndex;
+                                actionEditorType = entry.type;
                               });
                             },
                             onToggleActive: (value) {
