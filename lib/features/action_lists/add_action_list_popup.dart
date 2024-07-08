@@ -344,7 +344,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                   const Gap(),
                   ToggleActiveBlock(
                     isActive: canAddNewAction,
-                    child: submitActionListButton(),
+                    child: addItemToActionList(),
                   )
                 ],
               ),
@@ -383,7 +383,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         ));
   }
 
-  CupertinoButton submitActionListButton() {
+  CupertinoButton addItemToActionList() {
     return CupertinoButton(
       minSize: 44.0,
       padding: EdgeInsets.zero,
@@ -397,21 +397,24 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
         bool actionListLabelIsNotBlank =
             _actionLabelController.value.text != '';
-        bool isRandomTable =
+
+        bool isValidRandomTable =
             actionEditorType! == ActionEditorType.randomTable &&
                 randomTableEntryId != null &&
                 randomTableEntryId != '';
-        bool isActionList = actionEditorType! == ActionEditorType.actionList &&
-            actionTableEntryId != null &&
-            actionTableEntryId != '';
+
+        bool isValidActionList =
+            actionEditorType! == ActionEditorType.actionList &&
+                actionTableEntryId != null &&
+                actionTableEntryId != '';
 
         if (actionListLabelIsNotBlank) {
           string = _actionLabelController.value.text;
           type = ActionEditorType.label;
-        } else if (isRandomTable) {
+        } else if (isValidRandomTable) {
           if (randomTableEntryId != null) string = randomTableEntryId!;
           type = ActionEditorType.randomTable;
-        } else if (isActionList) {
+        } else if (isValidActionList) {
           if (actionTableEntryId != null) string = actionTableEntryId!;
           type = ActionEditorType.actionList;
         }
@@ -419,13 +422,15 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         if (string == '') return;
 
         setState(() {
-          entryListOfActions.add(ActionRow(
-            type: type,
-            string: string,
-          ));
-          // CLEAR ALL
-          _actionLabelController.text = '';
-          actionEditorType = ActionEditorType.label;
+          if (currentEntry == null) {
+            entryListOfActions.add(ActionRow(
+              type: type,
+              string: string,
+            ));
+            // CLEAR ALL
+            _actionLabelController.text = '';
+            actionEditorType = ActionEditorType.label;
+          }
         });
       },
     );
