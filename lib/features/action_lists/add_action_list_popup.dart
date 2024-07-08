@@ -46,7 +46,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
   String? selectedId;
   ActionRow? currentEntry;
   ActionEditorType? actionEditorType;
-  late String entryTitle;
   late bool entryIsActive;
   List<ActionRow> entryListOfActions = [];
   String? randomTableEntryId;
@@ -79,6 +78,48 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     if (value == null) return;
     setState(() {
       randomTableEntryId = widget.appState.randomTables[value].id;
+    });
+  }
+
+  void handleActionListLabelChange(String value) {
+    setState(() {
+      _labelController.text = value;
+    });
+  }
+
+  void handleToggleActive(value) {
+    setState(() {
+      entryIsActive = !entryIsActive;
+    });
+  }
+
+  void handleAddLabelChoice() {
+    _actionLabelController.text = '';
+    setState(() {
+      currentEntry = null;
+      actionEditorType = ActionEditorType.label;
+    });
+  }
+
+  void handleAddRandomTableChoice(String? id) {
+    setState(() {
+      currentEntry = null;
+      if (id != null) {
+        randomTableEntryId = id;
+      }
+      actionEditorType = ActionEditorType.randomTable;
+      _actionLabelController.text = '';
+    });
+  }
+
+  void handleAddActionListChoice(String? id) {
+    setState(() {
+      currentEntry = null;
+      if (id != null) {
+        actionTableEntryId = id;
+      }
+      actionEditorType = ActionEditorType.actionList;
+      _actionLabelController.text = '';
     });
   }
 
@@ -166,7 +207,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     List<ActionListEntry> actionListEntries =
         widget.appState.appSettingsData.actionLists;
 
-    entryTitle = '';
     entryIsActive = true;
     bool canSubmit() {
       bool hasTitle = _labelController.value.text != '';
@@ -189,20 +229,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 autoFocus: true,
                 label: 'Action List Label',
                 controller: _labelController,
-                onChanged: (value) {
-                  setState(() {
-                    _labelController.text = value;
-                    entryTitle = value;
-                  });
-                }),
+                onChanged: handleActionListLabelChange),
             const Gap(),
             LabelAndSwitch(
               label: 'Active?',
-              onChanged: (value) {
-                setState(() {
-                  entryIsActive = !entryIsActive;
-                });
-              },
+              onChanged: handleToggleActive,
               switchValue: entryIsActive,
             ),
             const Divider(),
@@ -263,18 +294,12 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                 children: [
                   const Text('Add: '),
                   CupertinoButton(
+                      onPressed: handleAddLabelChoice,
                       child: TextWithIndicator(
                         text: 'Label',
                         selected: actionEditorType == ActionEditorType.label,
                         // TODO this will clear the current item being edited
-                      ),
-                      onPressed: () {
-                        currentEntry = null;
-                        _actionLabelController.text = '';
-                        setState(() {
-                          actionEditorType = ActionEditorType.label;
-                        });
-                      }),
+                      )),
                   CupertinoButton(
                       child: TextWithIndicator(
                         text: 'RandomTable',
@@ -282,14 +307,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                             actionEditorType == ActionEditorType.randomTable,
                       ),
                       onPressed: () {
-                        setState(() {
-                          currentEntry = null;
-                          if (randomTables.isNotEmpty) {
-                            randomTableEntryId = randomTables[0].id;
-                          }
-                          actionEditorType = ActionEditorType.randomTable;
-                          _actionLabelController.text = '';
-                        });
+                        handleAddRandomTableChoice(randomTables[0].id);
                       }),
                   CupertinoButton(
                       child: TextWithIndicator(
@@ -298,14 +316,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                             actionEditorType == ActionEditorType.actionList,
                       ),
                       onPressed: () {
-                        setState(() {
-                          currentEntry = null;
-                          if (actionListEntries.isNotEmpty) {
-                            actionTableEntryId = actionListEntries[0].id;
-                          }
-                          actionEditorType = ActionEditorType.actionList;
-                          _actionLabelController.text = '';
-                        });
+                        handleAddActionListChoice(actionListEntries[0].id);
                       }),
                 ],
               ),
