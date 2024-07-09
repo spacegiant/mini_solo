@@ -53,7 +53,7 @@ class AppState extends ChangeNotifier {
   List<Group> get groupList => _campaignData!.groups;
 
   bool entityExists(String id) {
-    RandomTableEntry? randomTableEntry = getRandomTableById(id);
+    RandomTable? randomTableEntry = getRandomTableById(id);
     TrackerEntry? trackerEntry = getTrackerEntryById(id);
     ActionListEntry? actionListEntry = getActionListById(id);
 
@@ -641,12 +641,12 @@ class AppState extends ChangeNotifier {
   }
 
   //   RANDOM TABLES
-  void addRandomTable(RandomTableEntry entry) {
+  void addRandomTable(RandomTable entry) {
     _appSettingsData.randomTables.add(entry);
     notifyListeners();
   }
 
-  List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
+  List<RandomTable> get randomTables => _appSettingsData.randomTables;
 
   void deleteRandomTable(String id) {
     removeFromAllGroups(controlId: id);
@@ -658,7 +658,7 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
-  RandomTableEntry? getRandomTableById(String id) {
+  RandomTable? getRandomTableById(String id) {
     return appSettingsData.randomTables
         .firstWhereOrNull((entry) => entry.id == id);
   }
@@ -673,7 +673,7 @@ class AppState extends ChangeNotifier {
 
   void updateRandomTable({
     required String id,
-    required RandomTableEntry entry,
+    required RandomTable entry,
   }) {
     int index =
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);

@@ -6,7 +6,7 @@ class ControlData {
   final String controlId;
   final String label;
   final FateChartRow? fateChartRow;
-  final RandomTableEntry? randomTable;
+  final RandomTable? randomTable;
   final ActionListEntry? actionList;
 
   // final String group;

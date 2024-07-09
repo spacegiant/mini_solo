@@ -10,7 +10,7 @@ AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
     AppSettingsData(
       currentCampaign: json['currentCampaign'] as String,
       randomTables: (json['randomTables'] as List<dynamic>)
-          .map((e) => RandomTableEntry.fromJson(e as Map<String, dynamic>))
+          .map((e) => RandomTable.fromJson(e as Map<String, dynamic>))
           .toList(),
       expandedList: (json['expandedList'] as List<dynamic>)
           .map((e) => e as String)
@@ -28,8 +28,8 @@ Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
       'actionLists': instance.actionLists.map((e) => e.toJson()).toList(),
     };
 
-RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
-    RandomTableEntry(
+RandomTable _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
+    RandomTable(
       isFavourite: json['isFavourite'] as bool?,
       title: json['title'] as String,
       rows: (json['rows'] as List<dynamic>)
@@ -41,7 +41,7 @@ RandomTableEntry _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
 
-Map<String, dynamic> _$RandomTableEntryToJson(RandomTableEntry instance) =>
+Map<String, dynamic> _$RandomTableEntryToJson(RandomTable instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,

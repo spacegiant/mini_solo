@@ -148,10 +148,10 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
     });
   }
 
-  Widget addRandomTableLink(List<RandomTableEntry> randomTables) {
+  Widget addRandomTableLink(List<RandomTable> randomTables) {
     List<String> pickerOptions = [];
 
-    for (RandomTableEntry tableEntry in randomTables) {
+    for (RandomTable tableEntry in randomTables) {
       pickerOptions.add(tableEntry.title);
     }
 
@@ -238,7 +238,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
 
   @override
   Widget build(BuildContext context) {
-    List<RandomTableEntry> randomTables = widget.appState.randomTables;
+    List<RandomTable> randomTables = widget.appState.randomTables;
     List<ActionListEntry> actionListEntries =
         widget.appState.appSettingsData.actionLists;
 

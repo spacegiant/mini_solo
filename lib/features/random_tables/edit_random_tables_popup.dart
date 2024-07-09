@@ -23,7 +23,7 @@ class EditRandomTablesPopup extends StatefulWidget {
 
 class _EditRandomTablesPopupState extends State<EditRandomTablesPopup> {
   late String selectedId;
-  late List<RandomTableEntry> randomTables;
+  late List<RandomTable> randomTables;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _EditRandomTablesPopupState extends State<EditRandomTablesPopup> {
   void handleOnReorder(int oldIndex, int newIndex, List<dynamic> groups) {
     setState(() {
       if (oldIndex < newIndex) newIndex -= 1;
-      final RandomTableEntry itemToRemove = randomTables.removeAt(oldIndex);
+      final RandomTable itemToRemove = randomTables.removeAt(oldIndex);
       groups.insert(newIndex, itemToRemove);
     });
   }
