@@ -402,6 +402,15 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // TWILITGHT 2000 DICE
+  bool? get useT2KDice => _campaignData?.settings.general.useT2KDice;
+
+  void toggleUseT2KDice() {
+    _campaignData?.settings.general.useT2KDice =
+        !_campaignData!.settings.general.useT2KDice;
+    saveCampaignDataToDisk();
+  }
+
   // D6 ORACLE DICE
   bool? get useD6Oracle => _campaignData?.settings.general.useD6Oracle;
 

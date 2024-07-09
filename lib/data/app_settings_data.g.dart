@@ -28,8 +28,7 @@ Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
       'actionLists': instance.actionLists.map((e) => e.toJson()).toList(),
     };
 
-RandomTable _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
-    RandomTable(
+RandomTable _$RandomTableFromJson(Map<String, dynamic> json) => RandomTable(
       isFavourite: json['isFavourite'] as bool?,
       title: json['title'] as String,
       rows: (json['rows'] as List<dynamic>)
@@ -41,7 +40,7 @@ RandomTable _$RandomTableEntryFromJson(Map<String, dynamic> json) =>
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
 
-Map<String, dynamic> _$RandomTableEntryToJson(RandomTable instance) =>
+Map<String, dynamic> _$RandomTableToJson(RandomTable instance) =>
     <String, dynamic>{
       'isFavourite': instance.isFavourite,
       'id': instance.id,

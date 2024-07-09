@@ -48,9 +48,9 @@ class JournalEntry {
 
   // coverage:ignore-start
   factory JournalEntry.fromJson(Map<String, dynamic> json) =>
-      _$JournalReturnObjectFromJson(json);
+      _$JournalEntryFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JournalReturnObjectToJson(this);
+  Map<String, dynamic> toJson() => _$JournalEntryToJson(this);
 // coverage:ignore-end
 }
 
@@ -79,6 +79,7 @@ class GeneralSettingsData {
   late bool useRegularDice;
   late bool useFateDice;
   late bool useCoriolisDice;
+  late bool useT2KDice;
   late bool useD6Oracle;
   late bool wrapDiceControls;
   late List<JournalEntryTypes> hiddenEntryTypes;
@@ -93,6 +94,7 @@ class GeneralSettingsData {
     required this.useZocchiDice,
     required this.useFateDice,
     required this.useCoriolisDice,
+    required this.useT2KDice,
     required this.useD6Oracle,
     required this.wrapDiceControls,
     required this.hiddenEntryTypes,
@@ -196,6 +198,7 @@ CampaignData baseCampaignData(String campaignName) {
         useZocchiDice: false,
         useFateDice: false,
         useCoriolisDice: false,
+        useT2KDice: false,
         useD6Oracle: false,
         wrapDiceControls: false,
         hiddenEntryTypes: [

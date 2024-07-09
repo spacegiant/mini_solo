@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/views/dice/t2k_dice_sets.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
 import '../../svg_icon.dart';
@@ -21,6 +22,7 @@ WrapManager diceTray(
   bool useFateDice = generalSettings.useFateDice;
   bool useCoriolisDice = generalSettings.useCoriolisDice;
   bool useD6OracleDice = generalSettings.useD6Oracle;
+  bool useT2KDice = generalSettings.useT2KDice;
 
   bool wrapControls = generalSettings.wrapDiceControls;
 
@@ -41,6 +43,12 @@ WrapManager diceTray(
           onPressed: addResult,
         )
       : null;
+
+  DiceCollection t2kDiceCollection = DiceCollection(
+    diceSet: t2kDice,
+    onPressed: addResult,
+    appState: appState,
+  );
 
   return WrapManager(
     wrapControls: wrapControls,
@@ -70,6 +78,7 @@ WrapManager diceTray(
           icon: SVGIcon.coriolis6,
           onPressed: addResult,
         ),
+      if (useT2KDice) ...t2kDiceCollection.getDice(),
       if (generalDice != null) ...generalDice.getDice(),
     ],
   );

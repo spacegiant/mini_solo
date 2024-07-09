@@ -53,9 +53,9 @@ class RandomTable extends CampaignItem {
   });
 // coverage:ignore-start
   factory RandomTable.fromJson(Map<String, dynamic> json) =>
-      _$RandomTableEntryFromJson(json);
+      _$RandomTableFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RandomTableEntryToJson(this);
+  Map<String, dynamic> toJson() => _$RandomTableToJson(this);
 
   @override
   JournalEntryTypes type = JournalEntryTypes.randomTable;

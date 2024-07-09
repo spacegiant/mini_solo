@@ -6,15 +6,14 @@ part of 'campaign_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JournalEntry _$JournalReturnObjectFromJson(Map<String, dynamic> json) =>
-    JournalEntry(
+JournalEntry _$JournalEntryFromJson(Map<String, dynamic> json) => JournalEntry(
       type: json['type'] as String,
       line1: json['line1'] as String?,
       line2: json['line2'] as String?,
       result: json['result'] as String,
     );
 
-Map<String, dynamic> _$JournalReturnObjectToJson(JournalEntry instance) =>
+Map<String, dynamic> _$JournalEntryToJson(JournalEntry instance) =>
     <String, dynamic>{
       'type': instance.type,
       'line1': instance.line1,
@@ -42,6 +41,7 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
       useZocchiDice: json['useZocchiDice'] as bool,
       useFateDice: json['useFateDice'] as bool,
       useCoriolisDice: json['useCoriolisDice'] as bool,
+      useT2KDice: json['useT2KDice'] as bool,
       useD6Oracle: json['useD6Oracle'] as bool,
       wrapDiceControls: json['wrapDiceControls'] as bool,
       hiddenEntryTypes: (json['hiddenEntryTypes'] as List<dynamic>)
@@ -62,6 +62,7 @@ Map<String, dynamic> _$GeneralSettingsDataToJson(
       'useRegularDice': instance.useRegularDice,
       'useFateDice': instance.useFateDice,
       'useCoriolisDice': instance.useCoriolisDice,
+      'useT2KDice': instance.useT2KDice,
       'useD6Oracle': instance.useD6Oracle,
       'wrapDiceControls': instance.wrapDiceControls,
       'hiddenEntryTypes': instance.hiddenEntryTypes
@@ -564,6 +565,54 @@ const _$SVGIconEnumMap = {
   SVGIcon.pip_unchecked: 'pip_unchecked',
   SVGIcon.value_tracker: 'value_tracker',
   SVGIcon.counter_tracker: 'counter_tracker',
+  SVGIcon.t2kAmmo_1: 't2kAmmo_1',
+  SVGIcon.t2kAmmo_2: 't2kAmmo_2',
+  SVGIcon.t2kAmmo_3: 't2kAmmo_3',
+  SVGIcon.t2kAmmo_4: 't2kAmmo_4',
+  SVGIcon.t2kAmmo_5: 't2kAmmo_5',
+  SVGIcon.t2kAmmo_6: 't2kAmmo_6',
+  SVGIcon.t2kD6_1: 't2kD6_1',
+  SVGIcon.t2kD6_2: 't2kD6_2',
+  SVGIcon.t2kD6_3: 't2kD6_3',
+  SVGIcon.t2kD6_4: 't2kD6_4',
+  SVGIcon.t2kD6_5: 't2kD6_5',
+  SVGIcon.t2kD6_6: 't2kD6_6',
+  SVGIcon.t2kD8_1: 't2kD8_1',
+  SVGIcon.t2kD8_2: 't2kD8_2',
+  SVGIcon.t2kD8_3: 't2kD8_3',
+  SVGIcon.t2kD8_4: 't2kD8_4',
+  SVGIcon.t2kD8_5: 't2kD8_5',
+  SVGIcon.t2kD8_6: 't2kD8_6',
+  SVGIcon.t2kD8_7: 't2kD8_7',
+  SVGIcon.t2kD8_8: 't2kD8_8',
+  SVGIcon.t2kD10_1: 't2kD10_1',
+  SVGIcon.t2kD10_2: 't2kD10_2',
+  SVGIcon.t2kD10_3: 't2kD10_3',
+  SVGIcon.t2kD10_4: 't2kD10_4',
+  SVGIcon.t2kD10_5: 't2kD10_5',
+  SVGIcon.t2kD10_6: 't2kD10_6',
+  SVGIcon.t2kD10_7: 't2kD10_7',
+  SVGIcon.t2kD10_8: 't2kD10_8',
+  SVGIcon.t2kD10_9: 't2kD10_9',
+  SVGIcon.t2kD10_10: 't2kD10_10',
+  SVGIcon.t2kD12_1: 't2kD12_1',
+  SVGIcon.t2kD12_2: 't2kD12_2',
+  SVGIcon.t2kD12_3: 't2kD12_3',
+  SVGIcon.t2kD12_4: 't2kD12_4',
+  SVGIcon.t2kD12_5: 't2kD12_5',
+  SVGIcon.t2kD12_6: 't2kD12_6',
+  SVGIcon.t2kD12_7: 't2kD12_7',
+  SVGIcon.t2kD12_8: 't2kD12_8',
+  SVGIcon.t2kD12_9: 't2kD12_9',
+  SVGIcon.t2kD12_10: 't2kD12_10',
+  SVGIcon.t2kD12_11: 't2kD12_11',
+  SVGIcon.t2kD12_12: 't2kD12_12',
+  SVGIcon.t2kBody_1: 't2kBody_1',
+  SVGIcon.t2kBody_2: 't2kBody_2',
+  SVGIcon.t2kBody_3: 't2kBody_3',
+  SVGIcon.t2kBody_4: 't2kBody_4',
+  SVGIcon.t2kBody_5: 't2kBody_5',
+  SVGIcon.t2kBody_6: 't2kBody_6',
 };
 
 ScratchPageEntryItem _$ScratchPageEntryItemFromJson(

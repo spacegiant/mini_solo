@@ -40,6 +40,13 @@ List<Widget> diceSettings(
       },
     ),
     SettingsOption(
+      isActive: general.useT2KDice,
+      label: 'Use Twilight 2000 Dice',
+      onChanged: (isChecked) {
+        appState.toggleUseT2KDice();
+      },
+    ),
+    SettingsOption(
       isActive: general.useD6Oracle,
       label: 'Use D6 Oracle Dice',
       onChanged: (isChecked) {
