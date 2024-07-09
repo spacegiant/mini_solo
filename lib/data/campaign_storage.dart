@@ -144,24 +144,20 @@ class CampaignStorage {
     return file.writeAsString(jsonData);
   }
 
-  // TODO get this wired up
   String getCampaignJSON(CampaignData data) {
     return jsonEncode(data);
   }
 
-  // TODO get this wired up
   CampaignData campaignJSONToObject(String jsonData) {
     var data = json.decode(jsonData);
     final dataMap = CampaignData.fromJson(data);
     return dataMap;
   }
 
-  // TODO get this wired up
   String appSettingsToJSON(AppSettingsData data) {
     return jsonEncode(data);
   }
 
-  // TODO get this wired up
   AppSettingsData appSettingsJSONToObject(String jsonData) {
     var data = json.decode(jsonData);
     final dataMap = AppSettingsData.fromJson(data);

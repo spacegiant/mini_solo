@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
@@ -27,6 +28,7 @@ class _CampaignManagerState extends State<CampaignManager> {
     BuildContext context,
   ) {
     Future<List<FileSystemEntity>> campaigns = widget.getCampaignList;
+
     // TODO Finish this functionality. Users should be a able to switch and manage campaigns
     return FutureBuilder(
         future: campaigns,
@@ -34,6 +36,7 @@ class _CampaignManagerState extends State<CampaignManager> {
           BuildContext context,
           AsyncSnapshot snapshot,
         ) {
+          print(snapshot.data);
           return PopupLayout(
             header: const PopupLayoutHeader(label: kCampaignManagerTitle),
             body: SizedBox(
@@ -50,14 +53,33 @@ class _CampaignManagerState extends State<CampaignManager> {
         });
   }
 
-  CupertinoButton campaignManagerRow(item) {
-    return CupertinoButton(
-      onPressed: () {
-        widget.appState.loadCampaign(getLabel(item.path));
-      },
-      child: Text(
-        getLabel(item.path),
-      ),
+  Row campaignManagerRow(item) {
+    return Row(
+      children: [
+        Text(getLabel(item.path)),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            widget.appState.loadCampaign(getLabel(item.path));
+          },
+          child: Icon(CupertinoIcons.floppy_disk),
+        ),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            // widget.appState.loadCampaign(getLabel(item.path));
+          },
+          child: Icon(CupertinoIcons.pencil_ellipsis_rectangle),
+        ),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            // widget.appState.loadCampaign(getLabel(item.path));
+            widget.appState.deleteCampaign();
+          },
+          child: Icon(CupertinoIcons.delete),
+        ),
+      ],
     );
   }
 }
