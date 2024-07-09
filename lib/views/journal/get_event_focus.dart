@@ -10,7 +10,7 @@ getEventFocus(AppState appState, [Function(String)? handleState]) {
     appState.addMythicEntry(
       MythicEntry(
         isFavourite: false,
-        lines: JournalReturnObject(
+        lines: JournalEntry(
           result: text,
           type: 'mythic',
         ),

@@ -37,7 +37,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
 
   void updatePerson(String field, String value) {}
 
-  void updateState(JournalReturnObject result) {
+  void updateState(JournalEntry result) {
     setState(() {
       line1 = result.line1!;
       line2 = result.line2;
@@ -69,7 +69,8 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         },
                         onLongPress: () {
                           toggleShowPopup2(
-                              child: const Text('EDIT FIELD'), context: context);
+                              child: const Text('EDIT FIELD'),
+                              context: context);
                         },
                       ),
                     ),
@@ -82,7 +83,8 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         onTap: () {},
                         onLongPress: () {
                           toggleShowPopup2(
-                              child: const Text('EDIT FIELD'), context: context);
+                              child: const Text('EDIT FIELD'),
+                              context: context);
                         },
                       ),
                     ),

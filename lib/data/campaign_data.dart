@@ -32,15 +32,14 @@ enum ControlTypes {
   fate_aspect,
 }
 
-// TODO: Rename this
 @JsonSerializable()
-class JournalReturnObject {
+class JournalEntry {
   late String type;
   late String? line1;
   late String? line2;
   late String result;
 
-  JournalReturnObject({
+  JournalEntry({
     required this.type,
     this.line1,
     this.line2,
@@ -48,7 +47,7 @@ class JournalReturnObject {
   });
 
   // coverage:ignore-start
-  factory JournalReturnObject.fromJson(Map<String, dynamic> json) =>
+  factory JournalEntry.fromJson(Map<String, dynamic> json) =>
       _$JournalReturnObjectFromJson(json);
 
   Map<String, dynamic> toJson() => _$JournalReturnObjectToJson(this);
@@ -476,7 +475,7 @@ class RollEntryItem extends CampaignItem {
 
 @JsonSerializable()
 class OracleEntry extends CampaignItem {
-  JournalReturnObject lines;
+  JournalEntry lines;
   String label;
 
   OracleEntry({
@@ -497,7 +496,7 @@ class OracleEntry extends CampaignItem {
 
 @JsonSerializable()
 class MythicEntry extends CampaignItem {
-  JournalReturnObject lines;
+  JournalEntry lines;
   String label;
 
   MythicEntry({

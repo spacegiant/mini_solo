@@ -301,7 +301,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: JournalReturnObject(
+        lines: JournalEntry(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'UP to $newValue',
@@ -318,7 +318,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: JournalReturnObject(
+        lines: JournalEntry(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'DOWN to $newValue',
@@ -333,7 +333,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.mythicData.chaosFactor = newValue;
     addMythicEntry(MythicEntry(
       isFavourite: false,
-      lines: JournalReturnObject(
+      lines: JournalEntry(
         type: 'chaosFactor',
         line1: 'Chaos Factor',
         result: 'RESET to 5',

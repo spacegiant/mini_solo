@@ -107,7 +107,7 @@ Widget chooseControlWidget({
           color: buttonColor,
           label: controlData.label,
           onPressed: () {
-            JournalReturnObject test = testScene(appState);
+            JournalEntry test = testScene(appState);
 
             appState.addOracleEntry(
               OracleEntry(
