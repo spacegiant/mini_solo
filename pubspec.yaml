@@ -87,6 +87,7 @@ flutter:
     - lib/assets/d6_oracle/
     - lib/assets/coriolis/
     - lib/assets/t2k_dice/
+    - lib/assets/achtung_cthulhu_dice/
     - lib/assets/general_dice/
     - lib/assets/fate_dice/
     - lib/assets/ironsworn/

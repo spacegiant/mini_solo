@@ -80,6 +80,7 @@ class GeneralSettingsData {
   late bool useFateDice;
   late bool useCoriolisDice;
   late bool useT2KDice;
+  late bool useAchtungCthulhuDice;
   late bool useD6Oracle;
   late bool wrapDiceControls;
   late List<JournalEntryTypes> hiddenEntryTypes;
@@ -95,6 +96,7 @@ class GeneralSettingsData {
     required this.useFateDice,
     required this.useCoriolisDice,
     required this.useT2KDice,
+    required this.useAchtungCthulhuDice,
     required this.useD6Oracle,
     required this.wrapDiceControls,
     required this.hiddenEntryTypes,
@@ -199,6 +201,7 @@ CampaignData baseCampaignData(String campaignName) {
         useFateDice: false,
         useCoriolisDice: false,
         useT2KDice: false,
+        useAchtungCthulhuDice: false,
         useD6Oracle: false,
         wrapDiceControls: false,
         hiddenEntryTypes: [

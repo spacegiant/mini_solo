@@ -47,6 +47,13 @@ List<Widget> diceSettings(
       },
     ),
     SettingsOption(
+      isActive: general.useAchtungCthulhuDice,
+      label: 'Use Achtung! Cthulhu Dice',
+      onChanged: (isChecked) {
+        appState.toggleUseAchtungCthulhuDice();
+      },
+    ),
+    SettingsOption(
       isActive: general.useD6Oracle,
       label: 'Use D6 Oracle Dice',
       onChanged: (isChecked) {

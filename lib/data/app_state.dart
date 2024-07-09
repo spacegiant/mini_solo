@@ -411,6 +411,16 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  // ACHTUNG! CTHULHU DICE
+  bool? get useAchtungCthulhuDice =>
+      _campaignData?.settings.general.useAchtungCthulhuDice;
+
+  void toggleUseAchtungCthulhuDice() {
+    _campaignData?.settings.general.useAchtungCthulhuDice =
+        !_campaignData!.settings.general.useAchtungCthulhuDice;
+    saveCampaignDataToDisk();
+  }
+
   // D6 ORACLE DICE
   bool? get useD6Oracle => _campaignData?.settings.general.useD6Oracle;
 

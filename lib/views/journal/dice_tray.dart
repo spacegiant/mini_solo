@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/views/dice/ac_dice_sets.dart';
 import 'package:mini_solo/views/dice/t2k_dice_sets.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
@@ -23,6 +24,7 @@ WrapManager diceTray(
   bool useCoriolisDice = generalSettings.useCoriolisDice;
   bool useD6OracleDice = generalSettings.useD6Oracle;
   bool useT2KDice = generalSettings.useT2KDice;
+  bool useAchtungCthulhuDice = generalSettings.useAchtungCthulhuDice;
 
   bool wrapControls = generalSettings.wrapDiceControls;
 
@@ -46,6 +48,12 @@ WrapManager diceTray(
 
   DiceCollection t2kDiceCollection = DiceCollection(
     diceSet: t2kDice,
+    onPressed: addResult,
+    appState: appState,
+  );
+
+  DiceCollection achtungCthulhuDiceCollection = DiceCollection(
+    diceSet: acDice,
     onPressed: addResult,
     appState: appState,
   );
@@ -79,6 +87,7 @@ WrapManager diceTray(
           onPressed: addResult,
         ),
       if (useT2KDice) ...t2kDiceCollection.getDice(),
+      if (useAchtungCthulhuDice) ...achtungCthulhuDiceCollection.getDice(),
       if (generalDice != null) ...generalDice.getDice(),
     ],
   );
