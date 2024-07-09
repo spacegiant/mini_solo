@@ -29,7 +29,9 @@ class DestructiveDeleteCurrentCampaign extends StatelessWidget {
       child: GestureDetector(
         onLongPress: () {
           String? campaignFilename = appState.campaignData?.filename;
-          appState.deleteCampaign(campaignFilename);
+          if (campaignFilename != null) {
+            appState.deleteCampaign(campaignFilename);
+          }
         },
         child: Container(
             color: CupertinoColors.destructiveRed,

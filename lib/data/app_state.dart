@@ -289,7 +289,9 @@ class AppState extends ChangeNotifier {
     _deleteCampaignCallback = cb;
   }
 
-  get deleteCampaign => _deleteCampaignCallback;
+  void deleteCampaign(String filename) {
+    storage.deleteCampaign(filename);
+  }
 
   // CURRENT CAMPAIGN
 

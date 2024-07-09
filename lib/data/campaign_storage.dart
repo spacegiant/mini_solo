@@ -79,8 +79,7 @@ class CampaignStorage {
   }
 
   Future<void> deleteCampaign(String fileName) async {
-    final path = await _localPath;
-    File file = File('$path/$fileName');
+    File file = File(fileName);
     try {
       await file.delete();
     } catch (e) {

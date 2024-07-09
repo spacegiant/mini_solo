@@ -36,20 +36,23 @@ class _CampaignManagerState extends State<CampaignManager> {
           BuildContext context,
           AsyncSnapshot snapshot,
         ) {
-          print(snapshot.data);
-          return PopupLayout(
-            header: const PopupLayoutHeader(label: kCampaignManagerTitle),
-            body: SizedBox(
-              width: 400.0,
-              child: Column(
-                children: [
-                  for (var item in snapshot.data) campaignManagerRow(item),
-                ],
-              ),
-            ),
-            // TODO To complete this popup
-            footer: const Text('BUTTON HERE'),
-          );
+          return snapshot.hasData
+              ? PopupLayout(
+                  header: const PopupLayoutHeader(label: kCampaignManagerTitle),
+                  body: SizedBox(
+                    width: 400.0,
+                    child: Column(
+                      children: [
+                        for (var item in snapshot.data)
+                          campaignManagerRow(item),
+                      ],
+                    ),
+                  ),
+                  // TODO To complete this popup
+                  footer: const Text('BUTTON HERE'),
+                )
+              // TODO change Text to use a Loader widget
+              : const Text('Loading...');
         });
   }
 
@@ -74,8 +77,7 @@ class _CampaignManagerState extends State<CampaignManager> {
         CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
-            // widget.appState.loadCampaign(getLabel(item.path));
-            widget.appState.deleteCampaign();
+            widget.appState.deleteCampaign(item.path);
           },
           child: Icon(CupertinoIcons.delete),
         ),
