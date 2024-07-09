@@ -66,31 +66,16 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initCampaignData(String campaignName) {
     String campaignFileName = convertToFilename(campaignName);
     var appState = context.read<AppState>();
-    CampaignData campaignData = initCampaignDataData(campaignName);
+    CampaignData campaignData = baseCampaignData(campaignName);
     AppSettingsData appSettingsData = appState.appSettingsData;
     appState.appSettingsData.currentCampaign = campaignFileName;
     appState.setCampaignData(campaignData);
     saveAppSettings(appSettingsData);
-    // saveCampaign(campaignData);
   }
-
-  // void saveCampaign(CampaignData campaignData) {
-  //   widget.storage.writeJSON(campaignData, '${campaignData.filename}.json');
-  // }
 
   void saveAppSettings(AppSettingsData appSettingsData) {
     widget.storage.writeAppSettingsJSON(appSettingsData, 'appSettings.json');
   }
-
-  void deleteCampaign(String filename) {
-    widget.storage.deleteCampaign('$filename.json');
-  }
-
-  // List<String?> getCampaignList() {
-  //   widget.storage.getCampaignsList.then((list) {
-  //     return list;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +97,6 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         } else {
           return Consumer<AppState>(
             builder: (context, appState, child) {
-              if (appState.deleteCampaign == null) {
-                appState.setDeleteCampaignCallback(deleteCampaign);
-              }
-
               return Stack(
                 children: [
                   FocusScope(

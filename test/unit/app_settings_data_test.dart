@@ -10,7 +10,7 @@ void main() {
   });
 
   test('RandomTableEntry has correct data', () {
-    RandomTableEntry randomTableEntry = RandomTableEntry(
+    RandomTable randomTableEntry = RandomTable(
       isFavourite: true,
       title: 'test title',
       rows: [

@@ -54,7 +54,7 @@ class CampaignStorage {
       // ITERATE INITIAL CAMPAIGN DATA OBJECT
 
       final initialDecodedData =
-          convertCampaignToJSON(initCampaignDataData('test'));
+          convertCampaignToJSON(baseCampaignData('test'));
 
       fixJSONData(initialDecodedData, data);
 
@@ -79,8 +79,7 @@ class CampaignStorage {
   }
 
   Future<void> deleteCampaign(String fileName) async {
-    final path = await _localPath;
-    File file = File('$path/$fileName');
+    File file = File(fileName);
     try {
       await file.delete();
     } catch (e) {
@@ -144,24 +143,20 @@ class CampaignStorage {
     return file.writeAsString(jsonData);
   }
 
-  // TODO get this wired up
   String getCampaignJSON(CampaignData data) {
     return jsonEncode(data);
   }
 
-  // TODO get this wired up
   CampaignData campaignJSONToObject(String jsonData) {
     var data = json.decode(jsonData);
     final dataMap = CampaignData.fromJson(data);
     return dataMap;
   }
 
-  // TODO get this wired up
   String appSettingsToJSON(AppSettingsData data) {
     return jsonEncode(data);
   }
 
-  // TODO get this wired up
   AppSettingsData appSettingsJSONToObject(String jsonData) {
     var data = json.decode(jsonData);
     final dataMap = AppSettingsData.fromJson(data);

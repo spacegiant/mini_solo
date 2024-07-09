@@ -24,7 +24,8 @@ class DiceGlyph extends StatelessWidget {
       Text(
         diceRoll.diceType,
         style: const TextStyle(
-          fontSize: 12.0,
+          fontSize: 10.0,
+          color: CupertinoColors.systemGrey,
         ),
       )
     ]);

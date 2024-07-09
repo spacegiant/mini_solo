@@ -37,7 +37,7 @@ List<ControlData> getControlData(AppState appState) {
     );
   }
 
-  for (RandomTableEntry randomTable in appState.appSettingsData.randomTables) {
+  for (RandomTable randomTable in appState.appSettingsData.randomTables) {
     if (randomTable.isHidden == false) {
       auditControl(appState, randomTable.id);
 

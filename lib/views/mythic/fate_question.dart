@@ -113,7 +113,7 @@ fateChartControlOnPressed(
     answer = 'NO';
   }
 
-  JournalReturnObject result = JournalReturnObject(
+  JournalEntry result = JournalEntry(
     type: 'fateChart',
     line1: '${fateChartRow.label} odds | Chaos Factor ${appState.chaosFactor}',
     line2: 'd100 → $random',

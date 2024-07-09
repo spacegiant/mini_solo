@@ -4,13 +4,13 @@ import '../../data/app_settings_data.dart';
 
 void recursiveRandomTableRoll({
   required int recursionLimit,
-  required List<RandomTableEntry> randomTables,
+  required List<RandomTable> randomTables,
   required String randomTableId,
   required Function(RollTableResult) cb,
 }) {
   // get random table
   int tally = 0;
-  RandomTableEntry randomTable =
+  RandomTable randomTable =
       randomTables.firstWhere((table) => table.id == randomTableId);
   int weightsSum = getWeightSum(randomTable.rows);
   int randomRoll = Random().nextInt(weightsSum);

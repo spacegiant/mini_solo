@@ -33,10 +33,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
   String? selectedLinkId;
   late bool isRandomTable;
   late bool isHidden;
-  late RandomTableEntry entry;
-  late RandomTableEntry updatedEntry;
-  late List<RandomTableEntry> randomTables;
-  late List<RandomTableEntry> safeList;
+  late RandomTable entry;
+  late RandomTable updatedEntry;
+  late List<RandomTable> randomTables;
+  late List<RandomTable> safeList;
   late String? initialGroup;
 
   @override
