@@ -43,7 +43,7 @@ class GroupContainer extends StatelessWidget {
     bool isExpanded = appState.isExpanded(containerId);
     if (isVisible) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           showDivider == true
               ? const Divider(

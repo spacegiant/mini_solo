@@ -7,6 +7,7 @@ import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../main.dart';
 
 class CampaignManager extends StatefulWidget {
   const CampaignManager({
@@ -65,21 +66,23 @@ class _CampaignManagerState extends State<CampaignManager> {
           onPressed: () {
             widget.appState.loadCampaign(getLabel(item.path));
           },
-          child: Icon(CupertinoIcons.floppy_disk),
+          child: const Icon(CupertinoIcons.floppy_disk),
         ),
         CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
             // widget.appState.loadCampaign(getLabel(item.path));
           },
-          child: Icon(CupertinoIcons.pencil_ellipsis_rectangle),
+          child: const Icon(CupertinoIcons.pencil_ellipsis_rectangle),
         ),
         CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
             widget.appState.deleteCampaign(item.path);
+            // TODO if is current campaign do this...
+            RestartWidget.restartApp(context);
           },
-          child: Icon(CupertinoIcons.delete),
+          child: const Icon(CupertinoIcons.delete),
         ),
       ],
     );

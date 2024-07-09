@@ -23,20 +23,22 @@ class JournalSubheading extends StatelessWidget {
       onLongPress: () {
         handleLongPress!();
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 12.0,
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12.0,
+              ),
             ),
-          ),
-          const Gap(
-            height: 8.0,
-          ),
-        ],
+            const Gap(
+              height: 8.0,
+            ),
+          ],
+        ),
       ),
     );
   }
