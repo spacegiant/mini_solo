@@ -8,8 +8,7 @@ part 'result_entry.g.dart';
 @JsonSerializable()
 class ResultEntry {
   final ResultEntryTypes type;
-  // TODO can we remove the initialiser here?
-  late String id = genericId(resultEntryTypeLabel[type]!.identifier);
+  late String id;
   final String title;
 
   ResultEntry({

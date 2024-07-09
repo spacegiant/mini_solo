@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('CampaignData', () {
-    CampaignData campaignData = initCampaignDataData('test campaign');
+    CampaignData campaignData = baseCampaignData('test campaign');
     expect(campaignData.runtimeType, CampaignData);
     expect(campaignData.name, 'test campaign');
   });
@@ -71,6 +71,8 @@ void main() {
       hiddenEntryTypes: [],
       diceActive: true,
       randomTableRecursionLimit: 3,
+      useT2KDice: false,
+      useAchtungCthulhuDice: false,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -90,6 +92,8 @@ void main() {
       hiddenEntryTypes: [],
       diceActive: true,
       randomTableRecursionLimit: 3,
+      useT2KDice: false,
+      useAchtungCthulhuDice: false,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -111,6 +115,8 @@ void main() {
       hiddenEntryTypes: [],
       diceActive: true,
       randomTableRecursionLimit: 3,
+      useT2KDice: false,
+      useAchtungCthulhuDice: false,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

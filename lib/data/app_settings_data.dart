@@ -18,8 +18,7 @@ AppSettingsData initAppSettingsData() {
 @JsonSerializable(explicitToJson: true)
 class AppSettingsData {
   late String currentCampaign;
-  // TODO: Rename to RandomTables?
-  late List<RandomTableEntry> randomTables;
+  late List<RandomTable> randomTables;
   late List<String> expandedList;
   late List<ActionListEntry> actionLists;
 
@@ -39,13 +38,13 @@ class AppSettingsData {
 }
 
 @JsonSerializable(explicitToJson: true)
-class RandomTableEntry extends CampaignItem {
+class RandomTable extends CampaignItem {
   final String title;
   final List<RandomTableRow> rows;
   late bool isRandomTable;
   late bool isHidden;
 
-  RandomTableEntry({
+  RandomTable({
     required super.isFavourite,
     required this.title,
     required this.rows,
@@ -53,10 +52,10 @@ class RandomTableEntry extends CampaignItem {
     this.isHidden = false,
   });
 // coverage:ignore-start
-  factory RandomTableEntry.fromJson(Map<String, dynamic> json) =>
-      _$RandomTableEntryFromJson(json);
+  factory RandomTable.fromJson(Map<String, dynamic> json) =>
+      _$RandomTableFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RandomTableEntryToJson(this);
+  Map<String, dynamic> toJson() => _$RandomTableToJson(this);
 
   @override
   JournalEntryTypes type = JournalEntryTypes.randomTable;

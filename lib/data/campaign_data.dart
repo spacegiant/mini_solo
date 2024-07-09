@@ -32,15 +32,14 @@ enum ControlTypes {
   fate_aspect,
 }
 
-// TODO: Rename this
 @JsonSerializable()
-class JournalReturnObject {
+class JournalEntry {
   late String type;
   late String? line1;
   late String? line2;
   late String result;
 
-  JournalReturnObject({
+  JournalEntry({
     required this.type,
     this.line1,
     this.line2,
@@ -48,10 +47,10 @@ class JournalReturnObject {
   });
 
   // coverage:ignore-start
-  factory JournalReturnObject.fromJson(Map<String, dynamic> json) =>
-      _$JournalReturnObjectFromJson(json);
+  factory JournalEntry.fromJson(Map<String, dynamic> json) =>
+      _$JournalEntryFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JournalReturnObjectToJson(this);
+  Map<String, dynamic> toJson() => _$JournalEntryToJson(this);
 // coverage:ignore-end
 }
 
@@ -72,7 +71,6 @@ class SettingsData {
 
 @JsonSerializable()
 class GeneralSettingsData {
-  // TODO: Make showFutureSettings private
   late bool showFutureSettings;
   late bool diceActive;
   late bool showMechanics;
@@ -81,6 +79,8 @@ class GeneralSettingsData {
   late bool useRegularDice;
   late bool useFateDice;
   late bool useCoriolisDice;
+  late bool useT2KDice;
+  late bool useAchtungCthulhuDice;
   late bool useD6Oracle;
   late bool wrapDiceControls;
   late List<JournalEntryTypes> hiddenEntryTypes;
@@ -95,6 +95,8 @@ class GeneralSettingsData {
     required this.useZocchiDice,
     required this.useFateDice,
     required this.useCoriolisDice,
+    required this.useT2KDice,
+    required this.useAchtungCthulhuDice,
     required this.useD6Oracle,
     required this.wrapDiceControls,
     required this.hiddenEntryTypes,
@@ -170,7 +172,7 @@ class CampaignData {
 }
 
 // TODO: Replace with better name than initCampaignDataData
-CampaignData initCampaignDataData(String campaignName) {
+CampaignData baseCampaignData(String campaignName) {
   return CampaignData(
     clues: [],
     creatures: [],
@@ -198,6 +200,8 @@ CampaignData initCampaignDataData(String campaignName) {
         useZocchiDice: false,
         useFateDice: false,
         useCoriolisDice: false,
+        useT2KDice: false,
+        useAchtungCthulhuDice: false,
         useD6Oracle: false,
         wrapDiceControls: false,
         hiddenEntryTypes: [
@@ -212,6 +216,7 @@ CampaignData initCampaignDataData(String campaignName) {
     tracker: [],
     newScene: [],
     kards: [],
+    // TODO take a copy of groups for app settings data. Use this when creating a new campaign, so random tables etc are in groups rather than defaulting to unsorted.
     groups: initialiseGroups,
     resultEntries: [],
   );
@@ -476,7 +481,7 @@ class RollEntryItem extends CampaignItem {
 
 @JsonSerializable()
 class OracleEntry extends CampaignItem {
-  JournalReturnObject lines;
+  JournalEntry lines;
   String label;
 
   OracleEntry({
@@ -497,7 +502,7 @@ class OracleEntry extends CampaignItem {
 
 @JsonSerializable()
 class MythicEntry extends CampaignItem {
-  JournalReturnObject lines;
+  JournalEntry lines;
   String label;
 
   MythicEntry({

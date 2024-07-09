@@ -127,7 +127,7 @@ class _AddRandomTablePopupState extends State<AddRandomTablePopup> {
                   List<RandomTableRow> myText =
                       convertText(text, _separatorController.text);
 
-                  RandomTableEntry entry = RandomTableEntry(
+                  RandomTable entry = RandomTable(
                     isFavourite: false,
                     title: title,
                     rows: myText,

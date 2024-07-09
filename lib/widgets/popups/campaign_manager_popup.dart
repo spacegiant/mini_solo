@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../main.dart';
 
 class CampaignManager extends StatefulWidget {
   const CampaignManager({
@@ -27,6 +29,7 @@ class _CampaignManagerState extends State<CampaignManager> {
     BuildContext context,
   ) {
     Future<List<FileSystemEntity>> campaigns = widget.getCampaignList;
+
     // TODO Finish this functionality. Users should be a able to switch and manage campaigns
     return FutureBuilder(
         future: campaigns,
@@ -34,30 +37,54 @@ class _CampaignManagerState extends State<CampaignManager> {
           BuildContext context,
           AsyncSnapshot snapshot,
         ) {
-          return PopupLayout(
-            header: const PopupLayoutHeader(label: kCampaignManagerTitle),
-            body: SizedBox(
-              width: 400.0,
-              child: Column(
-                children: [
-                  for (var item in snapshot.data) campaignManagerRow(item),
-                ],
-              ),
-            ),
-            // TODO To complete this popup
-            footer: const Text('BUTTON HERE'),
-          );
+          return snapshot.hasData
+              ? PopupLayout(
+                  header: const PopupLayoutHeader(label: kCampaignManagerTitle),
+                  body: SizedBox(
+                    width: 400.0,
+                    child: Column(
+                      children: [
+                        for (var item in snapshot.data)
+                          campaignManagerRow(item),
+                      ],
+                    ),
+                  ),
+                  // TODO To complete this popup
+                  footer: const Text('BUTTON HERE'),
+                )
+              // TODO change Text to use a Loader widget
+              : const Text('Loading...');
         });
   }
 
-  CupertinoButton campaignManagerRow(item) {
-    return CupertinoButton(
-      onPressed: () {
-        widget.appState.loadCampaign(getLabel(item.path));
-      },
-      child: Text(
-        getLabel(item.path),
-      ),
+  Row campaignManagerRow(item) {
+    return Row(
+      children: [
+        Text(getLabel(item.path)),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            widget.appState.loadCampaign(getLabel(item.path));
+          },
+          child: const Icon(CupertinoIcons.floppy_disk),
+        ),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            // widget.appState.loadCampaign(getLabel(item.path));
+          },
+          child: const Icon(CupertinoIcons.pencil_ellipsis_rectangle),
+        ),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            widget.appState.deleteCampaign(item.path);
+            // TODO if is current campaign do this...
+            RestartWidget.restartApp(context);
+          },
+          child: const Icon(CupertinoIcons.delete),
+        ),
+      ],
     );
   }
 }

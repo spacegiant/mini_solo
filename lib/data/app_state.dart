@@ -53,7 +53,7 @@ class AppState extends ChangeNotifier {
   List<Group> get groupList => _campaignData!.groups;
 
   bool entityExists(String id) {
-    RandomTableEntry? randomTableEntry = getRandomTableById(id);
+    RandomTable? randomTableEntry = getRandomTableById(id);
     TrackerEntry? trackerEntry = getTrackerEntryById(id);
     ActionListEntry? actionListEntry = getActionListById(id);
 
@@ -289,7 +289,9 @@ class AppState extends ChangeNotifier {
     _deleteCampaignCallback = cb;
   }
 
-  get deleteCampaign => _deleteCampaignCallback;
+  void deleteCampaign(String filename) {
+    storage.deleteCampaign(filename);
+  }
 
   // CURRENT CAMPAIGN
 
@@ -301,7 +303,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: JournalReturnObject(
+        lines: JournalEntry(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'UP to $newValue',
@@ -318,7 +320,7 @@ class AppState extends ChangeNotifier {
       _campaignData!.mythicData.chaosFactor = newValue;
       addMythicEntry(MythicEntry(
         isFavourite: false,
-        lines: JournalReturnObject(
+        lines: JournalEntry(
           type: 'chaosFactor',
           line1: 'Chaos Factor',
           result: 'DOWN to $newValue',
@@ -333,7 +335,7 @@ class AppState extends ChangeNotifier {
     _campaignData!.mythicData.chaosFactor = newValue;
     addMythicEntry(MythicEntry(
       isFavourite: false,
-      lines: JournalReturnObject(
+      lines: JournalEntry(
         type: 'chaosFactor',
         line1: 'Chaos Factor',
         result: 'RESET to 5',
@@ -397,6 +399,25 @@ class AppState extends ChangeNotifier {
   void toggleUseCoriolisDice() {
     _campaignData?.settings.general.useCoriolisDice =
         !_campaignData!.settings.general.useCoriolisDice;
+    saveCampaignDataToDisk();
+  }
+
+  // TWILITGHT 2000 DICE
+  bool? get useT2KDice => _campaignData?.settings.general.useT2KDice;
+
+  void toggleUseT2KDice() {
+    _campaignData?.settings.general.useT2KDice =
+        !_campaignData!.settings.general.useT2KDice;
+    saveCampaignDataToDisk();
+  }
+
+  // ACHTUNG! CTHULHU DICE
+  bool? get useAchtungCthulhuDice =>
+      _campaignData?.settings.general.useAchtungCthulhuDice;
+
+  void toggleUseAchtungCthulhuDice() {
+    _campaignData?.settings.general.useAchtungCthulhuDice =
+        !_campaignData!.settings.general.useAchtungCthulhuDice;
     saveCampaignDataToDisk();
   }
 
@@ -552,10 +573,9 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
-  // TODO: Should/can this use the parameter id instead of id directly?
-  void deleteNoteItem(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == id);
-    _campaignData!.notes.removeWhere((entry) => entry.id == id);
+  void deleteNoteItem(String entryId) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == entryId);
+    _campaignData!.notes.removeWhere((entry) => entry.id == entryId);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
@@ -641,12 +661,12 @@ class AppState extends ChangeNotifier {
   }
 
   //   RANDOM TABLES
-  void addRandomTable(RandomTableEntry entry) {
+  void addRandomTable(RandomTable entry) {
     _appSettingsData.randomTables.add(entry);
     notifyListeners();
   }
 
-  List<RandomTableEntry> get randomTables => _appSettingsData.randomTables;
+  List<RandomTable> get randomTables => _appSettingsData.randomTables;
 
   void deleteRandomTable(String id) {
     removeFromAllGroups(controlId: id);
@@ -658,7 +678,7 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
-  RandomTableEntry? getRandomTableById(String id) {
+  RandomTable? getRandomTableById(String id) {
     return appSettingsData.randomTables
         .firstWhereOrNull((entry) => entry.id == id);
   }
@@ -673,7 +693,7 @@ class AppState extends ChangeNotifier {
 
   void updateRandomTable({
     required String id,
-    required RandomTableEntry entry,
+    required RandomTable entry,
   }) {
     int index =
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
