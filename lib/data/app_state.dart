@@ -552,10 +552,9 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
-  // TODO: Should/can this use the parameter id instead of id directly?
-  void deleteNoteItem(String id) {
-    _campaignData!.journal.removeWhere((entry) => entry.id == id);
-    _campaignData!.notes.removeWhere((entry) => entry.id == id);
+  void deleteNoteItem(String entryId) {
+    _campaignData!.journal.removeWhere((entry) => entry.id == entryId);
+    _campaignData!.notes.removeWhere((entry) => entry.id == entryId);
     saveCampaignDataToDisk();
     // notifyListeners();
   }
