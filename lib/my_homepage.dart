@@ -66,7 +66,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   void initCampaignData(String campaignName) {
     String campaignFileName = convertToFilename(campaignName);
     var appState = context.read<AppState>();
-    CampaignData campaignData = initCampaignDataData(campaignName);
+    CampaignData campaignData = baseCampaignData(campaignName);
     AppSettingsData appSettingsData = appState.appSettingsData;
     appState.appSettingsData.currentCampaign = campaignFileName;
     appState.setCampaignData(campaignData);

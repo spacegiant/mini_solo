@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('CampaignData', () {
-    CampaignData campaignData = initCampaignDataData('test campaign');
+    CampaignData campaignData = baseCampaignData('test campaign');
     expect(campaignData.runtimeType, CampaignData);
     expect(campaignData.name, 'test campaign');
   });

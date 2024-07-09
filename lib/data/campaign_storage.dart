@@ -54,7 +54,7 @@ class CampaignStorage {
       // ITERATE INITIAL CAMPAIGN DATA OBJECT
 
       final initialDecodedData =
-          convertCampaignToJSON(initCampaignDataData('test'));
+          convertCampaignToJSON(baseCampaignData('test'));
 
       fixJSONData(initialDecodedData, data);
 
