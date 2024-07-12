@@ -344,7 +344,10 @@ Widget chooseControlWidget({
     case ControlTypeEnum.kard:
       // TODO: Handle this case.
       return KardWidget(
-        entry: getKardEntry(appState, controlData.controlId)!,
+        entry: getKardEntry(
+          appState,
+          controlData.controlId,
+        )!,
         appState: appState,
       );
     case ControlTypeEnum.newActionList:

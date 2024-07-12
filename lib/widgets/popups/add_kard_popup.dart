@@ -125,7 +125,6 @@ class _AddKardPopupState extends State<AddKardPopup> {
                 );
                 controlId = widget.id;
               } else {
-                print(layoutTypeIds[currentLayoutTypeIndex]);
                 Kard newKard = Kard(
                   title: text,
                   lines: convertToLines(_linesController.value.text),
