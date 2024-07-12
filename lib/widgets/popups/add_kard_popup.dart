@@ -7,6 +7,7 @@ import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../features/grouping/group-picker.dart';
 import '../../features/kard/kard.dart';
 import '../gap.dart';
 
@@ -27,6 +28,10 @@ class AddKardPopup extends StatefulWidget {
 class _AddKardPopupState extends State<AddKardPopup> {
   late TextEditingController _titleController;
   late TextEditingController _linesController;
+  late String selectedGroup = 'unsorted';
+  late String originalGroup = 'unsorted';
+  late String? groupId;
+  Kard? entry;
 
   @override
   void initState() {
@@ -34,10 +39,12 @@ class _AddKardPopupState extends State<AddKardPopup> {
     String initTitle = '';
     String initLines = '';
     if (widget.id != null) {
-      Kard? entry = widget.appState.getKardById(widget.id!);
+      selectedGroup = widget.appState.findCurrentGroupId(widget.id!)!;
+      originalGroup = selectedGroup;
+      entry = widget.appState.getKardById(widget.id!);
       if (entry != null) {
-        initTitle = entry.title;
-        initLines = entry.lines!.join('\n');
+        initTitle = entry!.title;
+        initLines = entry!.lines!.join('\n');
       }
     }
     _titleController = TextEditingController(text: initTitle);
@@ -66,6 +73,15 @@ class _AddKardPopupState extends State<AddKardPopup> {
             maxLines: 3,
             controller: _linesController,
           ),
+          GroupPicker(
+            onChange: (string) {
+              setState(() {
+                selectedGroup = string;
+              });
+            },
+            appState: widget.appState,
+            initialGroupId: selectedGroup,
+          ),
         ],
       ),
       footer: Row(
@@ -73,17 +89,41 @@ class _AddKardPopupState extends State<AddKardPopup> {
           CupertinoButton(
             color: kSubmitColor,
             onPressed: () {
+              String? controlId;
               String text = _titleController.value.text.trim();
               if (text == '' && _linesController.text.trim().isEmpty) return;
-              widget.appState.createNewLabel(
-                Kard(
+
+              List<String> lines = convertToLines(_linesController.value.text);
+
+              if (widget.id != null) {
+                widget.appState.updateKard(
+                  id: widget.id!,
+                  title: text,
+                  lines: lines,
+                );
+                controlId = widget.id;
+              } else {
+                Kard newKard = Kard(
                   title: text,
                   lines: convertToLines(_linesController.value.text),
                   // TODO user can set this
                   labelLayout: KardLayoutTypes.horizontal,
-                ),
-              );
+                );
+                // TODO Rename this to createNewKard
+                widget.appState.createNewLabel(newKard);
+                controlId = newKard.id;
+              }
+
               _titleController.text = '';
+              _linesController.text = '';
+
+              // IF GROUP DIFFERENT
+              if (controlId != null && originalGroup != selectedGroup) {
+                widget.appState
+                    .moveToGroup(controlId: controlId, groupId: selectedGroup);
+              }
+
+              Navigator.pop(context);
             },
             child: Text(widget.id == null ? 'Add' : 'Update'),
           ),

@@ -43,8 +43,8 @@ Map<KardLayoutTypes, KardLayout> kardLayouts = {
 
 @JsonSerializable()
 class Kard extends CampaignItem {
-  final String title;
-  final List<String>? lines;
+  late String title;
+  late List<String>? lines;
   final KardLayoutTypes labelLayout;
   final bool? firstLineHeadings;
 
