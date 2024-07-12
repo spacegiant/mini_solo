@@ -214,7 +214,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           controlId: actionListEntry.id,
           groupId: selectedGroupId ?? initialGroupId ?? 'unsorted');
     } else {
-      print(entry!.id);
       widget.appState.updateActionList(
         id: entry!.id,
         title: actionListEntry.title,

@@ -21,7 +21,6 @@ dynamic fixCampaignJSONData(dynamic initialData, dynamic data) {
       // print('LIST');
     } else if (dataKey is Map) {
       // print('MAP');
-      print(v);
     }
   });
   return data;

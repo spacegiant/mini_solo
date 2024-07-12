@@ -111,4 +111,8 @@ Map<JournalEntryTypes, EntryTypeData> journalEntryTypeLabel = {
     identifier: 'actionList',
     label: 'Action List',
   ),
+  JournalEntryTypes.kard: EntryTypeData(
+    identifier: 'kard',
+    label: 'Card',
+  ),
 };
