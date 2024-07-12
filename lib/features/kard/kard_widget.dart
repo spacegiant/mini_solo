@@ -60,16 +60,17 @@ class KardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    entry.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: CupertinoColors.white,
+                if (entry.title != '')
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      entry.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: CupertinoColors.white,
+                      ),
                     ),
                   ),
-                ),
                 ...textLines,
               ],
             ),

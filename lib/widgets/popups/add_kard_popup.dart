@@ -57,11 +57,12 @@ class _AddKardPopupState extends State<AddKardPopup> {
           color: CupertinoColors.systemPink,
           onPressed: () {
             String text = _titleController.value.text.trim();
-            if (text == '') return;
+            if (text == '' && _linesController.text.trim().isEmpty) return;
             widget.appState.createNewLabel(Kard(
               title: text,
               lines: convertToLines(_linesController.value.text),
-              controlType: ControlTypeEnum.kard,
+              // TODO user can set this
+              labelLayout: KardLayoutTypes.horizontal,
             ));
             _titleController.text = '';
           },

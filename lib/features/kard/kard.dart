@@ -8,18 +8,51 @@ part 'kard.g.dart';
 
 enum KardLayoutTypes { vertical, horizontal, statBlock, statBlockList, tabular }
 
+class KardLayout {
+  final String label;
+  final ControlTypeEnum controlType;
+
+  KardLayout({
+    required this.label,
+    required this.controlType,
+  });
+}
+
+Map<KardLayoutTypes, KardLayout> kardLayouts = {
+  KardLayoutTypes.vertical: KardLayout(
+    label: 'Vertical Layout',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.horizontal: KardLayout(
+    label: 'Horizontal Layout',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.statBlock: KardLayout(
+    label: 'Single Stat Block',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.statBlockList: KardLayout(
+    label: 'List of Stat Blocks',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.tabular: KardLayout(
+    label: 'Tabular Layout',
+    controlType: ControlTypeEnum.kard,
+  ),
+};
+
 @JsonSerializable()
 class Kard extends CampaignItem {
   final String title;
   final List<String>? lines;
-  final KardLayoutTypes? labelLayout;
-  ControlTypeEnum controlType;
+  final KardLayoutTypes labelLayout;
+  final bool? firstLineHeadings;
 
   Kard({
     required this.title,
     this.lines,
-    this.labelLayout,
-    required this.controlType,
+    required this.labelLayout,
+    this.firstLineHeadings = false,
   });
 
   // coverage:ignore-start
