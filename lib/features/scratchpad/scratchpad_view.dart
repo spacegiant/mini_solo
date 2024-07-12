@@ -165,15 +165,17 @@ class _ScratchpadViewState extends State<ScratchpadView> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CupertinoTextField.borderless(
-                  textAlignVertical: TextAlignVertical.top,
-                  placeholder: kScratchTextPlaceholder,
-                  controller: _textController,
-                  autofocus: true,
-                  expands: true,
-                  minLines: null,
-                  maxLines: null,
-                  textCapitalization: TextCapitalization.sentences,
+                Expanded(
+                  child: CupertinoTextField.borderless(
+                    textAlignVertical: TextAlignVertical.top,
+                    placeholder: kScratchTextPlaceholder,
+                    controller: _textController,
+                    autofocus: true,
+                    expands: true,
+                    minLines: null,
+                    maxLines: null,
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
                 ),
                 const Divider(),
                 Padding(
