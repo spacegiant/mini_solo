@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:mini_solo/data/campaign_data.dart';
 
-dynamic fixJSONData(dynamic initialData, dynamic data) {
+dynamic fixCampaignJSONData(dynamic initialData, dynamic data) {
   initialData.forEach((dynamic k, dynamic v) {
     var dataKey = data[k];
     if (dataKey == null) {

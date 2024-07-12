@@ -56,7 +56,7 @@ class CampaignStorage {
       final initialDecodedData =
           convertCampaignToJSON(baseCampaignData('test'));
 
-      fixJSONData(initialDecodedData, data);
+      fixCampaignJSONData(initialDecodedData, data);
 
       // EXPERIMENT FINISHED
       //
