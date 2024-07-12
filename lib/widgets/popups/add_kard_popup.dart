@@ -10,9 +10,14 @@ import '../../features/kard/kard.dart';
 import '../gap.dart';
 
 class AddKardPopup extends StatefulWidget {
-  const AddKardPopup({super.key, required this.appState});
+  const AddKardPopup({
+    super.key,
+    required this.appState,
+    this.id,
+  });
 
   final AppState appState;
+  final String? id;
 
   @override
   State<AddKardPopup> createState() => _AddKardPopupState();
