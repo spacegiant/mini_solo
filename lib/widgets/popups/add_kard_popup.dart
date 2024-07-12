@@ -109,8 +109,7 @@ class _AddKardPopupState extends State<AddKardPopup> {
                   // TODO user can set this
                   layoutType: KardLayoutTypes.horizontal,
                 );
-                // TODO Rename this to createNewKard
-                widget.appState.createNewLabel(newKard);
+                widget.appState.createNewKard(newKard);
                 controlId = newKard.id;
               }
 

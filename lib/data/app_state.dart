@@ -170,7 +170,7 @@ class AppState extends ChangeNotifier {
 
   // LABELS
 
-  String? createNewLabel(Kard kard) {
+  String? createNewKard(Kard kard) {
     _campaignData!.kards.add(kard);
     addToGroup(controlId: kard.id, groupId: 'unsorted');
     saveCampaignDataToDisk();
