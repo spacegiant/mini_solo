@@ -58,13 +58,6 @@ class CampaignStorage {
 
       fixCampaignJSONData(initialDecodedData, data);
 
-      // EXPERIMENT FINISHED
-      //
-      // if (data['settings']['general']['hiddenEntryTypes'] == null) {
-      //   data['settings']['general']['hiddenEntryTypes'] = [];
-      // }
-      // if (data['newScene'] == null) data['newScene'] = [];
-
       final dataMap = CampaignData.fromJson(data);
 
       return dataMap;
