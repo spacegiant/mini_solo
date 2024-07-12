@@ -54,29 +54,53 @@ class KardWidget extends StatelessWidget {
             color: Colors.pink,
             borderRadius: BorderRadius.all(kInputBorderRadius),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (entry.title != '')
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      entry.title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white,
-                      ),
-                    ),
-                  ),
-                ...textLines,
-              ],
-            ),
-          ),
+          // child: LayoutVertical(entry: entry, textLines: textLines),
+          child: switch (entry.layoutType) {
+            KardLayoutTypes.vertical => Text('Vertical'),
+            KardLayoutTypes.horizontal =>
+              LayoutHorizontal(entry: entry, textLines: textLines),
+            KardLayoutTypes.statBlock => Text('statBlock'),
+            KardLayoutTypes.statBlockList => Text('statBlockList'),
+            KardLayoutTypes.tabular => Text('tabular'),
+          },
         ),
+      ),
+    );
+  }
+}
+
+class LayoutHorizontal extends StatelessWidget {
+  const LayoutHorizontal({
+    super.key,
+    required this.entry,
+    required this.textLines,
+  });
+
+  final Kard entry;
+  final List<Widget> textLines;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (entry.title != '')
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                entry.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: CupertinoColors.white,
+                ),
+              ),
+            ),
+          ...textLines,
+        ],
       ),
     );
   }
