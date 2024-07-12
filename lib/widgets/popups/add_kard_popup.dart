@@ -30,8 +30,17 @@ class _AddKardPopupState extends State<AddKardPopup> {
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController();
-    _linesController = TextEditingController();
+    String initTitle = '';
+    String initLines = '';
+    if (widget.id != null) {
+      Kard? entry = widget.appState.getKardById(widget.id!);
+      if (entry != null) {
+        initTitle = entry.title;
+        initLines = entry.lines!.join('\n');
+      }
+    }
+    _titleController = TextEditingController(text: initTitle);
+    _linesController = TextEditingController(text: initLines);
   }
 
   @override

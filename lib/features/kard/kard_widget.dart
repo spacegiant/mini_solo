@@ -4,6 +4,7 @@ import 'package:mini_solo/widgets/popups/edit_kard_popup.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../widgets/popups/add_kard_popup.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import 'kard.dart';
 
@@ -34,10 +35,18 @@ class KardWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
+        // toggleShowPopup2(
+        //     maxWidth: 400.0,
+        //     maxHeight: 240.0,
+        //     child: EditKardPopup(
+        //       appState: appState,
+        //       id: entry.id,
+        //     ),
+        //     context: context);
         toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 240.0,
-            child: EditKardPopup(
+            maxHeight: 420.0,
+            child: AddKardPopup(
               appState: appState,
               id: entry.id,
             ),

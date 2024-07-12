@@ -183,6 +183,10 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  Kard? getKardById(String id) {
+    return campaignData?.kards.firstWhereOrNull((kard) => kard.id == id);
+  }
+
   // EXPANDED LIST
 
   void toggleExpanded(String label) {
