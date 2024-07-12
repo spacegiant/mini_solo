@@ -3,11 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/data/campaign_item.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';

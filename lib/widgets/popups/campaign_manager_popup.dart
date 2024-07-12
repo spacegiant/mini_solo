@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 

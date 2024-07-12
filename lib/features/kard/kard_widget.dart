@@ -51,12 +51,12 @@ class KardWidget extends StatelessWidget {
         ),
         // child: LayoutVertical(entry: entry, textLines: textLines),
         child: switch (entry.layoutType) {
-          KardLayoutTypes.vertical => Text('Vertical'),
+          KardLayoutTypes.vertical => const Text('Vertical'),
           KardLayoutTypes.horizontal =>
             LayoutHorizontal(entry: entry, textLines: textLines),
-          KardLayoutTypes.statBlock => Text('statBlock'),
+          KardLayoutTypes.statBlock => const Text('statBlock'),
           KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
-          KardLayoutTypes.tabular => Text('tabular'),
+          KardLayoutTypes.tabular => const Text('tabular'),
         },
       ),
     );

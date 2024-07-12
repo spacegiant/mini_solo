@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mini_solo/svg_icon.dart';
 
 import '../../data/campaign_data.dart';
@@ -16,7 +15,7 @@ class DiceGlyph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double circleWidth = 50.0;
+    // double circleWidth = 50.0;
     Widget glyphContent;
 
     glyphContent = Column(children: [
