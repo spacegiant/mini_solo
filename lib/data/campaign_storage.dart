@@ -39,7 +39,7 @@ class CampaignStorage {
     return campaigns;
   }
 
-  Future<CampaignData?> readJSON(String fileName) async {
+  Future<CampaignData?> readCampaignDataJSON(String fileName) async {
     try {
       final path = await _localPath;
       File file = File('$path/$fileName');

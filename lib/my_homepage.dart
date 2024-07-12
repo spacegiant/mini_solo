@@ -48,7 +48,9 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
         currentCampaign = data.currentCampaign;
 
         if (currentCampaign != null && currentCampaign != '') {
-          widget.storage.readJSON('$currentCampaign.json').then((data) {
+          widget.storage
+              .readCampaignDataJSON('$currentCampaign.json')
+              .then((data) {
             if (data != null) {
               appState.setCampaignData(data);
             }

@@ -236,7 +236,7 @@ class AppState extends ChangeNotifier {
   // }
 
   void loadCampaign(String fileName) {
-    _storage.readJSON(fileName).then((data) {
+    _storage.readCampaignDataJSON(fileName).then((data) {
       if (data != null) {
         setCampaignData(data);
         setCurrentCampaign(data.name);
