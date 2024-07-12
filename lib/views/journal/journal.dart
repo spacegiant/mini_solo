@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/journal_entry_types.dart';
-import '../../widgets/journal/entryWidgets/journal_end_glyphs.dart';
 import '../../widgets/journal/entryWidgets/journal_start_entry.dart';
 import '../../widgets/journal/entryWidgets/new_scene_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/note_entry_input.dart';
@@ -116,8 +115,6 @@ class Journal extends StatefulWidget {
 }
 
 class _JournalState extends State<Journal> {
-  bool showInput = false;
-
   late TextEditingController _controller;
 
   @override
@@ -157,11 +154,7 @@ class _JournalState extends State<Journal> {
         }
 
         return GestureDetector(
-          onTap: () {
-            setState(() {
-              showInput = !showInput;
-            });
-          },
+          onTap: () {},
           child: Container(
             height: kForceColumnHeight,
             color: kJournalBackgroundColor,
@@ -172,14 +165,12 @@ class _JournalState extends State<Journal> {
                 children: [
                   const JournalStartEntry(),
                   ...entries,
-                  const JournalEndGlyphs(),
                   if (widget.diceRoll!.isNotEmpty)
                     TempDiceDisplay(widget: widget),
-                  if (showInput)
-                    NoteEntryInput(
-                      controller: _controller,
-                      onInputSubmit: onInputSubmit,
-                    )
+                  NoteEntryInput(
+                    controller: _controller,
+                    onInputSubmit: onInputSubmit,
+                  )
                 ],
               ),
             ),
