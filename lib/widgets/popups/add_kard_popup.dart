@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
@@ -10,6 +9,7 @@ import '../../data/app_state.dart';
 import '../../features/grouping/group-picker.dart';
 import '../../features/kard/kard.dart';
 import '../gap.dart';
+import '../label_and_picker.dart';
 
 class AddKardPopup extends StatefulWidget {
   const AddKardPopup({
@@ -32,12 +32,20 @@ class _AddKardPopupState extends State<AddKardPopup> {
   late String originalGroup = 'unsorted';
   late String? groupId;
   Kard? entry;
+  int currentLayoutTypeIndex = 0;
+  List<String> layoutTypeOptions = [];
+  List<KardLayoutTypes> layoutTypeIds = [];
 
   @override
   void initState() {
     super.initState();
     String initTitle = '';
     String initLines = '';
+    kardLayouts.forEach((k, v) {
+      layoutTypeOptions.add(v.label);
+      layoutTypeIds.add(k);
+    });
+
     if (widget.id != null) {
       selectedGroup = widget.appState.findCurrentGroupId(widget.id!)!;
       originalGroup = selectedGroup;
@@ -45,6 +53,8 @@ class _AddKardPopupState extends State<AddKardPopup> {
       if (entry != null) {
         initTitle = entry!.title;
         initLines = entry!.lines!.join('\n');
+        currentLayoutTypeIndex =
+            layoutTypeIds.indexWhere((type) => type == entry?.layoutType);
       }
     }
     _titleController = TextEditingController(text: initTitle);
@@ -64,6 +74,7 @@ class _AddKardPopupState extends State<AddKardPopup> {
       header: const PopupLayoutHeader(label: 'Add Card'),
       body: Column(
         children: [
+          Text(entry?.layoutType.toString() ?? ''),
           CupertinoTextField(
             controller: _titleController,
           ),
@@ -72,6 +83,16 @@ class _AddKardPopupState extends State<AddKardPopup> {
             // expands: true,
             maxLines: 3,
             controller: _linesController,
+          ),
+          LabelAndPicker(
+            label: 'Layout type',
+            items: layoutTypeOptions,
+            onChange: (index) {
+              if (index != null) {
+                currentLayoutTypeIndex = index;
+              }
+            },
+            initialItem: currentLayoutTypeIndex,
           ),
           GroupPicker(
             onChange: (string) {
@@ -100,14 +121,15 @@ class _AddKardPopupState extends State<AddKardPopup> {
                   id: widget.id!,
                   title: text,
                   lines: lines,
+                  layoutType: layoutTypeIds[currentLayoutTypeIndex],
                 );
                 controlId = widget.id;
               } else {
+                print(layoutTypeIds[currentLayoutTypeIndex]);
                 Kard newKard = Kard(
                   title: text,
                   lines: convertToLines(_linesController.value.text),
-                  // TODO user can set this
-                  layoutType: KardLayoutTypes.horizontal,
+                  layoutType: layoutTypeIds[currentLayoutTypeIndex],
                 );
                 widget.appState.createNewKard(newKard);
                 controlId = newKard.id;

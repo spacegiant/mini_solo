@@ -191,11 +191,13 @@ class AppState extends ChangeNotifier {
     required String id,
     String? title,
     List<String>? lines,
+    required KardLayoutTypes layoutType,
   }) {
     Kard? entry = getKardById(id);
     if (entry != null) {
       entry.title = title ?? '';
       entry.lines = lines ?? [];
+      entry.layoutType = layoutType;
     }
     saveCampaignDataToDisk();
   }

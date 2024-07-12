@@ -45,7 +45,7 @@ Map<KardLayoutTypes, KardLayout> kardLayouts = {
 class Kard extends CampaignItem {
   late String title;
   late List<String>? lines;
-  final KardLayoutTypes layoutType;
+  late KardLayoutTypes layoutType;
   final bool? firstLineHeadings;
 
   Kard({
