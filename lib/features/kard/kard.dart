@@ -6,13 +6,13 @@ import '../../views/journal/chooseControlWidget.dart';
 
 part 'kard.g.dart';
 
-enum LabelLayout { vertical, horizontal }
+enum KardLayoutTypes { vertical, horizontal, statBlock, statBlockList, tabular }
 
 @JsonSerializable()
 class Kard extends CampaignItem {
   final String title;
   final List<String>? lines;
-  final LabelLayout? labelLayout;
+  final KardLayoutTypes? labelLayout;
   ControlTypeEnum controlType;
 
   Kard({
