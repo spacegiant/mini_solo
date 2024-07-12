@@ -10,7 +10,7 @@ Kard _$KardFromJson(Map<String, dynamic> json) => Kard(
       title: json['title'] as String,
       lines:
           (json['lines'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      labelLayout: $enumDecode(_$KardLayoutTypesEnumMap, json['labelLayout']),
+      layoutType: $enumDecode(_$KardLayoutTypesEnumMap, json['labelLayout']),
     )
       ..isFavourite = json['isFavourite'] as bool?
       ..id = json['id'] as String
@@ -21,7 +21,7 @@ Map<String, dynamic> _$KardToJson(Kard instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'lines': instance.lines,
-      'labelLayout': _$KardLayoutTypesEnumMap[instance.labelLayout]!,
+      'labelLayout': _$KardLayoutTypesEnumMap[instance.layoutType]!,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 

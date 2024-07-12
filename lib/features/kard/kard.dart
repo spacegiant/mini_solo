@@ -45,13 +45,13 @@ Map<KardLayoutTypes, KardLayout> kardLayouts = {
 class Kard extends CampaignItem {
   late String title;
   late List<String>? lines;
-  final KardLayoutTypes labelLayout;
+  final KardLayoutTypes layoutType;
   final bool? firstLineHeadings;
 
   Kard({
     required this.title,
     this.lines,
-    required this.labelLayout,
+    required this.layoutType,
     this.firstLineHeadings = false,
   });
 

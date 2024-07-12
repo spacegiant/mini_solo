@@ -107,7 +107,7 @@ class _AddKardPopupState extends State<AddKardPopup> {
                   title: text,
                   lines: convertToLines(_linesController.value.text),
                   // TODO user can set this
-                  labelLayout: KardLayoutTypes.horizontal,
+                  layoutType: KardLayoutTypes.horizontal,
                 );
                 // TODO Rename this to createNewKard
                 widget.appState.createNewLabel(newKard);

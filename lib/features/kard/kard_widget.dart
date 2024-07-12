@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/widgets/popups/edit_kard_popup.dart';
+import 'package:mini_solo/data/journal_entry_types.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
