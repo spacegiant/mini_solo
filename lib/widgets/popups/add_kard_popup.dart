@@ -5,6 +5,7 @@ import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
+import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../features/kard/kard.dart';
 import '../gap.dart';
@@ -53,35 +54,53 @@ class _AddKardPopupState extends State<AddKardPopup> {
   @override
   Widget build(BuildContext context) {
     return PopupLayout(
-        header: const PopupLayoutHeader(label: 'Add Card'),
-        body: Column(
-          children: [
-            CupertinoTextField(
-              controller: _titleController,
-            ),
+      header: const PopupLayoutHeader(label: 'Add Card'),
+      body: Column(
+        children: [
+          CupertinoTextField(
+            controller: _titleController,
+          ),
+          const Gap(),
+          CupertinoTextField(
+            // expands: true,
+            maxLines: 3,
+            controller: _linesController,
+          ),
+        ],
+      ),
+      footer: Row(
+        children: [
+          CupertinoButton(
+            color: kSubmitColor,
+            onPressed: () {
+              String text = _titleController.value.text.trim();
+              if (text == '' && _linesController.text.trim().isEmpty) return;
+              widget.appState.createNewLabel(
+                Kard(
+                  title: text,
+                  lines: convertToLines(_linesController.value.text),
+                  // TODO user can set this
+                  labelLayout: KardLayoutTypes.horizontal,
+                ),
+              );
+              _titleController.text = '';
+            },
+            child: Text(widget.id == null ? 'Add' : 'Update'),
+          ),
+          if (widget.id != null) ...[
             const Gap(),
-            CupertinoTextField(
-              // expands: true,
-              maxLines: 3,
-              controller: _linesController,
+            CupertinoButton(
+              color: kWarningColor,
+              onPressed: () {
+                widget.appState.deleteKard(widget.id!);
+                Navigator.pop(context);
+              },
+              child: const Text(kDeleteLabel),
             ),
-          ],
-        ),
-        footer: CupertinoButton(
-          color: CupertinoColors.systemPink,
-          onPressed: () {
-            String text = _titleController.value.text.trim();
-            if (text == '' && _linesController.text.trim().isEmpty) return;
-            widget.appState.createNewLabel(Kard(
-              title: text,
-              lines: convertToLines(_linesController.value.text),
-              // TODO user can set this
-              labelLayout: KardLayoutTypes.horizontal,
-            ));
-            _titleController.text = '';
-          },
-          child: const Text('Add'),
-        ));
+          ]
+        ],
+      ),
+    );
   }
 
   List<String> convertToLines(String lines) {
