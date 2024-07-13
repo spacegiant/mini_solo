@@ -75,14 +75,22 @@ class StatBlockList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<TableRow>? rows = entry.lines?.mapIndexed((index, line) {
       List<String> strings = line.split(',');
-      List<Text> cells = strings
-          .map((string) => Text(
-                string,
-                style: const TextStyle(
-                  color: CupertinoColors.white,
+
+      List<Widget> cells = strings
+          .map((string) => Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
+                child: Text(
+                  string,
+                  style: const TextStyle(
+                    color: CupertinoColors.white,
+                  ),
                 ),
               ))
           .toList();
+
       return TableRow(
         decoration: index == 0
             ? const BoxDecoration(
@@ -96,16 +104,11 @@ class StatBlockList extends StatelessWidget {
       );
     }).toList();
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxWidth: 1200.0,
-        minWidth: 100.0,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Table(
-          children: rows ?? [],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Table(
+        defaultColumnWidth: const IntrinsicColumnWidth(),
+        children: rows ?? [],
       ),
     );
   }
