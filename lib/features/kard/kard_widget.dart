@@ -13,10 +13,12 @@ class KardWidget extends StatelessWidget {
     super.key,
     required this.entry,
     required this.appState,
+    required this.buttonColor,
   });
 
   final Kard entry;
   final AppState appState;
+  final Color buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class KardWidget extends StatelessWidget {
             context: context);
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.pink,
+        decoration: BoxDecoration(
+          color: buttonColor,
           borderRadius: BorderRadius.all(kInputBorderRadius),
         ),
         // child: LayoutVertical(entry: entry, textLines: textLines),

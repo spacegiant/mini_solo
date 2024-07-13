@@ -349,6 +349,7 @@ Widget chooseControlWidget({
           controlData.controlId,
         )!,
         appState: appState,
+        buttonColor: buttonColor,
       );
     case ControlTypeEnum.newActionList:
       return ListButton(
