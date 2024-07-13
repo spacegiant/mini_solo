@@ -74,7 +74,6 @@ class _AddKardPopupState extends State<AddKardPopup> {
       header: const PopupLayoutHeader(label: 'Add Card'),
       body: Column(
         children: [
-          Text(entry?.layoutType.toString() ?? ''),
           CupertinoTextField(
             controller: _titleController,
           ),

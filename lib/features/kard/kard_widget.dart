@@ -1,9 +1,9 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../widgets/gap.dart';
 import '../../widgets/popups/add_kard_popup.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import 'kard.dart';
@@ -20,19 +20,6 @@ class KardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> textLines = entry.lines
-            ?.map((line) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    line,
-                    style: const TextStyle(
-                      color: CupertinoColors.white,
-                    ),
-                  ),
-                ))
-            .toList() ??
-        [];
-
     return GestureDetector(
       onLongPress: () {
         toggleShowPopup2(
@@ -52,13 +39,92 @@ class KardWidget extends StatelessWidget {
         // child: LayoutVertical(entry: entry, textLines: textLines),
         child: switch (entry.layoutType) {
           KardLayoutTypes.vertical => const Text('Vertical'),
-          KardLayoutTypes.horizontal =>
-            LayoutHorizontal(entry: entry, textLines: textLines),
-          KardLayoutTypes.statBlock => const Text('statBlock'),
-          KardLayoutTypes.statBlockList => const Text('statBlockList'),
+          KardLayoutTypes.horizontal => LayoutHorizontal(entry: entry),
+          KardLayoutTypes.statBlock => const Text('StatBlock'),
+          KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
           KardLayoutTypes.tabular => TabularLayout(entry: entry),
         },
       ),
+    );
+  }
+}
+
+class StatBlockList extends StatelessWidget {
+  const StatBlockList({
+    super.key,
+    required this.entry,
+  });
+
+  final Kard entry;
+
+  @override
+  Widget build(BuildContext context) {
+    List<List<String>> tableData = convertStringToTabularData(entry.lines);
+
+    List<Widget> statBlock = [];
+
+    for (final row in tableData) {
+      statBlock.add(
+        Container(
+          decoration: BoxDecoration(
+            color: CupertinoColors.white.withOpacity(0.7),
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 50.0,
+                minHeight: 50.0,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    row[0],
+                    style: const TextStyle(fontSize: 12.0),
+                  ),
+                  Text(
+                    row[1],
+                    style: const TextStyle(fontSize: 24.0),
+                  ),
+                  Text(
+                    row[2],
+                    style: const TextStyle(fontSize: 12.0),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (entry.title != '') ...[
+          const Gap(height: 8.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              entry.title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.white,
+              ),
+            ),
+          ),
+        ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            spacing: 8.0,
+            children: statBlock,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -73,7 +139,7 @@ class TabularLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<List<String>> tableData = convertStringToTable(entry.lines);
+    List<List<String>> tableData = convertStringToTabularData(entry.lines);
 
     List<TableRow> tableRows = [];
 
@@ -112,31 +178,9 @@ class TabularLayout extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Table(
         defaultColumnWidth: const IntrinsicColumnWidth(),
-        children: tableRows ?? [],
+        children: tableRows,
       ),
     );
-  }
-
-  List<List<String>> convertStringToTable(List<String>? lines) {
-    int numberOfColumns = 0;
-    List<List<String>> tableData = [];
-
-    for (var line in lines!) {
-      List<String> tableRow = line.trim().split(',');
-      if (tableRow.length > numberOfColumns) numberOfColumns = tableRow.length;
-      tableData.add(tableRow);
-    }
-
-    for (var row in tableData) {
-      if (row.length < numberOfColumns) {
-        int difference = numberOfColumns - row.length;
-
-        for (int i = 0; i < difference; i++) {
-          row.add('');
-        }
-      }
-    }
-    return tableData;
   }
 }
 
@@ -144,14 +188,25 @@ class LayoutHorizontal extends StatelessWidget {
   const LayoutHorizontal({
     super.key,
     required this.entry,
-    required this.textLines,
   });
 
   final Kard entry;
-  final List<Widget> textLines;
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> textLines = entry.lines
+            ?.map((line) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    line,
+                    style: const TextStyle(
+                      color: CupertinoColors.white,
+                    ),
+                  ),
+                ))
+            .toList() ??
+        [];
+
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 200.0,
@@ -181,4 +236,32 @@ class LayoutHorizontal extends StatelessWidget {
       ),
     );
   }
+}
+
+List<List<String>> convertStringToTabularData(List<String>? lines) {
+  int numberOfColumns = 0;
+  List<List<String>> tableData = [];
+
+  for (var line in lines!) {
+    List<String> tableRow = line.trim().split(',');
+
+    List<String> trimmedTableRow = tableRow.map((cell) => cell.trim()).toList();
+
+    if (trimmedTableRow.length > numberOfColumns) {
+      numberOfColumns = trimmedTableRow.length;
+    }
+
+    tableData.add(trimmedTableRow);
+  }
+
+  for (var row in tableData) {
+    if (row.length < numberOfColumns) {
+      int difference = numberOfColumns - row.length;
+
+      for (int i = 0; i < difference; i++) {
+        row.add('');
+      }
+    }
+  }
+  return tableData;
 }
