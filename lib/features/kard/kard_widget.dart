@@ -60,6 +60,7 @@ class StatBlockList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<List<String>> tableData = convertStringToTabularData(entry.lines);
+    bool isSingleStat = tableData.length == 1;
 
     List<Widget> statBlock = [];
 
@@ -67,7 +68,7 @@ class StatBlockList extends StatelessWidget {
       statBlock.add(
         Container(
           decoration: BoxDecoration(
-            color: CupertinoColors.white.withOpacity(0.7),
+            color: isSingleStat ? null : CupertinoColors.white.withOpacity(0.7),
             borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           ),
           child: Padding(
@@ -118,10 +119,16 @@ class StatBlockList extends StatelessWidget {
           ),
         ],
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            spacing: 8.0,
-            children: statBlock,
+          padding: EdgeInsets.all(isSingleStat ? 0.0 : 8.0),
+          child: DefaultTextStyle.merge(
+            style: TextStyle(
+                color: isSingleStat
+                    ? CupertinoColors.white
+                    : CupertinoColors.black),
+            child: Wrap(
+              spacing: 8.0,
+              children: statBlock,
+            ),
           ),
         ),
       ],
