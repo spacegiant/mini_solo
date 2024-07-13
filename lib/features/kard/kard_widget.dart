@@ -40,7 +40,6 @@ class KardWidget extends StatelessWidget {
         child: switch (entry.layoutType) {
           KardLayoutTypes.vertical => const Text('Vertical'),
           KardLayoutTypes.horizontal => LayoutHorizontal(entry: entry),
-          KardLayoutTypes.statBlock => const Text('StatBlock'),
           KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
           KardLayoutTypes.tabular => TabularLayout(entry: entry),
         },

@@ -6,7 +6,7 @@ import '../../views/journal/chooseControlWidget.dart';
 
 part 'kard.g.dart';
 
-enum KardLayoutTypes { vertical, horizontal, statBlock, statBlockList, tabular }
+enum KardLayoutTypes { vertical, horizontal, statBlockList, tabular }
 
 class KardLayout {
   final String label;
@@ -25,10 +25,6 @@ Map<KardLayoutTypes, KardLayout> kardLayouts = {
   ),
   KardLayoutTypes.horizontal: KardLayout(
     label: 'Horizontal Layout',
-    controlType: ControlTypeEnum.kard,
-  ),
-  KardLayoutTypes.statBlock: KardLayout(
-    label: 'Single Stat Block',
     controlType: ControlTypeEnum.kard,
   ),
   KardLayoutTypes.statBlockList: KardLayout(
