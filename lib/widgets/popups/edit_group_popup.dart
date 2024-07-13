@@ -38,7 +38,6 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     super.initState();
     controls = widget.group.controls;
     selectedId = '';
-    // TODO wire up to data
     isWrapped = widget.group.isWrapped ?? false;
   }
 
@@ -59,13 +58,15 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = controls.mapIndexed((index, control) {
+      ControlData controlData = widget.controlData
+          .firstWhere((controlData) => controlData.controlId == control);
+
       return MyReorderableItem(
         key: Key(control),
         id: control,
         appState: widget.appState,
-        label: widget.controlData
-            .firstWhere((controlData) => controlData.controlId == control)
-            .label,
+        // TODO make this better
+        label: controlData.label == '' ? '<unlabelled>' : controlData.label,
         selected: selectedId == control,
         onTap: () {
           handleTap(control);
