@@ -55,16 +55,16 @@ class KardWidget extends StatelessWidget {
           KardLayoutTypes.horizontal =>
             LayoutHorizontal(entry: entry, textLines: textLines),
           KardLayoutTypes.statBlock => const Text('statBlock'),
-          KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
-          KardLayoutTypes.tabular => const Text('tabular'),
+          KardLayoutTypes.statBlockList => const Text('statBlockList'),
+          KardLayoutTypes.tabular => TabularLayout(entry: entry),
         },
       ),
     );
   }
 }
 
-class StatBlockList extends StatelessWidget {
-  const StatBlockList({
+class TabularLayout extends StatelessWidget {
+  const TabularLayout({
     super.key,
     required this.entry,
   });
@@ -73,44 +73,70 @@ class StatBlockList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TableRow>? rows = entry.lines?.mapIndexed((index, line) {
-      List<String> strings = line.split(',');
+    List<List<String>> tableData = convertStringToTable(entry.lines);
 
-      List<Widget> cells = strings
-          .map((string) => Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
-                child: Text(
-                  string,
-                  style: const TextStyle(
-                    color: CupertinoColors.white,
+    List<TableRow> tableRows = [];
+
+    for (final (index, row) in tableData.indexed) {
+      tableRows.add(
+        TableRow(
+          decoration: index == 0
+              ? const BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                  width: 1.0,
+                  color: Colors.white,
+                )))
+              : null,
+          children: row
+              .map(
+                (cell) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
+                  child: Text(
+                    cell,
+                    style: const TextStyle(
+                      color: CupertinoColors.white,
+                    ),
                   ),
                 ),
-              ))
-          .toList();
-
-      return TableRow(
-        decoration: index == 0
-            ? const BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                width: 1.0,
-                color: Colors.white,
-              )))
-            : null,
-        children: cells,
+              )
+              .toList(),
+        ),
       );
-    }).toList();
+    }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Table(
         defaultColumnWidth: const IntrinsicColumnWidth(),
-        children: rows ?? [],
+        children: tableRows ?? [],
       ),
     );
+  }
+
+  List<List<String>> convertStringToTable(List<String>? lines) {
+    int numberOfColumns = 0;
+    List<List<String>> tableData = [];
+
+    for (var line in lines!) {
+      List<String> tableRow = line.trim().split(',');
+      if (tableRow.length > numberOfColumns) numberOfColumns = tableRow.length;
+      tableData.add(tableRow);
+    }
+
+    for (var row in tableData) {
+      if (row.length < numberOfColumns) {
+        int difference = numberOfColumns - row.length;
+
+        for (int i = 0; i < difference; i++) {
+          row.add('');
+        }
+      }
+    }
+    return tableData;
   }
 }
 
