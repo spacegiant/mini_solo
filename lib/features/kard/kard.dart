@@ -43,12 +43,14 @@ class Kard extends CampaignItem {
   late List<String>? lines;
   late KardLayoutTypes layoutType;
   final bool? firstLineHeadings;
+  final bool? showHeading;
 
   Kard({
     required this.title,
     this.lines,
     required this.layoutType,
     this.firstLineHeadings = false,
+    this.showHeading = false,
   });
 
   // coverage:ignore-start
