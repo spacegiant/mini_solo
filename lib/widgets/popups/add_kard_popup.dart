@@ -58,8 +58,8 @@ class _AddKardPopupState extends State<AddKardPopup> {
         initLines = entry!.lines!.join('\n');
         currentLayoutTypeIndex =
             layoutTypeIds.indexWhere((type) => type == entry?.layoutType);
-        firstLineHeadings = entry!.firstLineHeadings!;
-        showHeading = entry!.showHeading!;
+        firstLineHeadings = entry!.firstLineHeadings;
+        showHeading = entry!.showHeading;
       }
     }
     _titleController = TextEditingController(text: initTitle);

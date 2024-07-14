@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -84,6 +85,13 @@ class StatBlockList extends StatelessWidget {
     List<Widget> statBlock = [];
 
     for (final row in tableData) {
+      List<Widget> widgets = row.mapIndexed((index, item) {
+        return Text(
+          item,
+          style: TextStyle(fontSize: index == 1 ? 24.0 : 12.0),
+        );
+      }).toList();
+
       statBlock.add(
         Container(
           decoration: BoxDecoration(
@@ -95,23 +103,10 @@ class StatBlockList extends StatelessWidget {
             child: ConstrainedBox(
               constraints: const BoxConstraints(
                 minWidth: 50.0,
-                minHeight: 50.0,
+                minHeight: 30.0,
               ),
               child: Column(
-                children: [
-                  Text(
-                    row[0],
-                    style: const TextStyle(fontSize: 12.0),
-                  ),
-                  Text(
-                    row[1],
-                    style: const TextStyle(fontSize: 24.0),
-                  ),
-                  Text(
-                    row[2],
-                    style: const TextStyle(fontSize: 12.0),
-                  ),
-                ],
+                children: widgets,
               ),
             ),
           ),
