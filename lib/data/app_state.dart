@@ -821,24 +821,7 @@ class AppState extends ChangeNotifier {
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
-    TrackerOptions trackerData =
-        trackers.firstWhere((tracker) => tracker.type == entry.controlType);
-
-    // Tracker and journal entry do not need to be linked - just add note
-    NoteEntryItem note = NoteEntryItem(
-      isFavourite: false,
-      detail: 'New ${trackerData.label} tracker created: \'${entry.label} \'',
-    );
-
-    _campaignData?.notes.add(note);
-
-    addJournalEntry(
-      JournalEntryItem(
-        isFavourite: false,
-        type: JournalEntryTypes.note,
-        id: note.id,
-      ),
-    );
+    saveCampaignDataToDisk();
   }
 
   TrackerEntry? getTrackerEntryById(String id) {
