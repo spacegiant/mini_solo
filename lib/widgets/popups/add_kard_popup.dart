@@ -36,6 +36,8 @@ class _AddKardPopupState extends State<AddKardPopup> {
   int currentLayoutTypeIndex = 0;
   List<String> layoutTypeOptions = [];
   List<KardLayoutTypes> layoutTypeIds = [];
+  late bool firstLineHeadings = true;
+  late bool showHeading = true;
 
   @override
   void initState() {
@@ -56,6 +58,8 @@ class _AddKardPopupState extends State<AddKardPopup> {
         initLines = entry!.lines!.join('\n');
         currentLayoutTypeIndex =
             layoutTypeIds.indexWhere((type) => type == entry?.layoutType);
+        firstLineHeadings = entry!.firstLineHeadings!;
+        showHeading = entry!.showHeading!;
       }
     }
     _titleController = TextEditingController(text: initTitle);
@@ -107,14 +111,22 @@ class _AddKardPopupState extends State<AddKardPopup> {
             children: [
               LabelAndSwitch(
                 label: 'Show header',
-                onChanged: (value) {},
-                switchValue: true,
+                onChanged: (value) {
+                  setState(() {
+                    showHeading = value;
+                  });
+                },
+                switchValue: showHeading,
               ),
               const Gap(),
               LabelAndSwitch(
                 label: 'Column header',
-                onChanged: (value) {},
-                switchValue: true,
+                onChanged: (value) {
+                  setState(() {
+                    firstLineHeadings = value;
+                  });
+                },
+                switchValue: firstLineHeadings,
               ),
             ],
           )
@@ -137,6 +149,8 @@ class _AddKardPopupState extends State<AddKardPopup> {
                   title: text,
                   lines: lines,
                   layoutType: layoutTypeIds[currentLayoutTypeIndex],
+                  firstLineHeadings: firstLineHeadings,
+                  showHeading: showHeading,
                 );
                 controlId = widget.id;
               } else {
@@ -144,6 +158,8 @@ class _AddKardPopupState extends State<AddKardPopup> {
                   title: text,
                   lines: convertToLines(_linesController.value.text),
                   layoutType: layoutTypeIds[currentLayoutTypeIndex],
+                  firstLineHeadings: firstLineHeadings,
+                  showHeading: showHeading,
                 );
                 widget.appState.createNewKard(newKard);
                 controlId = newKard.id;

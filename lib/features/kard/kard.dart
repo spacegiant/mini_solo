@@ -42,8 +42,8 @@ class Kard extends CampaignItem {
   late String title;
   late List<String>? lines;
   late KardLayoutTypes layoutType;
-  final bool? firstLineHeadings;
-  final bool? showHeading;
+  late bool? firstLineHeadings;
+  late bool? showHeading;
 
   Kard({
     required this.title,
