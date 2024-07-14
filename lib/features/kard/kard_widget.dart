@@ -40,6 +40,7 @@ class KardWidget extends StatelessWidget {
         ),
         // child: LayoutVertical(entry: entry, textLines: textLines),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (entry.showHeading && entry.title != '') ...[
               const Gap(height: 8.0),
