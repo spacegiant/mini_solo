@@ -28,7 +28,7 @@ Map<KardLayoutTypes, KardLayout> kardLayouts = {
     controlType: ControlTypeEnum.kard,
   ),
   KardLayoutTypes.statBlockList: KardLayout(
-    label: 'List of Stat Blocks',
+    label: 'Stat Blocks',
     controlType: ControlTypeEnum.kard,
   ),
   KardLayoutTypes.tabular: KardLayout(

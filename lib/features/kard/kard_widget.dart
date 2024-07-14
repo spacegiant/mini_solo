@@ -39,12 +39,29 @@ class KardWidget extends StatelessWidget {
           borderRadius: const BorderRadius.all(kInputBorderRadius),
         ),
         // child: LayoutVertical(entry: entry, textLines: textLines),
-        child: switch (entry.layoutType) {
-          KardLayoutTypes.vertical => const Text('Vertical'),
-          KardLayoutTypes.horizontal => LayoutHorizontal(entry: entry),
-          KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
-          KardLayoutTypes.tabular => TabularLayout(entry: entry),
-        },
+        child: Column(
+          children: [
+            if (entry.showHeading! && entry.title != '') ...[
+              const Gap(height: 8.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  entry.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: CupertinoColors.white,
+                  ),
+                ),
+              ),
+            ],
+            switch (entry.layoutType) {
+              KardLayoutTypes.vertical => const Text('Vertical'),
+              KardLayoutTypes.horizontal => LayoutHorizontal(entry: entry),
+              KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
+              KardLayoutTypes.tabular => TabularLayout(entry: entry),
+            },
+          ],
+        ),
       ),
     );
   }
@@ -106,19 +123,6 @@ class StatBlockList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (entry.title != '') ...[
-          const Gap(height: 8.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              entry.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: CupertinoColors.white,
-              ),
-            ),
-          ),
-        ],
         Padding(
           padding: EdgeInsets.all(isSingleStat ? 0.0 : 8.0),
           child: DefaultTextStyle.merge(
@@ -154,7 +158,7 @@ class TabularLayout extends StatelessWidget {
     for (final (index, row) in tableData.indexed) {
       tableRows.add(
         TableRow(
-          decoration: index == 0
+          decoration: entry.firstLineHeadings! && index == 0
               ? const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
@@ -227,17 +231,6 @@ class LayoutHorizontal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (entry.title != '')
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  entry.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: CupertinoColors.white,
-                  ),
-                ),
-              ),
             ...textLines,
           ],
         ),
