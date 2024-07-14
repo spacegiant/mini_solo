@@ -303,9 +303,8 @@ class AppState extends ChangeNotifier {
   String? get currentCampaign => _appSettingsData.currentCampaign;
 
   void setCurrentCampaign(String campaignName) {
-    // _currentCampaign = campaignName;
     _appSettingsData.currentCampaign = campaignName;
-    notifyListeners();
+    saveAppSettingsDataToDisk();
   }
 
   void setDeleteCampaignCallback(cb) {
