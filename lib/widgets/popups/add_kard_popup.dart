@@ -85,7 +85,7 @@ class _AddKardPopupState extends State<AddKardPopup> {
           const Gap(),
           CupertinoTextField(
             // expands: true,
-            maxLines: 3,
+            maxLines: 21,
             controller: _linesController,
           ),
           LabelAndPicker(
