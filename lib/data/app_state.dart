@@ -9,6 +9,7 @@ import 'package:mini_solo/features/grouping/group.dart';
 
 import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
+import '../utilities/string/convert_to_filename.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
@@ -261,8 +262,9 @@ class AppState extends ChangeNotifier {
   void loadCampaign(String fileName) {
     _storage.readCampaignDataJSON(fileName).then((data) {
       if (data != null) {
+        String campaignFileName = convertToFilename(data.name);
         setCampaignData(data);
-        setCurrentCampaign(data.name);
+        setCurrentCampaign(campaignFileName);
       }
     });
   }
@@ -305,10 +307,6 @@ class AppState extends ChangeNotifier {
   void setCurrentCampaign(String campaignName) {
     _appSettingsData.currentCampaign = campaignName;
     saveAppSettingsDataToDisk();
-  }
-
-  void setDeleteCampaignCallback(cb) {
-    _deleteCampaignCallback = cb;
   }
 
   void deleteCampaign(String filename) {
