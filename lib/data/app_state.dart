@@ -149,7 +149,7 @@ class AppState extends ChangeNotifier {
     // (if beforeGroupName is null) move to end
   }
 
-  void updateGroupControls({
+  void updateGroup({
     required String groupID,
     required List<String> controls,
     required bool isWrapped,

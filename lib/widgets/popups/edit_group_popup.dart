@@ -121,7 +121,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
       footer: CupertinoButton(
         color: kSubmitColor,
         onPressed: () {
-          widget.appState.updateGroupControls(
+          widget.appState.updateGroup(
             groupID: widget.group.groupId,
             controls: controls,
             isWrapped: isWrapped,
