@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
@@ -32,6 +33,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   late List<String> controls;
   late String selectedId;
   late bool isWrapped;
+  late TextEditingController groupLabel;
 
   @override
   void initState() {
@@ -39,6 +41,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     controls = widget.group.controls;
     selectedId = '';
     isWrapped = widget.group.isWrapped ?? false;
+    groupLabel = TextEditingController(text: widget.group.label);
   }
 
   void handleTap(String id) {
@@ -78,6 +81,15 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     Widget body() {
       return Column(
         children: [
+          LabelAndInput(
+              label: 'Group Name',
+              controller: groupLabel,
+              onChanged: (value) {
+                setState(() {
+                  groupLabel.text = value;
+                });
+              }),
+          const Gap(),
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
@@ -125,6 +137,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
             groupID: widget.group.groupId,
             controls: controls,
             isWrapped: isWrapped,
+            label: groupLabel.value.text,
           );
           Navigator.pop(context);
         },
