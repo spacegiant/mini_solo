@@ -122,7 +122,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
         color: kSubmitColor,
         onPressed: () {
           widget.appState.updateGroupControls(
-            groupName: widget.group.groupId,
+            groupID: widget.group.groupId,
             controls: controls,
             isWrapped: isWrapped,
           );
