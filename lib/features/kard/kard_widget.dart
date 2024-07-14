@@ -36,7 +36,7 @@ class KardWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: buttonColor,
-          borderRadius: BorderRadius.all(kInputBorderRadius),
+          borderRadius: const BorderRadius.all(kInputBorderRadius),
         ),
         // child: LayoutVertical(entry: entry, textLines: textLines),
         child: switch (entry.layoutType) {

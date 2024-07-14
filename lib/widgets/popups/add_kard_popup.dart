@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/label_and_switch.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
@@ -102,6 +103,21 @@ class _AddKardPopupState extends State<AddKardPopup> {
             appState: widget.appState,
             initialGroupId: selectedGroup,
           ),
+          Row(
+            children: [
+              LabelAndSwitch(
+                label: 'Show header',
+                onChanged: (value) {},
+                switchValue: true,
+              ),
+              const Gap(),
+              LabelAndSwitch(
+                label: 'Column header',
+                onChanged: (value) {},
+                switchValue: true,
+              ),
+            ],
+          )
         ],
       ),
       footer: Row(
