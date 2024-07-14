@@ -41,7 +41,7 @@ class KardWidget extends StatelessWidget {
         // child: LayoutVertical(entry: entry, textLines: textLines),
         child: Column(
           children: [
-            if (entry.showHeading! && entry.title != '') ...[
+            if (entry.showHeading && entry.title != '') ...[
               const Gap(height: 8.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
