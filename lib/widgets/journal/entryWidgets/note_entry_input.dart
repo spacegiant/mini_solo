@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NoteEntryInput extends StatefulWidget {
   const NoteEntryInput({
@@ -22,12 +23,14 @@ class _NoteEntryInputState extends State<NoteEntryInput> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        KeyboardListener(
-          focusNode: FocusNode(),
-          onKeyEvent: (keyEvent) {
-            setState(() {
-              isUsingPhysicalKeyboard = true;
-                        });
+        CallbackShortcuts(
+          bindings: {
+            const SingleActivator(
+              LogicalKeyboardKey.enter,
+              meta: true,
+            ): () {
+              widget.onInputSubmit();
+            }
           },
           child: CupertinoTextField(
             textInputAction: isUsingPhysicalKeyboard == true
@@ -49,6 +52,35 @@ class _NoteEntryInputState extends State<NoteEntryInput> {
             maxLines: null,
           ),
         ),
+        // KeyboardListener(
+        //   focusNode: FocusNode(),
+        //   onKeyEvent: (keyEvent) {
+        //     setState(
+        //       () {
+        //         isUsingPhysicalKeyboard = true;
+        //       },
+        //     );
+        //   },
+        //   child: CupertinoTextField(
+        //     textInputAction: isUsingPhysicalKeyboard == true
+        //         ? TextInputAction.done
+        //         : TextInputAction.newline,
+        //     controller: widget._controller,
+        //     decoration: const BoxDecoration(
+        //       borderRadius: BorderRadius.zero,
+        //       color: Colors.transparent,
+        //     ),
+        //     onSubmitted: (value) {
+        //       widget.onInputSubmit();
+        //     },
+        //     placeholder: 'Type here',
+        //     textCapitalization: TextCapitalization.sentences,
+        //     autofocus: true,
+        //     expands: true,
+        //     minLines: null,
+        //     maxLines: null,
+        //   ),
+        // ),
         Positioned(
             right: 0.0,
             bottom: 0.0,

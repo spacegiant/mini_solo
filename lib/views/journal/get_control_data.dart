@@ -20,7 +20,7 @@ List<ControlData> getControlData(AppState appState) {
       ControlData(
         controlId: kard.id,
         label: kard.title,
-        controlType: kard.controlType,
+        controlType: ControlTypeEnum.kard,
       ),
     );
   }

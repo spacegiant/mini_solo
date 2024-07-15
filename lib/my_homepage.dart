@@ -47,8 +47,13 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
 
         currentCampaign = data.currentCampaign;
 
-        if (currentCampaign != null && currentCampaign != '') {
-          widget.storage.readJSON('$currentCampaign.json').then((data) {
+        bool ifCurrentCampaignExists =
+            currentCampaign != null && currentCampaign != '';
+
+        if (ifCurrentCampaignExists) {
+          widget.storage
+              .readCampaignDataJSON('$currentCampaign.json')
+              .then((data) {
             if (data != null) {
               appState.setCampaignData(data);
             }
@@ -139,15 +144,32 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Welcome to Solo App'),
-                      CupertinoButton(
-                          child: const Text('Import Manager'),
-                          onPressed: () {
-                            toggleShowPopup2(
-                                maxHeight: 560.0,
-                                maxWidth: 400.0,
-                                child: ImportManager(appState: appState),
-                                context: context);
-                          }),
+                      Column(
+                        children: [
+                          CupertinoButton(
+                              child: const Text('Import Manager'),
+                              onPressed: () {
+                                toggleShowPopup2(
+                                    maxHeight: 560.0,
+                                    maxWidth: 400.0,
+                                    child: ImportManager(appState: appState),
+                                    context: context);
+                              }),
+                          CupertinoButton(
+                              child: const Text('Load a Campaign'),
+                              onPressed: () {
+                                toggleShowPopup2(
+                                    maxHeight: 560.0,
+                                    maxWidth: 400.0,
+                                    child: CampaignManager(
+                                        getCampaignList:
+                                            widget.storage.getCampaignsList,
+                                        appState: appState,
+                                        initCampaignData: initCampaignData),
+                                    context: context);
+                              }),
+                        ],
+                      ),
                       InitForm(
                         initCampaignData: initCampaignData,
                       ),
@@ -225,11 +247,12 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
       middle: GestureDetector(
           onTap: () {
             toggleShowPopup2(
-              maxWidth: 600.0,
+              maxWidth: 400.0,
               maxHeight: 520.0,
               child: CampaignManager(
                   getCampaignList: widget.storage.getCampaignsList,
-                  appState: appState),
+                  appState: appState,
+                  initCampaignData: initCampaignData),
               context: context,
             );
           },

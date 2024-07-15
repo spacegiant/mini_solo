@@ -3,6 +3,8 @@ import 'package:mini_solo/data/result_entries.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
+import '../../../features/action_lists/edit_result_popup.dart';
+import '../../popups/toggle_show_popup.dart';
 
 class ResultEntryWidget extends StatelessWidget {
   const ResultEntryWidget({
@@ -22,9 +24,9 @@ class ResultEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        // toggleShowPopup2(
-        //     child: EditResultPopup(appState: appState, id: journalEntry.id),
-        //     context: context);
+        toggleShowPopup2(
+            child: EditResultPopup(appState: appState, id: journalEntry.id),
+            context: context);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

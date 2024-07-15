@@ -16,43 +16,11 @@ void recursiveRandomTableRoll({
   int randomRoll = Random().nextInt(weightsSum);
   RollTableResult? result;
 
-  if (randomTable.isRandomTable == true) {
-    for (int i = 0; i < randomTable.rows.length; i++) {
-      tally += randomTable.rows[i].weight!;
-      bool resultFound = randomRoll < tally;
+  for (int i = 0; i < randomTable.rows.length; i++) {
+    tally += randomTable.rows[i].weight!;
+    bool resultFound = randomRoll < tally;
 
-      if (resultFound) {
-        if (randomTable.rows[i].otherRandomTable != null) {
-          String? id = randomTable.rows[i].otherRandomTable;
-
-          if (id == null) return;
-
-          if (recursionLimit == 0) {
-            print('HIT RECURSION LIMIT');
-            return;
-          }
-
-          recursiveRandomTableRoll(
-            recursionLimit: recursionLimit - 1,
-            randomTables: randomTables,
-            randomTableId: id,
-            cb: cb,
-          );
-        }
-
-        result = RollTableResult(
-          title: randomTable.title,
-          randomRoll: randomRoll,
-          resultString: randomTable.rows[i].label,
-          totalEntries: weightsSum,
-          weight: randomTable.rows[i].weight ?? 1,
-        );
-
-        break;
-      }
-    }
-  } else {
-    for (int i = 0; i < randomTable.rows.length; i++) {
+    if (resultFound) {
       if (randomTable.rows[i].otherRandomTable != null) {
         String? id = randomTable.rows[i].otherRandomTable;
 
@@ -71,7 +39,15 @@ void recursiveRandomTableRoll({
         );
       }
 
-      // break;
+      result = RollTableResult(
+        title: randomTable.title,
+        randomRoll: randomRoll,
+        resultString: randomTable.rows[i].label,
+        totalEntries: weightsSum,
+        weight: randomTable.rows[i].weight ?? 1,
+      );
+
+      break;
     }
   }
 

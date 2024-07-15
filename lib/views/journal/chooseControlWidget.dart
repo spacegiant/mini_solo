@@ -334,7 +334,7 @@ Widget chooseControlWidget({
         onPressed: () {
           toggleShowPopup2(
               maxWidth: 400.0,
-              maxHeight: 320.0,
+              maxHeight: 800.0,
               child: AddKardPopup(
                 appState: appState,
               ),
@@ -344,8 +344,12 @@ Widget chooseControlWidget({
     case ControlTypeEnum.kard:
       // TODO: Handle this case.
       return KardWidget(
-        entry: getKardEntry(appState, controlData.controlId)!,
+        entry: getKardEntry(
+          appState,
+          controlData.controlId,
+        )!,
         appState: appState,
+        buttonColor: buttonColor,
       );
     case ControlTypeEnum.newActionList:
       return ListButton(

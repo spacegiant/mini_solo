@@ -11,7 +11,7 @@ final testData = json.decode(jsonString);
 
 void main() {
   test('fixJSONData', () {
-    var fixedData = fixJSONData(initialDecodedData, testData);
+    var fixedData = fixCampaignJSONData(initialDecodedData, testData);
 
     expect(fixedData['name'], 'floop');
     expect(fixedData['journal'], []);

@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
+import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
@@ -32,14 +33,15 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   late List<String> controls;
   late String selectedId;
   late bool isWrapped;
+  late TextEditingController groupLabel;
 
   @override
   void initState() {
     super.initState();
     controls = widget.group.controls;
     selectedId = '';
-    // TODO wire up to data
     isWrapped = widget.group.isWrapped ?? false;
+    groupLabel = TextEditingController(text: widget.group.label);
   }
 
   void handleTap(String id) {
@@ -59,13 +61,15 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = controls.mapIndexed((index, control) {
+      ControlData controlData = widget.controlData
+          .firstWhere((controlData) => controlData.controlId == control);
+
       return MyReorderableItem(
         key: Key(control),
         id: control,
         appState: widget.appState,
-        label: widget.controlData
-            .firstWhere((controlData) => controlData.controlId == control)
-            .label,
+        // TODO make this better
+        label: controlData.label == '' ? '<unlabelled>' : controlData.label,
         selected: selectedId == control,
         onTap: () {
           handleTap(control);
@@ -77,6 +81,15 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     Widget body() {
       return Column(
         children: [
+          LabelAndInput(
+              label: 'Group Name',
+              controller: groupLabel,
+              onChanged: (value) {
+                setState(() {
+                  groupLabel.text = value;
+                });
+              }),
+          const Gap(),
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
@@ -120,10 +133,11 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
       footer: CupertinoButton(
         color: kSubmitColor,
         onPressed: () {
-          widget.appState.updateGroupControls(
-            groupName: widget.group.groupId,
+          widget.appState.updateGroup(
+            groupID: widget.group.groupId,
             controls: controls,
             isWrapped: isWrapped,
+            label: groupLabel.value.text,
           );
           Navigator.pop(context);
         },

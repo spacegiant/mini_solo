@@ -39,7 +39,7 @@ class CampaignStorage {
     return campaigns;
   }
 
-  Future<CampaignData?> readJSON(String fileName) async {
+  Future<CampaignData?> readCampaignDataJSON(String fileName) async {
     try {
       final path = await _localPath;
       File file = File('$path/$fileName');
@@ -56,14 +56,7 @@ class CampaignStorage {
       final initialDecodedData =
           convertCampaignToJSON(baseCampaignData('test'));
 
-      fixJSONData(initialDecodedData, data);
-
-      // EXPERIMENT FINISHED
-      //
-      // if (data['settings']['general']['hiddenEntryTypes'] == null) {
-      //   data['settings']['general']['hiddenEntryTypes'] = [];
-      // }
-      // if (data['newScene'] == null) data['newScene'] = [];
+      fixCampaignJSONData(initialDecodedData, data);
 
       final dataMap = CampaignData.fromJson(data);
 

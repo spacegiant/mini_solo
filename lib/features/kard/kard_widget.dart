@@ -1,9 +1,11 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_solo/widgets/popups/edit_kard_popup.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../widgets/gap.dart';
+import '../../widgets/popups/add_kard_popup.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import 'kard.dart';
 
@@ -12,10 +14,191 @@ class KardWidget extends StatelessWidget {
     super.key,
     required this.entry,
     required this.appState,
+    required this.buttonColor,
   });
 
   final Kard entry;
   final AppState appState;
+  final Color buttonColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onLongPress: () {
+        toggleShowPopup2(
+            maxWidth: 400.0,
+            maxHeight: 800.0,
+            child: AddKardPopup(
+              appState: appState,
+              id: entry.id,
+            ),
+            context: context);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: buttonColor,
+          borderRadius: const BorderRadius.all(kInputBorderRadius),
+        ),
+        // child: LayoutVertical(entry: entry, textLines: textLines),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (entry.showHeading && entry.title != '') ...[
+              const Gap(height: 8.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  entry.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: CupertinoColors.white,
+                  ),
+                ),
+              ),
+            ],
+            switch (entry.layoutType) {
+              KardLayoutTypes.vertical => const Text('Vertical'),
+              KardLayoutTypes.horizontal => LayoutHorizontal(entry: entry),
+              KardLayoutTypes.statBlockList => StatBlockList(entry: entry),
+              KardLayoutTypes.tabular => TabularLayout(entry: entry),
+            },
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class StatBlockList extends StatelessWidget {
+  const StatBlockList({
+    super.key,
+    required this.entry,
+  });
+
+  final Kard entry;
+
+  @override
+  Widget build(BuildContext context) {
+    List<List<String>> tableData = convertStringToTabularData(entry.lines);
+    bool isSingleStat = tableData.length == 1;
+
+    List<Widget> statBlock = [];
+
+    for (final row in tableData) {
+      List<Widget> widgets = row.mapIndexed((index, item) {
+        return Text(
+          item,
+          style: TextStyle(fontSize: index == 1 ? 24.0 : 12.0),
+        );
+      }).toList();
+
+      statBlock.add(
+        Container(
+          decoration: BoxDecoration(
+            color: isSingleStat ? null : CupertinoColors.white.withOpacity(0.7),
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 50.0,
+                minHeight: 30.0,
+              ),
+              child: Column(
+                children: widgets,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(isSingleStat ? 0.0 : 8.0),
+          child: DefaultTextStyle.merge(
+            style: TextStyle(
+                color: isSingleStat
+                    ? CupertinoColors.white
+                    : CupertinoColors.black),
+            child: Wrap(
+              spacing: 8.0,
+              children: statBlock,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TabularLayout extends StatelessWidget {
+  const TabularLayout({
+    super.key,
+    required this.entry,
+  });
+
+  final Kard entry;
+
+  @override
+  Widget build(BuildContext context) {
+    List<List<String>> tableData = convertStringToTabularData(entry.lines);
+
+    List<TableRow> tableRows = [];
+
+    for (final (index, row) in tableData.indexed) {
+      tableRows.add(
+        TableRow(
+          decoration: entry.firstLineHeadings! && index == 0
+              ? const BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                  width: 1.0,
+                  color: Colors.white,
+                )))
+              : null,
+          children: row
+              .map(
+                (cell) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
+                  child: Text(
+                    cell,
+                    style: const TextStyle(
+                      color: CupertinoColors.white,
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Table(
+        defaultColumnWidth: const IntrinsicColumnWidth(),
+        children: tableRows,
+      ),
+    );
+  }
+}
+
+class LayoutHorizontal extends StatelessWidget {
+  const LayoutHorizontal({
+    super.key,
+    required this.entry,
+  });
+
+  final Kard entry;
 
   @override
   Widget build(BuildContext context) {
@@ -32,50 +215,50 @@ class KardWidget extends StatelessWidget {
             .toList() ??
         [];
 
-    return GestureDetector(
-      onLongPress: () {
-        toggleShowPopup2(
-            maxWidth: 400.0,
-            maxHeight: 220.0,
-            child: EditKardPopup(
-              appState: appState,
-              id: entry.id,
-            ),
-            context: context);
-      },
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          minWidth: 100.0,
-          minHeight: 44.0,
-        ),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.pink,
-            borderRadius: BorderRadius.all(kInputBorderRadius),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    entry.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: CupertinoColors.white,
-                    ),
-                  ),
-                ),
-                ...textLines,
-              ],
-            ),
-          ),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 200.0,
+        minHeight: 44.0,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ...textLines,
+          ],
         ),
       ),
     );
   }
+}
+
+List<List<String>> convertStringToTabularData(List<String>? lines) {
+  int numberOfColumns = 0;
+  List<List<String>> tableData = [];
+
+  for (var line in lines!) {
+    List<String> tableRow = line.trim().split(',');
+
+    List<String> trimmedTableRow = tableRow.map((cell) => cell.trim()).toList();
+
+    if (trimmedTableRow.length > numberOfColumns) {
+      numberOfColumns = trimmedTableRow.length;
+    }
+
+    tableData.add(trimmedTableRow);
+  }
+
+  for (var row in tableData) {
+    if (row.length < numberOfColumns) {
+      int difference = numberOfColumns - row.length;
+
+      for (int i = 0; i < difference; i++) {
+        row.add('');
+      }
+    }
+  }
+  return tableData;
 }
