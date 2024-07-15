@@ -30,6 +30,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
   String selectedGroup = 'unsorted';
   late String selectedId;
   int? currentRowIndex;
+  late TextEditingController _titleController;
   late TextEditingController _entryWeightController;
   late TextEditingController _entryTextController;
   String? selectedLinkId;
@@ -37,7 +38,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
   bool showLinkOptions = false;
   late RandomTable entry;
   // late RandomTable updatedEntry;
-  late String newTitle;
   late List<RandomTable> randomTables;
   late List<RandomTable> safeList;
   late String? initialGroup;
@@ -55,8 +55,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
     _entryWeightController = TextEditingController(text: '');
     // TODO is entry needed if we are using updatedEntry?
     entry = widget.appState.getRandomTableById(widget.id)!;
+    _titleController = TextEditingController(text: entry.title);
     newIsFavourite = entry.isFavourite!;
-    newTitle = entry.title;
     newRows = entry.rows;
     newShowLinkOption = entry.showLinkOptions!;
     newIsHidden = entry.isHidden;
@@ -102,7 +102,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
       children: [
         // TODO dedicated title widget for popups for standardisation
         Text(
-          '${newTitle} ($recordCount entries)',
+          '${_titleController.text} ($recordCount entries)',
           overflow: TextOverflow.ellipsis,
         ),
         const Divider(),
@@ -233,7 +233,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
           appState: widget.appState,
           initialGroupId: initialGroup,
         ),
-
+        LabelAndInput(
+            label: 'Table Name',
+            controller: _titleController,
+            onChanged: (value) {
+              setState(() {
+                _titleController.text = value;
+              });
+            }),
         Row(
           children: [
             CupertinoSwitch(
@@ -258,22 +265,19 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: const Text('Update Table'),
                 onPressed: () {
-                  if (currentRowIndex != null) {
-                    widget.appState.updateRandomTable(
-                      id: widget.id,
-                      title: newTitle,
-                      rows: newRows,
-                      showLinkOptions: newShowLinkOption,
-                      isFavourite: newIsFavourite,
-                    );
-                  }
+                  widget.appState.updateRandomTable(
+                    id: widget.id,
+                    title: _titleController.text,
+                    rows: newRows,
+                    showLinkOptions: newShowLinkOption,
+                    isFavourite: newIsFavourite,
+                  );
 
                   if (initialGroup != selectedGroup) {
                     widget.appState.moveToGroup(
                         controlId: widget.id, groupId: selectedGroup);
                   }
 
-                  // widget.appState.saveCampaignDataToDisk();
                   Navigator.pop(context);
                 }),
             CupertinoButton(
