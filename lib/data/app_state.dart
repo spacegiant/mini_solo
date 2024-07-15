@@ -816,6 +816,11 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteResultEntry(String id) {
+    _campaignData?.journal.removeWhere((entry) => entry.id == id);
+    saveAppSettingsDataToDisk();
+  }
+
   void removeLinkFromAllActionLists(String id) {
     for (var table in appSettingsData.actionLists) {
       table.list.removeWhere((item) => item.string == id);
