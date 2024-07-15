@@ -101,15 +101,25 @@ class _EditRandomTableState extends State<EditRandomTable> {
           appState: widget.appState,
           showLinkOptions: showLinkOptions,
         ),
-        LabelAndSwitch(
-            label: 'Show link options',
-            onChanged: (value) {
-              updatedEntry.showLinkOptions = value;
-              setState(() {
-                showLinkOptions = value;
-              });
-            },
-            switchValue: showLinkOptions),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            LabelAndSwitch(
+              label: 'Show link options',
+              onChanged: (value) {
+                updatedEntry.showLinkOptions = value;
+                setState(() {
+                  showLinkOptions = value;
+                });
+              },
+              switchValue: showLinkOptions,
+            ),
+            CupertinoButton(
+              child: Text('Add new entry'),
+              onPressed: () {},
+            ),
+          ],
+        ),
         const Divider(),
         const Gap(),
         RandomTablesFormContainer(
