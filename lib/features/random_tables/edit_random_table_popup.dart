@@ -4,6 +4,7 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
 import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/label_and_switch.dart';
+import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/toggle_active_block.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -260,34 +261,34 @@ class _EditRandomTableState extends State<EditRandomTable> {
           runSpacing: 8.0,
           alignment: WrapAlignment.center,
           children: [
-            CupertinoButton(
-                color: kSubmitColor,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: const Text('Update Table'),
-                onPressed: () {
-                  widget.appState.updateRandomTable(
-                    id: widget.id,
-                    title: _titleController.text,
-                    rows: newRows,
-                    showLinkOptions: newShowLinkOption,
-                    isFavourite: newIsFavourite,
-                  );
+            ListButton(
+              color: kSubmitColor,
+              onPressed: () {
+                widget.appState.updateRandomTable(
+                  id: widget.id,
+                  title: _titleController.text,
+                  rows: newRows,
+                  showLinkOptions: newShowLinkOption,
+                  isFavourite: newIsFavourite,
+                );
 
-                  if (initialGroup != selectedGroup) {
-                    widget.appState.moveToGroup(
-                        controlId: widget.id, groupId: selectedGroup);
-                  }
+                if (initialGroup != selectedGroup) {
+                  widget.appState.moveToGroup(
+                      controlId: widget.id, groupId: selectedGroup);
+                }
 
-                  Navigator.pop(context);
-                }),
-            CupertinoButton(
-                color: kWarningColor,
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: const Text('Delete Table'),
-                onPressed: () {
-                  widget.appState.deleteRandomTable(widget.id);
-                  Navigator.pop(context);
-                }),
+                Navigator.pop(context);
+              },
+              label: 'Update Table',
+            ),
+            ListButton(
+              color: kWarningColor,
+              onPressed: () {
+                widget.appState.deleteRandomTable(widget.id);
+                Navigator.pop(context);
+              },
+              label: 'Delete Table',
+            ),
             // CupertinoButton(
             // TODO Implement Export to JSON
             //     color: CupertinoColors.systemGrey3,
