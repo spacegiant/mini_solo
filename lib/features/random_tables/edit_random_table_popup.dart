@@ -30,13 +30,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
   String selectedGroup = 'unsorted';
   late String selectedId;
   int? currentRowIndex;
-  late TextEditingController _weightController;
-  late TextEditingController _textController;
+  late TextEditingController _entryWeightController;
+  late TextEditingController _entryTextController;
   String? selectedLinkId;
   late bool isHidden;
   bool showLinkOptions = false;
   late RandomTable entry;
   // late RandomTable updatedEntry;
+  late String newTitle;
   late List<RandomTable> randomTables;
   late List<RandomTable> safeList;
   late String? initialGroup;
@@ -44,15 +45,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late bool newIsHidden = false;
   // late List<RandomTableRow> rows;
   late bool newIsFavourite;
-  late String newTitle;
   late List<RandomTableRow> newRows = [];
 
   @override
   void initState() {
     super.initState();
     selectedId = '';
-    _textController = TextEditingController(text: '');
-    _weightController = TextEditingController(text: '');
+    _entryTextController = TextEditingController(text: '');
+    _entryWeightController = TextEditingController(text: '');
     // TODO is entry needed if we are using updatedEntry?
     entry = widget.appState.getRandomTableById(widget.id)!;
     newIsFavourite = entry.isFavourite!;
@@ -86,8 +86,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
       setState(() {
         selectedId = id;
         currentRowIndex = rowIndex;
-        _textController.text = rows[rowIndex].label;
-        _weightController.text = rows[rowIndex].weight.toString();
+        _entryTextController.text = rows[rowIndex].label;
+        _entryWeightController.text = rows[rowIndex].weight.toString();
       });
     }
 
@@ -139,8 +139,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   selectedId = 'random-table-item-$lastIndex';
 
                   currentRowIndex = lastIndex;
-                  _textController.text = newRows[currentRowIndex!].label;
-                  _weightController.text =
+                  _entryTextController.text = newRows[currentRowIndex!].label;
+                  _entryWeightController.text =
                       newRows[currentRowIndex!].weight.toString();
                 });
               },
@@ -156,10 +156,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
               axis: Axis.horizontal,
               label: 'Weight',
               enabled: selectedId != '',
-              controller: _weightController,
+              controller: _entryWeightController,
               onChanged: (value) {
                 setState(() {
-                  _weightController.text = value;
+                  _entryWeightController.text = value;
                 });
                 if (currentRowIndex != null) {
                   newRows[currentRowIndex!].weight = int.tryParse(value.trim());
@@ -171,10 +171,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
               axis: Axis.horizontal,
               label: 'Text',
               enabled: selectedId != '',
-              controller: _textController,
+              controller: _entryTextController,
               onChanged: (value) {
                 setState(() {
-                  _textController.text = value;
+                  _entryTextController.text = value;
                 });
                 if (currentRowIndex != null) {
                   newRows[currentRowIndex!].label = value.trim();
