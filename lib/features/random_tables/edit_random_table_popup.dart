@@ -69,6 +69,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
   Widget build(BuildContext context) {
     int recordCount = newRows.length;
 
+    int findRowWithLinkIndex =
+        newRows.indexWhere((row) => row.otherRandomTable != null);
+
+    bool hasLinks = findRowWithLinkIndex != -1;
+
     handleListViewWidgetOnTap({
       required String id,
       required List<RandomTableRow> rows,
@@ -96,20 +101,23 @@ class _EditRandomTableState extends State<EditRandomTable> {
           selectedId: selectedId,
           onTap: handleListViewWidgetOnTap,
           appState: widget.appState,
-          showLinkOptions: showLinkOptions,
+          showLinkOptions: hasLinks || showLinkOptions,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            LabelAndSwitch(
-              label: 'Show link options',
-              onChanged: (value) {
-                newShowLinkOption = value;
-                setState(() {
-                  showLinkOptions = value;
-                });
-              },
-              switchValue: showLinkOptions,
+            ToggleActiveBlock(
+              isActive: !hasLinks,
+              child: LabelAndSwitch(
+                label: 'Show link options',
+                onChanged: (value) {
+                  newShowLinkOption = value;
+                  setState(() {
+                    showLinkOptions = value;
+                  });
+                },
+                switchValue: showLinkOptions,
+              ),
             ),
             CupertinoButton(
               child: const Text('Add new entry'),
@@ -178,13 +186,20 @@ class _EditRandomTableState extends State<EditRandomTable> {
                       items: safeList.map((table) => table.title).toList(),
                       onChange: (index) {
                         if (index != null) {
-                          setState(() {
-                            selectedLinkId = safeList[index].id;
-                            if (currentRowIndex != null) {
-                              newRows[currentRowIndex!].otherRandomTable =
-                                  safeList[index].id;
-                            }
-                          });
+                          if (index == -1) {
+                            setState(() {
+                              selectedLinkId = safeList[0].id;
+                              newRows[currentRowIndex!].otherRandomTable = null;
+                            });
+                          } else {
+                            setState(() {
+                              selectedLinkId = safeList[index].id;
+                              if (currentRowIndex != null) {
+                                newRows[currentRowIndex!].otherRandomTable =
+                                    safeList[index].id;
+                              }
+                            });
+                          }
                         } else {
                           print('NULL');
                         }
@@ -263,7 +278,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                       controlId: widget.id, groupId: selectedGroup);
                 }
 
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               label: 'Update Table',
             ),
