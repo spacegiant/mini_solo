@@ -713,12 +713,21 @@ class AppState extends ChangeNotifier {
 
   void updateRandomTable({
     required String id,
-    required RandomTable entry,
+    // required RandomTable entry,
+    String? title,
+    List<RandomTableRow>? rows,
+    bool? isFavourite,
+    bool? showLinkOptions,
   }) {
     int index =
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
+    var randomTable = _appSettingsData.randomTables[index];
 
-    _appSettingsData.randomTables[index] = entry;
+    if (title != null) randomTable.title = title;
+    if (rows != null) randomTable.rows = rows;
+    if (isFavourite != null) randomTable.isFavourite = isFavourite;
+    if (showLinkOptions != null) randomTable.showLinkOptions = showLinkOptions;
+
     saveAppSettingsDataToDisk();
   }
 

@@ -39,8 +39,8 @@ class AppSettingsData {
 
 @JsonSerializable(explicitToJson: true)
 class RandomTable extends CampaignItem {
-  final String title;
-  final List<RandomTableRow> rows;
+  late String title;
+  late List<RandomTableRow> rows;
   late bool isHidden;
   bool? showLinkOptions;
 

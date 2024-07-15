@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
+import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/label_and_switch.dart';
 import 'package:mini_solo/widgets/toggle_active_block.dart';
 import '../../data/app_settings_data.dart';
@@ -35,10 +36,16 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late bool isHidden;
   bool showLinkOptions = false;
   late RandomTable entry;
-  late RandomTable updatedEntry;
+  // late RandomTable updatedEntry;
   late List<RandomTable> randomTables;
   late List<RandomTable> safeList;
   late String? initialGroup;
+  late bool newShowLinkOption = false;
+  late bool newIsHidden = false;
+  // late List<RandomTableRow> rows;
+  late bool newIsFavourite;
+  late String newTitle;
+  late List<RandomTableRow> newRows = [];
 
   @override
   void initState() {
@@ -48,8 +55,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
     _weightController = TextEditingController(text: '');
     // TODO is entry needed if we are using updatedEntry?
     entry = widget.appState.getRandomTableById(widget.id)!;
-    updatedEntry = entry;
-    isHidden = entry.isHidden;
+    newIsFavourite = entry.isFavourite!;
+    newTitle = entry.title;
+    newRows = entry.rows;
+    newShowLinkOption = entry.showLinkOptions!;
+    newIsHidden = entry.isHidden;
+
+    // isHidden = entry.isHidden;
+    // rows = entry.rows;
     showLinkOptions = entry.showLinkOptions ?? false;
     randomTables = widget.appState.appSettingsData.randomTables;
     safeList = List.from(randomTables);
@@ -60,8 +73,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
   @override
   Widget build(BuildContext context) {
-    List<RandomTableRow> rows = entry.rows;
-    int recordCount = rows.length;
+    // List<RandomTableRow> rows = entry.rows;
+    int recordCount = newRows.length;
 
     // TODO Remove current random table from links list
 
@@ -80,8 +93,8 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
     int? getOtherLinkIndex() {
       return currentRowIndex != null
-          ? safeList.indexWhere((entry) =>
-              entry.id == updatedEntry.rows[currentRowIndex!].otherRandomTable)
+          ? safeList.indexWhere(
+              (entry) => entry.id == newRows[currentRowIndex!].otherRandomTable)
           : null;
     }
 
@@ -89,13 +102,13 @@ class _EditRandomTableState extends State<EditRandomTable> {
       children: [
         // TODO dedicated title widget for popups for standardisation
         Text(
-          '${entry.title} ($recordCount entries)',
+          '${newTitle} ($recordCount entries)',
           overflow: TextOverflow.ellipsis,
         ),
         const Divider(),
         RandomTableEntries(
           recordCount: recordCount,
-          rows: rows,
+          rows: newRows,
           selectedId: selectedId,
           onTap: handleListViewWidgetOnTap,
           appState: widget.appState,
@@ -107,7 +120,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
             LabelAndSwitch(
               label: 'Show link options',
               onChanged: (value) {
-                updatedEntry.showLinkOptions = value;
+                newShowLinkOption = value;
                 setState(() {
                   showLinkOptions = value;
                 });
@@ -115,8 +128,22 @@ class _EditRandomTableState extends State<EditRandomTable> {
               switchValue: showLinkOptions,
             ),
             CupertinoButton(
-              child: Text('Add new entry'),
-              onPressed: () {},
+              child: const Text('Add new entry'),
+              onPressed: () {
+                RandomTableRow newRow =
+                    RandomTableRow(weight: 1, label: 'New Entry');
+                setState(() {
+                  newRows.add(newRow);
+
+                  int lastIndex = newRows.length - 1;
+                  selectedId = 'random-table-item-$lastIndex';
+
+                  currentRowIndex = lastIndex;
+                  _textController.text = newRows[currentRowIndex!].label;
+                  _weightController.text =
+                      newRows[currentRowIndex!].weight.toString();
+                });
+              },
             ),
           ],
         ),
@@ -135,8 +162,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   _weightController.text = value;
                 });
                 if (currentRowIndex != null) {
-                  updatedEntry.rows[currentRowIndex!].weight =
-                      int.tryParse(value.trim());
+                  newRows[currentRowIndex!].weight = int.tryParse(value.trim());
                 }
               },
             ),
@@ -151,31 +177,47 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   _textController.text = value;
                 });
                 if (currentRowIndex != null) {
-                  updatedEntry.rows[currentRowIndex!].label = value.trim();
+                  newRows[currentRowIndex!].label = value.trim();
                 }
               },
             ),
             const Gap(height: 4.0),
             ToggleActiveBlock(
               isActive: safeList.isNotEmpty && selectedId != '',
-              child: LabelAndPicker(
-                defunctLabel:
-                    safeList.isEmpty ? 'No Other Random Tables' : 'No Link',
-                items: safeList.map((table) => table.title).toList(),
-                onChange: (index) {
-                  if (index != null) {
-                    setState(() {
-                      selectedLinkId = safeList[index].id;
-                      if (currentRowIndex != null) {
-                        updatedEntry.rows[currentRowIndex!].otherRandomTable =
-                            safeList[index].id;
-                      }
-                    });
-                  } else {
-                    print('NULL');
-                  }
-                },
-                label: 'Link',
+              child: Row(
+                children: [
+                  Flexible(
+                    child: LabelAndPicker(
+                      defunctLabel: safeList.isEmpty
+                          ? 'No Other Random Tables'
+                          : 'No Link',
+                      items: safeList.map((table) => table.title).toList(),
+                      onChange: (index) {
+                        if (index != null) {
+                          setState(() {
+                            selectedLinkId = safeList[index].id;
+                            if (currentRowIndex != null) {
+                              newRows[currentRowIndex!].otherRandomTable =
+                                  safeList[index].id;
+                            }
+                          });
+                        } else {
+                          print('NULL');
+                        }
+                      },
+                      label: 'Link',
+                    ),
+                  ),
+                  CupertinoButton(
+                      color: kWarningColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: const Text('Delete Entry'),
+                      onPressed: () {
+                        setState(() {
+                          newRows.removeAt(currentRowIndex!);
+                        });
+                      })
+                ],
               ),
             ),
           ],
@@ -195,9 +237,9 @@ class _EditRandomTableState extends State<EditRandomTable> {
         Row(
           children: [
             CupertinoSwitch(
-                value: entry.isHidden,
+                value: newIsHidden,
                 onChanged: (value) {
-                  entry.isHidden = value;
+                  newIsHidden = value;
                   widget.appState.saveAppSettingsDataToDisk();
                   setState(() {
                     isHidden = value;
@@ -219,7 +261,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
                   if (currentRowIndex != null) {
                     widget.appState.updateRandomTable(
                       id: widget.id,
-                      entry: updatedEntry,
+                      title: newTitle,
+                      rows: newRows,
+                      showLinkOptions: newShowLinkOption,
+                      isFavourite: newIsFavourite,
                     );
                   }
 
