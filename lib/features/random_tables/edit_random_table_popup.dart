@@ -205,14 +205,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
           children: [
             CupertinoButton(
                 color: kSubmitColor,
-                child: const Text('Update'),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: const Text('Update Table'),
                 onPressed: () {
                   if (currentRowIndex != null) {
                     widget.appState.updateRandomTable(
                       id: widget.id,
                       entry: updatedEntry,
                     );
-                    // widget.appState.saveAppSettingsDataToDisk();
                   }
 
                   if (initialGroup != selectedGroup) {
@@ -225,17 +225,19 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 }),
             CupertinoButton(
                 color: kWarningColor,
-                child: const Text('Delete'),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: const Text('Delete Table'),
                 onPressed: () {
                   widget.appState.deleteRandomTable(widget.id);
                   Navigator.pop(context);
                 }),
-            CupertinoButton(
-                color: CupertinoColors.systemGrey3,
-                child: const Text('Export JSON to Clipboard'),
-                onPressed: () {
-                  // TODO EXPORT
-                }),
+            // CupertinoButton(
+            // TODO Implement Export to JSON
+            //     color: CupertinoColors.systemGrey3,
+            //     child: const Text('Export JSON to Clipboard'),
+            //     onPressed: () {
+            //       // TODO EXPORT
+            //     }),
           ],
         ),
       ],
