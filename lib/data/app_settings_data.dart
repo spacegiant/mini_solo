@@ -42,12 +42,14 @@ class RandomTable extends CampaignItem {
   final String title;
   final List<RandomTableRow> rows;
   late bool isHidden;
+  bool? showLinkOptions;
 
   RandomTable({
     required super.isFavourite,
     required this.title,
     required this.rows,
     this.isHidden = false,
+    this.showLinkOptions = false,
   });
 // coverage:ignore-start
   factory RandomTable.fromJson(Map<String, dynamic> json) =>

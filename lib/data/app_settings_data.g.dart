@@ -35,6 +35,7 @@ RandomTable _$RandomTableFromJson(Map<String, dynamic> json) => RandomTable(
           .map((e) => RandomTableRow.fromJson(e as Map<String, dynamic>))
           .toList(),
       isHidden: json['isHidden'] as bool? ?? false,
+      showLinkOptions: json['showLinkOptions'] as bool? ?? false,
     )
       ..id = json['id'] as String
       ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
@@ -46,6 +47,7 @@ Map<String, dynamic> _$RandomTableToJson(RandomTable instance) =>
       'title': instance.title,
       'rows': instance.rows.map((e) => e.toJson()).toList(),
       'isHidden': instance.isHidden,
+      'showLinkOptions': instance.showLinkOptions,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
