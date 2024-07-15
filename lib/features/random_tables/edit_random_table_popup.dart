@@ -33,6 +33,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late TextEditingController _textController;
   String? selectedLinkId;
   late bool isHidden;
+  bool showLinkOptions = false;
   late RandomTable entry;
   late RandomTable updatedEntry;
   late List<RandomTable> randomTables;
@@ -49,6 +50,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
     entry = widget.appState.getRandomTableById(widget.id)!;
     updatedEntry = entry;
     isHidden = entry.isHidden;
+    showLinkOptions = entry.showLinkOptions ?? false;
     randomTables = widget.appState.appSettingsData.randomTables;
     safeList = List.from(randomTables);
     safeList.removeWhere((table) => table.id == widget.id);
@@ -97,11 +99,17 @@ class _EditRandomTableState extends State<EditRandomTable> {
           selectedId: selectedId,
           onTap: handleListViewWidgetOnTap,
           appState: widget.appState,
+          showLinkOptions: showLinkOptions,
         ),
         LabelAndSwitch(
             label: 'Show link options',
-            onChanged: (value) {},
-            switchValue: true),
+            onChanged: (value) {
+              updatedEntry.showLinkOptions = value;
+              setState(() {
+                showLinkOptions = value;
+              });
+            },
+            switchValue: showLinkOptions),
         const Divider(),
         const Gap(),
         RandomTablesFormContainer(
@@ -243,6 +251,7 @@ class RandomTableEntries extends StatelessWidget {
     required this.selectedId,
     required this.onTap,
     required this.appState,
+    required this.showLinkOptions,
   });
 
   final int recordCount;
@@ -254,6 +263,7 @@ class RandomTableEntries extends StatelessWidget {
     required int rowIndex,
   }) onTap;
   final AppState appState;
+  final bool showLinkOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -267,9 +277,11 @@ class RandomTableEntries extends StatelessWidget {
             id: 'prototypeId',
             selectedId: '',
             appState: appState,
+            showLinkOptions: showLinkOptions,
           ),
           itemBuilder: (context, index) {
             return RandomTableItem(
+              showLinkOptions: showLinkOptions,
               onTap: (id) {
                 onTap(
                   id: id,

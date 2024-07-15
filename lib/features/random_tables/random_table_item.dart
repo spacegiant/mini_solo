@@ -13,6 +13,7 @@ class RandomTableItem extends StatelessWidget {
     required this.id,
     required this.selectedId,
     required this.appState,
+    required this.showLinkOptions,
   });
 
   final String id;
@@ -20,6 +21,7 @@ class RandomTableItem extends StatelessWidget {
   final Function(String id) onTap;
   final String selectedId;
   final AppState appState;
+  final bool showLinkOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -59,23 +61,24 @@ class RandomTableItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     )),
-                Opacity(
-                  opacity: row.otherRandomTable == null ? 0.5 : 1.0,
-                  child: Row(
-                    children: [
-                      icon,
-                      const Gap(),
-                      // TODO deal with overflow here
-                      SizedBox(
-                        width: 310.0,
-                        child: Text(
-                          linkedLabel,
-                          overflow: TextOverflow.ellipsis,
+                if (showLinkOptions)
+                  Opacity(
+                    opacity: row.otherRandomTable == null ? 0.5 : 1.0,
+                    child: Row(
+                      children: [
+                        icon,
+                        const Gap(),
+                        // TODO deal with overflow here
+                        SizedBox(
+                          width: 310.0,
+                          child: Text(
+                            linkedLabel,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
               ],
             )
             // if (icon != null) ...[icon, const Gap()],
