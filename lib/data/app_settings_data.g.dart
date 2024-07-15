@@ -34,7 +34,6 @@ RandomTable _$RandomTableFromJson(Map<String, dynamic> json) => RandomTable(
       rows: (json['rows'] as List<dynamic>)
           .map((e) => RandomTableRow.fromJson(e as Map<String, dynamic>))
           .toList(),
-      isRandomTable: json['isRandomTable'] as bool? ?? true,
       isHidden: json['isHidden'] as bool? ?? false,
     )
       ..id = json['id'] as String
@@ -46,7 +45,6 @@ Map<String, dynamic> _$RandomTableToJson(RandomTable instance) =>
       'id': instance.id,
       'title': instance.title,
       'rows': instance.rows.map((e) => e.toJson()).toList(),
-      'isRandomTable': instance.isRandomTable,
       'isHidden': instance.isHidden,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };

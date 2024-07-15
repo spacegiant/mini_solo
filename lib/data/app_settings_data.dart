@@ -41,14 +41,12 @@ class AppSettingsData {
 class RandomTable extends CampaignItem {
   final String title;
   final List<RandomTableRow> rows;
-  late bool isRandomTable;
   late bool isHidden;
 
   RandomTable({
     required super.isFavourite,
     required this.title,
     required this.rows,
-    this.isRandomTable = true,
     this.isHidden = false,
   });
 // coverage:ignore-start

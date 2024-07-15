@@ -32,7 +32,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late TextEditingController _weightController;
   late TextEditingController _textController;
   String? selectedLinkId;
-  late bool isRandomTable;
   late bool isHidden;
   late RandomTable entry;
   late RandomTable updatedEntry;
@@ -49,7 +48,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
     // TODO is entry needed if we are using updatedEntry?
     entry = widget.appState.getRandomTableById(widget.id)!;
     updatedEntry = entry;
-    isRandomTable = entry.isRandomTable;
     isHidden = entry.isHidden;
     randomTables = widget.appState.appSettingsData.randomTables;
     safeList = List.from(randomTables);
@@ -175,20 +173,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
           appState: widget.appState,
           initialGroupId: initialGroup,
         ),
-        Row(
-          children: [
-            CupertinoSwitch(
-                value: entry.isRandomTable,
-                onChanged: (value) {
-                  entry.isRandomTable = value;
-                  widget.appState.saveAppSettingsDataToDisk();
-                  setState(() {
-                    isRandomTable = value;
-                  });
-                }),
-            const Text('Is a random list'),
-          ],
-        ),
+
         Row(
           children: [
             CupertinoSwitch(
