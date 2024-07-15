@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
+import 'package:mini_solo/widgets/label_and_switch.dart';
 import 'package:mini_solo/widgets/toggle_active_block.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -99,6 +100,10 @@ class _EditRandomTableState extends State<EditRandomTable> {
           onTap: handleListViewWidgetOnTap,
           appState: widget.appState,
         ),
+        LabelAndSwitch(
+            label: 'Show link options',
+            onChanged: (value) {},
+            switchValue: true),
         const Divider(),
         const Gap(),
         RandomTablesFormContainer(
