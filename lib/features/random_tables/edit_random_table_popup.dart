@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
-import 'package:mini_solo/view_items.dart';
 import 'package:mini_solo/widgets/label_and_switch.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/toggle_active_block.dart';
@@ -38,13 +37,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
   late bool isHidden;
   bool showLinkOptions = false;
   late RandomTable entry;
-  // late RandomTable updatedEntry;
   late List<RandomTable> randomTables;
   late List<RandomTable> safeList;
   late String? initialGroup;
   late bool newShowLinkOption = false;
   late bool newIsHidden = false;
-  // late List<RandomTableRow> rows;
   late bool newIsFavourite;
   late List<RandomTableRow> newRows = [];
 
@@ -52,18 +49,14 @@ class _EditRandomTableState extends State<EditRandomTable> {
   void initState() {
     super.initState();
     selectedId = '';
+    entry = widget.appState.getRandomTableById(widget.id)!;
     _entryTextController = TextEditingController(text: '');
     _entryWeightController = TextEditingController(text: '');
-    // TODO is entry needed if we are using updatedEntry?
-    entry = widget.appState.getRandomTableById(widget.id)!;
     _titleController = TextEditingController(text: entry.title);
     newIsFavourite = entry.isFavourite!;
     newRows = entry.rows;
     newShowLinkOption = entry.showLinkOptions!;
     newIsHidden = entry.isHidden;
-
-    // isHidden = entry.isHidden;
-    // rows = entry.rows;
     showLinkOptions = entry.showLinkOptions ?? false;
     randomTables = widget.appState.appSettingsData.randomTables;
     safeList = List.from(randomTables);
@@ -74,10 +67,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
   @override
   Widget build(BuildContext context) {
-    // List<RandomTableRow> rows = entry.rows;
     int recordCount = newRows.length;
-
-    // TODO Remove current random table from links list
 
     handleListViewWidgetOnTap({
       required String id,
@@ -90,13 +80,6 @@ class _EditRandomTableState extends State<EditRandomTable> {
         _entryTextController.text = rows[rowIndex].label;
         _entryWeightController.text = rows[rowIndex].weight.toString();
       });
-    }
-
-    int? getOtherLinkIndex() {
-      return currentRowIndex != null
-          ? safeList.indexWhere(
-              (entry) => entry.id == newRows[currentRowIndex!].otherRandomTable)
-          : null;
     }
 
     return Column(
@@ -234,6 +217,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
           appState: widget.appState,
           initialGroupId: initialGroup,
         ),
+
         LabelAndInput(
             label: 'Table Name',
             controller: _titleController,
@@ -242,6 +226,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 _titleController.text = value;
               });
             }),
+
         Row(
           children: [
             CupertinoSwitch(
@@ -256,6 +241,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
             const Text('Hidden'),
           ],
         ),
+
         Wrap(
           spacing: 8.0,
           runSpacing: 8.0,
