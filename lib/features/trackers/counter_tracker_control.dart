@@ -18,6 +18,8 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double iconSize = 12.0;
+
     void handleTap({int modifier = 1}) {
       appState.updateTrackerEntry(
         id: entry.id,
@@ -34,7 +36,7 @@ class CounterWidget extends StatelessWidget {
           onTapRight: () {
             handleTap();
           },
-          minWidth: 160.0,
+          minWidth: 80.0,
           appState: appState,
           id: entry.id,
           widgetShowsTitle: true,
@@ -45,14 +47,31 @@ class CounterWidget extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(CupertinoIcons.arrowtriangle_left_fill),
-                  SizedBox(
-                      width: 100.0,
-                      child: Text(
-                        entry.currentValue.toString(),
-                        textAlign: TextAlign.center,
+                  const Icon(
+                    CupertinoIcons.arrowtriangle_left_fill,
+                    size: iconSize,
+                  ),
+                  ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minWidth: 40.0,
+                        minHeight: 22.0,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          // vertical: 0.0,
+                        ),
+                        child: Center(
+                          child: Text(
+                            entry.currentValue.toString(),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       )),
-                  const Icon(CupertinoIcons.arrowtriangle_right_fill),
+                  const Icon(
+                    CupertinoIcons.arrowtriangle_right_fill,
+                    size: iconSize,
+                  ),
                 ],
               ),
             ],
