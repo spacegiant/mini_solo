@@ -10,6 +10,7 @@ import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'data_structures/clue.dart';
 import 'data_structures/creature.dart';
+import 'data_structures/faction.dart';
 import 'data_structures/mythic_data.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
@@ -294,30 +295,6 @@ class Thing extends CampaignItem {
 
   Map<String, dynamic> toJson() => _$ThingToJson(this);
   // coverage:ignore-end
-}
-
-@JsonSerializable()
-class Faction extends CampaignItem {
-  String name;
-  String? occupation;
-  String? detail;
-
-  Faction({
-    required super.isFavourite,
-    required this.name,
-    this.occupation,
-    this.detail,
-  });
-
-  // coverage:ignore-start
-  factory Faction.fromJson(Map<String, dynamic> json) =>
-      _$FactionFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FactionToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.newFaction;
-// coverage:ignore-end
 }
 
 List<ControlData> initialMythicGMEControls = [

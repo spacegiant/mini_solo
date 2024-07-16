@@ -12,6 +12,7 @@ import '../features/trackers/tracker_options.dart';
 import '../utilities/string/convert_to_filename.dart';
 import 'data_structures/clue.dart';
 import 'data_structures/creature.dart';
+import 'data_structures/faction.dart';
 import 'data_structures/journal_entry.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
