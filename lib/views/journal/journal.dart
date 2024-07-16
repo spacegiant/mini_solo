@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/note_entry_item.dart';
 import 'package:mini_solo/widgets/journal/entryWidgets/result_entry_widget.dart';
 import 'package:mini_solo/widgets/journal/entryWidgets/roll_table_result_widget.dart';

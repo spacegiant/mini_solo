@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 

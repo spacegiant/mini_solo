@@ -154,7 +154,7 @@ class TabularLayout extends StatelessWidget {
     for (final (index, row) in tableData.indexed) {
       tableRows.add(
         TableRow(
-          decoration: entry.firstLineHeadings! && index == 0
+          decoration: entry.firstLineHeadings && index == 0
               ? const BoxDecoration(
                   border: Border(
                       bottom: BorderSide(

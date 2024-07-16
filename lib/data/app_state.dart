@@ -8,7 +8,6 @@ import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 
 import '../features/kard/kard.dart';
-import '../features/trackers/tracker_options.dart';
 import '../utilities/string/convert_to_filename.dart';
 import 'data_structures/clue.dart';
 import 'data_structures/creature.dart';

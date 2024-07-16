@@ -1,4 +1,3 @@
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/data_structures/person.dart';
 import 'package:test/test.dart';
 

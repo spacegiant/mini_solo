@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 

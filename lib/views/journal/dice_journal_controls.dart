@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
 import '../../data/data_structures/dice_roll.dart';
 import '../../widgets/popups/edit_dice_group_popup.dart';
 import '../../widgets/popups/toggle_show_popup.dart';

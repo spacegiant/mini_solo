@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/constants.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/scratchpad/scratch_picker.dart';
 import 'package:provider/provider.dart';
 

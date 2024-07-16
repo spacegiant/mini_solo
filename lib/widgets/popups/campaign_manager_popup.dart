@@ -72,7 +72,7 @@ class _CampaignManagerState extends State<CampaignManager> {
                       CupertinoButton(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           color: kSubmitColor,
-                          child: Text('Create'),
+                          child: const Text('Create'),
                           onPressed: () {
                             String text =
                                 newCampaignController.value.text.trim();

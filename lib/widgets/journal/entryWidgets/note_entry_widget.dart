@@ -4,7 +4,6 @@ import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
-import '../../../data/campaign_data.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../data/note_entry_item.dart';
 

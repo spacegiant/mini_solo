@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../svg_icon.dart';
-import '../campaign_data.dart';
 import 'both_results.dart';
 
 part 'dice_roll.g.dart';

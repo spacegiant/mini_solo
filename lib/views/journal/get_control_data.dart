@@ -1,6 +1,5 @@
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
 import '../../data/data_structures/tracker_entry.dart';
 import '../../data/initial_new_item_controls.dart';
 import '../../features/kard/kard.dart';

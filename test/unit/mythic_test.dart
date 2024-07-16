@@ -1,4 +1,3 @@
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/data_structures/journal_entry.dart';
 import 'package:mini_solo/data/data_structures/mythic_entry.dart';
 import 'package:test/test.dart';

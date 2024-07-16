@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/kard/kard.dart';
 import 'package:mini_solo/views/control_widgets/action_list_control_widget.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';

@@ -1,5 +1,4 @@
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
 import '../../data/data_structures/journal_entry.dart';
 import '../../data/data_structures/mythic_entry.dart';
 import '../../utilities/get_weighted_result.dart';
