@@ -103,7 +103,7 @@ class IronswornWidget extends StatelessWidget {
     return TrackerContainer(
       maxWidth: 320.0,
       appState: appState,
-      onTap: () {
+      onTapLeft: () {
         handleTap(modifier: -1);
       },
       onTapRight: () {
