@@ -264,19 +264,3 @@ Map<String, dynamic> _$FactionToJson(Faction instance) => <String, dynamic>{
       'detail': instance.detail,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
-
-Clue _$ClueFromJson(Map<String, dynamic> json) => Clue(
-      isFavourite: json['isFavourite'] as bool?,
-      description: json['description'] as String,
-      notes: json['notes'] as String?,
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
-
-Map<String, dynamic> _$ClueToJson(Clue instance) => <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
-      'description': instance.description,
-      'notes': instance.notes,
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
-    };
