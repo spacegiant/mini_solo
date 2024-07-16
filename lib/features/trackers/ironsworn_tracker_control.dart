@@ -101,6 +101,7 @@ class IronswornWidget extends StatelessWidget {
     }
 
     return TrackerContainer(
+      widgetShowsTitle: true,
       maxWidth: 320.0,
       appState: appState,
       onTapLeft: () {

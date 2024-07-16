@@ -83,6 +83,7 @@ class ClockWidget extends StatelessWidget {
       onTapRight: handleIncrement,
       appState: appState,
       id: entry.id,
+      widgetShowsTitle: false,
       child: Container(
         constraints: const BoxConstraints(
           maxWidth: 180.0,

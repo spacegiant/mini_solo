@@ -42,6 +42,7 @@ class PipsWidget extends StatelessWidget {
     }
 
     return TrackerContainer(
+        widgetShowsTitle: true,
         // try 32.0 width per glyph
         maxWidth: 32.0 * glyphsWide,
         minWidth: 120.0,

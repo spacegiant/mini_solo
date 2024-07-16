@@ -17,6 +17,7 @@ class ValueWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TrackerContainer(
+        widgetShowsTitle: true,
         appState: appState,
         id: entry.id,
         minWidth: 60.0,

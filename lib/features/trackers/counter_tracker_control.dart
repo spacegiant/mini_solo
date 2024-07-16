@@ -27,7 +27,7 @@ class CounterWidget extends StatelessWidget {
 
     return Stack(children: [
       TrackerContainer(
-          onTap: () {
+          onTapLeft: () {
             handleTap(modifier: -1);
           },
           onTapRight: () {
@@ -36,10 +36,11 @@ class CounterWidget extends StatelessWidget {
           minWidth: 160.0,
           appState: appState,
           id: entry.id,
+          widgetShowsTitle: true,
           child: Column(
             children: [
               Text(entry.label),
-              const Gap(height: 8.0),
+              const Gap(),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

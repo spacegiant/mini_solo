@@ -17,7 +17,7 @@ class TrackerContainer extends StatefulWidget {
     this.onTap,
     this.onTapLeft,
     this.onTapRight,
-    this.widgetShowsTitle,
+    required this.widgetShowsTitle,
   });
 
   final Widget child;
@@ -28,7 +28,7 @@ class TrackerContainer extends StatefulWidget {
   final Function()? onTap;
   final Function()? onTapLeft;
   final Function()? onTapRight;
-  final bool? widgetShowsTitle;
+  final bool widgetShowsTitle;
 
   @override
   State<TrackerContainer> createState() => _TrackerContainerState();
@@ -58,13 +58,12 @@ class _TrackerContainerState extends State<TrackerContainer> {
             double distanceFromLeft = tapPosition.dx;
             double distanceFromTop = tapPosition.dy;
             double distanceFromRight = widgetSize!.width - tapPosition.dx;
-            bool widgetShowsTitle = widget.widgetShowsTitle ?? false;
 
             double buttonWidth = 44.0;
             double titleHeight = 44.0;
 
             bool clickedInTitleArea =
-                widgetShowsTitle ? distanceFromTop < titleHeight : false;
+                widget.widgetShowsTitle ? distanceFromTop < titleHeight : false;
 
             if (distanceFromLeft < buttonWidth && !clickedInTitleArea) {
               onTapLeft();

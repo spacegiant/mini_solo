@@ -28,7 +28,8 @@ class FateWidget extends StatelessWidget {
 
     return Stack(children: [
       TrackerContainer(
-          onTap: () {
+          widgetShowsTitle: true,
+          onTapLeft: () {
             if (entry.currentValue <= 0) return;
             handleTap(modifier: -1);
           },
@@ -40,10 +41,11 @@ class FateWidget extends StatelessWidget {
           appState: appState,
           id: entry.id,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text('\'${entry.label}\''),
-              const Gap(height: 8.0),
+              // const Gap(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
