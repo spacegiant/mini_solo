@@ -418,27 +418,6 @@ class BothResults {
 // coverage:ignore-end
 }
 
-@JsonSerializable()
-class DiceRoll {
-  BothResults result;
-  String diceType;
-  SVGIcon icon;
-
-  DiceRoll({
-    // required super.isFavourite,
-    required this.result,
-    required this.diceType,
-    required this.icon,
-  });
-// coverage:ignore-start
-  factory DiceRoll.fromJson(Map<String, dynamic> json) =>
-      _$DiceRollFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DiceRollToJson(this);
-
-// coverage:ignore-end
-}
-
 List<ControlData> initialMythicGMEControls = [
   ControlData(
       controlId: 'mythic-new-scene',

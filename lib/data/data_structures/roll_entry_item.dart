@@ -4,6 +4,7 @@ import '../../svg_icon.dart';
 import '../campaign_data.dart';
 import '../campaign_item.dart';
 import '../journal_entry_types.dart';
+import 'dice_roll.dart';
 
 part 'roll_entry_item.g.dart';
 

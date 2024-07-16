@@ -6,6 +6,7 @@ import 'package:mini_solo/widgets/journal/entryWidgets/roll_table_result_widget.
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../data/data_structures/dice_roll.dart';
 import '../../data/journal_entry_types.dart';
 import '../../widgets/journal/entryWidgets/journal_start_entry.dart';
 import '../../widgets/journal/entryWidgets/new_scene_entry_widget.dart';
