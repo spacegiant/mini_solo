@@ -11,6 +11,7 @@ import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../data/data_structures/mythic_entry.dart';
 import '../../data/data_structures/new_scene_entry.dart';
 import '../../data/data_structures/tracker_entry.dart';
 import '../../features/action_lists/add_action_list_popup.dart';

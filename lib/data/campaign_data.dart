@@ -9,6 +9,7 @@ import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
+import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
@@ -499,27 +500,6 @@ class OracleEntry extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.oracle;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class MythicEntry extends CampaignItem {
-  JournalEntry lines;
-  String label;
-
-  MythicEntry({
-    required super.isFavourite,
-    required this.lines,
-    required this.label,
-  });
-// coverage:ignore-start
-  factory MythicEntry.fromJson(Map<String, dynamic> json) =>
-      _$MythicEntryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MythicEntryToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.mythic;
 // coverage:ignore-end
 }
 
