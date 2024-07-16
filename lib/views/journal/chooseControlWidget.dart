@@ -23,6 +23,7 @@ import '../../features/trackers/pips_tracker_control.dart';
 import '../../svg_icon.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
+import '../../widgets/chaos_factor_popup.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/popups/add_group_popup.dart';
 import '../../features/random_tables/add_random_table_popup.dart';
@@ -95,11 +96,19 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.mythicChart:
       return ListButton(
-          color: buttonColor,
-          label: controlData.label,
-          onPressed: () {
-            fateChartControlOnPressed(controlData.fateChartRow, appState);
-          });
+        color: buttonColor,
+        label: controlData.label,
+        onPressed: () {
+          fateChartControlOnPressed(controlData.fateChartRow, appState);
+        },
+        onLongPress: () {
+          toggleShowPopup2(
+              maxHeight: 300.0,
+              maxWidth: 200.0,
+              child: const ChaosFactorPopup(),
+              context: context);
+        },
+      );
     case ControlTypeEnum.mythicExpectedScene:
       return ListButton(
           color: buttonColor,
