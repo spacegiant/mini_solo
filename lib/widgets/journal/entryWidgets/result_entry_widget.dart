@@ -25,14 +25,16 @@ class ResultEntryWidget extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         toggleShowPopup2(
-            child: EditResultPopup(appState: appState, id: journalEntry.id),
-            context: context);
+          child: EditResultPopup(appState: appState, id: journalEntry.id),
+          context: context,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // TODO Make this clearer
             Text(
               entry.title,
               style: const TextStyle(fontWeight: FontWeight.bold),

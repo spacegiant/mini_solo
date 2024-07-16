@@ -5,7 +5,7 @@ import '../../data/app_state.dart';
 import '../../data/result_entries.dart';
 import '../../data/result_entry.dart';
 import '../../features/action_lists/add_action_list_popup.dart';
-import '../../features/action_lists/recursive_action_list_roll.dart';
+import '../../features/random_tables/recursive_random_table_roll.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import '../journal/control_data.dart';

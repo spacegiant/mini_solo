@@ -80,12 +80,13 @@ class _JournalViewState extends State<JournalView> {
   }
 
   Widget singleColumnLayout(
-      BoxConstraints constraints,
-      AppState appState,
-      void Function(List<DiceRoll> result) addResult,
-      void Function() submitResults,
-      void Function() clearResults,
-      BuildContext context) {
+    BoxConstraints constraints,
+    AppState appState,
+    void Function(List<DiceRoll> result) addResult,
+    void Function() submitResults,
+    void Function() clearResults,
+    BuildContext context,
+  ) {
     return Column(
       children: [
         Expanded(
@@ -112,12 +113,13 @@ class _JournalViewState extends State<JournalView> {
   }
 
   Widget twoColumnLayout(
-      BoxConstraints constraints,
-      AppState appState,
-      void Function(List<DiceRoll> result) addResult,
-      void Function() submitResults,
-      void Function() clearResults,
-      BuildContext context) {
+    BoxConstraints constraints,
+    AppState appState,
+    void Function(List<DiceRoll> result) addResult,
+    void Function() submitResults,
+    void Function() clearResults,
+    BuildContext context,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
