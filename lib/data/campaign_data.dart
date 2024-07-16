@@ -17,6 +17,7 @@ import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
 import 'data_structures/roll_entry_item.dart';
 import 'data_structures/scratch_page_entry_item.dart';
+import 'data_structures/thing.dart';
 import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
@@ -272,29 +273,6 @@ class Place extends CampaignItem {
   @override
   JournalEntryTypes type = JournalEntryTypes.newPlace;
 // coverage:ignore-end
-}
-
-@JsonSerializable()
-class Thing extends CampaignItem {
-  String name;
-  Person? owner;
-  String? detail;
-
-  Thing({
-    required super.isFavourite,
-    required this.name,
-    this.owner,
-    this.detail,
-  });
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.newThing;
-
-  // coverage:ignore-start
-  factory Thing.fromJson(Map<String, dynamic> json) => _$ThingFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ThingToJson(this);
-  // coverage:ignore-end
 }
 
 List<ControlData> initialMythicGMEControls = [
