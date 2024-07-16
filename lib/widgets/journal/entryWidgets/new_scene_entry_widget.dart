@@ -4,6 +4,7 @@ import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
+import '../../../data/data_structures/new_scene_entry.dart';
 
 class NewSceneEntryWidget extends StatelessWidget {
   final AppState appState;

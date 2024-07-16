@@ -4,6 +4,7 @@ import 'package:mini_solo/svg_icon.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../widgets/gap.dart';
 
 class FateWidget extends StatelessWidget {

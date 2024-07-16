@@ -4,6 +4,7 @@ import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../svg_icon.dart';
 
 class ClockWidget extends StatelessWidget {

@@ -7,6 +7,7 @@ import 'package:mini_solo/widgets/range_values_form.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../features/grouping/group-picker.dart';
 import '../../features/trackers/tracker_options.dart';
 import '../gap.dart';

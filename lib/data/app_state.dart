@@ -10,6 +10,8 @@ import 'package:mini_solo/features/grouping/group.dart';
 import '../features/kard/kard.dart';
 import '../features/trackers/tracker_options.dart';
 import '../utilities/string/convert_to_filename.dart';
+import 'data_structures/new_scene_entry.dart';
+import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 

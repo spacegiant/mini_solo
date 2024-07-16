@@ -9,6 +9,8 @@ import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
+import 'data_structures/new_scene_entry.dart';
+import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
@@ -518,52 +520,6 @@ class MythicEntry extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.mythic;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class TrackerEntry extends CampaignItem {
-  String label;
-  int currentValue;
-  int? minValue;
-  int? maxValue;
-  ControlTypeEnum controlType;
-
-  TrackerEntry({
-    required this.label,
-    required this.currentValue,
-    this.minValue,
-    this.maxValue,
-    required this.controlType,
-  });
-
-  // coverage:ignore-start
-  factory TrackerEntry.fromJson(Map<String, dynamic> json) =>
-      _$TrackerEntryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TrackerEntryToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.tracker;
-  // coverage:ignore-end
-}
-
-@JsonSerializable()
-class NewSceneEntry extends CampaignItem {
-  String label;
-
-  NewSceneEntry({
-    required this.label,
-  });
-
-  // coverage:ignore-start
-  factory NewSceneEntry.fromJson(Map<String, dynamic> json) =>
-      _$NewSceneEntryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$NewSceneEntryToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.newScene;
 // coverage:ignore-end
 }
 
