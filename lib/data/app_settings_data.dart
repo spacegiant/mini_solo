@@ -39,17 +39,17 @@ class AppSettingsData {
 
 @JsonSerializable(explicitToJson: true)
 class RandomTable extends CampaignItem {
-  final String title;
-  final List<RandomTableRow> rows;
-  late bool isRandomTable;
+  late String title;
+  late List<RandomTableRow> rows;
   late bool isHidden;
+  bool? showLinkOptions;
 
   RandomTable({
     required super.isFavourite,
     required this.title,
     required this.rows,
-    this.isRandomTable = true,
     this.isHidden = false,
+    this.showLinkOptions = false,
   });
 // coverage:ignore-start
   factory RandomTable.fromJson(Map<String, dynamic> json) =>

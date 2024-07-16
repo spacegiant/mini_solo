@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import '../data/campaign_data.dart';
 import '../data/app_state.dart';
+import '../data/data_structures/journal_entry.dart';
 
 JournalEntry testScene(AppState appState) {
   int d10 = Random().nextInt(10) + 1;

@@ -3,14 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/data/campaign_data.dart';
-import 'package:mini_solo/data/campaign_item.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../features/kard/kard.dart';
-import '../features/trackers/tracker_options.dart';
+import '../utilities/string/convert_to_filename.dart';
+import 'data_structures/clue.dart';
+import 'data_structures/creature.dart';
+import 'data_structures/faction.dart';
+import 'data_structures/journal_entry.dart';
+import 'data_structures/journal_entry_item.dart';
+import 'data_structures/mythic_entry.dart';
+import 'data_structures/new_scene_entry.dart';
+import 'data_structures/oracle_entry.dart';
+import 'data_structures/person.dart';
+import 'data_structures/place.dart';
+import 'data_structures/roll_entry_item.dart';
+import 'data_structures/scratch_page_entry_item.dart';
+import 'data_structures/thing.dart';
+import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
@@ -151,13 +163,15 @@ class AppState extends ChangeNotifier {
     // (if beforeGroupName is null) move to end
   }
 
-  void updateGroupControls({
-    required String groupName,
+  void updateGroup({
+    required String groupID,
+    String? label,
     required List<String> controls,
     required bool isWrapped,
   }) {
     Group group =
-        campaignData!.groups.firstWhere((group) => group.groupId == groupName);
+        campaignData!.groups.firstWhere((group) => group.groupId == groupID);
+    if (label != null) group.label = label;
     group.controls = controls;
     group.isWrapped = isWrapped;
     saveCampaignDataToDisk();
@@ -170,7 +184,7 @@ class AppState extends ChangeNotifier {
 
   // LABELS
 
-  String? createNewLabel(Kard kard) {
+  String? createNewKard(Kard kard) {
     _campaignData!.kards.add(kard);
     addToGroup(controlId: kard.id, groupId: 'unsorted');
     saveCampaignDataToDisk();
@@ -180,6 +194,29 @@ class AppState extends ChangeNotifier {
   void deleteKard(String id) {
     removeFromAllGroups(controlId: id);
     _campaignData!.kards.removeWhere((entry) => entry.id == id);
+    saveCampaignDataToDisk();
+  }
+
+  Kard? getKardById(String id) {
+    return campaignData?.kards.firstWhereOrNull((kard) => kard.id == id);
+  }
+
+  void updateKard({
+    required String id,
+    String? title,
+    List<String>? lines,
+    required KardLayoutTypes layoutType,
+    required bool firstLineHeadings,
+    required bool showHeading,
+  }) {
+    Kard? entry = getKardById(id);
+    if (entry != null) {
+      entry.title = title ?? '';
+      entry.lines = lines ?? [];
+      entry.layoutType = layoutType;
+      entry.firstLineHeadings = firstLineHeadings;
+      entry.showHeading = showHeading;
+    }
     saveCampaignDataToDisk();
   }
 
@@ -236,10 +273,11 @@ class AppState extends ChangeNotifier {
   // }
 
   void loadCampaign(String fileName) {
-    _storage.readJSON(fileName).then((data) {
+    _storage.readCampaignDataJSON(fileName).then((data) {
       if (data != null) {
+        String campaignFileName = convertToFilename(data.name);
         setCampaignData(data);
-        setCurrentCampaign(data.name);
+        setCurrentCampaign(campaignFileName);
       }
     });
   }
@@ -280,13 +318,8 @@ class AppState extends ChangeNotifier {
   String? get currentCampaign => _appSettingsData.currentCampaign;
 
   void setCurrentCampaign(String campaignName) {
-    // _currentCampaign = campaignName;
     _appSettingsData.currentCampaign = campaignName;
-    notifyListeners();
-  }
-
-  void setDeleteCampaignCallback(cb) {
-    _deleteCampaignCallback = cb;
+    saveAppSettingsDataToDisk();
   }
 
   void deleteCampaign(String filename) {
@@ -434,6 +467,17 @@ class AppState extends ChangeNotifier {
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
     // THIS SAVES FOR ALL ENTRY TYPES
+    saveCampaignDataToDisk();
+  }
+
+  void updateJournalEntry(String journalItemId, String note) {
+    JournalEntryItem? journalEntry = _campaignData?.journal
+        .firstWhereOrNull((entry) => entry.id == journalItemId);
+
+    if (journalEntry != null) {
+      journalEntry.note = note;
+    }
+
     saveCampaignDataToDisk();
   }
 
@@ -693,12 +737,23 @@ class AppState extends ChangeNotifier {
 
   void updateRandomTable({
     required String id,
-    required RandomTable entry,
+    // required RandomTable entry,
+    String? title,
+    List<RandomTableRow>? rows,
+    bool? isFavourite,
+    bool? showLinkOptions,
   }) {
     int index =
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
+    var randomTable = _appSettingsData.randomTables[index];
 
-    _appSettingsData.randomTables[index] = entry;
+    print('>> $title');
+
+    if (title != null) randomTable.title = title;
+    if (rows != null) randomTable.rows = rows;
+    if (isFavourite != null) randomTable.isFavourite = isFavourite;
+    if (showLinkOptions != null) randomTable.showLinkOptions = showLinkOptions;
+
     saveAppSettingsDataToDisk();
   }
 
@@ -785,6 +840,11 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  void deleteResultEntry(String id) {
+    _campaignData?.journal.removeWhere((entry) => entry.id == id);
+    saveAppSettingsDataToDisk();
+  }
+
   void removeLinkFromAllActionLists(String id) {
     for (var table in appSettingsData.actionLists) {
       table.list.removeWhere((item) => item.string == id);
@@ -798,24 +858,7 @@ class AppState extends ChangeNotifier {
   // TRACKER ENTRIES
   void addTrackerEntry(TrackerEntry entry) {
     _campaignData?.tracker.add(entry);
-    TrackerOptions trackerData =
-        trackers.firstWhere((tracker) => tracker.type == entry.controlType);
-
-    // Tracker and journal entry do not need to be linked - just add note
-    NoteEntryItem note = NoteEntryItem(
-      isFavourite: false,
-      detail: 'New ${trackerData.label} tracker created: \'${entry.label} \'',
-    );
-
-    _campaignData?.notes.add(note);
-
-    addJournalEntry(
-      JournalEntryItem(
-        isFavourite: false,
-        type: JournalEntryTypes.note,
-        id: note.id,
-      ),
-    );
+    saveCampaignDataToDisk();
   }
 
   TrackerEntry? getTrackerEntryById(String id) {

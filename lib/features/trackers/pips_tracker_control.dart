@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/features/trackers/tracker_container.dart';
 
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../svg_icon.dart';
 import '../../widgets/gap.dart';
 
@@ -20,6 +20,8 @@ class PipsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 24.0;
     List<SvgIcon> pips = [];
+    // TODO make breaking on to multiple lines more robust
+    int glyphsWide = 5;
 
     for (int i = 1; i < entry.maxValue! + 1; i++) {
       if (i <= entry.currentValue) {
@@ -40,7 +42,11 @@ class PipsWidget extends StatelessWidget {
     }
 
     return TrackerContainer(
-        onTap: () {
+        widgetShowsTitle: true,
+        // try 32.0 width per glyph
+        maxWidth: 32.0 * glyphsWide,
+        minWidth: 120.0,
+        onTapLeft: () {
           handleTap(modifier: -1);
         },
         onTapRight: () {
@@ -52,8 +58,8 @@ class PipsWidget extends StatelessWidget {
           children: [
             Text(entry.label),
             const Gap(),
-            Row(
-              mainAxisSize: MainAxisSize.min,
+            Wrap(
+              // mainAxisSize: MainAxisSize.min,
               children: pips,
             )
           ],

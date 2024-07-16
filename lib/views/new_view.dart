@@ -36,26 +36,31 @@ class NewView extends StatelessWidget {
             ),
             if (appState.showFutureFeatures == true) menuSpacer(),
             ListButton(
-                label: 'Person', onPressed: () => buildNewPerson(context)),
+                label: const Text('Person'),
+                onPressed: () => buildNewPerson(context)),
             if (appState.showFutureFeatures == true)
               ListButton(
-                  label: 'Place', onPressed: () => buildNewPlace(context)),
+                  label: const Text('Place'),
+                  onPressed: () => buildNewPlace(context)),
             if (appState.showFutureFeatures == true)
               ListButton(
-                  label: 'Thing', onPressed: () => buildNewThing(context)),
+                  label: const Text('Thing'),
+                  onPressed: () => buildNewThing(context)),
             if (appState.showFutureFeatures == true)
               ListButton(
-                  label: 'Faction', onPressed: () => buildNewFaction(context)),
+                  label: const Text('Faction'),
+                  onPressed: () => buildNewFaction(context)),
             if (appState.showFutureFeatures == true)
-              ListButton(label: 'Clue', onPressed: () => buildNewClue(context)),
+              ListButton(
+                  label: const Text('Clue'), onPressed: () => buildNewClue(context)),
             if (appState.showFutureFeatures == true) menuSpacer(),
             if (appState.showFutureFeatures == true)
               ListButton(
-                  label: 'Creature',
+                  label: const Text('Creature'),
                   onPressed: () => buildNewCreature(context)),
             if (appState.showFutureFeatures == true)
               ListButton(
-                  label: '5 Room Dungeon',
+                  label: const Text('5 Room Dungeon'),
                   onPressed: () => buildNew5Room(context)),
           ],
         );

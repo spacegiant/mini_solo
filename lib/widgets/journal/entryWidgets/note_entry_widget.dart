@@ -4,7 +4,7 @@ import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
-import '../../../data/campaign_data.dart';
+import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../data/note_entry_item.dart';
 
 class NoteEntryWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class NoteEntryWidget extends StatelessWidget {
       onLongPress: () {
         toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 360.0,
+            maxHeight: 400.0,
             child: EditNotePopup(
               appState: appState,
               id: journalEntry.id,

@@ -1,4 +1,7 @@
 import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/data_structures/new_scene_entry.dart';
+import 'package:mini_solo/data/data_structures/scratch_page_entry_item.dart';
+import 'package:mini_solo/data/data_structures/tracker_entry.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:test/test.dart';
 

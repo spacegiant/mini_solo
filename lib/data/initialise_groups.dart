@@ -1,6 +1,6 @@
 import '../features/grouping/group.dart';
+import '../features/mythic_gme/initial_mythic_gme_controls.dart';
 import '../views/mythic/fate_question.dart';
-import 'campaign_data.dart';
 import 'initial_new_item_controls.dart';
 
 var initialiseGroups = [

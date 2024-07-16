@@ -20,38 +20,38 @@ class _NewFactionMenuState extends State<NewFactionMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       ListButton(
-        label: 'Purpose',
+        label: const Text('Purpose'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Faction Name',
+        label: const Text('Faction Name'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Secret',
+        label: const Text('Secret'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Goal',
+        label: const Text('Goal'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Logo/Icon',
+        label: const Text('Logo/Icon'),
         onPressed: () {
           // TODO
         },
       ),
       menuSpacer(),
       ListButton(
-        label: 'Purpose',
+        label: const Text('Purpose'),
         onPressed: () {
           print('Save');
         },

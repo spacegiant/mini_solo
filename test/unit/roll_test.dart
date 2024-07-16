@@ -1,4 +1,6 @@
-import 'package:mini_solo/data/campaign_data.dart';
+import 'package:mini_solo/data/data_structures/both_results.dart';
+import 'package:mini_solo/data/data_structures/dice_roll.dart';
+import 'package:mini_solo/data/data_structures/roll_entry_item.dart';
 import 'package:mini_solo/svg_icon.dart';
 import 'package:test/test.dart';
 

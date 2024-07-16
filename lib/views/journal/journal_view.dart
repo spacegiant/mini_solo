@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/dice_roll.dart';
+import '../../data/data_structures/roll_entry_item.dart';
 import 'journal.dart';
 import 'journal_controls.dart';
 
@@ -80,12 +82,13 @@ class _JournalViewState extends State<JournalView> {
   }
 
   Widget singleColumnLayout(
-      BoxConstraints constraints,
-      AppState appState,
-      void Function(List<DiceRoll> result) addResult,
-      void Function() submitResults,
-      void Function() clearResults,
-      BuildContext context) {
+    BoxConstraints constraints,
+    AppState appState,
+    void Function(List<DiceRoll> result) addResult,
+    void Function() submitResults,
+    void Function() clearResults,
+    BuildContext context,
+  ) {
     return Column(
       children: [
         Expanded(
@@ -112,12 +115,13 @@ class _JournalViewState extends State<JournalView> {
   }
 
   Widget twoColumnLayout(
-      BoxConstraints constraints,
-      AppState appState,
-      void Function(List<DiceRoll> result) addResult,
-      void Function() submitResults,
-      void Function() clearResults,
-      BuildContext context) {
+    BoxConstraints constraints,
+    AppState appState,
+    void Function(List<DiceRoll> result) addResult,
+    void Function() submitResults,
+    void Function() clearResults,
+    BuildContext context,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,

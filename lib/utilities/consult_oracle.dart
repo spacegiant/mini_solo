@@ -1,4 +1,4 @@
-import '../data/campaign_data.dart';
+import '../data/data_structures/journal_entry.dart';
 import 'consult_table.dart';
 
 JournalEntry consultOracle(

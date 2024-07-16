@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:mini_solo/data/app_settings_data.dart';
 import 'package:mini_solo/features/grouping/group-picker.dart';
 import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/label_and_picker.dart';
+import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/my_reorderable_item.dart';
 
 import '../../data/app_state.dart';
@@ -134,6 +133,7 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       }
       actionEditorType = ActionEditorType.randomTable;
       _actionLabelController.text = '';
+      print(currentEntry);
     });
   }
 
@@ -214,7 +214,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           controlId: actionListEntry.id,
           groupId: selectedGroupId ?? initialGroupId ?? 'unsorted');
     } else {
-      print(entry!.id);
       widget.appState.updateActionList(
         id: entry!.id,
         title: actionListEntry.title,
@@ -317,6 +316,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
                                 _actionLabelController.text = entry.string;
                               });
                             },
+                            onDelete: (index) {
+                              setState(() {
+                                entryListOfActions.removeAt(index);
+                              });
+                            },
                             onToggleActive: (value) {
                               // TODO toggle the activeId in State
                             },
@@ -414,14 +418,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
         ));
   }
 
-  CupertinoButton addItemToActionList() {
-    return CupertinoButton(
-      minSize: 44.0,
-      padding: EdgeInsets.zero,
+  ListButton addItemToActionList() {
+    return ListButton(
       color: kSubmitColor,
-      child: Icon(currentEntry == null
-          ? CupertinoIcons.add
-          : CupertinoIcons.check_mark),
       onPressed: () {
         ActionEditorType type = ActionEditorType.label;
         String string = '';
@@ -459,6 +458,9 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           ),
         );
       },
+      label: Icon(currentEntry == null
+          ? CupertinoIcons.add
+          : CupertinoIcons.check_mark),
     );
   }
 

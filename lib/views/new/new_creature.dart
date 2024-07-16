@@ -20,38 +20,38 @@ class _NewCreatureMenuState extends State<NewCreatureMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       ListButton(
-        label: 'Type',
+        label: const Text('Type'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Size',
+        label: const Text('Size'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Impulse',
+        label: const Text('Impulse'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Method',
+        label: const Text('Method'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Attacks',
+        label: const Text('Attacks'),
         onPressed: () {
           // TODO
         },
       ),
       menuSpacer(),
       ListButton(
-        label: 'Do something',
+        label: const Text('Do something'),
         onPressed: () {
           // TODO
         },

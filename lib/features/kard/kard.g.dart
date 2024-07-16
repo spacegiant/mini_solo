@@ -10,9 +10,9 @@ Kard _$KardFromJson(Map<String, dynamic> json) => Kard(
       title: json['title'] as String,
       lines:
           (json['lines'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      labelLayout:
-          $enumDecodeNullable(_$LabelLayoutEnumMap, json['labelLayout']),
-      controlType: $enumDecode(_$ControlTypeEnumEnumMap, json['controlType']),
+      layoutType: $enumDecode(_$KardLayoutTypesEnumMap, json['layoutType']),
+      firstLineHeadings: json['firstLineHeadings'] as bool? ?? true,
+      showHeading: json['showHeading'] as bool? ?? true,
     )
       ..isFavourite = json['isFavourite'] as bool?
       ..id = json['id'] as String
@@ -23,49 +23,17 @@ Map<String, dynamic> _$KardToJson(Kard instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'lines': instance.lines,
-      'labelLayout': _$LabelLayoutEnumMap[instance.labelLayout],
-      'controlType': _$ControlTypeEnumEnumMap[instance.controlType]!,
+      'layoutType': _$KardLayoutTypesEnumMap[instance.layoutType]!,
+      'firstLineHeadings': instance.firstLineHeadings,
+      'showHeading': instance.showHeading,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
 
-const _$LabelLayoutEnumMap = {
-  LabelLayout.vertical: 'vertical',
-  LabelLayout.horizontal: 'horizontal',
-};
-
-const _$ControlTypeEnumEnumMap = {
-  ControlTypeEnum.button: 'button',
-  ControlTypeEnum.dice: 'dice',
-  ControlTypeEnum.diceGroup: 'diceGroup',
-  ControlTypeEnum.mythicChart: 'mythicChart',
-  ControlTypeEnum.newScene: 'newScene',
-  ControlTypeEnum.mythicExpectedScene: 'mythicExpectedScene',
-  ControlTypeEnum.mythicAction: 'mythicAction',
-  ControlTypeEnum.mythicDescription: 'mythicDescription',
-  ControlTypeEnum.mythicEventFocus: 'mythicEventFocus',
-  ControlTypeEnum.mythicPlotTwist: 'mythicPlotTwist',
-  ControlTypeEnum.randomTable: 'randomTable',
-  ControlTypeEnum.clock4: 'clock4',
-  ControlTypeEnum.clock6: 'clock6',
-  ControlTypeEnum.clock8: 'clock8',
-  ControlTypeEnum.bar: 'bar',
-  ControlTypeEnum.ironsworn1Troublesome: 'ironsworn1Troublesome',
-  ControlTypeEnum.ironsworn2Dangerous: 'ironsworn2Dangerous',
-  ControlTypeEnum.ironsworn3Formidable: 'ironsworn3Formidable',
-  ControlTypeEnum.ironsworn4Extreme: 'ironsworn4Extreme',
-  ControlTypeEnum.ironsworn5Epic: 'ironsworn5Epic',
-  ControlTypeEnum.pips: 'pips',
-  ControlTypeEnum.value: 'value',
-  ControlTypeEnum.counter: 'counter',
-  ControlTypeEnum.fate_aspect: 'fate_aspect',
-  ControlTypeEnum.newTracker: 'newTracker',
-  ControlTypeEnum.newRandomTable: 'newRandomTable',
-  ControlTypeEnum.newGroup: 'newGroup',
-  ControlTypeEnum.statBlock: 'statBlock',
-  ControlTypeEnum.kard: 'kard',
-  ControlTypeEnum.newCard: 'newCard',
-  ControlTypeEnum.newActionList: 'newActionList',
-  ControlTypeEnum.actionList: 'actionList',
+const _$KardLayoutTypesEnumMap = {
+  KardLayoutTypes.vertical: 'vertical',
+  KardLayoutTypes.horizontal: 'horizontal',
+  KardLayoutTypes.statBlockList: 'statBlockList',
+  KardLayoutTypes.tabular: 'tabular',
 };
 
 const _$JournalEntryTypesEnumMap = {

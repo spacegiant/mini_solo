@@ -16,62 +16,38 @@ void recursiveRandomTableRoll({
   int randomRoll = Random().nextInt(weightsSum);
   RollTableResult? result;
 
-  if (randomTable.isRandomTable == true) {
-    for (int i = 0; i < randomTable.rows.length; i++) {
-      tally += randomTable.rows[i].weight!;
-      bool resultFound = randomRoll < tally;
+  for (int i = 0; i < randomTable.rows.length; i++) {
+    tally += randomTable.rows[i].weight!;
+    bool resultFound = randomRoll < tally;
 
-      if (resultFound) {
-        if (randomTable.rows[i].otherRandomTable != null) {
-          String? id = randomTable.rows[i].otherRandomTable;
-
-          if (id == null) return;
-
-          if (recursionLimit == 0) {
-            print('HIT RECURSION LIMIT at ${randomTable.title}');
-            return;
-          }
-
-          recursiveRandomTableRoll(
-            recursionLimit: recursionLimit--,
-            randomTables: randomTables,
-            randomTableId: id,
-            cb: cb,
-          );
-        }
-
-        result = RollTableResult(
-          title: randomTable.title,
-          randomRoll: randomRoll,
-          resultString: randomTable.rows[i].label,
-          totalEntries: weightsSum,
-          weight: randomTable.rows[i].weight ?? 1,
-        );
-
-        break;
-      }
-    }
-  } else {
-    for (int i = 0; i < randomTable.rows.length; i++) {
+    if (resultFound) {
       if (randomTable.rows[i].otherRandomTable != null) {
         String? id = randomTable.rows[i].otherRandomTable;
 
         if (id == null) return;
 
         if (recursionLimit == 0) {
-          print('HIT RECURSION LIMIT');
+          print('HIT RECURSION LIMIT at ${randomTable.title}');
           return;
         }
 
         recursiveRandomTableRoll(
-          recursionLimit: recursionLimit - 1,
+          recursionLimit: recursionLimit--,
           randomTables: randomTables,
           randomTableId: id,
           cb: cb,
         );
       }
 
-      // break;
+      result = RollTableResult(
+        title: randomTable.title,
+        randomRoll: randomRoll,
+        resultString: randomTable.rows[i].label,
+        totalEntries: weightsSum,
+        weight: randomTable.rows[i].weight ?? 1,
+      );
+
+      break;
     }
   }
 

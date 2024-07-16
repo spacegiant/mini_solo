@@ -5,7 +5,7 @@ import '../../data/app_state.dart';
 import '../../data/result_entries.dart';
 import '../../data/result_entry.dart';
 import '../../features/action_lists/add_action_list_popup.dart';
-import '../../features/action_lists/recursive_action_list_roll.dart';
+import '../../features/random_tables/recursive_random_table_roll.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/popups/toggle_show_popup.dart';
 import '../journal/control_data.dart';
@@ -26,7 +26,7 @@ class ActionListControlWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListButton(
       color: buttonColor,
-      label: controlData.label,
+      label: Text(controlData.label),
       iconData: CupertinoIcons.rocket_fill,
       onPressed: () {
         ResultEntries resultEntries =
@@ -34,7 +34,7 @@ class ActionListControlWidget extends StatelessWidget {
 
         recursiveActionListRoll(
           actionListId: controlData.controlId,
-          cb: (resultEntry) {
+          handleResult: (resultEntry) {
             resultEntries.list.add(resultEntry);
           },
         );
@@ -64,7 +64,7 @@ class ActionListControlWidget extends StatelessWidget {
   recursiveActionListRoll({
     int? recursionLimit,
     required String actionListId,
-    required Function(ResultEntry) cb,
+    required Function(ResultEntry) handleResult,
   }) {
     if (recursionLimit == 0) return;
 
@@ -84,7 +84,8 @@ class ActionListControlWidget extends StatelessWidget {
         switch (row.type) {
           case ActionEditorType.label:
             // print('LABEL');
-            cb(ResultEntry(title: row.string, type: ResultEntryTypes.label));
+            handleResult(
+                ResultEntry(title: row.string, type: ResultEntryTypes.label));
             break;
           case ActionEditorType.randomTable:
             // print('RANDOM LIST');
@@ -93,7 +94,7 @@ class ActionListControlWidget extends StatelessWidget {
               randomTables: appState.randomTables,
               randomTableId: row.string,
               cb: (RollTableResult result) {
-                cb(ResultEntry(
+                handleResult(ResultEntry(
                     title: result.resultString,
                     type: ResultEntryTypes.randomTable));
               },

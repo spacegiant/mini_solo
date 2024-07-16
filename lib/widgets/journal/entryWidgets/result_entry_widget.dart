@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/result_entries.dart';
 
 import '../../../data/app_state.dart';
-import '../../../data/campaign_data.dart';
+import '../../../data/data_structures/journal_entry_item.dart';
+import '../../../features/action_lists/edit_result_popup.dart';
+import '../../gap.dart';
+import '../../popups/toggle_show_popup.dart';
 
 class ResultEntryWidget extends StatelessWidget {
   const ResultEntryWidget({
@@ -19,18 +22,45 @@ class ResultEntryWidget extends StatelessWidget {
     ResultEntries entry = appState.campaignData!.resultEntries
         .firstWhere((entry) => entry.id == journalEntry.id);
 
+    List<Widget> note = journalEntry.note != null && journalEntry.note != ''
+        ? [
+            const Gap(
+              height: 16.0,
+            ),
+            Stack(clipBehavior: Clip.none, children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                color: CupertinoColors.white,
+                child: Text(journalEntry.note!),
+              ),
+              const Positioned(
+                top: -16,
+                left: 4.0,
+                child: Icon(
+                  CupertinoIcons.arrowtriangle_up_fill,
+                  color: CupertinoColors.white,
+                ),
+              ),
+            ])
+          ]
+        : [];
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        // toggleShowPopup2(
-        //     child: EditResultPopup(appState: appState, id: journalEntry.id),
-        //     context: context);
+        toggleShowPopup2(
+          maxHeight: 600.0,
+          maxWidth: 400.0,
+          child: EditResultPopup(appState: appState, id: journalEntry.id),
+          context: context,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // TODO Make this clearer
             Text(
               entry.title,
               style: const TextStyle(fontWeight: FontWeight.bold),
@@ -45,6 +75,7 @@ class ResultEntryWidget extends StatelessWidget {
                 return Text(item.title);
               }
             }),
+            ...note,
           ],
         ),
       ),

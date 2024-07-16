@@ -6,20 +6,51 @@ import '../../views/journal/chooseControlWidget.dart';
 
 part 'kard.g.dart';
 
-enum LabelLayout { vertical, horizontal }
+enum KardLayoutTypes { vertical, horizontal, statBlockList, tabular }
+
+class KardLayout {
+  final String label;
+  final ControlTypeEnum controlType;
+
+  KardLayout({
+    required this.label,
+    required this.controlType,
+  });
+}
+
+Map<KardLayoutTypes, KardLayout> kardLayouts = {
+  KardLayoutTypes.vertical: KardLayout(
+    label: 'Vertical Layout',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.horizontal: KardLayout(
+    label: 'Horizontal Layout',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.statBlockList: KardLayout(
+    label: 'Stat Blocks',
+    controlType: ControlTypeEnum.kard,
+  ),
+  KardLayoutTypes.tabular: KardLayout(
+    label: 'Tabular Layout',
+    controlType: ControlTypeEnum.kard,
+  ),
+};
 
 @JsonSerializable()
 class Kard extends CampaignItem {
-  final String title;
-  final List<String>? lines;
-  final LabelLayout? labelLayout;
-  ControlTypeEnum controlType;
+  late String title;
+  late List<String>? lines;
+  late KardLayoutTypes layoutType;
+  bool firstLineHeadings;
+  bool showHeading;
 
   Kard({
     required this.title,
     this.lines,
-    this.labelLayout,
-    required this.controlType,
+    required this.layoutType,
+    this.firstLineHeadings = true,
+    this.showHeading = true,
   });
 
   // coverage:ignore-start
