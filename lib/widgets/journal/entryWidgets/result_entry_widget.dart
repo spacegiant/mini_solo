@@ -3,6 +3,7 @@ import 'package:mini_solo/data/result_entries.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
+import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../features/action_lists/edit_result_popup.dart';
 import '../../popups/toggle_show_popup.dart';
 

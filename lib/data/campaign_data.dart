@@ -11,6 +11,7 @@ import 'campaign_item.dart';
 import 'data_structures/clue.dart';
 import 'data_structures/creature.dart';
 import 'data_structures/faction.dart';
+import 'data_structures/journal_entry_item.dart';
 import 'data_structures/mythic_data.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
@@ -210,26 +211,6 @@ CampaignData baseCampaignData(String campaignName) {
     groups: initialiseGroups,
     resultEntries: [],
   );
-}
-
-@JsonSerializable(explicitToJson: true)
-class JournalEntryItem {
-  bool isFavourite;
-  JournalEntryTypes type;
-  String id;
-
-  JournalEntryItem({
-    required this.isFavourite,
-    required this.type,
-    required this.id,
-  });
-
-  // coverage:ignore-start
-  factory JournalEntryItem.fromJson(Map<String, dynamic> json) =>
-      _$JournalEntryItemFromJson(json);
-
-  Map<String, dynamic> toJson() => _$JournalEntryItemToJson(this);
-// coverage:ignore-end
 }
 
 List<ControlData> initialMythicGMEControls = [
