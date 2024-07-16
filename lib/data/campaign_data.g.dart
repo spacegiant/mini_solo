@@ -701,20 +701,3 @@ Map<String, dynamic> _$OracleEntryToJson(OracleEntry instance) =>
       'label': instance.label,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
-
-MythicEntry _$MythicEntryFromJson(Map<String, dynamic> json) => MythicEntry(
-      isFavourite: json['isFavourite'] as bool?,
-      lines: JournalEntry.fromJson(json['lines'] as Map<String, dynamic>),
-      label: json['label'] as String,
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
-
-Map<String, dynamic> _$MythicEntryToJson(MythicEntry instance) =>
-    <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
-      'lines': instance.lines,
-      'label': instance.label,
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
-    };

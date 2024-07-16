@@ -4,6 +4,7 @@ import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../../data/app_state.dart';
 import '../../../data/campaign_data.dart';
+import '../../../data/data_structures/oracle_entry.dart';
 
 class OracleEntryWidget extends StatelessWidget {
   final AppState appState;

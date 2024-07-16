@@ -11,6 +11,7 @@ import 'app_settings_data.dart';
 import 'campaign_item.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
+import 'data_structures/oracle_entry.dart';
 import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
@@ -479,27 +480,6 @@ class RollEntryItem extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.roll;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class OracleEntry extends CampaignItem {
-  JournalEntry lines;
-  String label;
-
-  OracleEntry({
-    required super.isFavourite,
-    required this.lines,
-    required this.label,
-  });
-// coverage:ignore-start
-  factory OracleEntry.fromJson(Map<String, dynamic> json) =>
-      _$OracleEntryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OracleEntryToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.oracle;
 // coverage:ignore-end
 }
 
