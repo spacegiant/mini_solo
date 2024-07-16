@@ -3,6 +3,7 @@ import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 import 'package:provider/provider.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/journal_entry.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/view_wrapper.dart';

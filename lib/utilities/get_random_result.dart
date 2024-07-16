@@ -2,6 +2,7 @@ import 'package:mini_solo/utilities/read_json_file.dart';
 
 import '../data/campaign_data.dart';
 import '../data/app_state.dart';
+import '../data/data_structures/journal_entry.dart';
 import 'consult_oracle.dart';
 
 getRandomResult({
