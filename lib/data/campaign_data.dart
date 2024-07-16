@@ -15,6 +15,7 @@ import 'data_structures/mythic_data.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
+import 'data_structures/place.dart';
 import 'data_structures/roll_entry_item.dart';
 import 'data_structures/scratch_page_entry_item.dart';
 import 'data_structures/thing.dart';
@@ -249,29 +250,6 @@ class Person extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.newPerson;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class Place extends CampaignItem {
-  String name;
-  String? detail;
-  Place? parent;
-
-  Place({
-    required super.isFavourite,
-    required this.name,
-    this.detail,
-    this.parent,
-  });
-
-  // coverage:ignore-start
-  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PlaceToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.newPlace;
 // coverage:ignore-end
 }
 

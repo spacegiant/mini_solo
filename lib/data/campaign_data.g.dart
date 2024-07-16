@@ -206,23 +206,3 @@ Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'detail': instance.detail,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
-
-Place _$PlaceFromJson(Map<String, dynamic> json) => Place(
-      isFavourite: json['isFavourite'] as bool?,
-      name: json['name'] as String,
-      detail: json['detail'] as String?,
-      parent: json['parent'] == null
-          ? null
-          : Place.fromJson(json['parent'] as Map<String, dynamic>),
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
-
-Map<String, dynamic> _$PlaceToJson(Place instance) => <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
-      'name': instance.name,
-      'detail': instance.detail,
-      'parent': instance.parent,
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
-    };

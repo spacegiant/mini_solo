@@ -17,6 +17,7 @@ import 'data_structures/journal_entry.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
+import 'data_structures/place.dart';
 import 'data_structures/roll_entry_item.dart';
 import 'data_structures/scratch_page_entry_item.dart';
 import 'data_structures/thing.dart';
