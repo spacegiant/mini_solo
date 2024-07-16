@@ -86,13 +86,13 @@ Widget chooseControlWidget({
       // TODO Move all control widgets to own files in /control_widgets folder
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         onPressed: () {},
       );
     case ControlTypeEnum.newScene:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         onPressed: () {
           int sceneNumber = appState.campaignData!.newScene.length + 1;
           appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
@@ -101,7 +101,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicChart:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         onPressed: () {
           fateChartControlOnPressed(controlData.fateChartRow, appState);
         },
@@ -116,7 +116,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicExpectedScene:
       return ListButton(
           color: buttonColor,
-          label: controlData.label,
+          label: Text(controlData.label),
           onPressed: () {
             JournalEntry test = testScene(appState);
 
@@ -130,7 +130,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicAction:
       return ListButton(
         color: buttonColor,
-        label: 'Mythic Action',
+        label: const Text('Mythic Action'),
         onPressed: () {
           getRandomResult(
             appState: appState,
@@ -154,7 +154,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicDescription:
       return ListButton(
         color: buttonColor,
-        label: 'Mythic Description',
+        label: const Text('Mythic Description'),
         onPressed: () {
           getRandomResult(
             appState: appState,
@@ -177,7 +177,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicEventFocus:
       return ListButton(
         color: buttonColor,
-        label: 'Event Focus',
+        label: const Text('Event Focus'),
         onPressed: () {
           getEventFocus(appState);
         },
@@ -185,7 +185,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicPlotTwist:
       return ListButton(
         color: buttonColor,
-        label: 'Plot Twist',
+        label: const Text('Plot Twist'),
         onPressed: () {
           getRandomResult(
             appState: appState,
@@ -205,7 +205,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.randomTable:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         iconData: FontAwesomeIcons.diceD6,
         onPressed: () {
           if (controlData.randomTable != null) {
@@ -294,7 +294,7 @@ Widget chooseControlWidget({
               child: AddTrackerPopup(appState: appState),
               context: context);
         },
-        label: controlData.label,
+        label: Text(controlData.label),
       );
     case ControlTypeEnum.newRandomTable:
       return ListButton(
@@ -307,7 +307,7 @@ Widget chooseControlWidget({
               child: AddRandomTablePopup(appState: appState),
               context: context);
         },
-        label: controlData.label,
+        label: Text(controlData.label),
       );
     case ControlTypeEnum.newGroup:
       return ListButton(
@@ -328,14 +328,14 @@ Widget chooseControlWidget({
             context: context,
           );
         },
-        label: 'New Group',
+        label: const Text('New Group'),
       );
     case ControlTypeEnum.statBlock:
       return const Text('Stat Block');
     case ControlTypeEnum.newCard:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
@@ -360,7 +360,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.newActionList:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(

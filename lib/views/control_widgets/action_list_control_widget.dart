@@ -26,7 +26,7 @@ class ActionListControlWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListButton(
       color: buttonColor,
-      label: controlData.label,
+      label: Text(controlData.label),
       iconData: CupertinoIcons.rocket_fill,
       onPressed: () {
         ResultEntries resultEntries =

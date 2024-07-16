@@ -88,7 +88,7 @@ class FateChartListButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListButton(
-      label: fateChartRow.label,
+      label: Text(fateChartRow.label),
       color: fateChartRow.color,
       onPressed: () {
         fateChartControlOnPressed(fateChartRow, appState);

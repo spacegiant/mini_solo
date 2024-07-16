@@ -8,16 +8,16 @@ class ListsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
-      ListButton(label: 'Characters', onPressed: () {}),
-      ListButton(label: 'Threads', onPressed: () {}),
-      ListButton(label: 'Starred items', onPressed: () {}),
+      ListButton(label: const Text('Characters'), onPressed: () {}),
+      ListButton(label: const Text('Threads'), onPressed: () {}),
+      ListButton(label: const Text('Starred items'), onPressed: () {}),
       const SizedBox(height: 16.0),
-      ListButton(label: 'People', onPressed: () {}),
-      ListButton(label: 'Places', onPressed: () {}),
-      ListButton(label: 'Things', onPressed: () {}),
-      ListButton(label: 'Factions', onPressed: () {}),
-      ListButton(label: 'Clues', onPressed: () {}),
-      ListButton(label: 'Creatures', onPressed: () {}),
+      ListButton(label: const Text('People'), onPressed: () {}),
+      ListButton(label: const Text('Places'), onPressed: () {}),
+      ListButton(label: const Text('Things'), onPressed: () {}),
+      ListButton(label: const Text('Factions'), onPressed: () {}),
+      ListButton(label: const Text('Clues'), onPressed: () {}),
+      ListButton(label: const Text('Creatures'), onPressed: () {}),
     ]);
   }
 }

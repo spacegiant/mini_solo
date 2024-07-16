@@ -134,7 +134,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
             ),
           ),
           ListButton(
-              label: 'Save',
+              label: const Text('Save'),
               onPressed: () {
                 // TODO
               }),

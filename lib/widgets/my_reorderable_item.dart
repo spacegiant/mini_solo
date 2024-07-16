@@ -16,6 +16,7 @@ class MyReorderableItem extends StatefulWidget {
     this.onToggleActive,
     this.itemIsActive,
     this.icon,
+    this.onDelete,
   });
 
   final IconData? icon;
@@ -27,6 +28,7 @@ class MyReorderableItem extends StatefulWidget {
   final Function(bool)? onToggleActive;
   final int index;
   final bool? itemIsActive;
+  final Function(int id)? onDelete;
 
   @override
   State<MyReorderableItem> createState() => _MyReorderableItemState();
@@ -44,6 +46,7 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
 
   @override
   Widget build(BuildContext context) {
+    var onDelete = widget.onDelete ?? () {};
     return ReorderableDelayedDragStartListener(
       index: widget.index,
       child: GestureDetector(
@@ -63,8 +66,18 @@ class _MyReorderableItemState extends State<MyReorderableItem> {
                 Expanded(child: Text(widget.label)),
                 Row(
                   children: [
+                    CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        child: const Icon(
+                          CupertinoIcons.trash,
+                          color: CupertinoColors.inactiveGray,
+                        ),
+                        onPressed: () {
+                          onDelete(widget.index);
+                        }),
                     if (widget.onToggleActive != null)
                       CupertinoButton(
+                          padding: EdgeInsets.zero,
                           child: isActive == true
                               ? const Icon(CupertinoIcons.eye)
                               : const Icon(

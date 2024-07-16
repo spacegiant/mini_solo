@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/app_state.dart';
 import 'package:mini_solo/data/data_structures/journal_entry_item.dart';
-import 'package:mini_solo/widgets/label_and_input.dart';
 import 'package:mini_solo/widgets/label_and_text_area.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
@@ -71,7 +70,7 @@ class _EditResultPopupState extends State<EditResultPopup> {
               );
               Navigator.pop(context);
             },
-            label: 'Update Entry',
+            label: const Text('Update Entry'),
           ),
           const Gap(),
           ListButton(
@@ -80,7 +79,7 @@ class _EditResultPopupState extends State<EditResultPopup> {
               widget.appState.deleteResultEntry(widget.id);
               Navigator.pop(context);
             },
-            label: 'Delete Entry',
+            label: const Text('Delete Entry'),
           ),
         ],
       ),

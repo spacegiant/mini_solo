@@ -15,7 +15,7 @@ class ListButton extends StatelessWidget {
     this.iconOnly = false,
   });
 
-  final String label;
+  final Widget label;
   final Function() onPressed;
   final AlignmentGeometry? labelAlignment;
   final Color? color;
@@ -57,14 +57,7 @@ class ListButton extends StatelessWidget {
             constraints: const BoxConstraints(
               maxWidth: 320.0,
             ),
-            child: Text(
-              label,
-              overflow: TextOverflow.ellipsis,
-              softWrap: false,
-              style: const TextStyle(
-                color: buttonTextColor,
-              ),
-            ),
+            child: label,
           )
         ],
       );
@@ -73,14 +66,7 @@ class ListButton extends StatelessWidget {
         constraints: const BoxConstraints(
           maxWidth: 340.0,
         ),
-        child: Text(
-          label,
-          overflow: TextOverflow.clip,
-          softWrap: false,
-          style: const TextStyle(
-            color: buttonTextColor,
-          ),
-        ),
+        child: label,
       );
     }
 
@@ -92,12 +78,15 @@ class ListButton extends StatelessWidget {
           color: buttonColor,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 10.0,
-            ),
-            child: child),
+        child: DefaultTextStyle.merge(
+          style: const TextStyle(color: CupertinoColors.white),
+          child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 12.0,
+                horizontal: 10.0,
+              ),
+              child: child),
+        ),
       ),
     );
   }

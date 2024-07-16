@@ -20,38 +20,38 @@ class _NewThingMenuState extends State<NewThingMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       ListButton(
-        label: 'Name',
+        label: const Text('Name'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Object Type',
+        label: const Text('Object Type'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Condition',
+        label: const Text('Condition'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Owner',
+        label: const Text('Owner'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Function',
+        label: const Text('Function'),
         onPressed: () {
           // TODO
         },
       ),
       menuSpacer(),
       ListButton(
-        label: 'Save',
+        label: const Text('Save'),
         onPressed: () {
           // TODO
         },
