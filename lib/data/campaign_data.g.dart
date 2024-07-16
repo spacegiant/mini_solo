@@ -662,25 +662,3 @@ Map<String, dynamic> _$ScratchPageEntryItemToJson(
       'dateCreated': instance.dateCreated.toIso8601String(),
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
-
-RollEntryItem _$RollEntryItemFromJson(Map<String, dynamic> json) =>
-    RollEntryItem(
-      isFavourite: json['isFavourite'] as bool?,
-      result: (json['result'] as List<dynamic>)
-          .map((e) => DiceRoll.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      label: json['label'] as String? ?? 'Dice Roll',
-      icon: $enumDecodeNullable(_$SVGIconEnumMap, json['icon']),
-    )
-      ..id = json['id'] as String
-      ..type = $enumDecode(_$JournalEntryTypesEnumMap, json['type']);
-
-Map<String, dynamic> _$RollEntryItemToJson(RollEntryItem instance) =>
-    <String, dynamic>{
-      'isFavourite': instance.isFavourite,
-      'id': instance.id,
-      'result': instance.result,
-      'label': instance.label,
-      'icon': _$SVGIconEnumMap[instance.icon],
-      'type': _$JournalEntryTypesEnumMap[instance.type]!,
-    };

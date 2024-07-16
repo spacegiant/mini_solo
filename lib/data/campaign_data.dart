@@ -13,6 +13,7 @@ import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
 import 'data_structures/roll_entry_item.dart';
+import 'data_structures/scratch_page_entry_item.dart';
 import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
@@ -435,29 +436,6 @@ class DiceRoll {
 
   Map<String, dynamic> toJson() => _$DiceRollToJson(this);
 
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class ScratchPageEntryItem extends CampaignItem {
-  String title;
-  String text;
-  DateTime dateCreated;
-
-  ScratchPageEntryItem({
-    required super.isFavourite,
-    required this.title,
-    required this.text,
-    required this.dateCreated,
-  });
-// coverage:ignore-start
-  factory ScratchPageEntryItem.fromJson(Map<String, dynamic> json) =>
-      _$ScratchPageEntryItemFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ScratchPageEntryItemToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.scratchPage;
 // coverage:ignore-end
 }
 

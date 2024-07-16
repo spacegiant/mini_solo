@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/features/scratchpad/scratch_picker_item.dart';
 
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/scratch_page_entry_item.dart';
 
 class ScratchPicker extends StatelessWidget {
   final List<ScratchPageEntryItem> scratchItems;

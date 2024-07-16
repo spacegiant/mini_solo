@@ -6,6 +6,7 @@ import 'package:mini_solo/features/scratchpad/scratch_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/app_state.dart';
+import '../../data/data_structures/scratch_page_entry_item.dart';
 import '../../utilities/create_date_label.dart';
 
 class ScratchpadView extends StatefulWidget {
