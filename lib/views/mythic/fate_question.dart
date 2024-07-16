@@ -10,6 +10,7 @@ import '../../data/app_state.dart';
 import '../../data/data_structures/journal_entry.dart';
 import '../../data/data_structures/oracle_entry.dart';
 import '../../features/grouping/group.dart';
+import '../../features/mythic_gme/initial_mythic_gme_controls.dart';
 import '../journal/control_data.dart';
 import 'mythic_chart.dart';
 
