@@ -20,7 +20,6 @@ import '../../features/trackers/counter_tracker_control.dart';
 import '../../features/trackers/fate_aspect_tracker.dart';
 import '../../features/trackers/ironsworn_tracker_control.dart';
 import '../../features/trackers/pips_tracker_control.dart';
-import '../../features/trackers/value_tracker_widget.dart';
 import '../../svg_icon.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
@@ -57,7 +56,6 @@ enum ControlTypeEnum {
   ironsworn4Extreme,
   ironsworn5Epic,
   pips,
-  value,
   counter,
   fate_aspect,
   newTracker,
@@ -259,11 +257,6 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.pips:
       return PipsWidget(
-        entry: getTrackerEntry(appState, controlData.controlId)!,
-        appState: appState,
-      );
-    case ControlTypeEnum.value:
-      return ValueWidget(
         entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );

@@ -764,7 +764,6 @@ const _$ControlTypeEnumEnumMap = {
   ControlTypeEnum.ironsworn4Extreme: 'ironsworn4Extreme',
   ControlTypeEnum.ironsworn5Epic: 'ironsworn5Epic',
   ControlTypeEnum.pips: 'pips',
-  ControlTypeEnum.value: 'value',
   ControlTypeEnum.counter: 'counter',
   ControlTypeEnum.fate_aspect: 'fate_aspect',
   ControlTypeEnum.newTracker: 'newTracker',

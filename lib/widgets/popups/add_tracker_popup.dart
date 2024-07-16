@@ -9,7 +9,6 @@ import 'package:mini_solo/widgets/range_values_form.dart';
 
 import '../../data/campaign_data.dart';
 import '../../features/trackers/tracker_options.dart';
-import '../../svg_icon.dart';
 import '../../utilities/string/manage_value.dart';
 import '../../utilities/string/parse_string.dart';
 import '../gap.dart';

@@ -33,7 +33,6 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   late bool showMinValue;
   late bool showCurrentValue;
   late bool showMaxValue;
-  // late String currentEntryId = widget.appState.currentEntryId;
   late TrackerEntry? currentEntry = widget.appState.campaignData?.tracker
       .firstWhere((tracker) => tracker.id == widget.id);
   late TrackerOptions trackerOptions = trackers
