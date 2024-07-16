@@ -8,6 +8,7 @@ import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
+import 'data_structures/creature.dart';
 import 'data_structures/mythic_data.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
@@ -336,28 +337,6 @@ class Clue extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.newClue;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class Creature extends CampaignItem {
-  String title;
-  String? detail;
-
-  Creature({
-    required super.isFavourite,
-    required this.title,
-    this.detail,
-  });
-
-  // coverage:ignore-start
-  factory Creature.fromJson(Map<String, dynamic> json) =>
-      _$CreatureFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CreatureToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.newCreature;
 // coverage:ignore-end
 }
 
