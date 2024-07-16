@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/both_results.dart';
 import '../../svg_icon.dart';
 
 class DiceFace {

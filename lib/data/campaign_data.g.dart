@@ -320,14 +320,3 @@ Map<String, dynamic> _$CreatureToJson(Creature instance) => <String, dynamic>{
       'detail': instance.detail,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
     };
-
-BothResults _$BothResultsFromJson(Map<String, dynamic> json) => BothResults(
-      rolledValue: (json['rolledValue'] as num).toInt(),
-      label: json['label'] as String?,
-    );
-
-Map<String, dynamic> _$BothResultsToJson(BothResults instance) =>
-    <String, dynamic>{
-      'rolledValue': instance.rolledValue,
-      'label': instance.label,
-    };

@@ -4,7 +4,6 @@ import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/utilities/string/convert_to_filename.dart';
 import '../features/grouping/group.dart';
 import '../features/kard/kard.dart';
-import '../svg_icon.dart';
 import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
 import 'app_settings_data.dart';
@@ -396,25 +395,6 @@ class Creature extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.newCreature;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class BothResults {
-  final int rolledValue;
-  final String? label;
-
-  BothResults({
-    required this.rolledValue,
-    this.label,
-  });
-
-  // coverage:ignore-start
-  factory BothResults.fromJson(Map<String, dynamic> json) =>
-      _$BothResultsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BothResultsToJson(this);
-
 // coverage:ignore-end
 }
 
