@@ -20,39 +20,39 @@ class _New5RoomMenuState extends State<New5RoomMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       ListButton(
-          label: 'Random',
+          label: const Text('Random'),
           onPressed: () {
             // TODO
           }),
       menuSpacer(),
       ListButton(
-          label: 'Room1',
+          label: const Text('Room1'),
           onPressed: () {
             // TODO
           }),
       ListButton(
-          label: 'Room2',
+          label: const Text('Room2'),
           onPressed: () {
             // TODO
           }),
       ListButton(
-          label: 'Room3',
+          label: const Text('Room3'),
           onPressed: () {
             // TODO
           }),
       ListButton(
-          label: 'Room4',
+          label: const Text('Room4'),
           onPressed: () {
             // TODO
           }),
       ListButton(
-          label: 'Room5',
+          label: const Text('Room5'),
           onPressed: () {
             // TODO
           }),
       menuSpacer(),
       ListButton(
-          label: 'Save',
+          label: const Text('Save'),
           onPressed: () {
             // TODO
           }),

@@ -1,5 +1,5 @@
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/dice_roll.dart';
 import 'dice.dart';
 import 'dice_button.dart';
 

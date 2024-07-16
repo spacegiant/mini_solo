@@ -280,7 +280,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
 
                 // Navigator.pop(context);
               },
-              label: 'Update Table',
+              label: const Text('Update Table'),
             ),
             ListButton(
               color: kWarningColor,
@@ -288,7 +288,7 @@ class _EditRandomTableState extends State<EditRandomTable> {
                 widget.appState.deleteRandomTable(widget.id);
                 Navigator.pop(context);
               },
-              label: 'Delete Table',
+              label: const Text('Delete Table'),
             ),
             // CupertinoButton(
             // TODO Implement Export to JSON

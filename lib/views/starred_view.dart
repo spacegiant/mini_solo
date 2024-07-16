@@ -21,13 +21,13 @@ class StarredView extends StatelessWidget {
         ),
       ),
       const Text('People'),
-      ListButton(label: 'Tinky Chenko', onPressed: () => {}),
+      ListButton(label: const Text('Tinky Chenko'), onPressed: () => {}),
       const Text('Places'),
-      ListButton(label: 'Starraria', onPressed: () => {}),
+      ListButton(label: const Text('Starraria'), onPressed: () => {}),
       const Text('Things'),
-      ListButton(label: 'Sword of Omens', onPressed: () => {}),
+      ListButton(label: const Text('Sword of Omens'), onPressed: () => {}),
       const Text('Factions'),
-      ListButton(label: 'Bottle Washers Guild', onPressed: () => {}),
+      ListButton(label: const Text('Bottle Washers Guild'), onPressed: () => {}),
     ]);
   }
 }

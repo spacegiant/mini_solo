@@ -19,31 +19,31 @@ class _NewPlaceMenuState extends State<NewPlaceMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       ListButton(
-        label: 'Place Name',
+        label: const Text('Place Name'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Add Feature',
+        label: const Text('Add Feature'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Problem',
+        label: const Text('Problem'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Famed for...',
+        label: const Text('Famed for...'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Details',
+        label: const Text('Details'),
         onPressed: () {
           // TODO
         },

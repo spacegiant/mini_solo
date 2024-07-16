@@ -3,6 +3,7 @@ import 'package:mini_solo/views/dice/ac_dice_sets.dart';
 import 'package:mini_solo/views/dice/t2k_dice_sets.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/dice_roll.dart';
 import '../../svg_icon.dart';
 import '../../widgets/wrap_manager.dart';
 import '../dice/dice.dart';

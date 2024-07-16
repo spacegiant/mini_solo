@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
+import '../../data/data_structures/new_scene_entry.dart';
 import '../gap.dart';
 
 class EditNewSceneEntryPopup extends StatefulWidget {

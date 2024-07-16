@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/features/trackers/tracker_container.dart';
+import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../svg_icon.dart';
 
 class ClockWidget extends StatelessWidget {
@@ -49,16 +50,13 @@ class ClockWidget extends StatelessWidget {
 
     var iconList = fourSegment;
 
-    if (entry.controlType == ControlTypes.clock6) {
+    if (entry.controlType == ControlTypeEnum.clock6) {
       iconList = sixSegment;
-    } else if (entry.controlType == ControlTypes.clock8) {
+    } else if (entry.controlType == ControlTypeEnum.clock8) {
       iconList = eightSegment;
     }
 
-    void handleTap() {
-      int newValue = entry.currentValue + 1;
-      if (newValue > entry.maxValue!) return;
-
+    void handleNewValue(int newValue) {
       appState.updateTrackerEntry(
         id: entry.id,
         label: entry.label,
@@ -66,10 +64,26 @@ class ClockWidget extends StatelessWidget {
       );
     }
 
+    void handleIncrement() {
+      int newValue = entry.currentValue + 1;
+      if (newValue > entry.maxValue!) return;
+
+      handleNewValue(newValue);
+    }
+
+    void handleDecrement() {
+      int newValue = entry.currentValue - 1;
+      if (newValue > entry.maxValue!) return;
+
+      handleNewValue(newValue);
+    }
+
     return TrackerContainer(
-      onTap: handleTap,
+      onTapLeft: handleDecrement,
+      onTapRight: handleIncrement,
       appState: appState,
       id: entry.id,
+      widgetShowsTitle: false,
       child: Container(
         constraints: const BoxConstraints(
           maxWidth: 180.0,

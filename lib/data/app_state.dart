@@ -8,8 +8,21 @@ import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
 
 import '../features/kard/kard.dart';
-import '../features/trackers/tracker_options.dart';
 import '../utilities/string/convert_to_filename.dart';
+import 'data_structures/clue.dart';
+import 'data_structures/creature.dart';
+import 'data_structures/faction.dart';
+import 'data_structures/journal_entry.dart';
+import 'data_structures/journal_entry_item.dart';
+import 'data_structures/mythic_entry.dart';
+import 'data_structures/new_scene_entry.dart';
+import 'data_structures/oracle_entry.dart';
+import 'data_structures/person.dart';
+import 'data_structures/place.dart';
+import 'data_structures/roll_entry_item.dart';
+import 'data_structures/scratch_page_entry_item.dart';
+import 'data_structures/thing.dart';
+import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
 
@@ -454,6 +467,17 @@ class AppState extends ChangeNotifier {
   void addJournalEntry(JournalEntryItem item) {
     _campaignData?.journal.add(item);
     // THIS SAVES FOR ALL ENTRY TYPES
+    saveCampaignDataToDisk();
+  }
+
+  void updateJournalEntry(String journalItemId, String note) {
+    JournalEntryItem? journalEntry = _campaignData?.journal
+        .firstWhereOrNull((entry) => entry.id == journalItemId);
+
+    if (journalEntry != null) {
+      journalEntry.note = note;
+    }
+
     saveCampaignDataToDisk();
   }
 

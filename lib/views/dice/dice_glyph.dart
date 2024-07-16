@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/svg_icon.dart';
 
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/dice_roll.dart';
 
 class DiceGlyph extends StatelessWidget {
   const DiceGlyph({

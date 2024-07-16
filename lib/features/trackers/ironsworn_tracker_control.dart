@@ -4,7 +4,7 @@ import 'package:mini_solo/features/trackers/tracker_options.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../svg_icon.dart';
 
 class IronswornWidget extends StatelessWidget {
@@ -101,9 +101,10 @@ class IronswornWidget extends StatelessWidget {
     }
 
     return TrackerContainer(
+      widgetShowsTitle: true,
       maxWidth: 320.0,
       appState: appState,
-      onTap: () {
+      onTapLeft: () {
         handleTap(modifier: -1);
       },
       onTapRight: () {

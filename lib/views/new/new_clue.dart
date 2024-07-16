@@ -20,38 +20,38 @@ class _NewClueMenuState extends State<NewClueMenu> {
   Widget build(BuildContext context) {
     return ViewWrapper(children: [
       ListButton(
-        label: 'Who',
+        label: const Text('Who'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'What',
+        label: const Text('What'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'When',
+        label: const Text('When'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'Where',
+        label: const Text('Where'),
         onPressed: () {
           // TODO
         },
       ),
       ListButton(
-        label: 'How',
+        label: const Text('How'),
         onPressed: () {
           // TODO
         },
       ),
       menuSpacer(),
       ListButton(
-        label: 'Save',
+        label: const Text('Save'),
         onPressed: () {
           // TODO
         },

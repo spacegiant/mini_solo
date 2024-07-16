@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_solo/features/trackers/tracker_container.dart';
 
 import '../../data/app_state.dart';
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../widgets/gap.dart';
 
 class BarWidget extends StatelessWidget {
@@ -37,20 +37,21 @@ class BarWidget extends StatelessWidget {
 
     return TrackerContainer(
         appState: appState,
-        onTap: () {
+        onTapLeft: () {
           handleTap(modifier: -1);
         },
         onTapRight: () {
           handleTap();
         },
         id: entry.id,
+        widgetShowsTitle: true,
         child: SizedBox(
           width: 180.0,
           child: Column(
             children: [
               Text(entry.label),
               const Gap(
-                height: 8.0,
+                height: 16.0,
               ),
               SizedBox(
                 height: 10.0,

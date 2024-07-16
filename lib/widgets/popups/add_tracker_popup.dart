@@ -7,9 +7,8 @@ import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import 'package:mini_solo/widgets/range_values_form.dart';
 
-import '../../data/campaign_data.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../features/trackers/tracker_options.dart';
-import '../../svg_icon.dart';
 import '../../utilities/string/manage_value.dart';
 import '../../utilities/string/parse_string.dart';
 import '../gap.dart';

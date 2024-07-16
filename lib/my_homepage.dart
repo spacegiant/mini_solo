@@ -243,7 +243,9 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
   CupertinoNavigationBar homePageNavigationBar(
       AppState appState, toggleSettings) {
     return CupertinoNavigationBar(
-      leading: homePageChaosFactorButton(appState),
+      leading: appState.getGroup('group-mythic-fate-chart').isActive
+          ? homePageChaosFactorButton(appState)
+          : const SizedBox.shrink(),
       middle: GestureDetector(
           onTap: () {
             toggleShowPopup2(

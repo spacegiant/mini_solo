@@ -1,5 +1,6 @@
 import '../data/app_state.dart';
-import '../data/campaign_data.dart';
+import '../data/data_structures/journal_entry.dart';
+import '../data/data_structures/journal_entry_item.dart';
 import '../data/journal_entry_types.dart';
 
 updateJournal(AppState appState, JournalEntry result, String label) {

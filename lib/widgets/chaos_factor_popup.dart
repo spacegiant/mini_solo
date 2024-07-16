@@ -37,7 +37,7 @@ class _ChaosFactorPopupState extends State<ChaosFactorPopup> {
           ),
         ),
         ListButton(
-          label: kChaosFactorUp,
+          label: const Text(kChaosFactorUp),
           labelAlignment: Alignment.center,
           onPressed: () {
             appState.increaseChaosFactor();
@@ -45,7 +45,7 @@ class _ChaosFactorPopupState extends State<ChaosFactorPopup> {
         ),
         const Gap(height: 8.0),
         ListButton(
-          label: kChaosFactorDown,
+          label: const Text(kChaosFactorDown),
           labelAlignment: Alignment.center,
           onPressed: () {
             appState.decreaseChaosFactor();
@@ -53,7 +53,7 @@ class _ChaosFactorPopupState extends State<ChaosFactorPopup> {
         ),
         const Gap(height: 8.0),
         ListButton(
-          label: kChaosFactorReset,
+          label: const Text(kChaosFactorReset),
           labelAlignment: Alignment.center,
           onPressed: () {
             appState.resetChaosFactor();

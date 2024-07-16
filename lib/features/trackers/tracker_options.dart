@@ -134,13 +134,6 @@ List<TrackerOptions> trackers = [
     editMax: true,
   ),
   TrackerOptions(
-    label: 'Simple Value',
-    type: ControlTypeEnum.value,
-    images: [SVGIcon.value_tracker],
-    currentValue: 9,
-    editCurrent: true,
-  ),
-  TrackerOptions(
     label: 'Counter',
     type: ControlTypeEnum.counter,
     images: [SVGIcon.counter_tracker],
@@ -150,7 +143,7 @@ List<TrackerOptions> trackers = [
   TrackerOptions(
     label: 'Fate Aspect',
     type: ControlTypeEnum.fate_aspect,
-    images: [SVGIcon.counter_tracker],
+    images: [SVGIcon.fateDice],
     minValue: 0,
     currentValue: 0,
     maxValue: null,

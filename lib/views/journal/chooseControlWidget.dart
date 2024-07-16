@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_solo/constants.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/features/kard/kard.dart';
 import 'package:mini_solo/views/control_widgets/action_list_control_widget.dart';
 import 'package:mini_solo/widgets/popups/add_kard_popup.dart';
@@ -11,6 +10,11 @@ import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
+import '../../data/data_structures/journal_entry.dart';
+import '../../data/data_structures/mythic_entry.dart';
+import '../../data/data_structures/new_scene_entry.dart';
+import '../../data/data_structures/oracle_entry.dart';
+import '../../data/data_structures/tracker_entry.dart';
 import '../../features/action_lists/add_action_list_popup.dart';
 import '../../features/kard/kard_widget.dart';
 import '../../features/random_tables/roll_table.dart';
@@ -20,10 +24,10 @@ import '../../features/trackers/counter_tracker_control.dart';
 import '../../features/trackers/fate_aspect_tracker.dart';
 import '../../features/trackers/ironsworn_tracker_control.dart';
 import '../../features/trackers/pips_tracker_control.dart';
-import '../../features/trackers/value_tracker_widget.dart';
 import '../../svg_icon.dart';
 import '../../utilities/get_random_result.dart';
 import '../../utilities/test_scene.dart';
+import '../../widgets/chaos_factor_popup.dart';
 import '../../widgets/list_button.dart';
 import '../../widgets/popups/add_group_popup.dart';
 import '../../features/random_tables/add_random_table_popup.dart';
@@ -57,7 +61,6 @@ enum ControlTypeEnum {
   ironsworn4Extreme,
   ironsworn5Epic,
   pips,
-  value,
   counter,
   fate_aspect,
   newTracker,
@@ -83,13 +86,13 @@ Widget chooseControlWidget({
       // TODO Move all control widgets to own files in /control_widgets folder
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         onPressed: () {},
       );
     case ControlTypeEnum.newScene:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         onPressed: () {
           int sceneNumber = appState.campaignData!.newScene.length + 1;
           appState.addNewScene(NewSceneEntry(label: 'Scene #$sceneNumber'));
@@ -97,15 +100,23 @@ Widget chooseControlWidget({
       );
     case ControlTypeEnum.mythicChart:
       return ListButton(
-          color: buttonColor,
-          label: controlData.label,
-          onPressed: () {
-            fateChartControlOnPressed(controlData.fateChartRow, appState);
-          });
+        color: buttonColor,
+        label: Text(controlData.label),
+        onPressed: () {
+          fateChartControlOnPressed(controlData.fateChartRow, appState);
+        },
+        onLongPress: () {
+          toggleShowPopup2(
+              maxHeight: 300.0,
+              maxWidth: 200.0,
+              child: const ChaosFactorPopup(),
+              context: context);
+        },
+      );
     case ControlTypeEnum.mythicExpectedScene:
       return ListButton(
           color: buttonColor,
-          label: controlData.label,
+          label: Text(controlData.label),
           onPressed: () {
             JournalEntry test = testScene(appState);
 
@@ -119,7 +130,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicAction:
       return ListButton(
         color: buttonColor,
-        label: 'Mythic Action',
+        label: const Text('Mythic Action'),
         onPressed: () {
           getRandomResult(
             appState: appState,
@@ -143,7 +154,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicDescription:
       return ListButton(
         color: buttonColor,
-        label: 'Mythic Description',
+        label: const Text('Mythic Description'),
         onPressed: () {
           getRandomResult(
             appState: appState,
@@ -166,7 +177,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicEventFocus:
       return ListButton(
         color: buttonColor,
-        label: 'Event Focus',
+        label: const Text('Event Focus'),
         onPressed: () {
           getEventFocus(appState);
         },
@@ -174,7 +185,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.mythicPlotTwist:
       return ListButton(
         color: buttonColor,
-        label: 'Plot Twist',
+        label: const Text('Plot Twist'),
         onPressed: () {
           getRandomResult(
             appState: appState,
@@ -194,7 +205,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.randomTable:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         iconData: FontAwesomeIcons.diceD6,
         onPressed: () {
           if (controlData.randomTable != null) {
@@ -262,11 +273,6 @@ Widget chooseControlWidget({
         entry: getTrackerEntry(appState, controlData.controlId)!,
         appState: appState,
       );
-    case ControlTypeEnum.value:
-      return ValueWidget(
-        entry: getTrackerEntry(appState, controlData.controlId)!,
-        appState: appState,
-      );
     case ControlTypeEnum.counter:
       return CounterWidget(
         entry: getTrackerEntry(appState, controlData.controlId)!,
@@ -288,7 +294,7 @@ Widget chooseControlWidget({
               child: AddTrackerPopup(appState: appState),
               context: context);
         },
-        label: controlData.label,
+        label: Text(controlData.label),
       );
     case ControlTypeEnum.newRandomTable:
       return ListButton(
@@ -301,7 +307,7 @@ Widget chooseControlWidget({
               child: AddRandomTablePopup(appState: appState),
               context: context);
         },
-        label: controlData.label,
+        label: Text(controlData.label),
       );
     case ControlTypeEnum.newGroup:
       return ListButton(
@@ -322,14 +328,14 @@ Widget chooseControlWidget({
             context: context,
           );
         },
-        label: 'New Group',
+        label: const Text('New Group'),
       );
     case ControlTypeEnum.statBlock:
       return const Text('Stat Block');
     case ControlTypeEnum.newCard:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(
@@ -354,7 +360,7 @@ Widget chooseControlWidget({
     case ControlTypeEnum.newActionList:
       return ListButton(
         color: buttonColor,
-        label: controlData.label,
+        label: Text(controlData.label),
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
           toggleShowPopup2(

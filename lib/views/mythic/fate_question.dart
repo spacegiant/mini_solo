@@ -1,13 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/views/journal/chooseControlWidget.dart';
 import 'package:mini_solo/widgets/list_button.dart';
 
 import '../../constants.dart';
 import '../../data/app_state.dart';
+import '../../data/data_structures/journal_entry.dart';
+import '../../data/data_structures/oracle_entry.dart';
 import '../../features/grouping/group.dart';
+import '../../features/mythic_gme/initial_mythic_gme_controls.dart';
 import '../journal/control_data.dart';
 import 'mythic_chart.dart';
 
@@ -86,7 +88,7 @@ class FateChartListButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListButton(
-      label: fateChartRow.label,
+      label: Text(fateChartRow.label),
       color: fateChartRow.color,
       onPressed: () {
         fateChartControlOnPressed(fateChartRow, appState);
