@@ -38,6 +38,7 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
   late TrackerOptions trackerOptions = trackers
       .firstWhere((tracker) => tracker.type == currentEntry?.controlType);
   String selectedGroup = 'unsorted';
+  String initialGroup = 'unsorted';
 
   @override
   void initState() {
@@ -53,6 +54,9 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
     showMinValue = trackerOptions.editMin!;
     showCurrentValue = trackerOptions.editCurrent!;
     showMaxValue = trackerOptions.editMax!;
+
+    initialGroup = widget.appState.findCurrentGroupId(widget.id) ?? 'unsorted';
+    selectedGroup = initialGroup;
   }
 
   @override
@@ -66,8 +70,6 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
 
   @override
   Widget build(BuildContext context) {
-    String? initialGroup = widget.appState.findCurrentGroupId(widget.id);
-
     Widget body() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,8 +128,10 @@ class _EditTrackerPopupState extends State<EditTrackerPopup> {
               int? currentValue;
               int? maxValue;
 
-              widget.appState
-                  .moveToGroup(controlId: widget.id, groupId: selectedGroup);
+              if (initialGroup != selectedGroup) {
+                widget.appState
+                    .moveToGroup(controlId: widget.id, groupId: selectedGroup);
+              }
 
               try {
                 minValue = int.parse(_minValueController.text);
