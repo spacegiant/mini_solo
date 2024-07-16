@@ -9,11 +9,13 @@ class JournalEntryItem {
   bool isFavourite;
   JournalEntryTypes type;
   String id;
+  String? note;
 
   JournalEntryItem({
     required this.isFavourite,
     required this.type,
     required this.id,
+    this.note,
   });
 
   // coverage:ignore-start

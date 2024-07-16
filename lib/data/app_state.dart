@@ -470,6 +470,17 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  void updateJournalEntry(String journalItemId, String note) {
+    JournalEntryItem? journalEntry = _campaignData?.journal
+        .firstWhereOrNull((entry) => entry.id == journalItemId);
+
+    if (journalEntry != null) {
+      journalEntry.note = note;
+    }
+
+    saveCampaignDataToDisk();
+  }
+
   // NEW SCENE ENTRIES
   void addNewScene(NewSceneEntry entry) {
     _campaignData!.newScene.add(entry);

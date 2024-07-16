@@ -4,6 +4,7 @@ import 'package:mini_solo/data/result_entries.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../features/action_lists/edit_result_popup.dart';
+import '../../gap.dart';
 import '../../popups/toggle_show_popup.dart';
 
 class ResultEntryWidget extends StatelessWidget {
@@ -21,10 +22,28 @@ class ResultEntryWidget extends StatelessWidget {
     ResultEntries entry = appState.campaignData!.resultEntries
         .firstWhere((entry) => entry.id == journalEntry.id);
 
+    List<Widget> note = journalEntry.note != null && journalEntry.note != ''
+        ? [
+            const Gap(
+              height: 8.0,
+            ),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              color: CupertinoColors.systemYellow,
+              child: Text(
+                journalEntry.note!,
+                style: const TextStyle(fontSize: 12.0),
+              ),
+            )
+          ]
+        : [];
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         toggleShowPopup2(
+          maxHeight: 600.0,
+          maxWidth: 400.0,
           child: EditResultPopup(appState: appState, id: journalEntry.id),
           context: context,
         );
@@ -49,6 +68,7 @@ class ResultEntryWidget extends StatelessWidget {
                 return Text(item.title);
               }
             }),
+            ...note,
           ],
         ),
       ),

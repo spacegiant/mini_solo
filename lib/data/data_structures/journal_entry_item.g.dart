@@ -11,6 +11,7 @@ JournalEntryItem _$JournalEntryItemFromJson(Map<String, dynamic> json) =>
       isFavourite: json['isFavourite'] as bool,
       type: $enumDecode(_$JournalEntryTypesEnumMap, json['type']),
       id: json['id'] as String,
+      note: json['note'] as String?,
     );
 
 Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
@@ -18,6 +19,7 @@ Map<String, dynamic> _$JournalEntryItemToJson(JournalEntryItem instance) =>
       'isFavourite': instance.isFavourite,
       'type': _$JournalEntryTypesEnumMap[instance.type]!,
       'id': instance.id,
+      'note': instance.note,
     };
 
 const _$JournalEntryTypesEnumMap = {
