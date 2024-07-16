@@ -25,16 +25,23 @@ class ResultEntryWidget extends StatelessWidget {
     List<Widget> note = journalEntry.note != null && journalEntry.note != ''
         ? [
             const Gap(
-              height: 8.0,
+              height: 16.0,
             ),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              color: CupertinoColors.systemYellow,
-              child: Text(
-                journalEntry.note!,
-                style: const TextStyle(fontSize: 12.0),
+            Stack(clipBehavior: Clip.none, children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                color: CupertinoColors.white,
+                child: Text(journalEntry.note!),
               ),
-            )
+              const Positioned(
+                top: -16,
+                left: 4.0,
+                child: Icon(
+                  CupertinoIcons.arrowtriangle_up_fill,
+                  color: CupertinoColors.white,
+                ),
+              ),
+            ])
           ]
         : [];
 
