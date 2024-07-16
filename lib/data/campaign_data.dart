@@ -8,6 +8,7 @@ import '../views/journal/chooseControlWidget.dart';
 import '../views/journal/control_data.dart';
 import 'app_settings_data.dart';
 import 'campaign_item.dart';
+import 'data_structures/mythic_data.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
@@ -225,22 +226,6 @@ CampaignData baseCampaignData(String campaignName) {
     groups: initialiseGroups,
     resultEntries: [],
   );
-}
-
-@JsonSerializable()
-class MythicData {
-  int chaosFactor;
-
-  MythicData({
-    required this.chaosFactor,
-  });
-
-  // coverage:ignore-start
-  factory MythicData.fromJson(Map<String, dynamic> json) =>
-      _$MythicDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MythicDataToJson(this);
-// coverage:ignore-end
 }
 
 @JsonSerializable(explicitToJson: true)

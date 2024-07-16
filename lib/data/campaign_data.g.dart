@@ -190,15 +190,6 @@ Map<String, dynamic> _$CampaignDataToJson(CampaignData instance) =>
       'resultEntries': instance.resultEntries.map((e) => e.toJson()).toList(),
     };
 
-MythicData _$MythicDataFromJson(Map<String, dynamic> json) => MythicData(
-      chaosFactor: (json['chaosFactor'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$MythicDataToJson(MythicData instance) =>
-    <String, dynamic>{
-      'chaosFactor': instance.chaosFactor,
-    };
-
 JournalEntryItem _$JournalEntryItemFromJson(Map<String, dynamic> json) =>
     JournalEntryItem(
       isFavourite: json['isFavourite'] as bool,
