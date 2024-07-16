@@ -12,6 +12,7 @@ import 'campaign_item.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
+import 'data_structures/roll_entry_item.dart';
 import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
@@ -457,29 +458,6 @@ class ScratchPageEntryItem extends CampaignItem {
 
   @override
   JournalEntryTypes type = JournalEntryTypes.scratchPage;
-// coverage:ignore-end
-}
-
-@JsonSerializable()
-class RollEntryItem extends CampaignItem {
-  List<DiceRoll> result;
-  String label;
-  SVGIcon? icon;
-
-  RollEntryItem({
-    required super.isFavourite,
-    required this.result,
-    this.label = 'Dice Roll',
-    this.icon,
-  });
-// coverage:ignore-start
-  factory RollEntryItem.fromJson(Map<String, dynamic> json) =>
-      _$RollEntryItemFromJson(json);
-
-  Map<String, dynamic> toJson() => _$RollEntryItemToJson(this);
-
-  @override
-  JournalEntryTypes type = JournalEntryTypes.roll;
 // coverage:ignore-end
 }
 

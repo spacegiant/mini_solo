@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../data/app_state.dart';
 import '../../data/campaign_data.dart';
+import '../../data/data_structures/roll_entry_item.dart';
 import 'journal.dart';
 import 'journal_controls.dart';
 

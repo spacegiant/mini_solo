@@ -13,6 +13,7 @@ import '../utilities/string/convert_to_filename.dart';
 import 'data_structures/mythic_entry.dart';
 import 'data_structures/new_scene_entry.dart';
 import 'data_structures/oracle_entry.dart';
+import 'data_structures/roll_entry_item.dart';
 import 'data_structures/tracker_entry.dart';
 import 'journal_entry_types.dart';
 import 'note_entry_item.dart';
