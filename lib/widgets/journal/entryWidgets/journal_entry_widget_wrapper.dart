@@ -30,10 +30,15 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
               height: 16.0,
             ),
             Stack(clipBehavior: Clip.none, children: [
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                color: CupertinoColors.white,
-                child: Text(note ?? ''),
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minWidth: 100.0,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  color: CupertinoColors.white,
+                  child: Text(note ?? ''),
+                ),
               ),
               const Positioned(
                 top: -16,
