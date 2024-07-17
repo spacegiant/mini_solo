@@ -120,6 +120,7 @@ RollTableResult _$RollTableResultFromJson(Map<String, dynamic> json) =>
       randomRoll: (json['randomRoll'] as num?)?.toInt(),
       resultString: json['resultString'] as String,
       totalEntries: (json['totalEntries'] as num?)?.toInt(),
+      detail: json['detail'] as String?,
     );
 
 Map<String, dynamic> _$RollTableResultToJson(RollTableResult instance) =>
@@ -129,6 +130,7 @@ Map<String, dynamic> _$RollTableResultToJson(RollTableResult instance) =>
       'resultString': instance.resultString,
       'totalEntries': instance.totalEntries,
       'weight': instance.weight,
+      'detail': instance.detail,
     };
 
 ActionListEntry _$ActionListEntryFromJson(Map<String, dynamic> json) =>

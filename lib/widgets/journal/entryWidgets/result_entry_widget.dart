@@ -72,7 +72,18 @@ class ResultEntryWidget extends StatelessWidget {
                   style: const TextStyle(fontStyle: FontStyle.italic),
                 );
               } else {
-                return Text(item.title);
+                return Row(
+                  children: [
+                    Text(item.title),
+                    if (item.detail != null)
+                      Text(
+                        item.detail!,
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            color: CupertinoColors.darkBackgroundGray),
+                      ),
+                  ],
+                );
               }
             }),
             ...note,
