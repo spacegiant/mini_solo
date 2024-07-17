@@ -9,6 +9,7 @@ part of 'app_settings_data.dart';
 AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
     AppSettingsData(
       currentCampaign: json['currentCampaign'] as String,
+      dataPath: json['dataPath'] as String,
       randomTables: (json['randomTables'] as List<dynamic>)
           .map((e) => RandomTable.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -23,6 +24,7 @@ AppSettingsData _$AppSettingsDataFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AppSettingsDataToJson(AppSettingsData instance) =>
     <String, dynamic>{
       'currentCampaign': instance.currentCampaign,
+      'dataPath': instance.dataPath,
       'randomTables': instance.randomTables.map((e) => e.toJson()).toList(),
       'expandedList': instance.expandedList,
       'actionLists': instance.actionLists.map((e) => e.toJson()).toList(),

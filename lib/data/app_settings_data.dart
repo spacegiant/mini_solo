@@ -9,6 +9,7 @@ part 'app_settings_data.g.dart';
 AppSettingsData initAppSettingsData() {
   return AppSettingsData(
     currentCampaign: '',
+    dataPath: '',
     randomTables: [],
     expandedList: [],
     actionLists: [],
@@ -18,12 +19,14 @@ AppSettingsData initAppSettingsData() {
 @JsonSerializable(explicitToJson: true)
 class AppSettingsData {
   late String currentCampaign;
+  late String dataPath;
   late List<RandomTable> randomTables;
   late List<String> expandedList;
   late List<ActionListEntry> actionLists;
 
   AppSettingsData({
     required this.currentCampaign,
+    required this.dataPath,
     required this.randomTables,
     required this.expandedList,
     required this.actionLists,

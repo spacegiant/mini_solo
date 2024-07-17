@@ -277,7 +277,7 @@ class _CampaignSettingsState extends State<CampaignSettings> {
               child: const Text('Import Manager'),
               onPressed: () {
                 toggleShowPopup2(
-                    maxHeight: 560.0,
+                    maxHeight: 800.0,
                     maxWidth: 400.0,
                     child: ImportManager(appState: widget.appState),
                     context: context);
@@ -296,8 +296,10 @@ class _CampaignSettingsState extends State<CampaignSettings> {
               onPressed: () async {
                 AppSettingsData? appSettingsData =
                     widget.appState.appSettingsData;
+
                 String jsonString =
                     widget.appState.storage.appSettingsToJSON(appSettingsData);
+
                 await Clipboard.setData(ClipboardData(text: jsonString));
                 // copied successfully
               }),

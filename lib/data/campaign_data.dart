@@ -123,7 +123,7 @@ class CampaignData {
   late List<NewSceneEntry> newScene;
   late List<Group> groups;
   late List<Kard> kards;
-  late List<ResultEntries> resultEntries;
+  late List<ResultEntriesCollection> resultEntries;
 
   CampaignData({
     required this.settings,
