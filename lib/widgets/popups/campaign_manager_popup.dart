@@ -80,6 +80,7 @@ class _CampaignManagerState extends State<CampaignManager> {
                               widget.initCampaignData(text);
                               newCampaignController.text = '';
                             }
+                            Navigator.pop(context);
                           })
                     ],
                   ),
