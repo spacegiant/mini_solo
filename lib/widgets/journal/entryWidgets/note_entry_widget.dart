@@ -30,7 +30,7 @@ class NoteEntryWidget extends StatelessWidget {
       onLongPress: () {
         toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 400.0,
+            maxHeight: 500.0,
             child: EditNotePopup(
               appState: appState,
               id: journalEntry.id,
