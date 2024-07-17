@@ -29,6 +29,8 @@ class MythicEntryWidget extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         toggleShowPopup2(
+            maxHeight: 400.0,
+            maxWidth: 300.0,
             child: EditMythicEntryPopup(
               appState: appState,
               id: journalEntry.id,
