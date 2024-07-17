@@ -30,7 +30,6 @@ class _EditResultPopupState extends State<EditResultPopup> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     JournalEntryItem? journalEntryItem = widget.appState.campaignData?.journal
@@ -41,7 +40,6 @@ class _EditResultPopupState extends State<EditResultPopup> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _controller.dispose();
   }
