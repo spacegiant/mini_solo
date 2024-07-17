@@ -93,7 +93,7 @@ class _CampaignManagerState extends State<CampaignManager> {
   Row campaignManagerRow(item) {
     return Row(
       children: [
-        Text(getLabel(item.path)),
+        Expanded(child: Text(getLabel(item.path))),
         CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
