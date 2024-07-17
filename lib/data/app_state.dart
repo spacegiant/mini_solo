@@ -747,8 +747,6 @@ class AppState extends ChangeNotifier {
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
     var randomTable = _appSettingsData.randomTables[index];
 
-    print('>> $title');
-
     if (title != null) randomTable.title = title;
     if (rows != null) randomTable.rows = rows;
     if (isFavourite != null) randomTable.isFavourite = isFavourite;

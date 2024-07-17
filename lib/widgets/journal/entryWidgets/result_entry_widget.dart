@@ -66,7 +66,6 @@ class ResultEntryWidget extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             ...entry.list.map((item) {
-              print(item.type);
               if (item.type == ResultEntryTypes.label) {
                 return Text(
                   item.title,
