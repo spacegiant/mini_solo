@@ -46,41 +46,11 @@ class _NoteEntryInputState extends State<NoteEntryInput> {
             },
             placeholder: 'Type here',
             textCapitalization: TextCapitalization.sentences,
-            autofocus: true,
             expands: true,
             minLines: null,
             maxLines: null,
           ),
         ),
-        // KeyboardListener(
-        //   focusNode: FocusNode(),
-        //   onKeyEvent: (keyEvent) {
-        //     setState(
-        //       () {
-        //         isUsingPhysicalKeyboard = true;
-        //       },
-        //     );
-        //   },
-        //   child: CupertinoTextField(
-        //     textInputAction: isUsingPhysicalKeyboard == true
-        //         ? TextInputAction.done
-        //         : TextInputAction.newline,
-        //     controller: widget._controller,
-        //     decoration: const BoxDecoration(
-        //       borderRadius: BorderRadius.zero,
-        //       color: Colors.transparent,
-        //     ),
-        //     onSubmitted: (value) {
-        //       widget.onInputSubmit();
-        //     },
-        //     placeholder: 'Type here',
-        //     textCapitalization: TextCapitalization.sentences,
-        //     autofocus: true,
-        //     expands: true,
-        //     minLines: null,
-        //     maxLines: null,
-        //   ),
-        // ),
         Positioned(
             right: 0.0,
             bottom: 0.0,
