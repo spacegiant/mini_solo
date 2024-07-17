@@ -35,6 +35,7 @@ List<Widget> getEntries(
 
     switch (element.type) {
       case JournalEntryTypes.mythic:
+        // TODO IS THIS USED STILL?
         journalEntries
             .add(MythicEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.note:

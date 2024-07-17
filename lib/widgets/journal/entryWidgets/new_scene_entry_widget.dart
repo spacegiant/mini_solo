@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -25,25 +26,30 @@ class NewSceneEntryWidget extends StatelessWidget {
       onLongPress: () {
         toggleShowPopup2(
             maxWidth: 400.0,
-            maxHeight: 220.0,
+            maxHeight: 380.0,
             child: EditNewSceneEntryPopup(
               appState: appState,
               id: journalEntry.id,
             ),
             context: context);
       },
-      child: Container(
-          color: Colors.black.withOpacity(0.5),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              entry.label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          )),
+      child: JournalEntryWidgetWrapper(
+        note: journalEntry.note ?? '',
+        children: [
+          Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  entry.label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ))
+        ],
+      ),
     );
   }
 }

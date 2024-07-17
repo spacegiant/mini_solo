@@ -24,33 +24,38 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool hasANote = note != '';
-    List<Widget> noteWidget = hasANote
-        ? [
-            const Gap(
-              height: 16.0,
+    List<Widget> noteWidget;
+    if (hasANote) {
+      noteWidget = [
+        const Gap(
+          height: 16.0,
+        ),
+        Stack(clipBehavior: Clip.none, children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 100.0,
             ),
-            Stack(clipBehavior: Clip.none, children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minWidth: 100.0,
-                ),
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  color: CupertinoColors.white,
-                  child: Text(note ?? ''),
-                ),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              color: CupertinoColors.white,
+              child: Text(
+                note ?? '',
               ),
-              const Positioned(
-                top: -16,
-                left: 4.0,
-                child: Icon(
-                  CupertinoIcons.arrowtriangle_up_fill,
-                  color: CupertinoColors.white,
-                ),
-              ),
-            ])
-          ]
-        : [];
+            ),
+          ),
+          const Positioned(
+            top: -16,
+            left: 4.0,
+            child: Icon(
+              CupertinoIcons.arrowtriangle_up_fill,
+              color: CupertinoColors.white,
+            ),
+          ),
+        ])
+      ];
+    } else {
+      noteWidget = [];
+    }
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
