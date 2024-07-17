@@ -143,7 +143,8 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
           .map((e) => Kard.fromJson(e as Map<String, dynamic>))
           .toList(),
       resultEntries: (json['resultEntries'] as List<dynamic>)
-          .map((e) => ResultEntries.fromJson(e as Map<String, dynamic>))
+          .map((e) =>
+              ResultEntriesCollection.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

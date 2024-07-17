@@ -829,7 +829,7 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
-  void addResultEntry(ResultEntries entry) {
+  void addResultEntry(ResultEntriesCollection entry) {
     _campaignData?.resultEntries.add(entry);
     addJournalEntry(
       JournalEntryItem(

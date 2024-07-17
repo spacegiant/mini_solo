@@ -19,7 +19,7 @@ class ResultEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ResultEntries entry = appState.campaignData!.resultEntries
+    ResultEntriesCollection entry = appState.campaignData!.resultEntries
         .firstWhere((entry) => entry.id == journalEntry.id);
 
     List<Widget> note = journalEntry.note != null && journalEntry.note != ''
@@ -66,6 +66,7 @@ class ResultEntryWidget extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             ...entry.list.map((item) {
+              print(item.type);
               if (item.type == ResultEntryTypes.label) {
                 return Text(
                   item.title,
