@@ -35,14 +35,17 @@ class MythicEntryWidget extends StatelessWidget {
             ),
             context: context);
       },
-      child: JournalEntryWidgetWrapper(note: journalEntry.note, children: [
-        JournalEntryLabel(
-          label: entry.label,
-        ),
-        if (line1 != null) Text(line1),
-        if (line2 != null) Text(line2),
-        JournalEntryResult(text: resultText),
-      ]),
+      child: JournalEntryWidgetWrapper(
+        note: journalEntry.note,
+        children: [
+          JournalEntryLabel(
+            label: entry.label,
+          ),
+          if (line1 != null) Text(line1),
+          if (line2 != null) Text(line2),
+          JournalEntryResult(text: resultText),
+        ],
+      ),
     );
   }
 }

@@ -33,7 +33,7 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8.0),
                 color: CupertinoColors.white,
-                child: Text(note!),
+                child: Text(note ?? ''),
               ),
               const Positioned(
                 top: -16,

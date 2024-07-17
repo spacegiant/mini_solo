@@ -34,7 +34,7 @@ class ResultEntryWidget extends StatelessWidget {
         );
       },
       child: JournalEntryWidgetWrapper(
-        note: journalEntry.note!,
+        note: journalEntry.note ?? '',
         children: [
           // TODO Make this clearer
           Text(
