@@ -10,6 +10,11 @@ dynamic fixCampaignJSONData(dynamic initialData, dynamic data) {
     //   data['settings']['general']['hiddenEntryTypes'] = [];
     // }
     // if (data['newScene'] == null) data['newScene'] = [];
+    // var showNotes = data['settings']['general']['showNotes'];
+    // showNotes ??= true;
+    if (data['settings']['general']['showNotes'] == null) {
+      data['settings']['general']['showNotes'] = true;
+    }
 
     var dataKey = data[k];
     if (dataKey == null) {

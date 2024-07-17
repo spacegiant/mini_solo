@@ -258,6 +258,14 @@ class AppState extends ChangeNotifier {
     saveCampaignDataToDisk();
   }
 
+  bool? get showNotes => _campaignData?.settings.general.showNotes;
+
+  void toggleShowNotes() {
+    _campaignData?.settings.general.showNotes =
+        !_campaignData!.settings.general.showNotes;
+    saveCampaignDataToDisk();
+  }
+
   void toggleShowMechanics() {
     _campaignData!.settings.general.showMechanics =
         !_campaignData!.settings.general.showMechanics;
