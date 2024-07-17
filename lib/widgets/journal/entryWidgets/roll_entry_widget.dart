@@ -29,6 +29,8 @@ class RollEntryWidget extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         toggleShowPopup2(
+            maxHeight: 340.0,
+            maxWidth: 300.0,
             child: EditRollPopup(
               appState: appState,
               id: journalEntry.id,
