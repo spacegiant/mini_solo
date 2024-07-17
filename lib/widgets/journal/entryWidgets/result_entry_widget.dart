@@ -35,6 +35,7 @@ class ResultEntryWidget extends StatelessWidget {
       },
       child: JournalEntryWidgetWrapper(
         note: journalEntry.note ?? '',
+        appState: appState,
         children: [
           // TODO Make this clearer
           Text(

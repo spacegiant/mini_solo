@@ -83,6 +83,7 @@ List<Widget> getEntries(
     }
     if (element.type != JournalEntryTypes.newScene) {
       journalEntries.add(Divider(
+        height: 0.0,
         color: dividerColor,
         indent: 48.0,
         endIndent: 48.0,

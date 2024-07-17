@@ -39,6 +39,7 @@ class RollEntryWidget extends StatelessWidget {
       },
       child: JournalEntryWidgetWrapper(
         note: journalEntry.note ?? '',
+        appState: appState,
         children: [
           JournalEntryLabel(
             label: entry.label,

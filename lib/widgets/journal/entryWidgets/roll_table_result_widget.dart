@@ -58,6 +58,7 @@ class RollTableResultWidget extends StatelessWidget {
       },
       child: JournalEntryWidgetWrapper(
         note: journalEntry.note ?? '',
+        appState: appState,
         children: [
           JournalEntryLabel(
             label: 'Random Table: ${entry.title}',

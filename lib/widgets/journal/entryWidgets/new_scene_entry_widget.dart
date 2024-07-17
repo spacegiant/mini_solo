@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
@@ -34,20 +35,22 @@ class NewSceneEntryWidget extends StatelessWidget {
             context: context);
       },
       child: JournalEntryWidgetWrapper(
+        appState: appState,
         note: journalEntry.note ?? '',
         children: [
-          Container(
-              color: Colors.black.withOpacity(0.5),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  entry.label,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ))
+          // Divider(
+          //   thickness: 6.0,
+          //   color: CupertinoColors.systemPink.withOpacity(0.5),
+          // ),
+          Padding(
+            padding: const EdgeInsets.only(top: 32.0),
+            child: Text(
+              entry.label,
+              style: const TextStyle(
+                fontSize: 24.0,
+              ),
+            ),
+          )
         ],
       ),
     );

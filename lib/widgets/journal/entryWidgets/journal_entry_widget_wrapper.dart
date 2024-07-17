@@ -14,18 +14,21 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
     this.onLongPress,
     this.onTap,
     this.note = '',
+    required this.appState,
   });
 
   final List<Widget> children;
   final Function()? onLongPress;
   final Function()? onTap;
   final String? note;
+  final AppState appState;
 
   @override
   Widget build(BuildContext context) {
-    bool hasANote = note != '';
+    bool showNote = appState.showNotes == true && note != '';
+    print(showNote);
     List<Widget> noteWidget;
-    if (hasANote) {
+    if (showNote) {
       noteWidget = [
         const Gap(
           height: 16.0,
@@ -62,9 +65,9 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
       onTap: onTap,
       onLongPress: onLongPress,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ...children,
             ...noteWidget,

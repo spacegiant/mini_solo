@@ -38,6 +38,7 @@ class NoteEntryWidget extends StatelessWidget {
             context: context);
       },
       child: JournalEntryWidgetWrapper(
+        appState: appState,
         note: journalEntry.note ?? '',
         children: [
           Text(detail),
