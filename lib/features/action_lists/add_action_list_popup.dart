@@ -458,9 +458,11 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
           ),
         );
       },
-      label: Icon(currentEntry == null
-          ? CupertinoIcons.add
-          : CupertinoIcons.check_mark),
+      label: Icon(
+          color: CupertinoColors.white,
+          currentEntry == null
+              ? CupertinoIcons.add
+              : CupertinoIcons.check_mark),
     );
   }
 
