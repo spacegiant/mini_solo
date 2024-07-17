@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -34,20 +35,14 @@ class MythicEntryWidget extends StatelessWidget {
             ),
             context: context);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            JournalEntryLabel(
-              label: entry.label,
-            ),
-            if (line1 != null) Text(line1),
-            if (line2 != null) Text(line2),
-            JournalEntryResult(text: resultText),
-          ],
+      child: JournalEntryWidgetWrapper(note: journalEntry.note, children: [
+        JournalEntryLabel(
+          label: entry.label,
         ),
-      ),
+        if (line1 != null) Text(line1),
+        if (line2 != null) Text(line2),
+        JournalEntryResult(text: resultText),
+      ]),
     );
   }
 }
