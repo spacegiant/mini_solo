@@ -173,6 +173,7 @@ class _JournalState extends State<Journal> {
                       const JournalStartEntry(),
                       ...entries,
                       if (journalItems.isNotEmpty) ...[
+                        const Gap(),
                         const Center(
                           child: Text(
                             '❦',
