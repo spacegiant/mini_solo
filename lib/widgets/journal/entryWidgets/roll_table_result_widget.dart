@@ -20,7 +20,6 @@ class RollTableResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> resultsText;
     RollTableResults entry = appState.campaignData!.rollTableResults
         .firstWhere((entry) => entry.id == journalEntry.id);
 

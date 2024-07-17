@@ -56,7 +56,6 @@ class AppState extends ChangeNotifier {
   late bool _showSettings = false;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
-  Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;

@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/result_entries.dart';
-
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../features/action_lists/edit_result_popup.dart';
-import '../../gap.dart';
 import '../../popups/toggle_show_popup.dart';
 import 'journal_entry_widget_wrapper.dart';
 

@@ -79,7 +79,7 @@ class _EditMythicEntryPopupState extends State<EditOracleEntryPopup> {
               widget.appState.deleteOracleEntry(widget.id);
               Navigator.pop(context);
             },
-            label: Text('Delete Entry'),
+            label: const Text('Delete Entry'),
           ),
         ],
       ),
