@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_roll_table_result_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -38,9 +39,6 @@ class RollTableResultWidget extends StatelessWidget {
               Text(
                   '[${result.title} ${result.randomRoll}/${result.totalEntries}]')
             ],
-            // Text(result.randomRoll.toString()),
-            // Text(result.totalEntries.toString()),
-            // Text(result.weight.toString()),
           ],
         ),
       );
@@ -56,22 +54,14 @@ class RollTableResultWidget extends StatelessWidget {
             ),
             context: context);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            JournalEntryLabel(
-              label: 'Random Table: ${entry.title}',
-            ),
-            // if (appState.showMechanics)
-            //   JournalEntryDetail(
-            //     details: [calculation, roll],
-            //   ),
-            // JournalEntryResult(text: resultText),
-            ...resultsWidgets,
-          ],
-        ),
+      child: JournalEntryWidgetWrapper(
+        note: journalEntry.note ?? '',
+        children: [
+          JournalEntryLabel(
+            label: 'Random Table: ${entry.title}',
+          ),
+          ...resultsWidgets,
+        ],
       ),
     );
   }
@@ -102,23 +92,6 @@ class JournalEntryDetail extends StatelessWidget {
     );
   }
 }
-
-// class JournalEntryDiceRoll extends StatelessWidget {
-//   const JournalEntryDiceRoll({
-//     super.key,
-//     required this.text,
-//   });
-//
-//   final String? text;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(
-//       text!,
-//       style: const TextStyle(color: Colors.blueGrey),
-//     );
-//   }
-// }
 
 class JournalEntryLabel extends StatelessWidget {
   const JournalEntryLabel({
