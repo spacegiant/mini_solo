@@ -21,7 +21,6 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool showNote = appState.showNotes == true && note != '';
-    print(showNote);
     List<Widget> noteWidget;
     if (showNote) {
       noteWidget = [
