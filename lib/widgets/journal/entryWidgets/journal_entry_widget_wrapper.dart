@@ -31,7 +31,7 @@ class JournalEntryWidgetWrapper extends StatelessWidget {
         Stack(clipBehavior: Clip.none, children: [
           ConstrainedBox(
             constraints: const BoxConstraints(
-              minWidth: 100.0,
+              minWidth: 32.0,
             ),
             child: Container(
               padding: const EdgeInsets.all(8.0),
