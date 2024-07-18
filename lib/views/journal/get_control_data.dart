@@ -7,7 +7,7 @@ import '../mythic/fate_question.dart';
 import 'chooseControlWidget.dart';
 import 'control_data.dart';
 
-List<ControlData> getControlData(AppState appState) {
+List<ControlData> getControlDataList(AppState appState) {
   List<ControlData> trackersData = [];
   List<ControlData> randomTableControlData = [];
   List<ControlData> actionListControlData = [];
