@@ -7,6 +7,7 @@ void recursiveRandomTableRoll({
   required List<RandomTable> randomTables,
   required String randomTableId,
   required Function(RollTableResult) cb,
+  String stringBuilder = '',
 }) {
   // get random table
   int tally = 0;
@@ -36,16 +37,18 @@ void recursiveRandomTableRoll({
           randomTables: randomTables,
           randomTableId: id,
           cb: cb,
+          stringBuilder: '$stringBuilder ${randomTable.rows[i].label}',
+        );
+      } else {
+        result = RollTableResult(
+          title: randomTable.title,
+          randomRoll: randomRoll,
+          resultString: randomTable.rows[i].label,
+          totalEntries: weightsSum,
+          weight: randomTable.rows[i].weight ?? 1,
+          detail: stringBuilder,
         );
       }
-
-      result = RollTableResult(
-        title: randomTable.title,
-        randomRoll: randomRoll,
-        resultString: randomTable.rows[i].label,
-        totalEntries: weightsSum,
-        weight: randomTable.rows[i].weight ?? 1,
-      );
 
       break;
     }

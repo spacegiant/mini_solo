@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_note_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -27,18 +28,21 @@ class NoteEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxWidth: 400.0,
-            maxHeight: 400.0,
+            maxHeight: 500.0,
             child: EditNotePopup(
               appState: appState,
               id: journalEntry.id,
             ),
             context: context);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(detail),
+      child: JournalEntryWidgetWrapper(
+        appState: appState,
+        note: journalEntry.note ?? '',
+        children: [
+          Text(detail),
+        ],
       ),
     );
   }

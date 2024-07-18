@@ -56,7 +56,6 @@ class AppState extends ChangeNotifier {
   late bool _showSettings = false;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
-  Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
@@ -65,13 +64,20 @@ class AppState extends ChangeNotifier {
   List<Group> get groupList => _campaignData!.groups;
 
   bool entityExists(String id) {
-    RandomTable? randomTableEntry = getRandomTableById(id);
-    TrackerEntry? trackerEntry = getTrackerEntryById(id);
-    ActionListEntry? actionListEntry = getActionListById(id);
+    bool randomTableEntryExists = getRandomTableById(id) != null;
+    bool trackerEntryExists = getTrackerEntryById(id) != null;
+    bool actionListEntryExists = getActionListById(id) != null;
+    bool kardEntryExists = getKardById(id) != null;
 
-    return randomTableEntry == null &&
-        trackerEntry == null &&
-        actionListEntry == null;
+    bool returnBool = randomTableEntryExists ||
+        trackerEntryExists ||
+        actionListEntryExists ||
+        kardEntryExists;
+
+    // print(
+    //     '$id -> $randomTableEntryExists $trackerEntryExists $actionListEntryExists $kardEntryExists -> $returnBool');
+
+    return returnBool;
   }
 
   void deleteEntityById(String id) {
@@ -107,7 +113,7 @@ class AppState extends ChangeNotifier {
   void addToGroup({required String controlId, required String groupId}) {
     _campaignData!.groups
         .firstWhere((group) => group.groupId == groupId)
-        .controls
+        .controlsIDs
         .add(controlId);
   }
 
@@ -115,7 +121,7 @@ class AppState extends ChangeNotifier {
     required String controlId,
   }) {
     _campaignData?.groups.forEach((group) {
-      group.controls.remove(controlId);
+      group.controlsIDs.remove(controlId);
     });
   }
 
@@ -139,7 +145,7 @@ class AppState extends ChangeNotifier {
     String? currentGroupId;
 
     for (var group in _campaignData!.groups) {
-      if (group.controls.contains(entryId)) {
+      if (group.controlsIDs.contains(entryId)) {
         currentGroupId = group.groupId;
       }
     }
@@ -172,7 +178,7 @@ class AppState extends ChangeNotifier {
     Group group =
         campaignData!.groups.firstWhere((group) => group.groupId == groupID);
     if (label != null) group.label = label;
-    group.controls = controls;
+    group.controlsIDs = controls;
     group.isWrapped = isWrapped;
     saveCampaignDataToDisk();
   }
@@ -255,6 +261,14 @@ class AppState extends ChangeNotifier {
   void toggleShowFutureFeatures() {
     _campaignData?.settings.general.showFutureSettings =
         !_campaignData!.settings.general.showFutureSettings;
+    saveCampaignDataToDisk();
+  }
+
+  bool? get showNotes => _campaignData?.settings.general.showNotes;
+
+  void toggleShowNotes() {
+    _campaignData?.settings.general.showNotes =
+        !_campaignData!.settings.general.showNotes;
     saveCampaignDataToDisk();
   }
 
@@ -747,8 +761,6 @@ class AppState extends ChangeNotifier {
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
     var randomTable = _appSettingsData.randomTables[index];
 
-    print('>> $title');
-
     if (title != null) randomTable.title = title;
     if (rows != null) randomTable.rows = rows;
     if (isFavourite != null) randomTable.isFavourite = isFavourite;
@@ -829,7 +841,7 @@ class AppState extends ChangeNotifier {
     saveAppSettingsDataToDisk();
   }
 
-  void addResultEntry(ResultEntries entry) {
+  void addResultEntry(ResultEntriesCollection entry) {
     _campaignData?.resultEntries.add(entry);
     addJournalEntry(
       JournalEntryItem(

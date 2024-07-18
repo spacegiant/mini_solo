@@ -18,6 +18,7 @@ Map<String, dynamic> _$SettingsDataToJson(SettingsData instance) =>
 
 GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
     GeneralSettingsData(
+      showNotes: json['showNotes'] as bool,
       showFutureSettings: json['showFutureSettings'] as bool,
       diceActive: json['diceActive'] as bool,
       showMechanics: json['showMechanics'] as bool,
@@ -40,6 +41,7 @@ GeneralSettingsData _$GeneralSettingsDataFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$GeneralSettingsDataToJson(
         GeneralSettingsData instance) =>
     <String, dynamic>{
+      'showNotes': instance.showNotes,
       'showFutureSettings': instance.showFutureSettings,
       'diceActive': instance.diceActive,
       'showMechanics': instance.showMechanics,
@@ -143,7 +145,8 @@ CampaignData _$CampaignDataFromJson(Map<String, dynamic> json) => CampaignData(
           .map((e) => Kard.fromJson(e as Map<String, dynamic>))
           .toList(),
       resultEntries: (json['resultEntries'] as List<dynamic>)
-          .map((e) => ResultEntries.fromJson(e as Map<String, dynamic>))
+          .map((e) =>
+              ResultEntriesCollection.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

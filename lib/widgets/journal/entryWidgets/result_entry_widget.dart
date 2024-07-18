@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/result_entries.dart';
-
+import '../../../constants.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../features/action_lists/edit_result_popup.dart';
 import '../../gap.dart';
 import '../../popups/toggle_show_popup.dart';
+import 'journal_entry_widget_wrapper.dart';
 
 class ResultEntryWidget extends StatelessWidget {
   const ResultEntryWidget({
@@ -19,65 +20,56 @@ class ResultEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ResultEntries entry = appState.campaignData!.resultEntries
+    ResultEntriesCollection entry = appState.campaignData!.resultEntries
         .firstWhere((entry) => entry.id == journalEntry.id);
-
-    List<Widget> note = journalEntry.note != null && journalEntry.note != ''
-        ? [
-            const Gap(
-              height: 16.0,
-            ),
-            Stack(clipBehavior: Clip.none, children: [
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                color: CupertinoColors.white,
-                child: Text(journalEntry.note!),
-              ),
-              const Positioned(
-                top: -16,
-                left: 4.0,
-                child: Icon(
-                  CupertinoIcons.arrowtriangle_up_fill,
-                  color: CupertinoColors.white,
-                ),
-              ),
-            ])
-          ]
-        : [];
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
           maxHeight: 600.0,
           maxWidth: 400.0,
           child: EditResultPopup(appState: appState, id: journalEntry.id),
           context: context,
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // TODO Make this clearer
-            Text(
-              entry.title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+      child: JournalEntryWidgetWrapper(
+        note: journalEntry.note ?? '',
+        appState: appState,
+        children: [
+          // TODO Make this clearer
+          Text(
+            'Action List: ${entry.title}',
+            style: const TextStyle(
+              fontSize: 12.0,
             ),
-            ...entry.list.map((item) {
-              if (item.type == ResultEntryTypes.label) {
-                return Text(
-                  item.title,
-                  style: const TextStyle(fontStyle: FontStyle.italic),
-                );
-              } else {
-                return Text(item.title);
-              }
-            }),
-            ...note,
-          ],
-        ),
+          ),
+          const Gap(
+            height: 8.0,
+          ),
+          ...entry.list.map((item) {
+            if (item.type == ResultEntryTypes.label) {
+              return Text(
+                item.title,
+                style: const TextStyle(fontStyle: FontStyle.italic),
+              );
+            } else {
+              return Row(
+                children: [
+                  Text(item.title),
+                  if (item.detail != null && item.detail != '')
+                    Text(
+                      ' · ${item.detail!}',
+                      style: const TextStyle(
+                        fontSize: kJournalMetaTextSize,
+                        color: CupertinoColors.darkBackgroundGray,
+                      ),
+                    ),
+                ],
+              );
+            }
+          }),
+        ],
       ),
     );
   }

@@ -1,10 +1,13 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
 import '../../data/app_state.dart';
+import '../../data/data_structures/journal_entry_item.dart';
 import '../../data/data_structures/new_scene_entry.dart';
 import '../gap.dart';
+import '../label_and_text_area.dart';
 
 class EditNewSceneEntryPopup extends StatefulWidget {
   const EditNewSceneEntryPopup({
@@ -22,16 +25,22 @@ class EditNewSceneEntryPopup extends StatefulWidget {
 
 class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
   late TextEditingController _controller;
+  late TextEditingController _noteController;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+
+    JournalEntryItem? journalEntryItem = widget.appState.campaignData?.journal
+        .firstWhereOrNull((entry) => entry.id == widget.id);
+    _noteController = TextEditingController(text: journalEntryItem?.note);
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _noteController.dispose();
     super.dispose();
   }
 
@@ -50,7 +59,21 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
 
     return PopupLayout(
       header: const PopupLayoutHeader(label: 'Edit Scene Marker'),
-      body: CupertinoTextField(controller: _controller),
+      body: Column(
+        children: [
+          CupertinoTextField(controller: _controller),
+          const Gap(),
+          LabelAndTextArea(
+            label: 'Note',
+            controller: _noteController,
+            onChanged: (value) {
+              setState(() {
+                _noteController.text = value;
+              });
+            },
+          ),
+        ],
+      ),
       footer: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -58,8 +81,10 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
               color: CupertinoColors.systemGreen,
               onPressed: () {
                 widget.appState.updateNewScene(widget.id, _controller.text);
-                // widget.appState.setCurrentEntryId('');
-                // Navigator.pop(context);
+                widget.appState.updateJournalEntry(
+                  widget.id,
+                  _noteController.value.text,
+                );
                 Navigator.pop(context);
               },
               child: const Text('Submit'),

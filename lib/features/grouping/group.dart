@@ -8,7 +8,7 @@ enum SortBy { manual, aToZ, zToA }
 class Group {
   String groupId; // unique, e.g group-458457648576486
   String label; // default/user defined 'Mythic GME', must be unique
-  List<String> controls = []; // controls by id in order, alpha by default?
+  List<String> controlsIDs = []; // controls by id in order, alpha by default?
   bool? isExpanded = true; // true
   bool? isAppGroup = false; // Can't be deleted
   bool isActive = true; // true
@@ -21,7 +21,7 @@ class Group {
   Group({
     required this.groupId,
     required this.label,
-    required this.controls,
+    required this.controlsIDs,
     this.isAppGroup,
     this.isExpanded,
     this.isWrapped,

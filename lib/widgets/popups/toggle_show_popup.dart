@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-void toggleShowPopup2({
+void toggleShowPopup({
   required Widget child,
   required BuildContext context,
   double maxWidth = 240.0,

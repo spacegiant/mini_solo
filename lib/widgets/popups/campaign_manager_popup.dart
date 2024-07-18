@@ -80,6 +80,7 @@ class _CampaignManagerState extends State<CampaignManager> {
                               widget.initCampaignData(text);
                               newCampaignController.text = '';
                             }
+                            Navigator.pop(context);
                           })
                     ],
                   ),
@@ -92,11 +93,12 @@ class _CampaignManagerState extends State<CampaignManager> {
   Row campaignManagerRow(item) {
     return Row(
       children: [
-        Text(getLabel(item.path)),
+        Expanded(child: Text(getLabel(item.path))),
         CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
             widget.appState.loadCampaign(getLabel(item.path));
+            Navigator.pop(context);
           },
           child: const Icon(CupertinoIcons.floppy_disk),
         ),
@@ -110,9 +112,17 @@ class _CampaignManagerState extends State<CampaignManager> {
         CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () {
+            String targetCampaign = item.path;
+            String currentCampaign =
+                '${widget.appState.appSettingsData.dataPath}/${widget.appState.appSettingsData.currentCampaign}.json';
+            bool justDeletedActiveCampaign = targetCampaign == currentCampaign;
+
             widget.appState.deleteCampaign(item.path);
-            // TODO if is current campaign do this...
-            RestartWidget.restartApp(context);
+            if (justDeletedActiveCampaign) {
+              RestartWidget.restartApp(context);
+            } else {
+              // TODO UPDATE THE CAMPAIGN LIST
+            }
           },
           child: const Icon(CupertinoIcons.delete),
         ),

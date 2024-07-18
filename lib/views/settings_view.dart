@@ -238,7 +238,7 @@ class _CampaignSettingsState extends State<CampaignSettings> {
           CupertinoButton(
             child: const Text('Manage Groups'),
             onPressed: () {
-              toggleShowPopup2(
+              toggleShowPopup(
                   maxWidth: 400.0,
                   maxHeight: 740.0,
                   child: EditGroupsPopup(appState: widget.appState),
@@ -248,7 +248,7 @@ class _CampaignSettingsState extends State<CampaignSettings> {
           CupertinoButton(
             child: const Text('Manage Random Tables'),
             onPressed: () {
-              toggleShowPopup2(
+              toggleShowPopup(
                   maxWidth: 400.0,
                   maxHeight: 740.0,
                   child: EditRandomTablesPopup(appState: widget.appState),
@@ -276,8 +276,8 @@ class _CampaignSettingsState extends State<CampaignSettings> {
           CupertinoButton(
               child: const Text('Import Manager'),
               onPressed: () {
-                toggleShowPopup2(
-                    maxHeight: 560.0,
+                toggleShowPopup(
+                    maxHeight: 800.0,
                     maxWidth: 400.0,
                     child: ImportManager(appState: widget.appState),
                     context: context);
@@ -296,8 +296,10 @@ class _CampaignSettingsState extends State<CampaignSettings> {
               onPressed: () async {
                 AppSettingsData? appSettingsData =
                     widget.appState.appSettingsData;
+
                 String jsonString =
                     widget.appState.storage.appSettingsToJSON(appSettingsData);
+
                 await Clipboard.setData(ClipboardData(text: jsonString));
                 // copied successfully
               }),

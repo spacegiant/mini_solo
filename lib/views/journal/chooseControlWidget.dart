@@ -106,7 +106,7 @@ Widget chooseControlWidget({
           fateChartControlOnPressed(controlData.fateChartRow, appState);
         },
         onLongPress: () {
-          toggleShowPopup2(
+          toggleShowPopup(
               maxHeight: 300.0,
               maxWidth: 200.0,
               child: const ChaosFactorPopup(),
@@ -219,8 +219,8 @@ Widget chooseControlWidget({
           }
         },
         onLongPress: () {
-          toggleShowPopup2(
-              maxWidth: 400.0,
+          toggleShowPopup(
+              maxWidth: 420.0,
               maxHeight: 800.0,
               child: EditRandomTable(
                 appState: appState,
@@ -288,7 +288,7 @@ Widget chooseControlWidget({
         color: buttonColor,
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
-          toggleShowPopup2(
+          toggleShowPopup(
               maxWidth: 600.0,
               maxHeight: 820.0,
               child: AddTrackerPopup(appState: appState),
@@ -301,7 +301,7 @@ Widget chooseControlWidget({
         color: buttonColor,
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
-          toggleShowPopup2(
+          toggleShowPopup(
               maxWidth: 600.0,
               maxHeight: 540.0,
               child: AddRandomTablePopup(appState: appState),
@@ -314,14 +314,14 @@ Widget chooseControlWidget({
         color: buttonColor,
         iconData: CupertinoIcons.sparkles,
         onLongPress: () {
-          toggleShowPopup2(
+          toggleShowPopup(
               maxWidth: 400.0,
               maxHeight: 740.0,
               child: EditGroupsPopup(appState: appState),
               context: context);
         },
         onPressed: () {
-          toggleShowPopup2(
+          toggleShowPopup(
             maxWidth: 400.0,
             maxHeight: 240.0,
             child: AddGroupPopup(appState: appState),
@@ -338,7 +338,7 @@ Widget chooseControlWidget({
         label: Text(controlData.label),
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
-          toggleShowPopup2(
+          toggleShowPopup(
               maxWidth: 400.0,
               maxHeight: 800.0,
               child: AddKardPopup(
@@ -363,7 +363,7 @@ Widget chooseControlWidget({
         label: Text(controlData.label),
         iconData: CupertinoIcons.sparkles,
         onPressed: () {
-          toggleShowPopup2(
+          toggleShowPopup(
             maxWidth: 400.0,
             maxHeight: 800.0,
             child: AddActionListPopup(

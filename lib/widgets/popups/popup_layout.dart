@@ -13,7 +13,7 @@ class PopupLayout extends StatelessWidget {
 
   final Widget header;
   final Widget? body;
-  final Widget footer;
+  final Widget? footer;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class PopupLayout extends StatelessWidget {
           body ?? const SizedBox.shrink(),
           const Divider(),
         ],
-        footer,
+        footer ?? const SizedBox.shrink(),
         CupertinoButton(
             child: const Text('Close'),
             onPressed: () {

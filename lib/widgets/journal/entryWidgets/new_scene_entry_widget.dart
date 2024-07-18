@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_new_scene_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -23,27 +25,34 @@ class NewSceneEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxWidth: 400.0,
-            maxHeight: 220.0,
+            maxHeight: 380.0,
             child: EditNewSceneEntryPopup(
               appState: appState,
               id: journalEntry.id,
             ),
             context: context);
       },
-      child: Container(
-          color: Colors.black.withOpacity(0.5),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+      child: JournalEntryWidgetWrapper(
+        appState: appState,
+        note: journalEntry.note ?? '',
+        children: [
+          // Divider(
+          //   thickness: 6.0,
+          //   color: CupertinoColors.systemPink.withOpacity(0.5),
+          // ),
+          Padding(
+            padding: const EdgeInsets.only(top: 32.0),
             child: Text(
               entry.label,
               style: const TextStyle(
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
+                fontSize: 24.0,
               ),
             ),
-          )),
+          )
+        ],
+      ),
     );
   }
 }

@@ -38,7 +38,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   void initState() {
     super.initState();
-    controls = widget.group.controls;
+    controls = widget.group.controlsIDs;
     selectedId = '';
     isWrapped = widget.group.isWrapped ?? false;
     groupLabel = TextEditingController(text: widget.group.label);
@@ -60,23 +60,29 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = controls.mapIndexed((index, control) {
-      ControlData controlData = widget.controlData
-          .firstWhere((controlData) => controlData.controlId == control);
+    List<Widget> children = [];
 
-      return MyReorderableItem(
-        key: Key(control),
-        id: control,
-        appState: widget.appState,
-        // TODO make this better
-        label: controlData.label == '' ? '<unlabelled>' : controlData.label,
-        selected: selectedId == control,
-        onTap: () {
-          handleTap(control);
-        },
-        index: index,
-      );
-    }).toList();
+    for (final (index, control) in controls.indexed) {
+      ControlData? controlData = widget.controlData
+          .firstWhereOrNull((controlData) => controlData.controlId == control);
+
+      if (controlData != null) {
+        MyReorderableItem reorderableItem = MyReorderableItem(
+          key: Key(control),
+          id: control,
+          appState: widget.appState,
+          // TODO make this better
+          label: controlData.label == '' ? '<unlabelled>' : controlData.label,
+          selected: selectedId == control,
+          onTap: () {
+            handleTap(control);
+          },
+          index: index,
+        );
+
+        children.add(reorderableItem);
+      }
+    }
 
     Widget body() {
       return Column(
@@ -93,7 +99,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
           ConstrainedBox(
             // height: 300.0,
             constraints: const BoxConstraints(
-              maxHeight: 500.0,
+              maxHeight: 480.0,
               minHeight: 200.0,
             ),
             child: Scaffold(

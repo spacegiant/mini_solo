@@ -10,10 +10,12 @@ class ResultEntry {
   final ResultEntryTypes type;
   late String id;
   final String title;
+  String? detail;
 
   ResultEntry({
     required this.type,
     required this.title,
+    this.detail,
   }) {
     _initID();
   }

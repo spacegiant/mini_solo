@@ -9,7 +9,7 @@ part of 'group.dart';
 Group _$GroupFromJson(Map<String, dynamic> json) => Group(
       groupId: json['groupId'] as String,
       label: json['label'] as String,
-      controls:
+      controlsIDs:
           (json['controls'] as List<dynamic>).map((e) => e as String).toList(),
       isAppGroup: json['isAppGroup'] as bool?,
       isExpanded: json['isExpanded'] as bool?,
@@ -24,7 +24,7 @@ Group _$GroupFromJson(Map<String, dynamic> json) => Group(
 Map<String, dynamic> _$GroupToJson(Group instance) => <String, dynamic>{
       'groupId': instance.groupId,
       'label': instance.label,
-      'controls': instance.controls,
+      'controls': instance.controlsIDs,
       'isExpanded': instance.isExpanded,
       'isAppGroup': instance.isAppGroup,
       'isActive': instance.isActive,

@@ -29,8 +29,8 @@ class ActionListControlWidget extends StatelessWidget {
       label: Text(controlData.label),
       iconData: CupertinoIcons.rocket_fill,
       onPressed: () {
-        ResultEntries resultEntries =
-            ResultEntries(list: [], title: controlData.label);
+        ResultEntriesCollection resultEntries =
+            ResultEntriesCollection(list: [], title: controlData.label);
 
         recursiveActionListRoll(
           actionListId: controlData.controlId,
@@ -44,11 +44,11 @@ class ActionListControlWidget extends StatelessWidget {
         //   print(item.title);
         // }
 
-        appState.addResultEntry(
-            ResultEntries(title: controlData.label, list: resultEntries.list));
+        appState.addResultEntry(ResultEntriesCollection(
+            title: controlData.label, list: resultEntries.list));
       },
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
           maxWidth: 400.0,
           maxHeight: 800.0,
           child: AddActionListPopup(
@@ -96,7 +96,8 @@ class ActionListControlWidget extends StatelessWidget {
               cb: (RollTableResult result) {
                 handleResult(ResultEntry(
                     title: result.resultString,
-                    type: ResultEntryTypes.randomTable));
+                    type: ResultEntryTypes.randomTable,
+                    detail: result.detail));
               },
             );
             break;

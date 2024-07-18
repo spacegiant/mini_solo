@@ -40,12 +40,12 @@ Map<ResultEntryTypes, ResultTypeData> resultEntryTypeLabel = {
 };
 
 @JsonSerializable()
-class ResultEntries {
+class ResultEntriesCollection {
   final List<ResultEntry> list;
   final String title;
   late String id;
 
-  ResultEntries({required this.title, required this.list}) {
+  ResultEntriesCollection({required this.title, required this.list}) {
     _initID();
   }
 
@@ -54,13 +54,13 @@ class ResultEntries {
   }
 
   // coverage:ignore-start
-  factory ResultEntries.fromJson(Map<String, dynamic> json) =>
-      _$ResultEntriesFromJson(json);
+  factory ResultEntriesCollection.fromJson(Map<String, dynamic> json) =>
+      _$ResultEntriesCollectionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResultEntriesToJson(this);
+  Map<String, dynamic> toJson() => _$ResultEntriesCollectionToJson(this);
 // coverage:ignore-end
 }
 
-ResultEntries entries = ResultEntries(
+ResultEntriesCollection entries = ResultEntriesCollection(
     list: [ResultEntry(type: ResultEntryTypes.actionList, title: 'title')],
     title: '');
