@@ -26,7 +26,7 @@ class ResultEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
           maxHeight: 600.0,
           maxWidth: 400.0,
           child: EditResultPopup(appState: appState, id: journalEntry.id),

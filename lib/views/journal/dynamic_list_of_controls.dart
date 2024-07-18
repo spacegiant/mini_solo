@@ -45,7 +45,7 @@ List<GroupContainer> dynamicListOfControls(
         appState: appState,
         isWrapped: group.isWrapped,
         handleLongPress: () {
-          toggleShowPopup2(
+          toggleShowPopup(
               maxWidth: 400.0,
               maxHeight: 820.0,
               child: EditGroupPopup(

@@ -63,7 +63,7 @@ class GroupContainer extends StatelessWidget {
               handleLongPress();
             },
             toggleShowGroupFullscreen: () {
-              toggleShowPopup2(
+              toggleShowPopup(
                   maxHeight: 800.0,
                   maxWidth: 600.0,
                   child: PopupLayout(

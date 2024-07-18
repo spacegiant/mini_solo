@@ -25,7 +25,7 @@ class NewSceneEntryWidget extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxWidth: 400.0,
             maxHeight: 380.0,
             child: EditNewSceneEntryPopup(

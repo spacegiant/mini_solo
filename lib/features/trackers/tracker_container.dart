@@ -74,7 +74,7 @@ class _TrackerContainerState extends State<TrackerContainer> {
             }
           },
           onLongPress: () {
-            toggleShowPopup2(
+            toggleShowPopup(
                 maxWidth: 600.0,
                 maxHeight: 460.0,
                 child: EditTrackerPopup(

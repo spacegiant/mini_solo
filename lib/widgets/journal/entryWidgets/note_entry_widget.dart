@@ -28,7 +28,7 @@ class NoteEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxWidth: 400.0,
             maxHeight: 500.0,
             child: EditNotePopup(
