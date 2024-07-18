@@ -193,6 +193,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     bool showFutureSettings =
         appState.campaignData!.settings.general.showFutureSettings;
     if (showFutureSettings == false) {
+      // TODO REMOVE THESE
       myTabBarItems.removeWhere((element) => element.label == 'Starred');
       myTabBarItems.removeWhere((element) => element.label == 'Trackers');
       myTabBarItems.removeWhere((element) => element.label == 'Lists');

@@ -6,9 +6,11 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
+import 'package:mini_solo/views/journal/get_control_data.dart';
 
 import '../features/kard/kard.dart';
 import '../utilities/string/convert_to_filename.dart';
+import '../views/journal/control_data.dart';
 import 'data_structures/clue.dart';
 import 'data_structures/creature.dart';
 import 'data_structures/faction.dart';
@@ -64,13 +66,20 @@ class AppState extends ChangeNotifier {
   List<Group> get groupList => _campaignData!.groups;
 
   bool entityExists(String id) {
-    RandomTable? randomTableEntry = getRandomTableById(id);
-    TrackerEntry? trackerEntry = getTrackerEntryById(id);
-    ActionListEntry? actionListEntry = getActionListById(id);
+    bool randomTableEntryExists = getRandomTableById(id) != null;
+    bool trackerEntryExists = getTrackerEntryById(id) != null;
+    bool actionListEntryExists = getActionListById(id) != null;
+    bool kardEntryExists = getKardById(id) != null;
 
-    return randomTableEntry == null &&
-        trackerEntry == null &&
-        actionListEntry == null;
+    bool returnBool = randomTableEntryExists ||
+        trackerEntryExists ||
+        actionListEntryExists ||
+        kardEntryExists;
+
+    // print(
+    //     '$id -> $randomTableEntryExists $trackerEntryExists $actionListEntryExists $kardEntryExists -> $returnBool');
+
+    return returnBool;
   }
 
   void deleteEntityById(String id) {

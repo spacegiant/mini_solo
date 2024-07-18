@@ -14,8 +14,9 @@ List<ControlData> getControlData(AppState appState) {
   List<ControlData> kardControlData = [];
 
   for (Kard kard in appState.campaignData!.kards) {
-    auditControl(appState, kard.id);
+    fixIfHasNoGroup(appState, kard.id);
 
+    // TODO ADD THIS TO A KARD GROUP
     trackersData.add(
       ControlData(
         controlId: kard.id,
@@ -26,7 +27,7 @@ List<ControlData> getControlData(AppState appState) {
   }
 
   for (TrackerEntry tracker in appState.campaignData!.tracker) {
-    auditControl(appState, tracker.id);
+    fixIfHasNoGroup(appState, tracker.id);
 
     trackersData.add(
       ControlData(
@@ -39,7 +40,7 @@ List<ControlData> getControlData(AppState appState) {
 
   for (RandomTable randomTable in appState.appSettingsData.randomTables) {
     if (randomTable.isHidden == false) {
-      auditControl(appState, randomTable.id);
+      fixIfHasNoGroup(appState, randomTable.id);
 
       randomTableControlData.add(
         ControlData(
@@ -53,9 +54,9 @@ List<ControlData> getControlData(AppState appState) {
   }
 
   for (ActionListEntry actionList in appState.appSettingsData.actionLists) {
-    if (actionList.isHidden == false) {
-      auditControl(appState, actionList.id);
+    fixIfHasNoGroup(appState, actionList.id);
 
+    if (actionList.isHidden == false) {
       actionListControlData.add(
         ControlData(
           controlId: actionList.id,
@@ -79,7 +80,7 @@ List<ControlData> getControlData(AppState appState) {
   return controlData;
 }
 
-auditControl(AppState appState, String id) {
+fixIfHasNoGroup(AppState appState, String id) {
   String? groupId = appState.findCurrentGroupId(id);
 
   if (groupId == null) {
