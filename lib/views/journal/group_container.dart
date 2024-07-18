@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import 'package:mini_solo/widgets/wrap_manager.dart';
 
 import '../../data/app_state.dart';
 import '../../widgets/gap.dart';
 import '../../widgets/journal/widgets/journal_subheading.dart';
+import '../../widgets/popups/toggle_show_popup.dart';
 
 Map<String, String> journalGroups = {
   'mythicFateChart': 'Mythic Fate Chart',
@@ -52,11 +55,29 @@ class GroupContainer extends StatelessWidget {
               : const Gap(),
           JournalSubheading(
             label: isExpanded ? label : '$label (${children.length})',
-            handlePress: () {
+            isExpanded: isExpanded,
+            handleMinimiseToggle: () {
               appState.toggleExpanded(containerId);
             },
-            handleLongPress: () {
+            showGroupSettingsPopup: () {
               handleLongPress();
+            },
+            toggleShowGroupFullscreen: () {
+              toggleShowPopup2(
+                  maxHeight: 800.0,
+                  maxWidth: 600.0,
+                  child: PopupLayout(
+                      header: PopupLayoutHeader(label: label),
+                      body: Expanded(
+                        child: SingleChildScrollView(
+                          child: WrapManager(
+                              wrapControls: true, children: children),
+                        ),
+                      ),
+                      footer: const Row(
+                        children: [Text('footer')],
+                      )),
+                  context: context);
             },
           ),
           if (isExpanded)

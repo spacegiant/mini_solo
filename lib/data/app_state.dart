@@ -6,11 +6,9 @@ import 'package:mini_solo/data/campaign_data.dart';
 import 'package:mini_solo/data/campaign_storage.dart';
 import 'package:mini_solo/data/result_entries.dart';
 import 'package:mini_solo/features/grouping/group.dart';
-import 'package:mini_solo/views/journal/get_control_data.dart';
 
 import '../features/kard/kard.dart';
 import '../utilities/string/convert_to_filename.dart';
-import '../views/journal/control_data.dart';
 import 'data_structures/clue.dart';
 import 'data_structures/creature.dart';
 import 'data_structures/faction.dart';
