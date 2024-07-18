@@ -115,6 +115,7 @@ class RollTableResult {
   final String resultString;
   final int? totalEntries;
   final int? weight;
+  final String? detail;
 
   RollTableResult({
     required this.weight,
@@ -122,6 +123,7 @@ class RollTableResult {
     required this.randomRoll,
     required this.resultString,
     required this.totalEntries,
+    this.detail,
     // required this.lowerBounds,
     // required this.upperBounds,
   });

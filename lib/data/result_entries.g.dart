@@ -18,7 +18,8 @@ Map<String, dynamic> _$ResultTypeDataToJson(ResultTypeData instance) =>
       'label': instance.label,
     };
 
-ResultEntriesCollection _$ResultEntriesFromJson(Map<String, dynamic> json) =>
+ResultEntriesCollection _$ResultEntriesCollectionFromJson(
+        Map<String, dynamic> json) =>
     ResultEntriesCollection(
       title: json['title'] as String,
       list: (json['list'] as List<dynamic>)
@@ -26,7 +27,8 @@ ResultEntriesCollection _$ResultEntriesFromJson(Map<String, dynamic> json) =>
           .toList(),
     )..id = json['id'] as String;
 
-Map<String, dynamic> _$ResultEntriesToJson(ResultEntriesCollection instance) =>
+Map<String, dynamic> _$ResultEntriesCollectionToJson(
+        ResultEntriesCollection instance) =>
     <String, dynamic>{
       'list': instance.list,
       'title': instance.title,

@@ -96,7 +96,8 @@ class ActionListControlWidget extends StatelessWidget {
               cb: (RollTableResult result) {
                 handleResult(ResultEntry(
                     title: result.resultString,
-                    type: ResultEntryTypes.randomTable));
+                    type: ResultEntryTypes.randomTable,
+                    detail: result.detail));
               },
             );
             break;

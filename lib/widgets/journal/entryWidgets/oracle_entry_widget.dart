@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -28,31 +29,27 @@ class OracleEntryWidget extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         toggleShowPopup2(
+            maxHeight: 340.0,
+            maxWidth: 300.0,
             child: EditOracleEntryPopup(
               appState: appState,
               id: journalEntry.id,
             ),
             context: context);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            JournalEntryLabel(
-              label: entry.label,
+      child: JournalEntryWidgetWrapper(
+        note: journalEntry.note ?? '',
+        appState: appState,
+        children: [
+          JournalEntryLabel(
+            label: entry.label,
+          ),
+          if (appState.showMechanics)
+            JournalEntryDetail(
+              details: [line1, line2],
             ),
-            if (appState.showMechanics)
-              JournalEntryDetail(
-                details: [line1, line2],
-              ),
-            JournalEntryResult(text: resultText),
-            // const Gap(),
-            // const Divider(
-            //   color: CupertinoColors.darkBackgroundGray,
-            // ),
-          ],
-        ),
+          JournalEntryResult(text: resultText),
+        ],
       ),
     );
   }

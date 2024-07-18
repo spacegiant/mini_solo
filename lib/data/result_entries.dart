@@ -55,9 +55,9 @@ class ResultEntriesCollection {
 
   // coverage:ignore-start
   factory ResultEntriesCollection.fromJson(Map<String, dynamic> json) =>
-      _$ResultEntriesFromJson(json);
+      _$ResultEntriesCollectionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResultEntriesToJson(this);
+  Map<String, dynamic> toJson() => _$ResultEntriesCollectionToJson(this);
 // coverage:ignore-end
 }
 

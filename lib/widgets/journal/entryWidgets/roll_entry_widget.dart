@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrapper.dart';
 import 'package:mini_solo/widgets/popups/edit_rolls_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
@@ -28,35 +29,35 @@ class RollEntryWidget extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
         toggleShowPopup2(
+            maxHeight: 340.0,
+            maxWidth: 300.0,
             child: EditRollPopup(
               appState: appState,
               id: journalEntry.id,
             ),
             context: context);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            JournalEntryLabel(
-              label: entry.label,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 6.0),
-              child: Wrap(
-                children: [
-                  ...entry.result.map<Widget>(
-                    (roll) => DiceGlyph(
-                      diceRoll: roll,
-                      dieType: roll.diceType,
-                    ),
+      child: JournalEntryWidgetWrapper(
+        note: journalEntry.note ?? '',
+        appState: appState,
+        children: [
+          JournalEntryLabel(
+            label: entry.label,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: Wrap(
+              children: [
+                ...entry.result.map<Widget>(
+                  (roll) => DiceGlyph(
+                    diceRoll: roll,
+                    dieType: roll.diceType,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

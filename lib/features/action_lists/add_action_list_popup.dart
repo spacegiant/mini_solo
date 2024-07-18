@@ -133,7 +133,6 @@ class _AddActionListPopupState extends State<AddActionListPopup> {
       }
       actionEditorType = ActionEditorType.randomTable;
       _actionLabelController.text = '';
-      print(currentEntry);
     });
   }
 

@@ -18,7 +18,6 @@ import '../../widgets/journal/entryWidgets/mythic_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/oracle_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/roll_entry_widget.dart';
 import '../../widgets/journal/entryWidgets/temp_dice_display.dart';
-import '../../widgets/journal/entryWidgets/tracker_entry_widget.dart';
 
 List<Widget> getEntries(
   AppState appState,
@@ -36,6 +35,7 @@ List<Widget> getEntries(
 
     switch (element.type) {
       case JournalEntryTypes.mythic:
+        // TODO IS THIS USED STILL?
         journalEntries
             .add(MythicEntryWidget(appState: appState, journalEntry: element));
       case JournalEntryTypes.note:
@@ -73,13 +73,6 @@ List<Widget> getEntries(
           appState: appState,
           journalEntry: element,
         ));
-      // case JournalEntryTypes.transition:
-      //   journalEntries.add(const Text('transition'));
-      case JournalEntryTypes.tracker:
-        journalEntries.add(TrackerEntryWidget(
-          appState: appState,
-          journalEntry: element,
-        ));
       case JournalEntryTypes.resultEntry:
         journalEntries.add(ResultEntryWidget(
           appState: appState,
@@ -90,6 +83,7 @@ List<Widget> getEntries(
     }
     if (element.type != JournalEntryTypes.newScene) {
       journalEntries.add(Divider(
+        height: 0.0,
         color: dividerColor,
         indent: 48.0,
         endIndent: 48.0,

@@ -56,7 +56,6 @@ class AppState extends ChangeNotifier {
   late bool _showSettings = false;
   CampaignData? _campaignData;
   late AppSettingsData _appSettingsData = initAppSettingsData();
-  Function(String)? _deleteCampaignCallback;
   int get chaosFactor => _campaignData!.mythicData.chaosFactor;
   int maxChaos = 9;
   int minChaos = 1;
@@ -255,6 +254,14 @@ class AppState extends ChangeNotifier {
   void toggleShowFutureFeatures() {
     _campaignData?.settings.general.showFutureSettings =
         !_campaignData!.settings.general.showFutureSettings;
+    saveCampaignDataToDisk();
+  }
+
+  bool? get showNotes => _campaignData?.settings.general.showNotes;
+
+  void toggleShowNotes() {
+    _campaignData?.settings.general.showNotes =
+        !_campaignData!.settings.general.showNotes;
     saveCampaignDataToDisk();
   }
 
@@ -746,8 +753,6 @@ class AppState extends ChangeNotifier {
     int index =
         _appSettingsData.randomTables.indexWhere((entry) => entry.id == id);
     var randomTable = _appSettingsData.randomTables[index];
-
-    print('>> $title');
 
     if (title != null) randomTable.title = title;
     if (rows != null) randomTable.rows = rows;

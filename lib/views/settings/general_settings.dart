@@ -28,6 +28,13 @@ List<Widget> generalSettings(
   return [
     const SettingsHeading(label: 'General settings'),
     SettingsOption(
+      isActive: general.showNotes,
+      label: 'Show notes',
+      onChanged: (isChecked) {
+        appState.toggleShowNotes();
+      },
+    ),
+    SettingsOption(
       isActive: general.showFutureSettings,
       label: 'Show future features',
       onChanged: (isChecked) {

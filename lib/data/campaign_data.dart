@@ -59,6 +59,7 @@ class SettingsData {
 
 @JsonSerializable()
 class GeneralSettingsData {
+  late bool showNotes;
   late bool showFutureSettings;
   late bool diceActive;
   late bool showMechanics;
@@ -75,6 +76,7 @@ class GeneralSettingsData {
   late int randomTableRecursionLimit;
 
   GeneralSettingsData({
+    required this.showNotes,
     required this.showFutureSettings,
     required this.diceActive,
     required this.showMechanics,
@@ -181,6 +183,7 @@ CampaignData baseCampaignData(String campaignName) {
     scratchPad: [],
     settings: SettingsData(
       general: GeneralSettingsData(
+        showNotes: true,
         showFutureSettings: false,
         showMechanics: true,
         useJournal: true,
