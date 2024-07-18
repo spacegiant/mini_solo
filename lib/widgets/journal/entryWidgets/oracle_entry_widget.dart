@@ -127,11 +127,6 @@ class JournalEntryResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text!,
-      style: const TextStyle(
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return Text(text!);
   }
 }

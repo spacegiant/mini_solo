@@ -25,6 +25,8 @@ class MythicEntryWidget extends StatelessWidget {
     String? line1 = entry.lines.line1;
     String? line2 = entry.lines.line2;
     String? resultText = entry.lines.result;
+    String meta = '· $line1 $line2';
+    bool showMeta = line1 != null || line2 != null;
 
     return GestureDetector(
       onLongPress: () {
@@ -44,9 +46,14 @@ class MythicEntryWidget extends StatelessWidget {
           JournalEntryLabel(
             label: entry.label,
           ),
-          if (line1 != null) Text(line1),
-          if (line2 != null) Text(line2),
           JournalEntryResult(text: resultText),
+          if (showMeta)
+            Text(
+              '· $meta',
+              style: const TextStyle(
+                fontSize: 14.0,
+              ),
+            ),
         ],
       ),
     );
