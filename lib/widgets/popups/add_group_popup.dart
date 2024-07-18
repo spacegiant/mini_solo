@@ -45,7 +45,7 @@ class _AddGroupPopupState extends State<AddGroupPopup> {
             String text = _controller.value.text.trim();
             if (text == '') return;
             widget.appState.createNewGroup(
-              Group(groupId: genericId('group'), label: text, controls: []),
+              Group(groupId: genericId('group'), label: text, controlsIDs: []),
             );
             _controller.text = '';
           },

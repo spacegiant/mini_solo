@@ -41,7 +41,7 @@ List<ControlData> mythicFateChartControls2(AppState appState) {
   List<FateChartRow> sortedRows = [];
   Group fateChartGroup = appState.getGroup('group-mythic-fate-chart');
 
-  for (String control in fateChartGroup.controls) {
+  for (String control in fateChartGroup.controlsIDs) {
     FateChartRow row =
         fateChart.firstWhere((label) => 'control-${label.label}' == control);
     sortedRows.add(row);
@@ -61,7 +61,7 @@ List<ControlData> mythicGMEControls(AppState appState) {
   List<ControlData> list = [];
   Group mythicGMEGroup = appState.getGroup('group-mythic-gme');
 
-  for (String label in mythicGMEGroup.controls) {
+  for (String label in mythicGMEGroup.controlsIDs) {
     ControlData controlData =
         initialMythicGMEControls.firstWhere((data) => data.controlId == label);
 
@@ -117,7 +117,7 @@ fateChartControlOnPressed(
 
   JournalEntry result = JournalEntry(
     type: 'fateChart',
-    line1: '${fateChartRow.label} odds | Chaos Factor ${appState.chaosFactor}',
+    line1: '${fateChartRow.label} odds, Chaos Factor ${appState.chaosFactor}',
     line2: 'd100 → $random',
     result: 'Oracles says $answer',
   );

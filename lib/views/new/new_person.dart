@@ -68,7 +68,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                           });
                         },
                         onLongPress: () {
-                          toggleShowPopup2(
+                          toggleShowPopup(
                               child: const Text('EDIT FIELD'),
                               context: context);
                         },
@@ -82,7 +82,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                         value: title,
                         onTap: () {},
                         onLongPress: () {
-                          toggleShowPopup2(
+                          toggleShowPopup(
                               child: const Text('EDIT FIELD'),
                               context: context);
                         },
@@ -96,7 +96,7 @@ class _NewPersonMenuState extends State<NewPersonMenu> {
                   value: firstName,
                   onTap: () {},
                   onLongPress: () {
-                    toggleShowPopup2(
+                    toggleShowPopup(
                         child: const Text('EDIT FIELD'), context: context);
                   },
                 ),

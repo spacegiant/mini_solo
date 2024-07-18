@@ -149,7 +149,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                           CupertinoButton(
                               child: const Text('Import Manager'),
                               onPressed: () {
-                                toggleShowPopup2(
+                                toggleShowPopup(
                                     maxHeight: 560.0,
                                     maxWidth: 400.0,
                                     child: ImportManager(appState: appState),
@@ -158,7 +158,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
                           CupertinoButton(
                               child: const Text('Load a Campaign'),
                               onPressed: () {
-                                toggleShowPopup2(
+                                toggleShowPopup(
                                     maxHeight: 560.0,
                                     maxWidth: 400.0,
                                     child: CampaignManager(
@@ -193,6 +193,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     bool showFutureSettings =
         appState.campaignData!.settings.general.showFutureSettings;
     if (showFutureSettings == false) {
+      // TODO REMOVE THESE
       myTabBarItems.removeWhere((element) => element.label == 'Starred');
       myTabBarItems.removeWhere((element) => element.label == 'Trackers');
       myTabBarItems.removeWhere((element) => element.label == 'Lists');
@@ -248,7 +249,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
           : const SizedBox.shrink(),
       middle: GestureDetector(
           onTap: () {
-            toggleShowPopup2(
+            toggleShowPopup(
               maxWidth: 400.0,
               maxHeight: 520.0,
               child: CampaignManager(
@@ -277,7 +278,7 @@ class _MyHomePageIOSState extends State<MyHomePageIOS> {
     // TODO do not display if mythic turned off
     return CupertinoButton(
       onPressed: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxHeight: 300.0,
             maxWidth: 200.0,
             child: const ChaosFactorPopup(),

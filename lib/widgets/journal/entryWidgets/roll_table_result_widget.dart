@@ -27,16 +27,21 @@ class RollTableResultWidget extends StatelessWidget {
 
     for (var result in entry.results) {
       resultsWidgets.add(
-        Wrap(
+        Row(
           children: [
             Text(
               result.resultString,
-              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             if (appState.showMechanics) ...[
-              const Gap(),
+              const Gap(
+                width: 4.0,
+              ),
               Text(
-                  '[${result.title} ${result.randomRoll}/${result.totalEntries}]')
+                '· ${result.title} ${result.randomRoll}/${result.totalEntries}',
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
+              )
             ],
           ],
         ),
@@ -46,7 +51,7 @@ class RollTableResultWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxHeight: 340.0,
             maxWidth: 300.0,
             child: EditRollTableResultPopup(
@@ -61,6 +66,9 @@ class RollTableResultWidget extends StatelessWidget {
         children: [
           JournalEntryLabel(
             label: 'Random Table: ${entry.title}',
+          ),
+          const Gap(
+            height: 8.0,
           ),
           ...resultsWidgets,
         ],
@@ -109,25 +117,6 @@ class JournalEntryLabel extends StatelessWidget {
       label,
       style: const TextStyle(
         fontSize: 12.0,
-      ),
-    );
-  }
-}
-
-class JournalEntryResult extends StatelessWidget {
-  const JournalEntryResult({
-    super.key,
-    required this.text,
-  });
-
-  final String? text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text!,
-      style: const TextStyle(
-        fontWeight: FontWeight.w600,
       ),
     );
   }

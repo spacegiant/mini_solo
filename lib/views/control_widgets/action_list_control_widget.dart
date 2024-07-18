@@ -48,7 +48,7 @@ class ActionListControlWidget extends StatelessWidget {
             title: controlData.label, list: resultEntries.list));
       },
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
           maxWidth: 400.0,
           maxHeight: 800.0,
           child: AddActionListPopup(

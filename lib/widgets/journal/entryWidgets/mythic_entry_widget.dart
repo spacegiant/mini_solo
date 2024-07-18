@@ -3,9 +3,11 @@ import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrap
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
+import '../../../constants.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../data/data_structures/mythic_entry.dart';
+import '../../gap.dart';
 import 'oracle_entry_widget.dart';
 
 class MythicEntryWidget extends StatelessWidget {
@@ -25,10 +27,12 @@ class MythicEntryWidget extends StatelessWidget {
     String? line1 = entry.lines.line1;
     String? line2 = entry.lines.line2;
     String? resultText = entry.lines.result;
+    String meta = '· $line1 $line2';
+    bool showMeta = line1 != null || line2 != null;
 
     return GestureDetector(
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxHeight: 400.0,
             maxWidth: 300.0,
             child: EditMythicEntryPopup(
@@ -44,9 +48,17 @@ class MythicEntryWidget extends StatelessWidget {
           JournalEntryLabel(
             label: entry.label,
           ),
-          if (line1 != null) Text(line1),
-          if (line2 != null) Text(line2),
+          const Gap(
+            height: 8.0,
+          ),
           JournalEntryResult(text: resultText),
+          if (showMeta)
+            Text(
+              '· $meta',
+              style: const TextStyle(
+                fontSize: kJournalMetaTextSize,
+              ),
+            ),
         ],
       ),
     );

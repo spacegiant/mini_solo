@@ -76,6 +76,7 @@ void main() {
       randomTableRecursionLimit: 3,
       useT2KDice: false,
       useAchtungCthulhuDice: false,
+      showNotes: true,
     );
 
     expect(generalSettingsData.showFutureSettings, false);
@@ -97,6 +98,7 @@ void main() {
       randomTableRecursionLimit: 3,
       useT2KDice: false,
       useAchtungCthulhuDice: false,
+      showNotes: true,
     );
 
     expect(generalSettingsData2.showFutureSettings, true);
@@ -120,6 +122,7 @@ void main() {
       randomTableRecursionLimit: 3,
       useT2KDice: false,
       useAchtungCthulhuDice: false,
+      showNotes: true,
     );
     final SettingsData settingsData = SettingsData(
       general: generalSettingsData,

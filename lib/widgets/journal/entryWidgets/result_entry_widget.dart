@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/result_entries.dart';
+import '../../../constants.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../features/action_lists/edit_result_popup.dart';
+import '../../gap.dart';
 import '../../popups/toggle_show_popup.dart';
 import 'journal_entry_widget_wrapper.dart';
 
@@ -24,7 +26,7 @@ class ResultEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
           maxHeight: 600.0,
           maxWidth: 400.0,
           child: EditResultPopup(appState: appState, id: journalEntry.id),
@@ -37,8 +39,13 @@ class ResultEntryWidget extends StatelessWidget {
         children: [
           // TODO Make this clearer
           Text(
-            entry.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            'Action List: ${entry.title}',
+            style: const TextStyle(
+              fontSize: 12.0,
+            ),
+          ),
+          const Gap(
+            height: 8.0,
           ),
           ...entry.list.map((item) {
             if (item.type == ResultEntryTypes.label) {
@@ -50,11 +57,11 @@ class ResultEntryWidget extends StatelessWidget {
               return Row(
                 children: [
                   Text(item.title),
-                  if (item.detail != null)
+                  if (item.detail != null && item.detail != '')
                     Text(
-                      item.detail!,
+                      ' · ${item.detail!}',
                       style: const TextStyle(
-                        fontSize: 14.0,
+                        fontSize: kJournalMetaTextSize,
                         color: CupertinoColors.darkBackgroundGray,
                       ),
                     ),

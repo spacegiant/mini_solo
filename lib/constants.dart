@@ -15,6 +15,7 @@ const kSelectedRowColor = Color(0xFFDEA61A);
 const double kItemExtent = 32.0;
 const double kForceColumnHeight = 2000.0;
 const Radius kInputBorderRadius = Radius.circular(5.0);
+const double kJournalMetaTextSize = 13.0;
 
 // POPUP SIZES
 const kCampaignManagerTitle = 'Campaign Manager';

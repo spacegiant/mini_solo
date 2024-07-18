@@ -13,7 +13,7 @@ Widget journalControls(
   void Function(List<DiceRoll> result) addResult,
   BuildContext context,
 ) {
-  List<ControlData> controlData = getControlData(appState);
+  List<ControlData> controlData = getControlDataList(appState);
 
   return ViewWrapper(children: [
     if (appState.campaignData?.settings.general.diceActive == true)

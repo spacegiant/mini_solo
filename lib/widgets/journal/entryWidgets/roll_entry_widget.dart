@@ -28,7 +28,7 @@ class RollEntryWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxHeight: 340.0,
             maxWidth: 300.0,
             child: EditRollPopup(

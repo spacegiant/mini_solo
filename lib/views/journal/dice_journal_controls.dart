@@ -19,7 +19,7 @@ Widget diceJournalControls(
       groupId: 'group-dice',
       isWrapped: appState.wrapDiceControls,
       handleLongPress: () {
-        toggleShowPopup2(
+        toggleShowPopup(
             maxWidth: 400.0,
             maxHeight: 200.0,
             child: EditDiceGroupPopup(

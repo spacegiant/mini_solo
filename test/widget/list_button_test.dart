@@ -6,7 +6,7 @@ void main() {
   testWidgets('List Button Widget', (WidgetTester tester) async {
     await tester.pumpWidget(Directionality(
       textDirection: TextDirection.ltr,
-      child: ListButton(label: 'label here', onPressed: () {}),
+      child: ListButton(label: const Text('label here'), onPressed: () {}),
     ));
 
     final titleFinder = find.text('label here');
@@ -18,7 +18,7 @@ void main() {
     await tester.pumpWidget(Directionality(
       textDirection: TextDirection.ltr,
       child: ListButton(
-          label: 'label here',
+          label: const Text('label here'),
           onPressed: () {
             isPressed = !isPressed;
           }),
