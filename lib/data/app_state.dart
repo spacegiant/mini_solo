@@ -113,7 +113,7 @@ class AppState extends ChangeNotifier {
   void addToGroup({required String controlId, required String groupId}) {
     _campaignData!.groups
         .firstWhere((group) => group.groupId == groupId)
-        .controls
+        .controlsIDs
         .add(controlId);
   }
 
@@ -121,7 +121,7 @@ class AppState extends ChangeNotifier {
     required String controlId,
   }) {
     _campaignData?.groups.forEach((group) {
-      group.controls.remove(controlId);
+      group.controlsIDs.remove(controlId);
     });
   }
 
@@ -145,7 +145,7 @@ class AppState extends ChangeNotifier {
     String? currentGroupId;
 
     for (var group in _campaignData!.groups) {
-      if (group.controls.contains(entryId)) {
+      if (group.controlsIDs.contains(entryId)) {
         currentGroupId = group.groupId;
       }
     }
@@ -178,7 +178,7 @@ class AppState extends ChangeNotifier {
     Group group =
         campaignData!.groups.firstWhere((group) => group.groupId == groupID);
     if (label != null) group.label = label;
-    group.controls = controls;
+    group.controlsIDs = controls;
     group.isWrapped = isWrapped;
     saveCampaignDataToDisk();
   }

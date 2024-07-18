@@ -15,25 +15,16 @@ List<GroupContainer> dynamicListOfControls(
   List<GroupContainer> groupContainers = [];
   List<Group> groupList = appState.groupList;
 
-  // ITERATE ALL GROUPS STORED IN ORDER
   for (Group group in groupList) {
-    if (group.controls.isEmpty || group.isActive == false) continue;
+    if (group.controlsIDs.isEmpty || group.isActive == false) continue;
 
     List<Widget> children = [];
 
     int? groupButtonColor = group.color;
 
-    // ITERATE ALL CONTROLS STORED IN GROUP
-    for (String groupControl in group.controls) {
-      // TODO delete
-      // appState.deleteEntityById(groupControl);
-      if (appState.entityExists(groupControl) == false) {
-        // TODO this needed?
-      }
-      // ITERATE ALL CONTROLS IN LISTOFCONTROLS
+    for (String groupControlID in group.controlsIDs) {
       for (ControlData control in listOfControls) {
-        // CHECK IF CURRENT CONTROL MATCHES THE CURRENT GROUP CONTROL
-        if (groupControl == control.controlId) {
+        if (groupControlID == control.controlId) {
           children.add(
             chooseControlWidget(
               controlData: control,

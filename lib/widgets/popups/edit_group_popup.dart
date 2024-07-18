@@ -38,7 +38,7 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
   @override
   void initState() {
     super.initState();
-    controls = widget.group.controls;
+    controls = widget.group.controlsIDs;
     selectedId = '';
     isWrapped = widget.group.isWrapped ?? false;
     groupLabel = TextEditingController(text: widget.group.label);
