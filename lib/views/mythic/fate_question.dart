@@ -117,7 +117,7 @@ fateChartControlOnPressed(
 
   JournalEntry result = JournalEntry(
     type: 'fateChart',
-    line1: '${fateChartRow.label} odds | Chaos Factor ${appState.chaosFactor}',
+    line1: '${fateChartRow.label} odds, Chaos Factor ${appState.chaosFactor}',
     line2: 'd100 → $random',
     result: 'Oracles says $answer',
   );

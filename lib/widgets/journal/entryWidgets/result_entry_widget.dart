@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mini_solo/data/result_entries.dart';
+import '../../../constants.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../features/action_lists/edit_result_popup.dart';
@@ -60,7 +61,7 @@ class ResultEntryWidget extends StatelessWidget {
                     Text(
                       ' · ${item.detail!}',
                       style: const TextStyle(
-                        fontSize: 14.0,
+                        fontSize: kJournalMetaTextSize,
                         color: CupertinoColors.darkBackgroundGray,
                       ),
                     ),

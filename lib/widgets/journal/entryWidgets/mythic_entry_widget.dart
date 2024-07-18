@@ -3,9 +3,11 @@ import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrap
 import 'package:mini_solo/widgets/popups/edit_mythic_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
+import '../../../constants.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../data/data_structures/mythic_entry.dart';
+import '../../gap.dart';
 import 'oracle_entry_widget.dart';
 
 class MythicEntryWidget extends StatelessWidget {
@@ -46,12 +48,15 @@ class MythicEntryWidget extends StatelessWidget {
           JournalEntryLabel(
             label: entry.label,
           ),
+          const Gap(
+            height: 8.0,
+          ),
           JournalEntryResult(text: resultText),
           if (showMeta)
             Text(
               '· $meta',
               style: const TextStyle(
-                fontSize: 14.0,
+                fontSize: kJournalMetaTextSize,
               ),
             ),
         ],

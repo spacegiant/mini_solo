@@ -3,9 +3,11 @@ import 'package:mini_solo/widgets/journal/entryWidgets/journal_entry_widget_wrap
 import 'package:mini_solo/widgets/popups/edit_oracle_entry_popup.dart';
 import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
+import '../../../constants.dart';
 import '../../../data/app_state.dart';
 import '../../../data/data_structures/journal_entry_item.dart';
 import '../../../data/data_structures/oracle_entry.dart';
+import '../../gap.dart';
 
 class OracleEntryWidget extends StatelessWidget {
   final AppState appState;
@@ -21,9 +23,13 @@ class OracleEntryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     OracleEntry entry = appState.campaignData!.oracle
         .firstWhere((entry) => entry.id == journalEntry.id);
-    String? line1 = entry.lines.line1;
-    String? line2 = entry.lines.line2;
+    String? rollMeta = entry.lines.line1;
+    String? diceRollMeta = entry.lines.line2;
     String? resultText = entry.lines.result;
+
+    List<String> meta = [];
+    if (rollMeta != null) meta.add(rollMeta);
+    if (appState.showMechanics && diceRollMeta != null) meta.add(diceRollMeta);
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -44,11 +50,19 @@ class OracleEntryWidget extends StatelessWidget {
           JournalEntryLabel(
             label: entry.label,
           ),
-          if (appState.showMechanics)
-            JournalEntryDetail(
-              details: [line1, line2],
-            ),
-          JournalEntryResult(text: resultText),
+          const Gap(
+            height: 8.0,
+          ),
+          Row(
+            children: [
+              JournalEntryResult(text: resultText),
+              if (meta.isNotEmpty)
+                Text(' · ${meta.join(', ')}',
+                    style: const TextStyle(
+                      fontSize: kJournalMetaTextSize,
+                    )),
+            ],
+          ),
         ],
       ),
     );
