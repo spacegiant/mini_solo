@@ -1,32 +1,37 @@
+import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void toggleShowPopup({
   required Widget child,
   required BuildContext context,
-  double maxWidth = 240.0,
-  double maxHeight = 180.0,
+  double maxWidth = 200.0,
+  double maxHeight = 600.0,
 }) {
-  showCupertinoDialog(
-    context: context,
+  showGeneralDialog(
     barrierDismissible: true,
-    builder: (BuildContext context) => SafeArea(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(
-            16.0, 16.0, 16.0, MediaQuery.of(context).viewInsets.bottom),
-        child: CupertinoPopupSurface(
-          child: SingleChildScrollView(
+    barrierLabel: 'toggleShowPopup',
+    context: context,
+    pageBuilder: (BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation) {
+      return SafeArea(
+        child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          insetPadding: const EdgeInsets.all(8.0),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 600.0,
+              maxHeight: 800.0,
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: maxWidth,
-                    maxHeight: maxHeight,
-                  ),
-                  child: child),
+              child: SingleChildScrollView(child: child),
             ),
           ),
         ),
-      ),
-    ),
+      );
+    },
   );
 }

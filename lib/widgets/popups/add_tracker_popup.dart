@@ -116,15 +116,10 @@ class _AddTrackerPopupState extends State<AddTrackerPopup> {
           const Gap(),
           const Center(child: Text('Select Tracker Type')),
           const Gap(),
-          SizedBox(
-            height: 260.0,
-            child: SingleChildScrollView(
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: [...controls],
-              ),
-            ),
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: [...controls],
           ),
           const Divider(),
           // TODO: ONLY SHOW FOR SPECIFIC TRACKERS
