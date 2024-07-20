@@ -21,11 +21,11 @@ void toggleShowPopup({
           child: ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 600.0,
-              maxHeight: 800.0,
+              // maxHeight: 800.0,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(child: child),
+              child: child,
             ),
           ),
         ),
