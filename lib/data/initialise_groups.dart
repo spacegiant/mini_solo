@@ -12,6 +12,13 @@ var initialiseGroups = [
     color: 0xFF512500,
   ),
   Group(
+    isAppGroup: false,
+    groupId: 'group-dice',
+    label: 'Dice',
+    controlsIDs: [],
+    color: 0xFF512500,
+  ),
+  Group(
     isAppGroup: true,
     groupId: 'group-mythic-fate-chart',
     label: 'Mythic Fate Chart',
