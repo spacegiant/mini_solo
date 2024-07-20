@@ -18,6 +18,7 @@ class PopupLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         DefaultTextStyle(
             style: const TextStyle(
@@ -27,10 +28,8 @@ class PopupLayout extends StatelessWidget {
             child: header),
         const Divider(),
         const Gap(),
-        if (body != null) ...[
-          body ?? const SizedBox.shrink(),
-          const Divider(),
-        ],
+        Flexible(flex: 1, child: body ?? const SizedBox.shrink()),
+        const Gap(),
         footer ?? const SizedBox.shrink(),
         CupertinoButton(
             child: const Text('Close'),

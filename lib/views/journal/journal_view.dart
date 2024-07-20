@@ -143,7 +143,6 @@ class _JournalViewState extends State<JournalView> {
           ),
         ),
         Expanded(
-          flex: 1,
           child: Container(
             height: kForceColumnHeight,
             decoration: const BoxDecoration(
