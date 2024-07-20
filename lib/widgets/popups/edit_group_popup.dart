@@ -96,21 +96,14 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
                 });
               }),
           const Gap(),
-          ConstrainedBox(
-            // height: 300.0,
-            constraints: const BoxConstraints(
-              maxHeight: 480.0,
-              minHeight: 200.0,
-            ),
-            child: Scaffold(
-                body: MyReorderableListView(
-              itemList: controls,
-              appState: widget.appState,
-              selectedId: selectedId,
-              onReorder: handleOnReorder,
-              children: children,
-            )),
-          ),
+          Scaffold(
+              body: MyReorderableListView(
+            itemList: controls,
+            appState: widget.appState,
+            selectedId: selectedId,
+            onReorder: handleOnReorder,
+            children: children,
+          )),
           const Gap(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

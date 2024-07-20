@@ -74,37 +74,35 @@ class GroupContainer extends StatelessWidget {
                   maxWidth: 600.0,
                   child: PopupLayout(
                     header: PopupLayoutHeader(label: label),
-                    body: Expanded(
-                      child: SingleChildScrollView(
-                        child: Consumer<AppState>(
-                          builder: (BuildContext context, AppState value,
-                              Widget? child) {
-                            List<ControlData> controlDataList =
-                                getControlDataList(appState);
-                            Group group = appState.getGroup(groupId);
+                    body: SingleChildScrollView(
+                      child: Consumer<AppState>(
+                        builder: (BuildContext context, AppState value,
+                            Widget? child) {
+                          List<ControlData> controlDataList =
+                              getControlDataList(appState);
+                          Group group = appState.getGroup(groupId);
 
-                            List<Widget> children = [];
+                          List<Widget> children = [];
 
-                            for (final groupControlId in group.controlsIDs) {
-                              ControlData? controlData = controlDataList
-                                  .firstWhereOrNull((controlData) =>
-                                      controlData.controlId == groupControlId);
+                          for (final groupControlId in group.controlsIDs) {
+                            ControlData? controlData = controlDataList
+                                .firstWhereOrNull((controlData) =>
+                                    controlData.controlId == groupControlId);
 
-                              if (controlData != null) {
-                                Widget childWidget = chooseControlWidget(
-                                  controlData: controlData,
-                                  appState: appState,
-                                  context: context,
-                                  color: group.color,
-                                );
-                                children.add(childWidget);
-                              }
+                            if (controlData != null) {
+                              Widget childWidget = chooseControlWidget(
+                                controlData: controlData,
+                                appState: appState,
+                                context: context,
+                                color: group.color,
+                              );
+                              children.add(childWidget);
                             }
+                          }
 
-                            return WrapManager(
-                                wrapControls: true, children: children);
-                          },
-                        ),
+                          return WrapManager(
+                              wrapControls: true, children: children);
+                        },
                       ),
                     ),
                     footer: null,
