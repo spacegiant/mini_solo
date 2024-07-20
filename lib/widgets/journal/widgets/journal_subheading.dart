@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:mini_solo/widgets/popups/toggle_show_popup.dart';
 
 import '../../gap.dart';
 
@@ -48,11 +46,11 @@ class JournalSubheading extends StatelessWidget {
                   handleMinimiseToggle!();
                 },
               ),
-              Spacer(),
+              const Spacer(),
               CupertinoButton(
                   padding: EdgeInsets.zero,
                   color: null,
-                  child: Icon(CupertinoIcons.settings, size: 16.0),
+                  child: const Icon(CupertinoIcons.settings, size: 16.0),
                   onPressed: () {
                     showGroupSettingsPopup!();
                   })
