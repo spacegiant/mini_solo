@@ -16,6 +16,23 @@ dynamic fixCampaignJSONData(dynamic initialData, dynamic data) {
       data['settings']['general']['showNotes'] = true;
     }
 
+    bool diceGroupExits =
+        data['groups'].contains((group) => group.groupId == 'group-dice');
+    if (diceGroupExits == false) {
+      data['groups'].add({
+        "groupId": "group-dice",
+        "label": "Dice",
+        "controls": [],
+        "isExpanded": null,
+        "isAppGroup": false,
+        "isActive": true,
+        "isWrapped": true,
+        "color": 4283507968,
+        "presetOrder": null,
+        "sortBy": null
+      });
+    }
+
     var dataKey = data[k];
     if (dataKey == null) {
       data[k] = v;
