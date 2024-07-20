@@ -28,7 +28,12 @@ class PopupLayout extends StatelessWidget {
             child: header),
         const Divider(),
         const Gap(),
-        Flexible(flex: 1, child: body ?? const SizedBox.shrink()),
+        Flexible(
+          flex: 1,
+          child: SingleChildScrollView(
+            child: body ?? const SizedBox.shrink(),
+          ),
+        ),
         const Gap(),
         footer ?? const SizedBox.shrink(),
         CupertinoButton(

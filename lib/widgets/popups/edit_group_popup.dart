@@ -96,32 +96,20 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
                 });
               }),
           const Gap(),
-          Scaffold(
-              body: MyReorderableListView(
-            itemList: controls,
-            appState: widget.appState,
-            selectedId: selectedId,
-            onReorder: handleOnReorder,
-            children: children,
-          )),
-          const Gap(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CupertinoSwitch(
-                      value: isWrapped,
-                      onChanged: (value) {
-                        setState(() {
-                          isWrapped = !isWrapped;
-                        });
-                      }),
-                  const Text('Wrap controls'),
-                ],
-              ),
-            ],
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 500.0,
+            ),
+            child: Scaffold(
+                body: MyReorderableListView(
+              itemList: controls,
+              appState: widget.appState,
+              selectedId: selectedId,
+              onReorder: handleOnReorder,
+              children: children,
+            )),
           ),
+          const Gap(),
         ],
       );
     }
@@ -129,18 +117,35 @@ class _EditGroupPopupState extends State<EditGroupPopup> {
     return PopupLayout(
       header: const PopupLayoutHeader(label: 'Edit Group'),
       body: body(),
-      footer: CupertinoButton(
-        color: kSubmitColor,
-        onPressed: () {
-          widget.appState.updateGroup(
-            groupID: widget.group.groupId,
-            controls: controls,
-            isWrapped: isWrapped,
-            label: groupLabel.value.text,
-          );
-          Navigator.pop(context);
-        },
-        child: const Text('Update'),
+      footer: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              CupertinoSwitch(
+                  value: isWrapped,
+                  onChanged: (value) {
+                    setState(() {
+                      isWrapped = !isWrapped;
+                    });
+                  }),
+              const Text('Wrap controls'),
+            ],
+          ),
+          CupertinoButton(
+            color: kSubmitColor,
+            onPressed: () {
+              widget.appState.updateGroup(
+                groupID: widget.group.groupId,
+                controls: controls,
+                isWrapped: isWrapped,
+                label: groupLabel.value.text,
+              );
+              Navigator.pop(context);
+            },
+            child: const Text('Update'),
+          ),
+        ],
       ),
     );
   }
