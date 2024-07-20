@@ -4,6 +4,8 @@ import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/features/random_tables/random_table_item.dart';
 import 'package:mini_solo/widgets/label_and_switch.dart';
 import 'package:mini_solo/widgets/list_button.dart';
+import 'package:mini_solo/widgets/popups/popup_layout.dart';
+import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 import 'package:mini_solo/widgets/toggle_active_block.dart';
 import '../../data/app_settings_data.dart';
 import '../../data/app_state.dart';
@@ -87,15 +89,11 @@ class _EditRandomTableState extends State<EditRandomTable> {
       });
     }
 
-    return Column(
-      children: [
-        // TODO dedicated title widget for popups for standardisation
-        Text(
-          '${_titleController.text} ($recordCount entries)',
-          overflow: TextOverflow.ellipsis,
+    return PopupLayout(
+        header: PopupLayoutHeader(
+          label: '${_titleController.text} ($recordCount entries)',
         ),
-        const Divider(),
-        RandomTableEntries(
+        body: RandomTableEntries(
           recordCount: recordCount,
           rows: newRows,
           selectedId: selectedId,
@@ -103,204 +101,202 @@ class _EditRandomTableState extends State<EditRandomTable> {
           appState: widget.appState,
           showLinkOptions: hasLinks || showLinkOptions,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ToggleActiveBlock(
-              isActive: !hasLinks,
-              child: LabelAndSwitch(
-                label: 'Show link options',
-                onChanged: (value) {
-                  newShowLinkOption = value;
+        footer: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ToggleActiveBlock(
+                isActive: !hasLinks,
+                child: LabelAndSwitch(
+                  label: 'Show link options',
+                  onChanged: (value) {
+                    newShowLinkOption = value;
+                    setState(() {
+                      showLinkOptions = value;
+                    });
+                  },
+                  switchValue: showLinkOptions,
+                ),
+              ),
+              CupertinoButton(
+                child: const Text('Add new entry'),
+                onPressed: () {
+                  RandomTableRow newRow =
+                      RandomTableRow(weight: 1, label: 'New Entry');
                   setState(() {
-                    showLinkOptions = value;
+                    newRows.add(newRow);
+
+                    int lastIndex = newRows.length - 1;
+                    selectedId = 'random-table-item-$lastIndex';
+
+                    currentRowIndex = lastIndex;
+                    _entryTextController.text = newRows[currentRowIndex!].label;
+                    _entryWeightController.text =
+                        newRows[currentRowIndex!].weight.toString();
                   });
                 },
-                switchValue: showLinkOptions,
               ),
-            ),
-            CupertinoButton(
-              child: const Text('Add new entry'),
-              onPressed: () {
-                RandomTableRow newRow =
-                    RandomTableRow(weight: 1, label: 'New Entry');
-                setState(() {
-                  newRows.add(newRow);
-
-                  int lastIndex = newRows.length - 1;
-                  selectedId = 'random-table-item-$lastIndex';
-
-                  currentRowIndex = lastIndex;
-                  _entryTextController.text = newRows[currentRowIndex!].label;
-                  _entryWeightController.text =
-                      newRows[currentRowIndex!].weight.toString();
-                });
-              },
-            ),
-          ],
-        ),
-        const Divider(),
-        const Gap(),
-        RandomTablesFormContainer(
-          isActive: selectedId != '',
-          children: [
-            LabelAndInput(
-              axis: Axis.horizontal,
-              label: 'Weight',
-              enabled: selectedId != '',
-              controller: _entryWeightController,
-              onChanged: (value) {
-                setState(() {
-                  _entryWeightController.text = value;
-                });
-                if (currentRowIndex != null) {
-                  newRows[currentRowIndex!].weight = int.tryParse(value.trim());
-                }
-              },
-            ),
-            const Gap(height: 4.0),
-            LabelAndInput(
-              axis: Axis.horizontal,
-              label: 'Text',
-              enabled: selectedId != '',
-              controller: _entryTextController,
-              onChanged: (value) {
-                setState(() {
-                  _entryTextController.text = value;
-                });
-                if (currentRowIndex != null) {
-                  newRows[currentRowIndex!].label = value.trim();
-                }
-              },
-            ),
-            const Gap(height: 4.0),
-            ToggleActiveBlock(
-              isActive: safeList.isNotEmpty && selectedId != '',
-              child: Row(
-                children: [
-                  Flexible(
-                    child: LabelAndPicker(
-                      defunctLabel: safeList.isEmpty
-                          ? 'No Other Random Tables'
-                          : 'No Link',
-                      items: safeList.map((table) => table.title).toList(),
-                      onChange: (index) {
-                        if (index != null) {
-                          if (index == -1) {
-                            setState(() {
-                              selectedLinkId = safeList[0].id;
-                              newRows[currentRowIndex!].otherRandomTable = null;
-                            });
-                          } else {
-                            setState(() {
-                              selectedLinkId = safeList[index].id;
-                              if (currentRowIndex != null) {
-                                newRows[currentRowIndex!].otherRandomTable =
-                                    safeList[index].id;
-                              }
-                            });
-                          }
-                        } else {
-                          print('NULL');
-                        }
-                      },
-                      label: 'Link',
-                    ),
-                  ),
-                  CupertinoButton(
-                      color: kWarningColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: const Text('Delete Entry'),
-                      onPressed: () {
-                        setState(() {
-                          newRows.removeAt(currentRowIndex!);
-                        });
-                      })
-                ],
-              ),
-            ),
-          ],
-        ),
-        const Divider(),
-
-        GroupPicker(
-          onChange: (idString) {
-            setState(() {
-              selectedGroup = idString;
-            });
-          },
-          appState: widget.appState,
-          initialGroupId: initialGroup,
-        ),
-
-        LabelAndInput(
-            label: 'Table Name',
-            controller: _titleController,
-            onChanged: (value) {
-              setState(() {
-                _titleController.text = value;
-              });
-            }),
-
-        Row(
-          children: [
-            CupertinoSwitch(
-                value: newIsHidden,
+            ],
+          ),
+          const Divider(),
+          const Gap(),
+          RandomTablesFormContainer(
+            isActive: selectedId != '',
+            children: [
+              LabelAndInput(
+                axis: Axis.horizontal,
+                label: 'Weight',
+                enabled: selectedId != '',
+                controller: _entryWeightController,
                 onChanged: (value) {
-                  newIsHidden = value;
-                  widget.appState.saveAppSettingsDataToDisk();
                   setState(() {
-                    isHidden = value;
+                    _entryWeightController.text = value;
                   });
-                }),
-            const Text('Hidden'),
-          ],
-        ),
+                  if (currentRowIndex != null) {
+                    newRows[currentRowIndex!].weight =
+                        int.tryParse(value.trim());
+                  }
+                },
+              ),
+              const Gap(height: 4.0),
+              LabelAndInput(
+                axis: Axis.horizontal,
+                label: 'Text',
+                enabled: selectedId != '',
+                controller: _entryTextController,
+                onChanged: (value) {
+                  setState(() {
+                    _entryTextController.text = value;
+                  });
+                  if (currentRowIndex != null) {
+                    newRows[currentRowIndex!].label = value.trim();
+                  }
+                },
+              ),
+              const Gap(height: 4.0),
+              ToggleActiveBlock(
+                isActive: safeList.isNotEmpty && selectedId != '',
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: LabelAndPicker(
+                        defunctLabel: safeList.isEmpty
+                            ? 'No Other Random Tables'
+                            : 'No Link',
+                        items: safeList.map((table) => table.title).toList(),
+                        onChange: (index) {
+                          if (index != null) {
+                            if (index == -1) {
+                              setState(() {
+                                selectedLinkId = safeList[0].id;
+                                newRows[currentRowIndex!].otherRandomTable =
+                                    null;
+                              });
+                            } else {
+                              setState(() {
+                                selectedLinkId = safeList[index].id;
+                                if (currentRowIndex != null) {
+                                  newRows[currentRowIndex!].otherRandomTable =
+                                      safeList[index].id;
+                                }
+                              });
+                            }
+                          } else {
+                            print('NULL');
+                          }
+                        },
+                        label: 'Link',
+                      ),
+                    ),
+                    CupertinoButton(
+                        color: kWarningColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: const Text('Delete Entry'),
+                        onPressed: () {
+                          setState(() {
+                            newRows.removeAt(currentRowIndex!);
+                          });
+                        })
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const Divider(),
+          GroupPicker(
+            onChange: (idString) {
+              setState(() {
+                selectedGroup = idString;
+              });
+            },
+            appState: widget.appState,
+            initialGroupId: initialGroup,
+          ),
+          LabelAndInput(
+              label: 'Table Name',
+              controller: _titleController,
+              onChanged: (value) {
+                setState(() {
+                  _titleController.text = value;
+                });
+              }),
+          Row(
+            children: [
+              CupertinoSwitch(
+                  value: newIsHidden,
+                  onChanged: (value) {
+                    newIsHidden = value;
+                    widget.appState.saveAppSettingsDataToDisk();
+                    setState(() {
+                      isHidden = value;
+                    });
+                  }),
+              const Text('Hidden'),
+            ],
+          ),
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            alignment: WrapAlignment.center,
+            children: [
+              ListButton(
+                color: kSubmitColor,
+                onPressed: () {
+                  widget.appState.updateRandomTable(
+                    id: widget.id,
+                    title: _titleController.text,
+                    rows: newRows,
+                    showLinkOptions: newShowLinkOption,
+                    isFavourite: newIsFavourite,
+                  );
 
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          alignment: WrapAlignment.center,
-          children: [
-            ListButton(
-              color: kSubmitColor,
-              onPressed: () {
-                widget.appState.updateRandomTable(
-                  id: widget.id,
-                  title: _titleController.text,
-                  rows: newRows,
-                  showLinkOptions: newShowLinkOption,
-                  isFavourite: newIsFavourite,
-                );
+                  if (initialGroup != selectedGroup) {
+                    widget.appState.moveToGroup(
+                        controlId: widget.id, groupId: selectedGroup);
+                  }
 
-                if (initialGroup != selectedGroup) {
-                  widget.appState.moveToGroup(
-                      controlId: widget.id, groupId: selectedGroup);
-                }
-
-                // Navigator.pop(context);
-              },
-              label: const Text('Update Table'),
-            ),
-            ListButton(
-              color: kWarningColor,
-              onPressed: () {
-                widget.appState.deleteRandomTable(widget.id);
-                Navigator.pop(context);
-              },
-              label: const Text('Delete Table'),
-            ),
-            // CupertinoButton(
-            // TODO Implement Export to JSON
-            //     color: CupertinoColors.systemGrey3,
-            //     child: const Text('Export JSON to Clipboard'),
-            //     onPressed: () {
-            //       // TODO EXPORT
-            //     }),
-          ],
-        ),
-      ],
-    );
+                  // Navigator.pop(context);
+                },
+                label: const Text('Update Table'),
+              ),
+              ListButton(
+                color: kWarningColor,
+                onPressed: () {
+                  widget.appState.deleteRandomTable(widget.id);
+                  Navigator.pop(context);
+                },
+                label: const Text('Delete Table'),
+              ),
+              // CupertinoButton(
+              // TODO Implement Export to JSON
+              //     color: CupertinoColors.systemGrey3,
+              //     child: const Text('Export JSON to Clipboard'),
+              //     onPressed: () {
+              //       // TODO EXPORT
+              //     }),
+            ],
+          ),
+        ]));
   }
 }
 
@@ -333,7 +329,10 @@ class RandomTableEntries extends StatelessWidget {
         child: ListView.builder(
           itemCount: rows.length,
           prototypeItem: RandomTableItem(
-            row: RandomTableRow(label: 'prototype label', weight: 100),
+            row: RandomTableRow(
+              label: 'prototype label',
+              weight: 100,
+            ),
             onTap: (String id) {},
             id: 'prototypeId',
             selectedId: '',
