@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mini_solo/constants.dart';
 import 'package:mini_solo/widgets/popups/popup_layout.dart';
 import 'package:mini_solo/widgets/popups/popup_layout_header.dart';
 
@@ -8,6 +9,7 @@ import '../../data/data_structures/journal_entry_item.dart';
 import '../../data/data_structures/new_scene_entry.dart';
 import '../gap.dart';
 import '../label_and_text_area.dart';
+import '../list_button.dart';
 
 class EditNewSceneEntryPopup extends StatefulWidget {
   const EditNewSceneEntryPopup({
@@ -77,7 +79,7 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
       footer: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            CupertinoButton(
+            ListButton(
               color: CupertinoColors.systemGreen,
               onPressed: () {
                 widget.appState.updateNewScene(widget.id, _controller.text);
@@ -87,16 +89,16 @@ class _EditNewSceneEntryPopupState extends State<EditNewSceneEntryPopup> {
                 );
                 Navigator.pop(context);
               },
-              child: const Text('Submit'),
+              label: const Text('Update Marker'),
             ),
             const Gap(),
-            CupertinoButton(
-              color: CupertinoColors.destructiveRed,
+            ListButton(
+              color: kWarningColor,
               onPressed: () {
                 widget.appState.deleteNewSceneEntry(widget.id);
                 Navigator.pop(context);
               },
-              child: const Text('Delete'),
+              label: const Text('Delete Marker'),
             ),
           ]),
         ],
