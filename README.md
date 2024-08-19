@@ -28,6 +28,7 @@ This is an app to allow you to run TTRPG games solo on your device or desktop.
   - Tabular layout for weapon blocks etc
 - Create Groups to group widgets and buttons as you need
 - Scratch pad for quick notes
+- Import/Export data as JSON
 
 ---
 
