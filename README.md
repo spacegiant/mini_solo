@@ -2,7 +2,7 @@
 
 This is an app to allow you to run TTRPG games solo on your device or desktop.
 
-![Screenshot of Mini Solo App](./mini-solo-screenshot.png)
+![Screenshot of Mini Solo App](./mini-solo-github-screenshot.webp )
 
 ## Features
 
